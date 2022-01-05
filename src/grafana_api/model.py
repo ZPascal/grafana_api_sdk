@@ -1,4 +1,14 @@
-class Model:
+from enum import Enum
+
+class RequestsMethods(Enum):
+    GET = True
+
+
+class APIEndpoints(Enum):
+    SEARCH: str = "/api/search"
+    DASHBOARDS: str = "/api/dashboards"
+
+class APIModel:
 
     def __init__(self, host: str = None, token: str = None, message: str = None, dashboard_path: str = None,
                  dashboard_name: str = None):
