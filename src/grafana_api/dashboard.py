@@ -3,22 +3,13 @@ import json
 import logging
 import requests
 
-
-class GrafanaAPIModel:
-
-    def __init__(self, host: str = None, token: str = None, message: str = None, dashboard_path: str = None,
-                 dashboard_name: str = None):
-        self.host = host
-        self.token = token
-        self.message = message
-        self.dashboard_path = dashboard_path
-        self.dashboard_name = dashboard_name
+from model import Model
 
 
 # https://grafana.com/docs/grafana/latest/http_api/dashboard/
-class GrafanaAPI:
+class Dashboard:
 
-    def __init__(self, grafana_api_model: GrafanaAPIModel):
+    def __init__(self, grafana_api_model: Model):
         self.grafana_api_model = grafana_api_model
         self.logging = logging.Logger
 
@@ -32,7 +23,7 @@ class GrafanaAPI:
             "overwrite": overwrite
         }
 
-        api_call = GrafanaAPI.__call_the_api(self, "/api/dashboards/db", "POST", json.dumps(dashboard_json_complete))
+        api_call = Dashboard.__call_the_api(self, "/api/dashboards/db", "POST", json.dumps(dashboard_json_complete))
 
         status: str = api_call["status"]
 
@@ -47,7 +38,7 @@ class GrafanaAPI:
 
         if dashboard_uids != list():
             for dashboard_uid in dashboard_uids:
-                api_call = GrafanaAPI.__call_the_api(self, f"/api/dashboards/uid/{dashboard_uid}", "DELETE")
+                api_call = Dashboard.__call_the_api(self, f"/api/dashboards/uid/{dashboard_uid}", "DELETE")
 
                 message: str = api_call["message"]
 
@@ -63,7 +54,7 @@ class GrafanaAPI:
         folder_id: int = self.get_folder_id_by_dashboard_path()
 
         search_query: str = f"/api/search?folderIds={folder_id}&query={self.grafana_api_model.dashboard_name}"
-        dashboard_meta_list: list = GrafanaAPI.__call_the_api(self, search_query)
+        dashboard_meta_list: list = Dashboard.__call_the_api(self, search_query)
 
         dashboard_uids: list = list()
         for dashboard_meta in dashboard_meta_list:
@@ -86,7 +77,7 @@ class GrafanaAPI:
         return folder_id
 
     def get_all_folder_ids_and_names(self) -> list:
-        folders_raw: list = GrafanaAPI.__call_the_api(self, "/api/search/?folderIds=0")
+        folders_raw: list = Dashboard.__call_the_api(self, "/api/search/?folderIds=0")
         folders_raw_len: int = len(folders_raw)
         folders: list = list()
 
@@ -105,7 +96,7 @@ class GrafanaAPI:
                 if dashboard_json_complete is not None:
                     return requests.post(api_url, data=dashboard_json_complete, headers=headers).json()
                 else:
-                    logging.error("Please define the dashbboard_json_complete.")
+                    logging.error("Please define the dashboard_json_complete.")
                     sys.exit(1)
             elif method == "DELETE":
                 return requests.delete(api_url, headers=headers).json()

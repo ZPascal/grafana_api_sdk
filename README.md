@@ -5,9 +5,11 @@ The repository includes an SDK for the Grafana API
 - Documentation
 - Docstrings
 - PYPI support
+- Tests
 
 ## Currently, supported features
 
+### Dashboard
 - Get a Dashboard by uid
 - Get folder id by dashboard path
 - Get all folder ids and folder names 
@@ -19,7 +21,6 @@ The repository includes an SDK for the Grafana API
 
 ### Programs & tools to install
 
-- json-extensions
 - requests
 
 ## Contribution

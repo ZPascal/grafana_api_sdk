@@ -1,0 +1,26 @@
+[run]
+branch = True
+omit =
+    */setup.py
+    */dashboard.json.sample
+    tests/*
+source = .
+
+[report]
+omit =
+     */setup.py
+     */dashboard.json.sample
+     tests/*
+fail_under = 80
+show_missing = True
+skip_covered = False
+exclude_lines =
+    # Have to re-enable the standard pragma
+    pragma: no cover
+
+    # Don't complain if tests don't hit defensive assertion code:
+    raise AssertionError
+    raise NotImplementedError
+
+    # Don't complain if non-runnable code isn't run:
+    if __name__ == .__main__.:
