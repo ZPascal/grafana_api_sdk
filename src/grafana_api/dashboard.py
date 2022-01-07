@@ -34,6 +34,7 @@ class Dashboard:
             logging.info("You successfully deployed the dashboard.")
 
     def delete_dashboard_by_name_and_path(self):
+        # TODO Check if a list is necessary
         dashboard_uids: list = self.get_dashboard_uid_by_name_and_folder()
 
         if dashboard_uids != list():
@@ -71,6 +72,7 @@ class Dashboard:
                 folder_id = f["id"]
 
         if folder_id == 0:
+            # TODO Print the folder id
             logging.error("There's no folder_id available.")
             sys.exit(1)
 
@@ -89,6 +91,7 @@ class Dashboard:
     def __call_the_api(self, api_call: str, method: str = "GET", dashboard_json_complete=None):
         api_url: str = f"{self.grafana_api_model.host}{api_call}"
         headers: dict = {"Authorization": f"Bearer {self.grafana_api_model.token}", "Content-Type": "application/json"}
+        #TODO Use a ENUM as method name description
         try:
             if method == "GET":
                 return requests.get(api_url, headers=headers).json()
