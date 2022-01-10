@@ -2,9 +2,9 @@
 The repository includes an SDK for the Grafana API
 
 ## TODO
-- Exception handling
 - Docstrings
 - Tests
+  - Integrationtest
 - Documentation
 - PYPI support
 
