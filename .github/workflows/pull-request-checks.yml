@@ -26,7 +26,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Execute the unittests
-        run: python3 -m unittest discover tests
+        run: python3 -m unittest discover tests/unittests
 
   lint:
     runs-on: ubuntu-latest
