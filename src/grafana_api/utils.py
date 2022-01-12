@@ -5,15 +5,14 @@ from .model import RequestsMethods, ERROR_MESSAGES, APIModel
 
 
 class Utils:
-
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
     def call_the_api(
-            self,
-            api_call: str,
-            method: RequestsMethods = RequestsMethods.GET,
-            json_complete: str = None,
+        self,
+        api_call: str,
+        method: RequestsMethods = RequestsMethods.GET,
+        json_complete: str = None,
     ) -> any:
         """The method execute a defined API call against the Grafana endpoints
 
@@ -31,17 +30,23 @@ class Utils:
         }
         try:
             if method.value == RequestsMethods.GET.value:
-                return Utils.__check_the_api_call_response(requests.get(api_url, headers=headers).json())
+                return Utils.__check_the_api_call_response(
+                    requests.get(api_url, headers=headers).json()
+                )
             elif method.value == RequestsMethods.POST.value:
                 if json_complete is not None:
-                    return Utils.__check_the_api_call_response(requests.post(
-                        api_url, data=json_complete, headers=headers
-                    ).json())
+                    return Utils.__check_the_api_call_response(
+                        requests.post(
+                            api_url, data=json_complete, headers=headers
+                        ).json()
+                    )
                 else:
                     logging.error("Please define the dashboard_json_complete.")
                     raise Exception
             elif method.value == RequestsMethods.DELETE.value:
-                return Utils.__check_the_api_call_response(requests.delete(api_url, headers=headers).json())
+                return Utils.__check_the_api_call_response(
+                    requests.delete(api_url, headers=headers).json()
+                )
         except Exception as e:
             raise e
 

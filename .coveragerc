@@ -2,15 +2,15 @@
 branch = True
 omit =
     */setup.py
-    */dashboard.json.sample
     tests/*
+    tests/integrationtest/*
 source = .
 
 [report]
 omit =
      */setup.py
-     */dashboard.json.sample
      tests/*
+     tests/integrationtest/*
 fail_under = 80
 show_missing = True
 skip_covered = False

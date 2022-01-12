@@ -85,19 +85,17 @@ class DashboardTestCase(TestCase):
         self.assertEqual(10, dashboard.get_dashboard_uid_by_name_and_folder())
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
-    def test_get_dashboard_by_uid(
-            self, call_the_api_mock
-    ):
+    def test_get_dashboard_by_uid(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock(), message="Test")
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         call_the_api_mock.return_value = dict({"dashboard": "test"})
-        self.assertEqual(dict({"dashboard": "test"}), dashboard.get_dashboard_by_uid(uid="test"))
+        self.assertEqual(
+            dict({"dashboard": "test"}), dashboard.get_dashboard_by_uid(uid="test")
+        )
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
-    def test_get_dashboard_by_uid_no_dashboard(
-            self, call_the_api_mock
-    ):
+    def test_get_dashboard_by_uid_no_dashboard(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock(), message="Test")
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
@@ -106,9 +104,7 @@ class DashboardTestCase(TestCase):
             dashboard.get_dashboard_by_uid(uid="test")
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
-    def test_get_dashboard_by_uid_no_uid(
-            self, call_the_api_mock
-    ):
+    def test_get_dashboard_by_uid_no_uid(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock(), message="Test")
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
@@ -117,9 +113,7 @@ class DashboardTestCase(TestCase):
             dashboard.get_dashboard_by_uid(uid="")
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
-    def test_get_dashboard_home(
-            self, call_the_api_mock
-    ):
+    def test_get_dashboard_home(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock(), message="Test")
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
@@ -127,9 +121,7 @@ class DashboardTestCase(TestCase):
         self.assertEqual(dict({"dashboard": "test"}), dashboard.get_dashboard_home())
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
-    def test_get_dashboard_home_no_dashboard(
-            self, call_the_api_mock
-    ):
+    def test_get_dashboard_home_no_dashboard(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock(), message="Test")
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
@@ -138,19 +130,17 @@ class DashboardTestCase(TestCase):
             dashboard.get_dashboard_home()
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
-    def test_get_dashboard_tags(
-            self, call_the_api_mock
-    ):
+    def test_get_dashboard_tags(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock(), message="Test")
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         call_the_api_mock.return_value = list([{"term": "test", "count": 4}])
-        self.assertEqual(list([{"term": "test", "count": 4}]), dashboard.get_dashboard_tags())
+        self.assertEqual(
+            list([{"term": "test", "count": 4}]), dashboard.get_dashboard_tags()
+        )
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
-    def test_get_dashboard_tags_no_tags(
-            self, call_the_api_mock
-    ):
+    def test_get_dashboard_tags_no_tags(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock(), message="Test")
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
@@ -159,19 +149,18 @@ class DashboardTestCase(TestCase):
             dashboard.get_dashboard_tags()
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
-    def test_get_dashboard_permissions(
-            self, call_the_api_mock
-    ):
+    def test_get_dashboard_permissions(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock(), message="Test")
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         call_the_api_mock.return_value = list([{"role": "test", "count": 4}])
-        self.assertEqual(list([{"role": "test", "count": 4}]), dashboard.get_dashboard_permissions("test"))
+        self.assertEqual(
+            list([{"role": "test", "count": 4}]),
+            dashboard.get_dashboard_permissions("test"),
+        )
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
-    def test_get_dashboard_permissions_empty_list(
-            self, call_the_api_mock
-    ):
+    def test_get_dashboard_permissions_empty_list(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock(), message="Test")
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
@@ -180,9 +169,7 @@ class DashboardTestCase(TestCase):
             dashboard.get_dashboard_permissions("test")
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
-    def test_get_dashboard_permissions_no_uid(
-            self, call_the_api_mock
-    ):
+    def test_get_dashboard_permissions_no_uid(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock(), message="Test")
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
@@ -191,19 +178,19 @@ class DashboardTestCase(TestCase):
             dashboard.get_dashboard_permissions("")
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
-    def test_update_dashboard_permissions(
-            self, call_the_api_mock
-    ):
+    def test_update_dashboard_permissions(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock(), message="Test")
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Dashboard permissions updated"})
-        self.assertEqual(None, dashboard.update_dashboard_permissions("test", {"test": "test"}))
+        call_the_api_mock.return_value = dict(
+            {"message": "Dashboard permissions updated"}
+        )
+        self.assertEqual(
+            None, dashboard.update_dashboard_permissions("test", {"test": "test"})
+        )
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
-    def test_update_dashboard_permissions_error_response(
-            self, call_the_api_mock
-    ):
+    def test_update_dashboard_permissions_error_response(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock(), message="Test")
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
@@ -212,9 +199,7 @@ class DashboardTestCase(TestCase):
             dashboard.update_dashboard_permissions("test", {"test": "test"})
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
-    def test_update_dashboard_permissions_no_uid(
-            self, call_the_api_mock
-    ):
+    def test_update_dashboard_permissions_no_uid(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock(), message="Test")
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 

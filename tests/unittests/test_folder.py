@@ -16,7 +16,7 @@ class FolderTestCase(TestCase):
 
     @patch("src.grafana_api.folder.Folder.get_all_folder_ids_and_names")
     def test_get_folder_id_by_dashboard_path_no_title_match(
-            self, all_folder_ids_and_names_mock
+        self, all_folder_ids_and_names_mock
     ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock(), message="Test")
         folder: Folder = Folder(grafana_api_model=model)

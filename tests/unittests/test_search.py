@@ -6,7 +6,6 @@ from src.grafana_api.search import Search
 
 
 class SearchTestCase(TestCase):
-
     @patch("src.grafana_api.utils.Utils.call_the_api")
     def test_search(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock(), message="Test")

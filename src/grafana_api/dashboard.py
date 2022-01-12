@@ -5,6 +5,7 @@ from .model import APIModel, APIEndpoints, RequestsMethods
 from .folder import Folder
 from .utils import Utils
 
+
 # https://grafana.com/docs/grafana/latest/http_api/dashboard_versions/
 # GET /api/dashboards/id/:dashboardId/versions 12.01
 # GET /api/dashboards/id/:dashboardId/versions/:id 12.01
@@ -28,7 +29,9 @@ class Dashboard:
         overwrite -> Should the already existing dashboard be overwritten
         """
 
-        folder_id: int = Folder(self.grafana_api_model).get_folder_id_by_dashboard_path()
+        folder_id: int = Folder(
+            self.grafana_api_model
+        ).get_folder_id_by_dashboard_path()
 
         dashboard_json_complete: dict = {
             "dashboard": dashboard_json,
@@ -64,10 +67,7 @@ class Dashboard:
 
             message: str = api_call["message"]
 
-            if (
-                    f"Dashboard {self.grafana_api_model.dashboard_name} deleted"
-                    != message
-            ):
+            if f"Dashboard {self.grafana_api_model.dashboard_name} deleted" != message:
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
@@ -126,7 +126,9 @@ class Dashboard:
     def get_dashboard_uid_by_name_and_folder(self) -> str:
         """The method includes a functionality to extract the dashboard uid specified inside the model"""
 
-        folder_id: int = Folder(self.grafana_api_model).get_folder_id_by_dashboard_path()
+        folder_id: int = Folder(
+            self.grafana_api_model
+        ).get_folder_id_by_dashboard_path()
 
         search_query: str = f"{APIEndpoints.SEARCH.value}?folderIds={folder_id}&query={self.grafana_api_model.dashboard_name}"
         dashboard_meta: list = Utils(self.grafana_api_model).call_the_api(search_query)

@@ -3,7 +3,6 @@ from .model import APIModel
 
 
 class Search:
-
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
@@ -19,4 +18,3 @@ class Search:
             raise Exception
         else:
             return result
-

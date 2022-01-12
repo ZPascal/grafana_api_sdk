@@ -21,7 +21,9 @@ class DashboardTest(TestCase):
     folder: Folder = Folder(model)
 
     def test_dashboard_creation(self):
-        with open(f"{os.getcwd()}tests{os.sep}integrationtest{os.sep}resources{os.sep}dashboard.json") as file:
+        with open(
+            f"{os.getcwd()}tests{os.sep}integrationtest{os.sep}resources{os.sep}dashboard.json"
+        ) as file:
             json_dashboard = json.load(file)
 
         self.dashboard.create_or_update_dashboard(
@@ -41,7 +43,9 @@ class DashboardTest(TestCase):
             self.dashboard.delete_dashboard_by_name_and_path()
 
     def test_get_dashboard(self):
-        with open(f"{os.getcwd()}tests{os.sep}integrationtest{os.sep}resources{os.sep}dashboard.json") as file:
+        with open(
+            f"{os.getcwd()}tests{os.sep}integrationtest{os.sep}resources{os.sep}dashboard.json"
+        ) as file:
             json_dashboard = json.load(file)
 
         self.dashboard.create_or_update_dashboard(

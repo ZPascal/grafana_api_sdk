@@ -11,11 +11,11 @@ from .model import APIModel, APIEndpoints
 # DELETE /api/folders/:uid 14.01
 # GET /api/folders/id/:id 14.01
 
+
 # https://grafana.com/docs/grafana/latest/http_api/folder_permissions/
 # GET /api/folders/:uid/permissions 14.01
 # POST /api/folders/:uid/permissions 14.01
 class Folder:
-
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
@@ -40,7 +40,9 @@ class Folder:
     def get_all_folder_ids_and_names(self) -> list:
         """The method extract all folder id and names inside the complete organisation"""
 
-        folders_raw: list = Utils(self.grafana_api_model).call_the_api(f"{APIEndpoints.SEARCH.value}?folderIds=0")
+        folders_raw: list = Utils(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.SEARCH.value}?folderIds=0"
+        )
         folders_raw_len: int = len(folders_raw)
         folders: list = list()
 
