@@ -1,0 +1,114 @@
+name: PR checks
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ '3.x' ]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+          cache: 'pip'
+
+      - name: Install the requirements
+        run: pip install -r requirements.txt
+
+      - name: Execute the unittests
+        run: python3 -m unittest discover tests/unittests
+
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ '3.x' ]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+          cache: 'pip'
+
+      - name: Install the requirements
+        run: pip install -r requirements.txt
+
+      - name: Execute the linting checks
+        uses: reviewdog/action-flake8@v3.2.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          flake8_args: --config=.flake8
+
+  coverage:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ '3.x' ]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+          cache: 'pip'
+
+      - name: Install the requirements
+        run: pip install -r requirements.txt && pip install pytest pytest-cov coverage-badge
+
+      - name: Generate the coverage report
+        run: export PYTHONPATH=$PWD && pytest --junitxml=pytest.xml --cov=. tests/ | tee pytest-coverage.txt
+
+      - name: Execute the coverage checks
+        uses: MishaKav/pytest-coverage-comment@v1.1.16
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          pytest-coverage-path: ./pytest-coverage.txt
+          junitxml-path: ./pytest.xml
+          hide-badge: true
+          create-new-commit: true
+
+      - name: "Check if coverage badge file existence"
+        id: check_files
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "docs/coverage.svg"
+
+      - name: Generate coverage badge
+        if: steps.check_files.outputs.files_exists == 'false'
+        run: coverage-badge -o docs/coverage.svg -f
+
+      - name: Commit files
+        if: steps.check_files.outputs.files_exists == 'false'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add --force docs/coverage.svg
+          git commit -m "Add coverage badge"
+
+      - name: Push changes
+        if: steps.check_files.outputs.files_exists == 'false'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.head_ref }}
+          force: true
