@@ -13,6 +13,7 @@ class APIEndpoints(Enum):
 
     SEARCH = "/api/search"
     DASHBOARDS = "/api/dashboards"
+    FOLDERS = "/api/folders"
 
 
 class RequestsMethods(Enum):
@@ -23,6 +24,7 @@ class RequestsMethods(Enum):
     """
 
     GET = "GET"
+    PUT = "PUT"
     POST = "POST"
     DELETE = "DELETE"
 

@@ -14,6 +14,8 @@ The repository includes an SDK for the Grafana API
 - Create/ Update a dashboard 
 - Delete a dashboard
 
+### Feature timeline
+
 ## Installation & Requirements
 
 ### Programs & tools to install
