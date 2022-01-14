@@ -88,9 +88,7 @@ class Utils:
             elif method.value == RequestsMethods.POST.value:
                 if json_complete is not None:
                     return Utils.__check_the_api_call_response(
-                        requests.post(
-                            api_url, data=json_complete, headers=headers
-                        )
+                        requests.post(api_url, data=json_complete, headers=headers)
                     )
                 else:
                     logging.error("Please define the json_complete.")

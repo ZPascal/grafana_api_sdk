@@ -58,7 +58,10 @@ class Dashboard:
                 RequestsMethods.DELETE,
             )
 
-            if f"Dashboard {self.grafana_api_model.dashboard_name} deleted" != api_call.get("message"):
+            if (
+                f"Dashboard {self.grafana_api_model.dashboard_name} deleted"
+                != api_call.get("message")
+            ):
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
@@ -232,7 +235,10 @@ class Dashboard:
                 json.dumps(version),
             )
 
-            if api_call.get("status") != "success" or api_call.get("message") is not None:
+            if (
+                api_call.get("status") != "success"
+                or api_call.get("message") is not None
+            ):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -241,8 +247,12 @@ class Dashboard:
             logging.info("There is no dashboard uid or version_id defined.")
             raise ValueError
 
-    def calculate_dashboard_diff(self, dashboard_id_and_version_base: dict, dashboard_id_and_version_new: dict,
-                                 diff_type: str = "json") -> str:
+    def calculate_dashboard_diff(
+        self,
+        dashboard_id_and_version_base: dict,
+        dashboard_id_and_version_new: dict,
+        diff_type: str = "json",
+    ) -> str:
         """The method includes a functionality to calculate the diff of specified versions of a dashboard based on the \
         specified dashboard uid and the selected version of the base dashboard and the new dashboard and the diff \
         type (basic or json)
@@ -255,13 +265,18 @@ class Dashboard:
         possible_diff_types: list = list(["basic", "json"])
 
         if diff_type.lower() in possible_diff_types:
-            if dashboard_id_and_version_base != dict() and dashboard_id_and_version_new != 0:
+            if (
+                dashboard_id_and_version_base != dict()
+                and dashboard_id_and_version_new != 0
+            ):
                 diff_object: dict = dict()
                 diff_object.update(dashboard_id_and_version_base)
                 diff_object.update(dashboard_id_and_version_new)
                 diff_object.update({"diffType": diff_type.lower()})
 
-                api_call: any = Utils(self.grafana_api_model).call_the_api_non_json_output(
+                api_call: any = Utils(
+                    self.grafana_api_model
+                ).call_the_api_non_json_output(
                     f"{APIEndpoints.DASHBOARDS.value}/calculate-diff",
                     RequestsMethods.POST,
                     json.dumps(diff_object),
@@ -273,8 +288,12 @@ class Dashboard:
                 else:
                     return api_call.text
             else:
-                logging.info("There is no dashboard_uid_and_version_base or dashboard_uid_and_version_new defined.")
+                logging.info(
+                    "There is no dashboard_uid_and_version_base or dashboard_uid_and_version_new defined."
+                )
                 raise ValueError
         else:
-            logging.info(f"The diff_type: {diff_type.lower()} is not valid. Please specify a valid value.")
+            logging.info(
+                f"The diff_type: {diff_type.lower()} is not valid. Please specify a valid value."
+            )
             raise ValueError

@@ -94,7 +94,9 @@ class Folder:
             logging.info("There is no folder uid or title defined.")
             raise ValueError
 
-    def update_folder(self, uid: str, title: str, version: int = 0, overwrite: bool = False) -> dict:
+    def update_folder(
+        self, uid: str, title: str, version: int = 0, overwrite: bool = False
+    ) -> dict:
         """The method includes a functionality to update a folder information inside the organization specified \
         by the uid, the title, the version of the folder or if folder information be overwritten
 

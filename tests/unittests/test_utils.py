@@ -105,7 +105,7 @@ class UtilsTestCase(TestCase):
         utils: Utils = Utils(grafana_api_model=model)
 
         with self.assertRaises(Exception):
-            utils. call_the_api_non_json_output(api_call=MagicMock(), method=None)
+            utils.call_the_api_non_json_output(api_call=MagicMock(), method=None)
 
     @patch("requests.get")
     def test_call_the_api_non_json_output_get_valid(self, get_mock):
@@ -116,7 +116,7 @@ class UtilsTestCase(TestCase):
 
         self.assertEqual(
             "success",
-            utils. call_the_api_non_json_output(api_call=MagicMock()).text,
+            utils.call_the_api_non_json_output(api_call=MagicMock()).text,
         )
 
     def test_call_the_api_non_json_output_get_not_valid(self):
@@ -124,7 +124,9 @@ class UtilsTestCase(TestCase):
         utils: Utils = Utils(grafana_api_model=model)
 
         with self.assertRaises(MissingSchema):
-            utils. call_the_api_non_json_output(api_call=MagicMock(), method=RequestsMethods.GET)
+            utils.call_the_api_non_json_output(
+                api_call=MagicMock(), method=RequestsMethods.GET
+            )
 
     @patch("requests.post")
     def test_call_the_api_non_json_output_post_valid(self, post_mock):
@@ -135,7 +137,7 @@ class UtilsTestCase(TestCase):
 
         self.assertEqual(
             "success",
-            utils. call_the_api_non_json_output(
+            utils.call_the_api_non_json_output(
                 api_call=MagicMock(),
                 method=RequestsMethods.POST,
                 json_complete=MagicMock(),
@@ -147,7 +149,7 @@ class UtilsTestCase(TestCase):
         utils: Utils = Utils(grafana_api_model=model)
 
         with self.assertRaises(MissingSchema):
-            utils. call_the_api_non_json_output(
+            utils.call_the_api_non_json_output(
                 api_call=MagicMock(),
                 method=RequestsMethods.POST,
                 json_complete=MagicMock(),
@@ -158,7 +160,9 @@ class UtilsTestCase(TestCase):
         utils: Utils = Utils(grafana_api_model=model)
 
         with self.assertRaises(Exception):
-            utils. call_the_api_non_json_output(api_call=MagicMock(), method=RequestsMethods.POST)
+            utils.call_the_api_non_json_output(
+                api_call=MagicMock(), method=RequestsMethods.POST
+            )
 
     @patch("requests.delete")
     def test_call_the_api_non_json_output_delete_valid(self, delete_mock):
@@ -169,7 +173,9 @@ class UtilsTestCase(TestCase):
 
         self.assertEqual(
             "Deletion successful",
-            utils. call_the_api_non_json_output(api_call=MagicMock(), method=RequestsMethods.DELETE).text,
+            utils.call_the_api_non_json_output(
+                api_call=MagicMock(), method=RequestsMethods.DELETE
+            ).text,
         )
 
     def test_call_the_api_non_json_output_delete_not_valid(self):
@@ -177,7 +183,9 @@ class UtilsTestCase(TestCase):
         utils: Utils = Utils(grafana_api_model=model)
 
         with self.assertRaises(Exception):
-            utils. call_the_api_non_json_output(api_call=MagicMock(), method=RequestsMethods.DELETE)
+            utils.call_the_api_non_json_output(
+                api_call=MagicMock(), method=RequestsMethods.DELETE
+            )
 
     def test_check_the_api_call_response(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock(), message="Test")

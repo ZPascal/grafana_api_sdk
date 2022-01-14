@@ -1,4 +1,4 @@
-from unittest import TestCase, main
+from unittest import TestCase
 from unittest.mock import MagicMock, patch
 
 from src.grafana_api.model import APIModel
@@ -35,19 +35,25 @@ class DashboardTestCase(TestCase):
             dashboard.create_or_update_dashboard(dashboard_json=dict({"test": "test"}))
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
-    @patch("src.grafana_api.dashboard.Dashboard.get_dashboard_uid_and_id_by_name_and_folder")
+    @patch(
+        "src.grafana_api.dashboard.Dashboard.get_dashboard_uid_and_id_by_name_and_folder"
+    )
     def test_delete_dashboard_by_name_and_path(
         self, dashboard_uid_and_id_by_name_and_folder_mock, call_the_api_mock
     ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock(), message="Test")
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        dashboard_uid_and_id_by_name_and_folder_mock.return_value = dict({"uid": "test", "id": 10})
+        dashboard_uid_and_id_by_name_and_folder_mock.return_value = dict(
+            {"uid": "test", "id": 10}
+        )
         call_the_api_mock.return_value = dict({"message": "Dashboard None deleted"})
         self.assertEqual(None, dashboard.delete_dashboard_by_name_and_path())
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
-    @patch("src.grafana_api.dashboard.Dashboard.get_dashboard_uid_and_id_by_name_and_folder")
+    @patch(
+        "src.grafana_api.dashboard.Dashboard.get_dashboard_uid_and_id_by_name_and_folder"
+    )
     def test_delete_dashboard_by_name_and_path_deletion_list_empty(
         self, dashboard_uid_and_id_by_name_and_folder_mock, call_the_api_mock
     ):
@@ -60,14 +66,18 @@ class DashboardTestCase(TestCase):
             dashboard.delete_dashboard_by_name_and_path()
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
-    @patch("src.grafana_api.dashboard.Dashboard.get_dashboard_uid_and_id_by_name_and_folder")
+    @patch(
+        "src.grafana_api.dashboard.Dashboard.get_dashboard_uid_and_id_by_name_and_folder"
+    )
     def test_delete_dashboard_by_name_and_path_deletion_not_possible(
         self, dashboard_uid_and_id_by_name_and_folder_mock, call_the_api_mock
     ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock(), message="Test")
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        dashboard_uid_and_id_by_name_and_folder_mock.return_value = dict({"uid": "test", "id": 10})
+        dashboard_uid_and_id_by_name_and_folder_mock.return_value = dict(
+            {"uid": "test", "id": 10}
+        )
         call_the_api_mock.return_value = dict({"message": "error"})
         with self.assertRaises(Exception):
             dashboard.delete_dashboard_by_name_and_path()
@@ -82,7 +92,10 @@ class DashboardTestCase(TestCase):
 
         folder_id_by_dashboard_path_mock.return_value = 1
         call_the_api_mock.return_value = [{"uid": "test", "id": 10}]
-        self.assertEqual(dict({"uid": "test", "id": 10}), dashboard.get_dashboard_uid_and_id_by_name_and_folder())
+        self.assertEqual(
+            dict({"uid": "test", "id": 10}),
+            dashboard.get_dashboard_uid_and_id_by_name_and_folder(),
+        )
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
     def test_get_dashboard_by_uid(self, call_the_api_mock):
@@ -207,9 +220,7 @@ class DashboardTestCase(TestCase):
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         call_the_api_mock.return_value = list([{"id": "test"}])
-        self.assertEqual(
-            list([{"id": "test"}]), dashboard.get_dashboard_versions(1)
-        )
+        self.assertEqual(list([{"id": "test"}]), dashboard.get_dashboard_versions(1))
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
     def test_get_dashboard_versions_error_response(self, call_the_api_mock):
@@ -233,9 +244,7 @@ class DashboardTestCase(TestCase):
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         call_the_api_mock.return_value = dict({"id": "test"})
-        self.assertEqual(
-            dict({"id": "test"}), dashboard.get_dashboard_version(1, 10)
-        )
+        self.assertEqual(dict({"id": "test"}), dashboard.get_dashboard_version(1, 10))
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
     def test_get_dashboard_version_error_response(self, call_the_api_mock):
@@ -287,17 +296,26 @@ class DashboardTestCase(TestCase):
         call_the_api_non_json_output_mock.return_value.status_code = 200
         call_the_api_non_json_output_mock.return_value.text = "test"
         self.assertEqual(
-            "test", dashboard.calculate_dashboard_diff(dict({"dashboardId": 1, "version": 1}), dict({"dashboardId": 2, "version": 1}))
+            "test",
+            dashboard.calculate_dashboard_diff(
+                dict({"dashboardId": 1, "version": 1}),
+                dict({"dashboardId": 2, "version": 1}),
+            ),
         )
 
     @patch("src.grafana_api.utils.Utils.call_the_api_non_json_output")
-    def test_calculate_dashboard_diff_error_response(self, call_the_api_non_json_output_mock):
+    def test_calculate_dashboard_diff_error_response(
+        self, call_the_api_non_json_output_mock
+    ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock(), message="Test")
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         call_the_api_non_json_output_mock.status_code.return_value = 400
         with self.assertRaises(Exception):
-            dashboard.calculate_dashboard_diff(dict({"dashboardId": 1, "version": 1}), dict({"dashboardId": 2, "version": 1}))
+            dashboard.calculate_dashboard_diff(
+                dict({"dashboardId": 1, "version": 1}),
+                dict({"dashboardId": 2, "version": 1}),
+            )
 
     def test_calculate_dashboard_diff_no_dashboard_id_and_version_base(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock(), message="Test")
