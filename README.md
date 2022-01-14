@@ -16,6 +16,11 @@ The repository includes an SDK for the Grafana API
 
 ### Feature timeline
 
+The following table describes the plan to implement the rest of the Grafana API functionality 
+
+| API endpoint group | Implementation week | Maintainer | PR |
+|:------------------:|:-------------------:|:----------:|:--:|
+||||
 ## Installation & Requirements
 
 ### Programs & tools to install

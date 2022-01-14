@@ -24,7 +24,3 @@ class APIModelTestCase(TestCase):
 
         self.assertEqual(None, model.message)
         self.assertEqual("test", model.host)
-
-
-if __name__ == "__main__":
-    main()

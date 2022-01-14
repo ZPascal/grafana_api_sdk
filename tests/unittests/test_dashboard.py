@@ -312,7 +312,3 @@ class DashboardTestCase(TestCase):
 
         with self.assertRaises(ValueError):
             dashboard.calculate_dashboard_diff({}, MagicMock(), "test")
-
-
-if __name__ == "__main__":
-    main()
