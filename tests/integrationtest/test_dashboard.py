@@ -22,7 +22,7 @@ class DashboardTest(TestCase):
 
     def test_dashboard_creation(self):
         with open(
-            f"{os.getcwd()}tests{os.sep}integrationtest{os.sep}resources{os.sep}dashboard.json"
+            f"{os.getcwd()}{os.sep}tests{os.sep}integrationtest{os.sep}resources{os.sep}dashboard.json"
         ) as file:
             json_dashboard = json.load(file)
 
@@ -44,7 +44,7 @@ class DashboardTest(TestCase):
 
     def test_get_dashboard(self):
         with open(
-            f"{os.getcwd()}tests{os.sep}integrationtest{os.sep}resources{os.sep}dashboard.json"
+            f"{os.getcwd()}{os.sep}tests{os.sep}integrationtest{os.sep}resources{os.sep}dashboard.json"
         ) as file:
             json_dashboard = json.load(file)
 
