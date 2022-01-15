@@ -1,22 +1,32 @@
 # grafana_api_sdk
-The repository includes an SDK for the Grafana API
-
-## TODO
-- Documentation
+The repository includes an SDK for the Grafana API. It's possible to communicate with the Grafana API endpoints. Another feature of the SDK is the possibility to specify the used folder for the dashboard.
 
 ## Currently, supported features
 
 ### Dashboard
-- Get folder id by dashboard path
-- Get all folder ids and folder names 
-- Specify the grafana dashboard folder
 - Create/ Update a dashboard 
 - Delete a dashboard
+- Get permissions of a dashboard
+- Update the permissions of a dashboard
+- Get all dashboard versions
+- Get dashboard version of a specific dashboard
+- Restore a dashboard version of a specific dashboard
+- Compare two dashboard versions and extract the diff between booth dashboards
 
 ### Folder
+- Get folder id by dashboard path
+- Get all folder ids and folder names 
+- Get all folders
+- Get folder by uid
+- Get folder by id
+- Create a folder
+- Update a folder
+- Delete a folder
+- Get permissions for a folder
+- Update permissions for a folder
 
 ### Search
-
+- Execute a custom query against the Grafana search endpoint
 
 ## Feature timeline
 
