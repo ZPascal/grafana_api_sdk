@@ -18,9 +18,7 @@ class RequestsMethodsTestCase(TestCase):
 
 class APIModelTestCase(TestCase):
     def test_api_model_init(self):
-        model = APIModel(
-            host="test", token="test", dashboard_name="test", dashboard_path="test"
-        )
+        model = APIModel(host="test", token="test")
 
-        self.assertEqual(None, model.message)
         self.assertEqual("test", model.host)
+        self.assertEqual("test", model.token)

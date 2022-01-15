@@ -5,6 +5,12 @@ from .model import RequestsMethods, ERROR_MESSAGES, APIModel
 
 
 class Utils:
+    """The class includes all necessary methods to make API calls to the Grafana API endpoints
+
+    Keyword arguments:
+    grafana_api_model -> Inject a Grafana API model object that includes all necessary values and information
+    """
+
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
@@ -36,7 +42,7 @@ class Utils:
             elif method.value == RequestsMethods.PUT.value:
                 if json_complete is not None:
                     return Utils.__check_the_api_call_response(
-                        requests.post(
+                        requests.put(
                             api_url, data=json_complete, headers=headers
                         ).json()
                     )

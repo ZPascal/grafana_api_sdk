@@ -16,58 +16,81 @@ class Dashboard:
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
-    def create_or_update_dashboard(self, dashboard_json: dict, overwrite: bool = False):
+    def create_or_update_dashboard(
+        self,
+        dashboard_path: str,
+        dashboard_json: dict,
+        message: str,
+        overwrite: bool = False,
+    ):
         """The method includes a functionality to create the specified dashboard
 
         Keyword arguments:
+        dashboard_path -> Specify the dashboard path in which the dashboard is to be placed
         dashboard_json -> Specify the inserted dashboard as dict
+        message -> Specify the message that should be injected as commit message inside the dashboard
         overwrite -> Should the already existing dashboard be overwritten
         """
 
-        folder_id: int = Folder(
-            self.grafana_api_model
-        ).get_folder_id_by_dashboard_path()
+        if len(dashboard_path) != 0 and dashboard_json != dict() and len(message) != 0:
+            folder_id: int = Folder(
+                self.grafana_api_model
+            ).get_folder_id_by_dashboard_path(dashboard_path)
 
-        dashboard_json_complete: dict = {
-            "dashboard": dashboard_json,
-            "folderId": folder_id,
-            "message": self.grafana_api_model.message,
-            "overwrite": overwrite,
-        }
+            dashboard_json_complete: dict = {
+                "dashboard": dashboard_json,
+                "folderId": folder_id,
+                "message": message,
+                "overwrite": overwrite,
+            }
 
-        api_call: dict = Utils(self.grafana_api_model).call_the_api(
-            f"{APIEndpoints.DASHBOARDS.value}/db",
-            RequestsMethods.POST,
-            json.dumps(dashboard_json_complete),
-        )
-
-        if api_call.get("status") != "success":
-            logging.error(f"Check the error: {api_call}.")
-            raise Exception
-        else:
-            logging.info("You successfully deployed the dashboard.")
-
-    def delete_dashboard_by_name_and_path(self):
-        """The method includes a functionality to delete the specified dashboard inside the model"""
-
-        dashboard_uid: dict = self.get_dashboard_uid_and_id_by_name_and_folder()
-
-        if len(dashboard_uid) != 0:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.DASHBOARDS.value}/uid/{dashboard_uid.get('uid')}",
-                RequestsMethods.DELETE,
+                f"{APIEndpoints.DASHBOARDS.value}/db",
+                RequestsMethods.POST,
+                json.dumps(dashboard_json_complete),
             )
 
-            if (
-                f"Dashboard {self.grafana_api_model.dashboard_name} deleted"
-                != api_call.get("message")
-            ):
-                logging.error(f"Please, check the error: {api_call}.")
+            if api_call.get("status") != "success":
+                logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
-                logging.info("You successfully destroyed the dashboard.")
+                logging.info("You successfully deployed the dashboard.")
         else:
-            logging.info("Nothing to delete. There is no dashboard available.")
+            logging.info(
+                "There is no dashboard_path or dashboard_json or message defined."
+            )
+            raise ValueError
+
+    def delete_dashboard_by_name_and_path(
+        self, dashboard_name: str, dashboard_path: str
+    ):
+        """The method includes a functionality to delete the specified dashboard inside the model
+
+        dashboard_name -> Specify the dashboard name of the deleted dashboard
+        dashboard_path -> Specify the dashboard path of the deleted dashboard
+        """
+
+        if len(dashboard_name) != 0 and len(dashboard_path) != 0:
+            dashboard_uid: dict = self.get_dashboard_uid_and_id_by_name_and_folder(
+                dashboard_name, dashboard_path
+            )
+
+            if len(dashboard_uid) != 0:
+                api_call: dict = Utils(self.grafana_api_model).call_the_api(
+                    f"{APIEndpoints.DASHBOARDS.value}/uid/{dashboard_uid.get('uid')}",
+                    RequestsMethods.DELETE,
+                )
+
+                if f"Dashboard {dashboard_name} deleted" != api_call.get("message"):
+                    logging.error(f"Please, check the error: {api_call}.")
+                    raise Exception
+                else:
+                    logging.info("You successfully destroyed the dashboard.")
+            else:
+                logging.info("Nothing to delete. There is no dashboard available.")
+                raise ValueError
+        else:
+            logging.info("There is no dashboard_name or dashboard_path defined.")
             raise ValueError
 
     def get_dashboard_by_uid(self, uid: str) -> dict:
@@ -117,17 +140,31 @@ class Dashboard:
         else:
             return api_call
 
-    def get_dashboard_uid_and_id_by_name_and_folder(self) -> dict:
-        """The method includes a functionality to extract the dashboard uid specified inside the model"""
+    def get_dashboard_uid_and_id_by_name_and_folder(
+        self, dashboard_name: str, dashboard_path: str
+    ) -> dict:
+        """The method includes a functionality to extract the dashboard uid specified inside the model
 
-        folder_id: int = Folder(
-            self.grafana_api_model
-        ).get_folder_id_by_dashboard_path()
+        dashboard_name -> Specify the dashboard name of the dashboard
+        dashboard_path -> Specify the dashboard path of the dashboard
+        """
 
-        search_query: str = f"{APIEndpoints.SEARCH.value}?folderIds={folder_id}&query={self.grafana_api_model.dashboard_name}"
-        dashboard_meta: list = Utils(self.grafana_api_model).call_the_api(search_query)
+        if len(dashboard_name) != 0 and len(dashboard_path) != 0:
+            folder_id: int = Folder(
+                self.grafana_api_model
+            ).get_folder_id_by_dashboard_path(dashboard_path)
 
-        return dict({"uid": dashboard_meta[0]["uid"], "id": dashboard_meta[0]["id"]})
+            search_query: str = f"{APIEndpoints.SEARCH.value}?folderIds={folder_id}&query={dashboard_name}"
+            dashboard_meta: list = Utils(self.grafana_api_model).call_the_api(
+                search_query
+            )
+
+            return dict(
+                {"uid": dashboard_meta[0]["uid"], "id": dashboard_meta[0]["id"]}
+            )
+        else:
+            logging.info("There is no dashboard_name or dashboard_path defined.")
+            raise ValueError
 
     def get_dashboard_permissions(self, id: int) -> list:
         """The method includes a functionality to extract the dashboard permissions based on the specified id

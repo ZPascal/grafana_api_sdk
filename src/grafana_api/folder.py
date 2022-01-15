@@ -6,6 +6,12 @@ from .model import APIModel, APIEndpoints, RequestsMethods
 
 
 class Folder:
+    """The class includes all necessary methods to access the Grafana folder API endpoints
+
+    Keyword arguments:
+    grafana_api_model -> Inject a Grafana API model object that includes all necessary values and information
+    """
+
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
@@ -206,23 +212,27 @@ class Folder:
             logging.info("There is no folder uid or permission json defined.")
             raise ValueError
 
-    def get_folder_id_by_dashboard_path(self) -> int:
+    def get_folder_id_by_dashboard_path(self, dashboard_path: str) -> int:
         """The method includes a functionality to extract the folder id specified inside model dashboard path"""
 
-        folders: list = self.get_all_folder_ids_and_names()
-        folder_id: int = 0
+        if len(dashboard_path) != 0:
+            folders: list = self.get_all_folder_ids_and_names()
+            folder_id: int = 0
 
-        for f in folders:
-            if self.grafana_api_model.dashboard_path == f.get("title"):
-                folder_id = f.get("id")
+            for f in folders:
+                if dashboard_path == f.get("title"):
+                    folder_id = f.get("id")
 
-        if folder_id == 0:
-            logging.error(
-                f"There's no folder_id for the dashboard named {self.grafana_api_model.dashboard_path} available."
-            )
-            raise Exception
+            if folder_id == 0:
+                logging.error(
+                    f"There's no folder_id for the dashboard named {dashboard_path} available."
+                )
+                raise Exception
 
-        return folder_id
+            return folder_id
+        else:
+            logging.info("There is no dashboard_path defined.")
+            raise ValueError
 
     def get_all_folder_ids_and_names(self) -> list:
         """The method extract all folder id and names inside the complete organisation"""

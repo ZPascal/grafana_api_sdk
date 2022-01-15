@@ -3,6 +3,12 @@ from .model import APIModel
 
 
 class Search:
+    """The class includes all necessary methods to access the Grafana search API endpoints
+
+    Keyword arguments:
+    grafana_api_model -> Inject a Grafana API model object that includes all necessary values and information
+    """
+
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
