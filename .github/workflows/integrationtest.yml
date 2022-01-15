@@ -17,7 +17,7 @@ jobs:
       - name: Install the requirements
         run: pip install -r requirements.txt
 
-      - name: Execute the unittests
+      - name: Execute the integrationtests
         run: python3 -m unittest discover tests/integrationtest
         env:
           GRAFANA_HOST: ${{ secrets.GRAFANA_HOST }}
