@@ -82,7 +82,8 @@ class Folder:
         if len(title) != 0:
             folder_information: dict = dict()
             folder_information.update({"title": title})
-            if uid is None or len(uid) != 0:
+
+            if uid is not None and len(uid) != 0:
                 folder_information.update({"uid": uid})
 
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
@@ -101,7 +102,7 @@ class Folder:
             raise ValueError
 
     def update_folder(
-        self, uid: str, title: str, version: int = 0, overwrite: bool = False
+        self, title: str, uid: str = None, version: int = 0, overwrite: bool = False
     ) -> dict:
         """The method includes a functionality to update a folder information inside the organization specified \
         by the uid, the title, the version of the folder or if folder information be overwritten
@@ -119,9 +120,10 @@ class Folder:
         if len(title) != 0 and version != 0:
             folder_information: dict = dict()
             folder_information.update({"title": title})
-            if len(uid) != 0:
+            folder_information.update({"overwrite": overwrite})
+
+            if uid is not None and len(uid) != 0:
                 folder_information.update({"uid": uid})
-                folder_information.update({"overwrite": overwrite})
 
             if version is not None:
                 folder_information.update({"version": version})

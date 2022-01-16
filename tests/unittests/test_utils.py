@@ -17,6 +17,13 @@ class UtilsTestCase(TestCase):
         with self.assertRaises(Exception):
             utils.call_the_api(api_call=MagicMock(), method=None)
 
+    def test_call_the_api_non_valid_method(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        utils: Utils = Utils(grafana_api_model=model)
+
+        with self.assertRaises(Exception):
+            utils.call_the_api(api_call=MagicMock(), method=MagicMock())
+
     @patch("requests.get")
     def test_call_the_api_get_valid(self, get_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -132,6 +139,13 @@ class UtilsTestCase(TestCase):
 
         with self.assertRaises(Exception):
             utils.call_the_api_non_json_output(api_call=MagicMock(), method=None)
+
+    def test_call_the_api_non_json_output_non__valid_method(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        utils: Utils = Utils(grafana_api_model=model)
+
+        with self.assertRaises(Exception):
+            utils.call_the_api_non_json_output(api_call=MagicMock(), method=MagicMock())
 
     @patch("requests.get")
     def test_call_the_api_non_json_output_get_valid(self, get_mock):

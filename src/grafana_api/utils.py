@@ -63,6 +63,9 @@ class Utils:
                 return Utils.__check_the_api_call_response(
                     requests.delete(api_url, headers=headers).json()
                 )
+            else:
+                logging.error("Please define a valid method.")
+                raise Exception
         except Exception as e:
             raise e
 
@@ -103,6 +106,9 @@ class Utils:
                 return Utils.__check_the_api_call_response(
                     requests.delete(api_url, headers=headers)
                 )
+            else:
+                logging.error("Please define a valid method.")
+                raise Exception
         except Exception as e:
             raise e
 
