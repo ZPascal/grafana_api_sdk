@@ -1,0 +1,26 @@
+name: Integrationtest
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install the requirements
+        run: pip install -r requirements.txt
+
+      - name: Execute the integrationtests
+        run: python3 -m unittest discover tests/integrationtest
+        env:
+          GRAFANA_HOST: ${{ secrets.GRAFANA_HOST }}
+          GRAFANA_TOKEN: ${{ secrets.GRAFANA_TOKEN }}
+          GRAFANA_DASHBOARD_PATH: ${{ secrets.GRAFANA_DASHBOARD_PATH }}
+          GRAFANA_DASHBOARD_NAME: ${{ secrets.GRAFANA_DASHBOARD_NAME }}
