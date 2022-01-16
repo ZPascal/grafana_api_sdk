@@ -1,4 +1,4 @@
-# grafana_api_sdk
+# Grafana API SDK ![Coverage report](https://github.com/ZPascal/grafana_api_sdk/blob/main/docs/coverage.svg)
 The repository includes an SDK for the Grafana API. It's possible to communicate with the Grafana API endpoints. Another feature of the SDK is the possibility to specify the used folder for the dashboard.
 
 ## Currently, supported features

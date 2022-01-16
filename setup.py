@@ -1,7 +1,10 @@
 import setuptools
 
 with open("README.md", "r", encoding="utf-8") as fh:
-    long_description = fh.read()
+    coverage_string: str = "![Coverage report](https://github.com/ZPascal/grafana_api_sdk/blob/main/docs/coverage.svg)"
+    long_description: str = fh.read()
+
+long_description = long_description.replace(coverage_string, "")
 
 setuptools.setup(
     name="grafana-api-sdk",
