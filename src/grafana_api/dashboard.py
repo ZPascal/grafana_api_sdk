@@ -298,7 +298,7 @@ class Dashboard:
             else:
                 logging.info("You successfully restored the dashboard.")
         else:
-            logging.info("There is no dashboard uid or version_id defined.")
+            logging.error("There is no dashboard uid or version_id defined.")
             raise ValueError
 
     def calculate_dashboard_diff(
