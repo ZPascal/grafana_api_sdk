@@ -14,6 +14,8 @@ class Datasource:
     the API token got the corresponding datasource access rights. Please check the used methods docstring for the \
     necessary access rights
 
+    HINT: Note Grafana Enterprise API add required permissions if fine-grained access control is enabled
+
     Keyword arguments:
     grafana_api_model -> Inject a Grafana API model object that includes all necessary values and information
     """

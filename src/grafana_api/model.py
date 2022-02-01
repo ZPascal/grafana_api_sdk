@@ -1,10 +1,8 @@
 from enum import Enum
 
-""""""
-ERROR_MESSAGES: list = ["invalid API key"]
-
 
 class APIEndpoints(Enum):
+    # TODO Update the documentation
     """The class includes all necessary methods to template the selected dashboard and return it as a dict
 
     Keyword arguments:
@@ -14,13 +12,19 @@ class APIEndpoints(Enum):
     SEARCH = "/api/search"
     DASHBOARDS = "/api/dashboards"
     FOLDERS = "/api/folders"
-    ALERTS = "/api/alerts"
+    LEGACY_ALERTS = "/api/alerts"
     ALERT_NOTIFICATIONS = "/api/alert-notifications"
+    ALERTS_ALERT_MANAGER = "/api/alertmanager"
+    ALERTS_PROMETHEUS = "/api/prometheus"
+    ALERTS_RULER = "/api/ruler"
+    ALERTS_TESTING = "/api/v1"
+    ALERTS_NGALERT = "/api/v1/ngalert"
     DATASOURCES = "/api/datasources"
     DATASOURCE_QUERY = "/api/tsdb/query"
 
 
 class RequestsMethods(Enum):
+    # TODO Update the documentation
     """The class includes all necessary methods to template the selected dashboard and return it as a dict
 
     Keyword arguments:
