@@ -26,13 +26,14 @@
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from enum import Enum
+<pre><code class="python">import datetime
+from enum import Enum
 
-&#34;&#34;&#34;&#34;&#34;&#34;
 ERROR_MESSAGES: list = [&#34;invalid API key&#34;]
 
 
 class APIEndpoints(Enum):
+    # TODO Update the documentation
     &#34;&#34;&#34;The class includes all necessary methods to template the selected dashboard and return it as a dict
 
     Keyword arguments:
@@ -42,13 +43,19 @@ class APIEndpoints(Enum):
     SEARCH = &#34;/api/search&#34;
     DASHBOARDS = &#34;/api/dashboards&#34;
     FOLDERS = &#34;/api/folders&#34;
-    ALERTS = &#34;/api/alerts&#34;
+    LEGACY_ALERTS = &#34;/api/alerts&#34;
     ALERT_NOTIFICATIONS = &#34;/api/alert-notifications&#34;
+    ALERTS_ALERTMANAGER = &#34;/api/alertmanager&#34;
+    ALERTS_PROMETHEUS = &#34;/api/prometheus&#34;
+    ALERTS_RULER = &#34;/api/ruler&#34;
+    ALERTS_TESTING = &#34;/api/v1&#34;
+    ALERTS_NGALERT = &#34;/api/v1/ngalert&#34;
     DATASOURCES = &#34;/api/datasources&#34;
     DATASOURCE_QUERY = &#34;/api/tsdb/query&#34;
 
 
 class RequestsMethods(Enum):
+    # TODO Update the documentation
     &#34;&#34;&#34;The class includes all necessary methods to template the selected dashboard and return it as a dict
 
     Keyword arguments:
@@ -105,7 +112,95 @@ class DatasourceQuery:
         self.ref_id = ref_id
         self.interval_ms = interval_ms
         self.max_data_points = max_data_points
-        self.output_format = output_format</code></pre>
+        self.output_format = output_format
+
+
+class Alert:
+    # TODO Update the documentation
+    &#34;&#34;&#34;The class includes all necessary variables to establish a connection to the Grafana API endpoints
+
+    Keyword arguments:
+    datasource_id -&gt; Specify the host of the Grafana system
+    raw_sql -&gt; Specify the access token of the Grafana system
+    ref_id -&gt; Specify the access token of the Grafana system
+    interval_ms -&gt; Specify the access token of the Grafana system
+    max_data_points -&gt; Specify the access token of the Grafana system
+    output_format -&gt; Specify the access token of the Grafana system
+    &#34;&#34;&#34;
+
+    def __init__(
+            self,
+            starts_at: str,
+            ends_at: str,
+            annotations: dict,
+            generator_url: str,
+            labels: dict,
+    ):
+        self.starts_at = starts_at
+        self.ends_at = ends_at
+        self.annotations = annotations
+        self.generator_url = generator_url
+        self.labels = labels
+
+
+class Silence:
+    # TODO Update the documentation
+    &#34;&#34;&#34;The class includes all necessary variables to establish a connection to the Grafana API endpoints
+
+    Keyword arguments:
+    datasource_id -&gt; Specify the host of the Grafana system
+    raw_sql -&gt; Specify the access token of the Grafana system
+    ref_id -&gt; Specify the access token of the Grafana system
+    interval_ms -&gt; Specify the access token of the Grafana system
+    max_data_points -&gt; Specify the access token of the Grafana system
+    output_format -&gt; Specify the access token of the Grafana system
+    &#34;&#34;&#34;
+
+    def __init__(
+            self,
+            starts_at: str,
+            created_by: str,
+            ends_at: str,
+            comment: str,
+            id: str,
+            matchers: dict,
+    ):
+        self.starts_at = starts_at
+        self.ends_at = ends_at
+        self.created_by = created_by
+        self.comment = comment
+        self.id = id
+        self.matchers = matchers
+
+
+class AlertmanagerConfig:
+    # TODO Update the documentation
+    &#34;&#34;&#34;The class includes all necessary variables to establish a connection to the Grafana API endpoints
+
+    Keyword arguments:
+    datasource_id -&gt; Specify the host of the Grafana system
+    raw_sql -&gt; Specify the access token of the Grafana system
+    ref_id -&gt; Specify the access token of the Grafana system
+    interval_ms -&gt; Specify the access token of the Grafana system
+    max_data_points -&gt; Specify the access token of the Grafana system
+    output_format -&gt; Specify the access token of the Grafana system
+    &#34;&#34;&#34;
+
+    def __init__(
+            self,
+            global_config: dict,
+            inhibit_rules: list,
+            mute_time_intervals: list,
+            receivers: list,
+            route: dict,
+            templates: list,
+    ):
+        self.global_config = global_config
+        self.inhibit_rules = inhibit_rules
+        self.mute_time_intervals = mute_time_intervals
+        self.receivers = receivers
+        self.route = route
+        self.templates = templates</code></pre>
 </details>
 </section>
 <section>
@@ -130,6 +225,7 @@ dashboard_model -&gt; Inject a dashboard object that includes all necessary valu
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class APIEndpoints(Enum):
+    # TODO Update the documentation
     &#34;&#34;&#34;The class includes all necessary methods to template the selected dashboard and return it as a dict
 
     Keyword arguments:
@@ -139,8 +235,13 @@ dashboard_model -&gt; Inject a dashboard object that includes all necessary valu
     SEARCH = &#34;/api/search&#34;
     DASHBOARDS = &#34;/api/dashboards&#34;
     FOLDERS = &#34;/api/folders&#34;
-    ALERTS = &#34;/api/alerts&#34;
+    LEGACY_ALERTS = &#34;/api/alerts&#34;
     ALERT_NOTIFICATIONS = &#34;/api/alert-notifications&#34;
+    ALERTS_ALERTMANAGER = &#34;/api/alertmanager&#34;
+    ALERTS_PROMETHEUS = &#34;/api/prometheus&#34;
+    ALERTS_RULER = &#34;/api/ruler&#34;
+    ALERTS_TESTING = &#34;/api/v1&#34;
+    ALERTS_NGALERT = &#34;/api/v1/ngalert&#34;
     DATASOURCES = &#34;/api/datasources&#34;
     DATASOURCE_QUERY = &#34;/api/tsdb/query&#34;</code></pre>
 </details>
@@ -150,7 +251,23 @@ dashboard_model -&gt; Inject a dashboard object that includes all necessary valu
 </ul>
 <h3>Class variables</h3>
 <dl>
-<dt id="grafana_api.model.APIEndpoints.ALERTS"><code class="name">var <span class="ident">ALERTS</span></code></dt>
+<dt id="grafana_api.model.APIEndpoints.ALERTS_ALERTMANAGER"><code class="name">var <span class="ident">ALERTS_ALERTMANAGER</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="grafana_api.model.APIEndpoints.ALERTS_NGALERT"><code class="name">var <span class="ident">ALERTS_NGALERT</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="grafana_api.model.APIEndpoints.ALERTS_PROMETHEUS"><code class="name">var <span class="ident">ALERTS_PROMETHEUS</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="grafana_api.model.APIEndpoints.ALERTS_RULER"><code class="name">var <span class="ident">ALERTS_RULER</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="grafana_api.model.APIEndpoints.ALERTS_TESTING"><code class="name">var <span class="ident">ALERTS_TESTING</span></code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -171,6 +288,10 @@ dashboard_model -&gt; Inject a dashboard object that includes all necessary valu
 <div class="desc"></div>
 </dd>
 <dt id="grafana_api.model.APIEndpoints.FOLDERS"><code class="name">var <span class="ident">FOLDERS</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="grafana_api.model.APIEndpoints.LEGACY_ALERTS"><code class="name">var <span class="ident">LEGACY_ALERTS</span></code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -208,6 +329,98 @@ token -&gt; Specify the access token of the Grafana system</p></div>
     ):
         self.host = host
         self.token = token</code></pre>
+</details>
+</dd>
+<dt id="grafana_api.model.Alert"><code class="flex name class">
+<span>class <span class="ident">Alert</span></span>
+<span>(</span><span>starts_at: str, ends_at: str, annotations: dict, generator_url: str, labels: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The class includes all necessary variables to establish a connection to the Grafana API endpoints</p>
+<p>Keyword arguments:
+datasource_id -&gt; Specify the host of the Grafana system
+raw_sql -&gt; Specify the access token of the Grafana system
+ref_id -&gt; Specify the access token of the Grafana system
+interval_ms -&gt; Specify the access token of the Grafana system
+max_data_points -&gt; Specify the access token of the Grafana system
+output_format -&gt; Specify the access token of the Grafana system</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Alert:
+    # TODO Update the documentation
+    &#34;&#34;&#34;The class includes all necessary variables to establish a connection to the Grafana API endpoints
+
+    Keyword arguments:
+    datasource_id -&gt; Specify the host of the Grafana system
+    raw_sql -&gt; Specify the access token of the Grafana system
+    ref_id -&gt; Specify the access token of the Grafana system
+    interval_ms -&gt; Specify the access token of the Grafana system
+    max_data_points -&gt; Specify the access token of the Grafana system
+    output_format -&gt; Specify the access token of the Grafana system
+    &#34;&#34;&#34;
+
+    def __init__(
+            self,
+            starts_at: str,
+            ends_at: str,
+            annotations: dict,
+            generator_url: str,
+            labels: dict,
+    ):
+        self.starts_at = starts_at
+        self.ends_at = ends_at
+        self.annotations = annotations
+        self.generator_url = generator_url
+        self.labels = labels</code></pre>
+</details>
+</dd>
+<dt id="grafana_api.model.AlertmanagerConfig"><code class="flex name class">
+<span>class <span class="ident">AlertmanagerConfig</span></span>
+<span>(</span><span>global_config: dict, inhibit_rules: list, mute_time_intervals: list, receivers: list, route: dict, templates: list)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The class includes all necessary variables to establish a connection to the Grafana API endpoints</p>
+<p>Keyword arguments:
+datasource_id -&gt; Specify the host of the Grafana system
+raw_sql -&gt; Specify the access token of the Grafana system
+ref_id -&gt; Specify the access token of the Grafana system
+interval_ms -&gt; Specify the access token of the Grafana system
+max_data_points -&gt; Specify the access token of the Grafana system
+output_format -&gt; Specify the access token of the Grafana system</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AlertmanagerConfig:
+    # TODO Update the documentation
+    &#34;&#34;&#34;The class includes all necessary variables to establish a connection to the Grafana API endpoints
+
+    Keyword arguments:
+    datasource_id -&gt; Specify the host of the Grafana system
+    raw_sql -&gt; Specify the access token of the Grafana system
+    ref_id -&gt; Specify the access token of the Grafana system
+    interval_ms -&gt; Specify the access token of the Grafana system
+    max_data_points -&gt; Specify the access token of the Grafana system
+    output_format -&gt; Specify the access token of the Grafana system
+    &#34;&#34;&#34;
+
+    def __init__(
+            self,
+            global_config: dict,
+            inhibit_rules: list,
+            mute_time_intervals: list,
+            receivers: list,
+            route: dict,
+            templates: list,
+    ):
+        self.global_config = global_config
+        self.inhibit_rules = inhibit_rules
+        self.mute_time_intervals = mute_time_intervals
+        self.receivers = receivers
+        self.route = route
+        self.templates = templates</code></pre>
 </details>
 </dd>
 <dt id="grafana_api.model.DatasourceQuery"><code class="flex name class">
@@ -270,6 +483,7 @@ dashboard_model -&gt; Inject a dashboard object that includes all necessary valu
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class RequestsMethods(Enum):
+    # TODO Update the documentation
     &#34;&#34;&#34;The class includes all necessary methods to template the selected dashboard and return it as a dict
 
     Keyword arguments:
@@ -305,6 +519,53 @@ dashboard_model -&gt; Inject a dashboard object that includes all necessary valu
 </dd>
 </dl>
 </dd>
+<dt id="grafana_api.model.Silence"><code class="flex name class">
+<span>class <span class="ident">Silence</span></span>
+<span>(</span><span>starts_at: str, created_by: str, ends_at: str, comment: str, id: str, matchers: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The class includes all necessary variables to establish a connection to the Grafana API endpoints</p>
+<p>Keyword arguments:
+datasource_id -&gt; Specify the host of the Grafana system
+raw_sql -&gt; Specify the access token of the Grafana system
+ref_id -&gt; Specify the access token of the Grafana system
+interval_ms -&gt; Specify the access token of the Grafana system
+max_data_points -&gt; Specify the access token of the Grafana system
+output_format -&gt; Specify the access token of the Grafana system</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Silence:
+    # TODO Update the documentation
+    &#34;&#34;&#34;The class includes all necessary variables to establish a connection to the Grafana API endpoints
+
+    Keyword arguments:
+    datasource_id -&gt; Specify the host of the Grafana system
+    raw_sql -&gt; Specify the access token of the Grafana system
+    ref_id -&gt; Specify the access token of the Grafana system
+    interval_ms -&gt; Specify the access token of the Grafana system
+    max_data_points -&gt; Specify the access token of the Grafana system
+    output_format -&gt; Specify the access token of the Grafana system
+    &#34;&#34;&#34;
+
+    def __init__(
+            self,
+            starts_at: str,
+            created_by: str,
+            ends_at: str,
+            comment: str,
+            id: str,
+            matchers: dict,
+    ):
+        self.starts_at = starts_at
+        self.ends_at = ends_at
+        self.created_by = created_by
+        self.comment = comment
+        self.id = id
+        self.matchers = matchers</code></pre>
+</details>
+</dd>
 </dl>
 </section>
 </article>
@@ -324,17 +585,28 @@ dashboard_model -&gt; Inject a dashboard object that includes all necessary valu
 <li>
 <h4><code><a title="grafana_api.model.APIEndpoints" href="#grafana_api.model.APIEndpoints">APIEndpoints</a></code></h4>
 <ul class="two-column">
-<li><code><a title="grafana_api.model.APIEndpoints.ALERTS" href="#grafana_api.model.APIEndpoints.ALERTS">ALERTS</a></code></li>
+<li><code><a title="grafana_api.model.APIEndpoints.ALERTS_ALERTMANAGER" href="#grafana_api.model.APIEndpoints.ALERTS_ALERTMANAGER">ALERTS_ALERTMANAGER</a></code></li>
+<li><code><a title="grafana_api.model.APIEndpoints.ALERTS_NGALERT" href="#grafana_api.model.APIEndpoints.ALERTS_NGALERT">ALERTS_NGALERT</a></code></li>
+<li><code><a title="grafana_api.model.APIEndpoints.ALERTS_PROMETHEUS" href="#grafana_api.model.APIEndpoints.ALERTS_PROMETHEUS">ALERTS_PROMETHEUS</a></code></li>
+<li><code><a title="grafana_api.model.APIEndpoints.ALERTS_RULER" href="#grafana_api.model.APIEndpoints.ALERTS_RULER">ALERTS_RULER</a></code></li>
+<li><code><a title="grafana_api.model.APIEndpoints.ALERTS_TESTING" href="#grafana_api.model.APIEndpoints.ALERTS_TESTING">ALERTS_TESTING</a></code></li>
 <li><code><a title="grafana_api.model.APIEndpoints.ALERT_NOTIFICATIONS" href="#grafana_api.model.APIEndpoints.ALERT_NOTIFICATIONS">ALERT_NOTIFICATIONS</a></code></li>
 <li><code><a title="grafana_api.model.APIEndpoints.DASHBOARDS" href="#grafana_api.model.APIEndpoints.DASHBOARDS">DASHBOARDS</a></code></li>
 <li><code><a title="grafana_api.model.APIEndpoints.DATASOURCES" href="#grafana_api.model.APIEndpoints.DATASOURCES">DATASOURCES</a></code></li>
 <li><code><a title="grafana_api.model.APIEndpoints.DATASOURCE_QUERY" href="#grafana_api.model.APIEndpoints.DATASOURCE_QUERY">DATASOURCE_QUERY</a></code></li>
 <li><code><a title="grafana_api.model.APIEndpoints.FOLDERS" href="#grafana_api.model.APIEndpoints.FOLDERS">FOLDERS</a></code></li>
+<li><code><a title="grafana_api.model.APIEndpoints.LEGACY_ALERTS" href="#grafana_api.model.APIEndpoints.LEGACY_ALERTS">LEGACY_ALERTS</a></code></li>
 <li><code><a title="grafana_api.model.APIEndpoints.SEARCH" href="#grafana_api.model.APIEndpoints.SEARCH">SEARCH</a></code></li>
 </ul>
 </li>
 <li>
 <h4><code><a title="grafana_api.model.APIModel" href="#grafana_api.model.APIModel">APIModel</a></code></h4>
+</li>
+<li>
+<h4><code><a title="grafana_api.model.Alert" href="#grafana_api.model.Alert">Alert</a></code></h4>
+</li>
+<li>
+<h4><code><a title="grafana_api.model.AlertmanagerConfig" href="#grafana_api.model.AlertmanagerConfig">AlertmanagerConfig</a></code></h4>
 </li>
 <li>
 <h4><code><a title="grafana_api.model.DatasourceQuery" href="#grafana_api.model.DatasourceQuery">DatasourceQuery</a></code></h4>
@@ -347,6 +619,9 @@ dashboard_model -&gt; Inject a dashboard object that includes all necessary valu
 <li><code><a title="grafana_api.model.RequestsMethods.POST" href="#grafana_api.model.RequestsMethods.POST">POST</a></code></li>
 <li><code><a title="grafana_api.model.RequestsMethods.PUT" href="#grafana_api.model.RequestsMethods.PUT">PUT</a></code></li>
 </ul>
+</li>
+<li>
+<h4><code><a title="grafana_api.model.Silence" href="#grafana_api.model.Silence">Silence</a></code></h4>
 </li>
 </ul>
 </li>
