@@ -1,4 +1,3 @@
-import datetime
 from enum import Enum
 
 ERROR_MESSAGES: list = ["invalid API key"]
@@ -173,3 +172,43 @@ class AlertmanagerConfig:
         self.receivers = receivers
         self.route = route
         self.templates = templates
+
+
+class AlertmanagerReceivers:
+    # TODO Update the documentation
+    """The class includes all necessary variables to establish a connection to the Grafana API endpoints
+
+    Keyword arguments:
+    datasource_id -> Specify the host of the Grafana system
+    raw_sql -> Specify the access token of the Grafana system
+    ref_id -> Specify the access token of the Grafana system
+    interval_ms -> Specify the access token of the Grafana system
+    max_data_points -> Specify the access token of the Grafana system
+    output_format -> Specify the access token of the Grafana system
+    """
+
+    def __init__(
+            self,
+            name: str,
+            email_configs: list,
+            grafana_managed_receiver_configs: list,
+            opsgenie_configs: list,
+            pagerduty_configs: list,
+            pushover_configs: list,
+            slack_configs: list,
+            sns_configs: list,
+            victorops_configs: list,
+            webhook_configs: list,
+            wechat_configs: list,
+    ):
+        self.name = name
+        self.email_configs = email_configs
+        self.grafana_managed_receiver_configs = grafana_managed_receiver_configs
+        self.opsgenie_configs = opsgenie_configs
+        self.pagerduty_configs = pagerduty_configs
+        self.pushover_configs = pushover_configs
+        self.slack_configs = slack_configs
+        self.sns_configs = sns_configs
+        self.victorops_configs = victorops_configs
+        self.webhook_configs = webhook_configs
+        self.wechat_configs = wechat_configs

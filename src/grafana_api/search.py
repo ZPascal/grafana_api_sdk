@@ -19,7 +19,7 @@ class Search:
         search_query -> Specify the inserted query as string
         """
 
-        result: list = Utils(self.grafana_api_model).call_the_api(search_query)
+        result: list = Utils(self.grafana_api_model).call_the_api(search_query).json()
         if result == list():
             raise Exception
         else:

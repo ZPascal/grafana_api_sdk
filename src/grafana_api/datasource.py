@@ -29,7 +29,7 @@ class Datasource:
         api_call: list = Utils(self.grafana_api_model).call_the_api(
             APIEndpoints.DATASOURCES.value,
             RequestsMethods.GET,
-        )
+        ).json()
 
         if api_call == list() or api_call[0].get("id") is None:
             logging.error(f"Check the error: {api_call}.")
@@ -44,7 +44,7 @@ class Datasource:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/{datasource_id}",
                 RequestsMethods.GET,
-            )
+            ).json()
 
             if api_call == dict() or api_call.get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
@@ -64,7 +64,7 @@ class Datasource:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/uid/{uid}",
                 RequestsMethods.GET,
-            )
+            ).json()
 
             if api_call == dict() or api_call.get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
@@ -84,7 +84,7 @@ class Datasource:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/name/{name}",
                 RequestsMethods.GET,
-            )
+            ).json()
 
             if api_call == dict() or api_call.get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
@@ -104,7 +104,7 @@ class Datasource:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/id/{name}",
                 RequestsMethods.GET,
-            )
+            ).json()
 
             if api_call == dict() or api_call.get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
@@ -128,7 +128,7 @@ class Datasource:
                 APIEndpoints.DATASOURCES.value,
                 RequestsMethods.POST,
                 json.dumps(data_source)
-            )
+            ).json()
 
             if api_call.get("message") != "Datasource added":
                 logging.error(f"Check the error: {api_call}.")
@@ -152,7 +152,7 @@ class Datasource:
                 f"{APIEndpoints.DATASOURCES.value}/{datasource_id}",
                 RequestsMethods.PUT,
                 json.dumps(data_source)
-            )
+            ).json()
 
             if api_call.get("message") != "Datasource updated":
                 logging.error(f"Check the error: {api_call}.")
@@ -175,7 +175,7 @@ class Datasource:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/{datasource_id}",
                 RequestsMethods.DELETE,
-            )
+            ).json()
 
             if api_call.get("message") != "Data source deleted":
                 logging.error(f"Check the error: {api_call}.")
@@ -198,7 +198,7 @@ class Datasource:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/uid/{uid}",
                 RequestsMethods.DELETE,
-            )
+            ).json()
 
             if api_call.get("message") != "Data source deleted":
                 logging.error(f"Check the error: {api_call}.")
@@ -221,7 +221,7 @@ class Datasource:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/name/{name}",
                 RequestsMethods.DELETE,
-            )
+            ).json()
 
             if api_call.get("message") != "Data source deleted":
                 logging.error(f"Check the error: {api_call}.")
@@ -256,7 +256,7 @@ class Datasource:
                 APIEndpoints.DATASOURCE_QUERY.value,
                 RequestsMethods.POST,
                 json.dumps(datasource_queries_json_list)
-            )
+            ).json()
 
             if api_call == dict() or api_call.get("results") == dict():
                 logging.error(f"Check the error: {api_call}.")
@@ -280,7 +280,7 @@ class Datasource:
                 f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/enable-permissions",
                 RequestsMethods.POST,
                 json.dumps({})
-            )
+            ).json()
 
             if api_call.get("message") != "Datasource permissions enabled":
                 logging.error(f"Check the error: {api_call}.")
@@ -304,7 +304,7 @@ class Datasource:
                 f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/disable-permissions",
                 RequestsMethods.POST,
                 json.dumps({})
-            )
+            ).json()
 
             if api_call.get("message") != "Datasource permissions disabled":
                 logging.error(f"Check the error: {api_call}.")
@@ -327,7 +327,7 @@ class Datasource:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions",
                 RequestsMethods.GET,
-            )
+            ).json()
 
             if api_call == dict() or api_call.get("datasourceId") is None:
                 logging.error(f"Check the error: {api_call}.")
@@ -351,8 +351,9 @@ class Datasource:
                 f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions",
                 RequestsMethods.POST,
                 json.dumps(datasource_permission)
-            )
+            ).json()
 
+            print(api_call)
             if api_call.get("message") != "Datasource permission added":
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
@@ -374,7 +375,7 @@ class Datasource:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions/{permission_id}",
                 RequestsMethods.DELETE,
-            )
+            ).json()
 
             if api_call.get("message") != "Datasource permission removed":
                 logging.error(f"Check the error: {api_call}.")

@@ -40,7 +40,7 @@ class Alerting:
             api_call: list = Utils(self.grafana_api_model).call_the_api(
                 api_string,
                 RequestsMethods.GET,
-            )
+            ).json()
 
             if api_call == list() or api_call[0].get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
@@ -74,7 +74,7 @@ class Alerting:
             api_call: list = Utils(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.LEGACY_ALERTS.value}/{dashboard_ids_string}",
                 RequestsMethods.GET,
-            )
+            ).json()
 
             if api_call == list() or api_call[0].get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
@@ -98,7 +98,7 @@ class Alerting:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.LEGACY_ALERTS.value}/{id}",
                 RequestsMethods.GET,
-            )
+            ).json()
 
             if api_call == dict() or api_call.get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
@@ -128,7 +128,7 @@ class Alerting:
                 f"{APIEndpoints.LEGACY_ALERTS.value}/{id}/pause",
                 RequestsMethods.POST,
                 json.dumps(json_complete),
-            )
+            ).json()
 
             # TODO Test the API and the result message !
             if api_call.get("message") != "alert paused" and api_call.get("message") != "alert unpaused":
