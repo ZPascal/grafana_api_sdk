@@ -1,5 +1,5 @@
 from unittest import TestCase
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, Mock, patch
 
 from src.grafana_api.model import APIModel
 from src.grafana_api.search import Search
@@ -11,7 +11,10 @@ class SearchTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         search: Search = Search(grafana_api_model=model)
 
-        call_the_api_mock.return_value = ["test"]
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=list(["test"]))
+
+        call_the_api_mock.return_value = mock
 
         self.assertEqual(["test"], search.search(search_query=MagicMock()))
 
