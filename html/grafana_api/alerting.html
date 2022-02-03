@@ -29,16 +29,21 @@
 <pre><code class="python">import json
 import logging
 
-from .model import APIModel, APIEndpoints, RequestsMethods
+from .model import APIModel, APIEndpoints, RequestsMethods, Silence, AlertmanagerConfig
 from .utils import Utils
 
-
+# https://editor.swagger.io/?url=https://raw.githubusercontent.com/grafana/grafana/main/pkg/services/ngalert/api/tooling/post.json
 # TODO Optimize the documentation
 # TODO Doc strings
 # TODO Add integrationtests
 
+
 class Alerting:
-    &#34;&#34;&#34;The class includes all necessary methods to access the Grafana alerting API endpoints
+    &#34;&#34;&#34;The class includes all necessary methods to access the Grafana datasource API endpoints. It&#39;s required that \
+    the API token got the corresponding datasource access rights. Please check the used methods docstring for the \
+    necessary access rights
+
+    HINT: Note Grafana Enterprise API add required permissions if fine-grained access control is enabled
 
     Keyword arguments:
     grafana_api_model -&gt; Inject a Grafana API model object that includes all necessary values and information
@@ -47,27 +52,139 @@ class Alerting:
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
-    def get_alerts(
-            self,
-            custom_querystring: str = None,
-    ) -&gt; list:
-        &#34;&#34;&#34;The method includes a functionality to extract
+    def get_alertmanager_alerts(self, recipient: str) -&gt; list:
+        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+        dashboard id and a version_id of the dashboard
 
         Keyword arguments:
-        custom_querystring -&gt; Specify the
+        recipient -&gt; Specify the id of the dashboard
         &#34;&#34;&#34;
 
-        api_string: str = &#34;&#34;
-
-        if custom_querystring is not None and len(custom_querystring) != 0:
-            api_string = f&#34;{APIEndpoints.ALERTS.value}/{custom_querystring}&#34;
-        elif custom_querystring is None:
-            api_string = f&#34;{APIEndpoints.ALERTS.value}&#34;
-
-        if len(api_string) != 0:
+        if len(recipient) != 0:
             api_call: list = Utils(self.grafana_api_model).call_the_api(
-                api_string,
-                RequestsMethods.GET,
+                f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/alerts&#34;,
+            )
+
+            if api_call == list() or api_call[0].get(&#34;receivers&#34;) is None:
+                logging.error(f&#34;Please, check the error: {api_call}.&#34;)
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error(&#34;There is no recipient defined.&#34;)
+            raise ValueError
+
+    def create_alertmanager_alerts(self, recipient: str, alerts: list):
+        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+        dashboard id and a version_id of the dashboard
+
+        Keyword arguments:
+        recipient -&gt; Specify the id of the dashboard
+        alerts -&gt; Specify the list of the Alert -&gt; Model objects
+        &#34;&#34;&#34;
+
+        if len(recipient) != 0 and alerts != list():
+            alerts_json_list: list = list()
+
+            for alert in alerts:
+                alert_json_dict: dict = dict({&#34;startsAt&#34;: alert.starts_at, &#34;endsAt&#34;: alert.ends_at,
+                                              &#34;generatorURL&#34;: alert.generator_url, &#34;labels&#34;: alert.labels,
+                                              &#34;annotations&#34;: alert.annotations})
+                alerts_json_list.append(alert_json_dict)
+
+            api_call: dict = Utils(self.grafana_api_model).call_the_api(
+                f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/alerts/groups&#34;,
+                RequestsMethods.POST,
+                json.dumps(alerts_json_list),
+            )
+
+            if api_call != dict():
+                logging.error(f&#34;Please, check the error: {api_call.get(&#39;msg&#39;)}.&#34;)
+                raise Exception
+            else:
+                logging.info(&#34;You successfully created alerts.&#34;)
+        else:
+            logging.error(&#34;There is no recipient or alerts defined.&#34;)
+            raise ValueError
+
+    def get_alertmanager_group_alerts(self, recipient: str) -&gt; list:
+        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+        dashboard id and a version_id of the dashboard
+
+        Keyword arguments:
+        recipient -&gt; Specify the id of the dashboard
+        &#34;&#34;&#34;
+
+        if len(recipient) != 0:
+            api_call: list = Utils(self.grafana_api_model).call_the_api(
+                f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/alerts&#34;,
+            )
+
+            if api_call == list() or api_call[0].get(&#34;alerts&#34;) is None:
+                logging.error(f&#34;Please, check the error: {api_call}.&#34;)
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error(&#34;There is no recipient defined.&#34;)
+            raise ValueError
+
+    def delete_alertmanager_silence_by_id(self, recipient: str, silence_id: str):
+        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+        dashboard id and a version_id of the dashboard
+
+        Keyword arguments:
+        recipient -&gt; Specify the id of the dashboard
+        &#34;&#34;&#34;
+
+        if len(recipient) != 0 and len(silence_id) != 0:
+            api_call: dict = Utils(self.grafana_api_model).call_the_api(
+                f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silence/{silence_id}&#34;,
+                RequestsMethods.DELETE
+            )
+
+            if api_call != dict():
+                logging.error(f&#34;Please, check the error: {api_call}.&#34;)
+                raise Exception
+            else:
+                logging.info(&#34;You successfully deleted a silence.&#34;)
+        else:
+            logging.error(&#34;There is no recipient or silence_id defined.&#34;)
+            raise ValueError
+
+    def get_alertmanager_silence_by_id(self, recipient: str, silence_id: str) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+        dashboard id and a version_id of the dashboard
+
+        Keyword arguments:
+        recipient -&gt; Specify the id of the dashboard
+        &#34;&#34;&#34;
+
+        if len(recipient) != 0 and len(silence_id) != 0:
+            api_call: dict = Utils(self.grafana_api_model).call_the_api(
+                f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silence/{silence_id}&#34;,
+            )
+
+            if api_call == dict() or api_call.get(&#34;id&#34;) is None:
+                logging.error(f&#34;Check the error: {api_call}.&#34;)
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error(&#34;There is no recipient or silence_id defined.&#34;)
+            raise ValueError
+
+    def get_alertmanager_silences(self, recipient: str) -&gt; list:
+        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+        dashboard id and a version_id of the dashboard
+
+        Keyword arguments:
+        recipient -&gt; Specify the id of the dashboard
+        &#34;&#34;&#34;
+
+        if len(recipient) != 0:
+            api_call: list = Utils(self.grafana_api_model).call_the_api(
+                f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silences&#34;,
             )
 
             if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
@@ -76,290 +193,164 @@ class Alerting:
             else:
                 return api_call
         else:
-            logging.error(
-                &#34;Please, check the functionality. An unexpected error occurred.&#34;
-            )
+            logging.error(&#34;There is no recipient defined.&#34;)
             raise ValueError
 
-    def get_alerts_by_dashboard_ids(
-            self,
-            dashboard_ids: list,
-    ) -&gt; list:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+    def create_alertmanager_silence(self, recipient: str, silence: Silence) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+        dashboard id and a version_id of the dashboard
 
         Keyword arguments:
-        dashboard_ids -&gt; Specify the
+        recipient -&gt; Specify the id of the dashboard
         &#34;&#34;&#34;
 
-        if dashboard_ids != list():
-            dashboard_ids_string: str = &#34;?&#34;
-            for i in range(0, len(dashboard_ids)):
-                dashboard_ids_string = f&#34;{dashboard_ids_string}dashboardId={dashboard_ids[i]}&#34;
+        if len(recipient) != 0 or silence != Silence:
+            silence_json_dict: dict = dict({&#34;comment&#34;: silence.comment, &#34;createdBy&#34;: silence.created_by,
+                                            &#34;endsAt&#34;: silence.ends_at, &#34;id&#34;: silence.id, &#34;matchers&#34;: silence.matchers,
+                                            &#34;startsAt&#34;: silence.starts_at})
 
-                if i &lt; len(dashboard_ids) - 1:
-                    dashboard_ids_string = f&#34;{dashboard_ids_string}&amp;&#34;
-
-            api_call: list = Utils(self.grafana_api_model).call_the_api(
-                f&#34;{APIEndpoints.ALERTS.value}/{dashboard_ids_string}&#34;,
-                RequestsMethods.GET,
+            api_call: dict = Utils(self.grafana_api_model).call_the_api(
+                f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silences&#34;,
+                RequestsMethods.POST,
+                json.dumps(silence_json_dict)
             )
 
-            if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
+            if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
                 raise Exception
             else:
                 return api_call
         else:
-            logging.error(
-                &#34;There is no dashboard_ids defined.&#34;
-            )
+            logging.error(&#34;There is no recipient or silence defined.&#34;)
             raise ValueError
 
-    def get_alert_by_id(self, id: int) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+    def get_alertmanager_status(self, recipient: str) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+        dashboard id and a version_id of the dashboard
 
         Keyword arguments:
-        id -&gt; Specify the
+        recipient -&gt; Specify the id of the dashboard
         &#34;&#34;&#34;
 
-        if id != 0:
+        if len(recipient) != 0:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                f&#34;{APIEndpoints.ALERTS.value}/{id}&#34;,
-                RequestsMethods.GET,
+                f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/status&#34;,
             )
 
-            if api_call == dict() or api_call.get(&#34;id&#34;) is None:
+            if api_call == dict() or api_call.get(&#34;config&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
                 raise Exception
             else:
                 return api_call
         else:
-            logging.error(
-                &#34;There is no id defined.&#34;
-            )
+            logging.error(&#34;There is no recipient defined.&#34;)
             raise ValueError
 
-    def pause_alert_by_id(self, id: int, paused: bool = True):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+    def delete_alertmanager_config(self, recipient: str):
+        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+        dashboard id and a version_id of the dashboard
 
         Keyword arguments:
-        id -&gt; Specify the
-        paused -&gt; Specify the
+        recipient -&gt; Specify the id of the dashboard
         &#34;&#34;&#34;
 
-        if id != 0:
-            json_complete: dict = {
-                &#34;paused&#34;: paused,
-            }
+        if len(recipient) != 0:
+            api_call: dict = Utils(self.grafana_api_model).call_the_api(
+                f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/config/api/v1/alerts&#34;,
+                RequestsMethods.DELETE
+            )
+
+            if api_call != dict():
+                logging.error(f&#34;Check the error: {api_call}.&#34;)
+                raise Exception
+            else:
+                logging.info(&#34;You successfully deleted a alerting config.&#34;)
+        else:
+            logging.error(&#34;There is no recipient defined.&#34;)
+            raise ValueError
+
+    def get_alertmanager_config(self, recipient: str) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+        dashboard id and a version_id of the dashboard
+
+        Keyword arguments:
+        recipient -&gt; Specify the id of the dashboard
+        &#34;&#34;&#34;
+
+        if len(recipient) != 0:
+            api_call: dict = Utils(self.grafana_api_model).call_the_api(
+                f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/config/api/v1/alerts&#34;,
+            )
+
+            if api_call == dict() or api_call.get(&#34;alertmanager_config&#34;) is None:
+                logging.error(f&#34;Check the error: {api_call}.&#34;)
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error(&#34;There is no recipient defined.&#34;)
+            raise ValueError
+
+    def create_alertmanager_config(self, recipient: str, alertmanager_config: AlertmanagerConfig,
+                                   template_files: dict = None) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+        dashboard id and a version_id of the dashboard
+
+        Keyword arguments:
+        recipient -&gt; Specify the id of the dashboard
+        &#34;&#34;&#34;
+
+        if len(recipient) != 0 and alertmanager_config != AlertmanagerConfig:
+            alertmanager_configuration_json_dict: dict = dict()
+
+            alertmanager_configuration_json_dict[&#34;alertmanager_config&#34;] = alertmanager_config
+            if template_files is not None:
+                alertmanager_config[&#34;template_files&#34;] = template_files
 
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                f&#34;{APIEndpoints.ALERTS.value}/{id}/pause&#34;,
+                f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/config/api/v1/alerts&#34;,
                 RequestsMethods.POST,
-                json.dumps(json_complete),
+                json.dumps(alertmanager_configuration_json_dict)
             )
 
-            # TODO Test the API and the result message !
-            if api_call.get(&#34;message&#34;) != &#34;alert paused&#34; and api_call.get(&#34;message&#34;) != &#34;alert unpaused&#34;:
-                logging.error(f&#34;Check the error: {api_call}.&#34;)
-                raise Exception
-            else:
-                logging.info(api_call.get(&#34;message&#34;))
-        else:
-            logging.error(
-                &#34;There is no id defined.&#34;
-            )
-            raise ValueError
-
-    def get_all_notification_channels(self) -&gt; list:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-        api_call: list = Utils(self.grafana_api_model).call_the_api(
-            APIEndpoints.ALERT_NOTIFICATIONS.value,
-            RequestsMethods.GET,
-        )
-
-        if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
-            logging.error(f&#34;Check the error: {api_call}.&#34;)
-            raise Exception
-        else:
-            return api_call
-
-    def get_all_notification_channels_lookup(self) -&gt; list:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-        api_call: list = Utils(self.grafana_api_model).call_the_api(
-            f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/lookup&#34;,
-            RequestsMethods.GET,
-        )
-
-        if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
-            logging.error(f&#34;Check the error: {api_call}.&#34;)
-            raise Exception
-        else:
-            return api_call
-
-    def get_notification_channel_by_uid(self, uid: str) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-        if len(uid) != 0:
-            api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/uid/{uid}&#34;,
-                RequestsMethods.GET,
-            )
-
-            if api_call == dict() or api_call.get(&#34;id&#34;) is None:
+            if api_call == dict() or api_call.get(&#34;alertmanager_config&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
                 raise Exception
             else:
                 return api_call
         else:
-            logging.error(
-                &#34;There is no uid defined.&#34;
-            )
+            logging.error(&#34;There is no recipient or alertmanager_config defined.&#34;)
             raise ValueError
 
-    def get_notification_channel_by_id(self, id: int) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+    def create_alertmanager_config(self, recipient: str, alertmanager_config: AlertmanagerConfig,
+                                   template_files: dict = None):
+        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+        dashboard id and a version_id of the dashboard
 
-        if id != 0:
+        Keyword arguments:
+        recipient -&gt; Specify the id of the dashboard
+        &#34;&#34;&#34;
+
+        if len(recipient) != 0 and alertmanager_config != AlertmanagerConfig:
+            alertmanager_configuration_json_dict: dict = dict()
+
+            alertmanager_configuration_json_dict[&#34;alertmanager_config&#34;] = alertmanager_config
+            if template_files is not None:
+                alertmanager_config[&#34;template_files&#34;] = template_files
+
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/{id}&#34;,
-                RequestsMethods.GET,
-            )
-
-            if api_call == dict() or api_call.get(&#34;id&#34;) is None:
-                logging.error(f&#34;Check the error: {api_call}.&#34;)
-                raise Exception
-            else:
-                return api_call
-        else:
-            logging.error(
-                &#34;There is no uid defined.&#34;
-            )
-            raise ValueError
-
-    def create_notification_channel(self, notification_channel: dict) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-        if notification_channel != dict():
-            api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                APIEndpoints.ALERT_NOTIFICATIONS.value,
+                f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/config/api/v1/alerts&#34;,
                 RequestsMethods.POST,
-                json.dumps(notification_channel),
+                json.dumps(alertmanager_configuration_json_dict)
             )
 
-            if api_call == dict() or api_call.get(&#34;id&#34;) is None:
+            if api_call != dict():
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
                 raise Exception
             else:
-                return api_call
+                logging.info(&#34;You successfully created alerting config.&#34;)
         else:
-            logging.error(
-                &#34;There is no notification_channel defined.&#34;
-            )
-            raise ValueError
-
-    def update_notification_channel_by_uid(self, uid: str, notification_channel: dict) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-        if len(uid) != 0 and notification_channel != dict():
-            api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/uid/{uid}&#34;,
-                RequestsMethods.PUT,
-                json.dumps(notification_channel),
-            )
-
-            if api_call == dict() or api_call.get(&#34;id&#34;) is None:
-                logging.error(f&#34;Check the error: {api_call}.&#34;)
-                raise Exception
-            else:
-                return api_call
-        else:
-            logging.error(
-                &#34;There is no uid or notification_channel defined.&#34;
-            )
-            raise ValueError
-
-    def update_notification_channel_by_id(self, id: int, notification_channel: dict) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-        if id != 0 and notification_channel != dict():
-            api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/{id}&#34;,
-                RequestsMethods.PUT,
-                json.dumps(notification_channel),
-            )
-
-            if api_call == dict() or api_call.get(&#34;id&#34;) is None:
-                logging.error(f&#34;Check the error: {api_call}.&#34;)
-                raise Exception
-            else:
-                return api_call
-        else:
-            logging.error(
-                &#34;There is no id or notification_channel defined.&#34;
-            )
-            raise ValueError
-
-    def delete_notification_channel_by_uid(self, uid: str):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-        if len(uid) != 0:
-            api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/uid/{uid}&#34;,
-                RequestsMethods.DELETE,
-            )
-
-            if api_call.get(&#34;message&#34;) != &#34;Notification deleted&#34;:
-                logging.error(f&#34;Check the error: {api_call}.&#34;)
-                raise Exception
-            else:
-                logging.info(&#34;You successfully destroyed the notification channel.&#34;)
-        else:
-            logging.error(
-                &#34;There is no uid defined.&#34;
-            )
-            raise ValueError
-
-    def delete_notification_channel_by_id(self, id: int):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-        if id != 0:
-            api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/{id}&#34;,
-                RequestsMethods.DELETE,
-            )
-
-            if api_call.get(&#34;message&#34;) != &#34;Notification deleted&#34;:
-                logging.error(f&#34;Check the error: {api_call}.&#34;)
-                raise Exception
-            else:
-                logging.info(&#34;You successfully destroyed the notification channel.&#34;)
-        else:
-            logging.error(
-                &#34;There is no id defined.&#34;
-            )
-            raise ValueError
-
-    def test_notification_channel(self, notification_channel: dict):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-        if notification_channel != dict():
-            api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/test&#34;,
-                RequestsMethods.POST,
-                json.dumps(notification_channel),
-            )
-
-            if api_call.get(&#34;message&#34;) != &#34;Test notification sent&#34;:
-                logging.error(f&#34;Check the error: {api_call}.&#34;)
-                raise Exception
-            else:
-                logging.info(&#34;You successfully tested the notification channel.&#34;)
-        else:
-            logging.error(
-                &#34;There is no notification_channel defined.&#34;
-            )
+            logging.error(&#34;There is no recipient or alertmanager_config defined.&#34;)
             raise ValueError</code></pre>
 </details>
 </section>
@@ -377,7 +368,10 @@ class Alerting:
 <span>(</span><span>grafana_api_model: <a title="grafana_api.model.APIModel" href="model.html#grafana_api.model.APIModel">APIModel</a>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The class includes all necessary methods to access the Grafana alerting API endpoints</p>
+<div class="desc"><p>The class includes all necessary methods to access the Grafana datasource API endpoints. It's required that
+the API token got the corresponding datasource access rights. Please check the used methods docstring for the
+necessary access rights</p>
+<p>HINT: Note Grafana Enterprise API add required permissions if fine-grained access control is enabled</p>
 <p>Keyword arguments:
 grafana_api_model -&gt; Inject a Grafana API model object that includes all necessary values and information</p></div>
 <details class="source">
@@ -385,7 +379,11 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Alerting:
-    &#34;&#34;&#34;The class includes all necessary methods to access the Grafana alerting API endpoints
+    &#34;&#34;&#34;The class includes all necessary methods to access the Grafana datasource API endpoints. It&#39;s required that \
+    the API token got the corresponding datasource access rights. Please check the used methods docstring for the \
+    necessary access rights
+
+    HINT: Note Grafana Enterprise API add required permissions if fine-grained access control is enabled
 
     Keyword arguments:
     grafana_api_model -&gt; Inject a Grafana API model object that includes all necessary values and information
@@ -394,27 +392,139 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
-    def get_alerts(
-            self,
-            custom_querystring: str = None,
-    ) -&gt; list:
-        &#34;&#34;&#34;The method includes a functionality to extract
+    def get_alertmanager_alerts(self, recipient: str) -&gt; list:
+        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+        dashboard id and a version_id of the dashboard
 
         Keyword arguments:
-        custom_querystring -&gt; Specify the
+        recipient -&gt; Specify the id of the dashboard
         &#34;&#34;&#34;
 
-        api_string: str = &#34;&#34;
-
-        if custom_querystring is not None and len(custom_querystring) != 0:
-            api_string = f&#34;{APIEndpoints.ALERTS.value}/{custom_querystring}&#34;
-        elif custom_querystring is None:
-            api_string = f&#34;{APIEndpoints.ALERTS.value}&#34;
-
-        if len(api_string) != 0:
+        if len(recipient) != 0:
             api_call: list = Utils(self.grafana_api_model).call_the_api(
-                api_string,
-                RequestsMethods.GET,
+                f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/alerts&#34;,
+            )
+
+            if api_call == list() or api_call[0].get(&#34;receivers&#34;) is None:
+                logging.error(f&#34;Please, check the error: {api_call}.&#34;)
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error(&#34;There is no recipient defined.&#34;)
+            raise ValueError
+
+    def create_alertmanager_alerts(self, recipient: str, alerts: list):
+        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+        dashboard id and a version_id of the dashboard
+
+        Keyword arguments:
+        recipient -&gt; Specify the id of the dashboard
+        alerts -&gt; Specify the list of the Alert -&gt; Model objects
+        &#34;&#34;&#34;
+
+        if len(recipient) != 0 and alerts != list():
+            alerts_json_list: list = list()
+
+            for alert in alerts:
+                alert_json_dict: dict = dict({&#34;startsAt&#34;: alert.starts_at, &#34;endsAt&#34;: alert.ends_at,
+                                              &#34;generatorURL&#34;: alert.generator_url, &#34;labels&#34;: alert.labels,
+                                              &#34;annotations&#34;: alert.annotations})
+                alerts_json_list.append(alert_json_dict)
+
+            api_call: dict = Utils(self.grafana_api_model).call_the_api(
+                f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/alerts/groups&#34;,
+                RequestsMethods.POST,
+                json.dumps(alerts_json_list),
+            )
+
+            if api_call != dict():
+                logging.error(f&#34;Please, check the error: {api_call.get(&#39;msg&#39;)}.&#34;)
+                raise Exception
+            else:
+                logging.info(&#34;You successfully created alerts.&#34;)
+        else:
+            logging.error(&#34;There is no recipient or alerts defined.&#34;)
+            raise ValueError
+
+    def get_alertmanager_group_alerts(self, recipient: str) -&gt; list:
+        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+        dashboard id and a version_id of the dashboard
+
+        Keyword arguments:
+        recipient -&gt; Specify the id of the dashboard
+        &#34;&#34;&#34;
+
+        if len(recipient) != 0:
+            api_call: list = Utils(self.grafana_api_model).call_the_api(
+                f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/alerts&#34;,
+            )
+
+            if api_call == list() or api_call[0].get(&#34;alerts&#34;) is None:
+                logging.error(f&#34;Please, check the error: {api_call}.&#34;)
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error(&#34;There is no recipient defined.&#34;)
+            raise ValueError
+
+    def delete_alertmanager_silence_by_id(self, recipient: str, silence_id: str):
+        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+        dashboard id and a version_id of the dashboard
+
+        Keyword arguments:
+        recipient -&gt; Specify the id of the dashboard
+        &#34;&#34;&#34;
+
+        if len(recipient) != 0 and len(silence_id) != 0:
+            api_call: dict = Utils(self.grafana_api_model).call_the_api(
+                f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silence/{silence_id}&#34;,
+                RequestsMethods.DELETE
+            )
+
+            if api_call != dict():
+                logging.error(f&#34;Please, check the error: {api_call}.&#34;)
+                raise Exception
+            else:
+                logging.info(&#34;You successfully deleted a silence.&#34;)
+        else:
+            logging.error(&#34;There is no recipient or silence_id defined.&#34;)
+            raise ValueError
+
+    def get_alertmanager_silence_by_id(self, recipient: str, silence_id: str) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+        dashboard id and a version_id of the dashboard
+
+        Keyword arguments:
+        recipient -&gt; Specify the id of the dashboard
+        &#34;&#34;&#34;
+
+        if len(recipient) != 0 and len(silence_id) != 0:
+            api_call: dict = Utils(self.grafana_api_model).call_the_api(
+                f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silence/{silence_id}&#34;,
+            )
+
+            if api_call == dict() or api_call.get(&#34;id&#34;) is None:
+                logging.error(f&#34;Check the error: {api_call}.&#34;)
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error(&#34;There is no recipient or silence_id defined.&#34;)
+            raise ValueError
+
+    def get_alertmanager_silences(self, recipient: str) -&gt; list:
+        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+        dashboard id and a version_id of the dashboard
+
+        Keyword arguments:
+        recipient -&gt; Specify the id of the dashboard
+        &#34;&#34;&#34;
+
+        if len(recipient) != 0:
+            api_call: list = Utils(self.grafana_api_model).call_the_api(
+                f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silences&#34;,
             )
 
             if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
@@ -423,311 +533,288 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             else:
                 return api_call
         else:
-            logging.error(
-                &#34;Please, check the functionality. An unexpected error occurred.&#34;
-            )
+            logging.error(&#34;There is no recipient defined.&#34;)
             raise ValueError
 
-    def get_alerts_by_dashboard_ids(
-            self,
-            dashboard_ids: list,
-    ) -&gt; list:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+    def create_alertmanager_silence(self, recipient: str, silence: Silence) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+        dashboard id and a version_id of the dashboard
 
         Keyword arguments:
-        dashboard_ids -&gt; Specify the
+        recipient -&gt; Specify the id of the dashboard
         &#34;&#34;&#34;
 
-        if dashboard_ids != list():
-            dashboard_ids_string: str = &#34;?&#34;
-            for i in range(0, len(dashboard_ids)):
-                dashboard_ids_string = f&#34;{dashboard_ids_string}dashboardId={dashboard_ids[i]}&#34;
+        if len(recipient) != 0 or silence != Silence:
+            silence_json_dict: dict = dict({&#34;comment&#34;: silence.comment, &#34;createdBy&#34;: silence.created_by,
+                                            &#34;endsAt&#34;: silence.ends_at, &#34;id&#34;: silence.id, &#34;matchers&#34;: silence.matchers,
+                                            &#34;startsAt&#34;: silence.starts_at})
 
-                if i &lt; len(dashboard_ids) - 1:
-                    dashboard_ids_string = f&#34;{dashboard_ids_string}&amp;&#34;
-
-            api_call: list = Utils(self.grafana_api_model).call_the_api(
-                f&#34;{APIEndpoints.ALERTS.value}/{dashboard_ids_string}&#34;,
-                RequestsMethods.GET,
+            api_call: dict = Utils(self.grafana_api_model).call_the_api(
+                f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silences&#34;,
+                RequestsMethods.POST,
+                json.dumps(silence_json_dict)
             )
 
-            if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
+            if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
                 raise Exception
             else:
                 return api_call
         else:
-            logging.error(
-                &#34;There is no dashboard_ids defined.&#34;
-            )
+            logging.error(&#34;There is no recipient or silence defined.&#34;)
             raise ValueError
 
-    def get_alert_by_id(self, id: int) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+    def get_alertmanager_status(self, recipient: str) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+        dashboard id and a version_id of the dashboard
 
         Keyword arguments:
-        id -&gt; Specify the
+        recipient -&gt; Specify the id of the dashboard
         &#34;&#34;&#34;
 
-        if id != 0:
+        if len(recipient) != 0:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                f&#34;{APIEndpoints.ALERTS.value}/{id}&#34;,
-                RequestsMethods.GET,
+                f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/status&#34;,
             )
 
-            if api_call == dict() or api_call.get(&#34;id&#34;) is None:
+            if api_call == dict() or api_call.get(&#34;config&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
                 raise Exception
             else:
                 return api_call
         else:
-            logging.error(
-                &#34;There is no id defined.&#34;
-            )
+            logging.error(&#34;There is no recipient defined.&#34;)
             raise ValueError
 
-    def pause_alert_by_id(self, id: int, paused: bool = True):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+    def delete_alertmanager_config(self, recipient: str):
+        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+        dashboard id and a version_id of the dashboard
 
         Keyword arguments:
-        id -&gt; Specify the
-        paused -&gt; Specify the
+        recipient -&gt; Specify the id of the dashboard
         &#34;&#34;&#34;
 
-        if id != 0:
-            json_complete: dict = {
-                &#34;paused&#34;: paused,
-            }
+        if len(recipient) != 0:
+            api_call: dict = Utils(self.grafana_api_model).call_the_api(
+                f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/config/api/v1/alerts&#34;,
+                RequestsMethods.DELETE
+            )
+
+            if api_call != dict():
+                logging.error(f&#34;Check the error: {api_call}.&#34;)
+                raise Exception
+            else:
+                logging.info(&#34;You successfully deleted a alerting config.&#34;)
+        else:
+            logging.error(&#34;There is no recipient defined.&#34;)
+            raise ValueError
+
+    def get_alertmanager_config(self, recipient: str) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+        dashboard id and a version_id of the dashboard
+
+        Keyword arguments:
+        recipient -&gt; Specify the id of the dashboard
+        &#34;&#34;&#34;
+
+        if len(recipient) != 0:
+            api_call: dict = Utils(self.grafana_api_model).call_the_api(
+                f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/config/api/v1/alerts&#34;,
+            )
+
+            if api_call == dict() or api_call.get(&#34;alertmanager_config&#34;) is None:
+                logging.error(f&#34;Check the error: {api_call}.&#34;)
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error(&#34;There is no recipient defined.&#34;)
+            raise ValueError
+
+    def create_alertmanager_config(self, recipient: str, alertmanager_config: AlertmanagerConfig,
+                                   template_files: dict = None) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+        dashboard id and a version_id of the dashboard
+
+        Keyword arguments:
+        recipient -&gt; Specify the id of the dashboard
+        &#34;&#34;&#34;
+
+        if len(recipient) != 0 and alertmanager_config != AlertmanagerConfig:
+            alertmanager_configuration_json_dict: dict = dict()
+
+            alertmanager_configuration_json_dict[&#34;alertmanager_config&#34;] = alertmanager_config
+            if template_files is not None:
+                alertmanager_config[&#34;template_files&#34;] = template_files
 
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                f&#34;{APIEndpoints.ALERTS.value}/{id}/pause&#34;,
+                f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/config/api/v1/alerts&#34;,
                 RequestsMethods.POST,
-                json.dumps(json_complete),
+                json.dumps(alertmanager_configuration_json_dict)
             )
 
-            # TODO Test the API and the result message !
-            if api_call.get(&#34;message&#34;) != &#34;alert paused&#34; and api_call.get(&#34;message&#34;) != &#34;alert unpaused&#34;:
-                logging.error(f&#34;Check the error: {api_call}.&#34;)
-                raise Exception
-            else:
-                logging.info(api_call.get(&#34;message&#34;))
-        else:
-            logging.error(
-                &#34;There is no id defined.&#34;
-            )
-            raise ValueError
-
-    def get_all_notification_channels(self) -&gt; list:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-        api_call: list = Utils(self.grafana_api_model).call_the_api(
-            APIEndpoints.ALERT_NOTIFICATIONS.value,
-            RequestsMethods.GET,
-        )
-
-        if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
-            logging.error(f&#34;Check the error: {api_call}.&#34;)
-            raise Exception
-        else:
-            return api_call
-
-    def get_all_notification_channels_lookup(self) -&gt; list:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-        api_call: list = Utils(self.grafana_api_model).call_the_api(
-            f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/lookup&#34;,
-            RequestsMethods.GET,
-        )
-
-        if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
-            logging.error(f&#34;Check the error: {api_call}.&#34;)
-            raise Exception
-        else:
-            return api_call
-
-    def get_notification_channel_by_uid(self, uid: str) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-        if len(uid) != 0:
-            api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/uid/{uid}&#34;,
-                RequestsMethods.GET,
-            )
-
-            if api_call == dict() or api_call.get(&#34;id&#34;) is None:
+            if api_call == dict() or api_call.get(&#34;alertmanager_config&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
                 raise Exception
             else:
                 return api_call
         else:
-            logging.error(
-                &#34;There is no uid defined.&#34;
-            )
+            logging.error(&#34;There is no recipient or alertmanager_config defined.&#34;)
             raise ValueError
 
-    def get_notification_channel_by_id(self, id: int) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+    def create_alertmanager_config(self, recipient: str, alertmanager_config: AlertmanagerConfig,
+                                   template_files: dict = None):
+        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+        dashboard id and a version_id of the dashboard
 
-        if id != 0:
+        Keyword arguments:
+        recipient -&gt; Specify the id of the dashboard
+        &#34;&#34;&#34;
+
+        if len(recipient) != 0 and alertmanager_config != AlertmanagerConfig:
+            alertmanager_configuration_json_dict: dict = dict()
+
+            alertmanager_configuration_json_dict[&#34;alertmanager_config&#34;] = alertmanager_config
+            if template_files is not None:
+                alertmanager_config[&#34;template_files&#34;] = template_files
+
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/{id}&#34;,
-                RequestsMethods.GET,
-            )
-
-            if api_call == dict() or api_call.get(&#34;id&#34;) is None:
-                logging.error(f&#34;Check the error: {api_call}.&#34;)
-                raise Exception
-            else:
-                return api_call
-        else:
-            logging.error(
-                &#34;There is no uid defined.&#34;
-            )
-            raise ValueError
-
-    def create_notification_channel(self, notification_channel: dict) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-        if notification_channel != dict():
-            api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                APIEndpoints.ALERT_NOTIFICATIONS.value,
+                f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/config/api/v1/alerts&#34;,
                 RequestsMethods.POST,
-                json.dumps(notification_channel),
+                json.dumps(alertmanager_configuration_json_dict)
             )
 
-            if api_call == dict() or api_call.get(&#34;id&#34;) is None:
+            if api_call != dict():
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
                 raise Exception
             else:
-                return api_call
+                logging.info(&#34;You successfully created alerting config.&#34;)
         else:
-            logging.error(
-                &#34;There is no notification_channel defined.&#34;
-            )
-            raise ValueError
-
-    def update_notification_channel_by_uid(self, uid: str, notification_channel: dict) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-        if len(uid) != 0 and notification_channel != dict():
-            api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/uid/{uid}&#34;,
-                RequestsMethods.PUT,
-                json.dumps(notification_channel),
-            )
-
-            if api_call == dict() or api_call.get(&#34;id&#34;) is None:
-                logging.error(f&#34;Check the error: {api_call}.&#34;)
-                raise Exception
-            else:
-                return api_call
-        else:
-            logging.error(
-                &#34;There is no uid or notification_channel defined.&#34;
-            )
-            raise ValueError
-
-    def update_notification_channel_by_id(self, id: int, notification_channel: dict) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-        if id != 0 and notification_channel != dict():
-            api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/{id}&#34;,
-                RequestsMethods.PUT,
-                json.dumps(notification_channel),
-            )
-
-            if api_call == dict() or api_call.get(&#34;id&#34;) is None:
-                logging.error(f&#34;Check the error: {api_call}.&#34;)
-                raise Exception
-            else:
-                return api_call
-        else:
-            logging.error(
-                &#34;There is no id or notification_channel defined.&#34;
-            )
-            raise ValueError
-
-    def delete_notification_channel_by_uid(self, uid: str):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-        if len(uid) != 0:
-            api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/uid/{uid}&#34;,
-                RequestsMethods.DELETE,
-            )
-
-            if api_call.get(&#34;message&#34;) != &#34;Notification deleted&#34;:
-                logging.error(f&#34;Check the error: {api_call}.&#34;)
-                raise Exception
-            else:
-                logging.info(&#34;You successfully destroyed the notification channel.&#34;)
-        else:
-            logging.error(
-                &#34;There is no uid defined.&#34;
-            )
-            raise ValueError
-
-    def delete_notification_channel_by_id(self, id: int):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-        if id != 0:
-            api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/{id}&#34;,
-                RequestsMethods.DELETE,
-            )
-
-            if api_call.get(&#34;message&#34;) != &#34;Notification deleted&#34;:
-                logging.error(f&#34;Check the error: {api_call}.&#34;)
-                raise Exception
-            else:
-                logging.info(&#34;You successfully destroyed the notification channel.&#34;)
-        else:
-            logging.error(
-                &#34;There is no id defined.&#34;
-            )
-            raise ValueError
-
-    def test_notification_channel(self, notification_channel: dict):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-        if notification_channel != dict():
-            api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/test&#34;,
-                RequestsMethods.POST,
-                json.dumps(notification_channel),
-            )
-
-            if api_call.get(&#34;message&#34;) != &#34;Test notification sent&#34;:
-                logging.error(f&#34;Check the error: {api_call}.&#34;)
-                raise Exception
-            else:
-                logging.info(&#34;You successfully tested the notification channel.&#34;)
-        else:
-            logging.error(
-                &#34;There is no notification_channel defined.&#34;
-            )
+            logging.error(&#34;There is no recipient or alertmanager_config defined.&#34;)
             raise ValueError</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="grafana_api.alerting.Alerting.create_notification_channel"><code class="name flex">
-<span>def <span class="ident">create_notification_channel</span></span>(<span>self, notification_channel: dict) ‑> dict</span>
+<dt id="grafana_api.alerting.Alerting.create_alertmanager_alerts"><code class="name flex">
+<span>def <span class="ident">create_alertmanager_alerts</span></span>(<span>self, recipient: str, alerts: list)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
+<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
+dashboard id and a version_id of the dashboard</p>
+<p>Keyword arguments:
+recipient -&gt; Specify the id of the dashboard
+alerts -&gt; Specify the list of the Alert -&gt; Model objects</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def create_notification_channel(self, notification_channel: dict) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+<pre><code class="python">def create_alertmanager_alerts(self, recipient: str, alerts: list):
+    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+    dashboard id and a version_id of the dashboard
 
-    if notification_channel != dict():
+    Keyword arguments:
+    recipient -&gt; Specify the id of the dashboard
+    alerts -&gt; Specify the list of the Alert -&gt; Model objects
+    &#34;&#34;&#34;
+
+    if len(recipient) != 0 and alerts != list():
+        alerts_json_list: list = list()
+
+        for alert in alerts:
+            alert_json_dict: dict = dict({&#34;startsAt&#34;: alert.starts_at, &#34;endsAt&#34;: alert.ends_at,
+                                          &#34;generatorURL&#34;: alert.generator_url, &#34;labels&#34;: alert.labels,
+                                          &#34;annotations&#34;: alert.annotations})
+            alerts_json_list.append(alert_json_dict)
+
         api_call: dict = Utils(self.grafana_api_model).call_the_api(
-            APIEndpoints.ALERT_NOTIFICATIONS.value,
+            f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/alerts/groups&#34;,
             RequestsMethods.POST,
-            json.dumps(notification_channel),
+            json.dumps(alerts_json_list),
+        )
+
+        if api_call != dict():
+            logging.error(f&#34;Please, check the error: {api_call.get(&#39;msg&#39;)}.&#34;)
+            raise Exception
+        else:
+            logging.info(&#34;You successfully created alerts.&#34;)
+    else:
+        logging.error(&#34;There is no recipient or alerts defined.&#34;)
+        raise ValueError</code></pre>
+</details>
+</dd>
+<dt id="grafana_api.alerting.Alerting.create_alertmanager_config"><code class="name flex">
+<span>def <span class="ident">create_alertmanager_config</span></span>(<span>self, recipient: str, alertmanager_config: <a title="grafana_api.model.AlertmanagerConfig" href="model.html#grafana_api.model.AlertmanagerConfig">AlertmanagerConfig</a>, template_files: dict = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
+dashboard id and a version_id of the dashboard</p>
+<p>Keyword arguments:
+recipient -&gt; Specify the id of the dashboard</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_alertmanager_config(self, recipient: str, alertmanager_config: AlertmanagerConfig,
+                               template_files: dict = None):
+    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+    dashboard id and a version_id of the dashboard
+
+    Keyword arguments:
+    recipient -&gt; Specify the id of the dashboard
+    &#34;&#34;&#34;
+
+    if len(recipient) != 0 and alertmanager_config != AlertmanagerConfig:
+        alertmanager_configuration_json_dict: dict = dict()
+
+        alertmanager_configuration_json_dict[&#34;alertmanager_config&#34;] = alertmanager_config
+        if template_files is not None:
+            alertmanager_config[&#34;template_files&#34;] = template_files
+
+        api_call: dict = Utils(self.grafana_api_model).call_the_api(
+            f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/config/api/v1/alerts&#34;,
+            RequestsMethods.POST,
+            json.dumps(alertmanager_configuration_json_dict)
+        )
+
+        if api_call != dict():
+            logging.error(f&#34;Check the error: {api_call}.&#34;)
+            raise Exception
+        else:
+            logging.info(&#34;You successfully created alerting config.&#34;)
+    else:
+        logging.error(&#34;There is no recipient or alertmanager_config defined.&#34;)
+        raise ValueError</code></pre>
+</details>
+</dd>
+<dt id="grafana_api.alerting.Alerting.create_alertmanager_silence"><code class="name flex">
+<span>def <span class="ident">create_alertmanager_silence</span></span>(<span>self, recipient: str, silence: <a title="grafana_api.model.Silence" href="model.html#grafana_api.model.Silence">Silence</a>) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
+dashboard id and a version_id of the dashboard</p>
+<p>Keyword arguments:
+recipient -&gt; Specify the id of the dashboard</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_alertmanager_silence(self, recipient: str, silence: Silence) -&gt; dict:
+    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+    dashboard id and a version_id of the dashboard
+
+    Keyword arguments:
+    recipient -&gt; Specify the id of the dashboard
+    &#34;&#34;&#34;
+
+    if len(recipient) != 0 or silence != Silence:
+        silence_json_dict: dict = dict({&#34;comment&#34;: silence.comment, &#34;createdBy&#34;: silence.created_by,
+                                        &#34;endsAt&#34;: silence.ends_at, &#34;id&#34;: silence.id, &#34;matchers&#34;: silence.matchers,
+                                        &#34;startsAt&#34;: silence.starts_at})
+
+        api_call: dict = Utils(self.grafana_api_model).call_the_api(
+            f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silences&#34;,
+            RequestsMethods.POST,
+            json.dumps(silence_json_dict)
         )
 
         if api_call == dict() or api_call.get(&#34;id&#34;) is None:
@@ -736,140 +823,245 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         else:
             return api_call
     else:
-        logging.error(
-            &#34;There is no notification_channel defined.&#34;
-        )
+        logging.error(&#34;There is no recipient or silence defined.&#34;)
         raise ValueError</code></pre>
 </details>
 </dd>
-<dt id="grafana_api.alerting.Alerting.delete_notification_channel_by_id"><code class="name flex">
-<span>def <span class="ident">delete_notification_channel_by_id</span></span>(<span>self, id: int)</span>
+<dt id="grafana_api.alerting.Alerting.delete_alertmanager_config"><code class="name flex">
+<span>def <span class="ident">delete_alertmanager_config</span></span>(<span>self, recipient: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def delete_notification_channel_by_id(self, id: int):
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-    if id != 0:
-        api_call: dict = Utils(self.grafana_api_model).call_the_api(
-            f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/{id}&#34;,
-            RequestsMethods.DELETE,
-        )
-
-        if api_call.get(&#34;message&#34;) != &#34;Notification deleted&#34;:
-            logging.error(f&#34;Check the error: {api_call}.&#34;)
-            raise Exception
-        else:
-            logging.info(&#34;You successfully destroyed the notification channel.&#34;)
-    else:
-        logging.error(
-            &#34;There is no id defined.&#34;
-        )
-        raise ValueError</code></pre>
-</details>
-</dd>
-<dt id="grafana_api.alerting.Alerting.delete_notification_channel_by_uid"><code class="name flex">
-<span>def <span class="ident">delete_notification_channel_by_uid</span></span>(<span>self, uid: str)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def delete_notification_channel_by_uid(self, uid: str):
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-    if len(uid) != 0:
-        api_call: dict = Utils(self.grafana_api_model).call_the_api(
-            f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/uid/{uid}&#34;,
-            RequestsMethods.DELETE,
-        )
-
-        if api_call.get(&#34;message&#34;) != &#34;Notification deleted&#34;:
-            logging.error(f&#34;Check the error: {api_call}.&#34;)
-            raise Exception
-        else:
-            logging.info(&#34;You successfully destroyed the notification channel.&#34;)
-    else:
-        logging.error(
-            &#34;There is no uid defined.&#34;
-        )
-        raise ValueError</code></pre>
-</details>
-</dd>
-<dt id="grafana_api.alerting.Alerting.get_alert_by_id"><code class="name flex">
-<span>def <span class="ident">get_alert_by_id</span></span>(<span>self, id: int) ‑> dict</span>
-</code></dt>
-<dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p>
+<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
+dashboard id and a version_id of the dashboard</p>
 <p>Keyword arguments:
-id -&gt; Specify the</p></div>
+recipient -&gt; Specify the id of the dashboard</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_alert_by_id(self, id: int) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+<pre><code class="python">def delete_alertmanager_config(self, recipient: str):
+    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+    dashboard id and a version_id of the dashboard
 
     Keyword arguments:
-    id -&gt; Specify the
+    recipient -&gt; Specify the id of the dashboard
     &#34;&#34;&#34;
 
-    if id != 0:
+    if len(recipient) != 0:
         api_call: dict = Utils(self.grafana_api_model).call_the_api(
-            f&#34;{APIEndpoints.ALERTS.value}/{id}&#34;,
-            RequestsMethods.GET,
+            f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/config/api/v1/alerts&#34;,
+            RequestsMethods.DELETE
         )
 
-        if api_call == dict() or api_call.get(&#34;id&#34;) is None:
+        if api_call != dict():
             logging.error(f&#34;Check the error: {api_call}.&#34;)
             raise Exception
         else:
-            return api_call
+            logging.info(&#34;You successfully deleted a alerting config.&#34;)
     else:
-        logging.error(
-            &#34;There is no id defined.&#34;
-        )
+        logging.error(&#34;There is no recipient defined.&#34;)
         raise ValueError</code></pre>
 </details>
 </dd>
-<dt id="grafana_api.alerting.Alerting.get_alerts"><code class="name flex">
-<span>def <span class="ident">get_alerts</span></span>(<span>self, custom_querystring: str = None) ‑> list</span>
+<dt id="grafana_api.alerting.Alerting.delete_alertmanager_silence_by_id"><code class="name flex">
+<span>def <span class="ident">delete_alertmanager_silence_by_id</span></span>(<span>self, recipient: str, silence_id: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract</p>
+<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
+dashboard id and a version_id of the dashboard</p>
 <p>Keyword arguments:
-custom_querystring -&gt; Specify the</p></div>
+recipient -&gt; Specify the id of the dashboard</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_alerts(
-        self,
-        custom_querystring: str = None,
-) -&gt; list:
-    &#34;&#34;&#34;The method includes a functionality to extract
+<pre><code class="python">def delete_alertmanager_silence_by_id(self, recipient: str, silence_id: str):
+    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+    dashboard id and a version_id of the dashboard
 
     Keyword arguments:
-    custom_querystring -&gt; Specify the
+    recipient -&gt; Specify the id of the dashboard
     &#34;&#34;&#34;
 
-    api_string: str = &#34;&#34;
+    if len(recipient) != 0 and len(silence_id) != 0:
+        api_call: dict = Utils(self.grafana_api_model).call_the_api(
+            f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silence/{silence_id}&#34;,
+            RequestsMethods.DELETE
+        )
 
-    if custom_querystring is not None and len(custom_querystring) != 0:
-        api_string = f&#34;{APIEndpoints.ALERTS.value}/{custom_querystring}&#34;
-    elif custom_querystring is None:
-        api_string = f&#34;{APIEndpoints.ALERTS.value}&#34;
+        if api_call != dict():
+            logging.error(f&#34;Please, check the error: {api_call}.&#34;)
+            raise Exception
+        else:
+            logging.info(&#34;You successfully deleted a silence.&#34;)
+    else:
+        logging.error(&#34;There is no recipient or silence_id defined.&#34;)
+        raise ValueError</code></pre>
+</details>
+</dd>
+<dt id="grafana_api.alerting.Alerting.get_alertmanager_alerts"><code class="name flex">
+<span>def <span class="ident">get_alertmanager_alerts</span></span>(<span>self, recipient: str) ‑> list</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
+dashboard id and a version_id of the dashboard</p>
+<p>Keyword arguments:
+recipient -&gt; Specify the id of the dashboard</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_alertmanager_alerts(self, recipient: str) -&gt; list:
+    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+    dashboard id and a version_id of the dashboard
 
-    if len(api_string) != 0:
+    Keyword arguments:
+    recipient -&gt; Specify the id of the dashboard
+    &#34;&#34;&#34;
+
+    if len(recipient) != 0:
         api_call: list = Utils(self.grafana_api_model).call_the_api(
-            api_string,
-            RequestsMethods.GET,
+            f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/alerts&#34;,
+        )
+
+        if api_call == list() or api_call[0].get(&#34;receivers&#34;) is None:
+            logging.error(f&#34;Please, check the error: {api_call}.&#34;)
+            raise Exception
+        else:
+            return api_call
+    else:
+        logging.error(&#34;There is no recipient defined.&#34;)
+        raise ValueError</code></pre>
+</details>
+</dd>
+<dt id="grafana_api.alerting.Alerting.get_alertmanager_config"><code class="name flex">
+<span>def <span class="ident">get_alertmanager_config</span></span>(<span>self, recipient: str) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
+dashboard id and a version_id of the dashboard</p>
+<p>Keyword arguments:
+recipient -&gt; Specify the id of the dashboard</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_alertmanager_config(self, recipient: str) -&gt; dict:
+    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+    dashboard id and a version_id of the dashboard
+
+    Keyword arguments:
+    recipient -&gt; Specify the id of the dashboard
+    &#34;&#34;&#34;
+
+    if len(recipient) != 0:
+        api_call: dict = Utils(self.grafana_api_model).call_the_api(
+            f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/config/api/v1/alerts&#34;,
+        )
+
+        if api_call == dict() or api_call.get(&#34;alertmanager_config&#34;) is None:
+            logging.error(f&#34;Check the error: {api_call}.&#34;)
+            raise Exception
+        else:
+            return api_call
+    else:
+        logging.error(&#34;There is no recipient defined.&#34;)
+        raise ValueError</code></pre>
+</details>
+</dd>
+<dt id="grafana_api.alerting.Alerting.get_alertmanager_group_alerts"><code class="name flex">
+<span>def <span class="ident">get_alertmanager_group_alerts</span></span>(<span>self, recipient: str) ‑> list</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
+dashboard id and a version_id of the dashboard</p>
+<p>Keyword arguments:
+recipient -&gt; Specify the id of the dashboard</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_alertmanager_group_alerts(self, recipient: str) -&gt; list:
+    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+    dashboard id and a version_id of the dashboard
+
+    Keyword arguments:
+    recipient -&gt; Specify the id of the dashboard
+    &#34;&#34;&#34;
+
+    if len(recipient) != 0:
+        api_call: list = Utils(self.grafana_api_model).call_the_api(
+            f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/alerts&#34;,
+        )
+
+        if api_call == list() or api_call[0].get(&#34;alerts&#34;) is None:
+            logging.error(f&#34;Please, check the error: {api_call}.&#34;)
+            raise Exception
+        else:
+            return api_call
+    else:
+        logging.error(&#34;There is no recipient defined.&#34;)
+        raise ValueError</code></pre>
+</details>
+</dd>
+<dt id="grafana_api.alerting.Alerting.get_alertmanager_silence_by_id"><code class="name flex">
+<span>def <span class="ident">get_alertmanager_silence_by_id</span></span>(<span>self, recipient: str, silence_id: str) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
+dashboard id and a version_id of the dashboard</p>
+<p>Keyword arguments:
+recipient -&gt; Specify the id of the dashboard</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_alertmanager_silence_by_id(self, recipient: str, silence_id: str) -&gt; dict:
+    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+    dashboard id and a version_id of the dashboard
+
+    Keyword arguments:
+    recipient -&gt; Specify the id of the dashboard
+    &#34;&#34;&#34;
+
+    if len(recipient) != 0 and len(silence_id) != 0:
+        api_call: dict = Utils(self.grafana_api_model).call_the_api(
+            f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silence/{silence_id}&#34;,
+        )
+
+        if api_call == dict() or api_call.get(&#34;id&#34;) is None:
+            logging.error(f&#34;Check the error: {api_call}.&#34;)
+            raise Exception
+        else:
+            return api_call
+    else:
+        logging.error(&#34;There is no recipient or silence_id defined.&#34;)
+        raise ValueError</code></pre>
+</details>
+</dd>
+<dt id="grafana_api.alerting.Alerting.get_alertmanager_silences"><code class="name flex">
+<span>def <span class="ident">get_alertmanager_silences</span></span>(<span>self, recipient: str) ‑> list</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
+dashboard id and a version_id of the dashboard</p>
+<p>Keyword arguments:
+recipient -&gt; Specify the id of the dashboard</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_alertmanager_silences(self, recipient: str) -&gt; list:
+    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+    dashboard id and a version_id of the dashboard
+
+    Keyword arguments:
+    recipient -&gt; Specify the id of the dashboard
+    &#34;&#34;&#34;
+
+    if len(recipient) != 0:
+        api_call: list = Utils(self.grafana_api_model).call_the_api(
+            f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silences&#34;,
         )
 
         if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
@@ -878,300 +1070,42 @@ custom_querystring -&gt; Specify the</p></div>
         else:
             return api_call
     else:
-        logging.error(
-            &#34;Please, check the functionality. An unexpected error occurred.&#34;
-        )
+        logging.error(&#34;There is no recipient defined.&#34;)
         raise ValueError</code></pre>
 </details>
 </dd>
-<dt id="grafana_api.alerting.Alerting.get_alerts_by_dashboard_ids"><code class="name flex">
-<span>def <span class="ident">get_alerts_by_dashboard_ids</span></span>(<span>self, dashboard_ids: list) ‑> list</span>
+<dt id="grafana_api.alerting.Alerting.get_alertmanager_status"><code class="name flex">
+<span>def <span class="ident">get_alertmanager_status</span></span>(<span>self, recipient: str) ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p>
+<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
+dashboard id and a version_id of the dashboard</p>
 <p>Keyword arguments:
-dashboard_ids -&gt; Specify the</p></div>
+recipient -&gt; Specify the id of the dashboard</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_alerts_by_dashboard_ids(
-        self,
-        dashboard_ids: list,
-) -&gt; list:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+<pre><code class="python">def get_alertmanager_status(self, recipient: str) -&gt; dict:
+    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
+    dashboard id and a version_id of the dashboard
 
     Keyword arguments:
-    dashboard_ids -&gt; Specify the
+    recipient -&gt; Specify the id of the dashboard
     &#34;&#34;&#34;
 
-    if dashboard_ids != list():
-        dashboard_ids_string: str = &#34;?&#34;
-        for i in range(0, len(dashboard_ids)):
-            dashboard_ids_string = f&#34;{dashboard_ids_string}dashboardId={dashboard_ids[i]}&#34;
-
-            if i &lt; len(dashboard_ids) - 1:
-                dashboard_ids_string = f&#34;{dashboard_ids_string}&amp;&#34;
-
-        api_call: list = Utils(self.grafana_api_model).call_the_api(
-            f&#34;{APIEndpoints.ALERTS.value}/{dashboard_ids_string}&#34;,
-            RequestsMethods.GET,
+    if len(recipient) != 0:
+        api_call: dict = Utils(self.grafana_api_model).call_the_api(
+            f&#34;{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/status&#34;,
         )
 
-        if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
+        if api_call == dict() or api_call.get(&#34;config&#34;) is None:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
             raise Exception
         else:
             return api_call
     else:
-        logging.error(
-            &#34;There is no dashboard_ids defined.&#34;
-        )
-        raise ValueError</code></pre>
-</details>
-</dd>
-<dt id="grafana_api.alerting.Alerting.get_all_notification_channels"><code class="name flex">
-<span>def <span class="ident">get_all_notification_channels</span></span>(<span>self) ‑> list</span>
-</code></dt>
-<dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def get_all_notification_channels(self) -&gt; list:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-    api_call: list = Utils(self.grafana_api_model).call_the_api(
-        APIEndpoints.ALERT_NOTIFICATIONS.value,
-        RequestsMethods.GET,
-    )
-
-    if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
-        logging.error(f&#34;Check the error: {api_call}.&#34;)
-        raise Exception
-    else:
-        return api_call</code></pre>
-</details>
-</dd>
-<dt id="grafana_api.alerting.Alerting.get_all_notification_channels_lookup"><code class="name flex">
-<span>def <span class="ident">get_all_notification_channels_lookup</span></span>(<span>self) ‑> list</span>
-</code></dt>
-<dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def get_all_notification_channels_lookup(self) -&gt; list:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-    api_call: list = Utils(self.grafana_api_model).call_the_api(
-        f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/lookup&#34;,
-        RequestsMethods.GET,
-    )
-
-    if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
-        logging.error(f&#34;Check the error: {api_call}.&#34;)
-        raise Exception
-    else:
-        return api_call</code></pre>
-</details>
-</dd>
-<dt id="grafana_api.alerting.Alerting.get_notification_channel_by_id"><code class="name flex">
-<span>def <span class="ident">get_notification_channel_by_id</span></span>(<span>self, id: int) ‑> dict</span>
-</code></dt>
-<dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def get_notification_channel_by_id(self, id: int) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-    if id != 0:
-        api_call: dict = Utils(self.grafana_api_model).call_the_api(
-            f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/{id}&#34;,
-            RequestsMethods.GET,
-        )
-
-        if api_call == dict() or api_call.get(&#34;id&#34;) is None:
-            logging.error(f&#34;Check the error: {api_call}.&#34;)
-            raise Exception
-        else:
-            return api_call
-    else:
-        logging.error(
-            &#34;There is no uid defined.&#34;
-        )
-        raise ValueError</code></pre>
-</details>
-</dd>
-<dt id="grafana_api.alerting.Alerting.get_notification_channel_by_uid"><code class="name flex">
-<span>def <span class="ident">get_notification_channel_by_uid</span></span>(<span>self, uid: str) ‑> dict</span>
-</code></dt>
-<dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def get_notification_channel_by_uid(self, uid: str) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-    if len(uid) != 0:
-        api_call: dict = Utils(self.grafana_api_model).call_the_api(
-            f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/uid/{uid}&#34;,
-            RequestsMethods.GET,
-        )
-
-        if api_call == dict() or api_call.get(&#34;id&#34;) is None:
-            logging.error(f&#34;Check the error: {api_call}.&#34;)
-            raise Exception
-        else:
-            return api_call
-    else:
-        logging.error(
-            &#34;There is no uid defined.&#34;
-        )
-        raise ValueError</code></pre>
-</details>
-</dd>
-<dt id="grafana_api.alerting.Alerting.pause_alert_by_id"><code class="name flex">
-<span>def <span class="ident">pause_alert_by_id</span></span>(<span>self, id: int, paused: bool = True)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p>
-<p>Keyword arguments:
-id -&gt; Specify the
-paused -&gt; Specify the</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def pause_alert_by_id(self, id: int, paused: bool = True):
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
-
-    Keyword arguments:
-    id -&gt; Specify the
-    paused -&gt; Specify the
-    &#34;&#34;&#34;
-
-    if id != 0:
-        json_complete: dict = {
-            &#34;paused&#34;: paused,
-        }
-
-        api_call: dict = Utils(self.grafana_api_model).call_the_api(
-            f&#34;{APIEndpoints.ALERTS.value}/{id}/pause&#34;,
-            RequestsMethods.POST,
-            json.dumps(json_complete),
-        )
-
-        # TODO Test the API and the result message !
-        if api_call.get(&#34;message&#34;) != &#34;alert paused&#34; and api_call.get(&#34;message&#34;) != &#34;alert unpaused&#34;:
-            logging.error(f&#34;Check the error: {api_call}.&#34;)
-            raise Exception
-        else:
-            logging.info(api_call.get(&#34;message&#34;))
-    else:
-        logging.error(
-            &#34;There is no id defined.&#34;
-        )
-        raise ValueError</code></pre>
-</details>
-</dd>
-<dt id="grafana_api.alerting.Alerting.test_notification_channel"><code class="name flex">
-<span>def <span class="ident">test_notification_channel</span></span>(<span>self, notification_channel: dict)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_notification_channel(self, notification_channel: dict):
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-    if notification_channel != dict():
-        api_call: dict = Utils(self.grafana_api_model).call_the_api(
-            f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/test&#34;,
-            RequestsMethods.POST,
-            json.dumps(notification_channel),
-        )
-
-        if api_call.get(&#34;message&#34;) != &#34;Test notification sent&#34;:
-            logging.error(f&#34;Check the error: {api_call}.&#34;)
-            raise Exception
-        else:
-            logging.info(&#34;You successfully tested the notification channel.&#34;)
-    else:
-        logging.error(
-            &#34;There is no notification_channel defined.&#34;
-        )
-        raise ValueError</code></pre>
-</details>
-</dd>
-<dt id="grafana_api.alerting.Alerting.update_notification_channel_by_id"><code class="name flex">
-<span>def <span class="ident">update_notification_channel_by_id</span></span>(<span>self, id: int, notification_channel: dict) ‑> dict</span>
-</code></dt>
-<dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def update_notification_channel_by_id(self, id: int, notification_channel: dict) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-    if id != 0 and notification_channel != dict():
-        api_call: dict = Utils(self.grafana_api_model).call_the_api(
-            f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/{id}&#34;,
-            RequestsMethods.PUT,
-            json.dumps(notification_channel),
-        )
-
-        if api_call == dict() or api_call.get(&#34;id&#34;) is None:
-            logging.error(f&#34;Check the error: {api_call}.&#34;)
-            raise Exception
-        else:
-            return api_call
-    else:
-        logging.error(
-            &#34;There is no id or notification_channel defined.&#34;
-        )
-        raise ValueError</code></pre>
-</details>
-</dd>
-<dt id="grafana_api.alerting.Alerting.update_notification_channel_by_uid"><code class="name flex">
-<span>def <span class="ident">update_notification_channel_by_uid</span></span>(<span>self, uid: str, notification_channel: dict) ‑> dict</span>
-</code></dt>
-<dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def update_notification_channel_by_uid(self, uid: str, notification_channel: dict) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
-
-    if len(uid) != 0 and notification_channel != dict():
-        api_call: dict = Utils(self.grafana_api_model).call_the_api(
-            f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/uid/{uid}&#34;,
-            RequestsMethods.PUT,
-            json.dumps(notification_channel),
-        )
-
-        if api_call == dict() or api_call.get(&#34;id&#34;) is None:
-            logging.error(f&#34;Check the error: {api_call}.&#34;)
-            raise Exception
-        else:
-            return api_call
-    else:
-        logging.error(
-            &#34;There is no uid or notification_channel defined.&#34;
-        )
+        logging.error(&#34;There is no recipient defined.&#34;)
         raise ValueError</code></pre>
 </details>
 </dd>
@@ -1196,20 +1130,17 @@ paused -&gt; Specify the</p></div>
 <li>
 <h4><code><a title="grafana_api.alerting.Alerting" href="#grafana_api.alerting.Alerting">Alerting</a></code></h4>
 <ul class="">
-<li><code><a title="grafana_api.alerting.Alerting.create_notification_channel" href="#grafana_api.alerting.Alerting.create_notification_channel">create_notification_channel</a></code></li>
-<li><code><a title="grafana_api.alerting.Alerting.delete_notification_channel_by_id" href="#grafana_api.alerting.Alerting.delete_notification_channel_by_id">delete_notification_channel_by_id</a></code></li>
-<li><code><a title="grafana_api.alerting.Alerting.delete_notification_channel_by_uid" href="#grafana_api.alerting.Alerting.delete_notification_channel_by_uid">delete_notification_channel_by_uid</a></code></li>
-<li><code><a title="grafana_api.alerting.Alerting.get_alert_by_id" href="#grafana_api.alerting.Alerting.get_alert_by_id">get_alert_by_id</a></code></li>
-<li><code><a title="grafana_api.alerting.Alerting.get_alerts" href="#grafana_api.alerting.Alerting.get_alerts">get_alerts</a></code></li>
-<li><code><a title="grafana_api.alerting.Alerting.get_alerts_by_dashboard_ids" href="#grafana_api.alerting.Alerting.get_alerts_by_dashboard_ids">get_alerts_by_dashboard_ids</a></code></li>
-<li><code><a title="grafana_api.alerting.Alerting.get_all_notification_channels" href="#grafana_api.alerting.Alerting.get_all_notification_channels">get_all_notification_channels</a></code></li>
-<li><code><a title="grafana_api.alerting.Alerting.get_all_notification_channels_lookup" href="#grafana_api.alerting.Alerting.get_all_notification_channels_lookup">get_all_notification_channels_lookup</a></code></li>
-<li><code><a title="grafana_api.alerting.Alerting.get_notification_channel_by_id" href="#grafana_api.alerting.Alerting.get_notification_channel_by_id">get_notification_channel_by_id</a></code></li>
-<li><code><a title="grafana_api.alerting.Alerting.get_notification_channel_by_uid" href="#grafana_api.alerting.Alerting.get_notification_channel_by_uid">get_notification_channel_by_uid</a></code></li>
-<li><code><a title="grafana_api.alerting.Alerting.pause_alert_by_id" href="#grafana_api.alerting.Alerting.pause_alert_by_id">pause_alert_by_id</a></code></li>
-<li><code><a title="grafana_api.alerting.Alerting.test_notification_channel" href="#grafana_api.alerting.Alerting.test_notification_channel">test_notification_channel</a></code></li>
-<li><code><a title="grafana_api.alerting.Alerting.update_notification_channel_by_id" href="#grafana_api.alerting.Alerting.update_notification_channel_by_id">update_notification_channel_by_id</a></code></li>
-<li><code><a title="grafana_api.alerting.Alerting.update_notification_channel_by_uid" href="#grafana_api.alerting.Alerting.update_notification_channel_by_uid">update_notification_channel_by_uid</a></code></li>
+<li><code><a title="grafana_api.alerting.Alerting.create_alertmanager_alerts" href="#grafana_api.alerting.Alerting.create_alertmanager_alerts">create_alertmanager_alerts</a></code></li>
+<li><code><a title="grafana_api.alerting.Alerting.create_alertmanager_config" href="#grafana_api.alerting.Alerting.create_alertmanager_config">create_alertmanager_config</a></code></li>
+<li><code><a title="grafana_api.alerting.Alerting.create_alertmanager_silence" href="#grafana_api.alerting.Alerting.create_alertmanager_silence">create_alertmanager_silence</a></code></li>
+<li><code><a title="grafana_api.alerting.Alerting.delete_alertmanager_config" href="#grafana_api.alerting.Alerting.delete_alertmanager_config">delete_alertmanager_config</a></code></li>
+<li><code><a title="grafana_api.alerting.Alerting.delete_alertmanager_silence_by_id" href="#grafana_api.alerting.Alerting.delete_alertmanager_silence_by_id">delete_alertmanager_silence_by_id</a></code></li>
+<li><code><a title="grafana_api.alerting.Alerting.get_alertmanager_alerts" href="#grafana_api.alerting.Alerting.get_alertmanager_alerts">get_alertmanager_alerts</a></code></li>
+<li><code><a title="grafana_api.alerting.Alerting.get_alertmanager_config" href="#grafana_api.alerting.Alerting.get_alertmanager_config">get_alertmanager_config</a></code></li>
+<li><code><a title="grafana_api.alerting.Alerting.get_alertmanager_group_alerts" href="#grafana_api.alerting.Alerting.get_alertmanager_group_alerts">get_alertmanager_group_alerts</a></code></li>
+<li><code><a title="grafana_api.alerting.Alerting.get_alertmanager_silence_by_id" href="#grafana_api.alerting.Alerting.get_alertmanager_silence_by_id">get_alertmanager_silence_by_id</a></code></li>
+<li><code><a title="grafana_api.alerting.Alerting.get_alertmanager_silences" href="#grafana_api.alerting.Alerting.get_alertmanager_silences">get_alertmanager_silences</a></code></li>
+<li><code><a title="grafana_api.alerting.Alerting.get_alertmanager_status" href="#grafana_api.alerting.Alerting.get_alertmanager_status">get_alertmanager_status</a></code></li>
 </ul>
 </li>
 </ul>
