@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from src.grafana_api.model import APIModel, RequestsMethods, APIEndpoints
+from src.grafana_api.model import APIModel, RequestsMethods, APIEndpoints, DatasourceQuery
 
 
 class APIEndpointsTestCase(TestCase):
@@ -22,3 +22,15 @@ class APIModelTestCase(TestCase):
 
         self.assertEqual("test", model.host)
         self.assertEqual("test", model.token)
+
+
+class DatasourceQueryTestCase(TestCase):
+    def test_datasource_query_init(self):
+        datasource_query = DatasourceQuery(datasource_id=1, raw_sql="TEST")
+
+        self.assertEqual(1, datasource_query.datasource_id)
+        self.assertEqual("TEST", datasource_query.raw_sql)
+        self.assertEqual("A", datasource_query.ref_id)
+        self.assertEqual(1000, datasource_query.interval_ms)
+        self.assertEqual(100, datasource_query.max_data_points)
+        self.assertEqual("time_series", datasource_query.output_format)
