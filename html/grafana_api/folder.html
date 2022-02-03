@@ -48,7 +48,7 @@ class Folder:
 
         api_call: list = Utils(self.grafana_api_model).call_the_api(
             APIEndpoints.FOLDERS.value
-        )
+        ).json()
 
         if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
             logging.error(f&#34;Please, check the error: {api_call}.&#34;)
@@ -66,7 +66,7 @@ class Folder:
         if len(uid) != 0:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.FOLDERS.value}/{uid}&#34;
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Please, check the error: {api_call}.&#34;)
@@ -87,7 +87,7 @@ class Folder:
         if id != 0:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.FOLDERS.value}/id/{id}&#34;,
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Please, check the error: {api_call}.&#34;)
@@ -118,7 +118,7 @@ class Folder:
                 APIEndpoints.FOLDERS.value,
                 RequestsMethods.POST,
                 json.dumps(folder_information),
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Please, check the error: {api_call}.&#34;)
@@ -160,7 +160,7 @@ class Folder:
                 f&#34;{APIEndpoints.FOLDERS.value}/{uid}&#34;,
                 RequestsMethods.PUT,
                 json.dumps(folder_information),
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Please, check the error: {api_call}.&#34;)
@@ -183,7 +183,7 @@ class Folder:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.FOLDERS.value}/{uid}&#34;,
                 RequestsMethods.DELETE,
-            )
+            ).json()
 
             if &#34;Folder deleted&#34; != api_call.get(&#34;message&#34;):
                 logging.error(f&#34;Please, check the error: {api_call}.&#34;)
@@ -206,7 +206,7 @@ class Folder:
             api_call: list = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.FOLDERS.value}/{uid}/permissions&#34;,
                 RequestsMethods.GET,
-            )
+            ).json()
 
             if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
                 logging.error(f&#34;Please, check the error: {api_call}.&#34;)
@@ -231,7 +231,7 @@ class Folder:
                 f&#34;{APIEndpoints.FOLDERS.value}/{uid}/permissions&#34;,
                 RequestsMethods.POST,
                 json.dumps(permission_json),
-            )
+            ).json()
 
             if api_call.get(&#34;message&#34;) != &#34;Folder permissions updated&#34;:
                 logging.error(f&#34;Please, check the error: {api_call}.&#34;)
@@ -269,7 +269,7 @@ class Folder:
 
         folders_raw: list = Utils(self.grafana_api_model).call_the_api(
             f&#34;{APIEndpoints.SEARCH.value}?folderIds=0&#34;
-        )
+        ).json()
         folders_raw_len: int = len(folders_raw)
         folders: list = list()
 
@@ -317,7 +317,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 
         api_call: list = Utils(self.grafana_api_model).call_the_api(
             APIEndpoints.FOLDERS.value
-        )
+        ).json()
 
         if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
             logging.error(f&#34;Please, check the error: {api_call}.&#34;)
@@ -335,7 +335,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         if len(uid) != 0:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.FOLDERS.value}/{uid}&#34;
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Please, check the error: {api_call}.&#34;)
@@ -356,7 +356,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         if id != 0:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.FOLDERS.value}/id/{id}&#34;,
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Please, check the error: {api_call}.&#34;)
@@ -387,7 +387,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
                 APIEndpoints.FOLDERS.value,
                 RequestsMethods.POST,
                 json.dumps(folder_information),
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Please, check the error: {api_call}.&#34;)
@@ -429,7 +429,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
                 f&#34;{APIEndpoints.FOLDERS.value}/{uid}&#34;,
                 RequestsMethods.PUT,
                 json.dumps(folder_information),
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Please, check the error: {api_call}.&#34;)
@@ -452,7 +452,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.FOLDERS.value}/{uid}&#34;,
                 RequestsMethods.DELETE,
-            )
+            ).json()
 
             if &#34;Folder deleted&#34; != api_call.get(&#34;message&#34;):
                 logging.error(f&#34;Please, check the error: {api_call}.&#34;)
@@ -475,7 +475,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             api_call: list = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.FOLDERS.value}/{uid}/permissions&#34;,
                 RequestsMethods.GET,
-            )
+            ).json()
 
             if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
                 logging.error(f&#34;Please, check the error: {api_call}.&#34;)
@@ -500,7 +500,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
                 f&#34;{APIEndpoints.FOLDERS.value}/{uid}/permissions&#34;,
                 RequestsMethods.POST,
                 json.dumps(permission_json),
-            )
+            ).json()
 
             if api_call.get(&#34;message&#34;) != &#34;Folder permissions updated&#34;:
                 logging.error(f&#34;Please, check the error: {api_call}.&#34;)
@@ -538,7 +538,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 
         folders_raw: list = Utils(self.grafana_api_model).call_the_api(
             f&#34;{APIEndpoints.SEARCH.value}?folderIds=0&#34;
-        )
+        ).json()
         folders_raw_len: int = len(folders_raw)
         folders: list = list()
 
@@ -584,7 +584,7 @@ uid -&gt; Specify the uid of the folder (the default value is None)</p></div>
             APIEndpoints.FOLDERS.value,
             RequestsMethods.POST,
             json.dumps(folder_information),
-        )
+        ).json()
 
         if api_call == dict() or api_call.get(&#34;id&#34;) is None:
             logging.error(f&#34;Please, check the error: {api_call}.&#34;)
@@ -620,7 +620,7 @@ uid -&gt; Specify the uid of the folder</p></div>
         api_call: dict = Utils(self.grafana_api_model).call_the_api(
             f&#34;{APIEndpoints.FOLDERS.value}/{uid}&#34;,
             RequestsMethods.DELETE,
-        )
+        ).json()
 
         if &#34;Folder deleted&#34; != api_call.get(&#34;message&#34;):
             logging.error(f&#34;Please, check the error: {api_call}.&#34;)
@@ -646,7 +646,7 @@ uid -&gt; Specify the uid of the folder</p></div>
 
     folders_raw: list = Utils(self.grafana_api_model).call_the_api(
         f&#34;{APIEndpoints.SEARCH.value}?folderIds=0&#34;
-    )
+    ).json()
     folders_raw_len: int = len(folders_raw)
     folders: list = list()
 
@@ -679,7 +679,7 @@ id -&gt; Specify the id of the folder</p></div>
     if id != 0:
         api_call: dict = Utils(self.grafana_api_model).call_the_api(
             f&#34;{APIEndpoints.FOLDERS.value}/id/{id}&#34;,
-        )
+        ).json()
 
         if api_call == dict() or api_call.get(&#34;id&#34;) is None:
             logging.error(f&#34;Please, check the error: {api_call}.&#34;)
@@ -712,7 +712,7 @@ uid -&gt; Specify the uid of the folder</p></div>
     if len(uid) != 0:
         api_call: dict = Utils(self.grafana_api_model).call_the_api(
             f&#34;{APIEndpoints.FOLDERS.value}/{uid}&#34;
-        )
+        ).json()
 
         if api_call == dict() or api_call.get(&#34;id&#34;) is None:
             logging.error(f&#34;Please, check the error: {api_call}.&#34;)
@@ -780,7 +780,7 @@ uid -&gt; Specify the uid of the folder</p></div>
         api_call: list = Utils(self.grafana_api_model).call_the_api(
             f&#34;{APIEndpoints.FOLDERS.value}/{uid}/permissions&#34;,
             RequestsMethods.GET,
-        )
+        ).json()
 
         if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
             logging.error(f&#34;Please, check the error: {api_call}.&#34;)
@@ -806,7 +806,7 @@ uid -&gt; Specify the uid of the folder</p></div>
 
     api_call: list = Utils(self.grafana_api_model).call_the_api(
         APIEndpoints.FOLDERS.value
-    )
+    ).json()
 
     if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
         logging.error(f&#34;Please, check the error: {api_call}.&#34;)
@@ -861,7 +861,7 @@ overwrite -&gt; Should the already existing folder information be overwritten</p
             f&#34;{APIEndpoints.FOLDERS.value}/{uid}&#34;,
             RequestsMethods.PUT,
             json.dumps(folder_information),
-        )
+        ).json()
 
         if api_call == dict() or api_call.get(&#34;id&#34;) is None:
             logging.error(f&#34;Please, check the error: {api_call}.&#34;)
@@ -900,7 +900,7 @@ permission_json -&gt; Specify the inserted permissions as dict</p></div>
             f&#34;{APIEndpoints.FOLDERS.value}/{uid}/permissions&#34;,
             RequestsMethods.POST,
             json.dumps(permission_json),
-        )
+        ).json()
 
         if api_call.get(&#34;message&#34;) != &#34;Folder permissions updated&#34;:
             logging.error(f&#34;Please, check the error: {api_call}.&#34;)

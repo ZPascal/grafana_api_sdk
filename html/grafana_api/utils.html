@@ -65,14 +65,14 @@ class Utils:
         try:
             if method.value == RequestsMethods.GET.value:
                 return Utils.__check_the_api_call_response(
-                    requests.get(api_url, headers=headers).json()
+                    requests.get(api_url, headers=headers)
                 )
             elif method.value == RequestsMethods.PUT.value:
                 if json_complete is not None:
                     return Utils.__check_the_api_call_response(
                         requests.put(
                             api_url, data=json_complete, headers=headers
-                        ).json()
+                        )
                     )
                 else:
                     logging.error(&#34;Please define the json_complete.&#34;)
@@ -82,50 +82,7 @@ class Utils:
                     return Utils.__check_the_api_call_response(
                         requests.post(
                             api_url, data=json_complete, headers=headers
-                        ).json()
-                    )
-                else:
-                    logging.error(&#34;Please define the json_complete.&#34;)
-                    raise Exception
-            elif method.value == RequestsMethods.DELETE.value:
-                return Utils.__check_the_api_call_response(
-                    requests.delete(api_url, headers=headers).json()
-                )
-            else:
-                logging.error(&#34;Please define a valid method.&#34;)
-                raise Exception
-        except Exception as e:
-            raise e
-
-    def call_the_api_non_json_output(
-        self,
-        api_call: str,
-        method: RequestsMethods = RequestsMethods.GET,
-        json_complete: str = None,
-    ) -&gt; any:
-        &#34;&#34;&#34;The method execute a defined API call against the Grafana endpoints
-
-        Keyword arguments:
-        api_call -&gt; Specify the API call endpoint
-        method -&gt; Specify the used method
-        json_complete -&gt; Specify the inserted JSON as string
-        &#34;&#34;&#34;
-
-        api_url: str = f&#34;{self.grafana_api_model.host}{api_call}&#34;
-
-        headers: dict = {
-            &#34;Authorization&#34;: f&#34;Bearer {self.grafana_api_model.token}&#34;,
-            &#34;Content-Type&#34;: &#34;application/json&#34;,
-        }
-        try:
-            if method.value == RequestsMethods.GET.value:
-                return Utils.__check_the_api_call_response(
-                    requests.get(api_url, headers=headers)
-                )
-            elif method.value == RequestsMethods.POST.value:
-                if json_complete is not None:
-                    return Utils.__check_the_api_call_response(
-                        requests.post(api_url, data=json_complete, headers=headers)
+                        )
                     )
                 else:
                     logging.error(&#34;Please define the json_complete.&#34;)
@@ -210,14 +167,14 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         try:
             if method.value == RequestsMethods.GET.value:
                 return Utils.__check_the_api_call_response(
-                    requests.get(api_url, headers=headers).json()
+                    requests.get(api_url, headers=headers)
                 )
             elif method.value == RequestsMethods.PUT.value:
                 if json_complete is not None:
                     return Utils.__check_the_api_call_response(
                         requests.put(
                             api_url, data=json_complete, headers=headers
-                        ).json()
+                        )
                     )
                 else:
                     logging.error(&#34;Please define the json_complete.&#34;)
@@ -227,50 +184,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
                     return Utils.__check_the_api_call_response(
                         requests.post(
                             api_url, data=json_complete, headers=headers
-                        ).json()
-                    )
-                else:
-                    logging.error(&#34;Please define the json_complete.&#34;)
-                    raise Exception
-            elif method.value == RequestsMethods.DELETE.value:
-                return Utils.__check_the_api_call_response(
-                    requests.delete(api_url, headers=headers).json()
-                )
-            else:
-                logging.error(&#34;Please define a valid method.&#34;)
-                raise Exception
-        except Exception as e:
-            raise e
-
-    def call_the_api_non_json_output(
-        self,
-        api_call: str,
-        method: RequestsMethods = RequestsMethods.GET,
-        json_complete: str = None,
-    ) -&gt; any:
-        &#34;&#34;&#34;The method execute a defined API call against the Grafana endpoints
-
-        Keyword arguments:
-        api_call -&gt; Specify the API call endpoint
-        method -&gt; Specify the used method
-        json_complete -&gt; Specify the inserted JSON as string
-        &#34;&#34;&#34;
-
-        api_url: str = f&#34;{self.grafana_api_model.host}{api_call}&#34;
-
-        headers: dict = {
-            &#34;Authorization&#34;: f&#34;Bearer {self.grafana_api_model.token}&#34;,
-            &#34;Content-Type&#34;: &#34;application/json&#34;,
-        }
-        try:
-            if method.value == RequestsMethods.GET.value:
-                return Utils.__check_the_api_call_response(
-                    requests.get(api_url, headers=headers)
-                )
-            elif method.value == RequestsMethods.POST.value:
-                if json_complete is not None:
-                    return Utils.__check_the_api_call_response(
-                        requests.post(api_url, data=json_complete, headers=headers)
+                        )
                     )
                 else:
                     logging.error(&#34;Please define the json_complete.&#34;)
@@ -338,14 +252,14 @@ json_complete -&gt; Specify the inserted JSON as string</p></div>
     try:
         if method.value == RequestsMethods.GET.value:
             return Utils.__check_the_api_call_response(
-                requests.get(api_url, headers=headers).json()
+                requests.get(api_url, headers=headers)
             )
         elif method.value == RequestsMethods.PUT.value:
             if json_complete is not None:
                 return Utils.__check_the_api_call_response(
                     requests.put(
                         api_url, data=json_complete, headers=headers
-                    ).json()
+                    )
                 )
             else:
                 logging.error(&#34;Please define the json_complete.&#34;)
@@ -355,64 +269,7 @@ json_complete -&gt; Specify the inserted JSON as string</p></div>
                 return Utils.__check_the_api_call_response(
                     requests.post(
                         api_url, data=json_complete, headers=headers
-                    ).json()
-                )
-            else:
-                logging.error(&#34;Please define the json_complete.&#34;)
-                raise Exception
-        elif method.value == RequestsMethods.DELETE.value:
-            return Utils.__check_the_api_call_response(
-                requests.delete(api_url, headers=headers).json()
-            )
-        else:
-            logging.error(&#34;Please define a valid method.&#34;)
-            raise Exception
-    except Exception as e:
-        raise e</code></pre>
-</details>
-</dd>
-<dt id="grafana_api.utils.Utils.call_the_api_non_json_output"><code class="name flex">
-<span>def <span class="ident">call_the_api_non_json_output</span></span>(<span>self, api_call: str, method: <a title="grafana_api.model.RequestsMethods" href="model.html#grafana_api.model.RequestsMethods">RequestsMethods</a> = RequestsMethods.GET, json_complete: str = None) ‑> <built-in function any></span>
-</code></dt>
-<dd>
-<div class="desc"><p>The method execute a defined API call against the Grafana endpoints</p>
-<p>Keyword arguments:
-api_call -&gt; Specify the API call endpoint
-method -&gt; Specify the used method
-json_complete -&gt; Specify the inserted JSON as string</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def call_the_api_non_json_output(
-    self,
-    api_call: str,
-    method: RequestsMethods = RequestsMethods.GET,
-    json_complete: str = None,
-) -&gt; any:
-    &#34;&#34;&#34;The method execute a defined API call against the Grafana endpoints
-
-    Keyword arguments:
-    api_call -&gt; Specify the API call endpoint
-    method -&gt; Specify the used method
-    json_complete -&gt; Specify the inserted JSON as string
-    &#34;&#34;&#34;
-
-    api_url: str = f&#34;{self.grafana_api_model.host}{api_call}&#34;
-
-    headers: dict = {
-        &#34;Authorization&#34;: f&#34;Bearer {self.grafana_api_model.token}&#34;,
-        &#34;Content-Type&#34;: &#34;application/json&#34;,
-    }
-    try:
-        if method.value == RequestsMethods.GET.value:
-            return Utils.__check_the_api_call_response(
-                requests.get(api_url, headers=headers)
-            )
-        elif method.value == RequestsMethods.POST.value:
-            if json_complete is not None:
-                return Utils.__check_the_api_call_response(
-                    requests.post(api_url, data=json_complete, headers=headers)
+                    )
                 )
             else:
                 logging.error(&#34;Please define the json_complete.&#34;)
@@ -450,7 +307,6 @@ json_complete -&gt; Specify the inserted JSON as string</p></div>
 <h4><code><a title="grafana_api.utils.Utils" href="#grafana_api.utils.Utils">Utils</a></code></h4>
 <ul class="">
 <li><code><a title="grafana_api.utils.Utils.call_the_api" href="#grafana_api.utils.Utils.call_the_api">call_the_api</a></code></li>
-<li><code><a title="grafana_api.utils.Utils.call_the_api_non_json_output" href="#grafana_api.utils.Utils.call_the_api_non_json_output">call_the_api_non_json_output</a></code></li>
 </ul>
 </li>
 </ul>

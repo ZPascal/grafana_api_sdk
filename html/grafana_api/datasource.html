@@ -57,7 +57,7 @@ class Datasource:
         api_call: list = Utils(self.grafana_api_model).call_the_api(
             APIEndpoints.DATASOURCES.value,
             RequestsMethods.GET,
-        )
+        ).json()
 
         if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -72,7 +72,7 @@ class Datasource:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.DATASOURCES.value}/{datasource_id}&#34;,
                 RequestsMethods.GET,
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -92,7 +92,7 @@ class Datasource:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.DATASOURCES.value}/uid/{uid}&#34;,
                 RequestsMethods.GET,
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -112,7 +112,7 @@ class Datasource:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.DATASOURCES.value}/name/{name}&#34;,
                 RequestsMethods.GET,
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -132,7 +132,7 @@ class Datasource:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.DATASOURCES.value}/id/{name}&#34;,
                 RequestsMethods.GET,
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -156,7 +156,7 @@ class Datasource:
                 APIEndpoints.DATASOURCES.value,
                 RequestsMethods.POST,
                 json.dumps(data_source)
-            )
+            ).json()
 
             if api_call.get(&#34;message&#34;) != &#34;Datasource added&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -180,7 +180,7 @@ class Datasource:
                 f&#34;{APIEndpoints.DATASOURCES.value}/{datasource_id}&#34;,
                 RequestsMethods.PUT,
                 json.dumps(data_source)
-            )
+            ).json()
 
             if api_call.get(&#34;message&#34;) != &#34;Datasource updated&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -203,7 +203,7 @@ class Datasource:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.DATASOURCES.value}/{datasource_id}&#34;,
                 RequestsMethods.DELETE,
-            )
+            ).json()
 
             if api_call.get(&#34;message&#34;) != &#34;Data source deleted&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -226,7 +226,7 @@ class Datasource:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.DATASOURCES.value}/uid/{uid}&#34;,
                 RequestsMethods.DELETE,
-            )
+            ).json()
 
             if api_call.get(&#34;message&#34;) != &#34;Data source deleted&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -249,7 +249,7 @@ class Datasource:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.DATASOURCES.value}/name/{name}&#34;,
                 RequestsMethods.DELETE,
-            )
+            ).json()
 
             if api_call.get(&#34;message&#34;) != &#34;Data source deleted&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -284,7 +284,7 @@ class Datasource:
                 APIEndpoints.DATASOURCE_QUERY.value,
                 RequestsMethods.POST,
                 json.dumps(datasource_queries_json_list)
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;results&#34;) == dict():
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -308,7 +308,7 @@ class Datasource:
                 f&#34;{APIEndpoints.DATASOURCES.value}/{datasource_id}/enable-permissions&#34;,
                 RequestsMethods.POST,
                 json.dumps({})
-            )
+            ).json()
 
             if api_call.get(&#34;message&#34;) != &#34;Datasource permissions enabled&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -332,7 +332,7 @@ class Datasource:
                 f&#34;{APIEndpoints.DATASOURCES.value}/{datasource_id}/disable-permissions&#34;,
                 RequestsMethods.POST,
                 json.dumps({})
-            )
+            ).json()
 
             if api_call.get(&#34;message&#34;) != &#34;Datasource permissions disabled&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -355,7 +355,7 @@ class Datasource:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions&#34;,
                 RequestsMethods.GET,
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;datasourceId&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -379,8 +379,9 @@ class Datasource:
                 f&#34;{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions&#34;,
                 RequestsMethods.POST,
                 json.dumps(datasource_permission)
-            )
+            ).json()
 
+            print(api_call)
             if api_call.get(&#34;message&#34;) != &#34;Datasource permission added&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
                 raise Exception
@@ -402,7 +403,7 @@ class Datasource:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions/{permission_id}&#34;,
                 RequestsMethods.DELETE,
-            )
+            ).json()
 
             if api_call.get(&#34;message&#34;) != &#34;Datasource permission removed&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -460,7 +461,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         api_call: list = Utils(self.grafana_api_model).call_the_api(
             APIEndpoints.DATASOURCES.value,
             RequestsMethods.GET,
-        )
+        ).json()
 
         if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -475,7 +476,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.DATASOURCES.value}/{datasource_id}&#34;,
                 RequestsMethods.GET,
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -495,7 +496,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.DATASOURCES.value}/uid/{uid}&#34;,
                 RequestsMethods.GET,
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -515,7 +516,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.DATASOURCES.value}/name/{name}&#34;,
                 RequestsMethods.GET,
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -535,7 +536,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.DATASOURCES.value}/id/{name}&#34;,
                 RequestsMethods.GET,
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -559,7 +560,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
                 APIEndpoints.DATASOURCES.value,
                 RequestsMethods.POST,
                 json.dumps(data_source)
-            )
+            ).json()
 
             if api_call.get(&#34;message&#34;) != &#34;Datasource added&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -583,7 +584,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
                 f&#34;{APIEndpoints.DATASOURCES.value}/{datasource_id}&#34;,
                 RequestsMethods.PUT,
                 json.dumps(data_source)
-            )
+            ).json()
 
             if api_call.get(&#34;message&#34;) != &#34;Datasource updated&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -606,7 +607,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.DATASOURCES.value}/{datasource_id}&#34;,
                 RequestsMethods.DELETE,
-            )
+            ).json()
 
             if api_call.get(&#34;message&#34;) != &#34;Data source deleted&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -629,7 +630,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.DATASOURCES.value}/uid/{uid}&#34;,
                 RequestsMethods.DELETE,
-            )
+            ).json()
 
             if api_call.get(&#34;message&#34;) != &#34;Data source deleted&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -652,7 +653,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.DATASOURCES.value}/name/{name}&#34;,
                 RequestsMethods.DELETE,
-            )
+            ).json()
 
             if api_call.get(&#34;message&#34;) != &#34;Data source deleted&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -687,7 +688,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
                 APIEndpoints.DATASOURCE_QUERY.value,
                 RequestsMethods.POST,
                 json.dumps(datasource_queries_json_list)
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;results&#34;) == dict():
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -711,7 +712,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
                 f&#34;{APIEndpoints.DATASOURCES.value}/{datasource_id}/enable-permissions&#34;,
                 RequestsMethods.POST,
                 json.dumps({})
-            )
+            ).json()
 
             if api_call.get(&#34;message&#34;) != &#34;Datasource permissions enabled&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -735,7 +736,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
                 f&#34;{APIEndpoints.DATASOURCES.value}/{datasource_id}/disable-permissions&#34;,
                 RequestsMethods.POST,
                 json.dumps({})
-            )
+            ).json()
 
             if api_call.get(&#34;message&#34;) != &#34;Datasource permissions disabled&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -758,7 +759,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions&#34;,
                 RequestsMethods.GET,
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;datasourceId&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -782,8 +783,9 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
                 f&#34;{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions&#34;,
                 RequestsMethods.POST,
                 json.dumps(datasource_permission)
-            )
+            ).json()
 
+            print(api_call)
             if api_call.get(&#34;message&#34;) != &#34;Datasource permission added&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
                 raise Exception
@@ -805,7 +807,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions/{permission_id}&#34;,
                 RequestsMethods.DELETE,
-            )
+            ).json()
 
             if api_call.get(&#34;message&#34;) != &#34;Datasource permission removed&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -842,8 +844,9 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             f&#34;{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions&#34;,
             RequestsMethods.POST,
             json.dumps(datasource_permission)
-        )
+        ).json()
 
+        print(api_call)
         if api_call.get(&#34;message&#34;) != &#34;Datasource permission added&#34;:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
             raise Exception
@@ -877,7 +880,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             APIEndpoints.DATASOURCES.value,
             RequestsMethods.POST,
             json.dumps(data_source)
-        )
+        ).json()
 
         if api_call.get(&#34;message&#34;) != &#34;Datasource added&#34;:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -911,7 +914,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         api_call: dict = Utils(self.grafana_api_model).call_the_api(
             f&#34;{APIEndpoints.DATASOURCES.value}/{datasource_id}&#34;,
             RequestsMethods.DELETE,
-        )
+        ).json()
 
         if api_call.get(&#34;message&#34;) != &#34;Data source deleted&#34;:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -945,7 +948,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         api_call: dict = Utils(self.grafana_api_model).call_the_api(
             f&#34;{APIEndpoints.DATASOURCES.value}/name/{name}&#34;,
             RequestsMethods.DELETE,
-        )
+        ).json()
 
         if api_call.get(&#34;message&#34;) != &#34;Data source deleted&#34;:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -979,7 +982,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         api_call: dict = Utils(self.grafana_api_model).call_the_api(
             f&#34;{APIEndpoints.DATASOURCES.value}/uid/{uid}&#34;,
             RequestsMethods.DELETE,
-        )
+        ).json()
 
         if api_call.get(&#34;message&#34;) != &#34;Data source deleted&#34;:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -1014,7 +1017,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         api_call: dict = Utils(self.grafana_api_model).call_the_api(
             f&#34;{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions/{permission_id}&#34;,
             RequestsMethods.DELETE,
-        )
+        ).json()
 
         if api_call.get(&#34;message&#34;) != &#34;Datasource permission removed&#34;:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -1050,7 +1053,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             f&#34;{APIEndpoints.DATASOURCES.value}/{datasource_id}/disable-permissions&#34;,
             RequestsMethods.POST,
             json.dumps({})
-        )
+        ).json()
 
         if api_call.get(&#34;message&#34;) != &#34;Datasource permissions disabled&#34;:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -1086,7 +1089,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             f&#34;{APIEndpoints.DATASOURCES.value}/{datasource_id}/enable-permissions&#34;,
             RequestsMethods.POST,
             json.dumps({})
-        )
+        ).json()
 
         if api_call.get(&#34;message&#34;) != &#34;Datasource permissions enabled&#34;:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -1115,7 +1118,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
     api_call: list = Utils(self.grafana_api_model).call_the_api(
         APIEndpoints.DATASOURCES.value,
         RequestsMethods.GET,
-    )
+    ).json()
 
     if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
         logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -1140,7 +1143,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         api_call: dict = Utils(self.grafana_api_model).call_the_api(
             f&#34;{APIEndpoints.DATASOURCES.value}/{datasource_id}&#34;,
             RequestsMethods.GET,
-        )
+        ).json()
 
         if api_call == dict() or api_call.get(&#34;id&#34;) is None:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -1170,7 +1173,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         api_call: dict = Utils(self.grafana_api_model).call_the_api(
             f&#34;{APIEndpoints.DATASOURCES.value}/name/{name}&#34;,
             RequestsMethods.GET,
-        )
+        ).json()
 
         if api_call == dict() or api_call.get(&#34;id&#34;) is None:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -1200,7 +1203,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         api_call: dict = Utils(self.grafana_api_model).call_the_api(
             f&#34;{APIEndpoints.DATASOURCES.value}/uid/{uid}&#34;,
             RequestsMethods.GET,
-        )
+        ).json()
 
         if api_call == dict() or api_call.get(&#34;id&#34;) is None:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -1230,7 +1233,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         api_call: dict = Utils(self.grafana_api_model).call_the_api(
             f&#34;{APIEndpoints.DATASOURCES.value}/id/{name}&#34;,
             RequestsMethods.GET,
-        )
+        ).json()
 
         if api_call == dict() or api_call.get(&#34;id&#34;) is None:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -1265,7 +1268,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         api_call: dict = Utils(self.grafana_api_model).call_the_api(
             f&#34;{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions&#34;,
             RequestsMethods.GET,
-        )
+        ).json()
 
         if api_call == dict() or api_call.get(&#34;datasourceId&#34;) is None:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -1311,7 +1314,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             APIEndpoints.DATASOURCE_QUERY.value,
             RequestsMethods.POST,
             json.dumps(datasource_queries_json_list)
-        )
+        ).json()
 
         if api_call == dict() or api_call.get(&#34;results&#34;) == dict():
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -1346,7 +1349,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             f&#34;{APIEndpoints.DATASOURCES.value}/{datasource_id}&#34;,
             RequestsMethods.PUT,
             json.dumps(data_source)
-        )
+        ).json()
 
         if api_call.get(&#34;message&#34;) != &#34;Datasource updated&#34;:
             logging.error(f&#34;Check the error: {api_call}.&#34;)

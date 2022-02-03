@@ -26,8 +26,7 @@
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">import datetime
-from enum import Enum
+<pre><code class="python">from enum import Enum
 
 ERROR_MESSAGES: list = [&#34;invalid API key&#34;]
 
@@ -200,7 +199,47 @@ class AlertmanagerConfig:
         self.mute_time_intervals = mute_time_intervals
         self.receivers = receivers
         self.route = route
-        self.templates = templates</code></pre>
+        self.templates = templates
+
+
+class AlertmanagerReceivers:
+    # TODO Update the documentation
+    &#34;&#34;&#34;The class includes all necessary variables to establish a connection to the Grafana API endpoints
+
+    Keyword arguments:
+    datasource_id -&gt; Specify the host of the Grafana system
+    raw_sql -&gt; Specify the access token of the Grafana system
+    ref_id -&gt; Specify the access token of the Grafana system
+    interval_ms -&gt; Specify the access token of the Grafana system
+    max_data_points -&gt; Specify the access token of the Grafana system
+    output_format -&gt; Specify the access token of the Grafana system
+    &#34;&#34;&#34;
+
+    def __init__(
+            self,
+            name: str,
+            email_configs: list,
+            grafana_managed_receiver_configs: list,
+            opsgenie_configs: list,
+            pagerduty_configs: list,
+            pushover_configs: list,
+            slack_configs: list,
+            sns_configs: list,
+            victorops_configs: list,
+            webhook_configs: list,
+            wechat_configs: list,
+    ):
+        self.name = name
+        self.email_configs = email_configs
+        self.grafana_managed_receiver_configs = grafana_managed_receiver_configs
+        self.opsgenie_configs = opsgenie_configs
+        self.pagerduty_configs = pagerduty_configs
+        self.pushover_configs = pushover_configs
+        self.slack_configs = slack_configs
+        self.sns_configs = sns_configs
+        self.victorops_configs = victorops_configs
+        self.webhook_configs = webhook_configs
+        self.wechat_configs = wechat_configs</code></pre>
 </details>
 </section>
 <section>
@@ -423,6 +462,63 @@ output_format -&gt; Specify the access token of the Grafana system</p></div>
         self.templates = templates</code></pre>
 </details>
 </dd>
+<dt id="grafana_api.model.AlertmanagerReceivers"><code class="flex name class">
+<span>class <span class="ident">AlertmanagerReceivers</span></span>
+<span>(</span><span>name: str, email_configs: list, grafana_managed_receiver_configs: list, opsgenie_configs: list, pagerduty_configs: list, pushover_configs: list, slack_configs: list, sns_configs: list, victorops_configs: list, webhook_configs: list, wechat_configs: list)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The class includes all necessary variables to establish a connection to the Grafana API endpoints</p>
+<p>Keyword arguments:
+datasource_id -&gt; Specify the host of the Grafana system
+raw_sql -&gt; Specify the access token of the Grafana system
+ref_id -&gt; Specify the access token of the Grafana system
+interval_ms -&gt; Specify the access token of the Grafana system
+max_data_points -&gt; Specify the access token of the Grafana system
+output_format -&gt; Specify the access token of the Grafana system</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AlertmanagerReceivers:
+    # TODO Update the documentation
+    &#34;&#34;&#34;The class includes all necessary variables to establish a connection to the Grafana API endpoints
+
+    Keyword arguments:
+    datasource_id -&gt; Specify the host of the Grafana system
+    raw_sql -&gt; Specify the access token of the Grafana system
+    ref_id -&gt; Specify the access token of the Grafana system
+    interval_ms -&gt; Specify the access token of the Grafana system
+    max_data_points -&gt; Specify the access token of the Grafana system
+    output_format -&gt; Specify the access token of the Grafana system
+    &#34;&#34;&#34;
+
+    def __init__(
+            self,
+            name: str,
+            email_configs: list,
+            grafana_managed_receiver_configs: list,
+            opsgenie_configs: list,
+            pagerduty_configs: list,
+            pushover_configs: list,
+            slack_configs: list,
+            sns_configs: list,
+            victorops_configs: list,
+            webhook_configs: list,
+            wechat_configs: list,
+    ):
+        self.name = name
+        self.email_configs = email_configs
+        self.grafana_managed_receiver_configs = grafana_managed_receiver_configs
+        self.opsgenie_configs = opsgenie_configs
+        self.pagerduty_configs = pagerduty_configs
+        self.pushover_configs = pushover_configs
+        self.slack_configs = slack_configs
+        self.sns_configs = sns_configs
+        self.victorops_configs = victorops_configs
+        self.webhook_configs = webhook_configs
+        self.wechat_configs = wechat_configs</code></pre>
+</details>
+</dd>
 <dt id="grafana_api.model.DatasourceQuery"><code class="flex name class">
 <span>class <span class="ident">DatasourceQuery</span></span>
 <span>(</span><span>datasource_id: int, raw_sql: str, ref_id: str = 'A', interval_ms: int = 1000, max_data_points: int = 100, output_format: str = 'time_series')</span>
@@ -607,6 +703,9 @@ output_format -&gt; Specify the access token of the Grafana system</p></div>
 </li>
 <li>
 <h4><code><a title="grafana_api.model.AlertmanagerConfig" href="#grafana_api.model.AlertmanagerConfig">AlertmanagerConfig</a></code></h4>
+</li>
+<li>
+<h4><code><a title="grafana_api.model.AlertmanagerReceivers" href="#grafana_api.model.AlertmanagerReceivers">AlertmanagerReceivers</a></code></h4>
 </li>
 <li>
 <h4><code><a title="grafana_api.model.DatasourceQuery" href="#grafana_api.model.DatasourceQuery">DatasourceQuery</a></code></h4>

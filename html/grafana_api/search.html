@@ -47,7 +47,7 @@ class Search:
         search_query -&gt; Specify the inserted query as string
         &#34;&#34;&#34;
 
-        result: list = Utils(self.grafana_api_model).call_the_api(search_query)
+        result: list = Utils(self.grafana_api_model).call_the_api(search_query).json()
         if result == list():
             raise Exception
         else:
@@ -92,7 +92,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         search_query -&gt; Specify the inserted query as string
         &#34;&#34;&#34;
 
-        result: list = Utils(self.grafana_api_model).call_the_api(search_query)
+        result: list = Utils(self.grafana_api_model).call_the_api(search_query).json()
         if result == list():
             raise Exception
         else:
@@ -118,7 +118,7 @@ search_query -&gt; Specify the inserted query as string</p></div>
     search_query -&gt; Specify the inserted query as string
     &#34;&#34;&#34;
 
-    result: list = Utils(self.grafana_api_model).call_the_api(search_query)
+    result: list = Utils(self.grafana_api_model).call_the_api(search_query).json()
     if result == list():
         raise Exception
     else:

@@ -53,7 +53,7 @@ class AlertingNotifications:
         api_call: list = Utils(self.grafana_api_model).call_the_api(
             APIEndpoints.ALERT_NOTIFICATIONS.value,
             RequestsMethods.GET,
-        )
+        ).json()
 
         if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -67,7 +67,7 @@ class AlertingNotifications:
         api_call: list = Utils(self.grafana_api_model).call_the_api(
             f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/lookup&#34;,
             RequestsMethods.GET,
-        )
+        ).json()
 
         if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -82,7 +82,7 @@ class AlertingNotifications:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/uid/{uid}&#34;,
                 RequestsMethods.GET,
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -102,7 +102,7 @@ class AlertingNotifications:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/{id}&#34;,
                 RequestsMethods.GET,
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -123,7 +123,7 @@ class AlertingNotifications:
                 APIEndpoints.ALERT_NOTIFICATIONS.value,
                 RequestsMethods.POST,
                 json.dumps(notification_channel),
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -144,7 +144,7 @@ class AlertingNotifications:
                 f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/uid/{uid}&#34;,
                 RequestsMethods.PUT,
                 json.dumps(notification_channel),
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -165,7 +165,7 @@ class AlertingNotifications:
                 f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/{id}&#34;,
                 RequestsMethods.PUT,
                 json.dumps(notification_channel),
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -185,7 +185,7 @@ class AlertingNotifications:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/uid/{uid}&#34;,
                 RequestsMethods.DELETE,
-            )
+            ).json()
 
             if api_call.get(&#34;message&#34;) != &#34;Notification deleted&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -205,7 +205,7 @@ class AlertingNotifications:
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/{id}&#34;,
                 RequestsMethods.DELETE,
-            )
+            ).json()
 
             if api_call.get(&#34;message&#34;) != &#34;Notification deleted&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -226,7 +226,7 @@ class AlertingNotifications:
                 f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/test&#34;,
                 RequestsMethods.POST,
                 json.dumps(notification_channel),
-            )
+            ).json()
 
             if api_call.get(&#34;message&#34;) != &#34;Test notification sent&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -277,7 +277,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         api_call: list = Utils(self.grafana_api_model).call_the_api(
             APIEndpoints.ALERT_NOTIFICATIONS.value,
             RequestsMethods.GET,
-        )
+        ).json()
 
         if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -291,7 +291,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         api_call: list = Utils(self.grafana_api_model).call_the_api(
             f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/lookup&#34;,
             RequestsMethods.GET,
-        )
+        ).json()
 
         if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -306,7 +306,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/uid/{uid}&#34;,
                 RequestsMethods.GET,
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -326,7 +326,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/{id}&#34;,
                 RequestsMethods.GET,
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -347,7 +347,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
                 APIEndpoints.ALERT_NOTIFICATIONS.value,
                 RequestsMethods.POST,
                 json.dumps(notification_channel),
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -368,7 +368,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
                 f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/uid/{uid}&#34;,
                 RequestsMethods.PUT,
                 json.dumps(notification_channel),
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -389,7 +389,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
                 f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/{id}&#34;,
                 RequestsMethods.PUT,
                 json.dumps(notification_channel),
-            )
+            ).json()
 
             if api_call == dict() or api_call.get(&#34;id&#34;) is None:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -409,7 +409,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/uid/{uid}&#34;,
                 RequestsMethods.DELETE,
-            )
+            ).json()
 
             if api_call.get(&#34;message&#34;) != &#34;Notification deleted&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -429,7 +429,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             api_call: dict = Utils(self.grafana_api_model).call_the_api(
                 f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/{id}&#34;,
                 RequestsMethods.DELETE,
-            )
+            ).json()
 
             if api_call.get(&#34;message&#34;) != &#34;Notification deleted&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -450,7 +450,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
                 f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/test&#34;,
                 RequestsMethods.POST,
                 json.dumps(notification_channel),
-            )
+            ).json()
 
             if api_call.get(&#34;message&#34;) != &#34;Test notification sent&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -482,7 +482,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             APIEndpoints.ALERT_NOTIFICATIONS.value,
             RequestsMethods.POST,
             json.dumps(notification_channel),
-        )
+        ).json()
 
         if api_call == dict() or api_call.get(&#34;id&#34;) is None:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -512,7 +512,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         api_call: dict = Utils(self.grafana_api_model).call_the_api(
             f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/{id}&#34;,
             RequestsMethods.DELETE,
-        )
+        ).json()
 
         if api_call.get(&#34;message&#34;) != &#34;Notification deleted&#34;:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -542,7 +542,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         api_call: dict = Utils(self.grafana_api_model).call_the_api(
             f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/uid/{uid}&#34;,
             RequestsMethods.DELETE,
-        )
+        ).json()
 
         if api_call.get(&#34;message&#34;) != &#34;Notification deleted&#34;:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -571,7 +571,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
     api_call: list = Utils(self.grafana_api_model).call_the_api(
         APIEndpoints.ALERT_NOTIFICATIONS.value,
         RequestsMethods.GET,
-    )
+    ).json()
 
     if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
         logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -595,7 +595,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
     api_call: list = Utils(self.grafana_api_model).call_the_api(
         f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/lookup&#34;,
         RequestsMethods.GET,
-    )
+    ).json()
 
     if api_call == list() or api_call[0].get(&#34;id&#34;) is None:
         logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -620,7 +620,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         api_call: dict = Utils(self.grafana_api_model).call_the_api(
             f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/{id}&#34;,
             RequestsMethods.GET,
-        )
+        ).json()
 
         if api_call == dict() or api_call.get(&#34;id&#34;) is None:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -650,7 +650,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         api_call: dict = Utils(self.grafana_api_model).call_the_api(
             f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/uid/{uid}&#34;,
             RequestsMethods.GET,
-        )
+        ).json()
 
         if api_call == dict() or api_call.get(&#34;id&#34;) is None:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -681,7 +681,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/test&#34;,
             RequestsMethods.POST,
             json.dumps(notification_channel),
-        )
+        ).json()
 
         if api_call.get(&#34;message&#34;) != &#34;Test notification sent&#34;:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -712,7 +712,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/{id}&#34;,
             RequestsMethods.PUT,
             json.dumps(notification_channel),
-        )
+        ).json()
 
         if api_call == dict() or api_call.get(&#34;id&#34;) is None:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -743,7 +743,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             f&#34;{APIEndpoints.ALERT_NOTIFICATIONS.value}/uid/{uid}&#34;,
             RequestsMethods.PUT,
             json.dumps(notification_channel),
-        )
+        ).json()
 
         if api_call == dict() or api_call.get(&#34;id&#34;) is None:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
