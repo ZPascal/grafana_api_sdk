@@ -17,7 +17,7 @@ class DashboardTestCase(TestCase):
         folder_id_by_dashboard_path_mock.return_value = 1
 
         mock: Mock = Mock()
-        mock.json = Mock(return_value= dict({"status": "success"}))
+        mock.json = Mock(return_value=dict({"status": "success"}))
 
         call_the_api_mock.return_value = mock
 
@@ -48,7 +48,12 @@ class DashboardTestCase(TestCase):
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         folder_id_by_dashboard_path_mock.return_value = 1
-        call_the_api_mock.return_value = dict({"status": "error"})
+
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict({"status": "error"}))
+
+        call_the_api_mock.return_value = mock
+
         with self.assertRaises(Exception):
             dashboard.create_or_update_dashboard(
                 dashboard_path="test",
@@ -140,7 +145,12 @@ class DashboardTestCase(TestCase):
         dashboard_uid_and_id_by_name_and_folder_mock.return_value = dict(
             {"uid": "test", "id": 10}
         )
-        call_the_api_mock.return_value = dict({"message": "error"})
+
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict({"message": "error"}))
+
+        call_the_api_mock.return_value = mock
+
         with self.assertRaises(Exception):
             dashboard.delete_dashboard_by_name_and_path(
                 dashboard_name="test", dashboard_path="test"
@@ -262,7 +272,11 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict())
+
+        call_the_api_mock.return_value = mock
+
         with self.assertRaises(Exception):
             dashboard.get_dashboard_by_uid(uid="test")
 
@@ -290,7 +304,11 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict())
+
+        call_the_api_mock.return_value = mock
+
         with self.assertRaises(Exception):
             dashboard.get_dashboard_home()
 
@@ -313,7 +331,11 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=list())
+
+        call_the_api_mock.return_value = mock
+
         with self.assertRaises(Exception):
             dashboard.get_dashboard_tags()
 
@@ -337,7 +359,11 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=list())
+
+        call_the_api_mock.return_value = mock
+
         with self.assertRaises(Exception):
             dashboard.get_dashboard_permissions(1)
 
@@ -354,7 +380,9 @@ class DashboardTestCase(TestCase):
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Dashboard permissions updated"}))
+        mock.json = Mock(
+            return_value=dict({"message": "Dashboard permissions updated"})
+        )
 
         call_the_api_mock.return_value = mock
 
@@ -367,7 +395,11 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Error"})
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict({"message": "Error"}))
+
+        call_the_api_mock.return_value = mock
+
         with self.assertRaises(Exception):
             dashboard.update_dashboard_permissions(1, {"test": "test"})
 
@@ -395,7 +427,11 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=list())
+
+        call_the_api_mock.return_value = mock
+
         with self.assertRaises(Exception):
             dashboard.get_dashboard_versions(1)
 
@@ -423,7 +459,11 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict())
+
+        call_the_api_mock.return_value = mock
+
         with self.assertRaises(Exception):
             dashboard.get_dashboard_version(1, MagicMock())
 
@@ -453,7 +493,11 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": "error"})
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict({"status": "error"}))
+
+        call_the_api_mock.return_value = mock
+
         with self.assertRaises(Exception):
             dashboard.restore_dashboard_version(1, dict({"version": 1}))
 

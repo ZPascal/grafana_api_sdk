@@ -121,9 +121,9 @@ class UtilsTestCase(TestCase):
 
         self.assertEqual(
             "Deletion successful",
-            utils.call_the_api(api_call=MagicMock(), method=RequestsMethods.DELETE).json()[
-                "message"
-            ],
+            utils.call_the_api(
+                api_call=MagicMock(), method=RequestsMethods.DELETE
+            ).json()["message"],
         )
 
     def test_call_the_api_delete_not_valid(self):
@@ -134,6 +134,14 @@ class UtilsTestCase(TestCase):
             utils.call_the_api(api_call=MagicMock(), method=RequestsMethods.DELETE)
 
     def test_check_the_api_call_response(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        utils: Utils = Utils(grafana_api_model=model)
+
+        self.assertEqual(dict({"test": "test"}), utils._Utils__check_the_api_call_response(
+            response=dict({"test": "test"})
+        ))
+
+    def test_check_the_api_call_response_exception(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         utils: Utils = Utils(grafana_api_model=model)
 

@@ -60,6 +60,10 @@ class DashboardTest(TestCase):
             dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
             dashboard_name=os.environ["GRAFANA_DASHBOARD_NAME"],
         )
+        self.dashboard.delete_dashboard_by_name_and_path(
+            dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
+            dashboard_name=os.environ["GRAFANA_DASHBOARD_NAME"],
+        )
 
     def test_d_dashboard_creation_general_folder(self):
         with open(

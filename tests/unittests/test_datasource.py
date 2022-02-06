@@ -6,7 +6,6 @@ from src.grafana_api.datasource import Datasource
 
 
 class DatasourceTestCase(TestCase):
-
     @patch("src.grafana_api.utils.Utils.call_the_api")
     def test_get_all_datasources(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -24,7 +23,10 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = []
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=list())
+
+        call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
             datasource.get_all_datasources()
@@ -53,7 +55,10 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict())
+
+        call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
             datasource.get_datasource_by_id(1)
@@ -82,7 +87,10 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict())
+
+        call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
             datasource.get_datasource_by_uid("test")
@@ -111,7 +119,10 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict())
+
+        call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
             datasource.get_datasource_by_name("test")
@@ -140,7 +151,10 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict())
+
+        call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
             datasource.get_datasource_id_by_name("test")
@@ -169,7 +183,10 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict())
+
+        call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
             datasource.create_datasource(dict({"test": "test"}))
@@ -198,7 +215,10 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict())
+
+        call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
             datasource.update_datasource(1, dict({"test": "test"}))
@@ -227,7 +247,10 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict())
+
+        call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
             datasource.delete_datasource_by_id(1)
@@ -256,7 +279,10 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict())
+
+        call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
             datasource.delete_datasource_by_uid("test")
@@ -285,7 +311,10 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict())
+
+        call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
             datasource.delete_datasource_by_name("test")
@@ -304,7 +333,10 @@ class DatasourceTestCase(TestCase):
         datasource_queries: list = list()
         datasource_queries.append(datasource_query)
 
-        self.assertEqual(dict({"test": "test"}), datasource.query_datasource_by_id("1234", "1234", datasource_queries))
+        self.assertEqual(
+            dict({"test": "test"}),
+            datasource.query_datasource_by_id("1234", "1234", datasource_queries),
+        )
 
     def test_query_datasource_by_id_no_time(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -322,7 +354,10 @@ class DatasourceTestCase(TestCase):
         datasource_queries: list = list()
         datasource_queries.append(datasource_query)
 
-        call_the_api_mock.return_value = dict()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict())
+
+        call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
             datasource.query_datasource_by_id("1234", "1234", datasource_queries)
@@ -333,7 +368,9 @@ class DatasourceTestCase(TestCase):
         datasource: Datasource = Datasource(grafana_api_model=model)
 
         mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Datasource permissions enabled"}))
+        mock.json = Mock(
+            return_value=dict({"message": "Datasource permissions enabled"})
+        )
 
         call_the_api_mock.return_value = mock
 
@@ -351,7 +388,10 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict())
+
+        call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
             datasource.enable_datasource_permissions(1)
@@ -362,7 +402,9 @@ class DatasourceTestCase(TestCase):
         datasource: Datasource = Datasource(grafana_api_model=model)
 
         mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Datasource permissions disabled"}))
+        mock.json = Mock(
+            return_value=dict({"message": "Datasource permissions disabled"})
+        )
 
         call_the_api_mock.return_value = mock
 
@@ -376,11 +418,16 @@ class DatasourceTestCase(TestCase):
             datasource.disable_datasource_permissions(0)
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
-    def test_disable_datasource_permissions_disable_not_possible(self, call_the_api_mock):
+    def test_disable_datasource_permissions_disable_not_possible(
+        self, call_the_api_mock
+    ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict())
+
+        call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
             datasource.disable_datasource_permissions(1)
@@ -395,7 +442,9 @@ class DatasourceTestCase(TestCase):
 
         call_the_api_mock.return_value = mock
 
-        self.assertEqual(dict({"datasourceId": "Test"}), datasource.get_datasource_permissions(1))
+        self.assertEqual(
+            dict({"datasourceId": "Test"}), datasource.get_datasource_permissions(1)
+        )
 
     def test_get_datasource_permissions_no_datasource_id(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -405,11 +454,16 @@ class DatasourceTestCase(TestCase):
             datasource.get_datasource_permissions(0)
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
-    def test_get_datasource_permissions_no_datasource_permissions_available(self, call_the_api_mock):
+    def test_get_datasource_permissions_no_datasource_permissions_available(
+        self, call_the_api_mock
+    ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict())
+
+        call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
             datasource.get_datasource_permissions(1)
@@ -424,7 +478,9 @@ class DatasourceTestCase(TestCase):
 
         call_the_api_mock.return_value = mock
 
-        self.assertEqual(None, datasource.add_datasource_permissions(1, dict({"test": "test"})))
+        self.assertEqual(
+            None, datasource.add_datasource_permissions(1, dict({"test": "test"}))
+        )
 
     def test_add_datasource_permissions_no_datasource_id(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -434,11 +490,16 @@ class DatasourceTestCase(TestCase):
             datasource.add_datasource_permissions(0, dict())
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
-    def test_add_datasource_permissions_permission_add_not_possible(self, call_the_api_mock):
+    def test_add_datasource_permissions_permission_add_not_possible(
+        self, call_the_api_mock
+    ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict())
+
+        call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
             datasource.add_datasource_permissions(1, dict({"test": "test"}))
@@ -449,7 +510,9 @@ class DatasourceTestCase(TestCase):
         datasource: Datasource = Datasource(grafana_api_model=model)
 
         mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Datasource permission removed"}))
+        mock.json = Mock(
+            return_value=dict({"message": "Datasource permission removed"})
+        )
 
         call_the_api_mock.return_value = mock
 
@@ -467,7 +530,10 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict())
+
+        call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
             datasource.delete_datasource_permissions(1, 1)
