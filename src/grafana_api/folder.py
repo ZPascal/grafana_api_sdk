@@ -18,8 +18,10 @@ class Folder:
     def get_folders(self) -> list:
         """The method includes a functionality to extract all folders inside the organization"""
 
-        api_call: list = Utils(self.grafana_api_model).call_the_api(
-            APIEndpoints.FOLDERS.value
+        api_call: list = (
+            Utils(self.grafana_api_model)
+            .call_the_api(APIEndpoints.FOLDERS.value)
+            .json()
         )
 
         if api_call == list() or api_call[0].get("id") is None:
@@ -36,8 +38,10 @@ class Folder:
         """
 
         if len(uid) != 0:
-            api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.FOLDERS.value}/{uid}"
+            api_call: dict = (
+                Utils(self.grafana_api_model)
+                .call_the_api(f"{APIEndpoints.FOLDERS.value}/{uid}")
+                .json()
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -46,7 +50,7 @@ class Folder:
             else:
                 return api_call
         else:
-            logging.info("There is no dashboard uid defined.")
+            logging.error("There is no dashboard uid defined.")
             raise ValueError
 
     def get_folder_by_id(self, id: int) -> dict:
@@ -57,8 +61,12 @@ class Folder:
         """
 
         if id != 0:
-            api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.FOLDERS.value}/id/{id}",
+            api_call: dict = (
+                Utils(self.grafana_api_model)
+                .call_the_api(
+                    f"{APIEndpoints.FOLDERS.value}/id/{id}",
+                )
+                .json()
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -67,7 +75,7 @@ class Folder:
             else:
                 return api_call
         else:
-            logging.info("There is no folder id defined.")
+            logging.error("There is no folder id defined.")
             raise ValueError
 
     def create_folder(self, title: str, uid: str = None) -> dict:
@@ -86,10 +94,14 @@ class Folder:
             if uid is not None and len(uid) != 0:
                 folder_information.update({"uid": uid})
 
-            api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                APIEndpoints.FOLDERS.value,
-                RequestsMethods.POST,
-                json.dumps(folder_information),
+            api_call: dict = (
+                Utils(self.grafana_api_model)
+                .call_the_api(
+                    APIEndpoints.FOLDERS.value,
+                    RequestsMethods.POST,
+                    json.dumps(folder_information),
+                )
+                .json()
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -98,7 +110,7 @@ class Folder:
             else:
                 return api_call
         else:
-            logging.info("There is no folder uid or title defined.")
+            logging.error("There is no folder uid or title defined.")
             raise ValueError
 
     def update_folder(
@@ -128,10 +140,14 @@ class Folder:
             if version is not None:
                 folder_information.update({"version": version})
 
-            api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.FOLDERS.value}/{uid}",
-                RequestsMethods.PUT,
-                json.dumps(folder_information),
+            api_call: dict = (
+                Utils(self.grafana_api_model)
+                .call_the_api(
+                    f"{APIEndpoints.FOLDERS.value}/{uid}",
+                    RequestsMethods.PUT,
+                    json.dumps(folder_information),
+                )
+                .json()
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -140,7 +156,7 @@ class Folder:
             else:
                 return api_call
         else:
-            logging.info("There is no folder title or version defined.")
+            logging.error("There is no folder title or version defined.")
             raise ValueError
 
     def delete_folder(self, uid: str):
@@ -152,9 +168,13 @@ class Folder:
         """
 
         if len(uid) != 0:
-            api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.FOLDERS.value}/{uid}",
-                RequestsMethods.DELETE,
+            api_call: dict = (
+                Utils(self.grafana_api_model)
+                .call_the_api(
+                    f"{APIEndpoints.FOLDERS.value}/{uid}",
+                    RequestsMethods.DELETE,
+                )
+                .json()
             )
 
             if "Folder deleted" != api_call.get("message"):
@@ -163,7 +183,7 @@ class Folder:
             else:
                 logging.info("You successfully destroyed the folder.")
         else:
-            logging.info("There is no folder uid defined.")
+            logging.error("There is no folder uid defined.")
             raise ValueError
 
     def get_folder_permissions(self, uid: str) -> list:
@@ -175,9 +195,13 @@ class Folder:
         """
 
         if len(uid) != 0:
-            api_call: list = Utils(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.FOLDERS.value}/{uid}/permissions",
-                RequestsMethods.GET,
+            api_call: list = (
+                Utils(self.grafana_api_model)
+                .call_the_api(
+                    f"{APIEndpoints.FOLDERS.value}/{uid}/permissions",
+                    RequestsMethods.GET,
+                )
+                .json()
             )
 
             if api_call == list() or api_call[0].get("id") is None:
@@ -186,7 +210,7 @@ class Folder:
             else:
                 return api_call
         else:
-            logging.info("There is no folder uid defined.")
+            logging.error("There is no folder uid defined.")
             raise ValueError
 
     def update_folder_permissions(self, uid: str, permission_json: dict):
@@ -199,10 +223,14 @@ class Folder:
         """
 
         if len(uid) != 0 and len(permission_json) != 0:
-            api_call: dict = Utils(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.FOLDERS.value}/{uid}/permissions",
-                RequestsMethods.POST,
-                json.dumps(permission_json),
+            api_call: dict = (
+                Utils(self.grafana_api_model)
+                .call_the_api(
+                    f"{APIEndpoints.FOLDERS.value}/{uid}/permissions",
+                    RequestsMethods.POST,
+                    json.dumps(permission_json),
+                )
+                .json()
             )
 
             if api_call.get("message") != "Folder permissions updated":
@@ -211,7 +239,7 @@ class Folder:
             else:
                 logging.info("You successfully modified the folder permissions.")
         else:
-            logging.info("There is no folder uid or permission json defined.")
+            logging.error("There is no folder uid or permission json defined.")
             raise ValueError
 
     def get_folder_id_by_dashboard_path(self, dashboard_path: str) -> int:
@@ -233,14 +261,16 @@ class Folder:
 
             return folder_id
         else:
-            logging.info("There is no dashboard_path defined.")
+            logging.error("There is no dashboard_path defined.")
             raise ValueError
 
     def get_all_folder_ids_and_names(self) -> list:
         """The method extract all folder id and names inside the complete organisation"""
 
-        folders_raw: list = Utils(self.grafana_api_model).call_the_api(
-            f"{APIEndpoints.SEARCH.value}?folderIds=0"
+        folders_raw: list = (
+            Utils(self.grafana_api_model)
+            .call_the_api(f"{APIEndpoints.SEARCH.value}?folderIds=0")
+            .json()
         )
         folders_raw_len: int = len(folders_raw)
         folders: list = list()

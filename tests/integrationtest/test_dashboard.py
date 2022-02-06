@@ -31,12 +31,18 @@ class DashboardTest(TestCase):
         )
 
         self.assertEqual(
-            "tests", self.dashboard.get_dashboard_uid_and_id_by_name_and_folder(
+            "tests",
+            self.dashboard.get_dashboard_uid_and_id_by_name_and_folder(
                 dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
-                dashboard_name=os.environ["GRAFANA_DASHBOARD_NAME"])["uid"]
+                dashboard_name=os.environ["GRAFANA_DASHBOARD_NAME"],
+            )["uid"],
         )
-        self.assertEqual(72, self.folder.get_folder_id_by_dashboard_path(
-            dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"]))
+        self.assertEqual(
+            72,
+            self.folder.get_folder_id_by_dashboard_path(
+                dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"]
+            ),
+        )
 
     def test_b_get_dashboard(self):
         with open(
@@ -47,15 +53,19 @@ class DashboardTest(TestCase):
         self.assertEqual(json_dashboard, self.dashboard.get_dashboard_by_uid("tests1"))
 
     def test_c_dashboard_deletion(self):
-        self.dashboard.delete_dashboard_by_name_and_path(dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
-                                                         dashboard_name=os.environ["GRAFANA_DASHBOARD_NAME"])
+        self.dashboard.delete_dashboard_by_name_and_path(
+            dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
+            dashboard_name=os.environ["GRAFANA_DASHBOARD_NAME"],
+        )
 
     def test_wrong_token(self):
         self.model.token = "test"
 
         with self.assertRaises(requests.exceptions.ConnectionError):
-            self.dashboard.delete_dashboard_by_name_and_path(dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
-                                                             dashboard_name=os.environ["GRAFANA_DASHBOARD_NAME"])
+            self.dashboard.delete_dashboard_by_name_and_path(
+                dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
+                dashboard_name=os.environ["GRAFANA_DASHBOARD_NAME"],
+            )
 
 
 if __name__ == "__main__":
