@@ -1,6 +1,11 @@
 from unittest import TestCase
 
-from src.grafana_api.model import APIModel, RequestsMethods, APIEndpoints, DatasourceQuery
+from src.grafana_api.model import (
+    APIModel,
+    RequestsMethods,
+    APIEndpoints,
+    DatasourceQuery,
+)
 
 
 class APIEndpointsTestCase(TestCase):

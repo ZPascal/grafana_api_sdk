@@ -42,17 +42,25 @@ class DataSourceTest(TestCase):
         data_source["name"] = "TestData DB 1"
 
         self.assertEqual(None, self.data_source.create_datasource(data_source))
-        self.assertEqual(self.data_source.get_datasource_id_by_name("TestData DB 1"),
-                         self.data_source.get_datasource_by_name("TestData DB 1")["id"])
+        self.assertEqual(
+            self.data_source.get_datasource_id_by_name("TestData DB 1"),
+            self.data_source.get_datasource_by_name("TestData DB 1")["id"],
+        )
 
     def test_b_update_datasource(self):
         data_source: dict = self.data_source.get_datasource_by_name("TestData DB 1")
         data_source["name"] = "TestData DB 2"
 
-        self.assertEqual(None, self.data_source.update_datasource(
-            self.data_source.get_datasource_id_by_name("TestData DB 1"), data_source))
-        self.assertEqual(self.data_source.get_datasource_id_by_name("TestData DB 2"),
-                         self.data_source.get_datasource_by_name("TestData DB 2")["id"])
+        self.assertEqual(
+            None,
+            self.data_source.update_datasource(
+                self.data_source.get_datasource_id_by_name("TestData DB 1"), data_source
+            ),
+        )
+        self.assertEqual(
+            self.data_source.get_datasource_id_by_name("TestData DB 2"),
+            self.data_source.get_datasource_by_name("TestData DB 2")["id"],
+        )
 
     def test_c_delete_datasource_by_id(self):
         id: int = self.data_source.get_datasource_id_by_name("TestData DB 2")
@@ -66,7 +74,9 @@ class DataSourceTest(TestCase):
         self.test_a_create_datasource()
         data_source: dict = self.data_source.get_datasource_by_name("TestData DB 1")
 
-        self.assertEqual(None, self.data_source.delete_datasource_by_uid(data_source["uid"]))
+        self.assertEqual(
+            None, self.data_source.delete_datasource_by_uid(data_source["uid"])
+        )
 
         with self.assertRaises(Exception):
             self.data_source.get_datasource_by_id(data_source["id"])
@@ -75,7 +85,9 @@ class DataSourceTest(TestCase):
         self.test_a_create_datasource()
         data_source: dict = self.data_source.get_datasource_by_name("TestData DB 1")
 
-        self.assertEqual(None, self.data_source.delete_datasource_by_name("TestData DB 1"))
+        self.assertEqual(
+            None, self.data_source.delete_datasource_by_name("TestData DB 1")
+        )
 
         with self.assertRaises(Exception):
             self.data_source.get_datasource_by_id(data_source["id"])

@@ -12,5 +12,5 @@ class AlertingTest(TestCase):
     )
     alerting: Alerting = Alerting(model)
 
-    def test_get_alerts(self):
+    def test_get_alertmanager_alerts(self):
         print(self.alerting.get_alertmanager_alerts("grafana"))
