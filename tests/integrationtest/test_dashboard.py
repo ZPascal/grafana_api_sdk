@@ -38,6 +38,27 @@ class DashboardTest(TestCase):
         self.assertEqual(72, self.folder.get_folder_id_by_dashboard_path(
             dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"]))
 
+    def test_dashboard_creation_general_folder(self):
+        with open(
+            f"{os.getcwd()}{os.sep}tests{os.sep}integrationtest{os.sep}resources{os.sep}dashboard.json"
+        ) as file:
+            json_dashboard = json.load(file)
+
+        self.dashboard.create_or_update_dashboard(
+            message="Create a new test dashboard",
+            dashboard_json=json_dashboard,
+            dashboard_path="General",
+            overwrite=True,
+        )
+
+        self.assertEqual(
+            "tests", self.dashboard.get_dashboard_uid_and_id_by_name_and_folder(
+                dashboard_path="General",
+                dashboard_name=os.environ["GRAFANA_DASHBOARD_NAME"])["uid"]
+        )
+        self.assertEqual(72, self.folder.get_folder_id_by_dashboard_path(
+            dashboard_path="General"))
+
     def test_b_get_dashboard(self):
         with open(
             f"{os.getcwd()}{os.sep}tests{os.sep}integrationtest{os.sep}resources{os.sep}dashboard_expected_result.json"
@@ -49,6 +70,10 @@ class DashboardTest(TestCase):
     def test_c_dashboard_deletion(self):
         self.dashboard.delete_dashboard_by_name_and_path(dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
                                                          dashboard_name=os.environ["GRAFANA_DASHBOARD_NAME"])
+
+    def test_dashboard_general(self):
+        self.dashboard.delete_dashboard_by_name_and_path(dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
+                                                         dashboard_name="General")
 
     def test_wrong_token(self):
         self.model.token = "test"

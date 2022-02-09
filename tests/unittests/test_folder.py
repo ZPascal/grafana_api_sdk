@@ -255,6 +255,14 @@ class FolderTestCase(TestCase):
             12, folder.get_folder_id_by_dashboard_path(dashboard_path="test")
         )
 
+    def test_get_folder_id_by_dashboard_path_general_path(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        folder: Folder = Folder(grafana_api_model=model)
+
+        self.assertEqual(
+            0, folder.get_folder_id_by_dashboard_path(dashboard_path="General")
+        )
+
     def test_get_folder_id_by_dashboard_path_no_dashboard_path_defined(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
