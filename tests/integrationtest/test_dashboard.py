@@ -38,7 +38,19 @@ class DashboardTest(TestCase):
         self.assertEqual(72, self.folder.get_folder_id_by_dashboard_path(
             dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"]))
 
-    def test_dashboard_creation_general_folder(self):
+    def test_b_get_dashboard(self):
+        with open(
+            f"{os.getcwd()}{os.sep}tests{os.sep}integrationtest{os.sep}resources{os.sep}dashboard_expected_result.json"
+        ) as file:
+            json_dashboard = json.load(file)
+
+        self.assertEqual(json_dashboard, self.dashboard.get_dashboard_by_uid("tests1"))
+
+    def test_c_dashboard_deletion(self):
+        self.dashboard.delete_dashboard_by_name_and_path(dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
+                                                         dashboard_name=os.environ["GRAFANA_DASHBOARD_NAME"])
+
+    def test_a_dashboard_creation_general_folder(self):
         with open(
             f"{os.getcwd()}{os.sep}tests{os.sep}integrationtest{os.sep}resources{os.sep}dashboard.json"
         ) as file:
@@ -59,19 +71,7 @@ class DashboardTest(TestCase):
         self.assertEqual(72, self.folder.get_folder_id_by_dashboard_path(
             dashboard_path="General"))
 
-    def test_b_get_dashboard(self):
-        with open(
-            f"{os.getcwd()}{os.sep}tests{os.sep}integrationtest{os.sep}resources{os.sep}dashboard_expected_result.json"
-        ) as file:
-            json_dashboard = json.load(file)
-
-        self.assertEqual(json_dashboard, self.dashboard.get_dashboard_by_uid("tests1"))
-
-    def test_c_dashboard_deletion(self):
-        self.dashboard.delete_dashboard_by_name_and_path(dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
-                                                         dashboard_name=os.environ["GRAFANA_DASHBOARD_NAME"])
-
-    def test_dashboard_general(self):
+    def test_b_dashboard_general_deletion(self):
         self.dashboard.delete_dashboard_by_name_and_path(dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
                                                          dashboard_name="General")
 
