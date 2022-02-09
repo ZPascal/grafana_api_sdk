@@ -216,7 +216,10 @@ class Folder:
 
     def get_folder_id_by_dashboard_path(self, dashboard_path: str) -> int:
         """The method includes a functionality to extract the folder id specified inside model dashboard path"""
-
+        
+        if dashboard_path.lower() == "general":
+            return 0
+        
         if len(dashboard_path) != 0:
             folders: list = self.get_all_folder_ids_and_names()
             folder_id: int = 0
