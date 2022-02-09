@@ -6,11 +6,7 @@ ERROR_MESSAGES: list = ["invalid API key"]
 
 class APIEndpoints(Enum):
     # TODO Update the documentation
-    """The class includes all necessary methods to template the selected dashboard and return it as a dict
-
-    Keyword arguments:
-    dashboard_model -> Inject a dashboard object that includes all necessary values and information
-    """
+    """The class includes all necessary methods to template the selected dashboard and return it as a dict"""
 
     SEARCH = "/api/search"
     DASHBOARDS = "/api/dashboards"
