@@ -50,7 +50,7 @@ class DashboardTest(TestCase):
         self.dashboard.delete_dashboard_by_name_and_path(dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
                                                          dashboard_name=os.environ["GRAFANA_DASHBOARD_NAME"])
 
-    def test_a_dashboard_creation_general_folder(self):
+    def test_d_dashboard_creation_general_folder(self):
         with open(
             f"{os.getcwd()}{os.sep}tests{os.sep}integrationtest{os.sep}resources{os.sep}dashboard.json"
         ) as file:
@@ -71,7 +71,7 @@ class DashboardTest(TestCase):
         self.assertEqual(72, self.folder.get_folder_id_by_dashboard_path(
             dashboard_path="General"))
 
-    def test_b_dashboard_general_deletion(self):
+    def test_e_dashboard_general_folder_deletion(self):
         self.dashboard.delete_dashboard_by_name_and_path(dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
                                                          dashboard_name="General")
 
