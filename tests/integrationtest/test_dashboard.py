@@ -25,7 +25,7 @@ class DashboardTest(TestCase):
 
         self.dashboard.create_or_update_dashboard(
             message="Create a new test dashboard",
-            dashboard_json=json_dashboard,
+            dashboard_json=json_dashboard.get("dashboard"),
             dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
             overwrite=True,
         )
@@ -58,7 +58,7 @@ class DashboardTest(TestCase):
 
         self.dashboard.create_or_update_dashboard(
             message="Create a new test dashboard",
-            dashboard_json=json_dashboard,
+            dashboard_json=json_dashboard.get("dashboard"),
             dashboard_path="General",
             overwrite=True,
         )
