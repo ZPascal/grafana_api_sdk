@@ -56,8 +56,6 @@ class DashboardTest(TestCase):
         ) as file:
             json_dashboard = json.load(file)
 
-        json_dashboard["uid"] = "test_general_folder"
-
         self.dashboard.create_or_update_dashboard(
             message="Create a new test dashboard",
             dashboard_json=json_dashboard,
@@ -66,7 +64,7 @@ class DashboardTest(TestCase):
         )
 
         self.assertEqual(
-            "test_general_folder", self.dashboard.get_dashboard_uid_and_id_by_name_and_folder(
+            "6U_QdWJnz", self.dashboard.get_dashboard_uid_and_id_by_name_and_folder(
                 dashboard_path="General",
                 dashboard_name=os.environ["GRAFANA_DASHBOARD_NAME"])["uid"]
         )
