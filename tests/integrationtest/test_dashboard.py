@@ -44,7 +44,7 @@ class DashboardTest(TestCase):
         ) as file:
             json_dashboard = json.load(file)
 
-        self.assertEqual(json_dashboard, self.dashboard.get_dashboard_by_uid("tests"))
+        self.assertEqual(json_dashboard, self.dashboard.get_dashboard_by_uid("tests").get("dashboard"))
 
     def test_c_dashboard_deletion(self):
         self.dashboard.delete_dashboard_by_name_and_path(dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
