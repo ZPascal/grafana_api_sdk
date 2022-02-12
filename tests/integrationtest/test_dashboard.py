@@ -45,7 +45,7 @@ class DashboardTest(TestCase):
             json_dashboard = json.load(file)
 
         self.assertEqual(json_dashboard.get("dashboard"),
-                         self.dashboard.get_dashboard_by_uid("tests1").get("dashboard"))
+                         self.dashboard.get_dashboard_by_uid("test1").get("dashboard"))
 
     def test_c_dashboard_deletion(self):
         self.dashboard.delete_dashboard_by_name_and_path(dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
@@ -65,7 +65,7 @@ class DashboardTest(TestCase):
         )
 
         self.assertEqual(
-            "6U_QdWJnz", self.dashboard.get_dashboard_uid_and_id_by_name_and_folder(
+            "tests", self.dashboard.get_dashboard_uid_and_id_by_name_and_folder(
                 dashboard_path="General",
                 dashboard_name=os.environ["GRAFANA_DASHBOARD_NAME"])["uid"]
         )
@@ -73,8 +73,8 @@ class DashboardTest(TestCase):
             dashboard_path="General"))
 
     def test_e_dashboard_deletion_general_folder(self):
-        self.dashboard.delete_dashboard_by_name_and_path(dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
-                                                         dashboard_name="General")
+        self.dashboard.delete_dashboard_by_name_and_path(dashboard_path="General",
+                                                         dashboard_name=os.environ["GRAFANA_DASHBOARD_NAME"])
 
     def test_wrong_token(self):
         self.model.token = "test"
