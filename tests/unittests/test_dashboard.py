@@ -1,5 +1,5 @@
 from unittest import TestCase
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, Mock, patch
 
 from src.grafana_api.model import APIModel
 from src.grafana_api.dashboard import Dashboard
@@ -15,7 +15,12 @@ class DashboardTestCase(TestCase):
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         folder_id_by_dashboard_path_mock.return_value = 1
-        call_the_api_mock.return_value = dict({"status": "success"})
+
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict({"status": "success"}))
+
+        call_the_api_mock.return_value = mock
+
         self.assertEqual(
             None,
             dashboard.create_or_update_dashboard(
@@ -43,7 +48,12 @@ class DashboardTestCase(TestCase):
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         folder_id_by_dashboard_path_mock.return_value = 1
-        call_the_api_mock.return_value = dict({"status": "error"})
+
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict({"status": "error"}))
+
+        call_the_api_mock.return_value = mock
+
         with self.assertRaises(Exception):
             dashboard.create_or_update_dashboard(
                 dashboard_path="test",
@@ -64,7 +74,12 @@ class DashboardTestCase(TestCase):
         dashboard_uid_and_id_by_name_and_folder_mock.return_value = dict(
             {"uid": "test", "id": 10}
         )
-        call_the_api_mock.return_value = dict({"message": "Dashboard test deleted"})
+
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict({"message": "Dashboard test deleted"}))
+
+        call_the_api_mock.return_value = mock
+
         self.assertEqual(
             None,
             dashboard.delete_dashboard_by_name_and_path(
@@ -130,7 +145,12 @@ class DashboardTestCase(TestCase):
         dashboard_uid_and_id_by_name_and_folder_mock.return_value = dict(
             {"uid": "test", "id": 10}
         )
-        call_the_api_mock.return_value = dict({"message": "error"})
+
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict({"message": "error"}))
+
+        call_the_api_mock.return_value = mock
+
         with self.assertRaises(Exception):
             dashboard.delete_dashboard_by_name_and_path(
                 dashboard_name="test", dashboard_path="test"
@@ -145,7 +165,12 @@ class DashboardTestCase(TestCase):
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         folder_id_by_dashboard_path_mock.return_value = 1
-        call_the_api_mock.return_value = [{"uid": "test", "id": 10, "title": "test"}]
+
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=list([{"uid": "test", "title": "test", "id": 10}]))
+
+        call_the_api_mock.return_value = mock
+
         self.assertEqual(
             dict({"uid": "test", "id": 10}),
             dashboard.get_dashboard_uid_and_id_by_name_and_folder(
@@ -162,7 +187,12 @@ class DashboardTestCase(TestCase):
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         folder_id_by_dashboard_path_mock.return_value = 1
-        call_the_api_mock.return_value = [{"uid": "test", "title": "test"}]
+
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=list([{"uid": "test", "title": "test"}]))
+
+        call_the_api_mock.return_value = mock
+
         with self.assertRaises(ValueError):
             dashboard.get_dashboard_uid_and_id_by_name_and_folder(
                 dashboard_name="test", dashboard_path="test"
@@ -177,7 +207,12 @@ class DashboardTestCase(TestCase):
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         folder_id_by_dashboard_path_mock.return_value = 1
-        call_the_api_mock.return_value = [{"uid": "test", "id": 1}]
+
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=list([{"uid": "test", "id": 1}]))
+
+        call_the_api_mock.return_value = mock
+
         with self.assertRaises(ValueError):
             dashboard.get_dashboard_uid_and_id_by_name_and_folder(
                 dashboard_name="test", dashboard_path="test"
@@ -192,7 +227,12 @@ class DashboardTestCase(TestCase):
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         folder_id_by_dashboard_path_mock.return_value = 1
-        call_the_api_mock.return_value = [{"uid": "test", "title": "test123", "id": 1}]
+
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=list([{"uid": "test", "title": "test123", "id": 1}]))
+
+        call_the_api_mock.return_value = mock
+
         self.assertEqual(
             None,
             dashboard.get_dashboard_uid_and_id_by_name_and_folder(
@@ -209,7 +249,12 @@ class DashboardTestCase(TestCase):
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         folder_id_by_dashboard_path_mock.return_value = 1
-        call_the_api_mock.return_value = []
+
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=list())
+
+        call_the_api_mock.return_value = mock
+
         self.assertEqual(
             None,
             dashboard.get_dashboard_uid_and_id_by_name_and_folder(
@@ -233,7 +278,11 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"dashboard": "test"})
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict({"dashboard": "test"}))
+
+        call_the_api_mock.return_value = mock
+
         self.assertEqual(
             dict({"dashboard": "test"}), dashboard.get_dashboard_by_uid(uid="test")
         )
@@ -243,7 +292,11 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict())
+
+        call_the_api_mock.return_value = mock
+
         with self.assertRaises(Exception):
             dashboard.get_dashboard_by_uid(uid="test")
 
@@ -259,7 +312,11 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"dashboard": "test"})
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict({"dashboard": "test"}))
+
+        call_the_api_mock.return_value = mock
+
         self.assertEqual(dict({"dashboard": "test"}), dashboard.get_dashboard_home())
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
@@ -267,7 +324,11 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict())
+
+        call_the_api_mock.return_value = mock
+
         with self.assertRaises(Exception):
             dashboard.get_dashboard_home()
 
@@ -276,7 +337,11 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"term": "test", "count": 4}])
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=list([{"term": "test", "count": 4}]))
+
+        call_the_api_mock.return_value = mock
+
         self.assertEqual(
             list([{"term": "test", "count": 4}]), dashboard.get_dashboard_tags()
         )
@@ -286,7 +351,11 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=list())
+
+        call_the_api_mock.return_value = mock
+
         with self.assertRaises(Exception):
             dashboard.get_dashboard_tags()
 
@@ -295,7 +364,11 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"role": "test", "count": 4}])
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=list([{"role": "test", "count": 4}]))
+
+        call_the_api_mock.return_value = mock
+
         self.assertEqual(
             list([{"role": "test", "count": 4}]),
             dashboard.get_dashboard_permissions(1),
@@ -306,7 +379,11 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=list())
+
+        call_the_api_mock.return_value = mock
+
         with self.assertRaises(Exception):
             dashboard.get_dashboard_permissions(1)
 
@@ -322,9 +399,13 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {"message": "Dashboard permissions updated"}
+        mock: Mock = Mock()
+        mock.json = Mock(
+            return_value=dict({"message": "Dashboard permissions updated"})
         )
+
+        call_the_api_mock.return_value = mock
+
         self.assertEqual(
             None, dashboard.update_dashboard_permissions(1, {"test": "test"})
         )
@@ -334,7 +415,11 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Error"})
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict({"message": "Error"}))
+
+        call_the_api_mock.return_value = mock
+
         with self.assertRaises(Exception):
             dashboard.update_dashboard_permissions(1, {"test": "test"})
 
@@ -350,7 +435,11 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"id": "test"}])
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=list([{"id": "test"}]))
+
+        call_the_api_mock.return_value = mock
+
         self.assertEqual(list([{"id": "test"}]), dashboard.get_dashboard_versions(1))
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
@@ -358,7 +447,11 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=list())
+
+        call_the_api_mock.return_value = mock
+
         with self.assertRaises(Exception):
             dashboard.get_dashboard_versions(1)
 
@@ -374,7 +467,11 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"id": "test"})
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict({"id": "test"}))
+
+        call_the_api_mock.return_value = mock
+
         self.assertEqual(dict({"id": "test"}), dashboard.get_dashboard_version(1, 10))
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
@@ -382,7 +479,11 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict())
+
+        call_the_api_mock.return_value = mock
+
         with self.assertRaises(Exception):
             dashboard.get_dashboard_version(1, MagicMock())
 
@@ -398,7 +499,11 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": "success"})
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict({"status": "success"}))
+
+        call_the_api_mock.return_value = mock
+
         self.assertEqual(
             None, dashboard.restore_dashboard_version(1, dict({"version": 1}))
         )
@@ -408,7 +513,11 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": "error"})
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict({"status": "error"}))
+
+        call_the_api_mock.return_value = mock
+
         with self.assertRaises(Exception):
             dashboard.restore_dashboard_version(1, dict({"version": 1}))
 
@@ -419,7 +528,7 @@ class DashboardTestCase(TestCase):
         with self.assertRaises(ValueError):
             dashboard.restore_dashboard_version(0, MagicMock())
 
-    @patch("src.grafana_api.utils.Utils.call_the_api_non_json_output")
+    @patch("src.grafana_api.utils.Utils.call_the_api")
     def test_calculate_dashboard_diff(self, call_the_api_non_json_output_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
@@ -434,7 +543,7 @@ class DashboardTestCase(TestCase):
             ),
         )
 
-    @patch("src.grafana_api.utils.Utils.call_the_api_non_json_output")
+    @patch("src.grafana_api.utils.Utils.call_the_api")
     def test_calculate_dashboard_diff_error_response(
         self, call_the_api_non_json_output_mock
     ):
