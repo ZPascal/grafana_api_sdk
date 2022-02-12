@@ -73,9 +73,9 @@ class Utils:
         response -> Specify the inserted response
         """
 
-        if type(response) == dict:
-            if "message" in response.keys() and response["message"] in ERROR_MESSAGES:
-                logging.error(response["message"])
+        if type(response.json()) == dict:
+            if "message" in response.json().keys() and response.json()["message"] in ERROR_MESSAGES:
+                logging.error(response.json()["message"])
                 raise requests.exceptions.ConnectionError
 
         return response

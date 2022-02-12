@@ -137,15 +137,35 @@ class UtilsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         utils: Utils = Utils(grafana_api_model=model)
 
-        self.assertEqual(dict({"test": "test"}), utils._Utils__check_the_api_call_response(
-            response=dict({"test": "test"})
-        ))
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict({"test": "test"}))
+
+        self.assertEqual(dict({"test": "test"}), utils._Utils__check_the_api_call_response(response=mock).json())
+
+    def test_check_the_api_call_response_no_error_message(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        utils: Utils = Utils(grafana_api_model=model)
+
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict({"message": "test"}))
+
+        self.assertEqual(dict({"message": "test"}), utils._Utils__check_the_api_call_response(response=mock).json())
+
+    def test_check_the_api_call_response_no_json_response_value(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        utils: Utils = Utils(grafana_api_model=model)
+
+        mock: Mock = Mock()
+        mock.text = Mock(return_value="test")
+
+        self.assertEqual("test", utils._Utils__check_the_api_call_response(response=mock).text())
 
     def test_check_the_api_call_response_exception(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         utils: Utils = Utils(grafana_api_model=model)
 
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict({"message": "invalid API key"}))
+
         with self.assertRaises(requests.exceptions.ConnectionError):
-            utils._Utils__check_the_api_call_response(
-                response=dict({"message": "invalid API key"})
-            )
+            utils._Utils__check_the_api_call_response(response=mock)

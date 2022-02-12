@@ -167,7 +167,7 @@ class DashboardTestCase(TestCase):
         folder_id_by_dashboard_path_mock.return_value = 1
 
         mock: Mock = Mock()
-        mock.json = Mock(return_value=list([{"uid": "test", "id": 10}]))
+        mock.json = Mock(return_value=list([{"uid": "test", "title": "test", "id": 10}]))
 
         call_the_api_mock.return_value = mock
 
@@ -187,7 +187,12 @@ class DashboardTestCase(TestCase):
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         folder_id_by_dashboard_path_mock.return_value = 1
-        call_the_api_mock.return_value = [{"uid": "test", "title": "test"}]
+
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=list([{"uid": "test", "title": "test"}]))
+
+        call_the_api_mock.return_value = mock
+
         with self.assertRaises(ValueError):
             dashboard.get_dashboard_uid_and_id_by_name_and_folder(
                 dashboard_name="test", dashboard_path="test"
@@ -202,7 +207,12 @@ class DashboardTestCase(TestCase):
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         folder_id_by_dashboard_path_mock.return_value = 1
-        call_the_api_mock.return_value = [{"uid": "test", "id": 1}]
+
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=list([{"uid": "test", "id": 1}]))
+
+        call_the_api_mock.return_value = mock
+
         with self.assertRaises(ValueError):
             dashboard.get_dashboard_uid_and_id_by_name_and_folder(
                 dashboard_name="test", dashboard_path="test"
@@ -217,7 +227,12 @@ class DashboardTestCase(TestCase):
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         folder_id_by_dashboard_path_mock.return_value = 1
-        call_the_api_mock.return_value = [{"uid": "test", "title": "test123", "id": 1}]
+
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=list([{"uid": "test", "title": "test123", "id": 1}]))
+
+        call_the_api_mock.return_value = mock
+
         self.assertEqual(
             None,
             dashboard.get_dashboard_uid_and_id_by_name_and_folder(
@@ -234,7 +249,12 @@ class DashboardTestCase(TestCase):
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         folder_id_by_dashboard_path_mock.return_value = 1
-        call_the_api_mock.return_value = []
+
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=list())
+
+        call_the_api_mock.return_value = mock
+
         self.assertEqual(
             None,
             dashboard.get_dashboard_uid_and_id_by_name_and_folder(

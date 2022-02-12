@@ -37,7 +37,6 @@ class Alerting:
             api_string = APIEndpoints.LEGACY_ALERTS.value
 
         if len(api_string) != 0:
-            print(api_string)
             api_call: list = (
                 Utils(self.grafana_api_model)
                 .call_the_api(
