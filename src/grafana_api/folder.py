@@ -46,7 +46,7 @@ class Folder:
             else:
                 return api_call
         else:
-            logging.info("There is no dashboard uid defined.")
+            logging.error("There is no dashboard uid defined.")
             raise ValueError
 
     def get_folder_by_id(self, id: int) -> dict:
@@ -67,7 +67,7 @@ class Folder:
             else:
                 return api_call
         else:
-            logging.info("There is no folder id defined.")
+            logging.error("There is no folder id defined.")
             raise ValueError
 
     def create_folder(self, title: str, uid: str = None) -> dict:
@@ -98,7 +98,7 @@ class Folder:
             else:
                 return api_call
         else:
-            logging.info("There is no folder uid or title defined.")
+            logging.error("There is no folder uid or title defined.")
             raise ValueError
 
     def update_folder(
@@ -140,7 +140,7 @@ class Folder:
             else:
                 return api_call
         else:
-            logging.info("There is no folder title or version defined.")
+            logging.error("There is no folder title or version defined.")
             raise ValueError
 
     def delete_folder(self, uid: str):
@@ -163,7 +163,7 @@ class Folder:
             else:
                 logging.info("You successfully destroyed the folder.")
         else:
-            logging.info("There is no folder uid defined.")
+            logging.error("There is no folder uid defined.")
             raise ValueError
 
     def get_folder_permissions(self, uid: str) -> list:
@@ -186,7 +186,7 @@ class Folder:
             else:
                 return api_call
         else:
-            logging.info("There is no folder uid defined.")
+            logging.error("There is no folder uid defined.")
             raise ValueError
 
     def update_folder_permissions(self, uid: str, permission_json: dict):
@@ -211,11 +211,14 @@ class Folder:
             else:
                 logging.info("You successfully modified the folder permissions.")
         else:
-            logging.info("There is no folder uid or permission json defined.")
+            logging.error("There is no folder uid or permission json defined.")
             raise ValueError
 
     def get_folder_id_by_dashboard_path(self, dashboard_path: str) -> int:
         """The method includes a functionality to extract the folder id specified inside model dashboard path"""
+
+        if dashboard_path.lower() == "general":
+            return 0
 
         if len(dashboard_path) != 0:
             folders: list = self.get_all_folder_ids_and_names()
@@ -233,7 +236,7 @@ class Folder:
 
             return folder_id
         else:
-            logging.info("There is no dashboard_path defined.")
+            logging.error("There is no dashboard_path defined.")
             raise ValueError
 
     def get_all_folder_ids_and_names(self) -> list:

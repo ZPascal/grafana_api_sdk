@@ -56,7 +56,7 @@ class Dashboard:
             else:
                 logging.info("You successfully deployed the dashboard.")
         else:
-            logging.info(
+            logging.error(
                 "There is no dashboard_path or dashboard_json or message defined."
             )
             raise ValueError
@@ -87,10 +87,10 @@ class Dashboard:
                 else:
                     logging.info("You successfully destroyed the dashboard.")
             else:
-                logging.info("Nothing to delete. There is no dashboard available.")
+                logging.error("Nothing to delete. There is no dashboard available.")
                 raise ValueError
         else:
-            logging.info("There is no dashboard_name or dashboard_path defined.")
+            logging.error("There is no dashboard_name or dashboard_path defined.")
             raise ValueError
 
     def get_dashboard_by_uid(self, uid: str) -> dict:
@@ -111,7 +111,7 @@ class Dashboard:
             else:
                 return api_call
         else:
-            logging.info("There is no dashboard uid defined.")
+            logging.error("There is no dashboard uid defined.")
             raise ValueError
 
     def get_dashboard_home(self) -> dict:
@@ -155,15 +155,32 @@ class Dashboard:
             ).get_folder_id_by_dashboard_path(dashboard_path)
 
             search_query: str = f"{APIEndpoints.SEARCH.value}?folderIds={folder_id}&query={dashboard_name}"
+            print(search_query)
             dashboard_meta: list = Utils(self.grafana_api_model).call_the_api(
                 search_query
             )
 
-            return dict(
-                {"uid": dashboard_meta[0]["uid"], "id": dashboard_meta[0]["id"]}
-            )
+            for dashboard_meta_object in dashboard_meta:
+                if dashboard_meta_object.get("title") is not None:
+                    if dashboard_meta_object.get("title") == dashboard_name:
+                        if (
+                            dashboard_meta_object.get("uid") is not None
+                            and dashboard_meta_object.get("id") is not None
+                        ):
+                            return dict(
+                                {
+                                    "uid": dashboard_meta_object.get("uid"),
+                                    "id": dashboard_meta_object.get("id"),
+                                }
+                            )
+                        else:
+                            logging.error("There is no uid or id defined.")
+                            raise ValueError
+                else:
+                    logging.error("There is no title defined.")
+                    raise ValueError
         else:
-            logging.info("There is no dashboard_name or dashboard_path defined.")
+            logging.error("There is no dashboard_name or dashboard_path defined.")
             raise ValueError
 
     def get_dashboard_permissions(self, id: int) -> list:
@@ -184,7 +201,7 @@ class Dashboard:
             else:
                 return api_call
         else:
-            logging.info("There is no dashboard uid defined.")
+            logging.error("There is no dashboard uid defined.")
             raise ValueError
 
     def update_dashboard_permissions(self, id: int, permission_json: dict):
@@ -209,7 +226,7 @@ class Dashboard:
             else:
                 logging.info("You successfully modified the dashboard permissions.")
         else:
-            logging.info("There is no dashboard uid or permission json defined.")
+            logging.error("There is no dashboard uid or permission json defined.")
             raise ValueError
 
     def get_dashboard_versions(self, id: int) -> list:
@@ -230,7 +247,7 @@ class Dashboard:
             else:
                 return api_call
         else:
-            logging.info("There is no dashboard uid defined.")
+            logging.error("There is no dashboard uid defined.")
             raise ValueError
 
     def get_dashboard_version(self, id: int, version_id: int) -> dict:
@@ -253,7 +270,7 @@ class Dashboard:
             else:
                 return api_call
         else:
-            logging.info("There is no dashboard uid or version_id defined.")
+            logging.error("There is no dashboard uid or version_id defined.")
             raise ValueError
 
     def restore_dashboard_version(self, id: int, version: dict):
@@ -325,12 +342,12 @@ class Dashboard:
                 else:
                     return api_call.text
             else:
-                logging.info(
+                logging.error(
                     "There is no dashboard_uid_and_version_base or dashboard_uid_and_version_new defined."
                 )
                 raise ValueError
         else:
-            logging.info(
+            logging.error(
                 f"The diff_type: {diff_type.lower()} is not valid. Please specify a valid value."
             )
             raise ValueError

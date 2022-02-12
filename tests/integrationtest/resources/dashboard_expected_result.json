@@ -4,13 +4,13 @@
       "list": []
     },
     "editable": true,
-    "graphTooltip": 1,
-    "hideControls": false,
-    "id": 104,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 152,
     "links": [],
+    "liveNow": false,
     "panels": [],
-    "refresh": "5s",
-    "schemaVersion": 17,
+    "schemaVersion": 34,
     "style": "dark",
     "tags": [],
     "templating": {
@@ -20,36 +20,11 @@
       "from": "now-6h",
       "to": "now"
     },
-    "timepicker": {
-      "refresh_intervals": [],
-      "time_options": []
-    },
-    "timezone": "browser",
+    "timepicker": {},
+    "timezone": "",
     "title": "Test 1",
-    "uid": "tests1",
-    "version": 1
-  },
-  "meta": {
-    "canAdmin": true,
-    "canEdit": true,
-    "canSave": true,
-    "canStar": true,
-    "created": "2022-01-15T20:46:44+01:00",
-    "createdBy": "Anonymous",
-    "expires": "0001-01-01T00:00:00Z",
-    "folderId": 72,
-    "folderTitle": "Github Integrationtest",
-    "folderUid": "6U_QdWJnz",
-    "folderUrl": "/dashboards/f/6U_QdWJnz/github-integrationtest",
-    "hasAcl": false,
-    "isFolder": false,
-    "provisioned": false,
-    "provisionedExternalId": "",
-    "slug": "test-1",
-    "type": "db",
-    "updated": "2022-01-15T20:46:44+01:00",
-    "updatedBy": "Anonymous",
-    "url": "/d/tests1/test-1",
-    "version": 1
+    "uid": "test1",
+    "version": 3,
+    "weekStart": ""
   }
 }
