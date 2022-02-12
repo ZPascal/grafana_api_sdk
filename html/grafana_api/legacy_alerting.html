@@ -65,7 +65,6 @@ class Alerting:
             api_string = APIEndpoints.LEGACY_ALERTS.value
 
         if len(api_string) != 0:
-            print(api_string)
             api_call: list = (
                 Utils(self.grafana_api_model)
                 .call_the_api(
@@ -236,7 +235,6 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             api_string = APIEndpoints.LEGACY_ALERTS.value
 
         if len(api_string) != 0:
-            print(api_string)
             api_call: list = (
                 Utils(self.grafana_api_model)
                 .call_the_api(
@@ -426,7 +424,6 @@ custom_querystring -&gt; Specify the</p></div>
         api_string = APIEndpoints.LEGACY_ALERTS.value
 
     if len(api_string) != 0:
-        print(api_string)
         api_call: list = (
             Utils(self.grafana_api_model)
             .call_the_api(

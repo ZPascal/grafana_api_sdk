@@ -201,9 +201,25 @@ class Dashboard:
                 Utils(self.grafana_api_model).call_the_api(search_query).json()
             )
 
-            return dict(
-                {&#34;uid&#34;: dashboard_meta[0][&#34;uid&#34;], &#34;id&#34;: dashboard_meta[0][&#34;id&#34;]}
-            )
+            for dashboard_meta_object in dashboard_meta:
+                if dashboard_meta_object.get(&#34;title&#34;) is not None:
+                    if dashboard_meta_object.get(&#34;title&#34;) == dashboard_name:
+                        if (
+                            dashboard_meta_object.get(&#34;uid&#34;) is not None
+                            and dashboard_meta_object.get(&#34;id&#34;) is not None
+                        ):
+                            return dict(
+                                {
+                                    &#34;uid&#34;: dashboard_meta_object.get(&#34;uid&#34;),
+                                    &#34;id&#34;: dashboard_meta_object.get(&#34;id&#34;),
+                                }
+                            )
+                        else:
+                            logging.error(&#34;There is no uid or id defined.&#34;)
+                            raise ValueError
+                else:
+                    logging.error(&#34;There is no title defined.&#34;)
+                    raise ValueError
         else:
             logging.error(&#34;There is no dashboard_name or dashboard_path defined.&#34;)
             raise ValueError
@@ -582,9 +598,25 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
                 Utils(self.grafana_api_model).call_the_api(search_query).json()
             )
 
-            return dict(
-                {&#34;uid&#34;: dashboard_meta[0][&#34;uid&#34;], &#34;id&#34;: dashboard_meta[0][&#34;id&#34;]}
-            )
+            for dashboard_meta_object in dashboard_meta:
+                if dashboard_meta_object.get(&#34;title&#34;) is not None:
+                    if dashboard_meta_object.get(&#34;title&#34;) == dashboard_name:
+                        if (
+                            dashboard_meta_object.get(&#34;uid&#34;) is not None
+                            and dashboard_meta_object.get(&#34;id&#34;) is not None
+                        ):
+                            return dict(
+                                {
+                                    &#34;uid&#34;: dashboard_meta_object.get(&#34;uid&#34;),
+                                    &#34;id&#34;: dashboard_meta_object.get(&#34;id&#34;),
+                                }
+                            )
+                        else:
+                            logging.error(&#34;There is no uid or id defined.&#34;)
+                            raise ValueError
+                else:
+                    logging.error(&#34;There is no title defined.&#34;)
+                    raise ValueError
         else:
             logging.error(&#34;There is no dashboard_name or dashboard_path defined.&#34;)
             raise ValueError
@@ -1103,9 +1135,25 @@ dashboard_path -&gt; Specify the dashboard path of the dashboard</p></div>
             Utils(self.grafana_api_model).call_the_api(search_query).json()
         )
 
-        return dict(
-            {&#34;uid&#34;: dashboard_meta[0][&#34;uid&#34;], &#34;id&#34;: dashboard_meta[0][&#34;id&#34;]}
-        )
+        for dashboard_meta_object in dashboard_meta:
+            if dashboard_meta_object.get(&#34;title&#34;) is not None:
+                if dashboard_meta_object.get(&#34;title&#34;) == dashboard_name:
+                    if (
+                        dashboard_meta_object.get(&#34;uid&#34;) is not None
+                        and dashboard_meta_object.get(&#34;id&#34;) is not None
+                    ):
+                        return dict(
+                            {
+                                &#34;uid&#34;: dashboard_meta_object.get(&#34;uid&#34;),
+                                &#34;id&#34;: dashboard_meta_object.get(&#34;id&#34;),
+                            }
+                        )
+                    else:
+                        logging.error(&#34;There is no uid or id defined.&#34;)
+                        raise ValueError
+            else:
+                logging.error(&#34;There is no title defined.&#34;)
+                raise ValueError
     else:
         logging.error(&#34;There is no dashboard_name or dashboard_path defined.&#34;)
         raise ValueError</code></pre>

@@ -101,9 +101,9 @@ class Utils:
         response -&gt; Specify the inserted response
         &#34;&#34;&#34;
 
-        if type(response) == dict:
-            if &#34;message&#34; in response.keys() and response[&#34;message&#34;] in ERROR_MESSAGES:
-                logging.error(response[&#34;message&#34;])
+        if type(response.json()) == dict:
+            if &#34;message&#34; in response.json().keys() and response.json()[&#34;message&#34;] in ERROR_MESSAGES:
+                logging.error(response.json()[&#34;message&#34;])
                 raise requests.exceptions.ConnectionError
 
         return response</code></pre>
@@ -199,9 +199,9 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         response -&gt; Specify the inserted response
         &#34;&#34;&#34;
 
-        if type(response) == dict:
-            if &#34;message&#34; in response.keys() and response[&#34;message&#34;] in ERROR_MESSAGES:
-                logging.error(response[&#34;message&#34;])
+        if type(response.json()) == dict:
+            if &#34;message&#34; in response.json().keys() and response.json()[&#34;message&#34;] in ERROR_MESSAGES:
+                logging.error(response.json()[&#34;message&#34;])
                 raise requests.exceptions.ConnectionError
 
         return response</code></pre>

@@ -273,6 +273,9 @@ class Folder:
     def get_folder_id_by_dashboard_path(self, dashboard_path: str) -&gt; int:
         &#34;&#34;&#34;The method includes a functionality to extract the folder id specified inside model dashboard path&#34;&#34;&#34;
 
+        if dashboard_path.lower() == &#34;general&#34;:
+            return 0
+
         if len(dashboard_path) != 0:
             folders: list = self.get_all_folder_ids_and_names()
             folder_id: int = 0
@@ -572,6 +575,9 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
     def get_folder_id_by_dashboard_path(self, dashboard_path: str) -&gt; int:
         &#34;&#34;&#34;The method includes a functionality to extract the folder id specified inside model dashboard path&#34;&#34;&#34;
 
+        if dashboard_path.lower() == &#34;general&#34;:
+            return 0
+
         if len(dashboard_path) != 0:
             folders: list = self.get_all_folder_ids_and_names()
             folder_id: int = 0
@@ -811,6 +817,9 @@ uid -&gt; Specify the uid of the folder</p></div>
 </summary>
 <pre><code class="python">def get_folder_id_by_dashboard_path(self, dashboard_path: str) -&gt; int:
     &#34;&#34;&#34;The method includes a functionality to extract the folder id specified inside model dashboard path&#34;&#34;&#34;
+
+    if dashboard_path.lower() == &#34;general&#34;:
+        return 0
 
     if len(dashboard_path) != 0:
         folders: list = self.get_all_folder_ids_and_names()
