@@ -155,20 +155,27 @@ class Dashboard:
             ).get_folder_id_by_dashboard_path(dashboard_path)
 
             search_query: str = f"{APIEndpoints.SEARCH.value}?folderIds={folder_id}&query={dashboard_name}"
+            print(search_query)
             dashboard_meta: list = Utils(self.grafana_api_model).call_the_api(
                 search_query
             )
 
             for dashboard_meta_object in dashboard_meta:
-                if dashboard_meta_object.get("title") is not None and \
-                        dashboard_meta_object.get("title") == dashboard_name:
-                    if dashboard_meta_object.get("uid") is not None and dashboard_meta_object.get("id") is not None:
-                        return dict(
-                            {"uid": dashboard_meta_object.get("uid"), "id": dashboard_meta_object.get("id")}
-                        )
-                    else:
-                        logging.error("There is no uid or id defined.")
-                        raise ValueError
+                if dashboard_meta_object.get("title") is not None:
+                    if dashboard_meta_object.get("title") == dashboard_name:
+                        if (
+                            dashboard_meta_object.get("uid") is not None
+                            and dashboard_meta_object.get("id") is not None
+                        ):
+                            return dict(
+                                {
+                                    "uid": dashboard_meta_object.get("uid"),
+                                    "id": dashboard_meta_object.get("id"),
+                                }
+                            )
+                        else:
+                            logging.error("There is no uid or id defined.")
+                            raise ValueError
                 else:
                     logging.error("There is no title defined.")
                     raise ValueError

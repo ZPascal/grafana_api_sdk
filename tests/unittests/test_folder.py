@@ -83,9 +83,7 @@ class FolderTestCase(TestCase):
         folder: Folder = Folder(grafana_api_model=model)
 
         call_the_api_mock.return_value = dict({"title": None, "id": 12})
-        self.assertEqual(
-            dict({"title": None, "id": 12}), folder.create_folder("test")
-        )
+        self.assertEqual(dict({"title": None, "id": 12}), folder.create_folder("test"))
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
     def test_create_folder_specified_uid(self, call_the_api_mock):
@@ -94,7 +92,8 @@ class FolderTestCase(TestCase):
 
         call_the_api_mock.return_value = dict({"title": None, "id": 12, "uid": "test"})
         self.assertEqual(
-            dict({"title": None, "id": 12, "uid": "test"}), folder.create_folder("test", "test")
+            dict({"title": None, "id": 12, "uid": "test"}),
+            folder.create_folder("test", "test"),
         )
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
@@ -122,7 +121,8 @@ class FolderTestCase(TestCase):
 
         call_the_api_mock.return_value = dict({"title": "test1", "id": 12})
         self.assertEqual(
-            dict({"title": "test1", "id": 12}), folder.update_folder("test", "test1", 10)
+            dict({"title": "test1", "id": 12}),
+            folder.update_folder("test", "test1", 10),
         )
 
     @patch("src.grafana_api.utils.Utils.call_the_api")
