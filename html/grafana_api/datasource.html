@@ -424,6 +424,7 @@ class Datasource:
                 .json()
             )
 
+            print(api_call)
             if api_call.get(&#34;message&#34;) != &#34;Datasource permission added&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
                 raise Exception
@@ -869,6 +870,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
                 .json()
             )
 
+            print(api_call)
             if api_call.get(&#34;message&#34;) != &#34;Datasource permission added&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
                 raise Exception
@@ -935,6 +937,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             .json()
         )
 
+        print(api_call)
         if api_call.get(&#34;message&#34;) != &#34;Datasource permission added&#34;:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
             raise Exception
