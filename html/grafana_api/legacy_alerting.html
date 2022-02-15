@@ -172,10 +172,9 @@ class Alerting:
                 .json()
             )
 
-            # TODO Test the API and the result message !
             if (
                 api_call.get(&#34;message&#34;) != &#34;alert paused&#34;
-                and api_call.get(&#34;message&#34;) != &#34;alert unpaused&#34;
+                and &#34;alert unpause&#34; in api_call.get(&#34;message&#34;)
             ):
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
                 raise Exception
@@ -342,10 +341,9 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
                 .json()
             )
 
-            # TODO Test the API and the result message !
             if (
                 api_call.get(&#34;message&#34;) != &#34;alert paused&#34;
-                and api_call.get(&#34;message&#34;) != &#34;alert unpaused&#34;
+                and &#34;alert unpause&#34; in api_call.get(&#34;message&#34;)
             ):
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
                 raise Exception
@@ -530,10 +528,9 @@ paused -&gt; Specify the</p></div>
             .json()
         )
 
-        # TODO Test the API and the result message !
         if (
             api_call.get(&#34;message&#34;) != &#34;alert paused&#34;
-            and api_call.get(&#34;message&#34;) != &#34;alert unpaused&#34;
+            and &#34;alert unpause&#34; in api_call.get(&#34;message&#34;)
         ):
             logging.error(f&#34;Check the error: {api_call}.&#34;)
             raise Exception
