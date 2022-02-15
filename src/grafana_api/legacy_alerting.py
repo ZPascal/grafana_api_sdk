@@ -144,10 +144,9 @@ class Alerting:
                 .json()
             )
 
-            # TODO Test the API and the result message !
             if (
                 api_call.get("message") != "alert paused"
-                and api_call.get("message") != "alert unpaused"
+                and "alert unpause" in api_call.get("message")
             ):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception

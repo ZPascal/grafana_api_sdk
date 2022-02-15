@@ -27,7 +27,8 @@ class Alerting:
     HINT: Note Grafana Enterprise API add required permissions if fine-grained access control is enabled
 
     Keyword arguments:
-    grafana_api_model -> Inject a Grafana API model object that includes all necessary values and information
+
+    grafana_api_model -- Inject a Grafana API model object that includes all necessary values and information
     """
 
     def __init__(self, grafana_api_model: APIModel):
@@ -38,6 +39,7 @@ class Alerting:
         dashboard id and a version_id of the dashboard
 
         Keyword arguments:
+
         recipient -> Specify the id of the dashboard
         """
 
