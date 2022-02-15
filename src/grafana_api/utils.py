@@ -37,63 +37,16 @@ class Utils:
         try:
             if method.value == RequestsMethods.GET.value:
                 return Utils.__check_the_api_call_response(
-                    requests.get(api_url, headers=headers).json()
+                    requests.get(api_url, headers=headers)
                 )
             elif method.value == RequestsMethods.PUT.value:
                 if json_complete is not None:
                     return Utils.__check_the_api_call_response(
-                        requests.put(
-                            api_url, data=json_complete, headers=headers
-                        ).json()
+                        requests.put(api_url, data=json_complete, headers=headers)
                     )
                 else:
                     logging.error("Please define the json_complete.")
                     raise Exception
-            elif method.value == RequestsMethods.POST.value:
-                if json_complete is not None:
-                    return Utils.__check_the_api_call_response(
-                        requests.post(
-                            api_url, data=json_complete, headers=headers
-                        ).json()
-                    )
-                else:
-                    logging.error("Please define the json_complete.")
-                    raise Exception
-            elif method.value == RequestsMethods.DELETE.value:
-                return Utils.__check_the_api_call_response(
-                    requests.delete(api_url, headers=headers).json()
-                )
-            else:
-                logging.error("Please define a valid method.")
-                raise Exception
-        except Exception as e:
-            raise e
-
-    def call_the_api_non_json_output(
-        self,
-        api_call: str,
-        method: RequestsMethods = RequestsMethods.GET,
-        json_complete: str = None,
-    ) -> any:
-        """The method execute a defined API call against the Grafana endpoints
-
-        Keyword arguments:
-        api_call -> Specify the API call endpoint
-        method -> Specify the used method
-        json_complete -> Specify the inserted JSON as string
-        """
-
-        api_url: str = f"{self.grafana_api_model.host}{api_call}"
-
-        headers: dict = {
-            "Authorization": f"Bearer {self.grafana_api_model.token}",
-            "Content-Type": "application/json",
-        }
-        try:
-            if method.value == RequestsMethods.GET.value:
-                return Utils.__check_the_api_call_response(
-                    requests.get(api_url, headers=headers)
-                )
             elif method.value == RequestsMethods.POST.value:
                 if json_complete is not None:
                     return Utils.__check_the_api_call_response(
@@ -120,9 +73,9 @@ class Utils:
         response -> Specify the inserted response
         """
 
-        if type(response) == dict:
-            if "message" in response.keys() and response["message"] in ERROR_MESSAGES:
-                logging.error(response["message"])
+        if type(response.json()) == dict:
+            if "message" in response.json().keys() and response.json()["message"] in ERROR_MESSAGES:
+                logging.error(response.json()["message"])
                 raise requests.exceptions.ConnectionError
 
         return response
