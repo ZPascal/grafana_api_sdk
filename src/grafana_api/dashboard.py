@@ -3,7 +3,7 @@ import logging
 
 from .model import APIModel, APIEndpoints, RequestsMethods
 from .folder import Folder
-from .utils import Utils
+from .api import Api
 
 
 class Dashboard:
@@ -45,7 +45,7 @@ class Dashboard:
             }
 
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.DASHBOARDS.value}/db",
                     RequestsMethods.POST,
@@ -81,7 +81,7 @@ class Dashboard:
 
             if len(dashboard_uid) != 0:
                 api_call: dict = (
-                    Utils(self.grafana_api_model)
+                    Api(self.grafana_api_model)
                     .call_the_api(
                         f"{APIEndpoints.DASHBOARDS.value}/uid/{dashboard_uid.get('uid')}",
                         RequestsMethods.DELETE,
@@ -110,7 +110,7 @@ class Dashboard:
 
         if len(uid) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(f"{APIEndpoints.DASHBOARDS.value}/uid/{uid}")
                 .json()
             )
@@ -128,7 +128,7 @@ class Dashboard:
         """The method includes a functionality to get the home dashboard"""
 
         api_call: dict = (
-            Utils(self.grafana_api_model)
+            Api(self.grafana_api_model)
             .call_the_api(f"{APIEndpoints.DASHBOARDS.value}/home")
             .json()
         )
@@ -143,7 +143,7 @@ class Dashboard:
         """The method includes a functionality to get the all tags of all dashboards"""
 
         api_call: list = (
-            Utils(self.grafana_api_model)
+            Api(self.grafana_api_model)
             .call_the_api(f"{APIEndpoints.DASHBOARDS.value}/tags")
             .json()
         )
@@ -170,7 +170,7 @@ class Dashboard:
 
             search_query: str = f"{APIEndpoints.SEARCH.value}?folderIds={folder_id}&query={dashboard_name}"
             dashboard_meta: list = (
-                Utils(self.grafana_api_model).call_the_api(search_query).json()
+                Api(self.grafana_api_model).call_the_api(search_query).json()
             )
 
             for dashboard_meta_object in dashboard_meta:
@@ -205,7 +205,7 @@ class Dashboard:
 
         if id != 0:
             api_call: list = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(f"{APIEndpoints.DASHBOARDS.value}/id/{id}/permissions")
                 .json()
             )
@@ -230,7 +230,7 @@ class Dashboard:
 
         if id != 0 and len(permission_json) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.DASHBOARDS.value}/id/{id}/permissions",
                     RequestsMethods.POST,
@@ -257,7 +257,7 @@ class Dashboard:
 
         if id != 0:
             api_call: list = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.DASHBOARDS.value}/id/{id}/versions",
                 )
@@ -284,7 +284,7 @@ class Dashboard:
 
         if id != 0 and version_id != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.DASHBOARDS.value}/id/{id}/versions/{version_id}",
                 )
@@ -311,7 +311,7 @@ class Dashboard:
 
         if id != 0 and version != dict():
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.DASHBOARDS.value}/id/{id}/restore",
                     RequestsMethods.POST,
@@ -359,7 +359,7 @@ class Dashboard:
                 diff_object.update(dashboard_id_and_version_new)
                 diff_object.update({"diffType": diff_type.lower()})
 
-                api_call: any = Utils(self.grafana_api_model).call_the_api(
+                api_call: any = Api(self.grafana_api_model).call_the_api(
                     f"{APIEndpoints.DASHBOARDS.value}/calculate-diff",
                     RequestsMethods.POST,
                     json.dumps(diff_object),

@@ -4,7 +4,7 @@ import requests
 from .model import RequestsMethods, ERROR_MESSAGES, APIModel
 
 
-class Utils:
+class Api:
     """The class includes all necessary methods to make API calls to the Grafana API endpoints
 
     Keyword arguments:
@@ -36,12 +36,12 @@ class Utils:
         }
         try:
             if method.value == RequestsMethods.GET.value:
-                return Utils.__check_the_api_call_response(
+                return Api.__check_the_api_call_response(
                     requests.get(api_url, headers=headers)
                 )
             elif method.value == RequestsMethods.PUT.value:
                 if json_complete is not None:
-                    return Utils.__check_the_api_call_response(
+                    return Api.__check_the_api_call_response(
                         requests.put(api_url, data=json_complete, headers=headers)
                     )
                 else:
@@ -49,14 +49,14 @@ class Utils:
                     raise Exception
             elif method.value == RequestsMethods.POST.value:
                 if json_complete is not None:
-                    return Utils.__check_the_api_call_response(
+                    return Api.__check_the_api_call_response(
                         requests.post(api_url, data=json_complete, headers=headers)
                     )
                 else:
                     logging.error("Please define the json_complete.")
                     raise Exception
             elif method.value == RequestsMethods.DELETE.value:
-                return Utils.__check_the_api_call_response(
+                return Api.__check_the_api_call_response(
                     requests.delete(api_url, headers=headers)
                 )
             else:

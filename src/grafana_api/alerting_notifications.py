@@ -2,10 +2,9 @@ import json
 import logging
 
 from .model import APIModel, APIEndpoints, RequestsMethods
-from .utils import Utils
+from .api import Api
 
 
-# TODO Optimize the documentation
 # TODO Doc strings
 # TODO Add integrationtests
 
@@ -24,7 +23,7 @@ class AlertingNotifications:
         """The method includes a functionality to create the specified dashboard"""
 
         api_call: list = (
-            Utils(self.grafana_api_model)
+            Api(self.grafana_api_model)
             .call_the_api(
                 APIEndpoints.ALERT_NOTIFICATIONS.value,
                 RequestsMethods.GET,
@@ -42,7 +41,7 @@ class AlertingNotifications:
         """The method includes a functionality to create the specified dashboard"""
 
         api_call: list = (
-            Utils(self.grafana_api_model)
+            Api(self.grafana_api_model)
             .call_the_api(
                 f"{APIEndpoints.ALERT_NOTIFICATIONS.value}/lookup",
                 RequestsMethods.GET,
@@ -61,7 +60,7 @@ class AlertingNotifications:
 
         if len(uid) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERT_NOTIFICATIONS.value}/uid/{uid}",
                     RequestsMethods.GET,
@@ -83,7 +82,7 @@ class AlertingNotifications:
 
         if id != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERT_NOTIFICATIONS.value}/{id}",
                     RequestsMethods.GET,
@@ -105,7 +104,7 @@ class AlertingNotifications:
 
         if notification_channel != dict():
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     APIEndpoints.ALERT_NOTIFICATIONS.value,
                     RequestsMethods.POST,
@@ -130,7 +129,7 @@ class AlertingNotifications:
 
         if len(uid) != 0 and notification_channel != dict():
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERT_NOTIFICATIONS.value}/uid/{uid}",
                     RequestsMethods.PUT,
@@ -155,7 +154,7 @@ class AlertingNotifications:
 
         if id != 0 and notification_channel != dict():
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERT_NOTIFICATIONS.value}/{id}",
                     RequestsMethods.PUT,
@@ -178,7 +177,7 @@ class AlertingNotifications:
 
         if len(uid) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERT_NOTIFICATIONS.value}/uid/{uid}",
                     RequestsMethods.DELETE,
@@ -200,7 +199,7 @@ class AlertingNotifications:
 
         if id != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERT_NOTIFICATIONS.value}/{id}",
                     RequestsMethods.DELETE,
@@ -222,7 +221,7 @@ class AlertingNotifications:
 
         if notification_channel != dict():
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERT_NOTIFICATIONS.value}/test",
                     RequestsMethods.POST,

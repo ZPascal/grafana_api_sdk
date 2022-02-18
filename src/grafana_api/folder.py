@@ -1,7 +1,7 @@
 import logging
 import json
 
-from .utils import Utils
+from .api import Api
 from .model import APIModel, APIEndpoints, RequestsMethods
 
 
@@ -19,7 +19,7 @@ class Folder:
         """The method includes a functionality to extract all folders inside the organization"""
 
         api_call: list = (
-            Utils(self.grafana_api_model)
+            Api(self.grafana_api_model)
             .call_the_api(APIEndpoints.FOLDERS.value)
             .json()
         )
@@ -39,7 +39,7 @@ class Folder:
 
         if len(uid) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(f"{APIEndpoints.FOLDERS.value}/{uid}")
                 .json()
             )
@@ -62,7 +62,7 @@ class Folder:
 
         if id != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.FOLDERS.value}/id/{id}",
                 )
@@ -95,7 +95,7 @@ class Folder:
                 folder_information.update({"uid": uid})
 
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     APIEndpoints.FOLDERS.value,
                     RequestsMethods.POST,
@@ -141,7 +141,7 @@ class Folder:
                 folder_information.update({"version": version})
 
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.FOLDERS.value}/{uid}",
                     RequestsMethods.PUT,
@@ -169,7 +169,7 @@ class Folder:
 
         if len(uid) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.FOLDERS.value}/{uid}",
                     RequestsMethods.DELETE,
@@ -196,7 +196,7 @@ class Folder:
 
         if len(uid) != 0:
             api_call: list = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.FOLDERS.value}/{uid}/permissions",
                     RequestsMethods.GET,
@@ -224,7 +224,7 @@ class Folder:
 
         if len(uid) != 0 and len(permission_json) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.FOLDERS.value}/{uid}/permissions",
                     RequestsMethods.POST,
@@ -271,7 +271,7 @@ class Folder:
         """The method extract all folder id and names inside the complete organisation"""
 
         folders_raw: list = (
-            Utils(self.grafana_api_model)
+            Api(self.grafana_api_model)
             .call_the_api(f"{APIEndpoints.SEARCH.value}?folderIds=0")
             .json()
         )

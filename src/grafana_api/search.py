@@ -1,4 +1,4 @@
-from .utils import Utils
+from .api import Api
 from .model import APIModel, APIEndpoints
 
 
@@ -20,7 +20,7 @@ class Search:
         """
 
         result: list = (
-            Utils(self.grafana_api_model)
+            Api(self.grafana_api_model)
             .call_the_api(f"{APIEndpoints.SEARCH.value}?{search_query}")
             .json()
         )

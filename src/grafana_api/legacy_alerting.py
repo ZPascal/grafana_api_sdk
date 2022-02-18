@@ -2,10 +2,9 @@ import json
 import logging
 
 from .model import APIModel, APIEndpoints, RequestsMethods
-from .utils import Utils
+from .api import Api
 
 
-# TODO Optimize the documentation
 # TODO Doc strings
 
 
@@ -38,7 +37,7 @@ class Alerting:
 
         if len(api_string) != 0:
             api_call: list = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     api_string,
                     RequestsMethods.GET,
@@ -78,7 +77,7 @@ class Alerting:
                     dashboard_ids_string = f"{dashboard_ids_string}&"
 
             api_call: list = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.LEGACY_ALERTS.value}/{dashboard_ids_string}",
                     RequestsMethods.GET,
@@ -104,7 +103,7 @@ class Alerting:
 
         if id != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.LEGACY_ALERTS.value}/{id}",
                     RequestsMethods.GET,
@@ -135,7 +134,7 @@ class Alerting:
             }
 
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.LEGACY_ALERTS.value}/{id}/pause",
                     RequestsMethods.POST,
@@ -146,7 +145,7 @@ class Alerting:
 
             if (
                 api_call.get("message") != "alert paused"
-                and "alert unpause" in api_call.get("message")
+                or "alert unpause" in api_call.get("message")
             ):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception

@@ -10,11 +10,10 @@ from .model import (
     AlertmanagerConfig,
     AlertmanagerReceivers,
 )
-from .utils import Utils
+from .api import Api
 
 
 # https://editor.swagger.io/?url=https://raw.githubusercontent.com/grafana/grafana/main/pkg/services/ngalert/api/tooling/post.json
-# TODO Optimize the documentation
 # TODO Doc strings
 # TODO Add integrationtests
 
@@ -45,7 +44,7 @@ class Alerting:
 
         if len(recipient) != 0:
             api_call: list = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/alerts",
                 )
@@ -86,7 +85,7 @@ class Alerting:
                 alerts_json_list.append(alert_json_dict)
 
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/alerts/groups",
                     RequestsMethods.POST,
@@ -114,7 +113,7 @@ class Alerting:
 
         if len(recipient) != 0:
             api_call: list = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/alerts",
                 )
@@ -140,7 +139,7 @@ class Alerting:
 
         if len(recipient) != 0 and len(silence_id) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silence/{silence_id}",
                     RequestsMethods.DELETE,
@@ -167,7 +166,7 @@ class Alerting:
 
         if len(recipient) != 0 and len(silence_id) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silence/{silence_id}",
                 )
@@ -193,7 +192,7 @@ class Alerting:
 
         if len(recipient) != 0:
             api_call: list = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silences",
                 )
@@ -232,7 +231,7 @@ class Alerting:
             )
 
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silences",
                     RequestsMethods.POST,
@@ -260,7 +259,7 @@ class Alerting:
 
         if len(recipient) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/status",
                 )
@@ -286,7 +285,7 @@ class Alerting:
 
         if len(recipient) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/config/api/v1/alerts",
                     RequestsMethods.DELETE,
@@ -313,7 +312,7 @@ class Alerting:
 
         if len(recipient) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/config/api/v1/alerts",
                 )
@@ -352,7 +351,7 @@ class Alerting:
                 alertmanager_configuration_json_dict["template_files"] = template_files
 
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/config/api/v1/alerts",
                     RequestsMethods.POST,
@@ -386,7 +385,7 @@ class Alerting:
             alertmanager_receivers_json_dict["alert"] = alert
             alertmanager_receivers_json_dict["receivers"] = receivers
 
-            api_call: any = Utils(self.grafana_api_model).call_the_api(
+            api_call: any = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/config/api/v1/receivers/test",
                 RequestsMethods.POST,
                 json.dumps(alertmanager_receivers_json_dict),
@@ -429,7 +428,7 @@ class Alerting:
 
         if len(recipient) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_PROMETHEUS.value}/{recipient}/api/v1/alerts",
                 )
@@ -455,7 +454,7 @@ class Alerting:
 
         if len(recipient) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_PROMETHEUS.value}/{recipient}/api/v1/rules",
                 )
@@ -481,7 +480,7 @@ class Alerting:
 
         if len(recipient) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_RULER.value}/{recipient}/api/v1/rules",
                 )
@@ -507,7 +506,7 @@ class Alerting:
 
         if len(recipient) != 0 and len(namespace) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_RULER.value}/{recipient}/api/v1/rules/{namespace}",
                     RequestsMethods.DELETE,
@@ -534,7 +533,7 @@ class Alerting:
 
         if len(recipient) != 0 and len(namespace) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_RULER.value}/{recipient}/api/v1/rules/{namespace}",
                 )
@@ -584,7 +583,7 @@ class Alerting:
                 rules_json_list.append(rule_json_dict)
 
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_RULER.value}/{recipient}/api/v1/rules/{namespace}",
                     RequestsMethods.POST,
@@ -614,7 +613,7 @@ class Alerting:
 
         if len(recipient) != 0 and len(namespace) != 0 and len(group_name) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_RULER.value}/{recipient}/api/v1/rules/{namespace}/{group_name}",
                     RequestsMethods.DELETE,
@@ -641,7 +640,7 @@ class Alerting:
 
         if len(recipient) != 0 and len(namespace) != 0 and len(group_name) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_RULER.value}/{recipient}/api/v1/rules/{namespace}/{group_name}",
                 )
@@ -668,7 +667,7 @@ class Alerting:
 
         if data_query != list():
             api_call: str = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     "/api/v1/eval",
                     RequestsMethods.POST,
@@ -705,7 +704,7 @@ class Alerting:
             and data_query != list()
         ):
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"/api/v1/rule/test/{recipient}",
                     RequestsMethods.POST,
@@ -743,7 +742,7 @@ class Alerting:
         """
 
         api_call: dict = (
-            Utils(self.grafana_api_model)
+            Api(self.grafana_api_model)
             .call_the_api(
                 f"{APIEndpoints.ALERTS_NGALERT.value}/admin_config",
                 RequestsMethods.DELETE,
@@ -767,7 +766,7 @@ class Alerting:
         recipient -> Specify the id of the dashboard
         """
 
-        api_call: any = Utils(self.grafana_api_model).call_the_api(
+        api_call: any = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.ALERTS_NGALERT.value}/admin_config",
         )
 
@@ -801,7 +800,7 @@ class Alerting:
 
         if alert_managers != list() and len(alertmanagers_choice) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_NGALERT.value}/admin_config",
                     RequestsMethods.POST,
@@ -837,7 +836,7 @@ class Alerting:
         """
 
         api_call: dict = (
-            Utils(self.grafana_api_model)
+            Api(self.grafana_api_model)
             .call_the_api(
                 f"{APIEndpoints.ALERTS_NGALERT.value}/alertmanagers",
             )

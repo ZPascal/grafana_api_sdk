@@ -2,10 +2,9 @@ import json
 import logging
 
 from .model import APIModel, APIEndpoints, RequestsMethods
-from .utils import Utils
+from .api import Api
 
 
-# TODO Optimize the documentation
 # TODO Doc strings
 # TODO Add notes for the permissions to doc stings
 
@@ -28,7 +27,7 @@ class Datasource:
         """The method includes a functionality to create the specified dashboard"""
 
         api_call: list = (
-            Utils(self.grafana_api_model)
+            Api(self.grafana_api_model)
             .call_the_api(
                 APIEndpoints.DATASOURCES.value,
                 RequestsMethods.GET,
@@ -47,7 +46,7 @@ class Datasource:
 
         if datasource_id != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.DATASOURCES.value}/{datasource_id}",
                     RequestsMethods.GET,
@@ -69,7 +68,7 @@ class Datasource:
 
         if len(uid) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.DATASOURCES.value}/uid/{uid}",
                     RequestsMethods.GET,
@@ -91,7 +90,7 @@ class Datasource:
 
         if len(name) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.DATASOURCES.value}/name/{name}",
                     RequestsMethods.GET,
@@ -113,7 +112,7 @@ class Datasource:
 
         if len(name) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.DATASOURCES.value}/id/{name}",
                     RequestsMethods.GET,
@@ -138,7 +137,7 @@ class Datasource:
 
         if data_source != dict():
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     APIEndpoints.DATASOURCES.value,
                     RequestsMethods.POST,
@@ -164,7 +163,7 @@ class Datasource:
 
         if datasource_id != 0 and data_source != dict():
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.DATASOURCES.value}/{datasource_id}",
                     RequestsMethods.PUT,
@@ -190,7 +189,7 @@ class Datasource:
 
         if datasource_id != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.DATASOURCES.value}/{datasource_id}",
                     RequestsMethods.DELETE,
@@ -215,7 +214,7 @@ class Datasource:
 
         if len(uid) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.DATASOURCES.value}/uid/{uid}",
                     RequestsMethods.DELETE,
@@ -240,7 +239,7 @@ class Datasource:
 
         if len(name) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.DATASOURCES.value}/name/{name}",
                     RequestsMethods.DELETE,
@@ -282,7 +281,7 @@ class Datasource:
                 datasource_queries_json_list.append(datasource_query_json_dict)
 
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     APIEndpoints.DATASOURCE_QUERY.value,
                     RequestsMethods.POST,
@@ -308,7 +307,7 @@ class Datasource:
 
         if datasource_id != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/enable-permissions",
                     RequestsMethods.POST,
@@ -334,7 +333,7 @@ class Datasource:
 
         if datasource_id != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/disable-permissions",
                     RequestsMethods.POST,
@@ -360,7 +359,7 @@ class Datasource:
 
         if datasource_id != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions",
                     RequestsMethods.GET,
@@ -387,7 +386,7 @@ class Datasource:
 
         if datasource_id != 0 and datasource_permission != dict():
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions",
                     RequestsMethods.POST,
@@ -413,7 +412,7 @@ class Datasource:
 
         if datasource_id != 0 and permission_id != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions/{permission_id}",
                     RequestsMethods.DELETE,
