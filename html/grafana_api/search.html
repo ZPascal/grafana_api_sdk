@@ -26,7 +26,7 @@
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from .utils import Utils
+<pre><code class="python">from .api import Api
 from .model import APIModel, APIEndpoints
 
 
@@ -48,7 +48,7 @@ class Search:
         &#34;&#34;&#34;
 
         result: list = (
-            Utils(self.grafana_api_model)
+            Api(self.grafana_api_model)
             .call_the_api(f&#34;{APIEndpoints.SEARCH.value}?{search_query}&#34;)
             .json()
         )
@@ -97,7 +97,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         &#34;&#34;&#34;
 
         result: list = (
-            Utils(self.grafana_api_model)
+            Api(self.grafana_api_model)
             .call_the_api(f&#34;{APIEndpoints.SEARCH.value}?{search_query}&#34;)
             .json()
         )
@@ -127,7 +127,7 @@ search_query -&gt; Specify the inserted query as string?</p></div>
     &#34;&#34;&#34;
 
     result: list = (
-        Utils(self.grafana_api_model)
+        Api(self.grafana_api_model)
         .call_the_api(f&#34;{APIEndpoints.SEARCH.value}?{search_query}&#34;)
         .json()
     )
