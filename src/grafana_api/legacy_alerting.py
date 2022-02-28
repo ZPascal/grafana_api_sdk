@@ -5,11 +5,8 @@ from .model import APIModel, APIEndpoints, RequestsMethods
 from .api import Api
 
 
-# TODO Doc strings
-
-
 class Alerting:
-    """The class includes all necessary methods to access the Grafana alerting API endpoints
+    """The class includes all necessary methods to access the Grafana legacy alerting API endpoints
 
     Keyword arguments:
     grafana_api_model -> Inject a Grafana API model object that includes all necessary values and information
@@ -22,10 +19,10 @@ class Alerting:
         self,
         custom_querystring: str = None,
     ) -> list:
-        """The method includes a functionality to extract
+        """The method includes a functionality to get the legacy alerts
 
         Keyword arguments:
-        custom_querystring -> Specify the
+        custom_querystring -> Specify the custom querystring
         """
 
         api_string: str = ""
@@ -60,10 +57,10 @@ class Alerting:
         self,
         dashboard_ids: list,
     ) -> list:
-        """The method includes a functionality to create the specified dashboard
+        """The method includes a functionality to get legacy alerts specified by the dashboard ids
 
         Keyword arguments:
-        dashboard_ids -> Specify the
+        dashboard_ids -> Specify the list of dashboard ids
         """
 
         if dashboard_ids != list():
@@ -95,10 +92,10 @@ class Alerting:
             raise ValueError
 
     def get_alert_by_id(self, id: int) -> dict:
-        """The method includes a functionality to create the specified dashboard
+        """The method includes a functionality to get the legacy alert specified by the alert id
 
         Keyword arguments:
-        id -> Specify the
+        id -> Specify the id of the legacy alert
         """
 
         if id != 0:
@@ -121,11 +118,11 @@ class Alerting:
             raise ValueError
 
     def pause_alert_by_id(self, id: int, paused: bool = True):
-        """The method includes a functionality to create the specified dashboard
+        """The method includes a functionality to pause/ unpause a legacy alert specified by the alert id
 
         Keyword arguments:
-        id -> Specify the
-        paused -> Specify the
+        id -> Specify the legacy alert id
+        paused -> Specify the pause/ unpause parameter (default True)
         """
 
         if id != 0:
