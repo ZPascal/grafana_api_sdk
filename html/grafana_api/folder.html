@@ -29,7 +29,7 @@
 <pre><code class="python">import logging
 import json
 
-from .utils import Utils
+from .api import Api
 from .model import APIModel, APIEndpoints, RequestsMethods
 
 
@@ -47,7 +47,7 @@ class Folder:
         &#34;&#34;&#34;The method includes a functionality to extract all folders inside the organization&#34;&#34;&#34;
 
         api_call: list = (
-            Utils(self.grafana_api_model)
+            Api(self.grafana_api_model)
             .call_the_api(APIEndpoints.FOLDERS.value)
             .json()
         )
@@ -67,7 +67,7 @@ class Folder:
 
         if len(uid) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(f&#34;{APIEndpoints.FOLDERS.value}/{uid}&#34;)
                 .json()
             )
@@ -90,7 +90,7 @@ class Folder:
 
         if id != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f&#34;{APIEndpoints.FOLDERS.value}/id/{id}&#34;,
                 )
@@ -123,7 +123,7 @@ class Folder:
                 folder_information.update({&#34;uid&#34;: uid})
 
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     APIEndpoints.FOLDERS.value,
                     RequestsMethods.POST,
@@ -169,7 +169,7 @@ class Folder:
                 folder_information.update({&#34;version&#34;: version})
 
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f&#34;{APIEndpoints.FOLDERS.value}/{uid}&#34;,
                     RequestsMethods.PUT,
@@ -197,7 +197,7 @@ class Folder:
 
         if len(uid) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f&#34;{APIEndpoints.FOLDERS.value}/{uid}&#34;,
                     RequestsMethods.DELETE,
@@ -224,7 +224,7 @@ class Folder:
 
         if len(uid) != 0:
             api_call: list = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f&#34;{APIEndpoints.FOLDERS.value}/{uid}/permissions&#34;,
                     RequestsMethods.GET,
@@ -252,7 +252,7 @@ class Folder:
 
         if len(uid) != 0 and len(permission_json) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f&#34;{APIEndpoints.FOLDERS.value}/{uid}/permissions&#34;,
                     RequestsMethods.POST,
@@ -299,7 +299,7 @@ class Folder:
         &#34;&#34;&#34;The method extract all folder id and names inside the complete organisation&#34;&#34;&#34;
 
         folders_raw: list = (
-            Utils(self.grafana_api_model)
+            Api(self.grafana_api_model)
             .call_the_api(f&#34;{APIEndpoints.SEARCH.value}?folderIds=0&#34;)
             .json()
         )
@@ -349,7 +349,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         &#34;&#34;&#34;The method includes a functionality to extract all folders inside the organization&#34;&#34;&#34;
 
         api_call: list = (
-            Utils(self.grafana_api_model)
+            Api(self.grafana_api_model)
             .call_the_api(APIEndpoints.FOLDERS.value)
             .json()
         )
@@ -369,7 +369,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 
         if len(uid) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(f&#34;{APIEndpoints.FOLDERS.value}/{uid}&#34;)
                 .json()
             )
@@ -392,7 +392,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 
         if id != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f&#34;{APIEndpoints.FOLDERS.value}/id/{id}&#34;,
                 )
@@ -425,7 +425,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
                 folder_information.update({&#34;uid&#34;: uid})
 
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     APIEndpoints.FOLDERS.value,
                     RequestsMethods.POST,
@@ -471,7 +471,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
                 folder_information.update({&#34;version&#34;: version})
 
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f&#34;{APIEndpoints.FOLDERS.value}/{uid}&#34;,
                     RequestsMethods.PUT,
@@ -499,7 +499,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 
         if len(uid) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f&#34;{APIEndpoints.FOLDERS.value}/{uid}&#34;,
                     RequestsMethods.DELETE,
@@ -526,7 +526,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 
         if len(uid) != 0:
             api_call: list = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f&#34;{APIEndpoints.FOLDERS.value}/{uid}/permissions&#34;,
                     RequestsMethods.GET,
@@ -554,7 +554,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 
         if len(uid) != 0 and len(permission_json) != 0:
             api_call: dict = (
-                Utils(self.grafana_api_model)
+                Api(self.grafana_api_model)
                 .call_the_api(
                     f&#34;{APIEndpoints.FOLDERS.value}/{uid}/permissions&#34;,
                     RequestsMethods.POST,
@@ -601,7 +601,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         &#34;&#34;&#34;The method extract all folder id and names inside the complete organisation&#34;&#34;&#34;
 
         folders_raw: list = (
-            Utils(self.grafana_api_model)
+            Api(self.grafana_api_model)
             .call_the_api(f&#34;{APIEndpoints.SEARCH.value}?folderIds=0&#34;)
             .json()
         )
@@ -647,7 +647,7 @@ uid -&gt; Specify the uid of the folder (the default value is None)</p></div>
             folder_information.update({&#34;uid&#34;: uid})
 
         api_call: dict = (
-            Utils(self.grafana_api_model)
+            Api(self.grafana_api_model)
             .call_the_api(
                 APIEndpoints.FOLDERS.value,
                 RequestsMethods.POST,
@@ -688,7 +688,7 @@ uid -&gt; Specify the uid of the folder</p></div>
 
     if len(uid) != 0:
         api_call: dict = (
-            Utils(self.grafana_api_model)
+            Api(self.grafana_api_model)
             .call_the_api(
                 f&#34;{APIEndpoints.FOLDERS.value}/{uid}&#34;,
                 RequestsMethods.DELETE,
@@ -719,7 +719,7 @@ uid -&gt; Specify the uid of the folder</p></div>
     &#34;&#34;&#34;The method extract all folder id and names inside the complete organisation&#34;&#34;&#34;
 
     folders_raw: list = (
-        Utils(self.grafana_api_model)
+        Api(self.grafana_api_model)
         .call_the_api(f&#34;{APIEndpoints.SEARCH.value}?folderIds=0&#34;)
         .json()
     )
@@ -754,7 +754,7 @@ id -&gt; Specify the id of the folder</p></div>
 
     if id != 0:
         api_call: dict = (
-            Utils(self.grafana_api_model)
+            Api(self.grafana_api_model)
             .call_the_api(
                 f&#34;{APIEndpoints.FOLDERS.value}/id/{id}&#34;,
             )
@@ -791,7 +791,7 @@ uid -&gt; Specify the uid of the folder</p></div>
 
     if len(uid) != 0:
         api_call: dict = (
-            Utils(self.grafana_api_model)
+            Api(self.grafana_api_model)
             .call_the_api(f&#34;{APIEndpoints.FOLDERS.value}/{uid}&#34;)
             .json()
         )
@@ -863,7 +863,7 @@ uid -&gt; Specify the uid of the folder</p></div>
 
     if len(uid) != 0:
         api_call: list = (
-            Utils(self.grafana_api_model)
+            Api(self.grafana_api_model)
             .call_the_api(
                 f&#34;{APIEndpoints.FOLDERS.value}/{uid}/permissions&#34;,
                 RequestsMethods.GET,
@@ -894,7 +894,7 @@ uid -&gt; Specify the uid of the folder</p></div>
     &#34;&#34;&#34;The method includes a functionality to extract all folders inside the organization&#34;&#34;&#34;
 
     api_call: list = (
-        Utils(self.grafana_api_model)
+        Api(self.grafana_api_model)
         .call_the_api(APIEndpoints.FOLDERS.value)
         .json()
     )
@@ -949,7 +949,7 @@ overwrite -&gt; Should the already existing folder information be overwritten</p
             folder_information.update({&#34;version&#34;: version})
 
         api_call: dict = (
-            Utils(self.grafana_api_model)
+            Api(self.grafana_api_model)
             .call_the_api(
                 f&#34;{APIEndpoints.FOLDERS.value}/{uid}&#34;,
                 RequestsMethods.PUT,
@@ -992,7 +992,7 @@ permission_json -&gt; Specify the inserted permissions as dict</p></div>
 
     if len(uid) != 0 and len(permission_json) != 0:
         api_call: dict = (
-            Utils(self.grafana_api_model)
+            Api(self.grafana_api_model)
             .call_the_api(
                 f&#34;{APIEndpoints.FOLDERS.value}/{uid}/permissions&#34;,
                 RequestsMethods.POST,
