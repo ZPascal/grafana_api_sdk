@@ -1,5 +1,5 @@
-from .utils import Utils
-from .model import APIModel
+from .api import Api
+from .model import APIModel, APIEndpoints
 
 
 class Search:
@@ -16,10 +16,14 @@ class Search:
         """The method includes a functionality to execute a custom query
 
         Keyword arguments:
-        search_query -> Specify the inserted query as string
+        search_query -> Specify the inserted query as string?
         """
 
-        result: list = Utils(self.grafana_api_model).call_the_api(search_query)
+        result: list = (
+            Api(self.grafana_api_model)
+            .call_the_api(f"{APIEndpoints.SEARCH.value}?{search_query}")
+            .json()
+        )
         if result == list():
             raise Exception
         else:
