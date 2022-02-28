@@ -33,11 +33,8 @@ from .model import APIModel, APIEndpoints, RequestsMethods
 from .api import Api
 
 
-# TODO Doc strings
-
-
 class Alerting:
-    &#34;&#34;&#34;The class includes all necessary methods to access the Grafana alerting API endpoints
+    &#34;&#34;&#34;The class includes all necessary methods to access the Grafana legacy alerting API endpoints
 
     Keyword arguments:
     grafana_api_model -&gt; Inject a Grafana API model object that includes all necessary values and information
@@ -50,10 +47,10 @@ class Alerting:
         self,
         custom_querystring: str = None,
     ) -&gt; list:
-        &#34;&#34;&#34;The method includes a functionality to extract
+        &#34;&#34;&#34;The method includes a functionality to get the legacy alerts
 
         Keyword arguments:
-        custom_querystring -&gt; Specify the
+        custom_querystring -&gt; Specify the custom querystring
         &#34;&#34;&#34;
 
         api_string: str = &#34;&#34;
@@ -88,10 +85,10 @@ class Alerting:
         self,
         dashboard_ids: list,
     ) -&gt; list:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+        &#34;&#34;&#34;The method includes a functionality to get legacy alerts specified by the dashboard ids
 
         Keyword arguments:
-        dashboard_ids -&gt; Specify the
+        dashboard_ids -&gt; Specify the list of dashboard ids
         &#34;&#34;&#34;
 
         if dashboard_ids != list():
@@ -123,10 +120,10 @@ class Alerting:
             raise ValueError
 
     def get_alert_by_id(self, id: int) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+        &#34;&#34;&#34;The method includes a functionality to get the legacy alert specified by the alert id
 
         Keyword arguments:
-        id -&gt; Specify the
+        id -&gt; Specify the id of the legacy alert
         &#34;&#34;&#34;
 
         if id != 0:
@@ -149,11 +146,11 @@ class Alerting:
             raise ValueError
 
     def pause_alert_by_id(self, id: int, paused: bool = True):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+        &#34;&#34;&#34;The method includes a functionality to pause/ unpause a legacy alert specified by the alert id
 
         Keyword arguments:
-        id -&gt; Specify the
-        paused -&gt; Specify the
+        id -&gt; Specify the legacy alert id
+        paused -&gt; Specify the pause/ unpause parameter (default True)
         &#34;&#34;&#34;
 
         if id != 0:
@@ -198,7 +195,7 @@ class Alerting:
 <span>(</span><span>grafana_api_model: <a title="grafana_api.model.APIModel" href="model.html#grafana_api.model.APIModel">APIModel</a>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The class includes all necessary methods to access the Grafana alerting API endpoints</p>
+<div class="desc"><p>The class includes all necessary methods to access the Grafana legacy alerting API endpoints</p>
 <p>Keyword arguments:
 grafana_api_model -&gt; Inject a Grafana API model object that includes all necessary values and information</p></div>
 <details class="source">
@@ -206,7 +203,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Alerting:
-    &#34;&#34;&#34;The class includes all necessary methods to access the Grafana alerting API endpoints
+    &#34;&#34;&#34;The class includes all necessary methods to access the Grafana legacy alerting API endpoints
 
     Keyword arguments:
     grafana_api_model -&gt; Inject a Grafana API model object that includes all necessary values and information
@@ -219,10 +216,10 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         self,
         custom_querystring: str = None,
     ) -&gt; list:
-        &#34;&#34;&#34;The method includes a functionality to extract
+        &#34;&#34;&#34;The method includes a functionality to get the legacy alerts
 
         Keyword arguments:
-        custom_querystring -&gt; Specify the
+        custom_querystring -&gt; Specify the custom querystring
         &#34;&#34;&#34;
 
         api_string: str = &#34;&#34;
@@ -257,10 +254,10 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         self,
         dashboard_ids: list,
     ) -&gt; list:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+        &#34;&#34;&#34;The method includes a functionality to get legacy alerts specified by the dashboard ids
 
         Keyword arguments:
-        dashboard_ids -&gt; Specify the
+        dashboard_ids -&gt; Specify the list of dashboard ids
         &#34;&#34;&#34;
 
         if dashboard_ids != list():
@@ -292,10 +289,10 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             raise ValueError
 
     def get_alert_by_id(self, id: int) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+        &#34;&#34;&#34;The method includes a functionality to get the legacy alert specified by the alert id
 
         Keyword arguments:
-        id -&gt; Specify the
+        id -&gt; Specify the id of the legacy alert
         &#34;&#34;&#34;
 
         if id != 0:
@@ -318,11 +315,11 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             raise ValueError
 
     def pause_alert_by_id(self, id: int, paused: bool = True):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+        &#34;&#34;&#34;The method includes a functionality to pause/ unpause a legacy alert specified by the alert id
 
         Keyword arguments:
-        id -&gt; Specify the
-        paused -&gt; Specify the
+        id -&gt; Specify the legacy alert id
+        paused -&gt; Specify the pause/ unpause parameter (default True)
         &#34;&#34;&#34;
 
         if id != 0:
@@ -358,18 +355,18 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">get_alert_by_id</span></span>(<span>self, id: int) ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p>
+<div class="desc"><p>The method includes a functionality to get the legacy alert specified by the alert id</p>
 <p>Keyword arguments:
-id -&gt; Specify the</p></div>
+id -&gt; Specify the id of the legacy alert</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_alert_by_id(self, id: int) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+    &#34;&#34;&#34;The method includes a functionality to get the legacy alert specified by the alert id
 
     Keyword arguments:
-    id -&gt; Specify the
+    id -&gt; Specify the id of the legacy alert
     &#34;&#34;&#34;
 
     if id != 0:
@@ -396,9 +393,9 @@ id -&gt; Specify the</p></div>
 <span>def <span class="ident">get_alerts</span></span>(<span>self, custom_querystring: str = None) ‑> list</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract</p>
+<div class="desc"><p>The method includes a functionality to get the legacy alerts</p>
 <p>Keyword arguments:
-custom_querystring -&gt; Specify the</p></div>
+custom_querystring -&gt; Specify the custom querystring</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -407,10 +404,10 @@ custom_querystring -&gt; Specify the</p></div>
     self,
     custom_querystring: str = None,
 ) -&gt; list:
-    &#34;&#34;&#34;The method includes a functionality to extract
+    &#34;&#34;&#34;The method includes a functionality to get the legacy alerts
 
     Keyword arguments:
-    custom_querystring -&gt; Specify the
+    custom_querystring -&gt; Specify the custom querystring
     &#34;&#34;&#34;
 
     api_string: str = &#34;&#34;
@@ -446,9 +443,9 @@ custom_querystring -&gt; Specify the</p></div>
 <span>def <span class="ident">get_alerts_by_dashboard_ids</span></span>(<span>self, dashboard_ids: list) ‑> list</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p>
+<div class="desc"><p>The method includes a functionality to get legacy alerts specified by the dashboard ids</p>
 <p>Keyword arguments:
-dashboard_ids -&gt; Specify the</p></div>
+dashboard_ids -&gt; Specify the list of dashboard ids</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -457,10 +454,10 @@ dashboard_ids -&gt; Specify the</p></div>
     self,
     dashboard_ids: list,
 ) -&gt; list:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+    &#34;&#34;&#34;The method includes a functionality to get legacy alerts specified by the dashboard ids
 
     Keyword arguments:
-    dashboard_ids -&gt; Specify the
+    dashboard_ids -&gt; Specify the list of dashboard ids
     &#34;&#34;&#34;
 
     if dashboard_ids != list():
@@ -496,20 +493,20 @@ dashboard_ids -&gt; Specify the</p></div>
 <span>def <span class="ident">pause_alert_by_id</span></span>(<span>self, id: int, paused: bool = True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p>
+<div class="desc"><p>The method includes a functionality to pause/ unpause a legacy alert specified by the alert id</p>
 <p>Keyword arguments:
-id -&gt; Specify the
-paused -&gt; Specify the</p></div>
+id -&gt; Specify the legacy alert id
+paused -&gt; Specify the pause/ unpause parameter (default True)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def pause_alert_by_id(self, id: int, paused: bool = True):
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+    &#34;&#34;&#34;The method includes a functionality to pause/ unpause a legacy alert specified by the alert id
 
     Keyword arguments:
-    id -&gt; Specify the
-    paused -&gt; Specify the
+    id -&gt; Specify the legacy alert id
+    paused -&gt; Specify the pause/ unpause parameter (default True)
     &#34;&#34;&#34;
 
     if id != 0:
