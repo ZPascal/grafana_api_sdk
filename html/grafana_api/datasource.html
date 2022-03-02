@@ -33,16 +33,12 @@ from .model import APIModel, APIEndpoints, RequestsMethods
 from .api import Api
 
 
-# TODO Doc strings
-# TODO Add notes for the permissions to doc stings
-
-
 class Datasource:
     &#34;&#34;&#34;The class includes all necessary methods to access the Grafana datasource API endpoints. It&#39;s required that \
     the API token got the corresponding datasource access rights. Please check the used methods docstring for the \
     necessary access rights
 
-    HINT: Note Grafana Enterprise API add required permissions if fine-grained access control is enabled
+    HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
 
     Keyword arguments:
     grafana_api_model -&gt; Inject a Grafana API model object that includes all necessary values and information
@@ -52,7 +48,12 @@ class Datasource:
         self.grafana_api_model = grafana_api_model
 
     def get_all_datasources(self) -&gt; list:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to get all datasources
+
+        Required permissions:
+        Action: datasources:read
+        Scope: datasources:*
+        &#34;&#34;&#34;
 
         api_call: list = (
             Api(self.grafana_api_model)
@@ -70,7 +71,15 @@ class Datasource:
             return api_call
 
     def get_datasource_by_id(self, datasource_id: int) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to get the datasource specified by the datasource id
+
+        Required permissions:
+        Action: datasources:read
+        Scope: [datasources:*, datasources:id:*, datasources:id:&lt;id&gt;]
+
+        Keyword arguments:
+        datasource_id -&gt; Specify the id of the datasource
+        &#34;&#34;&#34;
 
         if datasource_id != 0:
             api_call: dict = (
@@ -92,7 +101,15 @@ class Datasource:
             raise ValueError
 
     def get_datasource_by_uid(self, uid: str) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to get the datasource specified by the datasource uid
+
+        Required permissions:
+        Action: datasources:read
+        Scope: [datasources:*, datasources:uid:*, datasources:uid:&lt;uid&gt;]
+
+        Keyword arguments:
+        uid -&gt; Specify the uid of the datasource
+        &#34;&#34;&#34;
 
         if len(uid) != 0:
             api_call: dict = (
@@ -114,7 +131,15 @@ class Datasource:
             raise ValueError
 
     def get_datasource_by_name(self, name: str) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to get the datasource specified by the datasource name
+
+        Required permissions:
+        Action: datasources:read
+        Scope: [datasources:*, datasources:name:*, datasources:name:&lt;name&gt;]
+
+        Keyword arguments:
+        name -&gt; Specify the name of the datasource
+        &#34;&#34;&#34;
 
         if len(name) != 0:
             api_call: dict = (
@@ -136,7 +161,15 @@ class Datasource:
             raise ValueError
 
     def get_datasource_id_by_name(self, name: str) -&gt; int:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to get the datasource id specified by the datasource name
+
+        Required permissions:
+        Action: datasources:read
+        Scope: [datasources:*, datasources:name:*, datasources:name:&lt;name&gt;]
+
+        Keyword arguments:
+        name -&gt; Specify the name of the datasource
+        &#34;&#34;&#34;
 
         if len(name) != 0:
             api_call: dict = (
@@ -158,9 +191,13 @@ class Datasource:
             raise ValueError
 
     def create_datasource(self, data_source: dict):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+        &#34;&#34;&#34;The method includes a functionality to create a datasource specified by the datasource as dict
 
-        https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+        Required permissions:
+        Action: datasources:create
+
+        Keyword arguments:
+        data_source -&gt; Specify the datasource as dict
         &#34;&#34;&#34;
 
         if data_source != dict():
@@ -184,9 +221,16 @@ class Datasource:
             raise ValueError
 
     def update_datasource(self, datasource_id: int, data_source: dict):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+        &#34;&#34;&#34;The method includes a functionality to update a datasource specified by the datasource as dict and the \
+        datasource id
 
-        https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+        Required permissions:
+        Action: datasources:write
+        Scope: [datasources:*, datasources:id:*, datasources:id:&lt;id&gt;]
+
+        Keyword arguments:
+        datasource_id -&gt; Specify the id of the datasource
+        data_source -&gt; Specify the datasource as dict
         &#34;&#34;&#34;
 
         if datasource_id != 0 and data_source != dict():
@@ -210,9 +254,14 @@ class Datasource:
             raise ValueError
 
     def delete_datasource_by_id(self, datasource_id: int):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+        &#34;&#34;&#34;The method includes a functionality to delete a datasource specified by the datasource id
 
-        https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+        Required permissions:
+        Action: datasources:delete
+        Scope: [datasources:*, datasources:id:*, datasources:id:&lt;id&gt;]
+
+        Keyword arguments:
+        datasource_id -&gt; Specify the id of the datasource
         &#34;&#34;&#34;
 
         if datasource_id != 0:
@@ -235,9 +284,14 @@ class Datasource:
             raise ValueError
 
     def delete_datasource_by_uid(self, uid: str):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+        &#34;&#34;&#34;The method includes a functionality to delete a datasource specified by the datasource uid
 
-        https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+        Required permissions:
+        Action: datasources:delete
+        Scope: [datasources:*, datasources:uid:*, datasources:uid:&lt;uid&gt;]
+
+        Keyword arguments:
+        uid -&gt; Specify the uid of the datasource
         &#34;&#34;&#34;
 
         if len(uid) != 0:
@@ -260,9 +314,14 @@ class Datasource:
             raise ValueError
 
     def delete_datasource_by_name(self, name: str):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+        &#34;&#34;&#34;The method includes a functionality to delete a datasource specified by the datasource name
 
-        https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+        Required permissions:
+        Action: datasources:delete
+        Scope: [datasources:*, datasources:name:*, datasources:name:&lt;name&gt;]
+
+        Keyword arguments:
+        name -&gt; Specify the name of the datasource
         &#34;&#34;&#34;
 
         if len(name) != 0:
@@ -287,9 +346,15 @@ class Datasource:
     def query_datasource_by_id(
         self, time: str, to: str, datasource_queries: list
     ) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+        &#34;&#34;&#34;The method includes a functionality to execute a queries inside the datasource itself specified by the \
+        datasource id
 
-        datasource_queries -&gt; list of DatasourceQuery
+        Keyword arguments:
+        from -&gt; Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time \
+        units. For example, now-1h
+        to -&gt; Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time \
+        units. For example, now-1h
+        datasource_queries -&gt; Specify a list of execution queries based on the DatasourceQuery class
         &#34;&#34;&#34;
 
         if len(time) != 0 and len(to) != 0 and datasource_queries != list():
@@ -328,9 +393,15 @@ class Datasource:
             raise ValueError
 
     def enable_datasource_permissions(self, datasource_id: int):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
-        -&gt; ENTERPRISE feature!
-        https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+        &#34;&#34;&#34;The method includes a functionality to enable datasource permissions specified by the datasource id. The \
+        functionality is a Grafana ENTERPRISE feature
+
+        Required permissions:
+        Action: datasources.permissions:write
+        Scope: [datasources:*, datasources:id:*, datasources:id:&lt;id&gt;]
+
+        Keyword arguments:
+        datasource_id -&gt; Specify the id of the datasource
         &#34;&#34;&#34;
 
         if datasource_id != 0:
@@ -354,9 +425,15 @@ class Datasource:
             raise ValueError
 
     def disable_datasource_permissions(self, datasource_id: int):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
-        -&gt; ENTERPRISE feature!
-        https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+        &#34;&#34;&#34;The method includes a functionality to disable datasource permissions specified by the datasource id. The \
+        functionality is a Grafana ENTERPRISE feature
+
+        Required permissions:
+        Action: datasources.permissions:write
+        Scope: [datasources:*, datasources:id:*, datasources:id:&lt;id&gt;]
+
+        Keyword arguments:
+        datasource_id -&gt; Specify the id of the datasource
         &#34;&#34;&#34;
 
         if datasource_id != 0:
@@ -380,9 +457,15 @@ class Datasource:
             raise ValueError
 
     def get_datasource_permissions(self, datasource_id: int) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
-        -&gt; ENTERPRISE feature!
-        https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+        &#34;&#34;&#34;The method includes a functionality to get the datasource permissions specified by the datasource id. The \
+        functionality is a Grafana ENTERPRISE feature
+
+        Required permissions:
+        Action: datasources.permissions:read
+        Scope: [datasources:*, datasources:id:*, datasources:id:&lt;id&gt;]
+
+        Keyword arguments:
+        datasource_id -&gt; Specify the id of the datasource
         &#34;&#34;&#34;
 
         if datasource_id != 0:
@@ -407,9 +490,16 @@ class Datasource:
     def add_datasource_permissions(
         self, datasource_id: int, datasource_permission: dict
     ):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
-        -&gt; ENTERPRISE feature!
-        https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+        &#34;&#34;&#34;The method includes a functionality to add datasource permission specified by the datasource id and the \
+        datasource permission dict. The functionality is a Grafana ENTERPRISE feature
+
+        Required permissions:
+        Action: datasources.permissions:write
+        Scope: [datasources:*, datasources:id:*, datasources:id:&lt;id&gt;]
+
+        Keyword arguments:
+        datasource_id -&gt; Specify the id of the datasource
+        datasource_permission -&gt; Specify the permission of the datasource
         &#34;&#34;&#34;
 
         if datasource_id != 0 and datasource_permission != dict():
@@ -433,9 +523,16 @@ class Datasource:
             raise ValueError
 
     def delete_datasource_permissions(self, datasource_id: int, permission_id: int):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
-        -&gt; ENTERPRISE feature!
-        https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+        &#34;&#34;&#34;The method includes a functionality to delete datasource permission specified by the datasource id and \
+        the permission id. The functionality is a Grafana ENTERPRISE feature
+
+        Required permissions:
+        Action: datasources.permissions:write
+        Scope: [datasources:*, datasources:id:*, datasources:id:&lt;id&gt;]
+
+        Keyword arguments:
+        datasource_id -&gt; Specify the id of the datasource
+        permission_id -&gt; Specify the permission id
         &#34;&#34;&#34;
 
         if datasource_id != 0 and permission_id != 0:
@@ -475,7 +572,7 @@ class Datasource:
 <div class="desc"><p>The class includes all necessary methods to access the Grafana datasource API endpoints. It's required that
 the API token got the corresponding datasource access rights. Please check the used methods docstring for the
 necessary access rights</p>
-<p>HINT: Note Grafana Enterprise API add required permissions if fine-grained access control is enabled</p>
+<p>HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled</p>
 <p>Keyword arguments:
 grafana_api_model -&gt; Inject a Grafana API model object that includes all necessary values and information</p></div>
 <details class="source">
@@ -487,7 +584,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
     the API token got the corresponding datasource access rights. Please check the used methods docstring for the \
     necessary access rights
 
-    HINT: Note Grafana Enterprise API add required permissions if fine-grained access control is enabled
+    HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
 
     Keyword arguments:
     grafana_api_model -&gt; Inject a Grafana API model object that includes all necessary values and information
@@ -497,7 +594,12 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         self.grafana_api_model = grafana_api_model
 
     def get_all_datasources(self) -&gt; list:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to get all datasources
+
+        Required permissions:
+        Action: datasources:read
+        Scope: datasources:*
+        &#34;&#34;&#34;
 
         api_call: list = (
             Api(self.grafana_api_model)
@@ -515,7 +617,15 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             return api_call
 
     def get_datasource_by_id(self, datasource_id: int) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to get the datasource specified by the datasource id
+
+        Required permissions:
+        Action: datasources:read
+        Scope: [datasources:*, datasources:id:*, datasources:id:&lt;id&gt;]
+
+        Keyword arguments:
+        datasource_id -&gt; Specify the id of the datasource
+        &#34;&#34;&#34;
 
         if datasource_id != 0:
             api_call: dict = (
@@ -537,7 +647,15 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             raise ValueError
 
     def get_datasource_by_uid(self, uid: str) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to get the datasource specified by the datasource uid
+
+        Required permissions:
+        Action: datasources:read
+        Scope: [datasources:*, datasources:uid:*, datasources:uid:&lt;uid&gt;]
+
+        Keyword arguments:
+        uid -&gt; Specify the uid of the datasource
+        &#34;&#34;&#34;
 
         if len(uid) != 0:
             api_call: dict = (
@@ -559,7 +677,15 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             raise ValueError
 
     def get_datasource_by_name(self, name: str) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to get the datasource specified by the datasource name
+
+        Required permissions:
+        Action: datasources:read
+        Scope: [datasources:*, datasources:name:*, datasources:name:&lt;name&gt;]
+
+        Keyword arguments:
+        name -&gt; Specify the name of the datasource
+        &#34;&#34;&#34;
 
         if len(name) != 0:
             api_call: dict = (
@@ -581,7 +707,15 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             raise ValueError
 
     def get_datasource_id_by_name(self, name: str) -&gt; int:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to get the datasource id specified by the datasource name
+
+        Required permissions:
+        Action: datasources:read
+        Scope: [datasources:*, datasources:name:*, datasources:name:&lt;name&gt;]
+
+        Keyword arguments:
+        name -&gt; Specify the name of the datasource
+        &#34;&#34;&#34;
 
         if len(name) != 0:
             api_call: dict = (
@@ -603,9 +737,13 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             raise ValueError
 
     def create_datasource(self, data_source: dict):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+        &#34;&#34;&#34;The method includes a functionality to create a datasource specified by the datasource as dict
 
-        https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+        Required permissions:
+        Action: datasources:create
+
+        Keyword arguments:
+        data_source -&gt; Specify the datasource as dict
         &#34;&#34;&#34;
 
         if data_source != dict():
@@ -629,9 +767,16 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             raise ValueError
 
     def update_datasource(self, datasource_id: int, data_source: dict):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+        &#34;&#34;&#34;The method includes a functionality to update a datasource specified by the datasource as dict and the \
+        datasource id
 
-        https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+        Required permissions:
+        Action: datasources:write
+        Scope: [datasources:*, datasources:id:*, datasources:id:&lt;id&gt;]
+
+        Keyword arguments:
+        datasource_id -&gt; Specify the id of the datasource
+        data_source -&gt; Specify the datasource as dict
         &#34;&#34;&#34;
 
         if datasource_id != 0 and data_source != dict():
@@ -655,9 +800,14 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             raise ValueError
 
     def delete_datasource_by_id(self, datasource_id: int):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+        &#34;&#34;&#34;The method includes a functionality to delete a datasource specified by the datasource id
 
-        https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+        Required permissions:
+        Action: datasources:delete
+        Scope: [datasources:*, datasources:id:*, datasources:id:&lt;id&gt;]
+
+        Keyword arguments:
+        datasource_id -&gt; Specify the id of the datasource
         &#34;&#34;&#34;
 
         if datasource_id != 0:
@@ -680,9 +830,14 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             raise ValueError
 
     def delete_datasource_by_uid(self, uid: str):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+        &#34;&#34;&#34;The method includes a functionality to delete a datasource specified by the datasource uid
 
-        https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+        Required permissions:
+        Action: datasources:delete
+        Scope: [datasources:*, datasources:uid:*, datasources:uid:&lt;uid&gt;]
+
+        Keyword arguments:
+        uid -&gt; Specify the uid of the datasource
         &#34;&#34;&#34;
 
         if len(uid) != 0:
@@ -705,9 +860,14 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             raise ValueError
 
     def delete_datasource_by_name(self, name: str):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+        &#34;&#34;&#34;The method includes a functionality to delete a datasource specified by the datasource name
 
-        https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+        Required permissions:
+        Action: datasources:delete
+        Scope: [datasources:*, datasources:name:*, datasources:name:&lt;name&gt;]
+
+        Keyword arguments:
+        name -&gt; Specify the name of the datasource
         &#34;&#34;&#34;
 
         if len(name) != 0:
@@ -732,9 +892,15 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
     def query_datasource_by_id(
         self, time: str, to: str, datasource_queries: list
     ) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+        &#34;&#34;&#34;The method includes a functionality to execute a queries inside the datasource itself specified by the \
+        datasource id
 
-        datasource_queries -&gt; list of DatasourceQuery
+        Keyword arguments:
+        from -&gt; Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time \
+        units. For example, now-1h
+        to -&gt; Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time \
+        units. For example, now-1h
+        datasource_queries -&gt; Specify a list of execution queries based on the DatasourceQuery class
         &#34;&#34;&#34;
 
         if len(time) != 0 and len(to) != 0 and datasource_queries != list():
@@ -773,9 +939,15 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             raise ValueError
 
     def enable_datasource_permissions(self, datasource_id: int):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
-        -&gt; ENTERPRISE feature!
-        https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+        &#34;&#34;&#34;The method includes a functionality to enable datasource permissions specified by the datasource id. The \
+        functionality is a Grafana ENTERPRISE feature
+
+        Required permissions:
+        Action: datasources.permissions:write
+        Scope: [datasources:*, datasources:id:*, datasources:id:&lt;id&gt;]
+
+        Keyword arguments:
+        datasource_id -&gt; Specify the id of the datasource
         &#34;&#34;&#34;
 
         if datasource_id != 0:
@@ -799,9 +971,15 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             raise ValueError
 
     def disable_datasource_permissions(self, datasource_id: int):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
-        -&gt; ENTERPRISE feature!
-        https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+        &#34;&#34;&#34;The method includes a functionality to disable datasource permissions specified by the datasource id. The \
+        functionality is a Grafana ENTERPRISE feature
+
+        Required permissions:
+        Action: datasources.permissions:write
+        Scope: [datasources:*, datasources:id:*, datasources:id:&lt;id&gt;]
+
+        Keyword arguments:
+        datasource_id -&gt; Specify the id of the datasource
         &#34;&#34;&#34;
 
         if datasource_id != 0:
@@ -825,9 +1003,15 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             raise ValueError
 
     def get_datasource_permissions(self, datasource_id: int) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
-        -&gt; ENTERPRISE feature!
-        https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+        &#34;&#34;&#34;The method includes a functionality to get the datasource permissions specified by the datasource id. The \
+        functionality is a Grafana ENTERPRISE feature
+
+        Required permissions:
+        Action: datasources.permissions:read
+        Scope: [datasources:*, datasources:id:*, datasources:id:&lt;id&gt;]
+
+        Keyword arguments:
+        datasource_id -&gt; Specify the id of the datasource
         &#34;&#34;&#34;
 
         if datasource_id != 0:
@@ -852,9 +1036,16 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
     def add_datasource_permissions(
         self, datasource_id: int, datasource_permission: dict
     ):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
-        -&gt; ENTERPRISE feature!
-        https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+        &#34;&#34;&#34;The method includes a functionality to add datasource permission specified by the datasource id and the \
+        datasource permission dict. The functionality is a Grafana ENTERPRISE feature
+
+        Required permissions:
+        Action: datasources.permissions:write
+        Scope: [datasources:*, datasources:id:*, datasources:id:&lt;id&gt;]
+
+        Keyword arguments:
+        datasource_id -&gt; Specify the id of the datasource
+        datasource_permission -&gt; Specify the permission of the datasource
         &#34;&#34;&#34;
 
         if datasource_id != 0 and datasource_permission != dict():
@@ -878,9 +1069,16 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             raise ValueError
 
     def delete_datasource_permissions(self, datasource_id: int, permission_id: int):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
-        -&gt; ENTERPRISE feature!
-        https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+        &#34;&#34;&#34;The method includes a functionality to delete datasource permission specified by the datasource id and \
+        the permission id. The functionality is a Grafana ENTERPRISE feature
+
+        Required permissions:
+        Action: datasources.permissions:write
+        Scope: [datasources:*, datasources:id:*, datasources:id:&lt;id&gt;]
+
+        Keyword arguments:
+        datasource_id -&gt; Specify the id of the datasource
+        permission_id -&gt; Specify the permission id
         &#34;&#34;&#34;
 
         if datasource_id != 0 and permission_id != 0:
@@ -908,9 +1106,14 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">add_datasource_permissions</span></span>(<span>self, datasource_id: int, datasource_permission: dict)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard
--&gt; ENTERPRISE feature!
-<a href="https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source">https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source</a></p></div>
+<div class="desc"><p>The method includes a functionality to add datasource permission specified by the datasource id and the
+datasource permission dict. The functionality is a Grafana ENTERPRISE feature</p>
+<p>Required permissions:
+Action: datasources.permissions:write
+Scope: [datasources:<em>, datasources:id:</em>, datasources:id:<id>]</p>
+<p>Keyword arguments:
+datasource_id -&gt; Specify the id of the datasource
+datasource_permission -&gt; Specify the permission of the datasource</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -918,9 +1121,16 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <pre><code class="python">def add_datasource_permissions(
     self, datasource_id: int, datasource_permission: dict
 ):
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
-    -&gt; ENTERPRISE feature!
-    https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+    &#34;&#34;&#34;The method includes a functionality to add datasource permission specified by the datasource id and the \
+    datasource permission dict. The functionality is a Grafana ENTERPRISE feature
+
+    Required permissions:
+    Action: datasources.permissions:write
+    Scope: [datasources:*, datasources:id:*, datasources:id:&lt;id&gt;]
+
+    Keyword arguments:
+    datasource_id -&gt; Specify the id of the datasource
+    datasource_permission -&gt; Specify the permission of the datasource
     &#34;&#34;&#34;
 
     if datasource_id != 0 and datasource_permission != dict():
@@ -948,16 +1158,23 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">create_datasource</span></span>(<span>self, data_source: dict)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p>
-<p><a href="https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source">https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source</a></p></div>
+<div class="desc"><p>The method includes a functionality to create a datasource specified by the datasource as dict</p>
+<p>Required permissions:
+Action: datasources:create</p>
+<p>Keyword arguments:
+data_source -&gt; Specify the datasource as dict</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def create_datasource(self, data_source: dict):
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+    &#34;&#34;&#34;The method includes a functionality to create a datasource specified by the datasource as dict
 
-    https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+    Required permissions:
+    Action: datasources:create
+
+    Keyword arguments:
+    data_source -&gt; Specify the datasource as dict
     &#34;&#34;&#34;
 
     if data_source != dict():
@@ -985,16 +1202,25 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">delete_datasource_by_id</span></span>(<span>self, datasource_id: int)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p>
-<p><a href="https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source">https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source</a></p></div>
+<div class="desc"><p>The method includes a functionality to delete a datasource specified by the datasource id</p>
+<p>Required permissions:
+Action: datasources:delete
+Scope: [datasources:<em>, datasources:id:</em>, datasources:id:<id>]</p>
+<p>Keyword arguments:
+datasource_id -&gt; Specify the id of the datasource</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def delete_datasource_by_id(self, datasource_id: int):
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+    &#34;&#34;&#34;The method includes a functionality to delete a datasource specified by the datasource id
 
-    https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+    Required permissions:
+    Action: datasources:delete
+    Scope: [datasources:*, datasources:id:*, datasources:id:&lt;id&gt;]
+
+    Keyword arguments:
+    datasource_id -&gt; Specify the id of the datasource
     &#34;&#34;&#34;
 
     if datasource_id != 0:
@@ -1021,16 +1247,25 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">delete_datasource_by_name</span></span>(<span>self, name: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p>
-<p><a href="https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source">https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source</a></p></div>
+<div class="desc"><p>The method includes a functionality to delete a datasource specified by the datasource name</p>
+<p>Required permissions:
+Action: datasources:delete
+Scope: [datasources:<em>, datasources:name:</em>, datasources:name:<name>]</p>
+<p>Keyword arguments:
+name -&gt; Specify the name of the datasource</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def delete_datasource_by_name(self, name: str):
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+    &#34;&#34;&#34;The method includes a functionality to delete a datasource specified by the datasource name
 
-    https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+    Required permissions:
+    Action: datasources:delete
+    Scope: [datasources:*, datasources:name:*, datasources:name:&lt;name&gt;]
+
+    Keyword arguments:
+    name -&gt; Specify the name of the datasource
     &#34;&#34;&#34;
 
     if len(name) != 0:
@@ -1057,16 +1292,25 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">delete_datasource_by_uid</span></span>(<span>self, uid: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p>
-<p><a href="https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source">https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source</a></p></div>
+<div class="desc"><p>The method includes a functionality to delete a datasource specified by the datasource uid</p>
+<p>Required permissions:
+Action: datasources:delete
+Scope: [datasources:<em>, datasources:uid:</em>, datasources:uid:<uid>]</p>
+<p>Keyword arguments:
+uid -&gt; Specify the uid of the datasource</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def delete_datasource_by_uid(self, uid: str):
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+    &#34;&#34;&#34;The method includes a functionality to delete a datasource specified by the datasource uid
 
-    https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+    Required permissions:
+    Action: datasources:delete
+    Scope: [datasources:*, datasources:uid:*, datasources:uid:&lt;uid&gt;]
+
+    Keyword arguments:
+    uid -&gt; Specify the uid of the datasource
     &#34;&#34;&#34;
 
     if len(uid) != 0:
@@ -1093,17 +1337,29 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">delete_datasource_permissions</span></span>(<span>self, datasource_id: int, permission_id: int)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard
--&gt; ENTERPRISE feature!
-<a href="https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source">https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source</a></p></div>
+<div class="desc"><p>The method includes a functionality to delete datasource permission specified by the datasource id and
+the permission id. The functionality is a Grafana ENTERPRISE feature</p>
+<p>Required permissions:
+Action: datasources.permissions:write
+Scope: [datasources:<em>, datasources:id:</em>, datasources:id:<id>]</p>
+<p>Keyword arguments:
+datasource_id -&gt; Specify the id of the datasource
+permission_id -&gt; Specify the permission id</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def delete_datasource_permissions(self, datasource_id: int, permission_id: int):
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
-    -&gt; ENTERPRISE feature!
-    https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+    &#34;&#34;&#34;The method includes a functionality to delete datasource permission specified by the datasource id and \
+    the permission id. The functionality is a Grafana ENTERPRISE feature
+
+    Required permissions:
+    Action: datasources.permissions:write
+    Scope: [datasources:*, datasources:id:*, datasources:id:&lt;id&gt;]
+
+    Keyword arguments:
+    datasource_id -&gt; Specify the id of the datasource
+    permission_id -&gt; Specify the permission id
     &#34;&#34;&#34;
 
     if datasource_id != 0 and permission_id != 0:
@@ -1130,17 +1386,27 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">disable_datasource_permissions</span></span>(<span>self, datasource_id: int)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard
--&gt; ENTERPRISE feature!
-<a href="https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source">https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source</a></p></div>
+<div class="desc"><p>The method includes a functionality to disable datasource permissions specified by the datasource id. The
+functionality is a Grafana ENTERPRISE feature</p>
+<p>Required permissions:
+Action: datasources.permissions:write
+Scope: [datasources:<em>, datasources:id:</em>, datasources:id:<id>]</p>
+<p>Keyword arguments:
+datasource_id -&gt; Specify the id of the datasource</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def disable_datasource_permissions(self, datasource_id: int):
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
-    -&gt; ENTERPRISE feature!
-    https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+    &#34;&#34;&#34;The method includes a functionality to disable datasource permissions specified by the datasource id. The \
+    functionality is a Grafana ENTERPRISE feature
+
+    Required permissions:
+    Action: datasources.permissions:write
+    Scope: [datasources:*, datasources:id:*, datasources:id:&lt;id&gt;]
+
+    Keyword arguments:
+    datasource_id -&gt; Specify the id of the datasource
     &#34;&#34;&#34;
 
     if datasource_id != 0:
@@ -1168,17 +1434,27 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">enable_datasource_permissions</span></span>(<span>self, datasource_id: int)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard
--&gt; ENTERPRISE feature!
-<a href="https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source">https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source</a></p></div>
+<div class="desc"><p>The method includes a functionality to enable datasource permissions specified by the datasource id. The
+functionality is a Grafana ENTERPRISE feature</p>
+<p>Required permissions:
+Action: datasources.permissions:write
+Scope: [datasources:<em>, datasources:id:</em>, datasources:id:<id>]</p>
+<p>Keyword arguments:
+datasource_id -&gt; Specify the id of the datasource</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def enable_datasource_permissions(self, datasource_id: int):
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
-    -&gt; ENTERPRISE feature!
-    https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+    &#34;&#34;&#34;The method includes a functionality to enable datasource permissions specified by the datasource id. The \
+    functionality is a Grafana ENTERPRISE feature
+
+    Required permissions:
+    Action: datasources.permissions:write
+    Scope: [datasources:*, datasources:id:*, datasources:id:&lt;id&gt;]
+
+    Keyword arguments:
+    datasource_id -&gt; Specify the id of the datasource
     &#34;&#34;&#34;
 
     if datasource_id != 0:
@@ -1206,13 +1482,21 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">get_all_datasources</span></span>(<span>self) ‑> list</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
+<div class="desc"><p>The method includes a functionality to get all datasources</p>
+<p>Required permissions:
+Action: datasources:read
+Scope: datasources:*</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_all_datasources(self) -&gt; list:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+    &#34;&#34;&#34;The method includes a functionality to get all datasources
+
+    Required permissions:
+    Action: datasources:read
+    Scope: datasources:*
+    &#34;&#34;&#34;
 
     api_call: list = (
         Api(self.grafana_api_model)
@@ -1234,13 +1518,26 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">get_datasource_by_id</span></span>(<span>self, datasource_id: int) ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
+<div class="desc"><p>The method includes a functionality to get the datasource specified by the datasource id</p>
+<p>Required permissions:
+Action: datasources:read
+Scope: [datasources:<em>, datasources:id:</em>, datasources:id:<id>]</p>
+<p>Keyword arguments:
+datasource_id -&gt; Specify the id of the datasource</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_datasource_by_id(self, datasource_id: int) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+    &#34;&#34;&#34;The method includes a functionality to get the datasource specified by the datasource id
+
+    Required permissions:
+    Action: datasources:read
+    Scope: [datasources:*, datasources:id:*, datasources:id:&lt;id&gt;]
+
+    Keyword arguments:
+    datasource_id -&gt; Specify the id of the datasource
+    &#34;&#34;&#34;
 
     if datasource_id != 0:
         api_call: dict = (
@@ -1266,13 +1563,26 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">get_datasource_by_name</span></span>(<span>self, name: str) ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
+<div class="desc"><p>The method includes a functionality to get the datasource specified by the datasource name</p>
+<p>Required permissions:
+Action: datasources:read
+Scope: [datasources:<em>, datasources:name:</em>, datasources:name:<name>]</p>
+<p>Keyword arguments:
+name -&gt; Specify the name of the datasource</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_datasource_by_name(self, name: str) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+    &#34;&#34;&#34;The method includes a functionality to get the datasource specified by the datasource name
+
+    Required permissions:
+    Action: datasources:read
+    Scope: [datasources:*, datasources:name:*, datasources:name:&lt;name&gt;]
+
+    Keyword arguments:
+    name -&gt; Specify the name of the datasource
+    &#34;&#34;&#34;
 
     if len(name) != 0:
         api_call: dict = (
@@ -1298,13 +1608,26 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">get_datasource_by_uid</span></span>(<span>self, uid: str) ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
+<div class="desc"><p>The method includes a functionality to get the datasource specified by the datasource uid</p>
+<p>Required permissions:
+Action: datasources:read
+Scope: [datasources:<em>, datasources:uid:</em>, datasources:uid:<uid>]</p>
+<p>Keyword arguments:
+uid -&gt; Specify the uid of the datasource</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_datasource_by_uid(self, uid: str) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+    &#34;&#34;&#34;The method includes a functionality to get the datasource specified by the datasource uid
+
+    Required permissions:
+    Action: datasources:read
+    Scope: [datasources:*, datasources:uid:*, datasources:uid:&lt;uid&gt;]
+
+    Keyword arguments:
+    uid -&gt; Specify the uid of the datasource
+    &#34;&#34;&#34;
 
     if len(uid) != 0:
         api_call: dict = (
@@ -1330,13 +1653,26 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">get_datasource_id_by_name</span></span>(<span>self, name: str) ‑> int</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
+<div class="desc"><p>The method includes a functionality to get the datasource id specified by the datasource name</p>
+<p>Required permissions:
+Action: datasources:read
+Scope: [datasources:<em>, datasources:name:</em>, datasources:name:<name>]</p>
+<p>Keyword arguments:
+name -&gt; Specify the name of the datasource</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_datasource_id_by_name(self, name: str) -&gt; int:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+    &#34;&#34;&#34;The method includes a functionality to get the datasource id specified by the datasource name
+
+    Required permissions:
+    Action: datasources:read
+    Scope: [datasources:*, datasources:name:*, datasources:name:&lt;name&gt;]
+
+    Keyword arguments:
+    name -&gt; Specify the name of the datasource
+    &#34;&#34;&#34;
 
     if len(name) != 0:
         api_call: dict = (
@@ -1362,17 +1698,27 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">get_datasource_permissions</span></span>(<span>self, datasource_id: int) ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard
--&gt; ENTERPRISE feature!
-<a href="https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source">https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source</a></p></div>
+<div class="desc"><p>The method includes a functionality to get the datasource permissions specified by the datasource id. The
+functionality is a Grafana ENTERPRISE feature</p>
+<p>Required permissions:
+Action: datasources.permissions:read
+Scope: [datasources:<em>, datasources:id:</em>, datasources:id:<id>]</p>
+<p>Keyword arguments:
+datasource_id -&gt; Specify the id of the datasource</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_datasource_permissions(self, datasource_id: int) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
-    -&gt; ENTERPRISE feature!
-    https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+    &#34;&#34;&#34;The method includes a functionality to get the datasource permissions specified by the datasource id. The \
+    functionality is a Grafana ENTERPRISE feature
+
+    Required permissions:
+    Action: datasources.permissions:read
+    Scope: [datasources:*, datasources:id:*, datasources:id:&lt;id&gt;]
+
+    Keyword arguments:
+    datasource_id -&gt; Specify the id of the datasource
     &#34;&#34;&#34;
 
     if datasource_id != 0:
@@ -1399,8 +1745,14 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">query_datasource_by_id</span></span>(<span>self, time: str, to: str, datasource_queries: list) ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p>
-<p>datasource_queries -&gt; list of DatasourceQuery</p></div>
+<div class="desc"><p>The method includes a functionality to execute a queries inside the datasource itself specified by the
+datasource id</p>
+<p>Keyword arguments:
+from -&gt; Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time
+units. For example, now-1h
+to -&gt; Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time
+units. For example, now-1h
+datasource_queries -&gt; Specify a list of execution queries based on the DatasourceQuery class</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1408,9 +1760,15 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <pre><code class="python">def query_datasource_by_id(
     self, time: str, to: str, datasource_queries: list
 ) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+    &#34;&#34;&#34;The method includes a functionality to execute a queries inside the datasource itself specified by the \
+    datasource id
 
-    datasource_queries -&gt; list of DatasourceQuery
+    Keyword arguments:
+    from -&gt; Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time \
+    units. For example, now-1h
+    to -&gt; Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time \
+    units. For example, now-1h
+    datasource_queries -&gt; Specify a list of execution queries based on the DatasourceQuery class
     &#34;&#34;&#34;
 
     if len(time) != 0 and len(to) != 0 and datasource_queries != list():
@@ -1453,16 +1811,29 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">update_datasource</span></span>(<span>self, datasource_id: int, data_source: dict)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p>
-<p><a href="https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source">https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source</a></p></div>
+<div class="desc"><p>The method includes a functionality to update a datasource specified by the datasource as dict and the
+datasource id</p>
+<p>Required permissions:
+Action: datasources:write
+Scope: [datasources:<em>, datasources:id:</em>, datasources:id:<id>]</p>
+<p>Keyword arguments:
+datasource_id -&gt; Specify the id of the datasource
+data_source -&gt; Specify the datasource as dict</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def update_datasource(self, datasource_id: int, data_source: dict):
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard
+    &#34;&#34;&#34;The method includes a functionality to update a datasource specified by the datasource as dict and the \
+    datasource id
 
-    https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
+    Required permissions:
+    Action: datasources:write
+    Scope: [datasources:*, datasources:id:*, datasources:id:&lt;id&gt;]
+
+    Keyword arguments:
+    datasource_id -&gt; Specify the id of the datasource
+    data_source -&gt; Specify the datasource as dict
     &#34;&#34;&#34;
 
     if datasource_id != 0 and data_source != dict():
