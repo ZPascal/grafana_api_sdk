@@ -5,12 +5,8 @@ from .model import APIModel, APIEndpoints, RequestsMethods
 from .api import Api
 
 
-# TODO Doc strings
-# TODO Add integrationtests
-
-
 class AlertingNotifications:
-    """The class includes all necessary methods to access the Grafana alerting API endpoints
+    """The class includes all necessary methods to access the Grafana alerting notifications API endpoints
 
     Keyword arguments:
     grafana_api_model -> Inject a Grafana API model object that includes all necessary values and information
@@ -20,7 +16,7 @@ class AlertingNotifications:
         self.grafana_api_model = grafana_api_model
 
     def get_all_notification_channels(self) -> list:
-        """The method includes a functionality to create the specified dashboard"""
+        """The method includes a functionality to get all alerting notification channels"""
 
         api_call: list = (
             Api(self.grafana_api_model)
@@ -38,7 +34,8 @@ class AlertingNotifications:
             return api_call
 
     def get_all_notification_channels_lookup(self) -> list:
-        """The method includes a functionality to create the specified dashboard"""
+        """The method includes a functionality to lookup and get reduced information of all alerting notification \
+        channels"""
 
         api_call: list = (
             Api(self.grafana_api_model)
@@ -56,7 +53,11 @@ class AlertingNotifications:
             return api_call
 
     def get_notification_channel_by_uid(self, uid: str) -> dict:
-        """The method includes a functionality to create the specified dashboard"""
+        """The method includes a functionality to get an alerting notification channel specified by the uid
+
+        Keyword arguments:
+        uid -> Specify the uid of the notification channel
+        """
 
         if len(uid) != 0:
             api_call: dict = (
@@ -78,7 +79,11 @@ class AlertingNotifications:
             raise ValueError
 
     def get_notification_channel_by_id(self, id: int) -> dict:
-        """The method includes a functionality to create the specified dashboard"""
+        """The method includes a functionality to get an alerting notification channel specified by the id
+
+        Keyword arguments:
+        id -> Specify the id of the notification channel
+        """
 
         if id != 0:
             api_call: dict = (
@@ -100,7 +105,12 @@ class AlertingNotifications:
             raise ValueError
 
     def create_notification_channel(self, notification_channel: dict) -> dict:
-        """The method includes a functionality to create the specified dashboard"""
+        """The method includes a functionality to create an alerting notification channel specified by the \
+        notification channel dict
+
+        Keyword arguments:
+        notification_channel -> Specify the channel of the notification
+        """
 
         if notification_channel != dict():
             api_call: dict = (
@@ -125,7 +135,13 @@ class AlertingNotifications:
     def update_notification_channel_by_uid(
         self, uid: str, notification_channel: dict
     ) -> dict:
-        """The method includes a functionality to create the specified dashboard"""
+        """The method includes a functionality to update an alerting notification channel specified by the \
+        notification channel dict and the uid
+
+        Keyword arguments:
+        uid -> Specify the uid of the notification channel
+        notification_channel -> Specify the channel of the notification
+        """
 
         if len(uid) != 0 and notification_channel != dict():
             api_call: dict = (
@@ -150,7 +166,13 @@ class AlertingNotifications:
     def update_notification_channel_by_id(
         self, id: int, notification_channel: dict
     ) -> dict:
-        """The method includes a functionality to create the specified dashboard"""
+        """The method includes a functionality to update an alerting notification channel specified by the \
+        notification channel dict and the id
+
+        Keyword arguments:
+        id -> Specify the id of the notification channel
+        notification_channel -> Specify the channel of the notification
+        """
 
         if id != 0 and notification_channel != dict():
             api_call: dict = (
@@ -173,7 +195,11 @@ class AlertingNotifications:
             raise ValueError
 
     def delete_notification_channel_by_uid(self, uid: str):
-        """The method includes a functionality to create the specified dashboard"""
+        """The method includes a functionality to delete an alerting notification channel specified by the uid
+
+        Keyword arguments:
+        uid -> Specify the uid of the notification channel
+        """
 
         if len(uid) != 0:
             api_call: dict = (
@@ -195,7 +221,11 @@ class AlertingNotifications:
             raise ValueError
 
     def delete_notification_channel_by_id(self, id: int):
-        """The method includes a functionality to create the specified dashboard"""
+        """The method includes a functionality to delete an alerting notification channel specified by the id
+
+        Keyword arguments:
+        id -> Specify the id of the notification channel
+        """
 
         if id != 0:
             api_call: dict = (
@@ -217,7 +247,12 @@ class AlertingNotifications:
             raise ValueError
 
     def test_notification_channel(self, notification_channel: dict):
-        """The method includes a functionality to create the specified dashboard"""
+        """The method includes a functionality to test an alerting notification channel specified by the \
+        notification_channel
+
+        Keyword arguments:
+        notification_channel -> Specify the channel of the notification
+        """
 
         if notification_channel != dict():
             api_call: dict = (
@@ -229,6 +264,8 @@ class AlertingNotifications:
                 )
                 .json()
             )
+
+            print(api_call)
 
             if api_call.get("message") != "Test notification sent":
                 logging.error(f"Check the error: {api_call}.")
