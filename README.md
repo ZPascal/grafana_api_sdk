@@ -28,32 +28,34 @@ The repository includes an SDK for the Grafana API. It's possible to communicate
 ### Search
 - Execute a custom query against the Grafana search endpoint
 
+### Alerting
+
 ## Feature timeline
 
 The following table describes the plan to implement the rest of the Grafana API functionality. Please, open an issue and vote them up, if you prefer a faster implementation of an API functionality.
 
 | API endpoint group | Implementation week | Maintainer | PR | State |
 |:------------------:|:-------------------:|:----------:|:--:|:-----:|
-| [Admin HTTP API](https://grafana.com/docs/grafana/latest/http_api/admin/) |                     |            |    |    |
+| [Admin HTTP API](https://grafana.com/docs/grafana/latest/http_api/admin/) | 8 |            |    | Planned |
 | [Alerting HTTP API](https://grafana.com/docs/grafana/latest/http_api/alerting/)  | 4 | [ZPascal](https://github.com/ZPascal) |  | Planned |
 | [Alerting Notification Channels HTTP API](https://grafana.com/docs/grafana/latest/http_api/alerting_notification_channels/) | 4 | [ZPascal](https://github.com/ZPascal) |    | Planned |
-| [Annotations HTTP API](https://grafana.com/docs/grafana/latest/http_api/annotations/) |                   |            |    |    |
-| [Authentication HTTP API](https://grafana.com/docs/grafana/latest/http_api/auth/) |                |            |    |    |
+| [Annotations HTTP API](https://grafana.com/docs/grafana/latest/http_api/annotations/) | 9 |            |    | Planned |
+| [Authentication HTTP API](https://grafana.com/docs/grafana/latest/http_api/auth/) | 8 |            |    | Planned |
 | [Data source HTTP API](https://grafana.com/docs/grafana/latest/http_api/data_source/) | 5 | [ZPascal](https://github.com/ZPascal) |    | Planned |
-| [Datasource Permissions HTTP API](https://grafana.com/docs/grafana/latest/http_api/datasource_permissions/) |        |            |    |    |
-| [External Group Sync HTTP API](https://grafana.com/docs/grafana/latest/http_api/external_group_sync/) |           |            |    |    |
-| [Fine-grained access control HTTP API](https://grafana.com/docs/grafana/latest/http_api/access_control/) |   |            |    |    |
-| [HTTP Preferences API](https://grafana.com/docs/grafana/latest/http_api/preferences/) |                   |            |    |    |
-| [HTTP Snapshot API](https://grafana.com/docs/grafana/latest/http_api/snapshot/) |                      |            |    |    |
-| [Library Element HTTP API](https://grafana.com/docs/grafana/latest/http_api/library_element/) |               |            |    |    |
-| [Licensing HTTP API](https://grafana.com/docs/grafana/latest/http_api/licensing/) |                     |            |    |    |
-| [Organization HTTP API](https://grafana.com/docs/grafana/latest/http_api/org/) |                  |            |    |    |
-| [Other HTTP API](https://grafana.com/docs/grafana/latest/http_api/other/) |                         |            |    |    |
-| [Playlist HTTP API](https://grafana.com/docs/grafana/latest/http_api/playlist/) |                      |            |    |    |
-| [Reporting API](https://grafana.com/docs/grafana/latest/http_api/reporting/) |                          |            |    |    |
-| [Short URL HTTP API](https://grafana.com/docs/grafana/latest/http_api/short_url/) |                     |            |    |    |
-| [Team HTTP API](https://grafana.com/docs/grafana/latest/http_api/team/) |                          |            |    |    |
-| [User HTTP API](https://grafana.com/docs/grafana/latest/http_api/user/) |                          |            |    |    |
+| [Datasource Permissions HTTP API](https://grafana.com/docs/grafana/latest/http_api/datasource_permissions/) | 5 | [ZPascal](https://github.com/ZPascal) |    | Planned |
+| [External Group Sync HTTP API](https://grafana.com/docs/grafana/latest/http_api/external_group_sync/) | 9 |            |    | Planned |
+| [Fine-grained access control HTTP API](https://grafana.com/docs/grafana/latest/http_api/access_control/) | 10 |            |    | Planned |
+| [HTTP Preferences API](https://grafana.com/docs/grafana/latest/http_api/preferences/) | 10 |            |    | Planned |
+| [HTTP Snapshot API](https://grafana.com/docs/grafana/latest/http_api/snapshot/) | 11 |            |    | Planned |
+| [Library Element HTTP API](https://grafana.com/docs/grafana/latest/http_api/library_element/) | 12 |            |    | Planned |
+| [Licensing HTTP API](https://grafana.com/docs/grafana/latest/http_api/licensing/) | 11 |            |    | Planned |
+| [Organization HTTP API](https://grafana.com/docs/grafana/latest/http_api/org/) | 6 |            |    | Planned |
+| [Other HTTP API](https://grafana.com/docs/grafana/latest/http_api/other/) | 12 |            |    | Planned |
+| [Playlist HTTP API](https://grafana.com/docs/grafana/latest/http_api/playlist/) |                      |            |    | Planned |
+| [Reporting API](https://grafana.com/docs/grafana/latest/http_api/reporting/) | 7 |            |    | Planned |
+| [Short URL HTTP API](https://grafana.com/docs/grafana/latest/http_api/short_url/) | 13 |            |    | Planned |
+| [Team HTTP API](https://grafana.com/docs/grafana/latest/http_api/team/) | 6 |            |    | Planned |
+| [User HTTP API](https://grafana.com/docs/grafana/latest/http_api/user/) | 7 |            |    | Planned |
 
 ## Installation
 
