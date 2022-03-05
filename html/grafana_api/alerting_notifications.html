@@ -33,12 +33,8 @@ from .model import APIModel, APIEndpoints, RequestsMethods
 from .api import Api
 
 
-# TODO Doc strings
-# TODO Add integrationtests
-
-
 class AlertingNotifications:
-    &#34;&#34;&#34;The class includes all necessary methods to access the Grafana alerting API endpoints
+    &#34;&#34;&#34;The class includes all necessary methods to access the Grafana alerting notifications API endpoints
 
     Keyword arguments:
     grafana_api_model -&gt; Inject a Grafana API model object that includes all necessary values and information
@@ -48,7 +44,7 @@ class AlertingNotifications:
         self.grafana_api_model = grafana_api_model
 
     def get_all_notification_channels(self) -&gt; list:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to get all alerting notification channels&#34;&#34;&#34;
 
         api_call: list = (
             Api(self.grafana_api_model)
@@ -66,7 +62,8 @@ class AlertingNotifications:
             return api_call
 
     def get_all_notification_channels_lookup(self) -&gt; list:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to lookup and get reduced information of all alerting notification \
+        channels&#34;&#34;&#34;
 
         api_call: list = (
             Api(self.grafana_api_model)
@@ -84,7 +81,11 @@ class AlertingNotifications:
             return api_call
 
     def get_notification_channel_by_uid(self, uid: str) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to get an alerting notification channel specified by the uid
+
+        Keyword arguments:
+        uid -&gt; Specify the uid of the notification channel
+        &#34;&#34;&#34;
 
         if len(uid) != 0:
             api_call: dict = (
@@ -106,7 +107,11 @@ class AlertingNotifications:
             raise ValueError
 
     def get_notification_channel_by_id(self, id: int) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to get an alerting notification channel specified by the id
+
+        Keyword arguments:
+        id -&gt; Specify the id of the notification channel
+        &#34;&#34;&#34;
 
         if id != 0:
             api_call: dict = (
@@ -128,7 +133,12 @@ class AlertingNotifications:
             raise ValueError
 
     def create_notification_channel(self, notification_channel: dict) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to create an alerting notification channel specified by the \
+        notification channel dict
+
+        Keyword arguments:
+        notification_channel -&gt; Specify the channel of the notification
+        &#34;&#34;&#34;
 
         if notification_channel != dict():
             api_call: dict = (
@@ -153,7 +163,13 @@ class AlertingNotifications:
     def update_notification_channel_by_uid(
         self, uid: str, notification_channel: dict
     ) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to update an alerting notification channel specified by the \
+        notification channel dict and the uid
+
+        Keyword arguments:
+        uid -&gt; Specify the uid of the notification channel
+        notification_channel -&gt; Specify the channel of the notification
+        &#34;&#34;&#34;
 
         if len(uid) != 0 and notification_channel != dict():
             api_call: dict = (
@@ -178,7 +194,13 @@ class AlertingNotifications:
     def update_notification_channel_by_id(
         self, id: int, notification_channel: dict
     ) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to update an alerting notification channel specified by the \
+        notification channel dict and the id
+
+        Keyword arguments:
+        id -&gt; Specify the id of the notification channel
+        notification_channel -&gt; Specify the channel of the notification
+        &#34;&#34;&#34;
 
         if id != 0 and notification_channel != dict():
             api_call: dict = (
@@ -201,7 +223,11 @@ class AlertingNotifications:
             raise ValueError
 
     def delete_notification_channel_by_uid(self, uid: str):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to delete an alerting notification channel specified by the uid
+
+        Keyword arguments:
+        uid -&gt; Specify the uid of the notification channel
+        &#34;&#34;&#34;
 
         if len(uid) != 0:
             api_call: dict = (
@@ -223,7 +249,11 @@ class AlertingNotifications:
             raise ValueError
 
     def delete_notification_channel_by_id(self, id: int):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to delete an alerting notification channel specified by the id
+
+        Keyword arguments:
+        id -&gt; Specify the id of the notification channel
+        &#34;&#34;&#34;
 
         if id != 0:
             api_call: dict = (
@@ -245,7 +275,12 @@ class AlertingNotifications:
             raise ValueError
 
     def test_notification_channel(self, notification_channel: dict):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to test an alerting notification channel specified by the \
+        notification_channel
+
+        Keyword arguments:
+        notification_channel -&gt; Specify the channel of the notification
+        &#34;&#34;&#34;
 
         if notification_channel != dict():
             api_call: dict = (
@@ -257,6 +292,8 @@ class AlertingNotifications:
                 )
                 .json()
             )
+
+            print(api_call)
 
             if api_call.get(&#34;message&#34;) != &#34;Test notification sent&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -282,7 +319,7 @@ class AlertingNotifications:
 <span>(</span><span>grafana_api_model: <a title="grafana_api.model.APIModel" href="model.html#grafana_api.model.APIModel">APIModel</a>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The class includes all necessary methods to access the Grafana alerting API endpoints</p>
+<div class="desc"><p>The class includes all necessary methods to access the Grafana alerting notifications API endpoints</p>
 <p>Keyword arguments:
 grafana_api_model -&gt; Inject a Grafana API model object that includes all necessary values and information</p></div>
 <details class="source">
@@ -290,7 +327,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class AlertingNotifications:
-    &#34;&#34;&#34;The class includes all necessary methods to access the Grafana alerting API endpoints
+    &#34;&#34;&#34;The class includes all necessary methods to access the Grafana alerting notifications API endpoints
 
     Keyword arguments:
     grafana_api_model -&gt; Inject a Grafana API model object that includes all necessary values and information
@@ -300,7 +337,7 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
         self.grafana_api_model = grafana_api_model
 
     def get_all_notification_channels(self) -&gt; list:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to get all alerting notification channels&#34;&#34;&#34;
 
         api_call: list = (
             Api(self.grafana_api_model)
@@ -318,7 +355,8 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             return api_call
 
     def get_all_notification_channels_lookup(self) -&gt; list:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to lookup and get reduced information of all alerting notification \
+        channels&#34;&#34;&#34;
 
         api_call: list = (
             Api(self.grafana_api_model)
@@ -336,7 +374,11 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             return api_call
 
     def get_notification_channel_by_uid(self, uid: str) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to get an alerting notification channel specified by the uid
+
+        Keyword arguments:
+        uid -&gt; Specify the uid of the notification channel
+        &#34;&#34;&#34;
 
         if len(uid) != 0:
             api_call: dict = (
@@ -358,7 +400,11 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             raise ValueError
 
     def get_notification_channel_by_id(self, id: int) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to get an alerting notification channel specified by the id
+
+        Keyword arguments:
+        id -&gt; Specify the id of the notification channel
+        &#34;&#34;&#34;
 
         if id != 0:
             api_call: dict = (
@@ -380,7 +426,12 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             raise ValueError
 
     def create_notification_channel(self, notification_channel: dict) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to create an alerting notification channel specified by the \
+        notification channel dict
+
+        Keyword arguments:
+        notification_channel -&gt; Specify the channel of the notification
+        &#34;&#34;&#34;
 
         if notification_channel != dict():
             api_call: dict = (
@@ -405,7 +456,13 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
     def update_notification_channel_by_uid(
         self, uid: str, notification_channel: dict
     ) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to update an alerting notification channel specified by the \
+        notification channel dict and the uid
+
+        Keyword arguments:
+        uid -&gt; Specify the uid of the notification channel
+        notification_channel -&gt; Specify the channel of the notification
+        &#34;&#34;&#34;
 
         if len(uid) != 0 and notification_channel != dict():
             api_call: dict = (
@@ -430,7 +487,13 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
     def update_notification_channel_by_id(
         self, id: int, notification_channel: dict
     ) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to update an alerting notification channel specified by the \
+        notification channel dict and the id
+
+        Keyword arguments:
+        id -&gt; Specify the id of the notification channel
+        notification_channel -&gt; Specify the channel of the notification
+        &#34;&#34;&#34;
 
         if id != 0 and notification_channel != dict():
             api_call: dict = (
@@ -453,7 +516,11 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             raise ValueError
 
     def delete_notification_channel_by_uid(self, uid: str):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to delete an alerting notification channel specified by the uid
+
+        Keyword arguments:
+        uid -&gt; Specify the uid of the notification channel
+        &#34;&#34;&#34;
 
         if len(uid) != 0:
             api_call: dict = (
@@ -475,7 +542,11 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             raise ValueError
 
     def delete_notification_channel_by_id(self, id: int):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to delete an alerting notification channel specified by the id
+
+        Keyword arguments:
+        id -&gt; Specify the id of the notification channel
+        &#34;&#34;&#34;
 
         if id != 0:
             api_call: dict = (
@@ -497,7 +568,12 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             raise ValueError
 
     def test_notification_channel(self, notification_channel: dict):
-        &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to test an alerting notification channel specified by the \
+        notification_channel
+
+        Keyword arguments:
+        notification_channel -&gt; Specify the channel of the notification
+        &#34;&#34;&#34;
 
         if notification_channel != dict():
             api_call: dict = (
@@ -509,6 +585,8 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
                 )
                 .json()
             )
+
+            print(api_call)
 
             if api_call.get(&#34;message&#34;) != &#34;Test notification sent&#34;:
                 logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -525,13 +603,21 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">create_notification_channel</span></span>(<span>self, notification_channel: dict) ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
+<div class="desc"><p>The method includes a functionality to create an alerting notification channel specified by the
+notification channel dict</p>
+<p>Keyword arguments:
+notification_channel -&gt; Specify the channel of the notification</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def create_notification_channel(self, notification_channel: dict) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+    &#34;&#34;&#34;The method includes a functionality to create an alerting notification channel specified by the \
+    notification channel dict
+
+    Keyword arguments:
+    notification_channel -&gt; Specify the channel of the notification
+    &#34;&#34;&#34;
 
     if notification_channel != dict():
         api_call: dict = (
@@ -558,13 +644,19 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">delete_notification_channel_by_id</span></span>(<span>self, id: int)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
+<div class="desc"><p>The method includes a functionality to delete an alerting notification channel specified by the id</p>
+<p>Keyword arguments:
+id -&gt; Specify the id of the notification channel</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def delete_notification_channel_by_id(self, id: int):
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+    &#34;&#34;&#34;The method includes a functionality to delete an alerting notification channel specified by the id
+
+    Keyword arguments:
+    id -&gt; Specify the id of the notification channel
+    &#34;&#34;&#34;
 
     if id != 0:
         api_call: dict = (
@@ -590,13 +682,19 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">delete_notification_channel_by_uid</span></span>(<span>self, uid: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
+<div class="desc"><p>The method includes a functionality to delete an alerting notification channel specified by the uid</p>
+<p>Keyword arguments:
+uid -&gt; Specify the uid of the notification channel</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def delete_notification_channel_by_uid(self, uid: str):
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+    &#34;&#34;&#34;The method includes a functionality to delete an alerting notification channel specified by the uid
+
+    Keyword arguments:
+    uid -&gt; Specify the uid of the notification channel
+    &#34;&#34;&#34;
 
     if len(uid) != 0:
         api_call: dict = (
@@ -622,13 +720,13 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">get_all_notification_channels</span></span>(<span>self) ‑> list</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
+<div class="desc"><p>The method includes a functionality to get all alerting notification channels</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_all_notification_channels(self) -&gt; list:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+    &#34;&#34;&#34;The method includes a functionality to get all alerting notification channels&#34;&#34;&#34;
 
     api_call: list = (
         Api(self.grafana_api_model)
@@ -650,13 +748,15 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">get_all_notification_channels_lookup</span></span>(<span>self) ‑> list</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
+<div class="desc"><p>The method includes a functionality to lookup and get reduced information of all alerting notification
+channels</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_all_notification_channels_lookup(self) -&gt; list:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+    &#34;&#34;&#34;The method includes a functionality to lookup and get reduced information of all alerting notification \
+    channels&#34;&#34;&#34;
 
     api_call: list = (
         Api(self.grafana_api_model)
@@ -678,13 +778,19 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">get_notification_channel_by_id</span></span>(<span>self, id: int) ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
+<div class="desc"><p>The method includes a functionality to get an alerting notification channel specified by the id</p>
+<p>Keyword arguments:
+id -&gt; Specify the id of the notification channel</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_notification_channel_by_id(self, id: int) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+    &#34;&#34;&#34;The method includes a functionality to get an alerting notification channel specified by the id
+
+    Keyword arguments:
+    id -&gt; Specify the id of the notification channel
+    &#34;&#34;&#34;
 
     if id != 0:
         api_call: dict = (
@@ -710,13 +816,19 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">get_notification_channel_by_uid</span></span>(<span>self, uid: str) ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
+<div class="desc"><p>The method includes a functionality to get an alerting notification channel specified by the uid</p>
+<p>Keyword arguments:
+uid -&gt; Specify the uid of the notification channel</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_notification_channel_by_uid(self, uid: str) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+    &#34;&#34;&#34;The method includes a functionality to get an alerting notification channel specified by the uid
+
+    Keyword arguments:
+    uid -&gt; Specify the uid of the notification channel
+    &#34;&#34;&#34;
 
     if len(uid) != 0:
         api_call: dict = (
@@ -742,13 +854,21 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">test_notification_channel</span></span>(<span>self, notification_channel: dict)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
+<div class="desc"><p>The method includes a functionality to test an alerting notification channel specified by the
+notification_channel</p>
+<p>Keyword arguments:
+notification_channel -&gt; Specify the channel of the notification</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def test_notification_channel(self, notification_channel: dict):
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+    &#34;&#34;&#34;The method includes a functionality to test an alerting notification channel specified by the \
+    notification_channel
+
+    Keyword arguments:
+    notification_channel -&gt; Specify the channel of the notification
+    &#34;&#34;&#34;
 
     if notification_channel != dict():
         api_call: dict = (
@@ -760,6 +880,8 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
             )
             .json()
         )
+
+        print(api_call)
 
         if api_call.get(&#34;message&#34;) != &#34;Test notification sent&#34;:
             logging.error(f&#34;Check the error: {api_call}.&#34;)
@@ -775,7 +897,11 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">update_notification_channel_by_id</span></span>(<span>self, id: int, notification_channel: dict) ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
+<div class="desc"><p>The method includes a functionality to update an alerting notification channel specified by the
+notification channel dict and the id</p>
+<p>Keyword arguments:
+id -&gt; Specify the id of the notification channel
+notification_channel -&gt; Specify the channel of the notification</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -783,7 +909,13 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <pre><code class="python">def update_notification_channel_by_id(
     self, id: int, notification_channel: dict
 ) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+    &#34;&#34;&#34;The method includes a functionality to update an alerting notification channel specified by the \
+    notification channel dict and the id
+
+    Keyword arguments:
+    id -&gt; Specify the id of the notification channel
+    notification_channel -&gt; Specify the channel of the notification
+    &#34;&#34;&#34;
 
     if id != 0 and notification_channel != dict():
         api_call: dict = (
@@ -810,7 +942,11 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <span>def <span class="ident">update_notification_channel_by_uid</span></span>(<span>self, uid: str, notification_channel: dict) ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to create the specified dashboard</p></div>
+<div class="desc"><p>The method includes a functionality to update an alerting notification channel specified by the
+notification channel dict and the uid</p>
+<p>Keyword arguments:
+uid -&gt; Specify the uid of the notification channel
+notification_channel -&gt; Specify the channel of the notification</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -818,7 +954,13 @@ grafana_api_model -&gt; Inject a Grafana API model object that includes all nece
 <pre><code class="python">def update_notification_channel_by_uid(
     self, uid: str, notification_channel: dict
 ) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to create the specified dashboard&#34;&#34;&#34;
+    &#34;&#34;&#34;The method includes a functionality to update an alerting notification channel specified by the \
+    notification channel dict and the uid
+
+    Keyword arguments:
+    uid -&gt; Specify the uid of the notification channel
+    notification_channel -&gt; Specify the channel of the notification
+    &#34;&#34;&#34;
 
     if len(uid) != 0 and notification_channel != dict():
         api_call: dict = (
