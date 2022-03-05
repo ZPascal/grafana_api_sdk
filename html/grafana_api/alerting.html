@@ -41,33 +41,24 @@ from .model import (
 from .api import Api
 
 
-# https://editor.swagger.io/?url=https://raw.githubusercontent.com/grafana/grafana/main/pkg/services/ngalert/api/tooling/post.json
-# TODO Doc strings
 # TODO Add integrationtests
 
 
 class Alerting:
-    &#34;&#34;&#34;The class includes all necessary methods to access the Grafana datasource API endpoints. It&#39;s required that \
-    the API token got the corresponding datasource access rights. Please check the used methods docstring for the \
-    necessary access rights
-
-    HINT: Note Grafana Enterprise API add required permissions if fine-grained access control is enabled
+    &#34;&#34;&#34;The class includes all necessary methods to access the Grafana alerting API endpoints
 
     Keyword arguments:
-
-    grafana_api_model -- Inject a Grafana API model object that includes all necessary values and information
+    grafana_api_model -&gt; Inject a Grafana API model object that includes all necessary values and information
     &#34;&#34;&#34;
 
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
-    def get_alertmanager_alerts(self, recipient: str) -&gt; list:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def get_alertmanager_alerts(self, recipient: str = &#34;grafana&#34;) -&gt; list:
+        &#34;&#34;&#34;The method includes a functionality to get the alertmanager alerts specified by the recipient
 
         Keyword arguments:
-
-        recipient -&gt; Specify the id of the dashboard
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0:
@@ -88,13 +79,15 @@ class Alerting:
             logging.error(&#34;There is no recipient defined.&#34;)
             raise ValueError
 
-    def create_or_update_alertmanager_alerts(self, recipient: str, alerts: list):
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def create_or_update_alertmanager_alerts(
+        self, alerts: list, recipient: str = &#34;grafana&#34;
+    ):
+        &#34;&#34;&#34;The method includes a functionality to create or update the alertmanager alerts specified by the recipient \
+        and the alerts list
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
-        alerts -&gt; Specify the list of the Alert -&gt; Model objects
+        alerts -&gt; Specify a list of the alert objects
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0 and alerts != list():
@@ -131,12 +124,11 @@ class Alerting:
             logging.error(&#34;There is no recipient or alerts defined.&#34;)
             raise ValueError
 
-    def get_alertmanager_group_alerts(self, recipient: str) -&gt; list:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def get_alertmanager_group_alerts(self, recipient: str = &#34;grafana&#34;) -&gt; list:
+        &#34;&#34;&#34;The method includes a functionality to get the alertmanager group alerts specified by the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0:
@@ -157,12 +149,15 @@ class Alerting:
             logging.error(&#34;There is no recipient defined.&#34;)
             raise ValueError
 
-    def delete_alertmanager_silence_by_id(self, recipient: str, silence_id: str):
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def delete_alertmanager_silence_by_id(
+        self, silence_id: str, recipient: str = &#34;grafana&#34;
+    ):
+        &#34;&#34;&#34;The method includes a functionality to delete the alertmanager silence specified by the silence id and the \
+        recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        silence_id -&gt; Specify the silence id of the alerts
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0 and len(silence_id) != 0:
@@ -184,12 +179,15 @@ class Alerting:
             logging.error(&#34;There is no recipient or silence_id defined.&#34;)
             raise ValueError
 
-    def get_alertmanager_silence_by_id(self, recipient: str, silence_id: str) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def get_alertmanager_silence_by_id(
+        self, silence_id: str, recipient: str = &#34;grafana&#34;
+    ) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to get the alertmanager silence specified by the silence id and the \
+        recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        silence_id -&gt; Specify the silence id of the alerts
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0 and len(silence_id) != 0:
@@ -210,12 +208,11 @@ class Alerting:
             logging.error(&#34;There is no recipient or silence_id defined.&#34;)
             raise ValueError
 
-    def get_alertmanager_silences(self, recipient: str) -&gt; list:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def get_alertmanager_silences(self, recipient: str = &#34;grafana&#34;) -&gt; list:
+        &#34;&#34;&#34;The method includes a functionality to get all alertmanager silences specified by the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0:
@@ -237,13 +234,14 @@ class Alerting:
             raise ValueError
 
     def create_or_update_alertmanager_silence(
-        self, recipient: str, silence: Silence
+        self, silence: Silence, recipient: str = &#34;grafana&#34;
     ) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+        &#34;&#34;&#34;The method includes a functionality to create or update the alertmanager silence specified by the silence \
+        object and the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        silence -&gt; Specify the silence object
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0 or silence is not None:
@@ -277,12 +275,11 @@ class Alerting:
             logging.error(&#34;There is no recipient or silence defined.&#34;)
             raise ValueError
 
-    def get_alertmanager_status(self, recipient: str) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def get_alertmanager_status(self, recipient: str = &#34;grafana&#34;) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to get the alertmanager status specified by the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0:
@@ -303,12 +300,11 @@ class Alerting:
             logging.error(&#34;There is no recipient defined.&#34;)
             raise ValueError
 
-    def delete_alertmanager_config(self, recipient: str):
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def delete_alertmanager_config(self, recipient: str = &#34;grafana&#34;):
+        &#34;&#34;&#34;The method includes a functionality to delete the alertmanager config specified by the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0:
@@ -330,12 +326,11 @@ class Alerting:
             logging.error(&#34;There is no recipient defined.&#34;)
             raise ValueError
 
-    def get_alertmanager_config(self, recipient: str) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def get_alertmanager_config(self, recipient: str = &#34;grafana&#34;) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to get the alertmanager config specified by the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0:
@@ -358,15 +353,17 @@ class Alerting:
 
     def create_or_update_alertmanager_alert_config(
         self,
-        recipient: str,
         alertmanager_config: AlertmanagerConfig,
+        recipient: str = &#34;grafana&#34;,
         template_files: dict = None,
     ):
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+        &#34;&#34;&#34;The method includes a functionality to create or update the alertmanager alert config specified by the \
+        alertmanager config object, recipient and template_files
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        alertmanager_config -&gt; Specify the alertmanager config object
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
+        template_files -&gt; Specify the optional template files (default None)
         &#34;&#34;&#34;
 
         if len(recipient) != 0 and alertmanager_config is not None:
@@ -398,13 +395,15 @@ class Alerting:
             raise ValueError
 
     def test_alertmanager_receivers(
-        self, recipient: str, alert: dict, receivers: AlertmanagerReceivers
+        self, alert: dict, receivers: AlertmanagerReceivers, recipient: str = &#34;grafana&#34;
     ):
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+        &#34;&#34;&#34;The method includes a functionality to test the alertmanager receivers specified by the \
+        alert dict, receivers object and the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        alert -&gt; Specify the alert dict
+        receivers -&gt; Specify the receivers object
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0 and alert != dict() and receivers is not None:
@@ -446,12 +445,11 @@ class Alerting:
             logging.error(&#34;There is no recipient, alert or receivers defined.&#34;)
             raise ValueError
 
-    def get_prometheus_alerts(self, recipient: str) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def get_prometheus_alerts(self, recipient: str = &#34;grafana&#34;) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to get all prometheus alerts specified by the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0:
@@ -472,12 +470,11 @@ class Alerting:
             logging.error(&#34;There is no recipient defined.&#34;)
             raise ValueError
 
-    def get_prometheus_rules(self, recipient: str) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def get_prometheus_rules(self, recipient: str = &#34;grafana&#34;) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to get all prometheus rules specified by the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0:
@@ -498,12 +495,11 @@ class Alerting:
             logging.error(&#34;There is no recipient defined.&#34;)
             raise ValueError
 
-    def get_ruler_rules(self, recipient: str) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def get_ruler_rules(self, recipient: str = &#34;grafana&#34;) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to get all ruler rules specified by the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0:
@@ -524,12 +520,13 @@ class Alerting:
             logging.error(&#34;There is no recipient defined.&#34;)
             raise ValueError
 
-    def delete_ruler_namespace(self, recipient: str, namespace: str):
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def delete_ruler_namespace(self, namespace: str, recipient: str = &#34;grafana&#34;):
+        &#34;&#34;&#34;The method includes a functionality to delete a ruler namespace specified by the namespace name and \
+        the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        namespace -&gt; Specify the namespace name
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0 and len(namespace) != 0:
@@ -551,12 +548,15 @@ class Alerting:
             logging.error(&#34;There is no recipient or namespace defined.&#34;)
             raise ValueError
 
-    def get_ruler_groups_by_namespace(self, recipient: str, namespace: str) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def get_ruler_groups_by_namespace(
+        self, namespace: str, recipient: str = &#34;grafana&#34;
+    ) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to get all ruler groups specified by the namespace name and \
+        the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        namespace -&gt; Specify the namespace name
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0 and len(namespace) != 0:
@@ -578,20 +578,28 @@ class Alerting:
             raise ValueError
 
     def create_or_update_ruler_group_by_namespace(
-        self, recipient: str, namespace: str, name: str, rules: list, interval: int = 0
+        self,
+        namespace: str,
+        group_name: str,
+        rules: list,
+        recipient: str = &#34;grafana&#34;,
+        interval: int = 0,
     ):
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+        &#34;&#34;&#34;The method includes a functionality to create or update a ruler group specified by the namespace name, \
+        a ruler group name, a ruler rule object list, the recipient and an interval
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
-        rule -&gt; RulerRule
+        namespace -&gt; Specify the namespace name
+        group_name -&gt; Specify the ruler group name
+        rules -&gt; Specify the ruler rule object list
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
+        interval -&gt; Specify the interval of the ruler (default 0)
         &#34;&#34;&#34;
 
         if (
             len(recipient) != 0
             and len(namespace) != 0
-            and len(name) != 0
+            and len(group_name) != 0
             and rules != list()
         ):
             rules_json_list: list = list()
@@ -616,7 +624,11 @@ class Alerting:
                     f&#34;{APIEndpoints.ALERTS_RULER.value}/{recipient}/api/v1/rules/{namespace}&#34;,
                     RequestsMethods.POST,
                     json.dumps(
-                        {&#34;interval&#34;: interval, &#34;name&#34;: name, &#34;rules&#34;: rules_json_list}
+                        {
+                            &#34;interval&#34;: interval,
+                            &#34;name&#34;: group_name,
+                            &#34;rules&#34;: rules_json_list,
+                        }
                     ),
                 )
                 .json()
@@ -631,12 +643,16 @@ class Alerting:
             logging.error(&#34;There is no recipient, namespace, name or rules defined.&#34;)
             raise ValueError
 
-    def delete_ruler_group(self, recipient: str, namespace: str, group_name: str):
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def delete_ruler_group(
+        self, namespace: str, group_name: str, recipient: str = &#34;grafana&#34;
+    ):
+        &#34;&#34;&#34;The method includes a functionality to delete a ruler group specified by the namespace name, a ruler group \
+        name and the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        namespace -&gt; Specify the namespace name
+        group_name -&gt; Specify the ruler group name
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0 and len(namespace) != 0 and len(group_name) != 0:
@@ -658,12 +674,16 @@ class Alerting:
             logging.error(&#34;There is no recipient, namespace or group_name defined.&#34;)
             raise ValueError
 
-    def get_ruler_group(self, recipient: str, namespace: str, group_name: str) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def get_ruler_group(
+        self, namespace: str, group_name: str, recipient: str = &#34;grafana&#34;
+    ) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to get a ruler group specified by the namespace name, a ruler group \
+        name and the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        namespace -&gt; Specify the namespace name
+        group_name -&gt; Specify the ruler group name
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0 and len(namespace) != 0 and len(group_name) != 0:
@@ -685,12 +705,10 @@ class Alerting:
             raise ValueError
 
     def test_rule(self, data_query: list) -&gt; str:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+        &#34;&#34;&#34;The method includes a functionality to test a rule specified by a list of datasource rule query objects
 
         Keyword arguments:
-        recipient -&gt;
-        Object -&gt; DatasourceRuleQuery
+        data_query -&gt; Specify a list of datasource rule query objects
         &#34;&#34;&#34;
 
         if data_query != list():
@@ -716,13 +734,16 @@ class Alerting:
             raise ValueError
 
     def test_recipient_rule(
-        self, recipient: str, expr: str, condition: str, data_query: list
+        self, expr: str, condition: str, data_query: list, recipient: str = &#34;grafana&#34;
     ) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+        &#34;&#34;&#34;The method includes a functionality to test a recipient role specified by the expr, the condition, \
+        a list of data queries and the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        expr -&gt; Specify the expression
+        condition -&gt; Specify the condition
+        data_query -&gt; Specify a list of datasource rule query objects
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if (
@@ -762,12 +783,7 @@ class Alerting:
             raise ValueError
 
     def delete_ngalert_organization_configuration(self):
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
-
-        Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
-        &#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to delete the ngalert organization admin configuration&#34;&#34;&#34;
 
         api_call: dict = (
             Api(self.grafana_api_model)
@@ -787,12 +803,7 @@ class Alerting:
             )
 
     def get_ngalert_organization_configuration(self) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
-
-        Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
-        &#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to get the ngalert organization admin configuration&#34;&#34;&#34;
 
         api_call: any = Api(self.grafana_api_model).call_the_api(
             f&#34;{APIEndpoints.ALERTS_NGALERT.value}/admin_config&#34;,
@@ -817,13 +828,13 @@ class Alerting:
             raise Exception
 
     def create_or_update_ngalert_organization_configuration(
-        self, alert_managers: list, alertmanagers_choice: str
+        self, alert_managers: list, alertmanagers_choice: str = &#34;all&#34;
     ):
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+        &#34;&#34;&#34;The method includes a functionality to create or update the ngalert organization admin configuration
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        alert_managers -&gt; Specify the list of alert manager names
+        alertmanagers_choice -&gt; Specify the alertmanagers choice (default all)
         &#34;&#34;&#34;
 
         if alert_managers != list() and len(alertmanagers_choice) != 0:
@@ -856,11 +867,8 @@ class Alerting:
             raise ValueError
 
     def get_ngalert_alertmanagers_by_organization(self) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
-
-        Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        &#34;&#34;&#34;The method includes a functionality to get the discovered and dropped alertmanagers of the user&#39;s \
+        organization and based on the specified configuration
         &#34;&#34;&#34;
 
         api_call: dict = (
@@ -892,38 +900,28 @@ class Alerting:
 <span>(</span><span>grafana_api_model: <a title="grafana_api.model.APIModel" href="model.html#grafana_api.model.APIModel">APIModel</a>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The class includes all necessary methods to access the Grafana datasource API endpoints. It's required that
-the API token got the corresponding datasource access rights. Please check the used methods docstring for the
-necessary access rights</p>
-<p>HINT: Note Grafana Enterprise API add required permissions if fine-grained access control is enabled</p>
-<p>Keyword arguments:</p>
-<p>grafana_api_model &ndash; Inject a Grafana API model object that includes all necessary values and information</p></div>
+<div class="desc"><p>The class includes all necessary methods to access the Grafana alerting API endpoints</p>
+<p>Keyword arguments:
+grafana_api_model -&gt; Inject a Grafana API model object that includes all necessary values and information</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Alerting:
-    &#34;&#34;&#34;The class includes all necessary methods to access the Grafana datasource API endpoints. It&#39;s required that \
-    the API token got the corresponding datasource access rights. Please check the used methods docstring for the \
-    necessary access rights
-
-    HINT: Note Grafana Enterprise API add required permissions if fine-grained access control is enabled
+    &#34;&#34;&#34;The class includes all necessary methods to access the Grafana alerting API endpoints
 
     Keyword arguments:
-
-    grafana_api_model -- Inject a Grafana API model object that includes all necessary values and information
+    grafana_api_model -&gt; Inject a Grafana API model object that includes all necessary values and information
     &#34;&#34;&#34;
 
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
-    def get_alertmanager_alerts(self, recipient: str) -&gt; list:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def get_alertmanager_alerts(self, recipient: str = &#34;grafana&#34;) -&gt; list:
+        &#34;&#34;&#34;The method includes a functionality to get the alertmanager alerts specified by the recipient
 
         Keyword arguments:
-
-        recipient -&gt; Specify the id of the dashboard
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0:
@@ -944,13 +942,15 @@ necessary access rights</p>
             logging.error(&#34;There is no recipient defined.&#34;)
             raise ValueError
 
-    def create_or_update_alertmanager_alerts(self, recipient: str, alerts: list):
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def create_or_update_alertmanager_alerts(
+        self, alerts: list, recipient: str = &#34;grafana&#34;
+    ):
+        &#34;&#34;&#34;The method includes a functionality to create or update the alertmanager alerts specified by the recipient \
+        and the alerts list
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
-        alerts -&gt; Specify the list of the Alert -&gt; Model objects
+        alerts -&gt; Specify a list of the alert objects
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0 and alerts != list():
@@ -987,12 +987,11 @@ necessary access rights</p>
             logging.error(&#34;There is no recipient or alerts defined.&#34;)
             raise ValueError
 
-    def get_alertmanager_group_alerts(self, recipient: str) -&gt; list:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def get_alertmanager_group_alerts(self, recipient: str = &#34;grafana&#34;) -&gt; list:
+        &#34;&#34;&#34;The method includes a functionality to get the alertmanager group alerts specified by the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0:
@@ -1013,12 +1012,15 @@ necessary access rights</p>
             logging.error(&#34;There is no recipient defined.&#34;)
             raise ValueError
 
-    def delete_alertmanager_silence_by_id(self, recipient: str, silence_id: str):
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def delete_alertmanager_silence_by_id(
+        self, silence_id: str, recipient: str = &#34;grafana&#34;
+    ):
+        &#34;&#34;&#34;The method includes a functionality to delete the alertmanager silence specified by the silence id and the \
+        recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        silence_id -&gt; Specify the silence id of the alerts
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0 and len(silence_id) != 0:
@@ -1040,12 +1042,15 @@ necessary access rights</p>
             logging.error(&#34;There is no recipient or silence_id defined.&#34;)
             raise ValueError
 
-    def get_alertmanager_silence_by_id(self, recipient: str, silence_id: str) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def get_alertmanager_silence_by_id(
+        self, silence_id: str, recipient: str = &#34;grafana&#34;
+    ) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to get the alertmanager silence specified by the silence id and the \
+        recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        silence_id -&gt; Specify the silence id of the alerts
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0 and len(silence_id) != 0:
@@ -1066,12 +1071,11 @@ necessary access rights</p>
             logging.error(&#34;There is no recipient or silence_id defined.&#34;)
             raise ValueError
 
-    def get_alertmanager_silences(self, recipient: str) -&gt; list:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def get_alertmanager_silences(self, recipient: str = &#34;grafana&#34;) -&gt; list:
+        &#34;&#34;&#34;The method includes a functionality to get all alertmanager silences specified by the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0:
@@ -1093,13 +1097,14 @@ necessary access rights</p>
             raise ValueError
 
     def create_or_update_alertmanager_silence(
-        self, recipient: str, silence: Silence
+        self, silence: Silence, recipient: str = &#34;grafana&#34;
     ) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+        &#34;&#34;&#34;The method includes a functionality to create or update the alertmanager silence specified by the silence \
+        object and the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        silence -&gt; Specify the silence object
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0 or silence is not None:
@@ -1133,12 +1138,11 @@ necessary access rights</p>
             logging.error(&#34;There is no recipient or silence defined.&#34;)
             raise ValueError
 
-    def get_alertmanager_status(self, recipient: str) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def get_alertmanager_status(self, recipient: str = &#34;grafana&#34;) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to get the alertmanager status specified by the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0:
@@ -1159,12 +1163,11 @@ necessary access rights</p>
             logging.error(&#34;There is no recipient defined.&#34;)
             raise ValueError
 
-    def delete_alertmanager_config(self, recipient: str):
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def delete_alertmanager_config(self, recipient: str = &#34;grafana&#34;):
+        &#34;&#34;&#34;The method includes a functionality to delete the alertmanager config specified by the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0:
@@ -1186,12 +1189,11 @@ necessary access rights</p>
             logging.error(&#34;There is no recipient defined.&#34;)
             raise ValueError
 
-    def get_alertmanager_config(self, recipient: str) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def get_alertmanager_config(self, recipient: str = &#34;grafana&#34;) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to get the alertmanager config specified by the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0:
@@ -1214,15 +1216,17 @@ necessary access rights</p>
 
     def create_or_update_alertmanager_alert_config(
         self,
-        recipient: str,
         alertmanager_config: AlertmanagerConfig,
+        recipient: str = &#34;grafana&#34;,
         template_files: dict = None,
     ):
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+        &#34;&#34;&#34;The method includes a functionality to create or update the alertmanager alert config specified by the \
+        alertmanager config object, recipient and template_files
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        alertmanager_config -&gt; Specify the alertmanager config object
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
+        template_files -&gt; Specify the optional template files (default None)
         &#34;&#34;&#34;
 
         if len(recipient) != 0 and alertmanager_config is not None:
@@ -1254,13 +1258,15 @@ necessary access rights</p>
             raise ValueError
 
     def test_alertmanager_receivers(
-        self, recipient: str, alert: dict, receivers: AlertmanagerReceivers
+        self, alert: dict, receivers: AlertmanagerReceivers, recipient: str = &#34;grafana&#34;
     ):
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+        &#34;&#34;&#34;The method includes a functionality to test the alertmanager receivers specified by the \
+        alert dict, receivers object and the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        alert -&gt; Specify the alert dict
+        receivers -&gt; Specify the receivers object
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0 and alert != dict() and receivers is not None:
@@ -1302,12 +1308,11 @@ necessary access rights</p>
             logging.error(&#34;There is no recipient, alert or receivers defined.&#34;)
             raise ValueError
 
-    def get_prometheus_alerts(self, recipient: str) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def get_prometheus_alerts(self, recipient: str = &#34;grafana&#34;) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to get all prometheus alerts specified by the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0:
@@ -1328,12 +1333,11 @@ necessary access rights</p>
             logging.error(&#34;There is no recipient defined.&#34;)
             raise ValueError
 
-    def get_prometheus_rules(self, recipient: str) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def get_prometheus_rules(self, recipient: str = &#34;grafana&#34;) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to get all prometheus rules specified by the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0:
@@ -1354,12 +1358,11 @@ necessary access rights</p>
             logging.error(&#34;There is no recipient defined.&#34;)
             raise ValueError
 
-    def get_ruler_rules(self, recipient: str) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def get_ruler_rules(self, recipient: str = &#34;grafana&#34;) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to get all ruler rules specified by the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0:
@@ -1380,12 +1383,13 @@ necessary access rights</p>
             logging.error(&#34;There is no recipient defined.&#34;)
             raise ValueError
 
-    def delete_ruler_namespace(self, recipient: str, namespace: str):
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def delete_ruler_namespace(self, namespace: str, recipient: str = &#34;grafana&#34;):
+        &#34;&#34;&#34;The method includes a functionality to delete a ruler namespace specified by the namespace name and \
+        the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        namespace -&gt; Specify the namespace name
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0 and len(namespace) != 0:
@@ -1407,12 +1411,15 @@ necessary access rights</p>
             logging.error(&#34;There is no recipient or namespace defined.&#34;)
             raise ValueError
 
-    def get_ruler_groups_by_namespace(self, recipient: str, namespace: str) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def get_ruler_groups_by_namespace(
+        self, namespace: str, recipient: str = &#34;grafana&#34;
+    ) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to get all ruler groups specified by the namespace name and \
+        the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        namespace -&gt; Specify the namespace name
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0 and len(namespace) != 0:
@@ -1434,20 +1441,28 @@ necessary access rights</p>
             raise ValueError
 
     def create_or_update_ruler_group_by_namespace(
-        self, recipient: str, namespace: str, name: str, rules: list, interval: int = 0
+        self,
+        namespace: str,
+        group_name: str,
+        rules: list,
+        recipient: str = &#34;grafana&#34;,
+        interval: int = 0,
     ):
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+        &#34;&#34;&#34;The method includes a functionality to create or update a ruler group specified by the namespace name, \
+        a ruler group name, a ruler rule object list, the recipient and an interval
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
-        rule -&gt; RulerRule
+        namespace -&gt; Specify the namespace name
+        group_name -&gt; Specify the ruler group name
+        rules -&gt; Specify the ruler rule object list
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
+        interval -&gt; Specify the interval of the ruler (default 0)
         &#34;&#34;&#34;
 
         if (
             len(recipient) != 0
             and len(namespace) != 0
-            and len(name) != 0
+            and len(group_name) != 0
             and rules != list()
         ):
             rules_json_list: list = list()
@@ -1472,7 +1487,11 @@ necessary access rights</p>
                     f&#34;{APIEndpoints.ALERTS_RULER.value}/{recipient}/api/v1/rules/{namespace}&#34;,
                     RequestsMethods.POST,
                     json.dumps(
-                        {&#34;interval&#34;: interval, &#34;name&#34;: name, &#34;rules&#34;: rules_json_list}
+                        {
+                            &#34;interval&#34;: interval,
+                            &#34;name&#34;: group_name,
+                            &#34;rules&#34;: rules_json_list,
+                        }
                     ),
                 )
                 .json()
@@ -1487,12 +1506,16 @@ necessary access rights</p>
             logging.error(&#34;There is no recipient, namespace, name or rules defined.&#34;)
             raise ValueError
 
-    def delete_ruler_group(self, recipient: str, namespace: str, group_name: str):
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def delete_ruler_group(
+        self, namespace: str, group_name: str, recipient: str = &#34;grafana&#34;
+    ):
+        &#34;&#34;&#34;The method includes a functionality to delete a ruler group specified by the namespace name, a ruler group \
+        name and the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        namespace -&gt; Specify the namespace name
+        group_name -&gt; Specify the ruler group name
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0 and len(namespace) != 0 and len(group_name) != 0:
@@ -1514,12 +1537,16 @@ necessary access rights</p>
             logging.error(&#34;There is no recipient, namespace or group_name defined.&#34;)
             raise ValueError
 
-    def get_ruler_group(self, recipient: str, namespace: str, group_name: str) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+    def get_ruler_group(
+        self, namespace: str, group_name: str, recipient: str = &#34;grafana&#34;
+    ) -&gt; dict:
+        &#34;&#34;&#34;The method includes a functionality to get a ruler group specified by the namespace name, a ruler group \
+        name and the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        namespace -&gt; Specify the namespace name
+        group_name -&gt; Specify the ruler group name
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if len(recipient) != 0 and len(namespace) != 0 and len(group_name) != 0:
@@ -1541,12 +1568,10 @@ necessary access rights</p>
             raise ValueError
 
     def test_rule(self, data_query: list) -&gt; str:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+        &#34;&#34;&#34;The method includes a functionality to test a rule specified by a list of datasource rule query objects
 
         Keyword arguments:
-        recipient -&gt;
-        Object -&gt; DatasourceRuleQuery
+        data_query -&gt; Specify a list of datasource rule query objects
         &#34;&#34;&#34;
 
         if data_query != list():
@@ -1572,13 +1597,16 @@ necessary access rights</p>
             raise ValueError
 
     def test_recipient_rule(
-        self, recipient: str, expr: str, condition: str, data_query: list
+        self, expr: str, condition: str, data_query: list, recipient: str = &#34;grafana&#34;
     ) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+        &#34;&#34;&#34;The method includes a functionality to test a recipient role specified by the expr, the condition, \
+        a list of data queries and the recipient
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        expr -&gt; Specify the expression
+        condition -&gt; Specify the condition
+        data_query -&gt; Specify a list of datasource rule query objects
+        recipient -&gt; Specify the recipient of the alerts (default grafana)
         &#34;&#34;&#34;
 
         if (
@@ -1618,12 +1646,7 @@ necessary access rights</p>
             raise ValueError
 
     def delete_ngalert_organization_configuration(self):
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
-
-        Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
-        &#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to delete the ngalert organization admin configuration&#34;&#34;&#34;
 
         api_call: dict = (
             Api(self.grafana_api_model)
@@ -1643,12 +1666,7 @@ necessary access rights</p>
             )
 
     def get_ngalert_organization_configuration(self) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
-
-        Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
-        &#34;&#34;&#34;
+        &#34;&#34;&#34;The method includes a functionality to get the ngalert organization admin configuration&#34;&#34;&#34;
 
         api_call: any = Api(self.grafana_api_model).call_the_api(
             f&#34;{APIEndpoints.ALERTS_NGALERT.value}/admin_config&#34;,
@@ -1673,13 +1691,13 @@ necessary access rights</p>
             raise Exception
 
     def create_or_update_ngalert_organization_configuration(
-        self, alert_managers: list, alertmanagers_choice: str
+        self, alert_managers: list, alertmanagers_choice: str = &#34;all&#34;
     ):
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+        &#34;&#34;&#34;The method includes a functionality to create or update the ngalert organization admin configuration
 
         Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        alert_managers -&gt; Specify the list of alert manager names
+        alertmanagers_choice -&gt; Specify the alertmanagers choice (default all)
         &#34;&#34;&#34;
 
         if alert_managers != list() and len(alertmanagers_choice) != 0:
@@ -1712,11 +1730,8 @@ necessary access rights</p>
             raise ValueError
 
     def get_ngalert_alertmanagers_by_organization(self) -&gt; dict:
-        &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
-
-        Keyword arguments:
-        recipient -&gt; Specify the id of the dashboard
+        &#34;&#34;&#34;The method includes a functionality to get the discovered and dropped alertmanagers of the user&#39;s \
+        organization and based on the specified configuration
         &#34;&#34;&#34;
 
         api_call: dict = (
@@ -1736,28 +1751,32 @@ necessary access rights</p>
 <h3>Methods</h3>
 <dl>
 <dt id="grafana_api.alerting.Alerting.create_or_update_alertmanager_alert_config"><code class="name flex">
-<span>def <span class="ident">create_or_update_alertmanager_alert_config</span></span>(<span>self, recipient: str, alertmanager_config: <a title="grafana_api.model.AlertmanagerConfig" href="model.html#grafana_api.model.AlertmanagerConfig">AlertmanagerConfig</a>, template_files: dict = None)</span>
+<span>def <span class="ident">create_or_update_alertmanager_alert_config</span></span>(<span>self, alertmanager_config: <a title="grafana_api.model.AlertmanagerConfig" href="model.html#grafana_api.model.AlertmanagerConfig">AlertmanagerConfig</a>, recipient: str = 'grafana', template_files: dict = None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
+<div class="desc"><p>The method includes a functionality to create or update the alertmanager alert config specified by the
+alertmanager config object, recipient and template_files</p>
 <p>Keyword arguments:
-recipient -&gt; Specify the id of the dashboard</p></div>
+alertmanager_config -&gt; Specify the alertmanager config object
+recipient -&gt; Specify the recipient of the alerts (default grafana)
+template_files -&gt; Specify the optional template files (default None)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def create_or_update_alertmanager_alert_config(
     self,
-    recipient: str,
     alertmanager_config: AlertmanagerConfig,
+    recipient: str = &#34;grafana&#34;,
     template_files: dict = None,
 ):
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
+    &#34;&#34;&#34;The method includes a functionality to create or update the alertmanager alert config specified by the \
+    alertmanager config object, recipient and template_files
 
     Keyword arguments:
-    recipient -&gt; Specify the id of the dashboard
+    alertmanager_config -&gt; Specify the alertmanager config object
+    recipient -&gt; Specify the recipient of the alerts (default grafana)
+    template_files -&gt; Specify the optional template files (default None)
     &#34;&#34;&#34;
 
     if len(recipient) != 0 and alertmanager_config is not None:
@@ -1790,25 +1809,27 @@ recipient -&gt; Specify the id of the dashboard</p></div>
 </details>
 </dd>
 <dt id="grafana_api.alerting.Alerting.create_or_update_alertmanager_alerts"><code class="name flex">
-<span>def <span class="ident">create_or_update_alertmanager_alerts</span></span>(<span>self, recipient: str, alerts: list)</span>
+<span>def <span class="ident">create_or_update_alertmanager_alerts</span></span>(<span>self, alerts: list, recipient: str = 'grafana')</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
+<div class="desc"><p>The method includes a functionality to create or update the alertmanager alerts specified by the recipient
+and the alerts list</p>
 <p>Keyword arguments:
-recipient -&gt; Specify the id of the dashboard
-alerts -&gt; Specify the list of the Alert -&gt; Model objects</p></div>
+alerts -&gt; Specify a list of the alert objects
+recipient -&gt; Specify the recipient of the alerts (default grafana)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def create_or_update_alertmanager_alerts(self, recipient: str, alerts: list):
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
+<pre><code class="python">def create_or_update_alertmanager_alerts(
+    self, alerts: list, recipient: str = &#34;grafana&#34;
+):
+    &#34;&#34;&#34;The method includes a functionality to create or update the alertmanager alerts specified by the recipient \
+    and the alerts list
 
     Keyword arguments:
-    recipient -&gt; Specify the id of the dashboard
-    alerts -&gt; Specify the list of the Alert -&gt; Model objects
+    alerts -&gt; Specify a list of the alert objects
+    recipient -&gt; Specify the recipient of the alerts (default grafana)
     &#34;&#34;&#34;
 
     if len(recipient) != 0 and alerts != list():
@@ -1847,25 +1868,27 @@ alerts -&gt; Specify the list of the Alert -&gt; Model objects</p></div>
 </details>
 </dd>
 <dt id="grafana_api.alerting.Alerting.create_or_update_alertmanager_silence"><code class="name flex">
-<span>def <span class="ident">create_or_update_alertmanager_silence</span></span>(<span>self, recipient: str, silence: <a title="grafana_api.model.Silence" href="model.html#grafana_api.model.Silence">Silence</a>) ‑> dict</span>
+<span>def <span class="ident">create_or_update_alertmanager_silence</span></span>(<span>self, silence: <a title="grafana_api.model.Silence" href="model.html#grafana_api.model.Silence">Silence</a>, recipient: str = 'grafana') ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
+<div class="desc"><p>The method includes a functionality to create or update the alertmanager silence specified by the silence
+object and the recipient</p>
 <p>Keyword arguments:
-recipient -&gt; Specify the id of the dashboard</p></div>
+silence -&gt; Specify the silence object
+recipient -&gt; Specify the recipient of the alerts (default grafana)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def create_or_update_alertmanager_silence(
-    self, recipient: str, silence: Silence
+    self, silence: Silence, recipient: str = &#34;grafana&#34;
 ) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
+    &#34;&#34;&#34;The method includes a functionality to create or update the alertmanager silence specified by the silence \
+    object and the recipient
 
     Keyword arguments:
-    recipient -&gt; Specify the id of the dashboard
+    silence -&gt; Specify the silence object
+    recipient -&gt; Specify the recipient of the alerts (default grafana)
     &#34;&#34;&#34;
 
     if len(recipient) != 0 or silence is not None:
@@ -1901,25 +1924,25 @@ recipient -&gt; Specify the id of the dashboard</p></div>
 </details>
 </dd>
 <dt id="grafana_api.alerting.Alerting.create_or_update_ngalert_organization_configuration"><code class="name flex">
-<span>def <span class="ident">create_or_update_ngalert_organization_configuration</span></span>(<span>self, alert_managers: list, alertmanagers_choice: str)</span>
+<span>def <span class="ident">create_or_update_ngalert_organization_configuration</span></span>(<span>self, alert_managers: list, alertmanagers_choice: str = 'all')</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
+<div class="desc"><p>The method includes a functionality to create or update the ngalert organization admin configuration</p>
 <p>Keyword arguments:
-recipient -&gt; Specify the id of the dashboard</p></div>
+alert_managers -&gt; Specify the list of alert manager names
+alertmanagers_choice -&gt; Specify the alertmanagers choice (default all)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def create_or_update_ngalert_organization_configuration(
-    self, alert_managers: list, alertmanagers_choice: str
+    self, alert_managers: list, alertmanagers_choice: str = &#34;all&#34;
 ):
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
+    &#34;&#34;&#34;The method includes a functionality to create or update the ngalert organization admin configuration
 
     Keyword arguments:
-    recipient -&gt; Specify the id of the dashboard
+    alert_managers -&gt; Specify the list of alert manager names
+    alertmanagers_choice -&gt; Specify the alertmanagers choice (default all)
     &#34;&#34;&#34;
 
     if alert_managers != list() and len(alertmanagers_choice) != 0:
@@ -1953,33 +1976,44 @@ recipient -&gt; Specify the id of the dashboard</p></div>
 </details>
 </dd>
 <dt id="grafana_api.alerting.Alerting.create_or_update_ruler_group_by_namespace"><code class="name flex">
-<span>def <span class="ident">create_or_update_ruler_group_by_namespace</span></span>(<span>self, recipient: str, namespace: str, name: str, rules: list, interval: int = 0)</span>
+<span>def <span class="ident">create_or_update_ruler_group_by_namespace</span></span>(<span>self, namespace: str, group_name: str, rules: list, recipient: str = 'grafana', interval: int = 0)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
+<div class="desc"><p>The method includes a functionality to create or update a ruler group specified by the namespace name,
+a ruler group name, a ruler rule object list, the recipient and an interval</p>
 <p>Keyword arguments:
-recipient -&gt; Specify the id of the dashboard
-rule -&gt; RulerRule</p></div>
+namespace -&gt; Specify the namespace name
+group_name -&gt; Specify the ruler group name
+rules -&gt; Specify the ruler rule object list
+recipient -&gt; Specify the recipient of the alerts (default grafana)
+interval -&gt; Specify the interval of the ruler (default 0)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def create_or_update_ruler_group_by_namespace(
-    self, recipient: str, namespace: str, name: str, rules: list, interval: int = 0
+    self,
+    namespace: str,
+    group_name: str,
+    rules: list,
+    recipient: str = &#34;grafana&#34;,
+    interval: int = 0,
 ):
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
+    &#34;&#34;&#34;The method includes a functionality to create or update a ruler group specified by the namespace name, \
+    a ruler group name, a ruler rule object list, the recipient and an interval
 
     Keyword arguments:
-    recipient -&gt; Specify the id of the dashboard
-    rule -&gt; RulerRule
+    namespace -&gt; Specify the namespace name
+    group_name -&gt; Specify the ruler group name
+    rules -&gt; Specify the ruler rule object list
+    recipient -&gt; Specify the recipient of the alerts (default grafana)
+    interval -&gt; Specify the interval of the ruler (default 0)
     &#34;&#34;&#34;
 
     if (
         len(recipient) != 0
         and len(namespace) != 0
-        and len(name) != 0
+        and len(group_name) != 0
         and rules != list()
     ):
         rules_json_list: list = list()
@@ -2004,7 +2038,11 @@ rule -&gt; RulerRule</p></div>
                 f&#34;{APIEndpoints.ALERTS_RULER.value}/{recipient}/api/v1/rules/{namespace}&#34;,
                 RequestsMethods.POST,
                 json.dumps(
-                    {&#34;interval&#34;: interval, &#34;name&#34;: name, &#34;rules&#34;: rules_json_list}
+                    {
+                        &#34;interval&#34;: interval,
+                        &#34;name&#34;: group_name,
+                        &#34;rules&#34;: rules_json_list,
+                    }
                 ),
             )
             .json()
@@ -2021,23 +2059,21 @@ rule -&gt; RulerRule</p></div>
 </details>
 </dd>
 <dt id="grafana_api.alerting.Alerting.delete_alertmanager_config"><code class="name flex">
-<span>def <span class="ident">delete_alertmanager_config</span></span>(<span>self, recipient: str)</span>
+<span>def <span class="ident">delete_alertmanager_config</span></span>(<span>self, recipient: str = 'grafana')</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
+<div class="desc"><p>The method includes a functionality to delete the alertmanager config specified by the recipient</p>
 <p>Keyword arguments:
-recipient -&gt; Specify the id of the dashboard</p></div>
+recipient -&gt; Specify the recipient of the alerts (default grafana)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def delete_alertmanager_config(self, recipient: str):
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
+<pre><code class="python">def delete_alertmanager_config(self, recipient: str = &#34;grafana&#34;):
+    &#34;&#34;&#34;The method includes a functionality to delete the alertmanager config specified by the recipient
 
     Keyword arguments:
-    recipient -&gt; Specify the id of the dashboard
+    recipient -&gt; Specify the recipient of the alerts (default grafana)
     &#34;&#34;&#34;
 
     if len(recipient) != 0:
@@ -2061,23 +2097,27 @@ recipient -&gt; Specify the id of the dashboard</p></div>
 </details>
 </dd>
 <dt id="grafana_api.alerting.Alerting.delete_alertmanager_silence_by_id"><code class="name flex">
-<span>def <span class="ident">delete_alertmanager_silence_by_id</span></span>(<span>self, recipient: str, silence_id: str)</span>
+<span>def <span class="ident">delete_alertmanager_silence_by_id</span></span>(<span>self, silence_id: str, recipient: str = 'grafana')</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
+<div class="desc"><p>The method includes a functionality to delete the alertmanager silence specified by the silence id and the
+recipient</p>
 <p>Keyword arguments:
-recipient -&gt; Specify the id of the dashboard</p></div>
+silence_id -&gt; Specify the silence id of the alerts
+recipient -&gt; Specify the recipient of the alerts (default grafana)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def delete_alertmanager_silence_by_id(self, recipient: str, silence_id: str):
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
+<pre><code class="python">def delete_alertmanager_silence_by_id(
+    self, silence_id: str, recipient: str = &#34;grafana&#34;
+):
+    &#34;&#34;&#34;The method includes a functionality to delete the alertmanager silence specified by the silence id and the \
+    recipient
 
     Keyword arguments:
-    recipient -&gt; Specify the id of the dashboard
+    silence_id -&gt; Specify the silence id of the alerts
+    recipient -&gt; Specify the recipient of the alerts (default grafana)
     &#34;&#34;&#34;
 
     if len(recipient) != 0 and len(silence_id) != 0:
@@ -2104,21 +2144,13 @@ recipient -&gt; Specify the id of the dashboard</p></div>
 <span>def <span class="ident">delete_ngalert_organization_configuration</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
-<p>Keyword arguments:
-recipient -&gt; Specify the id of the dashboard</p></div>
+<div class="desc"><p>The method includes a functionality to delete the ngalert organization admin configuration</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def delete_ngalert_organization_configuration(self):
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
-
-    Keyword arguments:
-    recipient -&gt; Specify the id of the dashboard
-    &#34;&#34;&#34;
+    &#34;&#34;&#34;The method includes a functionality to delete the ngalert organization admin configuration&#34;&#34;&#34;
 
     api_call: dict = (
         Api(self.grafana_api_model)
@@ -2139,23 +2171,29 @@ recipient -&gt; Specify the id of the dashboard</p></div>
 </details>
 </dd>
 <dt id="grafana_api.alerting.Alerting.delete_ruler_group"><code class="name flex">
-<span>def <span class="ident">delete_ruler_group</span></span>(<span>self, recipient: str, namespace: str, group_name: str)</span>
+<span>def <span class="ident">delete_ruler_group</span></span>(<span>self, namespace: str, group_name: str, recipient: str = 'grafana')</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
+<div class="desc"><p>The method includes a functionality to delete a ruler group specified by the namespace name, a ruler group
+name and the recipient</p>
 <p>Keyword arguments:
-recipient -&gt; Specify the id of the dashboard</p></div>
+namespace -&gt; Specify the namespace name
+group_name -&gt; Specify the ruler group name
+recipient -&gt; Specify the recipient of the alerts (default grafana)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def delete_ruler_group(self, recipient: str, namespace: str, group_name: str):
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
+<pre><code class="python">def delete_ruler_group(
+    self, namespace: str, group_name: str, recipient: str = &#34;grafana&#34;
+):
+    &#34;&#34;&#34;The method includes a functionality to delete a ruler group specified by the namespace name, a ruler group \
+    name and the recipient
 
     Keyword arguments:
-    recipient -&gt; Specify the id of the dashboard
+    namespace -&gt; Specify the namespace name
+    group_name -&gt; Specify the ruler group name
+    recipient -&gt; Specify the recipient of the alerts (default grafana)
     &#34;&#34;&#34;
 
     if len(recipient) != 0 and len(namespace) != 0 and len(group_name) != 0:
@@ -2179,23 +2217,25 @@ recipient -&gt; Specify the id of the dashboard</p></div>
 </details>
 </dd>
 <dt id="grafana_api.alerting.Alerting.delete_ruler_namespace"><code class="name flex">
-<span>def <span class="ident">delete_ruler_namespace</span></span>(<span>self, recipient: str, namespace: str)</span>
+<span>def <span class="ident">delete_ruler_namespace</span></span>(<span>self, namespace: str, recipient: str = 'grafana')</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
+<div class="desc"><p>The method includes a functionality to delete a ruler namespace specified by the namespace name and
+the recipient</p>
 <p>Keyword arguments:
-recipient -&gt; Specify the id of the dashboard</p></div>
+namespace -&gt; Specify the namespace name
+recipient -&gt; Specify the recipient of the alerts (default grafana)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def delete_ruler_namespace(self, recipient: str, namespace: str):
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
+<pre><code class="python">def delete_ruler_namespace(self, namespace: str, recipient: str = &#34;grafana&#34;):
+    &#34;&#34;&#34;The method includes a functionality to delete a ruler namespace specified by the namespace name and \
+    the recipient
 
     Keyword arguments:
-    recipient -&gt; Specify the id of the dashboard
+    namespace -&gt; Specify the namespace name
+    recipient -&gt; Specify the recipient of the alerts (default grafana)
     &#34;&#34;&#34;
 
     if len(recipient) != 0 and len(namespace) != 0:
@@ -2219,24 +2259,21 @@ recipient -&gt; Specify the id of the dashboard</p></div>
 </details>
 </dd>
 <dt id="grafana_api.alerting.Alerting.get_alertmanager_alerts"><code class="name flex">
-<span>def <span class="ident">get_alertmanager_alerts</span></span>(<span>self, recipient: str) ‑> list</span>
+<span>def <span class="ident">get_alertmanager_alerts</span></span>(<span>self, recipient: str = 'grafana') ‑> list</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
-<p>Keyword arguments:</p>
-<p>recipient -&gt; Specify the id of the dashboard</p></div>
+<div class="desc"><p>The method includes a functionality to get the alertmanager alerts specified by the recipient</p>
+<p>Keyword arguments:
+recipient -&gt; Specify the recipient of the alerts (default grafana)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_alertmanager_alerts(self, recipient: str) -&gt; list:
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
+<pre><code class="python">def get_alertmanager_alerts(self, recipient: str = &#34;grafana&#34;) -&gt; list:
+    &#34;&#34;&#34;The method includes a functionality to get the alertmanager alerts specified by the recipient
 
     Keyword arguments:
-
-    recipient -&gt; Specify the id of the dashboard
+    recipient -&gt; Specify the recipient of the alerts (default grafana)
     &#34;&#34;&#34;
 
     if len(recipient) != 0:
@@ -2259,23 +2296,21 @@ dashboard id and a version_id of the dashboard</p>
 </details>
 </dd>
 <dt id="grafana_api.alerting.Alerting.get_alertmanager_config"><code class="name flex">
-<span>def <span class="ident">get_alertmanager_config</span></span>(<span>self, recipient: str) ‑> dict</span>
+<span>def <span class="ident">get_alertmanager_config</span></span>(<span>self, recipient: str = 'grafana') ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
+<div class="desc"><p>The method includes a functionality to get the alertmanager config specified by the recipient</p>
 <p>Keyword arguments:
-recipient -&gt; Specify the id of the dashboard</p></div>
+recipient -&gt; Specify the recipient of the alerts (default grafana)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_alertmanager_config(self, recipient: str) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
+<pre><code class="python">def get_alertmanager_config(self, recipient: str = &#34;grafana&#34;) -&gt; dict:
+    &#34;&#34;&#34;The method includes a functionality to get the alertmanager config specified by the recipient
 
     Keyword arguments:
-    recipient -&gt; Specify the id of the dashboard
+    recipient -&gt; Specify the recipient of the alerts (default grafana)
     &#34;&#34;&#34;
 
     if len(recipient) != 0:
@@ -2298,23 +2333,21 @@ recipient -&gt; Specify the id of the dashboard</p></div>
 </details>
 </dd>
 <dt id="grafana_api.alerting.Alerting.get_alertmanager_group_alerts"><code class="name flex">
-<span>def <span class="ident">get_alertmanager_group_alerts</span></span>(<span>self, recipient: str) ‑> list</span>
+<span>def <span class="ident">get_alertmanager_group_alerts</span></span>(<span>self, recipient: str = 'grafana') ‑> list</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
+<div class="desc"><p>The method includes a functionality to get the alertmanager group alerts specified by the recipient</p>
 <p>Keyword arguments:
-recipient -&gt; Specify the id of the dashboard</p></div>
+recipient -&gt; Specify the recipient of the alerts (default grafana)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_alertmanager_group_alerts(self, recipient: str) -&gt; list:
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
+<pre><code class="python">def get_alertmanager_group_alerts(self, recipient: str = &#34;grafana&#34;) -&gt; list:
+    &#34;&#34;&#34;The method includes a functionality to get the alertmanager group alerts specified by the recipient
 
     Keyword arguments:
-    recipient -&gt; Specify the id of the dashboard
+    recipient -&gt; Specify the recipient of the alerts (default grafana)
     &#34;&#34;&#34;
 
     if len(recipient) != 0:
@@ -2337,23 +2370,27 @@ recipient -&gt; Specify the id of the dashboard</p></div>
 </details>
 </dd>
 <dt id="grafana_api.alerting.Alerting.get_alertmanager_silence_by_id"><code class="name flex">
-<span>def <span class="ident">get_alertmanager_silence_by_id</span></span>(<span>self, recipient: str, silence_id: str) ‑> dict</span>
+<span>def <span class="ident">get_alertmanager_silence_by_id</span></span>(<span>self, silence_id: str, recipient: str = 'grafana') ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
+<div class="desc"><p>The method includes a functionality to get the alertmanager silence specified by the silence id and the
+recipient</p>
 <p>Keyword arguments:
-recipient -&gt; Specify the id of the dashboard</p></div>
+silence_id -&gt; Specify the silence id of the alerts
+recipient -&gt; Specify the recipient of the alerts (default grafana)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_alertmanager_silence_by_id(self, recipient: str, silence_id: str) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
+<pre><code class="python">def get_alertmanager_silence_by_id(
+    self, silence_id: str, recipient: str = &#34;grafana&#34;
+) -&gt; dict:
+    &#34;&#34;&#34;The method includes a functionality to get the alertmanager silence specified by the silence id and the \
+    recipient
 
     Keyword arguments:
-    recipient -&gt; Specify the id of the dashboard
+    silence_id -&gt; Specify the silence id of the alerts
+    recipient -&gt; Specify the recipient of the alerts (default grafana)
     &#34;&#34;&#34;
 
     if len(recipient) != 0 and len(silence_id) != 0:
@@ -2376,23 +2413,21 @@ recipient -&gt; Specify the id of the dashboard</p></div>
 </details>
 </dd>
 <dt id="grafana_api.alerting.Alerting.get_alertmanager_silences"><code class="name flex">
-<span>def <span class="ident">get_alertmanager_silences</span></span>(<span>self, recipient: str) ‑> list</span>
+<span>def <span class="ident">get_alertmanager_silences</span></span>(<span>self, recipient: str = 'grafana') ‑> list</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
+<div class="desc"><p>The method includes a functionality to get all alertmanager silences specified by the recipient</p>
 <p>Keyword arguments:
-recipient -&gt; Specify the id of the dashboard</p></div>
+recipient -&gt; Specify the recipient of the alerts (default grafana)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_alertmanager_silences(self, recipient: str) -&gt; list:
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
+<pre><code class="python">def get_alertmanager_silences(self, recipient: str = &#34;grafana&#34;) -&gt; list:
+    &#34;&#34;&#34;The method includes a functionality to get all alertmanager silences specified by the recipient
 
     Keyword arguments:
-    recipient -&gt; Specify the id of the dashboard
+    recipient -&gt; Specify the recipient of the alerts (default grafana)
     &#34;&#34;&#34;
 
     if len(recipient) != 0:
@@ -2415,23 +2450,21 @@ recipient -&gt; Specify the id of the dashboard</p></div>
 </details>
 </dd>
 <dt id="grafana_api.alerting.Alerting.get_alertmanager_status"><code class="name flex">
-<span>def <span class="ident">get_alertmanager_status</span></span>(<span>self, recipient: str) ‑> dict</span>
+<span>def <span class="ident">get_alertmanager_status</span></span>(<span>self, recipient: str = 'grafana') ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
+<div class="desc"><p>The method includes a functionality to get the alertmanager status specified by the recipient</p>
 <p>Keyword arguments:
-recipient -&gt; Specify the id of the dashboard</p></div>
+recipient -&gt; Specify the recipient of the alerts (default grafana)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_alertmanager_status(self, recipient: str) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
+<pre><code class="python">def get_alertmanager_status(self, recipient: str = &#34;grafana&#34;) -&gt; dict:
+    &#34;&#34;&#34;The method includes a functionality to get the alertmanager status specified by the recipient
 
     Keyword arguments:
-    recipient -&gt; Specify the id of the dashboard
+    recipient -&gt; Specify the recipient of the alerts (default grafana)
     &#34;&#34;&#34;
 
     if len(recipient) != 0:
@@ -2457,20 +2490,15 @@ recipient -&gt; Specify the id of the dashboard</p></div>
 <span>def <span class="ident">get_ngalert_alertmanagers_by_organization</span></span>(<span>self) ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
-<p>Keyword arguments:
-recipient -&gt; Specify the id of the dashboard</p></div>
+<div class="desc"><p>The method includes a functionality to get the discovered and dropped alertmanagers of the user's
+organization and based on the specified configuration</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_ngalert_alertmanagers_by_organization(self) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
-
-    Keyword arguments:
-    recipient -&gt; Specify the id of the dashboard
+    &#34;&#34;&#34;The method includes a functionality to get the discovered and dropped alertmanagers of the user&#39;s \
+    organization and based on the specified configuration
     &#34;&#34;&#34;
 
     api_call: dict = (
@@ -2492,21 +2520,13 @@ recipient -&gt; Specify the id of the dashboard</p></div>
 <span>def <span class="ident">get_ngalert_organization_configuration</span></span>(<span>self) ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
-<p>Keyword arguments:
-recipient -&gt; Specify the id of the dashboard</p></div>
+<div class="desc"><p>The method includes a functionality to get the ngalert organization admin configuration</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_ngalert_organization_configuration(self) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
-
-    Keyword arguments:
-    recipient -&gt; Specify the id of the dashboard
-    &#34;&#34;&#34;
+    &#34;&#34;&#34;The method includes a functionality to get the ngalert organization admin configuration&#34;&#34;&#34;
 
     api_call: any = Api(self.grafana_api_model).call_the_api(
         f&#34;{APIEndpoints.ALERTS_NGALERT.value}/admin_config&#34;,
@@ -2532,23 +2552,21 @@ recipient -&gt; Specify the id of the dashboard</p></div>
 </details>
 </dd>
 <dt id="grafana_api.alerting.Alerting.get_prometheus_alerts"><code class="name flex">
-<span>def <span class="ident">get_prometheus_alerts</span></span>(<span>self, recipient: str) ‑> dict</span>
+<span>def <span class="ident">get_prometheus_alerts</span></span>(<span>self, recipient: str = 'grafana') ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
+<div class="desc"><p>The method includes a functionality to get all prometheus alerts specified by the recipient</p>
 <p>Keyword arguments:
-recipient -&gt; Specify the id of the dashboard</p></div>
+recipient -&gt; Specify the recipient of the alerts (default grafana)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_prometheus_alerts(self, recipient: str) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
+<pre><code class="python">def get_prometheus_alerts(self, recipient: str = &#34;grafana&#34;) -&gt; dict:
+    &#34;&#34;&#34;The method includes a functionality to get all prometheus alerts specified by the recipient
 
     Keyword arguments:
-    recipient -&gt; Specify the id of the dashboard
+    recipient -&gt; Specify the recipient of the alerts (default grafana)
     &#34;&#34;&#34;
 
     if len(recipient) != 0:
@@ -2571,23 +2589,21 @@ recipient -&gt; Specify the id of the dashboard</p></div>
 </details>
 </dd>
 <dt id="grafana_api.alerting.Alerting.get_prometheus_rules"><code class="name flex">
-<span>def <span class="ident">get_prometheus_rules</span></span>(<span>self, recipient: str) ‑> dict</span>
+<span>def <span class="ident">get_prometheus_rules</span></span>(<span>self, recipient: str = 'grafana') ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
+<div class="desc"><p>The method includes a functionality to get all prometheus rules specified by the recipient</p>
 <p>Keyword arguments:
-recipient -&gt; Specify the id of the dashboard</p></div>
+recipient -&gt; Specify the recipient of the alerts (default grafana)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_prometheus_rules(self, recipient: str) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
+<pre><code class="python">def get_prometheus_rules(self, recipient: str = &#34;grafana&#34;) -&gt; dict:
+    &#34;&#34;&#34;The method includes a functionality to get all prometheus rules specified by the recipient
 
     Keyword arguments:
-    recipient -&gt; Specify the id of the dashboard
+    recipient -&gt; Specify the recipient of the alerts (default grafana)
     &#34;&#34;&#34;
 
     if len(recipient) != 0:
@@ -2610,23 +2626,29 @@ recipient -&gt; Specify the id of the dashboard</p></div>
 </details>
 </dd>
 <dt id="grafana_api.alerting.Alerting.get_ruler_group"><code class="name flex">
-<span>def <span class="ident">get_ruler_group</span></span>(<span>self, recipient: str, namespace: str, group_name: str) ‑> dict</span>
+<span>def <span class="ident">get_ruler_group</span></span>(<span>self, namespace: str, group_name: str, recipient: str = 'grafana') ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
+<div class="desc"><p>The method includes a functionality to get a ruler group specified by the namespace name, a ruler group
+name and the recipient</p>
 <p>Keyword arguments:
-recipient -&gt; Specify the id of the dashboard</p></div>
+namespace -&gt; Specify the namespace name
+group_name -&gt; Specify the ruler group name
+recipient -&gt; Specify the recipient of the alerts (default grafana)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_ruler_group(self, recipient: str, namespace: str, group_name: str) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
+<pre><code class="python">def get_ruler_group(
+    self, namespace: str, group_name: str, recipient: str = &#34;grafana&#34;
+) -&gt; dict:
+    &#34;&#34;&#34;The method includes a functionality to get a ruler group specified by the namespace name, a ruler group \
+    name and the recipient
 
     Keyword arguments:
-    recipient -&gt; Specify the id of the dashboard
+    namespace -&gt; Specify the namespace name
+    group_name -&gt; Specify the ruler group name
+    recipient -&gt; Specify the recipient of the alerts (default grafana)
     &#34;&#34;&#34;
 
     if len(recipient) != 0 and len(namespace) != 0 and len(group_name) != 0:
@@ -2649,23 +2671,27 @@ recipient -&gt; Specify the id of the dashboard</p></div>
 </details>
 </dd>
 <dt id="grafana_api.alerting.Alerting.get_ruler_groups_by_namespace"><code class="name flex">
-<span>def <span class="ident">get_ruler_groups_by_namespace</span></span>(<span>self, recipient: str, namespace: str) ‑> dict</span>
+<span>def <span class="ident">get_ruler_groups_by_namespace</span></span>(<span>self, namespace: str, recipient: str = 'grafana') ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
+<div class="desc"><p>The method includes a functionality to get all ruler groups specified by the namespace name and
+the recipient</p>
 <p>Keyword arguments:
-recipient -&gt; Specify the id of the dashboard</p></div>
+namespace -&gt; Specify the namespace name
+recipient -&gt; Specify the recipient of the alerts (default grafana)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_ruler_groups_by_namespace(self, recipient: str, namespace: str) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
+<pre><code class="python">def get_ruler_groups_by_namespace(
+    self, namespace: str, recipient: str = &#34;grafana&#34;
+) -&gt; dict:
+    &#34;&#34;&#34;The method includes a functionality to get all ruler groups specified by the namespace name and \
+    the recipient
 
     Keyword arguments:
-    recipient -&gt; Specify the id of the dashboard
+    namespace -&gt; Specify the namespace name
+    recipient -&gt; Specify the recipient of the alerts (default grafana)
     &#34;&#34;&#34;
 
     if len(recipient) != 0 and len(namespace) != 0:
@@ -2688,23 +2714,21 @@ recipient -&gt; Specify the id of the dashboard</p></div>
 </details>
 </dd>
 <dt id="grafana_api.alerting.Alerting.get_ruler_rules"><code class="name flex">
-<span>def <span class="ident">get_ruler_rules</span></span>(<span>self, recipient: str) ‑> dict</span>
+<span>def <span class="ident">get_ruler_rules</span></span>(<span>self, recipient: str = 'grafana') ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
+<div class="desc"><p>The method includes a functionality to get all ruler rules specified by the recipient</p>
 <p>Keyword arguments:
-recipient -&gt; Specify the id of the dashboard</p></div>
+recipient -&gt; Specify the recipient of the alerts (default grafana)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_ruler_rules(self, recipient: str) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
+<pre><code class="python">def get_ruler_rules(self, recipient: str = &#34;grafana&#34;) -&gt; dict:
+    &#34;&#34;&#34;The method includes a functionality to get all ruler rules specified by the recipient
 
     Keyword arguments:
-    recipient -&gt; Specify the id of the dashboard
+    recipient -&gt; Specify the recipient of the alerts (default grafana)
     &#34;&#34;&#34;
 
     if len(recipient) != 0:
@@ -2727,25 +2751,29 @@ recipient -&gt; Specify the id of the dashboard</p></div>
 </details>
 </dd>
 <dt id="grafana_api.alerting.Alerting.test_alertmanager_receivers"><code class="name flex">
-<span>def <span class="ident">test_alertmanager_receivers</span></span>(<span>self, recipient: str, alert: dict, receivers: <a title="grafana_api.model.AlertmanagerReceivers" href="model.html#grafana_api.model.AlertmanagerReceivers">AlertmanagerReceivers</a>)</span>
+<span>def <span class="ident">test_alertmanager_receivers</span></span>(<span>self, alert: dict, receivers: <a title="grafana_api.model.AlertmanagerReceivers" href="model.html#grafana_api.model.AlertmanagerReceivers">AlertmanagerReceivers</a>, recipient: str = 'grafana')</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
+<div class="desc"><p>The method includes a functionality to test the alertmanager receivers specified by the
+alert dict, receivers object and the recipient</p>
 <p>Keyword arguments:
-recipient -&gt; Specify the id of the dashboard</p></div>
+alert -&gt; Specify the alert dict
+receivers -&gt; Specify the receivers object
+recipient -&gt; Specify the recipient of the alerts (default grafana)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def test_alertmanager_receivers(
-    self, recipient: str, alert: dict, receivers: AlertmanagerReceivers
+    self, alert: dict, receivers: AlertmanagerReceivers, recipient: str = &#34;grafana&#34;
 ):
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
+    &#34;&#34;&#34;The method includes a functionality to test the alertmanager receivers specified by the \
+    alert dict, receivers object and the recipient
 
     Keyword arguments:
-    recipient -&gt; Specify the id of the dashboard
+    alert -&gt; Specify the alert dict
+    receivers -&gt; Specify the receivers object
+    recipient -&gt; Specify the recipient of the alerts (default grafana)
     &#34;&#34;&#34;
 
     if len(recipient) != 0 and alert != dict() and receivers is not None:
@@ -2789,25 +2817,31 @@ recipient -&gt; Specify the id of the dashboard</p></div>
 </details>
 </dd>
 <dt id="grafana_api.alerting.Alerting.test_recipient_rule"><code class="name flex">
-<span>def <span class="ident">test_recipient_rule</span></span>(<span>self, recipient: str, expr: str, condition: str, data_query: list) ‑> dict</span>
+<span>def <span class="ident">test_recipient_rule</span></span>(<span>self, expr: str, condition: str, data_query: list, recipient: str = 'grafana') ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
+<div class="desc"><p>The method includes a functionality to test a recipient role specified by the expr, the condition,
+a list of data queries and the recipient</p>
 <p>Keyword arguments:
-recipient -&gt; Specify the id of the dashboard</p></div>
+expr -&gt; Specify the expression
+condition -&gt; Specify the condition
+data_query -&gt; Specify a list of datasource rule query objects
+recipient -&gt; Specify the recipient of the alerts (default grafana)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def test_recipient_rule(
-    self, recipient: str, expr: str, condition: str, data_query: list
+    self, expr: str, condition: str, data_query: list, recipient: str = &#34;grafana&#34;
 ) -&gt; dict:
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
+    &#34;&#34;&#34;The method includes a functionality to test a recipient role specified by the expr, the condition, \
+    a list of data queries and the recipient
 
     Keyword arguments:
-    recipient -&gt; Specify the id of the dashboard
+    expr -&gt; Specify the expression
+    condition -&gt; Specify the condition
+    data_query -&gt; Specify a list of datasource rule query objects
+    recipient -&gt; Specify the recipient of the alerts (default grafana)
     &#34;&#34;&#34;
 
     if (
@@ -2851,22 +2885,18 @@ recipient -&gt; Specify the id of the dashboard</p></div>
 <span>def <span class="ident">test_rule</span></span>(<span>self, data_query: list) ‑> str</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method includes a functionality to extract a specified version of a dashboard based on the specified
-dashboard id and a version_id of the dashboard</p>
+<div class="desc"><p>The method includes a functionality to test a rule specified by a list of datasource rule query objects</p>
 <p>Keyword arguments:
-recipient -&gt;
-Object -&gt; DatasourceRuleQuery</p></div>
+data_query -&gt; Specify a list of datasource rule query objects</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def test_rule(self, data_query: list) -&gt; str:
-    &#34;&#34;&#34;The method includes a functionality to extract a specified version of a dashboard based on the specified \
-    dashboard id and a version_id of the dashboard
+    &#34;&#34;&#34;The method includes a functionality to test a rule specified by a list of datasource rule query objects
 
     Keyword arguments:
-    recipient -&gt;
-    Object -&gt; DatasourceRuleQuery
+    data_query -&gt; Specify a list of datasource rule query objects
     &#34;&#34;&#34;
 
     if data_query != list():
