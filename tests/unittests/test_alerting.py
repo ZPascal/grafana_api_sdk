@@ -26,7 +26,7 @@ class AlertingTestCase(TestCase):
 
         self.assertEqual(
             list([dict({"receivers": "test"})]),
-            alerting.get_alertmanager_alerts("grafana"),
+            alerting.get_alertmanager_alerts(),
         )
 
     def test_get_alertmanager_alerts_no_recipient(self):
@@ -47,7 +47,7 @@ class AlertingTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
-            alerting.get_alertmanager_alerts("grafana")
+            alerting.get_alertmanager_alerts()
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_create_or_update_alertmanager_alerts(self, call_the_api_mock):
@@ -61,7 +61,7 @@ class AlertingTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         self.assertEqual(
-            None, alerting.create_or_update_alertmanager_alerts("grafana", [alert])
+            None, alerting.create_or_update_alertmanager_alerts([alert])
         )
 
     def test_create_or_update_alertmanager_alerts_no_recipient(self):
@@ -69,7 +69,7 @@ class AlertingTestCase(TestCase):
         alerting: Alerting = Alerting(grafana_api_model=model)
 
         with self.assertRaises(ValueError):
-            alerting.create_or_update_alertmanager_alerts("", [])
+            alerting.create_or_update_alertmanager_alerts([])
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_create_or_update_alertmanager_alerts_no_alerts_created(
@@ -85,7 +85,7 @@ class AlertingTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
-            alerting.create_or_update_alertmanager_alerts("grafana", [alert])
+            alerting.create_or_update_alertmanager_alerts([alert])
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_get_alertmanager_group_alerts(self, call_the_api_mock):
@@ -99,7 +99,7 @@ class AlertingTestCase(TestCase):
 
         self.assertEqual(
             list([{"alerts": "test"}]),
-            alerting.get_alertmanager_group_alerts("grafana"),
+            alerting.get_alertmanager_group_alerts(),
         )
 
     def test_get_alertmanager_group_alerts_no_recipient(self):
@@ -120,7 +120,7 @@ class AlertingTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
-            alerting.get_alertmanager_group_alerts("grafana")
+            alerting.get_alertmanager_group_alerts()
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_delete_alertmanager_silence_by_id(self, call_the_api_mock):
@@ -133,7 +133,7 @@ class AlertingTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         self.assertEqual(
-            None, alerting.delete_alertmanager_silence_by_id("grafana", "test")
+            None, alerting.delete_alertmanager_silence_by_id("test")
         )
 
     def test_delete_alertmanager_silence_by_id_no_recipient(self):
@@ -156,7 +156,7 @@ class AlertingTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
-            alerting.delete_alertmanager_silence_by_id("grafana", "test")
+            alerting.delete_alertmanager_silence_by_id("test")
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_get_alertmanager_silence_by_id(self, call_the_api_mock):
@@ -170,7 +170,7 @@ class AlertingTestCase(TestCase):
 
         self.assertEqual(
             dict({"id": "test"}),
-            alerting.get_alertmanager_silence_by_id("grafana", "test"),
+            alerting.get_alertmanager_silence_by_id("test"),
         )
 
     def test_get_alertmanager_silence_by_id_no_recipient(self):
@@ -193,7 +193,7 @@ class AlertingTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
-            alerting.get_alertmanager_silence_by_id("grafana", "test")
+            alerting.get_alertmanager_silence_by_id("test")
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_get_alertmanager_silences(self, call_the_api_mock):
@@ -206,7 +206,7 @@ class AlertingTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         self.assertEqual(
-            list([{"id": "test"}]), alerting.get_alertmanager_silences("grafana")
+            list([{"id": "test"}]), alerting.get_alertmanager_silences()
         )
 
     def test_get_alertmanager_silences_no_recipient(self):
@@ -227,7 +227,7 @@ class AlertingTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
-            alerting.get_alertmanager_silences("grafana")
+            alerting.get_alertmanager_silences()
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_create_or_update_alertmanager_silence(self, call_the_api_mock):
@@ -244,7 +244,7 @@ class AlertingTestCase(TestCase):
 
         self.assertEqual(
             dict({"id": "test"}),
-            alerting.create_or_update_alertmanager_silence("grafana", silence),
+            alerting.create_or_update_alertmanager_silence(silence),
         )
 
     def test_create_or_update_alertmanager_silences_no_recipient(self):
@@ -252,7 +252,7 @@ class AlertingTestCase(TestCase):
         alerting: Alerting = Alerting(grafana_api_model=model)
 
         with self.assertRaises(ValueError):
-            alerting.create_or_update_alertmanager_silence("", None)
+            alerting.create_or_update_alertmanager_silence(None, "")
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_create_or_update_alertmanager_silence_no_silence_created(
@@ -270,7 +270,7 @@ class AlertingTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
-            alerting.create_or_update_alertmanager_silence("grafana", silence)
+            alerting.create_or_update_alertmanager_silence(silence)
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_get_alertmanager_status(self, call_the_api_mock):
@@ -283,7 +283,7 @@ class AlertingTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         self.assertEqual(
-            dict({"config": "test"}), alerting.get_alertmanager_status("grafana")
+            dict({"config": "test"}), alerting.get_alertmanager_status()
         )
 
     def test_get_alertmanager_status_no_recipient(self):
@@ -304,7 +304,7 @@ class AlertingTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
-            alerting.get_alertmanager_status("grafana")
+            alerting.get_alertmanager_status()
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_delete_alertmanager_config(self, call_the_api_mock):
@@ -316,7 +316,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = mock
 
-        self.assertEqual(None, alerting.delete_alertmanager_config("grafana"))
+        self.assertEqual(None, alerting.delete_alertmanager_config())
 
     def test_delete_alertmanager_config_no_recipient(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -336,7 +336,7 @@ class AlertingTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
-            alerting.delete_alertmanager_config("grafana")
+            alerting.delete_alertmanager_config()
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_get_alertmanager_config(self, call_the_api_mock):
@@ -350,7 +350,7 @@ class AlertingTestCase(TestCase):
 
         self.assertEqual(
             dict({"alertmanager_config": "test"}),
-            alerting.get_alertmanager_config("grafana"),
+            alerting.get_alertmanager_config(),
         )
 
     def test_get_alertmanager_config_no_recipient(self):
@@ -371,7 +371,7 @@ class AlertingTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
-            alerting.get_alertmanager_config("grafana")
+            alerting.get_alertmanager_config()
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_create_or_update_alertmanager_alert_config(self, call_the_api_mock):
@@ -388,9 +388,7 @@ class AlertingTestCase(TestCase):
 
         self.assertEqual(
             None,
-            alerting.create_or_update_alertmanager_alert_config(
-                "grafana", alertmanager_config, {"test": "test"}
-            ),
+            alerting.create_or_update_alertmanager_alert_config(alertmanager_config, template_files={"test": "test"}),
         )
 
     def test_create_or_update_alertmanager_alert_config_no_recipient(self):
@@ -398,7 +396,7 @@ class AlertingTestCase(TestCase):
         alerting: Alerting = Alerting(grafana_api_model=model)
 
         with self.assertRaises(ValueError):
-            alerting.create_or_update_alertmanager_alert_config("", None)
+            alerting.create_or_update_alertmanager_alert_config(None)
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_create_or_update_alertmanager_alert_config_creation_not_possible(
@@ -417,7 +415,7 @@ class AlertingTestCase(TestCase):
 
         with self.assertRaises(Exception):
             alerting.create_or_update_alertmanager_alert_config(
-                "grafana", alertmanager_config
+                alertmanager_config
             )
 
     @patch("src.grafana_api.api.Api.call_the_api")
@@ -443,7 +441,7 @@ class AlertingTestCase(TestCase):
         self.assertEqual(
             None,
             alerting.test_alertmanager_receivers(
-                "grafana", {"test": "test"}, alertmanager_receivers
+                {"test": "test"}, alertmanager_receivers
             ),
         )
 
@@ -452,7 +450,7 @@ class AlertingTestCase(TestCase):
         alerting: Alerting = Alerting(grafana_api_model=model)
 
         with self.assertRaises(ValueError):
-            alerting.test_alertmanager_receivers("", dict(), None)
+            alerting.test_alertmanager_receivers(dict(), None, "")
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_test_alertmanager_receivers_test_not_possible(self, call_the_api_mock):
@@ -476,7 +474,7 @@ class AlertingTestCase(TestCase):
 
         with self.assertRaises(Exception):
             alerting.test_alertmanager_receivers(
-                "grafana", {"test": "test"}, alertmanager_receivers
+                {"test": "test"}, alertmanager_receivers
             )
 
     @patch("src.grafana_api.api.Api.call_the_api")
@@ -501,7 +499,7 @@ class AlertingTestCase(TestCase):
 
         with self.assertRaises(Exception):
             alerting.test_alertmanager_receivers(
-                "grafana", {"test": "test"}, alertmanager_receivers
+                {"test": "test"}, alertmanager_receivers
             )
 
     @patch("src.grafana_api.api.Api.call_the_api")
@@ -515,7 +513,7 @@ class AlertingTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         self.assertEqual(
-            dict({"data": "test"}), alerting.get_prometheus_alerts("grafana")
+            dict({"data": "test"}), alerting.get_prometheus_alerts()
         )
 
     def test_get_prometheus_alerts_no_recipient(self):
@@ -536,7 +534,7 @@ class AlertingTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
-            alerting.get_prometheus_alerts("grafana")
+            alerting.get_prometheus_alerts()
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_get_prometheus_rules(self, call_the_api_mock):
@@ -549,7 +547,7 @@ class AlertingTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         self.assertEqual(
-            dict({"data": "test"}), alerting.get_prometheus_rules("grafana")
+            dict({"data": "test"}), alerting.get_prometheus_rules()
         )
 
     def test_get_prometheus_rules_no_recipient(self):
@@ -582,7 +580,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = mock
 
-        self.assertEqual(dict({"data": "test"}), alerting.get_ruler_rules("grafana"))
+        self.assertEqual(dict({"data": "test"}), alerting.get_ruler_rules())
 
     def test_get_ruler_rules_no_recipient(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -602,7 +600,7 @@ class AlertingTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
-            alerting.get_ruler_rules("grafana")
+            alerting.get_ruler_rules()
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_delete_ruler_namespace(self, call_the_api_mock):
@@ -614,7 +612,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = mock
 
-        self.assertEqual(None, alerting.delete_ruler_namespace("grafana", "test"))
+        self.assertEqual(None, alerting.delete_ruler_namespace("test"))
 
     def test_delete_ruler_namespace_no_recipient(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -634,7 +632,7 @@ class AlertingTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
-            alerting.delete_ruler_namespace("grafana", "test")
+            alerting.delete_ruler_namespace("test")
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_get_ruler_groups_by_namespace(self, call_the_api_mock):
@@ -648,7 +646,7 @@ class AlertingTestCase(TestCase):
 
         self.assertEqual(
             dict({"test": "test"}),
-            alerting.get_ruler_groups_by_namespace("grafana", "test"),
+            alerting.get_ruler_groups_by_namespace("test"),
         )
 
     def test_get_ruler_groups_by_namespace_no_recipient(self):
@@ -669,7 +667,7 @@ class AlertingTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
-            alerting.get_ruler_groups_by_namespace("grafana", "test")
+            alerting.get_ruler_groups_by_namespace("test")
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_create_or_update_ruler_group_by_namespace(self, call_the_api_mock):
@@ -687,7 +685,7 @@ class AlertingTestCase(TestCase):
         self.assertEqual(
             None,
             alerting.create_or_update_ruler_group_by_namespace(
-                "grafana", "test", "test", [ruler_rule]
+                "test", "test", [ruler_rule]
             ),
         )
 
@@ -696,7 +694,7 @@ class AlertingTestCase(TestCase):
         alerting: Alerting = Alerting(grafana_api_model=model)
 
         with self.assertRaises(ValueError):
-            alerting.create_or_update_ruler_group_by_namespace("", "", "", None)
+            alerting.create_or_update_ruler_group_by_namespace("", "", None, "")
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_create_or_update_ruler_group_by_namespace_creation_not_possible(
@@ -715,7 +713,7 @@ class AlertingTestCase(TestCase):
 
         with self.assertRaises(Exception):
             alerting.create_or_update_ruler_group_by_namespace(
-                "grafana", "test", "test", [ruler_rule]
+                "test", "test", [ruler_rule]
             )
 
     @patch("src.grafana_api.api.Api.call_the_api")
@@ -728,7 +726,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = mock
 
-        self.assertEqual(None, alerting.delete_ruler_group("grafana", "test", "test"))
+        self.assertEqual(None, alerting.delete_ruler_group("test", "test"))
 
     def test_delete_ruler_group_no_recipient(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -748,7 +746,7 @@ class AlertingTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
-            alerting.delete_ruler_group("grafana", "test", "test")
+            alerting.delete_ruler_group("test", "test")
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_get_ruler_group(self, call_the_api_mock):
@@ -761,7 +759,7 @@ class AlertingTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         self.assertEqual(
-            dict({"test": "test"}), alerting.get_ruler_group("grafana", "test", "test")
+            dict({"test": "test"}), alerting.get_ruler_group("test", "test")
         )
 
     def test_get_ruler_group_no_recipient(self):
@@ -782,7 +780,7 @@ class AlertingTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
-            alerting.get_ruler_group("grafana", "test", "test")
+            alerting.get_ruler_group("test", "test")
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_test_rule(self, call_the_api_mock):
@@ -838,7 +836,7 @@ class AlertingTestCase(TestCase):
         self.assertEqual(
             dict({"test": "test"}),
             alerting.test_recipient_rule(
-                "test", "test", "test", [datasource_rule_query]
+                "test", "test", [datasource_rule_query]
             ),
         )
 
@@ -847,7 +845,7 @@ class AlertingTestCase(TestCase):
         alerting: Alerting = Alerting(grafana_api_model=model)
 
         with self.assertRaises(ValueError):
-            alerting.test_recipient_rule("", "", "", list())
+            alerting.test_recipient_rule("", "", list(), "")
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_test_recipient_rule_test_not_possible(self, call_the_api_mock):
@@ -864,7 +862,7 @@ class AlertingTestCase(TestCase):
 
         with self.assertRaises(Exception):
             alerting.test_recipient_rule(
-                "test", "test", "test", [datasource_rule_query]
+                "test", "test", [datasource_rule_query]
             )
 
     @patch("src.grafana_api.api.Api.call_the_api")
@@ -945,7 +943,7 @@ class AlertingTestCase(TestCase):
         self.assertEqual(
             None,
             alerting.create_or_update_ngalert_organization_configuration(
-                ["test"], "test"
+                ["test"]
             ),
         )
 
@@ -972,7 +970,7 @@ class AlertingTestCase(TestCase):
 
         with self.assertRaises(Exception):
             alerting.create_or_update_ngalert_organization_configuration(
-                ["test"], "test"
+                ["test"]
             )
 
     @patch("src.grafana_api.api.Api.call_the_api")
