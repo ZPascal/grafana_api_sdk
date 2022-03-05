@@ -73,7 +73,7 @@ jobs:
           cache: 'pip'
 
       - name: Install the requirements
-        run: pip install -r requirements.txt && pip install pytest pytest-cov coverage-badge
+        run: pip install -r requirements.txt && pip install pytest pytest-cov coverage-badge pdoc3
 
       - name: Generate the coverage report
         run: export PYTHONPATH=$PWD && pytest --junitxml=pytest.xml --cov=. tests/unittests | tee pytest-coverage.txt
@@ -87,27 +87,32 @@ jobs:
           hide-badge: true
           create-new-commit: true
 
-      - name: "Check if coverage badge file existence"
-        id: check_files
-        uses: andstor/file-existence-action@v1
-        with:
-          files: "docs/coverage.svg"
-
       - name: Generate coverage badge
-        if: steps.check_files.outputs.files_exists == 'false'
-        run: coverage-badge -o docs/coverage.svg -f
+        run: coverage-badge -f -o docs/coverage.svg
+
+      - name: Generate documentation
+        run: pdoc -f --html src/grafana_api
+
+      - name: Check changed files
+        uses: tj-actions/verify-changed-files@v8.8
+        id: verify-changed-files
+        with:
+          files: |
+            docs/coverage.svg
+            html/grafana_api
 
       - name: Commit files
-        if: steps.check_files.outputs.files_exists == 'false'
+        if: steps.verify-changed-files.outputs.files_changed == 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add --force docs/coverage.svg
-          git commit -m "Add coverage badge"
+          git add --force html/grafana_api
+          git commit -m "Add coverage badge and documentation"
 
       - name: Push changes
-        if: steps.check_files.outputs.files_exists == 'false'
         uses: ad-m/github-push-action@master
+        if: steps.verify-changed-files.outputs.files_changed == 'true'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.head_ref }}
