@@ -8,8 +8,11 @@ from .api import Api
 class Alerting:
     """The class includes all necessary methods to access the Grafana legacy alerting API endpoints
 
-    Keyword arguments:
-    grafana_api_model -> Inject a Grafana API model object that includes all necessary values and information
+    Args:
+        grafana_api_model (APIModel): Inject a Grafana API model object that includes all necessary values and information
+
+    Attributes:
+        grafana_api_model (APIModel): This is where we store the grafana_api_model
     """
 
     def __init__(self, grafana_api_model: APIModel):
@@ -21,8 +24,15 @@ class Alerting:
     ) -> list:
         """The method includes a functionality to get the legacy alerts
 
-        Keyword arguments:
-        custom_querystring -> Specify the custom querystring
+        Args:
+            custom_querystring (str): Specify the custom querystring (default None)
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (list): Returns a list of all alerts
         """
 
         api_string: str = ""
@@ -59,8 +69,15 @@ class Alerting:
     ) -> list:
         """The method includes a functionality to get legacy alerts specified by the dashboard ids
 
-        Keyword arguments:
-        dashboard_ids -> Specify the list of dashboard ids
+        Args:
+            dashboard_ids (list): Specify the list of dashboard ids
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (list): Returns a list of alerts
         """
 
         if dashboard_ids != list():
@@ -94,8 +111,15 @@ class Alerting:
     def get_alert_by_id(self, id: int) -> dict:
         """The method includes a functionality to get the legacy alert specified by the alert id
 
-        Keyword arguments:
-        id -> Specify the id of the legacy alert
+        Args:
+            id (int): Specify the id of the legacy alert
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (dict): Returns an alert
         """
 
         if id != 0:
@@ -120,9 +144,16 @@ class Alerting:
     def pause_alert_by_id(self, id: int, paused: bool = True):
         """The method includes a functionality to pause/ unpause a legacy alert specified by the alert id
 
-        Keyword arguments:
-        id -> Specify the legacy alert id
-        paused -> Specify the pause/ unpause parameter (default True)
+        Args:
+            id (int): Specify the id of the legacy alert
+            paused (bool): Specify the pause/ unpause parameter (default True)
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            None
         """
 
         if id != 0:
@@ -140,10 +171,9 @@ class Alerting:
                 .json()
             )
 
-            if (
-                api_call.get("message") != "alert paused"
-                or "alert unpause" in api_call.get("message")
-            ):
+            if api_call.get(
+                "message"
+            ) != "alert paused" or "alert unpause" in api_call.get("message"):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:

@@ -7,8 +7,11 @@ from .model import RequestsMethods, ERROR_MESSAGES, APIModel
 class Api:
     """The class includes all necessary methods to make API calls to the Grafana API endpoints
 
-    Keyword arguments:
-    grafana_api_model -> Inject a Grafana API model object that includes all necessary values and information
+    Args:
+        grafana_api_model (APIModel): Inject a Grafana API model object that includes all necessary values and information
+
+    Attributes:
+        grafana_api_model (APIModel): This is where we store the grafana_api_model
     """
 
     def __init__(self, grafana_api_model: APIModel):
@@ -22,10 +25,16 @@ class Api:
     ) -> any:
         """The method execute a defined API call against the Grafana endpoints
 
-        Keyword arguments:
-        api_call -> Specify the API call endpoint
-        method -> Specify the used method
-        json_complete -> Specify the inserted JSON as string
+        Args:
+            api_call (str): Specify the API call endpoint
+            method (RequestsMethods): Specify the used method (default GET)
+            json_complete (str): Specify the inserted JSON as string
+
+        Raises:
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (any): Returns the value of the api call
         """
 
         api_url: str = f"{self.grafana_api_model.host}{api_call}"
@@ -69,12 +78,21 @@ class Api:
     def __check_the_api_call_response(response: any = None) -> any:
         """The method includes a functionality to check the output of API call method for errors
 
-        Keyword arguments:
-        response -> Specify the inserted response
+        Args:
+            response (any): Specify the inserted response
+
+        Raises:
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (any): Returns the value of the api call
         """
 
         if type(response.json()) == dict:
-            if "message" in response.json().keys() and response.json()["message"] in ERROR_MESSAGES:
+            if (
+                "message" in response.json().keys()
+                and response.json()["message"] in ERROR_MESSAGES
+            ):
                 logging.error(response.json()["message"])
                 raise requests.exceptions.ConnectionError
 

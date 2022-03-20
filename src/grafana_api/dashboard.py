@@ -9,8 +9,11 @@ from .api import Api
 class Dashboard:
     """The class includes all necessary methods to access the Grafana dashboard API endpoints
 
-    Keyword arguments:
-    grafana_api_model -> Inject a Grafana API model object that includes all necessary values and information
+    Args:
+        grafana_api_model (APIModel): Inject a Grafana API model object that includes all necessary values and information
+
+    Attributes:
+        grafana_api_model (APIModel): This is where we store the grafana_api_model
     """
 
     def __init__(self, grafana_api_model: APIModel):
@@ -25,11 +28,18 @@ class Dashboard:
     ):
         """The method includes a functionality to create the specified dashboard
 
-        Keyword arguments:
-        dashboard_path -> Specify the dashboard path in which the dashboard is to be placed
-        dashboard_json -> Specify the inserted dashboard as dict
-        message -> Specify the message that should be injected as commit message inside the dashboard
-        overwrite -> Should the already existing dashboard be overwritten
+        Args:
+            dashboard_path (str): Specify the dashboard path in which the dashboard is to be placed
+            dashboard_json (dict): Specify the inserted dashboard as dict
+            message (str): Specify the message that should be injected as commit message inside the dashboard
+            overwrite (bool): Should the already existing dashboard be overwritten (default False)
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            None
         """
 
         if len(dashboard_path) != 0 and dashboard_json != dict() and len(message) != 0:
@@ -70,8 +80,16 @@ class Dashboard:
     ):
         """The method includes a functionality to delete the specified dashboard inside the model
 
-        dashboard_name -> Specify the dashboard name of the deleted dashboard
-        dashboard_path -> Specify the dashboard path of the deleted dashboard
+        Args:
+            dashboard_name (str): Specify the dashboard name of the deleted dashboard
+            dashboard_path (str): Specify the dashboard path in which the dashboard is to be placed
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            None
         """
 
         if len(dashboard_name) != 0 and len(dashboard_path) != 0:
@@ -104,8 +122,15 @@ class Dashboard:
     def get_dashboard_by_uid(self, uid: str) -> dict:
         """The method includes a functionality to get the dashboard from the specified uid
 
-        Keyword arguments:
-        uid -> Specify the uid of the dashboard
+        Args:
+            uid (str): Specify the uid of the dashboard
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (dict): Returns the dashboard
         """
 
         if len(uid) != 0:
@@ -125,7 +150,14 @@ class Dashboard:
             raise ValueError
 
     def get_dashboard_home(self) -> dict:
-        """The method includes a functionality to get the home dashboard"""
+        """The method includes a functionality to get the home dashboard
+
+        Raises:
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (dict): Returns the home dashboard
+        """
 
         api_call: dict = (
             Api(self.grafana_api_model)
@@ -140,7 +172,14 @@ class Dashboard:
             return api_call
 
     def get_dashboard_tags(self) -> list:
-        """The method includes a functionality to get the all tags of all dashboards"""
+        """The method includes a functionality to get the all tags of all dashboards
+
+        Raises:
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (list): Returns all dashboard tags
+        """
 
         api_call: list = (
             Api(self.grafana_api_model)
@@ -159,8 +198,16 @@ class Dashboard:
     ) -> dict:
         """The method includes a functionality to extract the dashboard uid specified inside the model
 
-        dashboard_name -> Specify the dashboard name of the dashboard
-        dashboard_path -> Specify the dashboard path of the dashboard
+        Args:
+            dashboard_name (str): Specify the dashboard name of the dashboard
+            dashboard_path (str): Specify the dashboard path of the dashboard
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (dict): Returns the dashboard uid and the id
         """
 
         if len(dashboard_name) != 0 and len(dashboard_path) != 0:
@@ -199,8 +246,15 @@ class Dashboard:
     def get_dashboard_permissions(self, id: int) -> list:
         """The method includes a functionality to extract the dashboard permissions based on the specified id
 
-        Keyword arguments:
-        id -> Specify the id of the dashboard
+        Args:
+            id (int): Specify the id of the dashboard
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (list): Returns the dashboard permissions of a dashboard as list
         """
 
         if id != 0:
@@ -220,12 +274,18 @@ class Dashboard:
             raise ValueError
 
     def update_dashboard_permissions(self, id: int, permission_json: dict):
-        """The method includes a functionality to update the dashboard permissions based on the specified id
-            and the permission json document
+        """The method includes a functionality to update the dashboard permissions based on the specified id and the permission json document
 
-        Keyword arguments:
-        id -> Specify the id of the dashboard
-        permission_json -> Specify the inserted permissions as dict
+        Args:
+            id (int): Specify the id of the dashboard
+            permission_json (dict): Specify the inserted permissions as dict
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            None
         """
 
         if id != 0 and len(permission_json) != 0:
@@ -251,8 +311,15 @@ class Dashboard:
     def get_dashboard_versions(self, id: int) -> list:
         """The method includes a functionality to extract the versions of a dashboard based on the specified id
 
-        Keyword arguments:
-        id -> Specify the id of the dashboard
+        Args:
+            id (int): Specify the id of the dashboard
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (list): Returns all dashboard versions of a dashboard as list
         """
 
         if id != 0:
@@ -274,12 +341,18 @@ class Dashboard:
             raise ValueError
 
     def get_dashboard_version(self, id: int, version_id: int) -> dict:
-        """The method includes a functionality to extract a specified version of a dashboard based on the specified \
-        dashboard id and a version_id of the dashboard
+        """The method includes a functionality to extract a specified version of a dashboard based on the specified dashboard id and a version_id of the dashboard
 
-        Keyword arguments:
-        id -> Specify the id of the dashboard
-        version_id -> Specify the version_id of a dashboard
+        Args:
+            id (int): Specify the id of the dashboard
+            version_id (int): Specify the version_id of a dashboard
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (list): Returns a dashboard version of a dashboard as dict
         """
 
         if id != 0 and version_id != 0:
@@ -301,12 +374,18 @@ class Dashboard:
             raise ValueError
 
     def restore_dashboard_version(self, id: int, version: dict):
-        """The method includes a functionality to restore a specified version of a dashboard based on the specified \
-        dashboard uid and a version as dict of the dashboard
+        """The method includes a functionality to restore a specified version of a dashboard based on the specified dashboard uid and a version as dict of the dashboard
 
-        Keyword arguments:
-        uid -> Specify the id of the dashboard
-        version -> Specify the version_id of a dashboard
+        Args:
+            id (int): Specify the id of the dashboard
+            version (dict): Specify the version_id of a dashboard
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            None
         """
 
         if id != 0 and version != dict():
@@ -338,14 +417,19 @@ class Dashboard:
         dashboard_id_and_version_new: dict,
         diff_type: str = "json",
     ) -> str:
-        """The method includes a functionality to calculate the diff of specified versions of a dashboard based on the \
-        specified dashboard uid and the selected version of the base dashboard and the new dashboard and the diff \
-        type (basic or json)
+        """The method includes a functionality to calculate the diff of specified versions of a dashboard based on the specified dashboard uid and the selected version of the base dashboard and the new dashboard and the diff type (basic or json)
 
-        Keyword arguments:
-        dashboard_id_and_version_base -> Specify the version and id of the base dashboard
-        dashboard_id_and_version_new -> Specify the version and id of the new dashboard
-        diff_type -> Specify the diff type (basic or json the default is json)
+        Args:
+            dashboard_id_and_version_base (dict): Specify the version and id of the base dashboard
+            dashboard_id_and_version_new (dict): Specify the version and id of the new dashboard
+            diff_type (str): Specify the diff type (basic or json) (default json)
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (str): Returns the difference of the two specified dashboards
         """
         possible_diff_types: list = list(["basic", "json"])
 

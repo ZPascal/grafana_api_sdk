@@ -140,7 +140,10 @@ class ApiTestCase(TestCase):
         mock: Mock = Mock()
         mock.json = Mock(return_value=dict({"test": "test"}))
 
-        self.assertEqual(dict({"test": "test"}), api._Api__check_the_api_call_response(response=mock).json())
+        self.assertEqual(
+            dict({"test": "test"}),
+            api._Api__check_the_api_call_response(response=mock).json(),
+        )
 
     def test_check_the_api_call_response_no_error_message(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -149,7 +152,10 @@ class ApiTestCase(TestCase):
         mock: Mock = Mock()
         mock.json = Mock(return_value=dict({"message": "test"}))
 
-        self.assertEqual(dict({"message": "test"}), api._Api__check_the_api_call_response(response=mock).json())
+        self.assertEqual(
+            dict({"message": "test"}),
+            api._Api__check_the_api_call_response(response=mock).json(),
+        )
 
     def test_check_the_api_call_response_no_json_response_value(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -158,7 +164,9 @@ class ApiTestCase(TestCase):
         mock: Mock = Mock()
         mock.text = Mock(return_value="test")
 
-        self.assertEqual("test", api._Api__check_the_api_call_response(response=mock).text())
+        self.assertEqual(
+            "test", api._Api__check_the_api_call_response(response=mock).text()
+        )
 
     def test_check_the_api_call_response_exception(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())

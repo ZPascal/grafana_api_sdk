@@ -167,7 +167,9 @@ class DashboardTestCase(TestCase):
         folder_id_by_dashboard_path_mock.return_value = 1
 
         mock: Mock = Mock()
-        mock.json = Mock(return_value=list([{"uid": "test", "title": "test", "id": 10}]))
+        mock.json = Mock(
+            return_value=list([{"uid": "test", "title": "test", "id": 10}])
+        )
 
         call_the_api_mock.return_value = mock
 
@@ -229,7 +231,9 @@ class DashboardTestCase(TestCase):
         folder_id_by_dashboard_path_mock.return_value = 1
 
         mock: Mock = Mock()
-        mock.json = Mock(return_value=list([{"uid": "test", "title": "test123", "id": 1}]))
+        mock.json = Mock(
+            return_value=list([{"uid": "test", "title": "test123", "id": 1}])
+        )
 
         call_the_api_mock.return_value = mock
 
