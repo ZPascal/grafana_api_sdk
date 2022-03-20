@@ -1,3 +1,9 @@
+# Table of Contents
+
+* [grafana\_api.search](#grafana_api.search)
+  * [Search](#grafana_api.search.Search)
+    * [search](#grafana_api.search.Search.search)
+
 <a id="grafana_api.search"></a>
 
 # grafana\_api.search

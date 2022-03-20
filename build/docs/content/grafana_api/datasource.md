@@ -1,3 +1,24 @@
+# Table of Contents
+
+* [grafana\_api.datasource](#grafana_api.datasource)
+  * [Datasource](#grafana_api.datasource.Datasource)
+    * [get\_all\_datasources](#grafana_api.datasource.Datasource.get_all_datasources)
+    * [get\_datasource\_by\_id](#grafana_api.datasource.Datasource.get_datasource_by_id)
+    * [get\_datasource\_by\_uid](#grafana_api.datasource.Datasource.get_datasource_by_uid)
+    * [get\_datasource\_by\_name](#grafana_api.datasource.Datasource.get_datasource_by_name)
+    * [get\_datasource\_id\_by\_name](#grafana_api.datasource.Datasource.get_datasource_id_by_name)
+    * [create\_datasource](#grafana_api.datasource.Datasource.create_datasource)
+    * [update\_datasource](#grafana_api.datasource.Datasource.update_datasource)
+    * [delete\_datasource\_by\_id](#grafana_api.datasource.Datasource.delete_datasource_by_id)
+    * [delete\_datasource\_by\_uid](#grafana_api.datasource.Datasource.delete_datasource_by_uid)
+    * [delete\_datasource\_by\_name](#grafana_api.datasource.Datasource.delete_datasource_by_name)
+    * [query\_datasource\_by\_id](#grafana_api.datasource.Datasource.query_datasource_by_id)
+    * [enable\_datasource\_permissions](#grafana_api.datasource.Datasource.enable_datasource_permissions)
+    * [disable\_datasource\_permissions](#grafana_api.datasource.Datasource.disable_datasource_permissions)
+    * [get\_datasource\_permissions](#grafana_api.datasource.Datasource.get_datasource_permissions)
+    * [add\_datasource\_permissions](#grafana_api.datasource.Datasource.add_datasource_permissions)
+    * [delete\_datasource\_permissions](#grafana_api.datasource.Datasource.delete_datasource_permissions)
+
 <a id="grafana_api.datasource"></a>
 
 # grafana\_api.datasource

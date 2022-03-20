@@ -1,3 +1,12 @@
+# Table of Contents
+
+* [grafana\_api.legacy\_alerting](#grafana_api.legacy_alerting)
+  * [Alerting](#grafana_api.legacy_alerting.Alerting)
+    * [get\_alerts](#grafana_api.legacy_alerting.Alerting.get_alerts)
+    * [get\_alerts\_by\_dashboard\_ids](#grafana_api.legacy_alerting.Alerting.get_alerts_by_dashboard_ids)
+    * [get\_alert\_by\_id](#grafana_api.legacy_alerting.Alerting.get_alert_by_id)
+    * [pause\_alert\_by\_id](#grafana_api.legacy_alerting.Alerting.pause_alert_by_id)
+
 <a id="grafana_api.legacy_alerting"></a>
 
 # grafana\_api.legacy\_alerting

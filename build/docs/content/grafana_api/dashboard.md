@@ -1,3 +1,20 @@
+# Table of Contents
+
+* [grafana\_api.dashboard](#grafana_api.dashboard)
+  * [Dashboard](#grafana_api.dashboard.Dashboard)
+    * [create\_or\_update\_dashboard](#grafana_api.dashboard.Dashboard.create_or_update_dashboard)
+    * [delete\_dashboard\_by\_name\_and\_path](#grafana_api.dashboard.Dashboard.delete_dashboard_by_name_and_path)
+    * [get\_dashboard\_by\_uid](#grafana_api.dashboard.Dashboard.get_dashboard_by_uid)
+    * [get\_dashboard\_home](#grafana_api.dashboard.Dashboard.get_dashboard_home)
+    * [get\_dashboard\_tags](#grafana_api.dashboard.Dashboard.get_dashboard_tags)
+    * [get\_dashboard\_uid\_and\_id\_by\_name\_and\_folder](#grafana_api.dashboard.Dashboard.get_dashboard_uid_and_id_by_name_and_folder)
+    * [get\_dashboard\_permissions](#grafana_api.dashboard.Dashboard.get_dashboard_permissions)
+    * [update\_dashboard\_permissions](#grafana_api.dashboard.Dashboard.update_dashboard_permissions)
+    * [get\_dashboard\_versions](#grafana_api.dashboard.Dashboard.get_dashboard_versions)
+    * [get\_dashboard\_version](#grafana_api.dashboard.Dashboard.get_dashboard_version)
+    * [restore\_dashboard\_version](#grafana_api.dashboard.Dashboard.restore_dashboard_version)
+    * [calculate\_dashboard\_diff](#grafana_api.dashboard.Dashboard.calculate_dashboard_diff)
+
 <a id="grafana_api.dashboard"></a>
 
 # grafana\_api.dashboard

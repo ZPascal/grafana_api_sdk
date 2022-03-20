@@ -1,3 +1,34 @@
+# Table of Contents
+
+* [grafana\_api.alerting](#grafana_api.alerting)
+  * [Alerting](#grafana_api.alerting.Alerting)
+    * [get\_alertmanager\_alerts](#grafana_api.alerting.Alerting.get_alertmanager_alerts)
+    * [create\_or\_update\_alertmanager\_alerts](#grafana_api.alerting.Alerting.create_or_update_alertmanager_alerts)
+    * [get\_alertmanager\_group\_alerts](#grafana_api.alerting.Alerting.get_alertmanager_group_alerts)
+    * [delete\_alertmanager\_silence\_by\_id](#grafana_api.alerting.Alerting.delete_alertmanager_silence_by_id)
+    * [get\_alertmanager\_silence\_by\_id](#grafana_api.alerting.Alerting.get_alertmanager_silence_by_id)
+    * [get\_alertmanager\_silences](#grafana_api.alerting.Alerting.get_alertmanager_silences)
+    * [create\_or\_update\_alertmanager\_silence](#grafana_api.alerting.Alerting.create_or_update_alertmanager_silence)
+    * [get\_alertmanager\_status](#grafana_api.alerting.Alerting.get_alertmanager_status)
+    * [delete\_alertmanager\_config](#grafana_api.alerting.Alerting.delete_alertmanager_config)
+    * [get\_alertmanager\_config](#grafana_api.alerting.Alerting.get_alertmanager_config)
+    * [create\_or\_update\_alertmanager\_config](#grafana_api.alerting.Alerting.create_or_update_alertmanager_config)
+    * [test\_alertmanager\_receivers](#grafana_api.alerting.Alerting.test_alertmanager_receivers)
+    * [get\_prometheus\_alerts](#grafana_api.alerting.Alerting.get_prometheus_alerts)
+    * [get\_prometheus\_rules](#grafana_api.alerting.Alerting.get_prometheus_rules)
+    * [get\_ruler\_rules](#grafana_api.alerting.Alerting.get_ruler_rules)
+    * [delete\_ruler\_namespace](#grafana_api.alerting.Alerting.delete_ruler_namespace)
+    * [get\_ruler\_groups\_by\_namespace](#grafana_api.alerting.Alerting.get_ruler_groups_by_namespace)
+    * [create\_or\_update\_ruler\_group\_by\_namespace](#grafana_api.alerting.Alerting.create_or_update_ruler_group_by_namespace)
+    * [delete\_ruler\_group](#grafana_api.alerting.Alerting.delete_ruler_group)
+    * [get\_ruler\_group](#grafana_api.alerting.Alerting.get_ruler_group)
+    * [test\_rule](#grafana_api.alerting.Alerting.test_rule)
+    * [test\_recipient\_rule](#grafana_api.alerting.Alerting.test_recipient_rule)
+    * [delete\_ngalert\_organization\_configuration](#grafana_api.alerting.Alerting.delete_ngalert_organization_configuration)
+    * [get\_ngalert\_organization\_configuration](#grafana_api.alerting.Alerting.get_ngalert_organization_configuration)
+    * [create\_or\_update\_ngalert\_organization\_configuration](#grafana_api.alerting.Alerting.create_or_update_ngalert_organization_configuration)
+    * [get\_ngalert\_alertmanagers\_by\_organization](#grafana_api.alerting.Alerting.get_ngalert_alertmanagers_by_organization)
+
 <a id="grafana_api.alerting"></a>
 
 # grafana\_api.alerting
@@ -29,7 +60,7 @@ The class includes all necessary methods to access the Grafana alerting API endp
 def get_alertmanager_alerts(recipient: any = "grafana") -> list
 ```
 
-The method includes a functionality to get the alertmanager alerts specified by the recipient
+The method includes a functionality to get the Alertmanager alerts specified by the recipient
 
 **Arguments**:
 
@@ -44,7 +75,7 @@ The method includes a functionality to get the alertmanager alerts specified by 
 
 **Returns**:
 
-- `api_call` _list_ - Returns the list of alertmanager alerts
+- `api_call` _list_ - Returns the list of Alertmanager alerts
 
 <a id="grafana_api.alerting.Alerting.create_or_update_alertmanager_alerts"></a>
 
@@ -55,7 +86,7 @@ def create_or_update_alertmanager_alerts(alerts: list,
                                          recipient: any = "grafana")
 ```
 
-The method includes a functionality to create or update the alertmanager alerts specified by the recipient and the alerts list
+The method includes a functionality to create or update the Alertmanager alerts specified by the recipient and the alerts list
 
 **Arguments**:
 
@@ -81,7 +112,7 @@ The method includes a functionality to create or update the alertmanager alerts 
 def get_alertmanager_group_alerts(recipient: any = "grafana") -> list
 ```
 
-The method includes a functionality to get the alertmanager group alerts specified by the recipient
+The method includes a functionality to get the Alertmanager group alerts specified by the recipient
 
 **Arguments**:
 
@@ -96,7 +127,7 @@ The method includes a functionality to get the alertmanager group alerts specifi
 
 **Returns**:
 
-- `api_call` _list_ - Returns the list of alertmanager group alerts
+- `api_call` _list_ - Returns the list of Alertmanager group alerts
 
 <a id="grafana_api.alerting.Alerting.delete_alertmanager_silence_by_id"></a>
 
@@ -107,7 +138,7 @@ def delete_alertmanager_silence_by_id(silence_id: str,
                                       recipient: any = "grafana")
 ```
 
-The method includes a functionality to delete the alertmanager silence specified by the silence id and the recipient
+The method includes a functionality to delete the Alertmanager silence specified by the silence id and the recipient
 
 **Arguments**:
 
@@ -134,7 +165,7 @@ def get_alertmanager_silence_by_id(silence_id: str,
                                    recipient: any = "grafana") -> dict
 ```
 
-The method includes a functionality to get the alertmanager silence specified by the silence id and the recipient
+The method includes a functionality to get the Alertmanager silence specified by the silence id and the recipient
 
 **Arguments**:
 
@@ -150,7 +181,7 @@ The method includes a functionality to get the alertmanager silence specified by
 
 **Returns**:
 
-- `api_call` _dict_ - Returns the dict of alertmanager silence alert
+- `api_call` _dict_ - Returns the dict of Alertmanager silence alert
 
 <a id="grafana_api.alerting.Alerting.get_alertmanager_silences"></a>
 
@@ -160,7 +191,7 @@ The method includes a functionality to get the alertmanager silence specified by
 def get_alertmanager_silences(recipient: any = "grafana") -> list
 ```
 
-The method includes a functionality to get all alertmanager silences specified by the recipient
+The method includes a functionality to get all Alertmanager silences specified by the recipient
 
 **Arguments**:
 
@@ -175,7 +206,7 @@ The method includes a functionality to get all alertmanager silences specified b
 
 **Returns**:
 
-- `api_call` _list_ - Returns the list of alertmanager silence alerts
+- `api_call` _list_ - Returns the list of Alertmanager silence alerts
 
 <a id="grafana_api.alerting.Alerting.create_or_update_alertmanager_silence"></a>
 
@@ -186,7 +217,7 @@ def create_or_update_alertmanager_silence(silence: Silence,
                                           recipient: any = "grafana") -> dict
 ```
 
-The method includes a functionality to create or update the alertmanager silence specified by the silence object and the recipient
+The method includes a functionality to create or update the Alertmanager silence specified by the silence object and the recipient
 
 **Arguments**:
 
@@ -212,7 +243,7 @@ The method includes a functionality to create or update the alertmanager silence
 def get_alertmanager_status(recipient: str = "grafana") -> dict
 ```
 
-The method includes a functionality to get the alertmanager status specified by the recipient
+The method includes a functionality to get the Alertmanager status specified by the recipient
 
 **Arguments**:
 
@@ -227,7 +258,7 @@ The method includes a functionality to get the alertmanager status specified by 
 
 **Returns**:
 
-- `api_call` _dict_ - Returns the dict of the alertmanager status
+- `api_call` _dict_ - Returns the dict of the Alertmanager status
 
 <a id="grafana_api.alerting.Alerting.delete_alertmanager_config"></a>
 
@@ -237,7 +268,7 @@ The method includes a functionality to get the alertmanager status specified by 
 def delete_alertmanager_config(recipient: any = "grafana")
 ```
 
-The method includes a functionality to delete the alertmanager config specified by the recipient
+The method includes a functionality to delete the Alertmanager config specified by the recipient
 
 **Arguments**:
 
@@ -262,7 +293,7 @@ The method includes a functionality to delete the alertmanager config specified 
 def get_alertmanager_config(recipient: any = "grafana") -> dict
 ```
 
-The method includes a functionality to get the alertmanager config specified by the recipient
+The method includes a functionality to get the Alertmanager config specified by the recipient
 
 **Arguments**:
 
@@ -277,7 +308,7 @@ The method includes a functionality to get the alertmanager config specified by 
 
 **Returns**:
 
-- `api_call` _dict_ - Returns the dict of the alertmanager config
+- `api_call` _dict_ - Returns the dict of the Alertmanager config
 
 <a id="grafana_api.alerting.Alerting.create_or_update_alertmanager_config"></a>
 
@@ -290,11 +321,11 @@ def create_or_update_alertmanager_config(
         template_files: dict = None)
 ```
 
-The method includes a functionality to create or update the alertmanager config specified by the alertmanager config object, recipient and template_files
+The method includes a functionality to create or update the Alertmanager config specified by the Alertmanager config object, recipient and template_files
 
 **Arguments**:
 
-- `alertmanager_config` _AlertmanagerConfig_ - Specify the alertmanager config object
+- `alertmanager_config` _AlertmanagerConfig_ - Specify the Alertmanager config object
 - `recipient` _any_ - Specify the recipient datasource id of the alerts (default grafana)
 - `template_files(dict)` - Specify the optional template files (default None)
   
@@ -319,7 +350,7 @@ def test_alertmanager_receivers(alert: dict,
                                 recipient: any = "grafana")
 ```
 
-The method includes a functionality to test the alertmanager receivers specified by the alert dict, receivers object and the recipient
+The method includes a functionality to test the Alertmanager receivers specified by the alert dict, receivers object and the recipient
 
 **Arguments**:
 
@@ -562,7 +593,7 @@ The method includes a functionality to get a ruler group specified by the namesp
 #### test\_rule
 
 ```python
-def test_rule(data_query: list) -> str
+def test_rule(data_query: list) -> dict
 ```
 
 The method includes a functionality to test a rule specified by a list of datasource rule query objects
@@ -621,7 +652,7 @@ The method includes a functionality to test a recipient role specified by the ex
 def delete_ngalert_organization_configuration()
 ```
 
-The method includes a functionality to delete the ngalert organization admin configuration
+The method includes a functionality to delete the NGAlert organization admin configuration
 
 **Raises**:
 
@@ -640,7 +671,7 @@ The method includes a functionality to delete the ngalert organization admin con
 def get_ngalert_organization_configuration() -> dict
 ```
 
-The method includes a functionality to get the ngalert organization admin configuration
+The method includes a functionality to get the NGAlert organization admin configuration
 
 **Raises**:
 
@@ -649,7 +680,7 @@ The method includes a functionality to get the ngalert organization admin config
 
 **Returns**:
 
-- `api_call` _dict_ - Returns the ngalert organization configuration
+- `api_call` _dict_ - Returns the NGAlert organization configuration
 
 <a id="grafana_api.alerting.Alerting.create_or_update_ngalert_organization_configuration"></a>
 
@@ -660,12 +691,12 @@ def create_or_update_ngalert_organization_configuration(
         alert_managers: list, alertmanagers_choice: str = "all")
 ```
 
-The method includes a functionality to create or update the ngalert organization admin configuration
+The method includes a functionality to create or update the NGAlert organization admin configuration
 
 **Arguments**:
 
 - `alert_managers` _list_ - Specify the list of alert manager names
-- `alertmanagers_choice` _str_ - Specify the alertmanagers choice (default all)
+- `alertmanagers_choice` _str_ - Specify the Alertmanagers choice (default all)
   
 
 **Raises**:
@@ -686,7 +717,7 @@ The method includes a functionality to create or update the ngalert organization
 def get_ngalert_alertmanagers_by_organization() -> dict
 ```
 
-The method includes a functionality to get the discovered and dropped alertmanagers of the user's organization and based on the specified configuration
+The method includes a functionality to get the discovered and dropped Alertmanagers of the user's organization and based on the specified configuration
 
 **Raises**:
 
@@ -695,5 +726,5 @@ The method includes a functionality to get the discovered and dropped alertmanag
 
 **Returns**:
 
-- `api_call` _dict_ - Returns the ngalert alertmanagers
+- `api_call` _dict_ - Returns the NGAlert Alertmanagers
 

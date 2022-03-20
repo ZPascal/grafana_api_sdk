@@ -1,3 +1,9 @@
+# Table of Contents
+
+* [grafana\_api.api](#grafana_api.api)
+  * [Api](#grafana_api.api.Api)
+    * [call\_the\_api](#grafana_api.api.Api.call_the_api)
+
 <a id="grafana_api.api"></a>
 
 # grafana\_api.api
