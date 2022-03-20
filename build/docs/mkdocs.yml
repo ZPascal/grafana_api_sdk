@@ -1,0 +1,18 @@
+docs_dir: content
+markdown_extensions:
+- pymdownx.tasklist
+nav:
+- Home: index.md
+- API SDK Documentation:
+  - Model: grafana_api/model.md
+  - Api: grafana_api/api.md
+  - Alerting: grafana_api/alerting.md
+  - Legacy Alerting: grafana_api/legacy-alerting.md
+  - Alerting Notifications: grafana_api/alerting-notifications.md
+  - Datasource: grafana_api/datasource.md
+  - Dashboard: grafana_api/dashboard.md
+  - Folder: grafana_api/folder.md
+  - Search: grafana_api/search.md
+repo_url: https://github.com/ZPascal/grafana_api_sdk
+site_name: Grafana API SDK
+theme: readthedocs

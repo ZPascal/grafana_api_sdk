@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Model - Grafana API SDK</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Model";
+    var mkdocs_page_input_path = "grafana_api/model.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Grafana API SDK</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">API SDK Documentation</span></p>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Model</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#apiendpoints-objects">APIEndpoints Objects</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#requestsmethods-objects">RequestsMethods Objects</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#apimodel-objects">APIModel Objects</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#datasourcequery-objects">DatasourceQuery Objects</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#datasourcerulequery-objects">DatasourceRuleQuery Objects</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#alert-objects">Alert Objects</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#silence-objects">Silence Objects</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#alertmanagerconfig-objects">AlertmanagerConfig Objects</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#alertmanagerreceivers-objects">AlertmanagerReceivers Objects</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#rulerrule-objects">RulerRule Objects</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../api/">Api</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../alerting/">Alerting</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../legacy-alerting/">Legacy Alerting</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../alerting-notifications/">Alerting Notifications</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../datasource/">Datasource</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../dashboard/">Dashboard</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../folder/">Folder</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../search/">Search</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Grafana API SDK</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>API SDK Documentation &raquo;</li>
+        
+      
+    
+    <li>Model</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/ZPascal/grafana_api_sdk/edit/master/docs/grafana_api/model.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <p><a id="grafana_api.model"></a></p>
+<h1 id="grafana_apimodel">grafana_api.model</h1>
+<p><a id="grafana_api.model.APIEndpoints"></a></p>
+<h2 id="apiendpoints-objects">APIEndpoints Objects</h2>
+<pre><code class="language-python">class APIEndpoints(Enum)
+</code></pre>
+<p>The class includes all necessary API endpoint strings to connect the Grafana API</p>
+<p><a id="grafana_api.model.RequestsMethods"></a></p>
+<h2 id="requestsmethods-objects">RequestsMethods Objects</h2>
+<pre><code class="language-python">class RequestsMethods(Enum)
+</code></pre>
+<p>The class includes all necessary methods to establish an HTTP/ HTTPS connection to the Grafana API endpoints</p>
+<p><a id="grafana_api.model.APIModel"></a></p>
+<h2 id="apimodel-objects">APIModel Objects</h2>
+<pre><code class="language-python">class APIModel(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to establish a connection to the Grafana API endpoints</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>host</code> <em>str</em> - Specify the host of the Grafana system</li>
+<li><code>token</code> <em>str</em> - Specify the access token of the Grafana system</li>
+</ul>
+<p><a id="grafana_api.model.DatasourceQuery"></a></p>
+<h2 id="datasourcequery-objects">DatasourceQuery Objects</h2>
+<pre><code class="language-python">class DatasourceQuery(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to specify a query for the datasource search endpoint</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>datasource_id</code> <em>int</em> - Specify the id of the data source</li>
+<li><code>raw_sql</code> <em>str</em> - Specify the raw SQL string to search inside the Grafana system</li>
+<li><code>ref_id</code> <em>str</em> - Specify a reference id of the search command (default A)</li>
+<li><code>interval_ms</code> <em>int</em> - Specify the time interval in milliseconds of output format (default 1000)</li>
+<li><code>max_data_points</code> <em>int</em> - Specify maximum amount of data points that dashboard panel can render (default 100)</li>
+<li><code>output_format</code> <em>str</em> - Specify the output format of the query (default time_series)</li>
+</ul>
+<p><a id="grafana_api.model.DatasourceRuleQuery"></a></p>
+<h2 id="datasourcerulequery-objects">DatasourceRuleQuery Objects</h2>
+<pre><code class="language-python">class DatasourceRuleQuery(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to specify a query for the datasource rule search endpoint</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>datasource_uid</code> <em>str</em> - Specify the uid of the data source</li>
+<li><code>model</code> <em>dict</em> - Specify the model of the search command</li>
+<li><code>query_type</code> <em>str</em> - Specify the query time of the search command</li>
+<li><code>ref_id</code> <em>str</em> - Specify a reference id of the search command</li>
+<li><code>relative_time_range</code> <em>dict</em> - Specify the related time range of the search command</li>
+</ul>
+<p><a id="grafana_api.model.Alert"></a></p>
+<h2 id="alert-objects">Alert Objects</h2>
+<pre><code class="language-python">class Alert(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to generate an alert object that is necessary to communicate with the Grafana alert endpoint</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>starts_at</code> <em>str</em> - Specify the start date of the alert</li>
+<li><code>ends_at</code> <em>str</em> - Specify end date of the alert</li>
+<li><code>annotations</code> <em>dict</em> - Specify the annotations of the alert</li>
+<li><code>generator_url</code> <em>str</em> - Specify the url of the generator endpoint</li>
+<li><code>labels</code> <em>dict</em> - Specify labels of the alert</li>
+</ul>
+<p><a id="grafana_api.model.Silence"></a></p>
+<h2 id="silence-objects">Silence Objects</h2>
+<pre><code class="language-python">class Silence(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to generate a silence object that is necessary to communicate with the Grafana silence endpoint</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>starts_at</code> <em>str</em> - Specify the start date of the silence</li>
+<li><code>created_by</code> <em>str</em> - Specify the name of the silence creator</li>
+<li><code>ends_at</code> <em>str</em> - Specify end date of the silence</li>
+<li><code>comment</code> <em>str</em> - Specify a custom comment for the silence</li>
+<li><code>id</code> <em>str</em> - Specify an id for the silence</li>
+<li><code>matchers</code> <em>dict</em> - Specify matchers for the silence</li>
+</ul>
+<p><a id="grafana_api.model.AlertmanagerConfig"></a></p>
+<h2 id="alertmanagerconfig-objects">AlertmanagerConfig Objects</h2>
+<pre><code class="language-python">class AlertmanagerConfig(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to generate an Alertmanager config object that is necessary to communicate and set up the Grafana Alertmanager endpoint</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>global_config</code> <em>dict</em> - Specify the global config of the Alertmanager</li>
+<li><code>inhibit_rules</code> <em>list</em> - Specify the inhibit rules of the Alertmanager</li>
+<li><code>mute_time_intervals</code> <em>list</em> - Specify the mute time intervals of the Alertmanager</li>
+<li><code>receivers</code> <em>list</em> - Specify the receivers of the Alertmanager</li>
+<li><code>route</code> <em>dict</em> - Specify the route of the Alertmanager</li>
+<li><code>templates</code> <em>list</em> - Specify an Alertmanager template</li>
+</ul>
+<p><a id="grafana_api.model.AlertmanagerReceivers"></a></p>
+<h2 id="alertmanagerreceivers-objects">AlertmanagerReceivers Objects</h2>
+<pre><code class="language-python">class AlertmanagerReceivers(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to generate an Alertmanager receivers object that is necessary to communicate and set up the Grafana Alertmanager receivers endpoint</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>name</code> <em>str</em> - Specify the name of the receiver</li>
+<li><code>email_configs</code> <em>list</em> - Specify the email configuration of the receiver's</li>
+<li><code>grafana_managed_receiver_configs</code> <em>list</em> - Specify the Grafana managed receiver configuration of the receiver's</li>
+<li><code>opsgenie_configs</code> <em>list</em> - Specify the ops genie configuration of the receiver's</li>
+<li><code>pagerduty_configs</code> <em>dict</em> - Specify the pager duty configuration of the receiver's</li>
+<li><code>pushover_configs</code> <em>list</em> - Specify the push over configuration of the receiver's</li>
+<li><code>slack_configs</code> <em>list</em> - Specify the Slack configuration of the receiver's</li>
+<li><code>victorops_configs</code> <em>list</em> - Specify the victor ops configuration of the receiver's</li>
+<li><code>webhook_configs</code> <em>list</em> - Specify the webhook configuration of the receiver's</li>
+<li><code>wechat_configs</code> <em>list</em> - Specify the wechaty configuration of the receiver's</li>
+</ul>
+<p><a id="grafana_api.model.RulerRule"></a></p>
+<h2 id="rulerrule-objects">RulerRule Objects</h2>
+<pre><code class="language-python">class RulerRule(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to generate a Ruler rule object that is necessary to communicate and set up a Grafana Ruler rule</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>alert</code> <em>str</em> - Specify the name of the rule</li>
+<li><code>annotations</code> <em>dict</em> - Specify the annotations of the rule</li>
+<li><code>expr</code> <em>str</em> - Specify the expression of the rule</li>
+<li><code>grafana_alert</code> <em>dict</em> - Specify the Grafana alert of the rule</li>
+<li><code>labels</code> <em>dict</em> - Specify labels of the rule</li>
+<li><code>record</code> <em>str</em> - Specify recode value of the rule</li>
+<li><code>for_id</code> <em>int</em> - Specify the id of the rule if you update an existing rule (default 0)</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../api/" class="btn btn-neutral float-right" title="Api">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../.." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/ZPascal/grafana_api_sdk/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../.." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../api/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
