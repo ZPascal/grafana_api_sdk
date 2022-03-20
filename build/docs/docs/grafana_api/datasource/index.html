@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Datasource - Grafana API SDK</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Datasource";
+    var mkdocs_page_input_path = "grafana_api/datasource.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Grafana API SDK</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">API SDK Documentation</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../model/">Model</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../api/">Api</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../alerting/">Alerting</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../legacy-alerting/">Legacy Alerting</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../alerting-notifications/">Alerting Notifications</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Datasource</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#datasource-objects">Datasource Objects</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#get_all_datasources">get_all_datasources</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get_datasource_by_id">get_datasource_by_id</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get_datasource_by_uid">get_datasource_by_uid</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get_datasource_by_name">get_datasource_by_name</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get_datasource_id_by_name">get_datasource_id_by_name</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#create_datasource">create_datasource</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#update_datasource">update_datasource</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#delete_datasource_by_id">delete_datasource_by_id</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#delete_datasource_by_uid">delete_datasource_by_uid</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#delete_datasource_by_name">delete_datasource_by_name</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#query_datasource_by_id">query_datasource_by_id</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#enable_datasource_permissions">enable_datasource_permissions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#disable_datasource_permissions">disable_datasource_permissions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get_datasource_permissions">get_datasource_permissions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#add_datasource_permissions">add_datasource_permissions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#delete_datasource_permissions">delete_datasource_permissions</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../dashboard/">Dashboard</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../folder/">Folder</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../search/">Search</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Grafana API SDK</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>API SDK Documentation &raquo;</li>
+        
+      
+    
+    <li>Datasource</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/ZPascal/grafana_api_sdk/edit/master/docs/grafana_api/datasource.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <p><a id="grafana_api.datasource"></a></p>
+<h1 id="grafana_apidatasource">grafana_api.datasource</h1>
+<p><a id="grafana_api.datasource.Datasource"></a></p>
+<h2 id="datasource-objects">Datasource Objects</h2>
+<pre><code class="language-python">class Datasource()
+</code></pre>
+<p>The class includes all necessary methods to access the Grafana datasource API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights</p>
+<p>HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>grafana_api_model</code> <em>APIModel</em> - Inject a Grafana API model object that includes all necessary values and information</li>
+</ul>
+<p><strong>Attributes</strong>:</p>
+<ul>
+<li><code>grafana_api_model</code> <em>APIModel</em> - This is where we store the grafana_api_model</li>
+</ul>
+<p><a id="grafana_api.datasource.Datasource.get_all_datasources"></a></p>
+<h4 id="get_all_datasources">get_all_datasources</h4>
+<pre><code class="language-python">def get_all_datasources() -&gt; list
+</code></pre>
+<p>The method includes a functionality to get all datasources</p>
+<p>Required Permissions:
+Action: datasources:read
+Scope: datasources:*</p>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>api_call</code> <em>list</em> - Returns the list of all datasources</li>
+</ul>
+<p><a id="grafana_api.datasource.Datasource.get_datasource_by_id"></a></p>
+<h4 id="get_datasource_by_id">get_datasource_by_id</h4>
+<pre><code class="language-python">def get_datasource_by_id(datasource_id: int) -&gt; dict
+</code></pre>
+<p>The method includes a functionality to get the datasource specified by the datasource id</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>datasource_id</code> <em>int</em> - Specify the id of the datasource</li>
+</ul>
+<p>Required Permissions:
+- <code>Action</code> - datasources:read
+- <code>Scope</code> - [datasources:<em>, datasources:id:</em>, datasources:id:<id>]</p>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>api_call</code> <em>dict</em> - Returns a datasource</li>
+</ul>
+<p><a id="grafana_api.datasource.Datasource.get_datasource_by_uid"></a></p>
+<h4 id="get_datasource_by_uid">get_datasource_by_uid</h4>
+<pre><code class="language-python">def get_datasource_by_uid(uid: str) -&gt; dict
+</code></pre>
+<p>The method includes a functionality to get the datasource specified by the datasource uid</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>uid</code> <em>str</em> - Specify the uid of the datasource</li>
+</ul>
+<p>Required Permissions:
+- <code>Action</code> - datasources:read
+- <code>Scope</code> - [datasources:<em>, datasources:uid:</em>, datasources:uid:<uid>]</p>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>api_call</code> <em>dict</em> - Returns a datasource</li>
+</ul>
+<p><a id="grafana_api.datasource.Datasource.get_datasource_by_name"></a></p>
+<h4 id="get_datasource_by_name">get_datasource_by_name</h4>
+<pre><code class="language-python">def get_datasource_by_name(name: str) -&gt; dict
+</code></pre>
+<p>The method includes a functionality to get the datasource specified by the datasource name</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>name</code> <em>str</em> - Specify the name of the datasource</li>
+</ul>
+<p>Required Permissions:
+- <code>Action</code> - datasources:read
+- <code>Scope</code> - [datasources:<em>, datasources:name:</em>, datasources:name:<name>]</p>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>api_call</code> <em>dict</em> - Returns a datasource</li>
+</ul>
+<p><a id="grafana_api.datasource.Datasource.get_datasource_id_by_name"></a></p>
+<h4 id="get_datasource_id_by_name">get_datasource_id_by_name</h4>
+<pre><code class="language-python">def get_datasource_id_by_name(name: str) -&gt; int
+</code></pre>
+<p>The method includes a functionality to get the datasource id specified by the datasource name</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>name</code> <em>str</em> - Specify the name of the datasource</li>
+</ul>
+<p>Required Permissions:
+- <code>Action</code> - datasources:read
+- <code>Scope</code> - [datasources:<em>, datasources:name:</em>, datasources:name:<name>]</p>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>api_call</code> <em>int</em> - Returns a datasource id</li>
+</ul>
+<p><a id="grafana_api.datasource.Datasource.create_datasource"></a></p>
+<h4 id="create_datasource">create_datasource</h4>
+<pre><code class="language-python">def create_datasource(data_source: dict)
+</code></pre>
+<p>The method includes a functionality to create a datasource specified by the datasource as dict</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>data_source</code> <em>dict</em> - Specify the datasource as dict</li>
+</ul>
+<p>Required Permissions:
+- <code>Action</code> - datasources:create</p>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<p>None</p>
+<p><a id="grafana_api.datasource.Datasource.update_datasource"></a></p>
+<h4 id="update_datasource">update_datasource</h4>
+<pre><code class="language-python">def update_datasource(datasource_id: int, data_source: dict)
+</code></pre>
+<p>The method includes a functionality to update a datasource specified by the datasource as dict and the datasource id</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>datasource_id</code> <em>int</em> - Specify the id of the datasource</li>
+<li><code>data_source</code> <em>dict</em> - Specify the datasource as dict</li>
+</ul>
+<p>Required Permissions:
+- <code>Action</code> - datasources:write
+- <code>Scope</code> - [datasources:<em>, datasources:id:</em>, datasources:id:<id>]</p>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<p>None</p>
+<p><a id="grafana_api.datasource.Datasource.delete_datasource_by_id"></a></p>
+<h4 id="delete_datasource_by_id">delete_datasource_by_id</h4>
+<pre><code class="language-python">def delete_datasource_by_id(datasource_id: int)
+</code></pre>
+<p>The method includes a functionality to delete a datasource specified by the datasource id</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>datasource_id</code> <em>int</em> - Specify the id of the datasource</li>
+</ul>
+<p>Required Permissions:
+- <code>Action</code> - datasources:delete
+- <code>Scope</code> - [datasources:<em>, datasources:id:</em>, datasources:id:<id>]</p>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<p>None</p>
+<p><a id="grafana_api.datasource.Datasource.delete_datasource_by_uid"></a></p>
+<h4 id="delete_datasource_by_uid">delete_datasource_by_uid</h4>
+<pre><code class="language-python">def delete_datasource_by_uid(uid: str)
+</code></pre>
+<p>The method includes a functionality to delete a datasource specified by the datasource uid</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>uid</code> <em>str</em> - Specify the uid of the datasource</li>
+</ul>
+<p>Required Permissions:
+- <code>Action</code> - datasources:delete
+- <code>Scope</code> - [datasources:<em>, datasources:uid:</em>, datasources:uid:<uid>]</p>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<p>None</p>
+<p><a id="grafana_api.datasource.Datasource.delete_datasource_by_name"></a></p>
+<h4 id="delete_datasource_by_name">delete_datasource_by_name</h4>
+<pre><code class="language-python">def delete_datasource_by_name(name: str)
+</code></pre>
+<p>The method includes a functionality to delete a datasource specified by the datasource name</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>name</code> <em>str</em> - Specify the name of the datasource</li>
+</ul>
+<p>Required Permissions:
+- <code>Action</code> - datasources:delete
+- <code>Scope</code> - [datasources:<em>, datasources:name:</em>, datasources:name:<name>]</p>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<p>None</p>
+<p><a id="grafana_api.datasource.Datasource.query_datasource_by_id"></a></p>
+<h4 id="query_datasource_by_id">query_datasource_by_id</h4>
+<pre><code class="language-python">def query_datasource_by_id(time: str, to: str,
+                           datasource_queries: list) -&gt; dict
+</code></pre>
+<p>The method includes a functionality to execute a queries inside the datasource itself specified by the datasource id</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>from</code> <em>str</em> - Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time units. For example, now-1h</li>
+<li><code>to</code> <em>str</em> - Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time units. For example, now-1h</li>
+<li><code>datasource_queries</code> <em>list</em> - Specify a list of execution queries based on the DatasourceQuery class</li>
+</ul>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>api_call</code> <em>dict</em> - Returns the result of the specified query</li>
+</ul>
+<p><a id="grafana_api.datasource.Datasource.enable_datasource_permissions"></a></p>
+<h4 id="enable_datasource_permissions">enable_datasource_permissions</h4>
+<pre><code class="language-python">def enable_datasource_permissions(datasource_id: int)
+</code></pre>
+<p>The method includes a functionality to enable datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>datasource_id</code> <em>int</em> - Specify the id of the datasource</li>
+</ul>
+<p>Required Permissions:
+- <code>Action</code> - datasources.permissions:write
+- <code>Scope</code> - [datasources:<em>, datasources:id:</em>, datasources:id:<id>]</p>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<p>None</p>
+<p><a id="grafana_api.datasource.Datasource.disable_datasource_permissions"></a></p>
+<h4 id="disable_datasource_permissions">disable_datasource_permissions</h4>
+<pre><code class="language-python">def disable_datasource_permissions(datasource_id: int)
+</code></pre>
+<p>The method includes a functionality to disable datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>datasource_id</code> <em>int</em> - Specify the id of the datasource</li>
+</ul>
+<p>Required Permissions:
+- <code>Action</code> - datasources.permissions:write
+- <code>Scope</code> - [datasources:<em>, datasources:id:</em>, datasources:id:<id>]</p>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<p>None</p>
+<p><a id="grafana_api.datasource.Datasource.get_datasource_permissions"></a></p>
+<h4 id="get_datasource_permissions">get_datasource_permissions</h4>
+<pre><code class="language-python">def get_datasource_permissions(datasource_id: int) -&gt; dict
+</code></pre>
+<p>The method includes a functionality to get the datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>datasource_id</code> <em>int</em> - Specify the id of the datasource</li>
+</ul>
+<p>Required Permissions:
+- <code>Action</code> - datasources.permissions:read
+- <code>Scope</code> - [datasources:<em>, datasources:id:</em>, datasources:id:<id>]</p>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>api_call</code> <em>dict</em> - Returns the datasource permissions</li>
+</ul>
+<p><a id="grafana_api.datasource.Datasource.add_datasource_permissions"></a></p>
+<h4 id="add_datasource_permissions">add_datasource_permissions</h4>
+<pre><code class="language-python">def add_datasource_permissions(datasource_id: int,
+                               datasource_permission: dict)
+</code></pre>
+<p>The method includes a functionality to add datasource permission specified by the datasource id and the datasource permission dict. The functionality is a Grafana ENTERPRISE feature</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>datasource_id</code> <em>int</em> - Specify the id of the datasource</li>
+<li><code>datasource_permission</code> <em>dict</em> - Specify the permission of the datasource</li>
+</ul>
+<p>Required Permissions:
+- <code>Action</code> - datasources.permissions:write
+- <code>Scope</code> - [datasources:<em>, datasources:id:</em>, datasources:id:<id>]</p>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<p>None</p>
+<p><a id="grafana_api.datasource.Datasource.delete_datasource_permissions"></a></p>
+<h4 id="delete_datasource_permissions">delete_datasource_permissions</h4>
+<pre><code class="language-python">def delete_datasource_permissions(datasource_id: int, permission_id: int)
+</code></pre>
+<p>The method includes a functionality to delete datasource permission specified by the datasource id and the permission id. The functionality is a Grafana ENTERPRISE feature</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>datasource_id</code> <em>int</em> - Specify the id of the datasource</li>
+<li><code>permission_id</code> <em>id</em> - Specify the permission id</li>
+</ul>
+<p>Required Permissions:
+- <code>Action</code> - datasources.permissions:write
+- <code>Scope</code> - [datasources:<em>, datasources:id:</em>, datasources:id:<id>]</p>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<p>None</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../dashboard/" class="btn btn-neutral float-right" title="Dashboard">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../alerting-notifications/" class="btn btn-neutral" title="Alerting Notifications"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/ZPascal/grafana_api_sdk/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../alerting-notifications/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../dashboard/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

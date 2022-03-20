@@ -16,7 +16,7 @@ class SearchTestCase(TestCase):
 
         call_the_api_mock.return_value = mock
 
-        self.assertEqual(["test"], search.search(search_query=MagicMock()))
+        self.assertEqual(["test"], search.search(search_query="Test"))
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_search_invalid_empty_list(self, call_the_api_mock):

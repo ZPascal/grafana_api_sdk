@@ -900,7 +900,7 @@ class Alerting:
             logging.error("There is no recipient, namespace or group_name defined.")
             raise ValueError
 
-    def test_rule(self, data_query: list) -> str:
+    def test_rule(self, data_query: list) -> dict:
         """The method includes a functionality to test a rule specified by a list of datasource rule query objects
 
         Args:

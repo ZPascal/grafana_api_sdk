@@ -783,11 +783,11 @@ class AlertingTestCase(TestCase):
         )
 
         mock: Mock = Mock()
-        mock.text = Mock(return_value="test")
+        mock.json = Mock(return_value=dict({"test": "test"}))
 
         call_the_api_mock.return_value = mock
 
-        self.assertEqual("test", alerting.test_rule([datasource_rule_query]))
+        self.assertEqual(dict({"test": "test"}), alerting.test_rule([datasource_rule_query]))
 
     def test_test_rule_no_data_query(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())

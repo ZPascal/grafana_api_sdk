@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Folder - Grafana API SDK</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Folder";
+    var mkdocs_page_input_path = "grafana_api/folder.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Grafana API SDK</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">API SDK Documentation</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../model/">Model</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../api/">Api</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../alerting/">Alerting</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../legacy-alerting/">Legacy Alerting</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../alerting-notifications/">Alerting Notifications</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../datasource/">Datasource</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../dashboard/">Dashboard</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Folder</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#folder-objects">Folder Objects</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#get_folders">get_folders</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get_folder_by_uid">get_folder_by_uid</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get_folder_by_id">get_folder_by_id</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#create_folder">create_folder</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#update_folder">update_folder</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#delete_folder">delete_folder</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get_folder_permissions">get_folder_permissions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#update_folder_permissions">update_folder_permissions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get_folder_id_by_dashboard_path">get_folder_id_by_dashboard_path</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get_all_folder_ids_and_names">get_all_folder_ids_and_names</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../search/">Search</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Grafana API SDK</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>API SDK Documentation &raquo;</li>
+        
+      
+    
+    <li>Folder</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/ZPascal/grafana_api_sdk/edit/master/docs/grafana_api/folder.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <p><a id="grafana_api.folder"></a></p>
+<h1 id="grafana_apifolder">grafana_api.folder</h1>
+<p><a id="grafana_api.folder.Folder"></a></p>
+<h2 id="folder-objects">Folder Objects</h2>
+<pre><code class="language-python">class Folder()
+</code></pre>
+<p>The class includes all necessary methods to access the Grafana folder API endpoints</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>grafana_api_model</code> <em>APIModel</em> - Inject a Grafana API model object that includes all necessary values and information</li>
+</ul>
+<p><strong>Attributes</strong>:</p>
+<ul>
+<li><code>grafana_api_model</code> <em>APIModel</em> - This is where we store the grafana_api_model</li>
+</ul>
+<p><a id="grafana_api.folder.Folder.get_folders"></a></p>
+<h4 id="get_folders">get_folders</h4>
+<pre><code class="language-python">def get_folders() -&gt; list
+</code></pre>
+<p>The method includes a functionality to extract all folders inside the organization</p>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>api_call</code> <em>list</em> - Returns all folders</li>
+</ul>
+<p><a id="grafana_api.folder.Folder.get_folder_by_uid"></a></p>
+<h4 id="get_folder_by_uid">get_folder_by_uid</h4>
+<pre><code class="language-python">def get_folder_by_uid(uid: str) -&gt; dict
+</code></pre>
+<p>The method includes a functionality to extract all folder information specified by the uid of the folder</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>uid</code> <em>str</em> - Specify the uid of the folder</li>
+</ul>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>api_call</code> <em>dict</em> - Returns a folder</li>
+</ul>
+<p><a id="grafana_api.folder.Folder.get_folder_by_id"></a></p>
+<h4 id="get_folder_by_id">get_folder_by_id</h4>
+<pre><code class="language-python">def get_folder_by_id(id: int) -&gt; dict
+</code></pre>
+<p>The method includes a functionality to extract all folder information specified by the id of the folder</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>id</code> <em>int</em> - Specify the id of the folder</li>
+</ul>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>api_call</code> <em>dict</em> - Returns a folder</li>
+</ul>
+<p><a id="grafana_api.folder.Folder.create_folder"></a></p>
+<h4 id="create_folder">create_folder</h4>
+<pre><code class="language-python">def create_folder(title: str, uid: str = None) -&gt; dict
+</code></pre>
+<p>The method includes a functionality to create a new folder inside the organization specified by the defined title and the optional uid</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>title</code> <em>str</em> - Specify the title of the folder</li>
+<li><code>uid</code> <em>str</em> - Specify the uid of the folder (default None)</li>
+</ul>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>api_call</code> <em>dict</em> - Returns a newly created folder</li>
+</ul>
+<p><a id="grafana_api.folder.Folder.update_folder"></a></p>
+<h4 id="update_folder">update_folder</h4>
+<pre><code class="language-python">def update_folder(title: str,
+                  uid: str = None,
+                  version: int = 0,
+                  overwrite: bool = False) -&gt; dict
+</code></pre>
+<p>The method includes a functionality to update a folder information inside the organization specified by the uid, the title, the version of the folder or if folder information be overwritten</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>title</code> <em>str</em> - Specify the title of the folder</li>
+<li><code>uid</code> <em>str</em> - Specify the uid of the folder</li>
+<li><code>version</code> <em>int</em> - Specify the version of the folder (default 0)</li>
+<li><code>overwrite</code> <em>bool</em> - Should the already existing folder information be overwritten (default False)</li>
+</ul>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>api_call</code> <em>dict</em> - Returns an updated folder</li>
+</ul>
+<p><a id="grafana_api.folder.Folder.delete_folder"></a></p>
+<h4 id="delete_folder">delete_folder</h4>
+<pre><code class="language-python">def delete_folder(uid: str)
+</code></pre>
+<p>The method includes a functionality to delete a folder inside the organization specified by the defined uid</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>uid</code> <em>str</em> - Specify the uid of the folder</li>
+</ul>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<p>None</p>
+<p><a id="grafana_api.folder.Folder.get_folder_permissions"></a></p>
+<h4 id="get_folder_permissions">get_folder_permissions</h4>
+<pre><code class="language-python">def get_folder_permissions(uid: str) -&gt; list
+</code></pre>
+<p>The method includes a functionality to extract the folder permissions inside the organization specified by the defined uid</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>uid</code> <em>str</em> - Specify the uid of the folder</li>
+</ul>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>api_call</code> <em>list</em> - Returns a list of folder permissions</li>
+</ul>
+<p><a id="grafana_api.folder.Folder.update_folder_permissions"></a></p>
+<h4 id="update_folder_permissions">update_folder_permissions</h4>
+<pre><code class="language-python">def update_folder_permissions(uid: str, permission_json: dict)
+</code></pre>
+<p>The method includes a functionality to update the folder permissions based on the specified uid and the permission json document</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>uid</code> <em>str</em> - Specify the uid of the folder</li>
+<li><code>permission_json</code> <em>dict</em> - Specify the inserted permissions as dict</li>
+</ul>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<p>None</p>
+<p><a id="grafana_api.folder.Folder.get_folder_id_by_dashboard_path"></a></p>
+<h4 id="get_folder_id_by_dashboard_path">get_folder_id_by_dashboard_path</h4>
+<pre><code class="language-python">def get_folder_id_by_dashboard_path(dashboard_path: str) -&gt; int
+</code></pre>
+<p>The method includes a functionality to extract the folder id specified inside model dashboard path</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>dashboard_path</code> <em>str</em> - Specify the dashboard path</li>
+</ul>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>folder_id</code> <em>int</em> - Returns the folder id</li>
+</ul>
+<p><a id="grafana_api.folder.Folder.get_all_folder_ids_and_names"></a></p>
+<h4 id="get_all_folder_ids_and_names">get_all_folder_ids_and_names</h4>
+<pre><code class="language-python">def get_all_folder_ids_and_names() -&gt; list
+</code></pre>
+<p>The method extract all folder id and names inside the complete organisation</p>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>folders</code> <em>list</em> - Returns a list of dicts with folder ids and the corresponding names</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../search/" class="btn btn-neutral float-right" title="Search">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../dashboard/" class="btn btn-neutral" title="Dashboard"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/ZPascal/grafana_api_sdk/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../dashboard/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../search/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

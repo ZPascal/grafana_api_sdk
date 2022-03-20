@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Dashboard - Grafana API SDK</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Dashboard";
+    var mkdocs_page_input_path = "grafana_api/dashboard.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Grafana API SDK</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">API SDK Documentation</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../model/">Model</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../api/">Api</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../alerting/">Alerting</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../legacy-alerting/">Legacy Alerting</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../alerting-notifications/">Alerting Notifications</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../datasource/">Datasource</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Dashboard</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#dashboard-objects">Dashboard Objects</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#create_or_update_dashboard">create_or_update_dashboard</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#delete_dashboard_by_name_and_path">delete_dashboard_by_name_and_path</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get_dashboard_by_uid">get_dashboard_by_uid</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get_dashboard_home">get_dashboard_home</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get_dashboard_tags">get_dashboard_tags</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get_dashboard_uid_and_id_by_name_and_folder">get_dashboard_uid_and_id_by_name_and_folder</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get_dashboard_permissions">get_dashboard_permissions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#update_dashboard_permissions">update_dashboard_permissions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get_dashboard_versions">get_dashboard_versions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get_dashboard_version">get_dashboard_version</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#restore_dashboard_version">restore_dashboard_version</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#calculate_dashboard_diff">calculate_dashboard_diff</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../folder/">Folder</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../search/">Search</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Grafana API SDK</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>API SDK Documentation &raquo;</li>
+        
+      
+    
+    <li>Dashboard</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/ZPascal/grafana_api_sdk/edit/master/docs/grafana_api/dashboard.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <p><a id="grafana_api.dashboard"></a></p>
+<h1 id="grafana_apidashboard">grafana_api.dashboard</h1>
+<p><a id="grafana_api.dashboard.Dashboard"></a></p>
+<h2 id="dashboard-objects">Dashboard Objects</h2>
+<pre><code class="language-python">class Dashboard()
+</code></pre>
+<p>The class includes all necessary methods to access the Grafana dashboard API endpoints</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>grafana_api_model</code> <em>APIModel</em> - Inject a Grafana API model object that includes all necessary values and information</li>
+</ul>
+<p><strong>Attributes</strong>:</p>
+<ul>
+<li><code>grafana_api_model</code> <em>APIModel</em> - This is where we store the grafana_api_model</li>
+</ul>
+<p><a id="grafana_api.dashboard.Dashboard.create_or_update_dashboard"></a></p>
+<h4 id="create_or_update_dashboard">create_or_update_dashboard</h4>
+<pre><code class="language-python">def create_or_update_dashboard(dashboard_path: str,
+                               dashboard_json: dict,
+                               message: str,
+                               overwrite: bool = False)
+</code></pre>
+<p>The method includes a functionality to create the specified dashboard</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>dashboard_path</code> <em>str</em> - Specify the dashboard path in which the dashboard is to be placed</li>
+<li><code>dashboard_json</code> <em>dict</em> - Specify the inserted dashboard as dict</li>
+<li><code>message</code> <em>str</em> - Specify the message that should be injected as commit message inside the dashboard</li>
+<li><code>overwrite</code> <em>bool</em> - Should the already existing dashboard be overwritten (default False)</li>
+</ul>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<p>None</p>
+<p><a id="grafana_api.dashboard.Dashboard.delete_dashboard_by_name_and_path"></a></p>
+<h4 id="delete_dashboard_by_name_and_path">delete_dashboard_by_name_and_path</h4>
+<pre><code class="language-python">def delete_dashboard_by_name_and_path(dashboard_name: str,
+                                      dashboard_path: str)
+</code></pre>
+<p>The method includes a functionality to delete the specified dashboard inside the model</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>dashboard_name</code> <em>str</em> - Specify the dashboard name of the deleted dashboard</li>
+<li><code>dashboard_path</code> <em>str</em> - Specify the dashboard path in which the dashboard is to be placed</li>
+</ul>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<p>None</p>
+<p><a id="grafana_api.dashboard.Dashboard.get_dashboard_by_uid"></a></p>
+<h4 id="get_dashboard_by_uid">get_dashboard_by_uid</h4>
+<pre><code class="language-python">def get_dashboard_by_uid(uid: str) -&gt; dict
+</code></pre>
+<p>The method includes a functionality to get the dashboard from the specified uid</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>uid</code> <em>str</em> - Specify the uid of the dashboard</li>
+</ul>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>api_call</code> <em>dict</em> - Returns the dashboard</li>
+</ul>
+<p><a id="grafana_api.dashboard.Dashboard.get_dashboard_home"></a></p>
+<h4 id="get_dashboard_home">get_dashboard_home</h4>
+<pre><code class="language-python">def get_dashboard_home() -&gt; dict
+</code></pre>
+<p>The method includes a functionality to get the home dashboard</p>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>api_call</code> <em>dict</em> - Returns the home dashboard</li>
+</ul>
+<p><a id="grafana_api.dashboard.Dashboard.get_dashboard_tags"></a></p>
+<h4 id="get_dashboard_tags">get_dashboard_tags</h4>
+<pre><code class="language-python">def get_dashboard_tags() -&gt; list
+</code></pre>
+<p>The method includes a functionality to get the all tags of all dashboards</p>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>api_call</code> <em>list</em> - Returns all dashboard tags</li>
+</ul>
+<p><a id="grafana_api.dashboard.Dashboard.get_dashboard_uid_and_id_by_name_and_folder"></a></p>
+<h4 id="get_dashboard_uid_and_id_by_name_and_folder">get_dashboard_uid_and_id_by_name_and_folder</h4>
+<pre><code class="language-python">def get_dashboard_uid_and_id_by_name_and_folder(dashboard_name: str,
+                                                dashboard_path: str) -&gt; dict
+</code></pre>
+<p>The method includes a functionality to extract the dashboard uid specified inside the model</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>dashboard_name</code> <em>str</em> - Specify the dashboard name of the dashboard</li>
+<li><code>dashboard_path</code> <em>str</em> - Specify the dashboard path of the dashboard</li>
+</ul>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>api_call</code> <em>dict</em> - Returns the dashboard uid and the id</li>
+</ul>
+<p><a id="grafana_api.dashboard.Dashboard.get_dashboard_permissions"></a></p>
+<h4 id="get_dashboard_permissions">get_dashboard_permissions</h4>
+<pre><code class="language-python">def get_dashboard_permissions(id: int) -&gt; list
+</code></pre>
+<p>The method includes a functionality to extract the dashboard permissions based on the specified id</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>id</code> <em>int</em> - Specify the id of the dashboard</li>
+</ul>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>api_call</code> <em>list</em> - Returns the dashboard permissions of a dashboard as list</li>
+</ul>
+<p><a id="grafana_api.dashboard.Dashboard.update_dashboard_permissions"></a></p>
+<h4 id="update_dashboard_permissions">update_dashboard_permissions</h4>
+<pre><code class="language-python">def update_dashboard_permissions(id: int, permission_json: dict)
+</code></pre>
+<p>The method includes a functionality to update the dashboard permissions based on the specified id and the permission json document</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>id</code> <em>int</em> - Specify the id of the dashboard</li>
+<li><code>permission_json</code> <em>dict</em> - Specify the inserted permissions as dict</li>
+</ul>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<p>None</p>
+<p><a id="grafana_api.dashboard.Dashboard.get_dashboard_versions"></a></p>
+<h4 id="get_dashboard_versions">get_dashboard_versions</h4>
+<pre><code class="language-python">def get_dashboard_versions(id: int) -&gt; list
+</code></pre>
+<p>The method includes a functionality to extract the versions of a dashboard based on the specified id</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>id</code> <em>int</em> - Specify the id of the dashboard</li>
+</ul>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>api_call</code> <em>list</em> - Returns all dashboard versions of a dashboard as list</li>
+</ul>
+<p><a id="grafana_api.dashboard.Dashboard.get_dashboard_version"></a></p>
+<h4 id="get_dashboard_version">get_dashboard_version</h4>
+<pre><code class="language-python">def get_dashboard_version(id: int, version_id: int) -&gt; dict
+</code></pre>
+<p>The method includes a functionality to extract a specified version of a dashboard based on the specified dashboard id and a version_id of the dashboard</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>id</code> <em>int</em> - Specify the id of the dashboard</li>
+<li><code>version_id</code> <em>int</em> - Specify the version_id of a dashboard</li>
+</ul>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>api_call</code> <em>list</em> - Returns a dashboard version of a dashboard as dict</li>
+</ul>
+<p><a id="grafana_api.dashboard.Dashboard.restore_dashboard_version"></a></p>
+<h4 id="restore_dashboard_version">restore_dashboard_version</h4>
+<pre><code class="language-python">def restore_dashboard_version(id: int, version: dict)
+</code></pre>
+<p>The method includes a functionality to restore a specified version of a dashboard based on the specified dashboard uid and a version as dict of the dashboard</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>id</code> <em>int</em> - Specify the id of the dashboard</li>
+<li><code>version</code> <em>dict</em> - Specify the version_id of a dashboard</li>
+</ul>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<p>None</p>
+<p><a id="grafana_api.dashboard.Dashboard.calculate_dashboard_diff"></a></p>
+<h4 id="calculate_dashboard_diff">calculate_dashboard_diff</h4>
+<pre><code class="language-python">def calculate_dashboard_diff(dashboard_id_and_version_base: dict,
+                             dashboard_id_and_version_new: dict,
+                             diff_type: str = &quot;json&quot;) -&gt; str
+</code></pre>
+<p>The method includes a functionality to calculate the diff of specified versions of a dashboard based on the specified dashboard uid and the selected version of the base dashboard and the new dashboard and the diff type (basic or json)</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>dashboard_id_and_version_base</code> <em>dict</em> - Specify the version and id of the base dashboard</li>
+<li><code>dashboard_id_and_version_new</code> <em>dict</em> - Specify the version and id of the new dashboard</li>
+<li><code>diff_type</code> <em>str</em> - Specify the diff type (basic or json) (default json)</li>
+</ul>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>api_call</code> <em>str</em> - Returns the difference of the two specified dashboards</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../folder/" class="btn btn-neutral float-right" title="Folder">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../datasource/" class="btn btn-neutral" title="Datasource"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/ZPascal/grafana_api_sdk/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../datasource/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../folder/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
