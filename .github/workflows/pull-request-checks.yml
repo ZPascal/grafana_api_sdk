@@ -73,7 +73,7 @@ jobs:
           cache: 'pip'
 
       - name: Install the requirements
-        run: pip install -r requirements.txt && pip install pytest pytest-cov coverage-badge pydoc-markdown
+        run: pip install -r requirements.txt && pip install pytest pytest-cov coverage-badge
 
       - name: Generate the coverage report
         run: export PYTHONPATH=$PWD && pytest --junitxml=pytest.xml --cov=. tests/unittests | tee pytest-coverage.txt
@@ -91,7 +91,7 @@ jobs:
         run: coverage-badge -f -o docs/coverage.svg
 
       - name: Generate documentation
-        run: timeout 15 pydoc-markdown --server
+        run: pydoc-markdown --render-toc
 
       - name: Check changed files
         uses: tj-actions/verify-changed-files@v8.8
