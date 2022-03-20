@@ -8,7 +8,6 @@ from .model import (
     RequestsMethods,
     Silence,
     AlertmanagerConfig,
-    AlertmanagerReceivers,
 )
 from .api import Api
 
@@ -27,7 +26,7 @@ class Alerting:
         self.grafana_api_model = grafana_api_model
 
     def get_alertmanager_alerts(self, recipient: any = "grafana") -> list:
-        """The method includes a functionality to get the alertmanager alerts specified by the recipient
+        """The method includes a functionality to get the Alertmanager alerts specified by the recipient
 
         Args:
             recipient (any): Specify the recipient datasource id of the alerts (default grafana)
@@ -37,7 +36,7 @@ class Alerting:
             Exception: Unspecified error by executing the API call
 
         Returns:
-            api_call (list): Returns the list of alertmanager alerts
+            api_call (list): Returns the list of Alertmanager alerts
         """
 
         if (type(recipient) == int and recipient != 0) or (
@@ -63,7 +62,7 @@ class Alerting:
     def create_or_update_alertmanager_alerts(
         self, alerts: list, recipient: any = "grafana"
     ):
-        """The method includes a functionality to create or update the alertmanager alerts specified by the recipient and the alerts list
+        """The method includes a functionality to create or update the Alertmanager alerts specified by the recipient and the alerts list
 
         Args:
             alerts (list): Specify a list of the alert objects
@@ -115,7 +114,7 @@ class Alerting:
             raise ValueError
 
     def get_alertmanager_group_alerts(self, recipient: any = "grafana") -> list:
-        """The method includes a functionality to get the alertmanager group alerts specified by the recipient
+        """The method includes a functionality to get the Alertmanager group alerts specified by the recipient
 
         Args:
             recipient (any): Specify the recipient datasource id of the alerts (default grafana)
@@ -125,7 +124,7 @@ class Alerting:
             Exception: Unspecified error by executing the API call
 
         Returns:
-            api_call (list): Returns the list of alertmanager group alerts
+            api_call (list): Returns the list of Alertmanager group alerts
         """
 
         if (type(recipient) == int and recipient != 0) or (
@@ -151,7 +150,7 @@ class Alerting:
     def delete_alertmanager_silence_by_id(
         self, silence_id: str, recipient: any = "grafana"
     ):
-        """The method includes a functionality to delete the alertmanager silence specified by the silence id and the recipient
+        """The method includes a functionality to delete the Alertmanager silence specified by the silence id and the recipient
 
         Args:
             silence_id (str): Specify the silence id of the alerts
@@ -190,7 +189,7 @@ class Alerting:
     def get_alertmanager_silence_by_id(
         self, silence_id: str, recipient: any = "grafana"
     ) -> dict:
-        """The method includes a functionality to get the alertmanager silence specified by the silence id and the recipient
+        """The method includes a functionality to get the Alertmanager silence specified by the silence id and the recipient
 
         Args:
             silence_id (str): Specify the silence id of the alerts
@@ -201,7 +200,7 @@ class Alerting:
             Exception: Unspecified error by executing the API call
 
         Returns:
-            api_call (dict): Returns the dict of alertmanager silence alert
+            api_call (dict): Returns the dict of Alertmanager silence alert
         """
 
         if (
@@ -226,7 +225,7 @@ class Alerting:
             raise ValueError
 
     def get_alertmanager_silences(self, recipient: any = "grafana") -> list:
-        """The method includes a functionality to get all alertmanager silences specified by the recipient
+        """The method includes a functionality to get all Alertmanager silences specified by the recipient
 
         Args:
             recipient (any): Specify the recipient datasource id of the alerts (default grafana)
@@ -236,7 +235,7 @@ class Alerting:
             Exception: Unspecified error by executing the API call
 
         Returns:
-            api_call (list): Returns the list of alertmanager silence alerts
+            api_call (list): Returns the list of Alertmanager silence alerts
         """
 
         if (type(recipient) == int and recipient != 0) or (
@@ -262,7 +261,7 @@ class Alerting:
     def create_or_update_alertmanager_silence(
         self, silence: Silence, recipient: any = "grafana"
     ) -> dict:
-        """The method includes a functionality to create or update the alertmanager silence specified by the silence object and the recipient
+        """The method includes a functionality to create or update the Alertmanager silence specified by the silence object and the recipient
 
         Args:
             silence -> Specify the silence object
@@ -311,7 +310,7 @@ class Alerting:
             raise ValueError
 
     def get_alertmanager_status(self, recipient: str = "grafana") -> dict:
-        """The method includes a functionality to get the alertmanager status specified by the recipient
+        """The method includes a functionality to get the Alertmanager status specified by the recipient
 
         Args:
             recipient (str): Specify the recipient datasource id of the alerts (default grafana)
@@ -321,7 +320,7 @@ class Alerting:
             Exception: Unspecified error by executing the API call
 
         Returns:
-            api_call (dict): Returns the dict of the alertmanager status
+            api_call (dict): Returns the dict of the Alertmanager status
         """
 
         if (type(recipient) == int and recipient != 0) or (
@@ -345,7 +344,7 @@ class Alerting:
             raise ValueError
 
     def delete_alertmanager_config(self, recipient: any = "grafana"):
-        """The method includes a functionality to delete the alertmanager config specified by the recipient
+        """The method includes a functionality to delete the Alertmanager config specified by the recipient
 
         Args:
             recipient (any): Specify the recipient datasource id of the alerts (default grafana)
@@ -383,7 +382,7 @@ class Alerting:
             raise ValueError
 
     def get_alertmanager_config(self, recipient: any = "grafana") -> dict:
-        """The method includes a functionality to get the alertmanager config specified by the recipient
+        """The method includes a functionality to get the Alertmanager config specified by the recipient
 
         Args:
             recipient (any): Specify the recipient datasource id of the alerts (default grafana)
@@ -393,7 +392,7 @@ class Alerting:
             Exception: Unspecified error by executing the API call
 
         Returns:
-            api_call (dict): Returns the dict of the alertmanager config
+            api_call (dict): Returns the dict of the Alertmanager config
         """
 
         if (type(recipient) == int and recipient != 0) or (
@@ -422,10 +421,10 @@ class Alerting:
         recipient: any = "grafana",
         template_files: dict = None,
     ):
-        """The method includes a functionality to create or update the alertmanager config specified by the alertmanager config object, recipient and template_files
+        """The method includes a functionality to create or update the Alertmanager config specified by the Alertmanager config object, recipient and template_files
 
         Args:
-            alertmanager_config (AlertmanagerConfig): Specify the alertmanager config object
+            alertmanager_config (AlertmanagerConfig): Specify the Alertmanager config object
             recipient (any): Specify the recipient datasource id of the alerts (default grafana)
             template_files(dict): Specify the optional template files (default None)
 
@@ -471,7 +470,7 @@ class Alerting:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
-                logging.info("You successfully created an alertmanager alert config.")
+                logging.info("You successfully created an Alertmanager alert config.")
         else:
             logging.error("There is no recipient or alertmanager_config defined.")
             raise ValueError
@@ -479,7 +478,7 @@ class Alerting:
     def test_alertmanager_receivers(
         self, alert: dict, receivers: list, recipient: any = "grafana"
     ):
-        """The method includes a functionality to test the alertmanager receivers specified by the alert dict, receivers object and the recipient
+        """The method includes a functionality to test the Alertmanager receivers specified by the alert dict, receivers object and the recipient
 
         Args:
             alert (dict): Specify the alert dict
@@ -1044,7 +1043,7 @@ class Alerting:
             raise ValueError
 
     def delete_ngalert_organization_configuration(self):
-        """The method includes a functionality to delete the ngalert organization admin configuration
+        """The method includes a functionality to delete the NGAlert organization admin configuration
 
         Raises:
             Exception: Unspecified error by executing the API call
@@ -1067,17 +1066,17 @@ class Alerting:
             raise Exception
         else:
             logging.info(
-                "You successfully deleted the ngalert organization configuration."
+                "You successfully deleted the NGAlert organization configuration."
             )
 
     def get_ngalert_organization_configuration(self) -> dict:
-        """The method includes a functionality to get the ngalert organization admin configuration
+        """The method includes a functionality to get the NGAlert organization admin configuration
 
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
-            api_call (dict): Returns the ngalert organization configuration
+            api_call (dict): Returns the NGAlert organization configuration
         """
 
         api_call: any = Api(self.grafana_api_model).call_the_api(
@@ -1105,11 +1104,11 @@ class Alerting:
     def create_or_update_ngalert_organization_configuration(
         self, alert_managers: list, alertmanagers_choice: str = "all"
     ):
-        """The method includes a functionality to create or update the ngalert organization admin configuration
+        """The method includes a functionality to create or update the NGAlert organization admin configuration
 
         Args:
             alert_managers (list): Specify the list of alert manager names
-            alertmanagers_choice (str): Specify the alertmanagers choice (default all)
+            alertmanagers_choice (str): Specify the Alertmanagers choice (default all)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -1127,7 +1126,7 @@ class Alerting:
                     RequestsMethods.POST,
                     json.dumps(
                         {
-                            "alertmanagers": alert_managers,
+                            "Alertmanagers": alert_managers,
                             "alertmanagersChoice": alertmanagers_choice,
                         }
                     ),
@@ -1140,7 +1139,7 @@ class Alerting:
                 raise Exception
             else:
                 logging.info(
-                    "You successfully created an ngalert organization configuration."
+                    "You successfully created an NGAlert organization configuration."
                 )
         else:
             logging.error(
@@ -1149,19 +1148,19 @@ class Alerting:
             raise ValueError
 
     def get_ngalert_alertmanagers_by_organization(self) -> dict:
-        """The method includes a functionality to get the discovered and dropped alertmanagers of the user's organization and based on the specified configuration
+        """The method includes a functionality to get the discovered and dropped Alertmanagers of the user's organization and based on the specified configuration
 
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
-            api_call (dict): Returns the ngalert alertmanagers
+            api_call (dict): Returns the NGAlert Alertmanagers
         """
 
         api_call: dict = (
             Api(self.grafana_api_model)
             .call_the_api(
-                f"{APIEndpoints.ALERTS_NGALERT.value}/alertmanagers",
+                f"{APIEndpoints.ALERTS_NGALERT.value}/Alertmanagers",
             )
             .json()
         )
