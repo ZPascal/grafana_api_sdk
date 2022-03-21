@@ -98,16 +98,14 @@ jobs:
         id: verify-changed-files
         with:
           files: |
-            docs/coverage.svg
-            build/docs
+            docs
 
       - name: Commit files
         if: steps.verify-changed-files.outputs.files_changed == 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add --force docs/coverage.svg
-          git add --force build/docs
+          git add --force docs
           git commit -m "Add coverage badge and documentation"
 
       - name: Push changes
