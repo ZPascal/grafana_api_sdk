@@ -10,7 +10,7 @@ renderer:
     - title: Home
       name: index
       source: docs/grafana_api_sdk.md
-    - title: API SDK Documentation
+    - title: API SDK
       name: grafana_api
       children:
         - title: Model
@@ -33,7 +33,7 @@ renderer:
           contents: [ grafana_api.search.* ]
   mkdocs_config:
     site_name: Grafana API SDK
-    theme: readthedocs
+    theme: material
     repo_url: https://github.com/ZPascal/grafana_api_sdk
     markdown_extensions:
         - pymdownx.tasklist

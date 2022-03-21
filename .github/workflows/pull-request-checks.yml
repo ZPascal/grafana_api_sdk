@@ -91,7 +91,7 @@ jobs:
         run: coverage-badge -f -o docs/coverage.svg
 
       - name: Generate documentation
-        run: pydoc-markdown --render-toc
+        run: pydoc-markdown --render-toc && mv build/docs/* docs
 
       - name: Check changed files
         uses: tj-actions/verify-changed-files@v8.8

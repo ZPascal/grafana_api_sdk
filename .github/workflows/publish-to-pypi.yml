@@ -41,6 +41,14 @@ jobs:
           --wheel
           --outdir dist/
 
+      - name: Setup the GitHub user
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      - name: Update the GitHub pages documentation
+        run: cd docs && mkdocs gh-deploy --force && cd ..
+
       - name: Publish distribution package to PyPI
         if: startsWith(github.ref, 'refs/tags')
         uses: pypa/gh-action-pypi-publish@master
