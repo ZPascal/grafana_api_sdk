@@ -1,0 +1,39 @@
+loaders:
+  - type: python
+processors:
+  - type: filter
+  - type: smart
+  - type: crossref
+renderer:
+  type: mkdocs
+  pages:
+    - title: Home
+      name: index
+      source: docs/grafana_api_sdk.md
+    - title: API SDK
+      name: grafana_api
+      children:
+        - title: Model
+          contents: [ grafana_api.model.* ]
+        - title: Api
+          contents: [ grafana_api.api.* ]
+        - title: Alerting
+          contents: [ grafana_api.alerting.* ]
+        - title: Legacy Alerting
+          contents: [ grafana_api.legacy_alerting.* ]
+        - title: Alerting Notifications
+          contents: [ grafana_api.alerting_notifications.* ]
+        - title: Datasource
+          contents: [ grafana_api.datasource.* ]
+        - title: Dashboard
+          contents: [ grafana_api.dashboard.* ]
+        - title: Folder
+          contents: [ grafana_api.folder.* ]
+        - title: Search
+          contents: [ grafana_api.search.* ]
+  mkdocs_config:
+    site_name: Grafana API SDK
+    theme: material
+    repo_url: https://github.com/ZPascal/grafana_api_sdk
+    markdown_extensions:
+        - pymdownx.tasklist

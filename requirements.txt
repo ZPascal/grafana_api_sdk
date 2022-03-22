@@ -1,1 +1,4 @@
 requests
+pydoc-markdown
+mkdocs
+mkdocs-material
