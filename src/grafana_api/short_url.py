@@ -36,7 +36,7 @@ class ShortUrl:
             api_call: dict = (
                 Api(self.grafana_api_model)
                 .call_the_api(
-                    APIEndpoints.ALERT_NOTIFICATIONS.value,
+                    APIEndpoints.SHORT_URLS.value,
                     RequestsMethods.POST,
                     json.dumps(dict({"path": path})),
                 )

@@ -20,6 +20,8 @@ class APIEndpoints(Enum):
     ALERTS_NGALERT = "/api/v1/ngalert"
     DATASOURCES = "/api/datasources"
     DATASOURCE_QUERY = "/api/tsdb/query"
+    SHORT_URLS = "/api/short-urls"
+    ORGANISATION = "/api/org"
 
 
 class RequestsMethods(Enum):

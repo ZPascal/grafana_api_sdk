@@ -14,5 +14,5 @@ class ShortUrlTest(TestCase):
 
     def test_create_short_url(self):
         self.assertIsNotNone(
-            self.short_url.create_short_url("d/test1/test-1?orgId=4").get("url")
+            self.short_url.create_short_url("d/test1/test-1?orgId=4&from=now-1h&to=now")
         )
