@@ -20,6 +20,9 @@ class APIEndpoints(Enum):
     ALERTS_NGALERT = "/api/v1/ngalert"
     DATASOURCES = "/api/datasources"
     DATASOURCE_QUERY = "/api/tsdb/query"
+    SHORT_URLS = "/api/short-urls"
+    ORGANISATION = "/api/org"
+    ORGANISATIONS = "/api/orgs"
 
 
 class RequestsMethods(Enum):
@@ -28,6 +31,7 @@ class RequestsMethods(Enum):
     GET = "GET"
     PUT = "PUT"
     POST = "POST"
+    PATCH = "PATCH"
     DELETE = "DELETE"
 
 
@@ -41,6 +45,20 @@ class APIModel(NamedTuple):
 
     host: str
     token: str
+
+
+class APIBasicModel(NamedTuple):
+    """The class includes all necessary variables to establish a basic connection to the Grafana API endpoints
+
+    Args:
+        host (str): Specify the host of the Grafana system
+        username (str): Specify the username of the Grafana system
+        password (str): Specify the password of the Grafana system
+    """
+
+    host: str
+    username: str
+    password: str
 
 
 class DatasourceQuery(NamedTuple):
