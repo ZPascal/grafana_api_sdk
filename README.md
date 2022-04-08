@@ -57,7 +57,6 @@ The repository includes an SDK for the Grafana API. It's possible to communicate
 - Get all Alertmanager alerts
 - Create or update Alertmanager alerts
 - Get Alertmanager group alerts
-
 - Get all Alertmanager silences
 - Get Alertmanager silence by id
 - Create or update Alertmanager silence
@@ -94,13 +93,35 @@ The repository includes an SDK for the Grafana API. It's possible to communicate
 - Delete a notification channel by uid
 - Test a notification channel
 
+### Organization
+- Get current organisation
+- Update the current organisation name
+- Add a new user and the role to the current organisation
+- Get all users from current organisation
+- Get all users from current organisation (lookup)
+- Update the role of an organisation user by the user id
+- Delete an organisation user by the user id
+- Get an organisation by the id
+- Get an organisation by the name
+- Get all organisations
+- Create an organisation
+- Update an organisation
+- Delete an organisation
+- Get organisation users
+- Add a new organisation user
+- Update an organisation user
+- Delete an organisation user
+
+### Short URL
+- Create a short url
+
 ## Feature timeline
 
 The following table describes the plan to implement the rest of the Grafana API functionality. Please, open an issue and vote them up, if you prefer a faster implementation of an API functionality.
 
 | API endpoint group | Implementation week | Maintainer | PR | State |
 |:------------------:|:-------------------:|:----------:|:--:|:-----:|
-| [Admin HTTP API](https://grafana.com/docs/grafana/latest/http_api/admin/) |  |            |    |  |
+| [Admin HTTP API](https://grafana.com/docs/grafana/latest/http_api/admin/) | 16 | [ZPascal](https://github.com/ZPascal) |    |  |
 | [Annotations HTTP API](https://grafana.com/docs/grafana/latest/http_api/annotations/) |  |            |    |  |
 | [Authentication HTTP API](https://grafana.com/docs/grafana/latest/http_api/auth/) |  |            |    |  |
 | [External Group Sync HTTP API](https://grafana.com/docs/grafana/latest/http_api/external_group_sync/) |  |            |    |  |
@@ -109,13 +130,11 @@ The following table describes the plan to implement the rest of the Grafana API 
 | [HTTP Snapshot API](https://grafana.com/docs/grafana/latest/http_api/snapshot/) |  |            |    |  |
 | [Library Element HTTP API](https://grafana.com/docs/grafana/latest/http_api/library_element/) |  |            |    |  |
 | [Licensing HTTP API](https://grafana.com/docs/grafana/latest/http_api/licensing/) |  |            |    |  |
-| [Organization HTTP API](https://grafana.com/docs/grafana/latest/http_api/org/) | 13 |            |    | In process |
 | [Other HTTP API](https://grafana.com/docs/grafana/latest/http_api/other/) |  |            |    |  |
 | [Playlist HTTP API](https://grafana.com/docs/grafana/latest/http_api/playlist/) |                      |            |    |  |
 | [Reporting API](https://grafana.com/docs/grafana/latest/http_api/reporting/) |  |            |    |  |
-| [Short URL HTTP API](https://grafana.com/docs/grafana/latest/http_api/short_url/) | 13 |            |    | In process |
 | [Team HTTP API](https://grafana.com/docs/grafana/latest/http_api/team/) |  |            |    |  |
-| [User HTTP API](https://grafana.com/docs/grafana/latest/http_api/user/) |  |            |    |  |
+| [User HTTP API](https://grafana.com/docs/grafana/latest/http_api/user/) | 16 | [ZPascal](https://github.com/ZPascal) |    |  |
 
 ## Installation
 
