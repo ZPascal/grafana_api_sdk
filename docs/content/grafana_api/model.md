@@ -4,7 +4,6 @@
   * [APIEndpoints](#grafana_api.model.APIEndpoints)
   * [RequestsMethods](#grafana_api.model.RequestsMethods)
   * [APIModel](#grafana_api.model.APIModel)
-  * [APIBasicModel](#grafana_api.model.APIBasicModel)
   * [DatasourceQuery](#grafana_api.model.DatasourceQuery)
   * [DatasourceRuleQuery](#grafana_api.model.DatasourceRuleQuery)
   * [Alert](#grafana_api.model.Alert)
@@ -51,20 +50,6 @@ The class includes all necessary variables to establish a connection to the Graf
 
 - `host` _str_ - Specify the host of the Grafana system
 - `token` _str_ - Specify the access token of the Grafana system
-
-<a id="grafana_api.model.APIBasicModel"></a>
-
-## APIBasicModel Objects
-
-```python
-class APIBasicModel(NamedTuple)
-```
-
-The class includes all necessary variables to establish a basic connection to the Grafana API endpoints
-
-**Arguments**:
-
-- `host` _str_ - Specify the host of the Grafana system
 - `username` _str_ - Specify the username of the Grafana system
 - `password` _str_ - Specify the password of the Grafana system
 
