@@ -36,7 +36,10 @@ class ShortUrlTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         short_url: ShortUrl = ShortUrl(grafana_api_model=model)
 
-        call_the_api_mock.side_effect = Exception
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=dict({"url": None}))
+
+        call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
-            short_url.create_short_url(path=MagicMock())
+            short_url.create_short_url(path="test")

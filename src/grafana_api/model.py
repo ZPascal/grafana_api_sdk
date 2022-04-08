@@ -41,24 +41,14 @@ class APIModel(NamedTuple):
     Args:
         host (str): Specify the host of the Grafana system
         token (str): Specify the access token of the Grafana system
-    """
-
-    host: str
-    token: str
-
-
-class APIBasicModel(NamedTuple):
-    """The class includes all necessary variables to establish a basic connection to the Grafana API endpoints
-
-    Args:
-        host (str): Specify the host of the Grafana system
         username (str): Specify the username of the Grafana system
         password (str): Specify the password of the Grafana system
     """
 
     host: str
-    username: str
-    password: str
+    token: str = None
+    username: str = None
+    password: str = None
 
 
 class DatasourceQuery(NamedTuple):

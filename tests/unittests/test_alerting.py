@@ -470,7 +470,7 @@ class AlertingTestCase(TestCase):
 
         with self.assertRaises(Exception):
             alerting.test_alertmanager_receivers(
-                {"test": "test"}, alertmanager_receivers
+                {"test": "test"}, list([alertmanager_receivers])
             )
 
     @patch("src.grafana_api.api.Api.call_the_api")
@@ -495,7 +495,7 @@ class AlertingTestCase(TestCase):
 
         with self.assertRaises(Exception):
             alerting.test_alertmanager_receivers(
-                {"test": "test"}, alertmanager_receivers
+                {"test": "test"}, list([alertmanager_receivers])
             )
 
     @patch("src.grafana_api.api.Api.call_the_api")
