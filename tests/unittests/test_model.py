@@ -17,7 +17,9 @@ class APIEndpointsTestCase(TestCase):
 class RequestsMethodsTestCase(TestCase):
     def test_requests_methods_init(self):
         self.assertEqual("RequestsMethods.GET", str(RequestsMethods.GET))
+        self.assertEqual("RequestsMethods.PUT", str(RequestsMethods.PUT))
         self.assertEqual("RequestsMethods.POST", str(RequestsMethods.POST))
+        self.assertEqual("RequestsMethods.PATCH", str(RequestsMethods.PATCH))
         self.assertEqual("RequestsMethods.DELETE", str(RequestsMethods.DELETE))
 
 
@@ -27,6 +29,13 @@ class APIModelTestCase(TestCase):
 
         self.assertEqual("test", model.host)
         self.assertEqual("test", model.token)
+
+    def test_api_model_init_basic_auth(self):
+        model = APIModel(host="test", username="test", password="test")
+
+        self.assertEqual("test", model.host)
+        self.assertEqual("test", model.username)
+        self.assertEqual("test", model.password)
 
 
 class DatasourceQueryTestCase(TestCase):

@@ -29,7 +29,7 @@ class SearchTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
-            search.search(search_query=MagicMock())
+            search.search(search_query="test")
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_search_invalid_output(self, call_the_api_mock):

@@ -38,11 +38,22 @@ class Api:
         """
 
         api_url: str = f"{self.grafana_api_model.host}{api_call}"
+        headers: dict = dict(
+            {"Authorization": f"Bearer {self.grafana_api_model.token}"}
+        )
 
-        headers: dict = {
-            "Authorization": f"Bearer {self.grafana_api_model.token}",
-            "Content-Type": "application/json",
-        }
+        if (
+            self.grafana_api_model.username is not None
+            and self.grafana_api_model.password is not None
+        ):
+            url: str = (
+                f"{self.grafana_api_model.username}:{self.grafana_api_model.password}@"
+            )
+            api_url = api_url.replace("https://", f"https://{url}")
+            api_url = api_url.replace("http://", f"http://{url}")
+        else:
+            headers["Content-Type"] = "application/json"
+
         try:
             if method.value == RequestsMethods.GET.value:
                 return Api.__check_the_api_call_response(
@@ -60,6 +71,14 @@ class Api:
                 if json_complete is not None:
                     return Api.__check_the_api_call_response(
                         requests.post(api_url, data=json_complete, headers=headers)
+                    )
+                else:
+                    logging.error("Please define the json_complete.")
+                    raise Exception
+            elif method.value == RequestsMethods.PATCH.value:
+                if json_complete is not None:
+                    return Api.__check_the_api_call_response(
+                        requests.patch(api_url, data=json_complete, headers=headers)
                     )
                 else:
                     logging.error("Please define the json_complete.")
