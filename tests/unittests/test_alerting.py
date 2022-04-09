@@ -470,7 +470,7 @@ class AlertingTestCase(TestCase):
 
         with self.assertRaises(Exception):
             alerting.test_alertmanager_receivers(
-                {"test": "test"}, alertmanager_receivers
+                {"test": "test"}, list([alertmanager_receivers])
             )
 
     @patch("src.grafana_api.api.Api.call_the_api")
@@ -495,7 +495,7 @@ class AlertingTestCase(TestCase):
 
         with self.assertRaises(Exception):
             alerting.test_alertmanager_receivers(
-                {"test": "test"}, alertmanager_receivers
+                {"test": "test"}, list([alertmanager_receivers])
             )
 
     @patch("src.grafana_api.api.Api.call_the_api")
@@ -787,7 +787,9 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = mock
 
-        self.assertEqual(dict({"test": "test"}), alerting.test_rule([datasource_rule_query]))
+        self.assertEqual(
+            dict({"test": "test"}), alerting.test_rule([datasource_rule_query])
+        )
 
     def test_test_rule_no_data_query(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())

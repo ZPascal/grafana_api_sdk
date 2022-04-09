@@ -20,6 +20,9 @@ class APIEndpoints(Enum):
     ALERTS_NGALERT = "/api/v1/ngalert"
     DATASOURCES = "/api/datasources"
     DATASOURCE_QUERY = "/api/tsdb/query"
+    SHORT_URLS = "/api/short-urls"
+    ORGANISATION = "/api/org"
+    ORGANISATIONS = "/api/orgs"
 
 
 class RequestsMethods(Enum):
@@ -28,6 +31,7 @@ class RequestsMethods(Enum):
     GET = "GET"
     PUT = "PUT"
     POST = "POST"
+    PATCH = "PATCH"
     DELETE = "DELETE"
 
 
@@ -37,10 +41,14 @@ class APIModel(NamedTuple):
     Args:
         host (str): Specify the host of the Grafana system
         token (str): Specify the access token of the Grafana system
+        username (str): Specify the username of the Grafana system
+        password (str): Specify the password of the Grafana system
     """
 
     host: str
-    token: str
+    token: str = None
+    username: str = None
+    password: str = None
 
 
 class DatasourceQuery(NamedTuple):

@@ -50,6 +50,8 @@ The class includes all necessary variables to establish a connection to the Graf
 
 - `host` _str_ - Specify the host of the Grafana system
 - `token` _str_ - Specify the access token of the Grafana system
+- `username` _str_ - Specify the username of the Grafana system
+- `password` _str_ - Specify the password of the Grafana system
 
 <a id="grafana_api.model.DatasourceQuery"></a>
 
