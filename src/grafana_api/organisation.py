@@ -193,7 +193,11 @@ class Organisation:
         if len(name) != 0:
             api_call: dict = (
                 Api(self.grafana_api_model)
-                .call_the_api(APIEndpoints.ORGANISATION.value, RequestsMethods.PUT, json.dumps(dict({"name": name})))
+                .call_the_api(
+                    APIEndpoints.ORGANISATION.value,
+                    RequestsMethods.PUT,
+                    json.dumps(dict({"name": name})),
+                )
                 .json()
             )
 
@@ -206,7 +210,9 @@ class Organisation:
             logging.error("There is no role_name defined.")
             raise ValueError
 
-    def add_new_user_to_current_organization(self, login_or_email: str, role: str) -> int:
+    def add_new_user_to_current_organization(
+        self, login_or_email: str, role: str
+    ) -> int:
         """The method includes a functionality to add a new user to the current organization.
 
         Args:
@@ -229,8 +235,9 @@ class Organisation:
             api_call: dict = (
                 Api(self.grafana_api_model)
                 .call_the_api(
-                    f"{APIEndpoints.ORGANISATION.value}/users", RequestsMethods.POST,
-                    json.dumps(dict({"loginOrEmail": login_or_email, "role": role}))
+                    f"{APIEndpoints.ORGANISATION.value}/users",
+                    RequestsMethods.POST,
+                    json.dumps(dict({"loginOrEmail": login_or_email, "role": role})),
                 )
                 .json()
             )

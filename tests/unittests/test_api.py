@@ -23,7 +23,9 @@ class ApiTestCase(TestCase):
 
     @patch("requests.get")
     def test_call_the_api_basic_auth(self, get_mock):
-        model: APIModel = APIModel(host="https://test.test.de", username="test", password="test")
+        model: APIModel = APIModel(
+            host="https://test.test.de", username="test", password="test"
+        )
         api: Api = Api(grafana_api_model=model)
 
         mock: Mock = Mock()
@@ -33,9 +35,7 @@ class ApiTestCase(TestCase):
 
         self.assertEqual(
             "success",
-            api.call_the_api(
-                api_call=MagicMock()
-            ).json()["status"],
+            api.call_the_api(api_call=MagicMock()).json()["status"],
         )
 
     @patch("requests.get")
