@@ -16,7 +16,9 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/ZPascal/grafana_api_sdk",
     project_urls={
+        "Source": "https://github.com/ZPascal/grafana_api_sdk",
         "Bug Tracker": "https://github.com/ZPascal/grafana_api_sdk/issues",
+        "Documentation": "https://zpascal.github.io/grafana_api_sdk/",
     },
     classifiers=[
         "Programming Language :: Python :: 3",
