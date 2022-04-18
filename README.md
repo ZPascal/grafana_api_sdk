@@ -130,13 +130,13 @@ The following table describes the plan to implement the rest of the Grafana API 
 
 | API endpoint group | Implementation week | Maintainer | PR | State |
 |:------------------:|:-------------------:|:----------:|:--:|:-----:|
-| [Admin HTTP API](https://grafana.com/docs/grafana/latest/http_api/admin/) | 16 | [ZPascal](https://github.com/ZPascal) |    |  |
+| [Admin HTTP API](https://grafana.com/docs/grafana/latest/http_api/admin/) |  |  |    |  |
 | [Annotations HTTP API](https://grafana.com/docs/grafana/latest/http_api/annotations/) |  |            |    |  |
 | [Authentication HTTP API](https://grafana.com/docs/grafana/latest/http_api/auth/) |  |            |    |  |
 | [External Group Sync HTTP API](https://grafana.com/docs/grafana/latest/http_api/external_group_sync/) |  |            |    |  |
 | [Fine-grained access control HTTP API](https://grafana.com/docs/grafana/latest/http_api/access_control/) |  |            |    |  |
 | [HTTP Preferences API](https://grafana.com/docs/grafana/latest/http_api/preferences/) |  |            |    |  |
-| [HTTP Snapshot API](https://grafana.com/docs/grafana/latest/http_api/snapshot/) |  |            |    |  |
+| [HTTP Snapshot API](https://grafana.com/docs/grafana/latest/http_api/snapshot/) | 16 | [ZPascal](https://github.com/ZPascal) |    |  |
 | [Library Element HTTP API](https://grafana.com/docs/grafana/latest/http_api/library_element/) |  |            |    |  |
 | [Licensing HTTP API](https://grafana.com/docs/grafana/latest/http_api/licensing/) |  |            |    |  |
 | [Other HTTP API](https://grafana.com/docs/grafana/latest/http_api/other/) |  |            |    |  |
