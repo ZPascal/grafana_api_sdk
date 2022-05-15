@@ -11,6 +11,7 @@
   * [AlertmanagerConfig](#grafana_api.model.AlertmanagerConfig)
   * [AlertmanagerReceivers](#grafana_api.model.AlertmanagerReceivers)
   * [RulerRule](#grafana_api.model.RulerRule)
+  * [UserObject](#grafana_api.model.UserObject)
 
 <a id="grafana_api.model"></a>
 
@@ -188,4 +189,21 @@ The class includes all necessary variables to generate a Ruler rule object that 
 - `labels` _dict_ - Specify labels of the rule
 - `record` _str_ - Specify recode value of the rule
 - `for_id` _int_ - Specify the id of the rule if you update an existing rule (default 0)
+
+<a id="grafana_api.model.UserObject"></a>
+
+## UserObject Objects
+
+```python
+class UserObject(NamedTuple)
+```
+
+The class includes all necessary variables to generate a User object that is necessary to update a Grafana User
+
+**Arguments**:
+
+- `email` _str_ - Specify the name of the rule
+- `name` _str_ - Specify the annotations of the rule
+- `login` _str_ - Specify the expression of the rule
+- `theme` _str_ - Specify the Grafana alert of the rule
 

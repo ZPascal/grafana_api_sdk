@@ -333,8 +333,6 @@ class AlertingNotifications:
                 .json()
             )
 
-            print(api_call)
-
             if api_call.get("message") != "Test notification sent":
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
