@@ -119,14 +119,10 @@ class AlertingTest(TestCase):
             "data": {
                 "alerts": [
                     {
-                        "labels": {
-                            "__alert_rule_namespace_uid__": "6U_QdWJnz",
-                            "__alert_rule_uid__": "Z9GoLXx7z",
-                            "alertname": "Test",
-                        },
+                        "labels": {'alertname': 'Test'},
                         "annotations": {},
                         "state": "Normal",
-                        "activeAt": "0001-01-01T00:53:28+00:53",
+                        "activeAt": "0001-01-01T00:00:00Z",
                         "value": "",
                     }
                 ]
