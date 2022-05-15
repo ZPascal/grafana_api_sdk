@@ -8,21 +8,27 @@ ERROR_MESSAGES: list = ["invalid API key"]
 class APIEndpoints(Enum):
     """The class includes all necessary API endpoint strings to connect the Grafana API"""
 
-    SEARCH = "/api/search"
-    DASHBOARDS = "/api/dashboards"
-    FOLDERS = "/api/folders"
-    LEGACY_ALERTS = "/api/alerts"
-    ALERT_NOTIFICATIONS = "/api/alert-notifications"
-    ALERTS_ALERTMANAGER = "/api/alertmanager"
-    ALERTS_PROMETHEUS = "/api/prometheus"
-    ALERTS_RULER = "/api/ruler"
-    ALERTS_TESTING = "/api/v1"
-    ALERTS_NGALERT = "/api/v1/ngalert"
-    DATASOURCES = "/api/datasources"
-    DATASOURCE_QUERY = "/api/tsdb/query"
-    SHORT_URLS = "/api/short-urls"
-    ORGANISATION = "/api/org"
-    ORGANISATIONS = "/api/orgs"
+    api_prefix = "/api"
+
+    SEARCH = f"{api_prefix}/search"
+    DASHBOARDS = f"{api_prefix}/dashboards"
+    FOLDERS = f"{api_prefix}/folders"
+    LEGACY_ALERTS = f"{api_prefix}/alerts"
+    ALERT_NOTIFICATIONS = f"{api_prefix}/alert-notifications"
+    ALERTS_ALERTMANAGER = f"{api_prefix}/alertmanager"
+    ALERTS_PROMETHEUS = f"{api_prefix}/prometheus"
+    ALERTS_RULER = f"{api_prefix}/ruler"
+    ALERTS_TESTING = f"{api_prefix}/v1"
+    ALERTS_NGALERT = f"{api_prefix}/v1/ngalert"
+    DATASOURCES = f"{api_prefix}/datasources"
+    DATASOURCE_QUERY = f"{api_prefix}/tsdb/query"
+    SHORT_URLS = f"{api_prefix}/short-urls"
+    ORGANISATION = f"{api_prefix}/org"
+    ORGANISATIONS = f"{api_prefix}/orgs"
+    USER = f"{api_prefix}/user"
+    USERS = f"{api_prefix}/users"
+    SNAPSHOTS = f"{api_prefix}/snapshots"
+    DASHBOARD_SNAPSHOTS = f"{api_prefix}/dashboard/snapshots"
 
 
 class RequestsMethods(Enum):
@@ -196,3 +202,19 @@ class RulerRule(NamedTuple):
     labels: dict
     record: str
     for_id: int = 0
+
+
+class UserObject(NamedTuple):
+    """The class includes all necessary variables to generate a User object that is necessary to update a Grafana User
+
+    Args:
+        email (str): Specify the name of the rule
+        name (str): Specify the annotations of the rule
+        login (str): Specify the expression of the rule
+        theme (str):  Specify the Grafana alert of the rule
+    """
+
+    email: str
+    name: str
+    login: str
+    theme: str

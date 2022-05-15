@@ -1,4 +1,4 @@
 requests
-pydoc-markdown==4.6.2
+pydoc-markdown==4.6.3
 mkdocs
 mkdocs-material
