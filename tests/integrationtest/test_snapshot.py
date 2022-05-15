@@ -1,5 +1,4 @@
 import os
-import json
 from unittest import TestCase
 
 from src.grafana_api.model import APIModel
