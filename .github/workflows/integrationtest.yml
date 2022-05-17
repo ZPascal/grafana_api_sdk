@@ -24,3 +24,5 @@ jobs:
           GRAFANA_TOKEN: ${{ secrets.GRAFANA_TOKEN }}
           GRAFANA_DASHBOARD_PATH: ${{ secrets.GRAFANA_DASHBOARD_PATH }}
           GRAFANA_DASHBOARD_NAME: ${{ secrets.GRAFANA_DASHBOARD_NAME }}
+          GRAFANA_USERNAME: ${{ secrets.GRAFANA_USERNAME }}
+          GRAFANA_PASSWORD: ${{ secrets.GRAFANA_PASSWORD }}
