@@ -1,4 +1,6 @@
 import logging
+import time
+
 import requests
 
 from .model import RequestsMethods, ERROR_MESSAGES, APIModel
@@ -107,7 +109,7 @@ class Api:
             api_call (any): Returns the value of the api call
         """
 
-        if type(response.json()) == dict:
+        if len(response.text) != 0 and type(response.json()) == dict:
             if (
                 "message" in response.json().keys()
                 and response.json()["message"] in ERROR_MESSAGES

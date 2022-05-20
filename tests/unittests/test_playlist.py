@@ -8,9 +8,7 @@ from src.grafana_api.playlist import Playlist
 class PlaylistTestCase(TestCase):
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_search_playlist(self, call_the_api_mock):
-        model: APIModel = APIModel(
-            host=MagicMock(), token=MagicMock()
-        )
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: Playlist = Playlist(grafana_api_model=model)
 
         mock: Mock = Mock()
@@ -22,9 +20,7 @@ class PlaylistTestCase(TestCase):
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_search_playlist_no_valid_result(self, call_the_api_mock):
-        model: APIModel = APIModel(
-            host=MagicMock(), token=MagicMock()
-        )
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: Playlist = Playlist(grafana_api_model=model)
 
         mock: Mock = Mock()
@@ -37,9 +33,7 @@ class PlaylistTestCase(TestCase):
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_search_playlist_query_defined(self, call_the_api_mock):
-        model: APIModel = APIModel(
-            host=MagicMock(), token=MagicMock()
-        )
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: Playlist = Playlist(grafana_api_model=model)
 
         mock: Mock = Mock()
@@ -52,9 +46,7 @@ class PlaylistTestCase(TestCase):
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_search_playlist_limit_defined(self, call_the_api_mock):
-        model: APIModel = APIModel(
-            host=MagicMock(), token=MagicMock()
-        )
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: Playlist = Playlist(grafana_api_model=model)
 
         mock: Mock = Mock()
@@ -67,9 +59,7 @@ class PlaylistTestCase(TestCase):
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_search_playlist_query_and_limit_defined(self, call_the_api_mock):
-        model: APIModel = APIModel(
-            host=MagicMock(), token=MagicMock()
-        )
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: Playlist = Playlist(grafana_api_model=model)
 
         mock: Mock = Mock()
@@ -82,9 +72,7 @@ class PlaylistTestCase(TestCase):
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_get_playlist(self, call_the_api_mock):
-        model: APIModel = APIModel(
-            host=MagicMock(), token=MagicMock()
-        )
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: Playlist = Playlist(grafana_api_model=model)
 
         mock: Mock = Mock()
@@ -111,9 +99,7 @@ class PlaylistTestCase(TestCase):
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_get_playlist_no_valid_result(self, call_the_api_mock):
-        model: APIModel = APIModel(
-            host=MagicMock(), token=MagicMock()
-        )
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: Playlist = Playlist(grafana_api_model=model)
 
         mock: Mock = Mock()
@@ -126,9 +112,7 @@ class PlaylistTestCase(TestCase):
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_get_playlist_items(self, call_the_api_mock):
-        model: APIModel = APIModel(
-            host=MagicMock(), token=MagicMock()
-        )
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: Playlist = Playlist(grafana_api_model=model)
 
         mock: Mock = Mock()
@@ -155,9 +139,7 @@ class PlaylistTestCase(TestCase):
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_get_playlist_items_no_valid_result(self, call_the_api_mock):
-        model: APIModel = APIModel(
-            host=MagicMock(), token=MagicMock()
-        )
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: Playlist = Playlist(grafana_api_model=model)
 
         mock: Mock = Mock()
@@ -170,9 +152,7 @@ class PlaylistTestCase(TestCase):
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_get_playlist_dashboards(self, call_the_api_mock):
-        model: APIModel = APIModel(
-            host=MagicMock(), token=MagicMock()
-        )
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: Playlist = Playlist(grafana_api_model=model)
 
         mock: Mock = Mock()
@@ -199,9 +179,7 @@ class PlaylistTestCase(TestCase):
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_get_playlist_dashboards_no_valid_result(self, call_the_api_mock):
-        model: APIModel = APIModel(
-            host=MagicMock(), token=MagicMock()
-        )
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: Playlist = Playlist(grafana_api_model=model)
 
         mock: Mock = Mock()
@@ -214,12 +192,14 @@ class PlaylistTestCase(TestCase):
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_create_playlist(self, call_the_api_mock):
-        model: APIModel = APIModel(
-            host=MagicMock(), token=MagicMock()
-        )
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: Playlist = Playlist(grafana_api_model=model)
-        playlist_items: PlaylistItemObject = PlaylistItemObject(type="test", value="test", order=1, title="test")
-        playlist_object: PlaylistObject = PlaylistObject("test", "5m", list([playlist_items]))
+        playlist_items: PlaylistItemObject = PlaylistItemObject(
+            type="test", value="test", order=1, title="test"
+        )
+        playlist_object: PlaylistObject = PlaylistObject(
+            "test", "5m", list([playlist_items])
+        )
 
         mock: Mock = Mock()
         mock.json = Mock(return_value=dict({"id": 1}))
@@ -245,12 +225,14 @@ class PlaylistTestCase(TestCase):
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_create_playlist_no_valid_result(self, call_the_api_mock):
-        model: APIModel = APIModel(
-            host=MagicMock(), token=MagicMock()
-        )
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: Playlist = Playlist(grafana_api_model=model)
-        playlist_items: PlaylistItemObject = PlaylistItemObject(type="test", value="test", order=1, title="test")
-        playlist_object: PlaylistObject = PlaylistObject("test", "5m", list([playlist_items]))
+        playlist_items: PlaylistItemObject = PlaylistItemObject(
+            type="test", value="test", order=1, title="test"
+        )
+        playlist_object: PlaylistObject = PlaylistObject(
+            "test", "5m", list([playlist_items])
+        )
 
         mock: Mock = Mock()
         mock.json = Mock(return_value=dict())
@@ -262,12 +244,14 @@ class PlaylistTestCase(TestCase):
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_update_playlist(self, call_the_api_mock):
-        model: APIModel = APIModel(
-            host=MagicMock(), token=MagicMock()
-        )
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: Playlist = Playlist(grafana_api_model=model)
-        playlist_items: PlaylistItemObject = PlaylistItemObject(type="test", value="test", order=1, title="test")
-        playlist_object: PlaylistObject = PlaylistObject("test", "5m", list([playlist_items]))
+        playlist_items: PlaylistItemObject = PlaylistItemObject(
+            type="test", value="test", order=1, title="test"
+        )
+        playlist_object: PlaylistObject = PlaylistObject(
+            "test", "5m", list([playlist_items])
+        )
 
         mock: Mock = Mock()
         mock.json = Mock(return_value=dict({"id": 1}))
@@ -293,12 +277,14 @@ class PlaylistTestCase(TestCase):
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_update_playlist_no_valid_result(self, call_the_api_mock):
-        model: APIModel = APIModel(
-            host=MagicMock(), token=MagicMock()
-        )
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: Playlist = Playlist(grafana_api_model=model)
-        playlist_items: PlaylistItemObject = PlaylistItemObject(type="test", value="test", order=1, title="test")
-        playlist_object: PlaylistObject = PlaylistObject("test", "5m", list([playlist_items]))
+        playlist_items: PlaylistItemObject = PlaylistItemObject(
+            type="test", value="test", order=1, title="test"
+        )
+        playlist_object: PlaylistObject = PlaylistObject(
+            "test", "5m", list([playlist_items])
+        )
 
         mock: Mock = Mock()
         mock.json = Mock(return_value=dict())
@@ -310,9 +296,7 @@ class PlaylistTestCase(TestCase):
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_delete_playlist(self, call_the_api_mock):
-        model: APIModel = APIModel(
-            host=MagicMock(), token=MagicMock()
-        )
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: Playlist = Playlist(grafana_api_model=model)
 
         mock: Mock = Mock()
@@ -339,9 +323,7 @@ class PlaylistTestCase(TestCase):
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_delete_playlist_no_valid_result(self, call_the_api_mock):
-        model: APIModel = APIModel(
-            host=MagicMock(), token=MagicMock()
-        )
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: Playlist = Playlist(grafana_api_model=model)
 
         mock: Mock = Mock()

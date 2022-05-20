@@ -30,6 +30,7 @@ class APIEndpoints(Enum):
     SNAPSHOTS = f"{api_prefix}/snapshots"
     DASHBOARD_SNAPSHOTS = f"{api_prefix}/dashboard/snapshots"
     PLAYLISTS = f"{api_prefix}/playlists"
+    TEAMS = f"{api_prefix}/teams"
 
 
 class RequestsMethods(Enum):
@@ -249,3 +250,17 @@ class PlaylistItemObject(NamedTuple):
     value: str
     order: int
     title: str
+
+
+class TeamObject(NamedTuple):
+    """The class includes all necessary variables to generate a team object that is necessary to create a team
+
+    Args:
+        name (str): Specify the name of the team
+        email (str): Specify the email of the team
+        org_id (int): Specify the org_id of the team
+    """
+
+    name: str
+    email: str
+    org_id: int

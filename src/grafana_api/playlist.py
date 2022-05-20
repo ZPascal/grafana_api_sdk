@@ -1,4 +1,7 @@
+import json
 import logging
+
+from requests import Response
 
 from .model import (
     APIModel,
@@ -171,12 +174,34 @@ class Playlist:
             api_call (dict): Returns the corresponding playlist
         """
 
-        # TODO Itegrationtest
-
         if playlist is not None:
+            items: list = list()
+
+            for item in playlist.items:
+                items.append(
+                    {
+                        "type": item.type,
+                        "value": item.value,
+                        "order": item.order,
+                        "title": item.title,
+                    }
+                )
+
             api_call: dict = (
                 Api(self.grafana_api_model)
-                .call_the_api(f"{APIEndpoints.PLAYLISTS.value}/", RequestsMethods.POST)
+                .call_the_api(
+                    f"{APIEndpoints.PLAYLISTS.value}",
+                    RequestsMethods.POST,
+                    json.dumps(
+                        dict(
+                            {
+                                "name": playlist.name,
+                                "interval": playlist.interval,
+                                "items": items,
+                            }
+                        )
+                    ),
+                )
                 .json()
             )
 
@@ -205,10 +230,32 @@ class Playlist:
         """
 
         if playlist_id != 0 and playlist is not None:
+            items: list = list()
+
+            for item in playlist.items:
+                items.append(
+                    {
+                        "type": item.type,
+                        "value": item.value,
+                        "order": item.order,
+                        "title": item.title,
+                    }
+                )
+
             api_call: dict = (
                 Api(self.grafana_api_model)
                 .call_the_api(
-                    f"{APIEndpoints.PLAYLISTS.value}/{playlist_id}", RequestsMethods.PUT
+                    f"{APIEndpoints.PLAYLISTS.value}/{playlist_id}",
+                    RequestsMethods.PUT,
+                    json.dumps(
+                        dict(
+                            {
+                                "name": playlist.name,
+                                "interval": playlist.interval,
+                                "items": items,
+                            }
+                        )
+                    ),
                 )
                 .json()
             )
@@ -237,17 +284,13 @@ class Playlist:
         """
 
         if playlist_id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.PLAYLISTS.value}/{playlist_id}",
-                    RequestsMethods.DELETE,
-                )
-                .json()
+            api_call: Response = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.PLAYLISTS.value}/{playlist_id}",
+                RequestsMethods.DELETE,
             )
 
-            if api_call != dict():
-                logging.error(f"Check the error: {api_call}.")
+            if api_call.status_code != 200:
+                logging.error(f"Check the error: {api_call.text}.")
                 raise Exception
             else:
                 logging.info("You successfully deleted the corresponding playlist.")

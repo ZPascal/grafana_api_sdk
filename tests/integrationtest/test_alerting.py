@@ -119,10 +119,10 @@ class AlertingTest(TestCase):
             "data": {
                 "alerts": [
                     {
-                        "labels": {'alertname': 'Test'},
+                        "labels": {"alertname": "Test"},
                         "annotations": {},
                         "state": "Normal",
-                        "activeAt": "0001-01-01T00:00:00Z",
+                        "activeAt": "0001-01-01T00:53:28+00:53",
                         "value": "",
                     }
                 ]
