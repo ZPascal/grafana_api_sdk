@@ -19,16 +19,16 @@ The following list describes the currently supported features of the Grafana API
 - [ ] [External Group Sync HTTP API](https://grafana.com/docs/grafana/latest/http_api/external_group_sync/)
 - [ ] [Fine-grained access control HTTP API](https://grafana.com/docs/grafana/latest/http_api/access_control/)
 - [ ] [HTTP Preferences API](https://grafana.com/docs/grafana/latest/http_api/preferences/)
-- [ ] [HTTP Snapshot API](https://grafana.com/docs/grafana/latest/http_api/snapshot/)
+- [x] [HTTP Snapshot API](https://grafana.com/docs/grafana/latest/http_api/snapshot/)
 - [ ] [Library Element HTTP API](https://grafana.com/docs/grafana/latest/http_api/library_element/)
 - [ ] [Licensing HTTP API](https://grafana.com/docs/grafana/latest/http_api/licensing/)
-- [ ] [Organization HTTP API](https://grafana.com/docs/grafana/latest/http_api/org/)
+- [x] [Organization HTTP API](https://grafana.com/docs/grafana/latest/http_api/org/)
 - [ ] [Other HTTP API](https://grafana.com/docs/grafana/latest/http_api/other/)
-- [ ] [Playlist HTTP API](https://grafana.com/docs/grafana/latest/http_api/playlist/)
+- [x] [Playlist HTTP API](https://grafana.com/docs/grafana/latest/http_api/playlist/)
 - [ ] [Reporting API](https://grafana.com/docs/grafana/latest/http_api/reporting/)
-- [ ] [Short URL HTTP API](https://grafana.com/docs/grafana/latest/http_api/short_url/)
-- [ ] [Team HTTP API](https://grafana.com/docs/grafana/latest/http_api/team/)
-- [ ] [User HTTP API](https://grafana.com/docs/grafana/latest/http_api/user/)
+- [x] [Short URL HTTP API](https://grafana.com/docs/grafana/latest/http_api/short_url/)
+- [x] [Team HTTP API](https://grafana.com/docs/grafana/latest/http_api/team/)
+- [x] [User HTTP API](https://grafana.com/docs/grafana/latest/http_api/user/)
 
 ## Installation
 
