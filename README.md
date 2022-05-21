@@ -125,7 +125,7 @@ In general my focus inside this project is to implement and deliver old and new 
 - Create a short url
 
 ### User
-- Search Users
+- Search users
 - Get user by id
 - Get user by username or email
 - Update the user
@@ -150,6 +150,27 @@ In general my focus inside this project is to implement and deliver old and new 
 - Delete snapshot by key
 - Delete snapshot by delete key
 
+### Team
+- Search team
+- Get team by id
+- Add team
+- Update team
+- Delete team by id
+- Get team members
+- Add team member
+- Delete team member
+- Get team preferences
+- Update team preferences
+
+### Playlist
+- Search playlist
+- Get playlist
+- Get playlist items
+- Get playlist dashboards
+- Create playlist
+- Update playlist
+- Delete playlist
+
 ## Feature timeline
 
 The following table describes the plan to implement the rest of the Grafana API functionality. Please, open an issue and vote them up, if you prefer a faster implementation of an API functionality.
@@ -163,11 +184,10 @@ The following table describes the plan to implement the rest of the Grafana API 
 | [Fine-grained access control HTTP API](https://grafana.com/docs/grafana/latest/http_api/access_control/) |  |            |    |  |
 | [HTTP Preferences API](https://grafana.com/docs/grafana/latest/http_api/preferences/) |  |            |    |  |
 | [Library Element HTTP API](https://grafana.com/docs/grafana/latest/http_api/library_element/) |  |            |    |  |
-| [Licensing HTTP API](https://grafana.com/docs/grafana/latest/http_api/licensing/) |  |            |    |  |
-| [Other HTTP API](https://grafana.com/docs/grafana/latest/http_api/other/) |  |            |    |  |
-| [Playlist HTTP API](https://grafana.com/docs/grafana/latest/http_api/playlist/) | 20 | [ZPascal](https://github.com/ZPascal) |    |  |
-| [Reporting API](https://grafana.com/docs/grafana/latest/http_api/reporting/) |  |            |    |  |
-| [Team HTTP API](https://grafana.com/docs/grafana/latest/http_api/team/) | 20 | [ZPascal](https://github.com/ZPascal) |    |  |
+| [Licensing HTTP API](https://grafana.com/docs/grafana/latest/http_api/licensing/) | 22 | [ZPascal](https://github.com/ZPascal) |    |  |
+| [Other HTTP API](https://grafana.com/docs/grafana/latest/http_api/other/) | 22 | [ZPascal](https://github.com/ZPascal) |    |  |
+| [Query History API](https://grafana.com/docs/grafana/latest/http_api/query_history/) | 22 | [ZPascal](https://github.com/ZPascal) |    |  |
+| [Reporting API](https://grafana.com/docs/grafana/latest/http_api/reporting/) | 22 | [ZPascal](https://github.com/ZPascal) |    |  |
 
 ## Installation
 
