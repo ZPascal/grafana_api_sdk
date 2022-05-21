@@ -12,6 +12,9 @@
   * [AlertmanagerReceivers](#grafana_api.model.AlertmanagerReceivers)
   * [RulerRule](#grafana_api.model.RulerRule)
   * [UserObject](#grafana_api.model.UserObject)
+  * [PlaylistObject](#grafana_api.model.PlaylistObject)
+  * [PlaylistItemObject](#grafana_api.model.PlaylistItemObject)
+  * [TeamObject](#grafana_api.model.TeamObject)
 
 <a id="grafana_api.model"></a>
 
@@ -206,4 +209,53 @@ The class includes all necessary variables to generate a User object that is nec
 - `name` _str_ - Specify the annotations of the rule
 - `login` _str_ - Specify the expression of the rule
 - `theme` _str_ - Specify the Grafana alert of the rule
+
+<a id="grafana_api.model.PlaylistObject"></a>
+
+## PlaylistObject Objects
+
+```python
+class PlaylistObject(NamedTuple)
+```
+
+The class includes all necessary variables to generate a playlist object
+
+**Arguments**:
+
+- `name` _str_ - Specify the name of the playlist
+- `interval` _str_ - Specify the interval of the playlist
+- `items` _list_ - Specify a list of PlaylistItemObjects
+
+<a id="grafana_api.model.PlaylistItemObject"></a>
+
+## PlaylistItemObject Objects
+
+```python
+class PlaylistItemObject(NamedTuple)
+```
+
+The class includes all necessary variables to generate a playlist item object that is necessary to update a playlist
+
+**Arguments**:
+
+- `type` _str_ - Specify the type of the playlist item
+- `value` _str_ - Specify the value of the playlist item
+- `order` _int_ - Specify the order of the playlist item
+- `title` _str_ - Specify the title of the playlist item
+
+<a id="grafana_api.model.TeamObject"></a>
+
+## TeamObject Objects
+
+```python
+class TeamObject(NamedTuple)
+```
+
+The class includes all necessary variables to generate a team object that is necessary to create a team
+
+**Arguments**:
+
+- `name` _str_ - Specify the name of the team
+- `email` _str_ - Specify the email of the team
+- `org_id` _int_ - Specify the org_id of the team
 
