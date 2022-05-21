@@ -29,6 +29,8 @@ class APIEndpoints(Enum):
     USERS = f"{api_prefix}/users"
     SNAPSHOTS = f"{api_prefix}/snapshots"
     DASHBOARD_SNAPSHOTS = f"{api_prefix}/dashboard/snapshots"
+    PLAYLISTS = f"{api_prefix}/playlists"
+    TEAMS = f"{api_prefix}/teams"
 
 
 class RequestsMethods(Enum):
@@ -218,3 +220,47 @@ class UserObject(NamedTuple):
     name: str
     login: str
     theme: str
+
+
+class PlaylistObject(NamedTuple):
+    """The class includes all necessary variables to generate a playlist object
+
+    Args:
+        name (str): Specify the name of the playlist
+        interval (str): Specify the interval of the playlist
+        items (list): Specify a list of PlaylistItemObjects
+    """
+
+    name: str
+    interval: str
+    items: list
+
+
+class PlaylistItemObject(NamedTuple):
+    """The class includes all necessary variables to generate a playlist item object that is necessary to update a playlist
+
+    Args:
+        type (str): Specify the type of the playlist item
+        value (str): Specify the value of the playlist item
+        order (int): Specify the order of the playlist item
+        title (str): Specify the title of the playlist item
+    """
+
+    type: str
+    value: str
+    order: int
+    title: str
+
+
+class TeamObject(NamedTuple):
+    """The class includes all necessary variables to generate a team object that is necessary to create a team
+
+    Args:
+        name (str): Specify the name of the team
+        email (str): Specify the email of the team
+        org_id (int): Specify the org_id of the team
+    """
+
+    name: str
+    email: str
+    org_id: int

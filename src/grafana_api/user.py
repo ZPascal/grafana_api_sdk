@@ -50,7 +50,7 @@ class User:
         """
 
         api_request_url: str = (
-            f"{APIEndpoints.USERS.value}?perpage={results_per_page}&page={pages}"
+            f"{APIEndpoints.USERS.value}/search?perpage={results_per_page}&page={pages}"
         )
 
         if query is not None and len(query) != 0:
