@@ -31,6 +31,7 @@ class APIEndpoints(Enum):
     DASHBOARD_SNAPSHOTS = f"{api_prefix}/dashboard/snapshots"
     PLAYLISTS = f"{api_prefix}/playlists"
     TEAMS = f"{api_prefix}/teams"
+    QUERY_HISTORY = f"{api_prefix}/query-history"
 
 
 class RequestsMethods(Enum):
@@ -264,3 +265,31 @@ class TeamObject(NamedTuple):
     name: str
     email: str
     org_id: int
+
+
+class QueryDatasourceObject(NamedTuple):
+    """The class includes all necessary variables to generate a query datasource object that is necessary to create a query history object
+
+    Args:
+        type (str): Specify the type of the datasource query
+        uid (str): Specify the uid of the datasource query
+    """
+
+    type: str
+    uid: str
+
+
+class QueryObject(NamedTuple):
+    """The class includes all necessary variables to generate a query object that is necessary to create a query history
+
+    Args:
+        ref_id (str): Specify the ref_id of the query history
+        key (str): Specify the key of the query history
+        scenario_id (str): Specify the scenario_id of the query history
+        datasource (QueryDatasourceObject): Specify the datasource of the type QueryDatasourceObject
+    """
+
+    ref_id: str
+    key: str
+    scenario_id: str
+    datasource: QueryDatasourceObject
