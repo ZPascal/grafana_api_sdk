@@ -32,6 +32,10 @@ class APIEndpoints(Enum):
     PLAYLISTS = f"{api_prefix}/playlists"
     TEAMS = f"{api_prefix}/teams"
     QUERY_HISTORY = f"{api_prefix}/query-history"
+    REPORTING = f"{api_prefix}/reports/email"
+    LICENSING = f"{api_prefix}/licensing"
+    FRONTEND = f"{api_prefix}/frontend"
+    LOGIN = f"{api_prefix}/login"
 
 
 class RequestsMethods(Enum):
