@@ -6,8 +6,8 @@ from .model import APIModel, APIEndpoints
 from .api import Api
 
 
-class Organisation:
-    """The class includes all necessary methods to access the Grafana organisation API endpoint
+class OtherHTTP:
+    """The class includes all necessary methods to access other Grafana API endpoints
 
     Args:
         grafana_api_model (APIModel): Inject a Grafana API model object that includes all necessary values and information
@@ -35,13 +35,13 @@ class Organisation:
             .json()
         )
 
-        if api_call == dict() or api_call.get("id") is None:
+        if api_call == dict():
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
             return api_call
 
-    def renew_login_session_based_on_remember_cookie(self) -> dict:
+    def renew_login_session_based_on_remember_cookie(self):
         """The method includes a functionality to renew the login session based on the remember cookie
 
         Raises:
