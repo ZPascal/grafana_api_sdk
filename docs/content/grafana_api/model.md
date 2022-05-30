@@ -15,6 +15,8 @@
   * [PlaylistObject](#grafana_api.model.PlaylistObject)
   * [PlaylistItemObject](#grafana_api.model.PlaylistItemObject)
   * [TeamObject](#grafana_api.model.TeamObject)
+  * [QueryDatasourceObject](#grafana_api.model.QueryDatasourceObject)
+  * [QueryObject](#grafana_api.model.QueryObject)
 
 <a id="grafana_api.model"></a>
 
@@ -258,4 +260,36 @@ The class includes all necessary variables to generate a team object that is nec
 - `name` _str_ - Specify the name of the team
 - `email` _str_ - Specify the email of the team
 - `org_id` _int_ - Specify the org_id of the team
+
+<a id="grafana_api.model.QueryDatasourceObject"></a>
+
+## QueryDatasourceObject Objects
+
+```python
+class QueryDatasourceObject(NamedTuple)
+```
+
+The class includes all necessary variables to generate a query datasource object that is necessary to create a query history object
+
+**Arguments**:
+
+- `type` _str_ - Specify the type of the datasource query
+- `uid` _str_ - Specify the uid of the datasource query
+
+<a id="grafana_api.model.QueryObject"></a>
+
+## QueryObject Objects
+
+```python
+class QueryObject(NamedTuple)
+```
+
+The class includes all necessary variables to generate a query object that is necessary to create a query history
+
+**Arguments**:
+
+- `ref_id` _str_ - Specify the ref_id of the query history
+- `key` _str_ - Specify the key of the query history
+- `scenario_id` _str_ - Specify the scenario_id of the query history
+- `datasource` _QueryDatasourceObject_ - Specify the datasource of the type QueryDatasourceObject
 
