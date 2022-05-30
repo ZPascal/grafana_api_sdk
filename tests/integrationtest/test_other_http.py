@@ -15,10 +15,14 @@ class OtherHTTPTest(TestCase):
     other_http: OtherHTTP = OtherHTTP(model)
 
     def test_get_frontend_settings(self):
-        self.assertEqual(False, self.other_http.get_frontend_settings().get("allowOrgCreate"))
+        self.assertEqual(
+            False, self.other_http.get_frontend_settings().get("allowOrgCreate")
+        )
 
     def test_renew_login_session_based_on_remember_cookie(self):
-        self.assertIsNone(self.other_http.renew_login_session_based_on_remember_cookie())
+        self.assertIsNone(
+            self.other_http.renew_login_session_based_on_remember_cookie()
+        )
 
     def test_get_health_status(self):
         self.assertIsNotNone(self.other_http.get_health_status())

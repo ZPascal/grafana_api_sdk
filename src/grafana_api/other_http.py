@@ -51,13 +51,13 @@ class OtherHTTP:
             None
         """
 
-        api_call: dict = (
+        api_call: str = (
             Api(self.grafana_api_model)
             .call_the_api(f"{APIEndpoints.LOGIN.value}/ping")
-            .json()
+            .text
         )
 
-        if api_call.get("message") != "Logged in":
+        if api_call != "Logged in":
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
@@ -73,7 +73,9 @@ class OtherHTTP:
             api_call (dict): Returns the health information
         """
 
-        api_call: dict = requests.get(f"{self.grafana_api_model.host}/api/health").json()
+        api_call: dict = requests.get(
+            f"{self.grafana_api_model.host}/api/health"
+        ).json()
 
         if api_call == dict() or api_call.get("commit") is None:
             logging.error(f"Check the error: {api_call}.")

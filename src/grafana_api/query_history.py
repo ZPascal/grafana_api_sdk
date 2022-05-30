@@ -46,7 +46,9 @@ class QueryHistory:
                         "refId": query.ref_id,
                         "key": query.key,
                         "scenarioId": query.scenario_id,
-                        "datasource": dict({"type": query.datasource.type, "uid": query.datasource.uid}),
+                        "datasource": dict(
+                            {"type": query.datasource.type, "uid": query.datasource.uid}
+                        ),
                     }
                 )
                 queries_json_list.append(query_json_dict)
@@ -57,7 +59,12 @@ class QueryHistory:
                     APIEndpoints.QUERY_HISTORY.value,
                     RequestsMethods.POST,
                     json.dumps(
-                        dict({"datasourceUid": datasource_uid, "queries": queries_json_list})
+                        dict(
+                            {
+                                "datasourceUid": datasource_uid,
+                                "queries": queries_json_list,
+                            }
+                        )
                     ),
                 )
                 .json()
@@ -103,7 +110,9 @@ class QueryHistory:
             datasource_uids_str: str = ""
 
             for i in range(0, len(datasource_uids)):
-                datasource_uids_str = f"{datasource_uids_str}datasourceUid='{datasource_uids[i]}'"
+                datasource_uids_str = (
+                    f"{datasource_uids_str}datasourceUid='{datasource_uids[i]}'"
+                )
 
                 if len(datasource_uids) != 1 and i != len(datasource_uids) - 1:
                     datasource_uids_str = f"{datasource_uids_str}&"

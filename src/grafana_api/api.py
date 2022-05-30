@@ -1,4 +1,5 @@
 import logging
+import json
 
 import requests
 
@@ -65,7 +66,12 @@ class Api:
             elif method.value == RequestsMethods.PUT.value:
                 if json_complete is not None:
                     return Api.__check_the_api_call_response(
-                        requests.put(api_url, data=json_complete, headers=headers, timeout=timeout)
+                        requests.put(
+                            api_url,
+                            data=json_complete,
+                            headers=headers,
+                            timeout=timeout,
+                        )
                     )
                 else:
                     logging.error("Please define the json_complete.")
@@ -73,7 +79,12 @@ class Api:
             elif method.value == RequestsMethods.POST.value:
                 if json_complete is not None:
                     return Api.__check_the_api_call_response(
-                        requests.post(api_url, data=json_complete, headers=headers, timeout=timeout)
+                        requests.post(
+                            api_url,
+                            data=json_complete,
+                            headers=headers,
+                            timeout=timeout,
+                        )
                     )
                 else:
                     logging.error("Please define the json_complete.")
@@ -81,7 +92,12 @@ class Api:
             elif method.value == RequestsMethods.PATCH.value:
                 if json_complete is not None:
                     return Api.__check_the_api_call_response(
-                        requests.patch(api_url, data=json_complete, headers=headers, timeout=timeout)
+                        requests.patch(
+                            api_url,
+                            data=json_complete,
+                            headers=headers,
+                            timeout=timeout,
+                        )
                     )
                 else:
                     logging.error("Please define the json_complete.")
@@ -110,12 +126,30 @@ class Api:
             api_call (any): Returns the value of the api call
         """
 
-        if len(response.text) != 0 and type(response.json()) == dict:
-            if (
-                "message" in response.json().keys()
-                and response.json()["message"] in ERROR_MESSAGES
-            ):
-                logging.error(response.json()["message"])
-                raise requests.exceptions.ConnectionError
+        if Api.__check_if_valid_json(response.text):
+            if len(response.text) != 0 and type(response.json()) == dict:
+                if (
+                    "message" in response.json().keys()
+                    and response.json()["message"] in ERROR_MESSAGES
+                ):
+                    logging.error(response.json()["message"])
+                    raise requests.exceptions.ConnectionError
 
         return response
+
+    @staticmethod
+    def __check_if_valid_json(response: any) -> bool:
+        """The method includes a functionality to check if the response json is valid
+
+        Args:
+            response (any): Specify the inserted response json
+
+        Returns:
+            api_call (bool): Returns if the json is valid or not
+        """
+
+        try:
+            json.loads(response)
+        except ValueError:
+            return False
+        return True

@@ -39,11 +39,8 @@ class Licensing:
             api_call (bool): Returns the result if the license is available or not
         """
 
-        api_call: Response = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                f"{APIEndpoints.LICENSING.value}/check",
-            )
+        api_call: Response = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.LICENSING.value}/check",
         )
 
         if api_call.status_code != 200:
@@ -96,16 +93,15 @@ class Licensing:
             api_call (dict): Returns the result of license refresh call
         """
 
-        api_call: Response = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                f"{APIEndpoints.LICENSING.value}/token",
-                RequestsMethods.DELETE,
-            )
+        api_call: Response = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.LICENSING.value}/token",
+            RequestsMethods.DELETE,
         )
 
         if api_call.status_code != 200:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
-            logging.info("You successfully removed the corresponding license from the database.")
+            logging.info(
+                "You successfully removed the corresponding license from the database."
+            )

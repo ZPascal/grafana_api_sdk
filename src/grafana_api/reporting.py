@@ -24,7 +24,9 @@ class Reporting:
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
-    def send_report(self, id: int, emails: str = None, use_emails_from_report: bool = None):
+    def send_report(
+        self, id: int, emails: str = None, use_emails_from_report: bool = None
+    ):
         """The method includes a functionality to send a report to a specified email addresses
 
         Args:
@@ -44,11 +46,17 @@ class Reporting:
             None
         """
 
-        if id != 0 and (emails is not None and (len(emails) != 0) or (use_emails_from_report is not None and use_emails_from_report)):
+        if id != 0 and (
+            emails is not None
+            and (len(emails) != 0)
+            or (use_emails_from_report is not None and use_emails_from_report)
+        ):
             if emails is not None and len(emails) != 0:
                 result: dict = dict({"id": id, "emails": emails})
             else:
-                result: dict = dict({"id": id, "useEmailsFromReport": use_emails_from_report})
+                result: dict = dict(
+                    {"id": id, "useEmailsFromReport": use_emails_from_report}
+                )
 
             api_call: dict = (
                 Api(self.grafana_api_model)
@@ -56,7 +64,7 @@ class Reporting:
                     APIEndpoints.REPORTING.value,
                     RequestsMethods.POST,
                     json.dumps(result),
-                    timeout=60
+                    timeout=60,
                 )
                 .json()
             )
