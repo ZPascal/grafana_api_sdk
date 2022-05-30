@@ -1,4 +1,5 @@
 import logging
+import json
 
 import requests
 
@@ -23,6 +24,7 @@ class Api:
         api_call: str,
         method: RequestsMethods = RequestsMethods.GET,
         json_complete: str = None,
+        timeout: float = None,
     ) -> any:
         """The method execute a defined API call against the Grafana endpoints
 
@@ -30,6 +32,7 @@ class Api:
             api_call (str): Specify the API call endpoint
             method (RequestsMethods): Specify the used method (default GET)
             json_complete (str): Specify the inserted JSON as string
+            timeout (float): Specify the timeout for the corresponding API call
 
         Raises:
             Exception: Unspecified error by executing the API call
@@ -58,12 +61,17 @@ class Api:
         try:
             if method.value == RequestsMethods.GET.value:
                 return Api.__check_the_api_call_response(
-                    requests.get(api_url, headers=headers)
+                    requests.get(api_url, headers=headers, timeout=timeout)
                 )
             elif method.value == RequestsMethods.PUT.value:
                 if json_complete is not None:
                     return Api.__check_the_api_call_response(
-                        requests.put(api_url, data=json_complete, headers=headers)
+                        requests.put(
+                            api_url,
+                            data=json_complete,
+                            headers=headers,
+                            timeout=timeout,
+                        )
                     )
                 else:
                     logging.error("Please define the json_complete.")
@@ -71,7 +79,12 @@ class Api:
             elif method.value == RequestsMethods.POST.value:
                 if json_complete is not None:
                     return Api.__check_the_api_call_response(
-                        requests.post(api_url, data=json_complete, headers=headers)
+                        requests.post(
+                            api_url,
+                            data=json_complete,
+                            headers=headers,
+                            timeout=timeout,
+                        )
                     )
                 else:
                     logging.error("Please define the json_complete.")
@@ -79,14 +92,19 @@ class Api:
             elif method.value == RequestsMethods.PATCH.value:
                 if json_complete is not None:
                     return Api.__check_the_api_call_response(
-                        requests.patch(api_url, data=json_complete, headers=headers)
+                        requests.patch(
+                            api_url,
+                            data=json_complete,
+                            headers=headers,
+                            timeout=timeout,
+                        )
                     )
                 else:
                     logging.error("Please define the json_complete.")
                     raise Exception
             elif method.value == RequestsMethods.DELETE.value:
                 return Api.__check_the_api_call_response(
-                    requests.delete(api_url, headers=headers)
+                    requests.delete(api_url, headers=headers, timeout=timeout)
                 )
             else:
                 logging.error("Please define a valid method.")
@@ -108,12 +126,30 @@ class Api:
             api_call (any): Returns the value of the api call
         """
 
-        if len(response.text) != 0 and type(response.json()) == dict:
-            if (
-                "message" in response.json().keys()
-                and response.json()["message"] in ERROR_MESSAGES
-            ):
-                logging.error(response.json()["message"])
-                raise requests.exceptions.ConnectionError
+        if Api.__check_if_valid_json(response.text):
+            if len(response.text) != 0 and type(response.json()) == dict:
+                if (
+                    "message" in response.json().keys()
+                    and response.json()["message"] in ERROR_MESSAGES
+                ):
+                    logging.error(response.json()["message"])
+                    raise requests.exceptions.ConnectionError
 
         return response
+
+    @staticmethod
+    def __check_if_valid_json(response: any) -> bool:
+        """The method includes a functionality to check if the response json is valid
+
+        Args:
+            response (any): Specify the inserted response json
+
+        Returns:
+            api_call (bool): Returns if the json is valid or not
+        """
+
+        try:
+            json.loads(response)
+        except ValueError:
+            return False
+        return True

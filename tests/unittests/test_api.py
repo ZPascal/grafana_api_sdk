@@ -30,7 +30,7 @@ class ApiTestCase(TestCase):
 
         mock: Mock = Mock()
         mock.json = Mock(return_value={"status": "success"})
-        mock.text = str({"status": "success"})
+        mock.text = str('{"status": "success"}')
 
         get_mock.return_value = mock
 
@@ -43,7 +43,7 @@ class ApiTestCase(TestCase):
     def test_call_the_api_get_valid(self, get_mock):
         mock: Mock = Mock()
         mock.json = Mock(return_value={"status": "success"})
-        mock.text = str({"status": "success"})
+        mock.text = str('{"status": "success"}')
 
         get_mock.return_value = mock
 
@@ -60,7 +60,7 @@ class ApiTestCase(TestCase):
     def test_call_the_api_put_valid(self, put_mock):
         mock: Mock = Mock()
         mock.json = Mock(return_value={"status": "success"})
-        mock.text = str({"status": "success"})
+        mock.text = str('{"status": "success"}')
 
         put_mock.return_value = mock
 
@@ -81,7 +81,7 @@ class ApiTestCase(TestCase):
     def test_call_the_api_post_valid(self, post_mock):
         mock: Mock = Mock()
         mock.json = Mock(return_value={"status": "success"})
-        mock.text = str({"status": "success"})
+        mock.text = str('{"status": "success"}')
 
         post_mock.return_value = mock
 
@@ -110,7 +110,7 @@ class ApiTestCase(TestCase):
     def test_call_the_api_patch_valid(self, post_mock):
         mock: Mock = Mock()
         mock.json = Mock(return_value={"status": "success"})
-        mock.text = str({"status": "success"})
+        mock.text = str('{"status": "success"}')
 
         post_mock.return_value = mock
 
@@ -139,7 +139,7 @@ class ApiTestCase(TestCase):
     def test_call_the_api_delete_valid(self, delete_mock):
         mock: Mock = Mock()
         mock.json = Mock(return_value={"message": "Deletion successful"})
-        mock.text = str({"message": "Deletion successful"})
+        mock.text = str('{"message": "Deletion successful"}')
 
         delete_mock.return_value = mock
 
@@ -157,7 +157,7 @@ class ApiTestCase(TestCase):
     def test_check_the_api_call_response(self):
         mock: Mock = Mock()
         mock.json = Mock(return_value=dict({"test": "test"}))
-        mock.text = str({"test": "test"})
+        mock.text = str('{"test": "test"}')
 
         self.assertEqual(
             dict({"test": "test"}),
@@ -167,7 +167,7 @@ class ApiTestCase(TestCase):
     def test_check_the_api_call_response_no_error_message(self):
         mock: Mock = Mock()
         mock.json = Mock(return_value=dict({"message": "test"}))
-        mock.text = str({"message": "test"})
+        mock.text = str('{"message": "test"}')
 
         self.assertEqual(
             dict({"message": "test"}),
@@ -185,7 +185,19 @@ class ApiTestCase(TestCase):
     def test_check_the_api_call_response_exception(self):
         mock: Mock = Mock()
         mock.json = Mock(return_value=dict({"message": "invalid API key"}))
-        mock.text = str({"message": "invalid API key"})
+        mock.text = str('{"message": "invalid API key"}')
 
         with self.assertRaises(requests.exceptions.ConnectionError):
             self.api._Api__check_the_api_call_response(response=mock)
+
+    @patch("src.grafana_api.api.Api._Api__check_if_valid_json")
+    def test__check_the_api_call_response_valid_json(self, check_if_valid_json_mock):
+        check_if_valid_json_mock.return_value = True
+
+        mock: Mock = Mock()
+        mock.json = Mock(return_value=str(""))
+        mock.text = str("")
+
+        self.assertEqual(
+            "", self.api._Api__check_the_api_call_response(response=mock).text
+        )
