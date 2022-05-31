@@ -171,6 +171,28 @@ In general my focus inside this project is to implement and deliver old and new 
 - Update playlist
 - Delete playlist
 
+### Reporting
+- Send report
+
+### Query History
+- Add query to history
+- Delete query inside the history
+- Update query inside the history
+- Search inside the query history
+- Star a query inside the history
+- Unstar a query inside the history
+
+### Other HTTP
+- Get frontend settings
+- Renew login session 
+- Get health status
+- Get metrics
+
+### Licensing
+- Check license availability
+- Manually force license refresh
+- Remove the license from the database
+
 ## Feature timeline
 
 The following table describes the plan to implement the rest of the Grafana API functionality. Please, open an issue and vote them up, if you prefer a faster implementation of an API functionality.
@@ -178,16 +200,12 @@ The following table describes the plan to implement the rest of the Grafana API 
 | API endpoint group | Implementation week | Maintainer | PR | State |
 |:------------------:|:-------------------:|:----------:|:--:|:-----:|
 | [Admin HTTP API](https://grafana.com/docs/grafana/latest/http_api/admin/) |  |  |    |  |
-| [Annotations HTTP API](https://grafana.com/docs/grafana/latest/http_api/annotations/) |  |            |    |  |
-| [Authentication HTTP API](https://grafana.com/docs/grafana/latest/http_api/auth/) |  |            |    |  |
-| [External Group Sync HTTP API](https://grafana.com/docs/grafana/latest/http_api/external_group_sync/) |  |            |    |  |
+| [Annotations HTTP API](https://grafana.com/docs/grafana/latest/http_api/annotations/) | 23 | [ZPascal](https://github.com/ZPascal) |    |  |
+| [Authentication HTTP API](https://grafana.com/docs/grafana/latest/http_api/auth/) | 23 | [ZPascal](https://github.com/ZPascal) |    |  |
+| [External Group Sync HTTP API](https://grafana.com/docs/grafana/latest/http_api/external_group_sync/) | 23 | [ZPascal](https://github.com/ZPascal) |    |  |
 | [Fine-grained access control HTTP API](https://grafana.com/docs/grafana/latest/http_api/access_control/) |  |            |    |  |
-| [HTTP Preferences API](https://grafana.com/docs/grafana/latest/http_api/preferences/) |  |            |    |  |
-| [Library Element HTTP API](https://grafana.com/docs/grafana/latest/http_api/library_element/) |  |            |    |  |
-| [Licensing HTTP API](https://grafana.com/docs/grafana/latest/http_api/licensing/) | 22 | [ZPascal](https://github.com/ZPascal) |    |  |
-| [Other HTTP API](https://grafana.com/docs/grafana/latest/http_api/other/) | 22 | [ZPascal](https://github.com/ZPascal) |    |  |
-| [Query History API](https://grafana.com/docs/grafana/latest/http_api/query_history/) | 22 | [ZPascal](https://github.com/ZPascal) |    |  |
-| [Reporting API](https://grafana.com/docs/grafana/latest/http_api/reporting/) | 22 | [ZPascal](https://github.com/ZPascal) |    |  |
+| [HTTP Preferences API](https://grafana.com/docs/grafana/latest/http_api/preferences/) | 23 | [ZPascal](https://github.com/ZPascal) |    |  |
+| [Library Element HTTP API](https://grafana.com/docs/grafana/latest/http_api/library_element/) |  | |    |  |
 
 ## Installation
 
