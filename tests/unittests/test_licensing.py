@@ -52,16 +52,16 @@ class LicenseTestCase(TestCase):
             licensing.manually_force_license_refresh()
 
     @patch("src.grafana_api.api.Api.call_the_api")
-    def test_remove_license_from_dashboard(self, call_the_api_mock):
+    def test_remove_license_from_database(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         licensing: Licensing = Licensing(grafana_api_model=model)
 
         call_the_api_mock.return_value.status_code = 200
 
-        self.assertEqual(None, licensing.remove_license_from_dashboard())
+        self.assertEqual(None, licensing.remove_license_from_database())
 
     @patch("src.grafana_api.api.Api.call_the_api")
-    def test_remove_license_from_dashboard_no_result(self, call_the_api_mock):
+    def test_remove_license_from_database_no_result(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         licensing: Licensing = Licensing(grafana_api_model=model)
 
@@ -71,4 +71,4 @@ class LicenseTestCase(TestCase):
         call_the_api_mock.return_value = mock
 
         with self.assertRaises(Exception):
-            licensing.remove_license_from_dashboard()
+            licensing.remove_license_from_database()
