@@ -79,7 +79,7 @@ class Licensing:
         else:
             return api_call
 
-    def remove_license_from_dashboard(self):
+    def remove_license_from_database(self):
         """The method includes a functionality to removes the license stored in the Grafana database
 
         Required Permissions:
