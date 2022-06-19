@@ -25,6 +25,7 @@ class Api:
         method: RequestsMethods = RequestsMethods.GET,
         json_complete: str = None,
         timeout: float = None,
+        org_id_header: int = None,
     ) -> any:
         """The method execute a defined API call against the Grafana endpoints
 
@@ -33,6 +34,7 @@ class Api:
             method (RequestsMethods): Specify the used method (default GET)
             json_complete (str): Specify the inserted JSON as string
             timeout (float): Specify the timeout for the corresponding API call
+            org_id_header (int): Specify the optional organization id for the corresponding API call
 
         Raises:
             Exception: Unspecified error by executing the API call
@@ -43,7 +45,7 @@ class Api:
 
         api_url: str = f"{self.grafana_api_model.host}{api_call}"
         headers: dict = dict(
-            {"Authorization": f"Bearer {self.grafana_api_model.token}"}
+            {"Authorization": f"Bearer {self.grafana_api_model.token}"},
         )
 
         if (
@@ -55,8 +57,13 @@ class Api:
             )
             api_url = api_url.replace("https://", f"https://{url}")
             api_url = api_url.replace("http://", f"http://{url}")
-        else:
-            headers["Content-Type"] = "application/json"
+            headers: dict = dict()
+
+        headers["Content-Type"] = "application/json"
+        headers["Accept"] = "application/json"
+
+        if org_id_header is not None and type(org_id_header) == int:
+            headers["X-Grafana-Org-Id"] = org_id_header
 
         try:
             if method.value == RequestsMethods.GET.value:
@@ -153,3 +160,10 @@ class Api:
         except ValueError:
             return False
         return True
+
+    @staticmethod
+    def prepare_api_string(query_string: str) -> str:
+        if len(query_string) >= 1:
+            return f"{query_string}&"
+        else:
+            return query_string

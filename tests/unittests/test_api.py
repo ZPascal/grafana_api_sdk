@@ -40,6 +40,21 @@ class ApiTestCase(TestCase):
         )
 
     @patch("requests.get")
+    def test_call_the_api_org_id(self, get_mock):
+        mock: Mock = Mock()
+        mock.json = Mock(return_value={"status": "success"})
+        mock.text = str('{"status": "success"}')
+
+        get_mock.return_value = mock
+
+        self.assertEqual(
+            "success",
+            self.api.call_the_api(api_call=MagicMock(), org_id_header=1).json()[
+                "status"
+            ],
+        )
+
+    @patch("requests.get")
     def test_call_the_api_get_valid(self, get_mock):
         mock: Mock = Mock()
         mock.json = Mock(return_value={"status": "success"})
@@ -201,3 +216,9 @@ class ApiTestCase(TestCase):
         self.assertEqual(
             "", self.api._Api__check_the_api_call_response(response=mock).text
         )
+
+    def test_prepare_api_string(self):
+        self.assertEqual("test&", self.api.prepare_api_string("test"))
+
+    def test_prepare_api_string_no_real_value(self):
+        self.assertEqual("", self.api.prepare_api_string(""))
