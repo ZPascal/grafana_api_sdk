@@ -226,6 +226,8 @@ The following table describes the plan to implement the rest of the Grafana API 
 | [Admin HTTP API](https://grafana.com/docs/grafana/latest/http_api/admin/) | 25 |  |    |  |
 | [Fine-grained access control HTTP API](https://grafana.com/docs/grafana/latest/http_api/access_control/) | 25 |            |    |  |
 | [Library Element HTTP API](https://grafana.com/docs/grafana/latest/http_api/library_element/) | 25 | |    |  |
+| [Alerting Provisioning HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/) |  | |    |  |
+| [Service Account HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/) | 25 | |    |  |
 
 ## Installation
 
