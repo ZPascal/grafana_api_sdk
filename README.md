@@ -193,19 +193,39 @@ In general my focus inside this project is to implement and deliver old and new 
 - Manually force license refresh
 - Remove the license from the database
 
+### Annotation
+- Find annotations
+- Create annotation
+- Create graphite annotation
+- Update annotation
+- Delete annotation
+- Find annotation tags
+
+### External Groups
+- Get external groups
+- Add external group
+- Remove external group
+
+### Authentication
+- Get api tokens
+- Create a api token
+- Delete a api token
+
+### Preferences
+- Get current user preferences
+- Update current user preferences
+- Get current org preferences
+- Update current org preferences
+
 ## Feature timeline
 
 The following table describes the plan to implement the rest of the Grafana API functionality. Please, open an issue and vote them up, if you prefer a faster implementation of an API functionality.
 
 | API endpoint group | Implementation week | Maintainer | PR | State |
 |:------------------:|:-------------------:|:----------:|:--:|:-----:|
-| [Admin HTTP API](https://grafana.com/docs/grafana/latest/http_api/admin/) |  |  |    |  |
-| [Annotations HTTP API](https://grafana.com/docs/grafana/latest/http_api/annotations/) | 23 | [ZPascal](https://github.com/ZPascal) |    |  |
-| [Authentication HTTP API](https://grafana.com/docs/grafana/latest/http_api/auth/) | 23 | [ZPascal](https://github.com/ZPascal) |    |  |
-| [External Group Sync HTTP API](https://grafana.com/docs/grafana/latest/http_api/external_group_sync/) | 23 | [ZPascal](https://github.com/ZPascal) |    |  |
-| [Fine-grained access control HTTP API](https://grafana.com/docs/grafana/latest/http_api/access_control/) |  |            |    |  |
-| [HTTP Preferences API](https://grafana.com/docs/grafana/latest/http_api/preferences/) | 23 | [ZPascal](https://github.com/ZPascal) |    |  |
-| [Library Element HTTP API](https://grafana.com/docs/grafana/latest/http_api/library_element/) |  | |    |  |
+| [Admin HTTP API](https://grafana.com/docs/grafana/latest/http_api/admin/) | 25 |  |    |  |
+| [Fine-grained access control HTTP API](https://grafana.com/docs/grafana/latest/http_api/access_control/) | 25 |            |    |  |
+| [Library Element HTTP API](https://grafana.com/docs/grafana/latest/http_api/library_element/) | 25 | |    |  |
 
 ## Installation
 
