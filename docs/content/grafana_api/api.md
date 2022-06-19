@@ -35,7 +35,8 @@ The class includes all necessary methods to make API calls to the Grafana API en
 def call_the_api(api_call: str,
                  method: RequestsMethods = RequestsMethods.GET,
                  json_complete: str = None,
-                 timeout: float = None) -> any
+                 timeout: float = None,
+                 org_id_header: int = None) -> any
 ```
 
 The method execute a defined API call against the Grafana endpoints
@@ -46,6 +47,7 @@ The method execute a defined API call against the Grafana endpoints
 - `method` _RequestsMethods_ - Specify the used method (default GET)
 - `json_complete` _str_ - Specify the inserted JSON as string
 - `timeout` _float_ - Specify the timeout for the corresponding API call
+- `org_id_header` _int_ - Specify the optional organization id for the corresponding API call
   
 
 **Raises**:
