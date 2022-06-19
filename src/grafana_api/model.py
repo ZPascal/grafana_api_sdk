@@ -36,6 +36,11 @@ class APIEndpoints(Enum):
     LICENSING = f"{api_prefix}/licensing"
     FRONTEND = f"{api_prefix}/frontend"
     LOGIN = f"{api_prefix}/login"
+    AUTHENTICATION = f"{api_prefix}/auth/keys"
+    EXTERNAL_GROUPS = f"{api_prefix}/teams"
+    USER_PREFERENCES = f"{api_prefix}/user/preferences"
+    ORG_PREFERENCES = f"{api_prefix}/org/preferences"
+    ANNOTATIONS = f"{api_prefix}/annotations"
 
 
 class RequestsMethods(Enum):
@@ -297,3 +302,65 @@ class QueryObject(NamedTuple):
     key: str
     scenario_id: str
     datasource: QueryDatasourceObject
+
+
+class FindAnnotationObject(NamedTuple):
+    """The class includes all necessary variables to generate a find annotation object
+
+    Args:
+        from_value (int): Specify the optional from value (default None)
+        to_value (int): Specify the optional to value (default None)
+        limit (int): Specify the optional limit (default 100)
+        alert_id (int): Specify the optional alert id (default None)
+        dashboard_id (int): Specify the optional dashboard id (default None)
+        panel_id (int): Specify the optional panel_id (default None)
+        user_id (int): Specify the optional user id (default None)
+        type (str): Specify the optional type e.g. alert or annotation (default None)
+        tags (list): Specify the optional tags (default None)
+    """
+
+    from_value: int = None
+    to_value: int = None
+    limit: int = 100
+    alert_id: int = None
+    dashboard_id: int = None
+    panel_id: int = None
+    user_id: int = None
+    type: str = None
+    tags: list = None
+
+
+class AnnotationObject(NamedTuple):
+    """The class includes all necessary variables to generate an annotation object
+
+    Args:
+        time (int): Specify the time as number in milliseconds
+        time_end (int): Specify the end time as number in milliseconds
+        tags (list): Specify the organization annotation tags from a data source that are not connected specifically to a dashboard or panel
+        text (str): Specify the annotation description message
+        dashboard_uid (str): Specify the optional dashboard_uid (default None)
+        panel_id (int): Specify the optional panel_id (default None)
+    """
+
+    time: int
+    time_end: int
+    tags: list
+    text: str
+    dashboard_uid: str = None
+    panel_id: int = None
+
+
+class AnnotationGraphiteObject(NamedTuple):
+    """The class includes all necessary variables to generate a Graphite annotation object
+
+    Args:
+        what (str): Specify the event of the annotation
+        tags (list): Specify the organization annotation tags from a data source that are not connected specifically to a dashboard or panel
+        when (int): Specify the optional time as number in milliseconds
+        data (str): Specify the optional annotation description message
+    """
+
+    what: str
+    tags: list
+    when: int = None
+    data: str = None

@@ -122,7 +122,7 @@ class AlertingTest(TestCase):
                         "labels": {"alertname": "Test"},
                         "annotations": {},
                         "state": "Normal",
-                        "activeAt": "0001-01-01T00:53:28+00:53",
+                        "activeAt": "2022-06-11T08:56:07+02:00",
                         "value": "",
                     }
                 ]

@@ -17,6 +17,9 @@
   * [TeamObject](#grafana_api.model.TeamObject)
   * [QueryDatasourceObject](#grafana_api.model.QueryDatasourceObject)
   * [QueryObject](#grafana_api.model.QueryObject)
+  * [FindAnnotationObject](#grafana_api.model.FindAnnotationObject)
+  * [AnnotationObject](#grafana_api.model.AnnotationObject)
+  * [AnnotationGraphiteObject](#grafana_api.model.AnnotationGraphiteObject)
 
 <a id="grafana_api.model"></a>
 
@@ -292,4 +295,62 @@ The class includes all necessary variables to generate a query object that is ne
 - `key` _str_ - Specify the key of the query history
 - `scenario_id` _str_ - Specify the scenario_id of the query history
 - `datasource` _QueryDatasourceObject_ - Specify the datasource of the type QueryDatasourceObject
+
+<a id="grafana_api.model.FindAnnotationObject"></a>
+
+## FindAnnotationObject Objects
+
+```python
+class FindAnnotationObject(NamedTuple)
+```
+
+The class includes all necessary variables to generate a find annotation object
+
+**Arguments**:
+
+- `from_value` _int_ - Specify the optional from value (default None)
+- `to_value` _int_ - Specify the optional to value (default None)
+- `limit` _int_ - Specify the optional limit (default 100)
+- `alert_id` _int_ - Specify the optional alert id (default None)
+- `dashboard_id` _int_ - Specify the optional dashboard id (default None)
+- `panel_id` _int_ - Specify the optional panel_id (default None)
+- `user_id` _int_ - Specify the optional user id (default None)
+- `type` _str_ - Specify the optional type e.g. alert or annotation (default None)
+- `tags` _list_ - Specify the optional tags (default None)
+
+<a id="grafana_api.model.AnnotationObject"></a>
+
+## AnnotationObject Objects
+
+```python
+class AnnotationObject(NamedTuple)
+```
+
+The class includes all necessary variables to generate an annotation object
+
+**Arguments**:
+
+- `time` _int_ - Specify the time as number in milliseconds
+- `time_end` _int_ - Specify the end time as number in milliseconds
+- `tags` _list_ - Specify the organization annotation tags from a data source that are not connected specifically to a dashboard or panel
+- `text` _str_ - Specify the annotation description message
+- `dashboard_uid` _str_ - Specify the optional dashboard_uid (default None)
+- `panel_id` _int_ - Specify the optional panel_id (default None)
+
+<a id="grafana_api.model.AnnotationGraphiteObject"></a>
+
+## AnnotationGraphiteObject Objects
+
+```python
+class AnnotationGraphiteObject(NamedTuple)
+```
+
+The class includes all necessary variables to generate a Graphite annotation object
+
+**Arguments**:
+
+- `what` _str_ - Specify the event of the annotation
+- `tags` _list_ - Specify the organization annotation tags from a data source that are not connected specifically to a dashboard or panel
+- `when` _int_ - Specify the optional time as number in milliseconds
+- `data` _str_ - Specify the optional annotation description message
 
