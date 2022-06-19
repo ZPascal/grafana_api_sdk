@@ -5,7 +5,6 @@ from src.grafana_api.model import (
     APIModel,
     AnnotationObject,
     AnnotationGraphiteObject,
-    FindAnnotationObject,
 )
 from src.grafana_api.annotations import Annotations
 
