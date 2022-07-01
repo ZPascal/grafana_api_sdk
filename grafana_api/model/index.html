@@ -1,0 +1,768 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.8">
+    
+    
+      
+        <title>Model - Grafana API SDK</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.1d29e8d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#table-of-contents" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Grafana API SDK" class="md-header__button md-logo" aria-label="Grafana API SDK" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Grafana API SDK
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Model
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ZPascal/grafana_api_sdk" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Grafana API SDK" class="md-nav__button md-logo" aria-label="Grafana API SDK" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Grafana API SDK
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ZPascal/grafana_api_sdk" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          API SDK
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API SDK" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          API SDK
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Model
+      </a>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        Api
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alerting/" class="md-nav__link">
+        Alerting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../legacy-alerting/" class="md-nav__link">
+        Legacy Alerting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alerting-notifications/" class="md-nav__link">
+        Alerting Notifications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../datasource/" class="md-nav__link">
+        Datasource
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dashboard/" class="md-nav__link">
+        Dashboard
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../folder/" class="md-nav__link">
+        Folder
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../search/" class="md-nav__link">
+        Search
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/ZPascal/grafana_api_sdk/edit/master/docs/grafana_api/model.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="table-of-contents">Table of Contents</h1>
+<ul>
+<li><a href="#grafana_api.model">grafana_api.model</a></li>
+<li><a href="#grafana_api.model.APIEndpoints">APIEndpoints</a></li>
+<li><a href="#grafana_api.model.RequestsMethods">RequestsMethods</a></li>
+<li><a href="#grafana_api.model.APIModel">APIModel</a></li>
+<li><a href="#grafana_api.model.DatasourceQuery">DatasourceQuery</a></li>
+<li><a href="#grafana_api.model.DatasourceRuleQuery">DatasourceRuleQuery</a></li>
+<li><a href="#grafana_api.model.Alert">Alert</a></li>
+<li><a href="#grafana_api.model.Silence">Silence</a></li>
+<li><a href="#grafana_api.model.AlertmanagerConfig">AlertmanagerConfig</a></li>
+<li><a href="#grafana_api.model.AlertmanagerReceivers">AlertmanagerReceivers</a></li>
+<li><a href="#grafana_api.model.RulerRule">RulerRule</a></li>
+<li><a href="#grafana_api.model.UserObject">UserObject</a></li>
+<li><a href="#grafana_api.model.PlaylistObject">PlaylistObject</a></li>
+<li><a href="#grafana_api.model.PlaylistItemObject">PlaylistItemObject</a></li>
+<li><a href="#grafana_api.model.TeamObject">TeamObject</a></li>
+<li><a href="#grafana_api.model.QueryDatasourceObject">QueryDatasourceObject</a></li>
+<li><a href="#grafana_api.model.QueryObject">QueryObject</a></li>
+<li><a href="#grafana_api.model.FindAnnotationObject">FindAnnotationObject</a></li>
+<li><a href="#grafana_api.model.AnnotationObject">AnnotationObject</a></li>
+<li><a href="#grafana_api.model.AnnotationGraphiteObject">AnnotationGraphiteObject</a></li>
+<li><a href="#grafana_api.model.GlobalUser">GlobalUser</a></li>
+</ul>
+<p><a id="grafana_api.model"></a></p>
+<h1 id="grafana_apimodel">grafana_api.model</h1>
+<p><a id="grafana_api.model.APIEndpoints"></a></p>
+<h2 id="apiendpoints-objects">APIEndpoints Objects</h2>
+<pre><code class="language-python">class APIEndpoints(Enum)
+</code></pre>
+<p>The class includes all necessary API endpoint strings to connect the Grafana API</p>
+<p><a id="grafana_api.model.RequestsMethods"></a></p>
+<h2 id="requestsmethods-objects">RequestsMethods Objects</h2>
+<pre><code class="language-python">class RequestsMethods(Enum)
+</code></pre>
+<p>The class includes all necessary methods to establish an HTTP/ HTTPS connection to the Grafana API endpoints</p>
+<p><a id="grafana_api.model.APIModel"></a></p>
+<h2 id="apimodel-objects">APIModel Objects</h2>
+<pre><code class="language-python">class APIModel(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to establish a connection to the Grafana API endpoints</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>host</code> <em>str</em> - Specify the host of the Grafana system</li>
+<li><code>token</code> <em>str</em> - Specify the access token of the Grafana system</li>
+<li><code>username</code> <em>str</em> - Specify the username of the Grafana system</li>
+<li><code>password</code> <em>str</em> - Specify the password of the Grafana system</li>
+</ul>
+<p><a id="grafana_api.model.DatasourceQuery"></a></p>
+<h2 id="datasourcequery-objects">DatasourceQuery Objects</h2>
+<pre><code class="language-python">class DatasourceQuery(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to specify a query for the datasource search endpoint</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>datasource_id</code> <em>int</em> - Specify the id of the data source</li>
+<li><code>raw_sql</code> <em>str</em> - Specify the raw SQL string to search inside the Grafana system</li>
+<li><code>ref_id</code> <em>str</em> - Specify a reference id of the search command (default A)</li>
+<li><code>interval_ms</code> <em>int</em> - Specify the time interval in milliseconds of output format (default 1000)</li>
+<li><code>max_data_points</code> <em>int</em> - Specify maximum amount of data points that dashboard panel can render (default 100)</li>
+<li><code>output_format</code> <em>str</em> - Specify the output format of the query (default time_series)</li>
+</ul>
+<p><a id="grafana_api.model.DatasourceRuleQuery"></a></p>
+<h2 id="datasourcerulequery-objects">DatasourceRuleQuery Objects</h2>
+<pre><code class="language-python">class DatasourceRuleQuery(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to specify a query for the datasource rule search endpoint</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>datasource_uid</code> <em>str</em> - Specify the uid of the data source</li>
+<li><code>model</code> <em>dict</em> - Specify the model of the search command</li>
+<li><code>query_type</code> <em>str</em> - Specify the query time of the search command</li>
+<li><code>ref_id</code> <em>str</em> - Specify a reference id of the search command</li>
+<li><code>relative_time_range</code> <em>dict</em> - Specify the related time range of the search command</li>
+</ul>
+<p><a id="grafana_api.model.Alert"></a></p>
+<h2 id="alert-objects">Alert Objects</h2>
+<pre><code class="language-python">class Alert(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to generate an alert object that is necessary to communicate with the Grafana alert endpoint</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>starts_at</code> <em>str</em> - Specify the start date of the alert</li>
+<li><code>ends_at</code> <em>str</em> - Specify end date of the alert</li>
+<li><code>annotations</code> <em>dict</em> - Specify the annotations of the alert</li>
+<li><code>generator_url</code> <em>str</em> - Specify the url of the generator endpoint</li>
+<li><code>labels</code> <em>dict</em> - Specify labels of the alert</li>
+</ul>
+<p><a id="grafana_api.model.Silence"></a></p>
+<h2 id="silence-objects">Silence Objects</h2>
+<pre><code class="language-python">class Silence(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to generate a silence object that is necessary to communicate with the Grafana silence endpoint</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>starts_at</code> <em>str</em> - Specify the start date of the silence</li>
+<li><code>created_by</code> <em>str</em> - Specify the name of the silence creator</li>
+<li><code>ends_at</code> <em>str</em> - Specify end date of the silence</li>
+<li><code>comment</code> <em>str</em> - Specify a custom comment for the silence</li>
+<li><code>id</code> <em>str</em> - Specify an id for the silence</li>
+<li><code>matchers</code> <em>dict</em> - Specify matchers for the silence</li>
+</ul>
+<p><a id="grafana_api.model.AlertmanagerConfig"></a></p>
+<h2 id="alertmanagerconfig-objects">AlertmanagerConfig Objects</h2>
+<pre><code class="language-python">class AlertmanagerConfig(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to generate an Alertmanager config object that is necessary to communicate and set up the Grafana Alertmanager endpoint</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>global_config</code> <em>dict</em> - Specify the global config of the Alertmanager</li>
+<li><code>inhibit_rules</code> <em>list</em> - Specify the inhibit rules of the Alertmanager</li>
+<li><code>mute_time_intervals</code> <em>list</em> - Specify the mute time intervals of the Alertmanager</li>
+<li><code>receivers</code> <em>list</em> - Specify the receivers of the Alertmanager</li>
+<li><code>route</code> <em>dict</em> - Specify the route of the Alertmanager</li>
+<li><code>templates</code> <em>list</em> - Specify an Alertmanager template</li>
+</ul>
+<p><a id="grafana_api.model.AlertmanagerReceivers"></a></p>
+<h2 id="alertmanagerreceivers-objects">AlertmanagerReceivers Objects</h2>
+<pre><code class="language-python">class AlertmanagerReceivers(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to generate an Alertmanager receivers object that is necessary to communicate and set up the Grafana Alertmanager receivers endpoint</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>name</code> <em>str</em> - Specify the name of the receiver</li>
+<li><code>email_configs</code> <em>list</em> - Specify the email configuration of the receiver's</li>
+<li><code>grafana_managed_receiver_configs</code> <em>list</em> - Specify the Grafana managed receiver configuration of the receiver's</li>
+<li><code>opsgenie_configs</code> <em>list</em> - Specify the ops genie configuration of the receiver's</li>
+<li><code>pagerduty_configs</code> <em>dict</em> - Specify the pager duty configuration of the receiver's</li>
+<li><code>pushover_configs</code> <em>list</em> - Specify the push over configuration of the receiver's</li>
+<li><code>slack_configs</code> <em>list</em> - Specify the Slack configuration of the receiver's</li>
+<li><code>victorops_configs</code> <em>list</em> - Specify the victor ops configuration of the receiver's</li>
+<li><code>webhook_configs</code> <em>list</em> - Specify the webhook configuration of the receiver's</li>
+<li><code>wechat_configs</code> <em>list</em> - Specify the wechaty configuration of the receiver's</li>
+</ul>
+<p><a id="grafana_api.model.RulerRule"></a></p>
+<h2 id="rulerrule-objects">RulerRule Objects</h2>
+<pre><code class="language-python">class RulerRule(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to generate a Ruler rule object that is necessary to communicate and set up a Grafana Ruler rule</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>alert</code> <em>str</em> - Specify the name of the rule</li>
+<li><code>annotations</code> <em>dict</em> - Specify the annotations of the rule</li>
+<li><code>expr</code> <em>str</em> - Specify the expression of the rule</li>
+<li><code>grafana_alert</code> <em>dict</em> - Specify the Grafana alert of the rule</li>
+<li><code>labels</code> <em>dict</em> - Specify labels of the rule</li>
+<li><code>record</code> <em>str</em> - Specify recode value of the rule</li>
+<li><code>for_id</code> <em>int</em> - Specify the id of the rule if you update an existing rule (default 0)</li>
+</ul>
+<p><a id="grafana_api.model.UserObject"></a></p>
+<h2 id="userobject-objects">UserObject Objects</h2>
+<pre><code class="language-python">class UserObject(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to generate a User object that is necessary to update a Grafana User</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>email</code> <em>str</em> - Specify the name of the rule</li>
+<li><code>name</code> <em>str</em> - Specify the annotations of the rule</li>
+<li><code>login</code> <em>str</em> - Specify the expression of the rule</li>
+<li><code>theme</code> <em>str</em> - Specify the Grafana alert of the rule</li>
+</ul>
+<p><a id="grafana_api.model.PlaylistObject"></a></p>
+<h2 id="playlistobject-objects">PlaylistObject Objects</h2>
+<pre><code class="language-python">class PlaylistObject(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to generate a playlist object</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>name</code> <em>str</em> - Specify the name of the playlist</li>
+<li><code>interval</code> <em>str</em> - Specify the interval of the playlist</li>
+<li><code>items</code> <em>list</em> - Specify a list of PlaylistItemObjects</li>
+</ul>
+<p><a id="grafana_api.model.PlaylistItemObject"></a></p>
+<h2 id="playlistitemobject-objects">PlaylistItemObject Objects</h2>
+<pre><code class="language-python">class PlaylistItemObject(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to generate a playlist item object that is necessary to update a playlist</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>type</code> <em>str</em> - Specify the type of the playlist item</li>
+<li><code>value</code> <em>str</em> - Specify the value of the playlist item</li>
+<li><code>order</code> <em>int</em> - Specify the order of the playlist item</li>
+<li><code>title</code> <em>str</em> - Specify the title of the playlist item</li>
+</ul>
+<p><a id="grafana_api.model.TeamObject"></a></p>
+<h2 id="teamobject-objects">TeamObject Objects</h2>
+<pre><code class="language-python">class TeamObject(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to generate a team object that is necessary to create a team</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>name</code> <em>str</em> - Specify the name of the team</li>
+<li><code>email</code> <em>str</em> - Specify the email of the team</li>
+<li><code>org_id</code> <em>int</em> - Specify the org_id of the team</li>
+</ul>
+<p><a id="grafana_api.model.QueryDatasourceObject"></a></p>
+<h2 id="querydatasourceobject-objects">QueryDatasourceObject Objects</h2>
+<pre><code class="language-python">class QueryDatasourceObject(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to generate a query datasource object that is necessary to create a query history object</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>type</code> <em>str</em> - Specify the type of the datasource query</li>
+<li><code>uid</code> <em>str</em> - Specify the uid of the datasource query</li>
+</ul>
+<p><a id="grafana_api.model.QueryObject"></a></p>
+<h2 id="queryobject-objects">QueryObject Objects</h2>
+<pre><code class="language-python">class QueryObject(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to generate a query object that is necessary to create a query history</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>ref_id</code> <em>str</em> - Specify the ref_id of the query history</li>
+<li><code>key</code> <em>str</em> - Specify the key of the query history</li>
+<li><code>scenario_id</code> <em>str</em> - Specify the scenario_id of the query history</li>
+<li><code>datasource</code> <em>QueryDatasourceObject</em> - Specify the datasource of the type QueryDatasourceObject</li>
+</ul>
+<p><a id="grafana_api.model.FindAnnotationObject"></a></p>
+<h2 id="findannotationobject-objects">FindAnnotationObject Objects</h2>
+<pre><code class="language-python">class FindAnnotationObject(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to generate a find annotation object</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>from_value</code> <em>int</em> - Specify the optional from value (default None)</li>
+<li><code>to_value</code> <em>int</em> - Specify the optional to value (default None)</li>
+<li><code>limit</code> <em>int</em> - Specify the optional limit (default 100)</li>
+<li><code>alert_id</code> <em>int</em> - Specify the optional alert id (default None)</li>
+<li><code>dashboard_id</code> <em>int</em> - Specify the optional dashboard id (default None)</li>
+<li><code>panel_id</code> <em>int</em> - Specify the optional panel_id (default None)</li>
+<li><code>user_id</code> <em>int</em> - Specify the optional user id (default None)</li>
+<li><code>type</code> <em>str</em> - Specify the optional type e.g. alert or annotation (default None)</li>
+<li><code>tags</code> <em>list</em> - Specify the optional tags (default None)</li>
+</ul>
+<p><a id="grafana_api.model.AnnotationObject"></a></p>
+<h2 id="annotationobject-objects">AnnotationObject Objects</h2>
+<pre><code class="language-python">class AnnotationObject(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to generate an annotation object</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>time</code> <em>int</em> - Specify the time as number in milliseconds</li>
+<li><code>time_end</code> <em>int</em> - Specify the end time as number in milliseconds</li>
+<li><code>tags</code> <em>list</em> - Specify the organization annotation tags from a data source that are not connected specifically to a dashboard or panel</li>
+<li><code>text</code> <em>str</em> - Specify the annotation description message</li>
+<li><code>dashboard_uid</code> <em>str</em> - Specify the optional dashboard_uid (default None)</li>
+<li><code>panel_id</code> <em>int</em> - Specify the optional panel_id (default None)</li>
+</ul>
+<p><a id="grafana_api.model.AnnotationGraphiteObject"></a></p>
+<h2 id="annotationgraphiteobject-objects">AnnotationGraphiteObject Objects</h2>
+<pre><code class="language-python">class AnnotationGraphiteObject(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to generate a Graphite annotation object</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>what</code> <em>str</em> - Specify the event of the annotation</li>
+<li><code>tags</code> <em>list</em> - Specify the organization annotation tags from a data source that are not connected specifically to a dashboard or panel</li>
+<li><code>when</code> <em>int</em> - Specify the optional time as number in milliseconds</li>
+<li><code>data</code> <em>str</em> - Specify the optional annotation description message</li>
+</ul>
+<p><a id="grafana_api.model.GlobalUser"></a></p>
+<h2 id="globaluser-objects">GlobalUser Objects</h2>
+<pre><code class="language-python">class GlobalUser(NamedTuple)
+</code></pre>
+<p>The class includes all necessary variables to generate a global user object</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>name</code> <em>str</em> - Specify the name of the user</li>
+<li><code>email</code> <em>str</em> - Specify the email of the user</li>
+<li><code>login</code> <em>str</em> - Specify the login type of the user</li>
+<li><code>password</code> <em>str</em> - Specify the password of the user</li>
+<li><code>org_id</code> <em>int</em> - Specify the optional org id of the user (default None)</li>
+</ul>
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../.." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Home
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../api/" class="md-footer__link md-footer__link--next" aria-label="Next: Api" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Api
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.0238f547.min.js"></script>
+      
+    
+  </body>
+</html>
