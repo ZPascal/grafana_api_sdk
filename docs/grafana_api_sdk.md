@@ -5,7 +5,7 @@ The repository includes an SDK for the Grafana API. It's possible to communicate
 
 The following list describes the currently supported features of the Grafana API functionality.
 
-- [ ] [Admin HTTP API](https://grafana.com/docs/grafana/latest/http_api/admin/)
+- [x] [Admin HTTP API](https://grafana.com/docs/grafana/latest/http_api/admin/)
 - [x] [Legacy Alerting HTTP API](https://grafana.com/docs/grafana/latest/http_api/alerting/)
 - [x] [Alerting HTTP API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/grafana/grafana/main/pkg/services/ngalert/api/tooling/post.json)
 - [x] [Alerting Notification Channels HTTP API](https://grafana.com/docs/grafana/latest/http_api/alerting_notification_channels/) 

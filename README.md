@@ -162,14 +162,23 @@ In general my focus inside this project is to implement and deliver old and new 
 - Get team preferences
 - Update team preferences
 
+### Legacy Playlist
+- Search playlist
+- Get playlist by id
+- Get playlist items by id
+- Get playlist dashboards by id
+- Create playlist
+- Update playlist by id
+- Delete playlist by id
+
 ### Playlist
 - Search playlist
-- Get playlist
-- Get playlist items
-- Get playlist dashboards
+- Get playlist by uid
+- Get playlist items by uid
+- Get playlist dashboards by uid
 - Create playlist
-- Update playlist
-- Delete playlist
+- Update playlist by uid
+- Delete playlist by uid
 
 ### Reporting
 - Send report
@@ -217,17 +226,38 @@ In general my focus inside this project is to implement and deliver old and new 
 - Get current org preferences
 - Update current org preferences
 
+### Admin
+- Get settings
+- Update settings
+- Get stats
+- Get preview report
+- Create global user
+- Update user password
+- Update user permissions
+- Delete global user
+- Pause all alerts
+- Unpause all alerts
+- Get user auth tokens
+- Revoke user auth token
+- Logout user
+- Reload dashboard provisioning configuration
+- Reload datasource provisioning configuration
+- Reload plugins provisioning configuration
+- Reload notifications provisioning configuration
+- Reload access controls provisioning configuration
+- Reload LDAP provisioning configuration
+- Rotate data encryption keys
+
 ## Feature timeline
 
 The following table describes the plan to implement the rest of the Grafana API functionality. Please, open an issue and vote them up, if you prefer a faster implementation of an API functionality.
 
 | API endpoint group | Implementation week | Maintainer | PR | State |
 |:------------------:|:-------------------:|:----------:|:--:|:-----:|
-| [Admin HTTP API](https://grafana.com/docs/grafana/latest/http_api/admin/) | 25 |  |    |  |
-| [Fine-grained access control HTTP API](https://grafana.com/docs/grafana/latest/http_api/access_control/) | 25 |            |    |  |
-| [Library Element HTTP API](https://grafana.com/docs/grafana/latest/http_api/library_element/) | 25 | |    |  |
-| [Alerting Provisioning HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/) |  | |    |  |
-| [Service Account HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/) | 25 | |    |  |
+| [Fine-grained access control HTTP API](https://grafana.com/docs/grafana/latest/http_api/access_control/) | 28 |            |    |  |
+| [Library Element HTTP API](https://grafana.com/docs/grafana/latest/http_api/library_element/) | 30 | |    |  |
+| [Alerting Provisioning HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/) | 31 | |    |  |
+| [Service Account HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/) | 28 | |    |  |
 
 ## Installation
 
