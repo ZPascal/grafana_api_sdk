@@ -64,11 +64,11 @@ class Playlist:
         else:
             return api_call
 
-    def get_playlist(self, playlist_id: int) -> dict:
-        """The method includes a functionality to get the playlist specified by the playlist_id
+    def get_playlist(self, playlist_uid: str) -> dict:
+        """The method includes a functionality to get the playlist specified by the playlist_uid
 
          Args:
-            playlist_id (int): Specify the playlist_id
+            playlist_uid (str): Specify the playlist_uid
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -78,11 +78,11 @@ class Playlist:
             api_call (dict): Returns the corresponding playlist
         """
 
-        if playlist_id != 0:
+        if len(playlist_uid) != 0:
             api_call: dict = (
                 Api(self.grafana_api_model)
                 .call_the_api(
-                    f"{APIEndpoints.PLAYLISTS.value}/{playlist_id}",
+                    f"{APIEndpoints.PLAYLISTS.value}/{playlist_uid}",
                 )
                 .json()
             )
@@ -93,14 +93,14 @@ class Playlist:
             else:
                 return api_call
         else:
-            logging.error("There is no playlist_id defined.")
+            logging.error("There is no playlist_uid defined.")
             raise ValueError
 
-    def get_playlist_items(self, playlist_id: int) -> list:
-        """The method includes a functionality to get the playlist items specified by the playlist_id
+    def get_playlist_items(self, playlist_uid: str) -> list:
+        """The method includes a functionality to get the playlist items specified by the playlist_uid
 
          Args:
-            playlist_id (int): Specify the playlist_id
+            playlist_uid (str): Specify the playlist_uid
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -110,11 +110,11 @@ class Playlist:
             api_call (dict): Returns the corresponding playlist items
         """
 
-        if playlist_id != 0:
+        if len(playlist_uid) != 0:
             api_call: list = (
                 Api(self.grafana_api_model)
                 .call_the_api(
-                    f"{APIEndpoints.PLAYLISTS.value}/{playlist_id}/items",
+                    f"{APIEndpoints.PLAYLISTS.value}/{playlist_uid}/items",
                 )
                 .json()
             )
@@ -125,14 +125,14 @@ class Playlist:
             else:
                 return api_call
         else:
-            logging.error("There is no playlist_id defined.")
+            logging.error("There is no playlist_uid defined.")
             raise ValueError
 
-    def get_playlist_dashboards(self, playlist_id: int) -> list:
-        """The method includes a functionality to get the playlist dashboards specified by the playlist_id
+    def get_playlist_dashboards(self, playlist_uid: str) -> list:
+        """The method includes a functionality to get the playlist dashboards specified by the playlist_uid
 
          Args:
-            playlist_id (int): Specify the playlist_id
+            playlist_uid (str): Specify the playlist_uid
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -142,11 +142,11 @@ class Playlist:
             api_call (dict): Returns the corresponding playlist dashboards
         """
 
-        if playlist_id != 0:
+        if len(playlist_uid) != 0:
             api_call: list = (
                 Api(self.grafana_api_model)
                 .call_the_api(
-                    f"{APIEndpoints.PLAYLISTS.value}/{playlist_id}/dashboards",
+                    f"{APIEndpoints.PLAYLISTS.value}/{playlist_uid}/dashboards",
                 )
                 .json()
             )
@@ -157,7 +157,7 @@ class Playlist:
             else:
                 return api_call
         else:
-            logging.error("There is no playlist_id defined.")
+            logging.error("There is no playlist_uid defined.")
             raise ValueError
 
     def create_playlist(self, playlist: PlaylistObject) -> dict:
@@ -214,11 +214,11 @@ class Playlist:
             logging.error("There is no playlist object defined.")
             raise ValueError
 
-    def update_playlist(self, playlist_id: int, playlist: PlaylistObject) -> dict:
-        """The method includes a functionality to update a playlist specified by the playlist object and playlist_id
+    def update_playlist(self, playlist_uid: str, playlist: PlaylistObject) -> dict:
+        """The method includes a functionality to update a playlist specified by the playlist object and playlist_uid
 
          Args:
-            playlist_id (int): Specify the playlist_id
+            playlist_uid (str): Specify the playlist_uid
             playlist (PlaylistObject): Specify the playlist object
 
         Raises:
@@ -229,7 +229,7 @@ class Playlist:
             api_call (dict): Returns the corresponding playlist
         """
 
-        if playlist_id != 0 and playlist is not None:
+        if len(playlist_uid) != 0 and playlist is not None:
             items: list = list()
 
             for item in playlist.items:
@@ -245,7 +245,7 @@ class Playlist:
             api_call: dict = (
                 Api(self.grafana_api_model)
                 .call_the_api(
-                    f"{APIEndpoints.PLAYLISTS.value}/{playlist_id}",
+                    f"{APIEndpoints.PLAYLISTS.value}/{playlist_uid}",
                     RequestsMethods.PUT,
                     json.dumps(
                         dict(
@@ -266,14 +266,14 @@ class Playlist:
             else:
                 return api_call
         else:
-            logging.error("There is no playlist_id or playlist object defined.")
+            logging.error("There is no playlist_uid or playlist object defined.")
             raise ValueError
 
-    def delete_playlist(self, playlist_id: int):
-        """The method includes a functionality to delete a playlist specified by the playlist_id
+    def delete_playlist(self, playlist_uid: str):
+        """The method includes a functionality to delete a playlist specified by the playlist_uid
 
          Args:
-            playlist_id (int): Specify the playlist_id
+            playlist_uid (str): Specify the playlist_uid
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -283,9 +283,9 @@ class Playlist:
             None
         """
 
-        if playlist_id != 0:
+        if len(playlist_uid) != 0:
             api_call: Response = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.PLAYLISTS.value}/{playlist_id}",
+                f"{APIEndpoints.PLAYLISTS.value}/{playlist_uid}",
                 RequestsMethods.DELETE,
             )
 
@@ -295,5 +295,5 @@ class Playlist:
             else:
                 logging.info("You successfully deleted the corresponding playlist.")
         else:
-            logging.error("There is no playlist_id object defined.")
+            logging.error("There is no playlist_uid object defined.")
             raise ValueError
