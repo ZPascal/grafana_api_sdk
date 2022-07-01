@@ -17,7 +17,7 @@ class AnnotationsTest(TestCase):
     annotations: Annotations = Annotations(model)
 
     def test_a_find_annotations(self):
-        self.assertEqual(10, self.annotations.find_annotations()[0].get("id"))
+        self.assertEqual(56, self.annotations.find_annotations()[0].get("id"))
 
     def test_b_create_annotation(self):
         annotations: AnnotationObject = AnnotationObject(

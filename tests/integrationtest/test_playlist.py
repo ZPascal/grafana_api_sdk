@@ -16,13 +16,13 @@ class PlaylistTest(TestCase):
         self.assertEqual("Test", self.playlist.search_playlist()[0].get("name"))
 
     def test_get_playlist(self):
-        self.assertEqual("Test", self.playlist.get_playlist(1).get("name"))
+        self.assertEqual("Test", self.playlist.get_playlist("ueqwRg6nk").get("name"))
 
     def test_get_playlist_items(self):
-        self.assertEqual("152", self.playlist.get_playlist_items(1)[0].get("value"))
+        self.assertEqual("152", self.playlist.get_playlist_items("ueqwRg6nk")[0].get("value"))
 
     def test_get_playlist_dashboards(self):
-        self.assertEqual(152, self.playlist.get_playlist_dashboards(1)[0].get("id"))
+        self.assertEqual(152, self.playlist.get_playlist_dashboards("ueqwRg6nk")[0].get("id"))
 
     def test_a_create_playlist(self):
         playlist_item: PlaylistItemObject = PlaylistItemObject(
@@ -48,13 +48,14 @@ class PlaylistTest(TestCase):
         playlist_object: PlaylistObject = PlaylistObject(
             "Test2", "5m", list([playlist_item])
         )
+
         self.playlist.update_playlist(
-            self.playlist.search_playlist()[1].get("id"), playlist_object
+            self.playlist.search_playlist()[1].get("uid"), playlist_object
         )
 
         self.assertEqual("Test2", self.playlist.search_playlist()[1].get("name"))
 
     def test_c_delete_playlist(self):
-        self.playlist.delete_playlist(self.playlist.search_playlist()[1].get("id"))
+        self.playlist.delete_playlist(self.playlist.search_playlist()[1].get("uid"))
 
         self.assertEqual(1, len(self.playlist.search_playlist()))

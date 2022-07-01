@@ -20,6 +20,7 @@
   * [FindAnnotationObject](#grafana_api.model.FindAnnotationObject)
   * [AnnotationObject](#grafana_api.model.AnnotationObject)
   * [AnnotationGraphiteObject](#grafana_api.model.AnnotationGraphiteObject)
+  * [GlobalUser](#grafana_api.model.GlobalUser)
 
 <a id="grafana_api.model"></a>
 
@@ -353,4 +354,22 @@ The class includes all necessary variables to generate a Graphite annotation obj
 - `tags` _list_ - Specify the organization annotation tags from a data source that are not connected specifically to a dashboard or panel
 - `when` _int_ - Specify the optional time as number in milliseconds
 - `data` _str_ - Specify the optional annotation description message
+
+<a id="grafana_api.model.GlobalUser"></a>
+
+## GlobalUser Objects
+
+```python
+class GlobalUser(NamedTuple)
+```
+
+The class includes all necessary variables to generate a global user object
+
+**Arguments**:
+
+- `name` _str_ - Specify the name of the user
+- `email` _str_ - Specify the email of the user
+- `login` _str_ - Specify the login type of the user
+- `password` _str_ - Specify the password of the user
+- `org_id` _int_ - Specify the optional org id of the user (default None)
 

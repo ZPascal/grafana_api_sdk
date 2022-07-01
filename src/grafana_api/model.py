@@ -41,6 +41,7 @@ class APIEndpoints(Enum):
     USER_PREFERENCES = f"{api_prefix}/user/preferences"
     ORG_PREFERENCES = f"{api_prefix}/org/preferences"
     ANNOTATIONS = f"{api_prefix}/annotations"
+    ADMIN = f"{api_prefix}/admin"
 
 
 class RequestsMethods(Enum):
@@ -364,3 +365,21 @@ class AnnotationGraphiteObject(NamedTuple):
     tags: list
     when: int = None
     data: str = None
+
+
+class GlobalUser(NamedTuple):
+    """The class includes all necessary variables to generate a global user object
+
+    Args:
+        name (str): Specify the name of the user
+        email (str): Specify the email of the user
+        login (str): Specify the login type of the user
+        password (str): Specify the password of the user
+        org_id (int): Specify the optional org id of the user (default None)
+    """
+
+    name: str
+    email: str
+    login: str
+    password: str
+    org_id: int = None
