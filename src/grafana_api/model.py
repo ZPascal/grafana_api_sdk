@@ -42,6 +42,7 @@ class APIEndpoints(Enum):
     ORG_PREFERENCES = f"{api_prefix}/org/preferences"
     ANNOTATIONS = f"{api_prefix}/annotations"
     ADMIN = f"{api_prefix}/admin"
+    SERVICE_ACCOUNTS = f"{api_prefix}/serviceaccounts"
 
 
 class RequestsMethods(Enum):
