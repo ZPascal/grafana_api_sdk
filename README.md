@@ -248,6 +248,15 @@ In general my focus inside this project is to implement and deliver old and new 
 - Reload LDAP provisioning configuration
 - Rotate data encryption keys
 
+### Service Account
+- Search service accounts
+- Create a service account
+- Get service account by id
+- Update a service account
+- Get service account token by id
+- Create service account token by id
+- Delete service account by id
+
 ## Feature timeline
 
 The following table describes the plan to implement the rest of the Grafana API functionality. Please, open an issue and vote them up, if you prefer a faster implementation of an API functionality.
