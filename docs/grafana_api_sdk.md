@@ -30,7 +30,7 @@ The following list describes the currently supported features of the Grafana API
 - [x] [Short URL HTTP API](https://grafana.com/docs/grafana/latest/http_api/short_url/)
 - [x] [Team HTTP API](https://grafana.com/docs/grafana/latest/http_api/team/)
 - [x] [User HTTP API](https://grafana.com/docs/grafana/latest/http_api/user/)
-- [ ] [Service Account HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/)
+- [x] [Service Account HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/)
 - [ ] [Alerting Provisioning HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/)
 
 ## Installation
