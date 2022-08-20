@@ -52,8 +52,6 @@ class ServiceAccount:
             .json()
         )
 
-        print(api_call)
-
         if api_call == dict() or api_call.get("totalCount") is None:
             logging.error(f"Check the error: {api_call}.")
             raise Exception

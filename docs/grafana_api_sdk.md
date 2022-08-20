@@ -17,10 +17,9 @@ The following list describes the currently supported features of the Grafana API
 - [x] [Folder Permissions HTTP API](https://grafana.com/docs/grafana/v7.5/http_api/folder_permissions/)
 - [x] [Search HTTP API](https://grafana.com/docs/grafana/v7.5/http_api/folder_dashboard_search/)
 - [x] [External Group Sync HTTP API](https://grafana.com/docs/grafana/latest/http_api/external_group_sync/)
-- [ ] [Access control HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/access_control/)
+- [x] [Access control HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/access_control/)
 - [x] [HTTP Preferences API](https://grafana.com/docs/grafana/latest/http_api/preferences/)
 - [x] [HTTP Snapshot API](https://grafana.com/docs/grafana/latest/http_api/snapshot/)
-- [ ] [Library Element HTTP API](https://grafana.com/docs/grafana/latest/http_api/library_element/)
 - [x] [Query History API](https://grafana.com/docs/grafana/latest/http_api/query_history/)
 - [x] [Licensing HTTP API](https://grafana.com/docs/grafana/latest/http_api/licensing/)
 - [x] [Organization HTTP API](https://grafana.com/docs/grafana/latest/http_api/org/)
@@ -31,6 +30,8 @@ The following list describes the currently supported features of the Grafana API
 - [x] [Team HTTP API](https://grafana.com/docs/grafana/latest/http_api/team/)
 - [x] [User HTTP API](https://grafana.com/docs/grafana/latest/http_api/user/)
 - [x] [Service Account HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/)
+- [x] [RBAC HTTP API](https://grafana.com/docs/grafana/latest/http_api/access_control/)
+- [ ] [Library Element HTTP API](https://grafana.com/docs/grafana/latest/http_api/library_element/)
 - [ ] [Alerting Provisioning HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/)
 
 ## Installation
