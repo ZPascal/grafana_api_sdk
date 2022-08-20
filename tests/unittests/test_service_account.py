@@ -1,11 +1,7 @@
-import requests
-
 from unittest import TestCase
 from unittest.mock import MagicMock, patch, Mock
 
-from requests.exceptions import MissingSchema
-
-from src.grafana_api.model import APIModel, RequestsMethods
+from src.grafana_api.model import APIModel
 from src.grafana_api.service_account import ServiceAccount
 
 

@@ -74,7 +74,7 @@ class RBAC:
 
         additional_parameters: str = ""
         if include_hidden_roles:
-            additional_parameters = f"?includeHidden=true"
+            additional_parameters = "?includeHidden=true"
 
         api_call: any = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.RBAC.value}/roles{additional_parameters}",
@@ -393,7 +393,7 @@ class RBAC:
         if user_id != 0 and user_id is not None:
             additional_parameters: str = ""
             if include_hidden_roles:
-                additional_parameters = f"?includeHidden=true"
+                additional_parameters = "?includeHidden=true"
 
             api_call: any = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/users/{user_id}/roles{additional_parameters}",
@@ -599,7 +599,7 @@ class RBAC:
         if user_id != 0 and user_id is not None and len(role_uids) != 0:
             additional_parameters: str = ""
             if include_hidden_roles:
-                additional_parameters = f"?includeHidden=true"
+                additional_parameters = "?includeHidden=true"
 
             api_call: any = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/users/{user_id}/roles{additional_parameters}",
@@ -657,7 +657,7 @@ class RBAC:
         if service_account_id != 0 and service_account_id is not None:
             additional_parameters: str = ""
             if include_hidden_roles:
-                additional_parameters = f"?includeHidden=true"
+                additional_parameters = "?includeHidden=true"
 
             api_call: any = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/users/{service_account_id}/roles{additional_parameters}",
@@ -881,7 +881,7 @@ class RBAC:
         ):
             additional_parameters: str = ""
             if include_hidden_roles:
-                additional_parameters = f"?includeHidden=true"
+                additional_parameters = "?includeHidden=true"
 
             api_call: any = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/users/{service_account_id}/roles{additional_parameters}",
@@ -941,7 +941,7 @@ class RBAC:
         if team_id != 0 and team_id is not None:
             additional_parameters: str = ""
             if include_hidden_roles:
-                additional_parameters = f"?includeHidden=true"
+                additional_parameters = "?includeHidden=true"
 
             api_call: any = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/teams/{team_id}/roles{additional_parameters}",
@@ -1098,7 +1098,7 @@ class RBAC:
         if team_id != 0 and team_id is not None and len(role_uids) != 0:
             additional_parameters: str = ""
             if include_hidden_roles:
-                additional_parameters = f"?includeHidden=true"
+                additional_parameters = "?includeHidden=true"
 
             api_call: any = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/teams/{team_id}/roles{additional_parameters}",
