@@ -21,6 +21,8 @@
   * [AnnotationObject](#grafana_api.model.AnnotationObject)
   * [AnnotationGraphiteObject](#grafana_api.model.AnnotationGraphiteObject)
   * [GlobalUser](#grafana_api.model.GlobalUser)
+  * [CustomRole](#grafana_api.model.CustomRole)
+  * [RolePermission](#grafana_api.model.RolePermission)
 
 <a id="grafana_api.model"></a>
 
@@ -372,4 +374,41 @@ The class includes all necessary variables to generate a global user object
 - `login` _str_ - Specify the login type of the user
 - `password` _str_ - Specify the password of the user
 - `org_id` _int_ - Specify the optional org id of the user (default None)
+
+<a id="grafana_api.model.CustomRole"></a>
+
+## CustomRole Objects
+
+```python
+class CustomRole(NamedTuple)
+```
+
+The class includes all necessary variables to generate a custom role object
+
+**Arguments**:
+
+- `name` _str_ - Specify the name of the role
+- `uid` _str_ - Specify the optional uid of the role (default None)
+- `global_role` _bool_ - Specify the if the role is global or not. If set to False, the default org id of the authenticated user will be used from the request (default False)
+- `version` _int_ - Specify the optional version of the role (default None)
+- `description` _str_ - Specify the optional description of the role (default None)
+- `display_name` _str_ - Specify the optional display_name of the role (default None)
+- `group` _str_ - Specify the optional org group of the role (default None)
+- `hidden` _bool_ - Specify whether the role is hidden or not.  If set to True, then the role does not show in the role picker. It will not be listed by API endpoints unless explicitly specified (default False)
+- `permissions` _list_ - Specify the optional permissions of the role as a list of the RolePermission objects (default None)
+
+<a id="grafana_api.model.RolePermission"></a>
+
+## RolePermission Objects
+
+```python
+class RolePermission(NamedTuple)
+```
+
+The class includes all necessary variables to generate a role permission object
+
+**Arguments**:
+
+- `action` _str_ - Specify the custom role action definition
+- `scope` _str_ - Specify the scope definition. If not present, no scope will be mapped to the permission (default None)
 
