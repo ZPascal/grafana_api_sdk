@@ -19,10 +19,14 @@ class PlaylistTest(TestCase):
         self.assertEqual("Test", self.playlist.get_playlist("ueqwRg6nk").get("name"))
 
     def test_get_playlist_items(self):
-        self.assertEqual("152", self.playlist.get_playlist_items("ueqwRg6nk")[0].get("value"))
+        self.assertEqual(
+            "152", self.playlist.get_playlist_items("ueqwRg6nk")[0].get("value")
+        )
 
     def test_get_playlist_dashboards(self):
-        self.assertEqual(152, self.playlist.get_playlist_dashboards("ueqwRg6nk")[0].get("id"))
+        self.assertEqual(
+            152, self.playlist.get_playlist_dashboards("ueqwRg6nk")[0].get("id")
+        )
 
     def test_a_create_playlist(self):
         playlist_item: PlaylistItemObject = PlaylistItemObject(

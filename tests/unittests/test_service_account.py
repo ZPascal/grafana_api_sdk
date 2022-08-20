@@ -10,7 +10,9 @@ from src.grafana_api.service_account import ServiceAccount
 
 
 class ServiceAccountTestCase(TestCase):
-    model: APIModel = APIModel(host=MagicMock(), username=MagicMock(), password=MagicMock())
+    model: APIModel = APIModel(
+        host=MagicMock(), username=MagicMock(), password=MagicMock()
+    )
     service_account: ServiceAccount = ServiceAccount(grafana_api_model=model)
 
     @patch("src.grafana_api.api.Api.call_the_api")
@@ -198,7 +200,9 @@ class ServiceAccountTestCase(TestCase):
             self.service_account.create_service_account_token_by_id(0, "", ""),
 
     @patch("src.grafana_api.api.Api.call_the_api")
-    def test_create_service_account_token_by_id_no_valid_result(self, call_the_api_mock):
+    def test_create_service_account_token_by_id_no_valid_result(
+        self, call_the_api_mock
+    ):
         mock: Mock = Mock()
         mock.json = Mock(return_value=dict())
 
@@ -230,7 +234,9 @@ class ServiceAccountTestCase(TestCase):
             self.service_account.delete_service_account_token_by_id(0, 0)
 
     @patch("src.grafana_api.api.Api.call_the_api")
-    def test_delete_service_account_token_by_id_no_valid_result(self, call_the_api_mock):
+    def test_delete_service_account_token_by_id_no_valid_result(
+        self, call_the_api_mock
+    ):
         mock: Mock = Mock()
         mock.json = Mock(return_value=dict({"message": "Test"}))
 

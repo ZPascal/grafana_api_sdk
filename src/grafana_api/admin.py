@@ -77,7 +77,7 @@ class Admin:
                 .call_the_api(
                     f"{APIEndpoints.ADMIN.value}/settings",
                     RequestsMethods.PUT,
-                    json.dumps(settings_update)
+                    json.dumps(settings_update),
                 )
                 .json()
             )
@@ -153,8 +153,21 @@ class Admin:
             api_call (int): Returns the corresponding user id
         """
 
-        if user is not None and len(user.name) != 0 and len(user.email) != 0 and len(user.login) != 0 and len(user.password) != 0:
-            user_object: dict = dict({"name": user.name, "email": user.email, "login": user.login, "password": user.password})
+        if (
+            user is not None
+            and len(user.name) != 0
+            and len(user.email) != 0
+            and len(user.login) != 0
+            and len(user.password) != 0
+        ):
+            user_object: dict = dict(
+                {
+                    "name": user.name,
+                    "email": user.email,
+                    "login": user.login,
+                    "password": user.password,
+                }
+            )
 
             if user.org_id is not None:
                 user_object.update(dict({"OrgId": user.org_id}))
@@ -199,7 +212,7 @@ class Admin:
                 .call_the_api(
                     f"{APIEndpoints.ADMIN.value}/users/{id}/password",
                     RequestsMethods.PUT,
-                    json.dumps(dict({"password": password}))
+                    json.dumps(dict({"password": password})),
                 )
                 .json()
             )
@@ -208,7 +221,9 @@ class Admin:
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
-                logging.info("You successfully updated the corresponding user password.")
+                logging.info(
+                    "You successfully updated the corresponding user password."
+                )
         else:
             logging.error("There is no id or password defined.")
             raise ValueError
@@ -234,7 +249,7 @@ class Admin:
                 .call_the_api(
                     f"{APIEndpoints.ADMIN.value}/users/{id}/permissions",
                     RequestsMethods.PUT,
-                    json.dumps(dict({"isGrafanaAdmin": is_grafana_admin}))
+                    json.dumps(dict({"isGrafanaAdmin": is_grafana_admin})),
                 )
                 .json()
             )
@@ -243,7 +258,9 @@ class Admin:
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
-                logging.info("You successfully updated the corresponding user permissions.")
+                logging.info(
+                    "You successfully updated the corresponding user permissions."
+                )
         else:
             logging.error("There is no id or is_grafana_admin defined.")
             raise ValueError
@@ -297,7 +314,7 @@ class Admin:
             .call_the_api(
                 f"{APIEndpoints.ADMIN.value}/pause-all-alerts",
                 RequestsMethods.POST,
-                json.dumps(dict({"paused": True}))
+                json.dumps(dict({"paused": True})),
             )
             .json()
         )
@@ -324,7 +341,7 @@ class Admin:
             .call_the_api(
                 f"{APIEndpoints.ADMIN.value}/pause-all-alerts",
                 RequestsMethods.POST,
-                json.dumps(dict({"paused": False}))
+                json.dumps(dict({"paused": False})),
             )
             .json()
         )
@@ -388,7 +405,7 @@ class Admin:
                 .call_the_api(
                     f"{APIEndpoints.ADMIN.value}/users/{id}/revoke-auth-token",
                     RequestsMethods.POST,
-                    json.dumps(dict({"authTokenId": auth_token_id}))
+                    json.dumps(dict({"authTokenId": auth_token_id})),
                 )
                 .json()
             )
@@ -422,7 +439,7 @@ class Admin:
                 .call_the_api(
                     f"{APIEndpoints.ADMIN.value}/users/{id}/logout",
                     RequestsMethods.POST,
-                    json.dumps(dict())
+                    json.dumps(dict()),
                 )
                 .json()
             )
@@ -451,7 +468,7 @@ class Admin:
             .call_the_api(
                 f"{APIEndpoints.ADMIN.value}/provisioning/dashboards/reload",
                 RequestsMethods.POST,
-                json.dumps(dict())
+                json.dumps(dict()),
             )
             .json()
         )
@@ -477,7 +494,7 @@ class Admin:
             .call_the_api(
                 f"{APIEndpoints.ADMIN.value}/provisioning/datasources/reload",
                 RequestsMethods.POST,
-                json.dumps(dict())
+                json.dumps(dict()),
             )
             .json()
         )
@@ -503,7 +520,7 @@ class Admin:
             .call_the_api(
                 f"{APIEndpoints.ADMIN.value}/provisioning/plugins/reload",
                 RequestsMethods.POST,
-                json.dumps(dict())
+                json.dumps(dict()),
             )
             .json()
         )
@@ -529,7 +546,7 @@ class Admin:
             .call_the_api(
                 f"{APIEndpoints.ADMIN.value}/provisioning/notifications/reload",
                 RequestsMethods.POST,
-                json.dumps(dict())
+                json.dumps(dict()),
             )
             .json()
         )
@@ -555,7 +572,7 @@ class Admin:
             .call_the_api(
                 f"{APIEndpoints.ADMIN.value}/provisioning/access-control/reload",
                 RequestsMethods.POST,
-                json.dumps(dict())
+                json.dumps(dict()),
             )
             .json()
         )
@@ -581,7 +598,7 @@ class Admin:
             .call_the_api(
                 f"{APIEndpoints.ADMIN.value}/ldap/reload",
                 RequestsMethods.POST,
-                json.dumps(dict())
+                json.dumps(dict()),
             )
             .json()
         )
@@ -602,13 +619,10 @@ class Admin:
             None
         """
 
-        api_call: any = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                f"{APIEndpoints.ADMIN.value}/encryption/rotate-data-keys",
-                RequestsMethods.POST,
-                json.dumps(dict())
-            )
+        api_call: any = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.ADMIN.value}/encryption/rotate-data-keys",
+            RequestsMethods.POST,
+            json.dumps(dict()),
         )
 
         if api_call.status_code != 204:

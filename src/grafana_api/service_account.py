@@ -18,7 +18,9 @@ class ServiceAccount:
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
-    def search_service_account(self, results_per_page: int = 1000, pages: int = 1, query: str = None) -> dict:
+    def search_service_account(
+        self, results_per_page: int = 1000, pages: int = 1, query: str = None
+    ) -> dict:
         """The method includes a functionality to get the service accounts specified by the optional pagination functionality
 
         Required Permissions:
@@ -37,9 +39,7 @@ class ServiceAccount:
             api_call (dict): Returns the service accounts
         """
 
-        api_request_url: str = (
-            f"{APIEndpoints.SERVICE_ACCOUNTS.value}/search?perpage={results_per_page}&page={pages}"
-        )
+        api_request_url: str = f"{APIEndpoints.SERVICE_ACCOUNTS.value}/search?perpage={results_per_page}&page={pages}"
 
         if query is not None and len(query) != 0:
             api_request_url: str = f"{api_request_url}&query={query}"
@@ -85,7 +85,7 @@ class ServiceAccount:
                 .call_the_api(
                     APIEndpoints.SERVICE_ACCOUNTS.value,
                     RequestsMethods.POST,
-                    json.dumps(dict({"name": name, "role": role}))
+                    json.dumps(dict({"name": name, "role": role})),
                 )
                 .json()
             )
@@ -161,7 +161,7 @@ class ServiceAccount:
                 .call_the_api(
                     f"{APIEndpoints.SERVICE_ACCOUNTS.value}/{id}",
                     RequestsMethods.PATCH,
-                    json.dumps(dict({"name": name, "role": role}))
+                    json.dumps(dict({"name": name, "role": role})),
                 )
                 .json()
             )
@@ -237,7 +237,7 @@ class ServiceAccount:
                 .call_the_api(
                     f"{APIEndpoints.SERVICE_ACCOUNTS.value}/{id}/tokens",
                     RequestsMethods.POST,
-                    json.dumps(dict({"name": name, "role": role}))
+                    json.dumps(dict({"name": name, "role": role})),
                 )
                 .json()
             )

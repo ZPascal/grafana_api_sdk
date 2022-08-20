@@ -258,7 +258,9 @@ class PlaylistTestCase(TestCase):
 
         call_the_api_mock.return_value = mock
 
-        self.assertEqual(dict({"id": 1}), playlist.update_playlist("test", playlist_object))
+        self.assertEqual(
+            dict({"id": 1}), playlist.update_playlist("test", playlist_object)
+        )
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_update_playlist_no_playlist_object(self, call_the_api_mock):
