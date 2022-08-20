@@ -248,16 +248,46 @@ In general my focus inside this project is to implement and deliver old and new 
 - Reload LDAP provisioning configuration
 - Rotate data encryption keys
 
+### Service Account
+- Search service accounts
+- Create a service account
+- Get service account by id
+- Update a service account
+- Get service account token by id
+- Create service account token by id
+- Delete service account by id
+
+### RBAC
+- Get status
+- Get all roles
+- Get role
+- Create role
+- Update role
+- Delete role
+- Get user assigned roles
+- Get user assigned permissions
+- Add user role assignment
+- Update user role assignment
+- Remove user role assignment
+- Get service account assigned roles
+- Get service account assigned permissions
+- Add service account role assignment
+- Update service account role assignment
+- Remove service account role assignment
+- Get team assigned roles
+- Add team role assignment
+- Update team role assignment
+- Remove team role assignment
+- Reset basic roles to their default
+
 ## Feature timeline
 
 The following table describes the plan to implement the rest of the Grafana API functionality. Please, open an issue and vote them up, if you prefer a faster implementation of an API functionality.
 
 | API endpoint group | Implementation week | Maintainer | PR | State |
 |:------------------:|:-------------------:|:----------:|:--:|:-----:|
-| [Fine-grained access control HTTP API](https://grafana.com/docs/grafana/latest/http_api/access_control/) | 28 |            |    |  |
-| [Library Element HTTP API](https://grafana.com/docs/grafana/latest/http_api/library_element/) | 30 | |    |  |
-| [Alerting Provisioning HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/) | 31 | |    |  |
-| [Service Account HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/) | 28 | |    |  |
+| [Library Element HTTP API](https://grafana.com/docs/grafana/latest/http_api/library_element/) | 34 | |    |  |
+| [Alerting Provisioning HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/) | 36 | |    |  |
 
 ## Installation
 
