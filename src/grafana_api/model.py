@@ -42,6 +42,8 @@ class APIEndpoints(Enum):
     ORG_PREFERENCES = f"{api_prefix}/org/preferences"
     ANNOTATIONS = f"{api_prefix}/annotations"
     ADMIN = f"{api_prefix}/admin"
+    SERVICE_ACCOUNTS = f"{api_prefix}/serviceaccounts"
+    RBAC = f"{api_prefix}/access-control"
 
 
 class RequestsMethods(Enum):
@@ -383,3 +385,41 @@ class GlobalUser(NamedTuple):
     login: str
     password: str
     org_id: int = None
+
+
+class CustomRole(NamedTuple):
+    """The class includes all necessary variables to generate a custom role object
+
+    Args:
+        name (str): Specify the name of the role
+        uid (str): Specify the optional uid of the role (default None)
+        global_role (bool): Specify the if the role is global or not. If set to False, the default org id of the authenticated user will be used from the request (default False)
+        version (int): Specify the optional version of the role (default None)
+        description (str): Specify the optional description of the role (default None)
+        display_name (str): Specify the optional display_name of the role (default None)
+        group (str): Specify the optional org group of the role (default None)
+        hidden (bool): Specify whether the role is hidden or not.  If set to True, then the role does not show in the role picker. It will not be listed by API endpoints unless explicitly specified (default False)
+        permissions (list): Specify the optional permissions of the role as a list of the RolePermission objects (default None)
+    """
+
+    name: str
+    uid: str = None
+    global_role: bool = False
+    version: int = None
+    description: str = None
+    display_name: str = None
+    group: str = None
+    hidden: bool = False
+    permissions: list = None
+
+
+class RolePermission(NamedTuple):
+    """The class includes all necessary variables to generate a role permission object
+
+    Args:
+        action (str): Specify the custom role action definition
+        scope (str): Specify the scope definition. If not present, no scope will be mapped to the permission (default None)
+    """
+
+    action: str
+    scope: str = None
