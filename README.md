@@ -248,6 +248,15 @@ In general my focus inside this project is to implement and deliver old and new 
 - Reload LDAP provisioning configuration
 - Rotate data encryption keys
 
+### Library
+- Get all library elements
+- Get library element by uid
+- Get library element by name
+- Get library element connections
+- Create library element
+- Update library element
+- Delete library element
+
 ## Feature timeline
 
 The following table describes the plan to implement the rest of the Grafana API functionality. Please, open an issue and vote them up, if you prefer a faster implementation of an API functionality.

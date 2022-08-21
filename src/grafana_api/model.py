@@ -42,6 +42,7 @@ class APIEndpoints(Enum):
     ORG_PREFERENCES = f"{api_prefix}/org/preferences"
     ANNOTATIONS = f"{api_prefix}/annotations"
     ADMIN = f"{api_prefix}/admin"
+    LIBRARY = f"{api_prefix}/library-elements"
 
 
 class RequestsMethods(Enum):
@@ -52,6 +53,11 @@ class RequestsMethods(Enum):
     POST = "POST"
     PATCH = "PATCH"
     DELETE = "DELETE"
+
+
+class SortDirection(Enum):
+    ASC = "alpha-asc"
+    DESC = "alpha-desc"
 
 
 class APIModel(NamedTuple):

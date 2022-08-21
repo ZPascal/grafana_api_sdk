@@ -20,7 +20,7 @@ The following list describes the currently supported features of the Grafana API
 - [ ] [Access control HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/access_control/)
 - [x] [HTTP Preferences API](https://grafana.com/docs/grafana/latest/http_api/preferences/)
 - [x] [HTTP Snapshot API](https://grafana.com/docs/grafana/latest/http_api/snapshot/)
-- [ ] [Library Element HTTP API](https://grafana.com/docs/grafana/latest/http_api/library_element/)
+- [x] [Library Element HTTP API](https://grafana.com/docs/grafana/latest/http_api/library_element/)
 - [x] [Query History API](https://grafana.com/docs/grafana/latest/http_api/query_history/)
 - [x] [Licensing HTTP API](https://grafana.com/docs/grafana/latest/http_api/licensing/)
 - [x] [Organization HTTP API](https://grafana.com/docs/grafana/latest/http_api/org/)
