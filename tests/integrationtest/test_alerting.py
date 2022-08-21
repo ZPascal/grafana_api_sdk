@@ -57,7 +57,7 @@ class AlertingTest(TestCase):
         result: dict = {
             "template_files": None,
             "alertmanager_config": {
-                "route": { "group_by": ["grafana_folder", "alertname"], "receiver": "grafana-default-email"},
+                "route": {"group_by": ["grafana_folder", "alertname"], "receiver": "grafana-default-email"},
                 "templates": None,
                 "receivers": [
                     {

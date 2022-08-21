@@ -280,13 +280,21 @@ In general my focus inside this project is to implement and deliver old and new 
 - Remove team role assignment
 - Reset basic roles to their default
 
+### Library
+- Get all library elements
+- Get library element by uid
+- Get library element by name
+- Get library element connections
+- Create library element
+- Update library element
+- Delete library element
+
 ## Feature timeline
 
 The following table describes the plan to implement the rest of the Grafana API functionality. Please, open an issue and vote them up, if you prefer a faster implementation of an API functionality.
 
 | API endpoint group | Implementation week | Maintainer | PR | State |
 |:------------------:|:-------------------:|:----------:|:--:|:-----:|
-| [Library Element HTTP API](https://grafana.com/docs/grafana/latest/http_api/library_element/) | 34 | |    |  |
 | [Alerting Provisioning HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/) | 36 | |    |  |
 
 ## Installation
