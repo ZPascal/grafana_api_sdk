@@ -281,7 +281,9 @@ class FolderTestCase(TestCase):
 
         call_the_api_mock.return_value = mock
 
-        self.assertEqual(list([{"folderId": "test"}]), folder.get_folder_permissions("test"))
+        self.assertEqual(
+            list([{"folderId": "test"}]), folder.get_folder_permissions("test")
+        )
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_get_folder_permissions_no_uid(self, call_the_api_mock):
@@ -311,7 +313,9 @@ class FolderTestCase(TestCase):
         folder: Folder = Folder(grafana_api_model=model)
 
         mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Dashboard permissions updated"}))
+        mock.json = Mock(
+            return_value=dict({"message": "Dashboard permissions updated"})
+        )
 
         call_the_api_mock.return_value = mock
 

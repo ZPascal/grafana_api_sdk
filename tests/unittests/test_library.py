@@ -28,10 +28,15 @@ class LibraryTestCase(TestCase):
 
         call_the_api_mock.return_value = mock
 
-        self.assertEqual(dict({"result": "test"}), library.get_all_library_elements(search_string="test",
-                                                                                    types_filter="test,test",
-                                                                                    exclude_uid="test",
-                                                                                    folder_filter_ids="1,2"))
+        self.assertEqual(
+            dict({"result": "test"}),
+            library.get_all_library_elements(
+                search_string="test",
+                types_filter="test,test",
+                exclude_uid="test",
+                folder_filter_ids="1,2",
+            ),
+        )
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_get_all_library_elements_error_response(self, call_the_api_mock):
@@ -56,7 +61,9 @@ class LibraryTestCase(TestCase):
 
         call_the_api_mock.return_value = mock
 
-        self.assertEqual(dict({"result": "test"}), library.get_library_element_by_uid("test"))
+        self.assertEqual(
+            dict({"result": "test"}), library.get_library_element_by_uid("test")
+        )
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_get_library_element_by_uid_no_uid(self, call_the_api_mock):
@@ -94,7 +101,9 @@ class LibraryTestCase(TestCase):
 
         call_the_api_mock.return_value = mock
 
-        self.assertEqual(dict({"result": "test"}), library.get_library_element_by_name("test"))
+        self.assertEqual(
+            dict({"result": "test"}), library.get_library_element_by_name("test")
+        )
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_get_library_element_by_name_no_name(self, call_the_api_mock):
@@ -132,7 +141,9 @@ class LibraryTestCase(TestCase):
 
         call_the_api_mock.return_value = mock
 
-        self.assertEqual(dict({"result": "test"}), library.get_library_element_connections("test"))
+        self.assertEqual(
+            dict({"result": "test"}), library.get_library_element_connections("test")
+        )
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_get_library_element_connections_no_uid(self, call_the_api_mock):
@@ -170,7 +181,10 @@ class LibraryTestCase(TestCase):
 
         call_the_api_mock.return_value = mock
 
-        self.assertEqual(dict({"result": "test"}), library.create_library_element(1, dict({"test": "test"})))
+        self.assertEqual(
+            dict({"result": "test"}),
+            library.create_library_element(1, dict({"test": "test"})),
+        )
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_create_library_element_advanced_setup(self, call_the_api_mock):
@@ -182,9 +196,12 @@ class LibraryTestCase(TestCase):
 
         call_the_api_mock.return_value = mock
 
-        self.assertEqual(dict({"result": "test"}), library.create_library_element(1, dict({"test": "test"}),
-                                                                                  folder_uid="test", name="test",
-                                                                                  uid="test"))
+        self.assertEqual(
+            dict({"result": "test"}),
+            library.create_library_element(
+                1, dict({"test": "test"}), folder_uid="test", name="test", uid="test"
+            ),
+        )
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_create_library_element_no_model(self, call_the_api_mock):
@@ -222,8 +239,12 @@ class LibraryTestCase(TestCase):
 
         call_the_api_mock.return_value = mock
 
-        self.assertEqual(dict({"result": "test"}), library.update_library_element("test", 1, "test", "test",
-                                                                                  dict({"test": "test"}), 1))
+        self.assertEqual(
+            dict({"result": "test"}),
+            library.update_library_element(
+                "test", 1, "test", "test", dict({"test": "test"}), 1
+            ),
+        )
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_update_library_element_advanced_setup(self, call_the_api_mock):
@@ -235,8 +256,12 @@ class LibraryTestCase(TestCase):
 
         call_the_api_mock.return_value = mock
 
-        self.assertEqual(dict({"result": "test"}),
-                         library.update_library_element("test", 1, "test", "test", dict({"test": "test"}), 1))
+        self.assertEqual(
+            dict({"result": "test"}),
+            library.update_library_element(
+                "test", 1, "test", "test", dict({"test": "test"}), 1
+            ),
+        )
 
     @patch("src.grafana_api.api.Api.call_the_api")
     def test_update_library_element_no_model(self, call_the_api_mock):

@@ -57,7 +57,10 @@ class AlertingTest(TestCase):
         result: dict = {
             "template_files": None,
             "alertmanager_config": {
-                "route": {"group_by": ["grafana_folder", "alertname"], "receiver": "grafana-default-email"},
+                "route": {
+                    "group_by": ["grafana_folder", "alertname"],
+                    "receiver": "grafana-default-email",
+                },
                 "templates": None,
                 "receivers": [
                     {
@@ -119,10 +122,13 @@ class AlertingTest(TestCase):
             "data": {
                 "alerts": [
                     {
-                        "labels": {"alertname": "Test"},
+                        "labels": {
+                            "alertname": "Test",
+                            "grafana_folder": "Github Integrationtest",
+                        },
                         "annotations": {},
                         "state": "Normal",
-                        "activeAt": "2022-07-01T04:11:08.743990154+02:00",
+                        "activeAt": "0001-01-01T00:00:00Z",
                         "value": "",
                     }
                 ]

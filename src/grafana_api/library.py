@@ -1,12 +1,7 @@
 import json
 import logging
 
-from .model import (
-    APIModel,
-    APIEndpoints,
-    SortDirection,
-    RequestsMethods
-)
+from .model import APIModel, APIEndpoints, SortDirection, RequestsMethods
 from .api import Api
 
 
@@ -23,10 +18,17 @@ class Library:
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
-    def get_all_library_elements(self, results_per_page: int = 100, pages: int = 1, search_string: str = None,
-                                 kind: int = 1, sort_direction: SortDirection = SortDirection.DESC,
-                                 types_filter: str = None, exclude_uid: str = None,
-                                 folder_filter_ids: str = None) -> dict:
+    def get_all_library_elements(
+        self,
+        results_per_page: int = 100,
+        pages: int = 1,
+        search_string: str = None,
+        kind: int = 1,
+        sort_direction: SortDirection = SortDirection.DESC,
+        types_filter: str = None,
+        exclude_uid: str = None,
+        folder_filter_ids: str = None,
+    ) -> dict:
         """The method includes a functionality to get a list of all library elements the authenticated user has permission to view. Use the perPage query parameter to control the maximum number of library elements returned, The default limit is 100. You can also use the page query parameter to fetch library elements from any page other than the first one
 
          Args:
@@ -170,8 +172,15 @@ class Library:
             logging.error("There is no uid defined.")
             raise ValueError
 
-    def create_library_element(self, folder_id: int, model: dict, kind: int = 1, folder_uid: str = None,
-                               name: str = None, uid: str = None) -> dict:
+    def create_library_element(
+        self,
+        folder_id: int,
+        model: dict,
+        kind: int = 1,
+        folder_uid: str = None,
+        name: str = None,
+        uid: str = None,
+    ) -> dict:
         """The method includes a functionality to create a library element based on the specified folder id and model
 
          Args:
@@ -190,8 +199,16 @@ class Library:
             api_call (dict): Returns the newly created library element
         """
 
-        if folder_id != 0 and model is not None and model != dict() and kind is not None and kind != 0:
-            request_parameters: dict = dict({"folderId": folder_id, "model": model, "kind": kind})
+        if (
+            folder_id != 0
+            and model is not None
+            and model != dict()
+            and kind is not None
+            and kind != 0
+        ):
+            request_parameters: dict = dict(
+                {"folderId": folder_id, "model": model, "kind": kind}
+            )
 
             if folder_uid is not None and len(folder_uid) != 0:
                 request_parameters.update({"folderUid": folder_uid})
@@ -207,7 +224,7 @@ class Library:
                 .call_the_api(
                     APIEndpoints.LIBRARY.value,
                     RequestsMethods.POST,
-                    json.dumps(request_parameters)
+                    json.dumps(request_parameters),
                 )
                 .json()
             )
@@ -221,8 +238,16 @@ class Library:
             logging.error("There is no folder_id, kind or model defined.")
             raise ValueError
 
-    def update_library_element(self, uid: str, folder_id: int, folder_uid: str, name: str, model: dict, version: int,
-                               kind: int = 1) -> dict:
+    def update_library_element(
+        self,
+        uid: str,
+        folder_id: int,
+        folder_uid: str,
+        name: str,
+        model: dict,
+        version: int,
+        kind: int = 1,
+    ) -> dict:
         """The method includes a functionality to update a library element
 
          Args:
@@ -242,17 +267,35 @@ class Library:
             api_call (dict): Returns the updated library element
         """
 
-        if len(uid) != 0 and folder_id != 0 and len(folder_uid) != 0 and len(name) != 0 and model is not None and model != dict() and \
-                version != 0 and kind is not None and kind != 0:
-            request_parameters: dict = dict({"uid": uid, "folderId": folder_id, "folderUid": folder_uid, "name": name,
-                                             "model": model, "version": version, "kind": kind})
+        if (
+            len(uid) != 0
+            and folder_id != 0
+            and len(folder_uid) != 0
+            and len(name) != 0
+            and model is not None
+            and model != dict()
+            and version != 0
+            and kind is not None
+            and kind != 0
+        ):
+            request_parameters: dict = dict(
+                {
+                    "uid": uid,
+                    "folderId": folder_id,
+                    "folderUid": folder_uid,
+                    "name": name,
+                    "model": model,
+                    "version": version,
+                    "kind": kind,
+                }
+            )
 
             api_call: dict = (
                 Api(self.grafana_api_model)
                 .call_the_api(
                     f"{APIEndpoints.LIBRARY.value}/{uid}",
                     RequestsMethods.PATCH,
-                    json.dumps(request_parameters)
+                    json.dumps(request_parameters),
                 )
                 .json()
             )
@@ -263,7 +306,9 @@ class Library:
             else:
                 return api_call
         else:
-            logging.error("There is no folder_id, folder_uid, name, version, kind or model defined.")
+            logging.error(
+                "There is no folder_id, folder_uid, name, version, kind or model defined."
+            )
             raise ValueError
 
     def delete_library_element(self, uid: str):
@@ -294,7 +339,9 @@ class Library:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
-                logging.info("You successfully deleted the corresponding Library element.")
+                logging.info(
+                    "You successfully deleted the corresponding Library element."
+                )
         else:
             logging.error("There is no uid defined.")
             raise ValueError
