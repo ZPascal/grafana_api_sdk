@@ -1,6 +1,6 @@
 import os
 import json
-from unittest import TestCase, main
+from unittest import TestCase
 
 import requests.exceptions
 
@@ -104,7 +104,3 @@ class DashboardTest(TestCase):
                 dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
                 dashboard_name=os.environ["GRAFANA_DASHBOARD_NAME"],
             )
-
-
-if __name__ == "__main__":
-    main()

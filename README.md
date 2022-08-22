@@ -296,6 +296,7 @@ The following table describes the plan to implement the rest of the Grafana API 
 | API endpoint group | Implementation week | Maintainer | PR | State |
 |:------------------:|:-------------------:|:----------:|:--:|:-----:|
 | [Alerting Provisioning HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/) | 36 | |    |  |
+| [Correlations API](https://grafana.com/docs/grafana/latest/developers/http_api/correlations/) | 36 | |    |  |
 
 ## Installation
 
