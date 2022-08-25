@@ -158,8 +158,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
         custom_role: CustomRole = CustomRole(
-            name="Test",
-            permissions=list([RolePermission(action="test")])
+            name="Test", permissions=list([RolePermission(action="test")])
         )
 
         call_the_api_mock.return_value.status_code = 200
@@ -175,8 +174,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
         custom_role: CustomRole = CustomRole(
-            name="Test",
-            permissions=list([RolePermission(action=None)])
+            name="Test", permissions=list([RolePermission(action=None)])
         )
 
         call_the_api_mock.return_value.status_code = 200
@@ -276,8 +274,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
         custom_role: CustomRole = CustomRole(
-            name="Test",
-            permissions=list([RolePermission(action="test")])
+            name="Test", permissions=list([RolePermission(action="test")])
         )
 
         call_the_api_mock.return_value.status_code = 200
@@ -293,8 +290,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
         custom_role: CustomRole = CustomRole(
-            name="Test",
-            permissions=list([RolePermission(action=None)])
+            name="Test", permissions=list([RolePermission(action=None)])
         )
 
         call_the_api_mock.return_value.status_code = 200

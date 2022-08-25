@@ -142,7 +142,7 @@ class Folder:
             raise ValueError
 
     def update_folder(
-        self, title: str, uid: str = None, version: int = 0, overwrite: bool = False
+        self, title: str, uid: str, version: int = 0, overwrite: bool = False
     ) -> dict:
         """The method includes a functionality to update a folder information inside the organization specified by the uid, the title, the version of the folder or if folder information be overwritten
 
@@ -163,13 +163,11 @@ class Folder:
         if overwrite is True:
             version = None
 
-        if len(title) != 0 and version != 0:
+        if len(title) != 0 and version != 0 and len(uid) != 0:
             folder_information: dict = dict()
             folder_information.update({"title": title})
             folder_information.update({"overwrite": overwrite})
-
-            if uid is not None and len(uid) != 0:
-                folder_information.update({"uid": uid})
+            folder_information.update({"uid": uid})
 
             if version is not None:
                 folder_information.update({"version": version})
@@ -190,7 +188,7 @@ class Folder:
             else:
                 return api_call
         else:
-            logging.error("There is no folder title or version defined.")
+            logging.error("There is no folder title, version or uid defined.")
             raise ValueError
 
     def delete_folder(self, uid: str):
@@ -217,7 +215,7 @@ class Folder:
                 .json()
             )
 
-            if "Folder deleted" != api_call.get("message"):
+            if "deleted" not in api_call.get("message"):
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
@@ -250,7 +248,7 @@ class Folder:
                 .json()
             )
 
-            if api_call == list() or api_call[0].get("id") is None:
+            if api_call == list() or api_call[0].get("folderId") is None:
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
@@ -285,7 +283,7 @@ class Folder:
                 .json()
             )
 
-            if api_call.get("message") != "Folder permissions updated":
+            if api_call.get("message") != "Dashboard permissions updated":
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
