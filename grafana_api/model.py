@@ -9,6 +9,7 @@ class APIEndpoints(Enum):
     """The class includes all necessary API endpoint strings to connect the Grafana API"""
 
     api_prefix = "/api"
+    version_1 = "v1"
 
     SEARCH = f"{api_prefix}/search"
     DASHBOARDS = f"{api_prefix}/dashboards"
@@ -45,6 +46,7 @@ class APIEndpoints(Enum):
     SERVICE_ACCOUNTS = f"{api_prefix}/serviceaccounts"
     RBAC = f"{api_prefix}/access-control"
     LIBRARY = f"{api_prefix}/library-elements"
+    ALERTING_PROVISIONING = f"{api_prefix}{version_1}/provisioning"
 
 
 class RequestsMethods(Enum):

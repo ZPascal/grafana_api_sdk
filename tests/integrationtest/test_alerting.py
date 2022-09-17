@@ -1,13 +1,13 @@
 import os
 from unittest import TestCase
 
-from src.grafana_api.model import (
+from grafana_api.model import (
     APIModel,
     AlertmanagerConfig,
     AlertmanagerReceivers,
     DatasourceRuleQuery,
 )
-from src.grafana_api.alerting import Alerting
+from grafana_api.alerting import Alerting
 
 
 class AlertingTest(TestCase):

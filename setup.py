@@ -8,7 +8,7 @@ long_description = long_description.replace(coverage_string, "")
 
 setuptools.setup(
     name="grafana-api-sdk",
-    version="0.0.8",
+    version="0.0.9",
     author="Pascal Zimmermann",
     author_email="info@theiotstudio.com",
     description="A Grafana API SDK",
@@ -25,8 +25,7 @@ setuptools.setup(
         "License :: OSI Approved",
         "Operating System :: OS Independent",
     ],
-    package_dir={"": "src"},
-    packages=setuptools.find_packages(where="src"),
+    packages=["grafana_api"],
     install_requires=["requests"],
     python_requires=">=3.6",
 )

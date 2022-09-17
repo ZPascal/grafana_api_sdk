@@ -1,12 +1,12 @@
 from unittest import TestCase
 from unittest.mock import MagicMock, Mock, patch
 
-from src.grafana_api.model import APIModel
-from src.grafana_api.reporting import Reporting
+from grafana_api.model import APIModel
+from grafana_api.reporting import Reporting
 
 
 class ReportingTestCase(TestCase):
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_send_report(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
@@ -18,7 +18,7 @@ class ReportingTestCase(TestCase):
 
         self.assertEqual(None, reporting.send_report(1, emails="test,test"))
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_send_report_no_id(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
@@ -31,7 +31,7 @@ class ReportingTestCase(TestCase):
         with self.assertRaises(ValueError):
             reporting.send_report(0, emails="")
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_send_report_no_result(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)

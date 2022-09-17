@@ -1,15 +1,15 @@
 from unittest import TestCase
 from unittest.mock import MagicMock, Mock, patch
 
-from src.grafana_api.model import (
+from grafana_api.model import (
     APIModel,
     GlobalUser,
 )
-from src.grafana_api.admin import Admin
+from grafana_api.admin import Admin
 
 
 class AdminTestCase(TestCase):
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_get_settings(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -26,7 +26,7 @@ class AdminTestCase(TestCase):
             admin.get_settings(),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_get_settings_no_settings_available(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -41,7 +41,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(Exception):
             admin.get_settings()
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_update_settings(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -58,7 +58,7 @@ class AdminTestCase(TestCase):
             admin.update_settings(dict({"test": "test"}), dict({"test": "test"})),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_update_settings_update_object(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -75,7 +75,7 @@ class AdminTestCase(TestCase):
             admin.update_settings(dict({"test": "test"}), None),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_update_settings_removals_object(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -92,7 +92,7 @@ class AdminTestCase(TestCase):
             admin.update_settings(None, dict({"test": "test"})),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_update_settings_no_update_object(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -107,7 +107,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(ValueError):
             admin.update_settings(None, None)
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_update_settings_update_not_possible(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -122,7 +122,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(Exception):
             admin.update_settings(dict({"test": "test"}))
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_get_stats(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -139,7 +139,7 @@ class AdminTestCase(TestCase):
             admin.get_stats(),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_get_stats_no_stats_available(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -154,7 +154,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(Exception):
             admin.get_stats()
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_get_preview_report(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -171,7 +171,7 @@ class AdminTestCase(TestCase):
             admin.get_preview_report(),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_get_preview_report_no_report_available(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -186,7 +186,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(Exception):
             admin.get_preview_report()
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_create_global_user(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -207,7 +207,7 @@ class AdminTestCase(TestCase):
             admin.create_global_user(user),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_create_global_users_no_org_id(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -228,7 +228,7 @@ class AdminTestCase(TestCase):
             admin.create_global_user(user),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_create_global_users_no_user_object(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -243,7 +243,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(ValueError):
             admin.create_global_user(None)
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_create_global_users_creation_not_possible(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -262,7 +262,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(Exception):
             admin.create_global_user(user)
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_update_user_password(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -279,7 +279,7 @@ class AdminTestCase(TestCase):
             admin.update_user_password(10, "test"),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_update_user_password_no_id(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -294,7 +294,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(ValueError):
             admin.update_user_password(0, "")
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_update_user_password_update_not_possible(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -309,7 +309,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(Exception):
             admin.update_user_password(10, "test")
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_update_user_permissions(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -326,7 +326,7 @@ class AdminTestCase(TestCase):
             admin.update_user_permissions(10, True),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_update_user_permissions_no_id(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -341,7 +341,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(ValueError):
             admin.update_user_permissions(0, None)
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_update_user_permissions_update_not_possible(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -356,7 +356,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(Exception):
             admin.update_user_permissions(10, True)
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_delete_global_user(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -373,7 +373,7 @@ class AdminTestCase(TestCase):
             admin.delete_global_user(10),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_delete_global_user_no_id(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -388,7 +388,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(ValueError):
             admin.delete_global_user(0)
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_delete_global_user_delete_not_possible(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -403,7 +403,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(Exception):
             admin.delete_global_user(10)
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_pause_all_alerts(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -420,7 +420,7 @@ class AdminTestCase(TestCase):
             admin.pause_all_alerts(),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_pause_all_alerts_pause_not_possible(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -435,7 +435,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(Exception):
             admin.pause_all_alerts()
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_unpause_all_alerts(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -452,7 +452,7 @@ class AdminTestCase(TestCase):
             admin.unpause_all_alerts(),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_unpause_all_alerts_unpause_not_possible(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -467,7 +467,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(Exception):
             admin.unpause_all_alerts()
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_get_user_auth_token(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -484,7 +484,7 @@ class AdminTestCase(TestCase):
             admin.get_user_auth_token(10),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_get_user_auth_token_user_no_id(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -499,7 +499,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(ValueError):
             admin.get_user_auth_token(0)
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_get_user_auth_token_user_token_not_available(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -514,7 +514,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(Exception):
             admin.get_user_auth_token(10)
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_revoke_user_auth_token(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -531,7 +531,7 @@ class AdminTestCase(TestCase):
             admin.revoke_user_auth_token(10, 1),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_revoke_user_auth_token_user_no_id(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -546,7 +546,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(ValueError):
             admin.revoke_user_auth_token(0, 0)
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_revoke_user_auth_token_revoke_not_possible(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -561,7 +561,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(Exception):
             admin.revoke_user_auth_token(10, 10)
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_logout_user(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -578,7 +578,7 @@ class AdminTestCase(TestCase):
             admin.logout_user(10),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_logout_user_no_id(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -593,7 +593,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(ValueError):
             admin.logout_user(0)
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_logout_user_logout_not_possible(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -608,7 +608,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(Exception):
             admin.logout_user(10)
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_reload_dashboards_provisioning_configuration(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -625,7 +625,7 @@ class AdminTestCase(TestCase):
             admin.reload_dashboards_provisioning_configuration(),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_reload_dashboards_provisioning_configuration_reload_not_possible(
         self, call_the_api_mock
     ):
@@ -642,7 +642,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(Exception):
             admin.reload_dashboards_provisioning_configuration()
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_reload_datasources_provisioning_configuration(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -659,7 +659,7 @@ class AdminTestCase(TestCase):
             admin.reload_datasources_provisioning_configuration(),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_reload_datasources_provisioning_configuration_reload_not_possible(
         self, call_the_api_mock
     ):
@@ -676,7 +676,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(Exception):
             admin.reload_datasources_provisioning_configuration()
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_reload_plugins_provisioning_configuration(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -693,7 +693,7 @@ class AdminTestCase(TestCase):
             admin.reload_plugins_provisioning_configuration(),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_reload_plugins_provisioning_configuration_reload_not_possible(
         self, call_the_api_mock
     ):
@@ -710,7 +710,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(Exception):
             admin.reload_plugins_provisioning_configuration()
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_reload_notifications_provisioning_configuration(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -729,7 +729,7 @@ class AdminTestCase(TestCase):
             admin.reload_notifications_provisioning_configuration(),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_reload_notifications_provisioning_configuration_reload_not_possible(
         self, call_the_api_mock
     ):
@@ -746,7 +746,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(Exception):
             admin.reload_notifications_provisioning_configuration()
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_reload_access_controls_provisioning_configuration(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -765,7 +765,7 @@ class AdminTestCase(TestCase):
             admin.reload_access_controls_provisioning_configuration(),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_reload_access_controls_provisioning_configuration_reload_not_possible(
         self, call_the_api_mock
     ):
@@ -782,7 +782,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(Exception):
             admin.reload_access_controls_provisioning_configuration()
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_reload_ldap_configuration(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -799,7 +799,7 @@ class AdminTestCase(TestCase):
             admin.reload_ldap_configuration(),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_reload_ldap_configuration_reload_not_possible(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -814,7 +814,7 @@ class AdminTestCase(TestCase):
         with self.assertRaises(Exception):
             admin.reload_ldap_configuration()
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_rotate_data_encryption_keys(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -831,7 +831,7 @@ class AdminTestCase(TestCase):
             admin.rotate_data_encryption_keys(),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_rotate_data_encryption_keys_rotate_not_possible(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()

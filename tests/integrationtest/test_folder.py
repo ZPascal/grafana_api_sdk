@@ -1,8 +1,8 @@
 import os
 from unittest import TestCase
 
-from src.grafana_api.model import APIModel
-from src.grafana_api.folder import Folder
+from grafana_api.model import APIModel
+from grafana_api.folder import Folder
 
 
 class FolderTest(TestCase):

@@ -1,12 +1,12 @@
 from unittest import TestCase
 from unittest.mock import MagicMock, Mock, patch
 
-from src.grafana_api.model import APIModel
-from src.grafana_api.alerting_notifications import AlertingNotifications
+from grafana_api.model import APIModel
+from grafana_api.alerting_notifications import AlertingNotifications
 
 
 class AlertingNotificationsTestCase(TestCase):
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_get_all_notification_channels(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: AlertingNotifications = AlertingNotifications(grafana_api_model=model)
@@ -20,7 +20,7 @@ class AlertingNotificationsTestCase(TestCase):
             list([dict({"id": 1})]), alerting.get_all_notification_channels()
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_get_all_notification_channels_no_notification_channels_available(
         self, call_the_api_mock
     ):
@@ -35,7 +35,7 @@ class AlertingNotificationsTestCase(TestCase):
         with self.assertRaises(Exception):
             alerting.get_all_notification_channels()
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_get_all_notification_channels_lookup(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: AlertingNotifications = AlertingNotifications(grafana_api_model=model)
@@ -49,7 +49,7 @@ class AlertingNotificationsTestCase(TestCase):
             list([dict({"id": 1})]), alerting.get_all_notification_channels_lookup()
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_get_all_notification_channels_lookup_no_notification_channels_available(
         self, call_the_api_mock
     ):
@@ -64,7 +64,7 @@ class AlertingNotificationsTestCase(TestCase):
         with self.assertRaises(Exception):
             alerting.get_all_notification_channels_lookup()
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_get_notification_channel_by_uid(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: AlertingNotifications = AlertingNotifications(grafana_api_model=model)
@@ -85,7 +85,7 @@ class AlertingNotificationsTestCase(TestCase):
         with self.assertRaises(ValueError):
             alerting.get_notification_channel_by_uid("")
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_get_notification_channel_by_uid_no_notification_channel_available(
         self, call_the_api_mock
     ):
@@ -100,7 +100,7 @@ class AlertingNotificationsTestCase(TestCase):
         with self.assertRaises(Exception):
             alerting.get_notification_channel_by_uid("test")
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_get_notification_channel_by_id(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: AlertingNotifications = AlertingNotifications(grafana_api_model=model)
@@ -121,7 +121,7 @@ class AlertingNotificationsTestCase(TestCase):
         with self.assertRaises(ValueError):
             alerting.get_notification_channel_by_id(0)
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_get_notification_channel_by_id_no_notification_channel_available(
         self, call_the_api_mock
     ):
@@ -136,7 +136,7 @@ class AlertingNotificationsTestCase(TestCase):
         with self.assertRaises(Exception):
             alerting.get_notification_channel_by_id(1)
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_create_notification_channel(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: AlertingNotifications = AlertingNotifications(grafana_api_model=model)
@@ -158,7 +158,7 @@ class AlertingNotificationsTestCase(TestCase):
         with self.assertRaises(ValueError):
             alerting.create_notification_channel(dict())
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_create_notification_channel_no_notification_channel_available(
         self, call_the_api_mock
     ):
@@ -173,7 +173,7 @@ class AlertingNotificationsTestCase(TestCase):
         with self.assertRaises(Exception):
             alerting.create_notification_channel(dict({"test": "test"}))
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_update_notification_channel_by_uid(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: AlertingNotifications = AlertingNotifications(grafana_api_model=model)
@@ -195,7 +195,7 @@ class AlertingNotificationsTestCase(TestCase):
         with self.assertRaises(ValueError):
             alerting.update_notification_channel_by_uid("", dict())
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_update_notification_channel_by_uid_no_notification_channel_available(
         self, call_the_api_mock
     ):
@@ -210,7 +210,7 @@ class AlertingNotificationsTestCase(TestCase):
         with self.assertRaises(Exception):
             alerting.update_notification_channel_by_uid("test", dict({"test": "test"}))
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_update_notification_channel_by_id(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: AlertingNotifications = AlertingNotifications(grafana_api_model=model)
@@ -232,7 +232,7 @@ class AlertingNotificationsTestCase(TestCase):
         with self.assertRaises(ValueError):
             alerting.update_notification_channel_by_id(0, dict())
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_update_notification_channel_by_id_no_notification_channel_available(
         self, call_the_api_mock
     ):
@@ -247,7 +247,7 @@ class AlertingNotificationsTestCase(TestCase):
         with self.assertRaises(Exception):
             alerting.update_notification_channel_by_id(1, dict({"test": "test"}))
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_delete_notification_channel_by_uid(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: AlertingNotifications = AlertingNotifications(grafana_api_model=model)
@@ -266,7 +266,7 @@ class AlertingNotificationsTestCase(TestCase):
         with self.assertRaises(ValueError):
             alerting.delete_notification_channel_by_uid("")
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_delete_notification_channel_by_uid_no_notification_channel_available(
         self, call_the_api_mock
     ):
@@ -281,7 +281,7 @@ class AlertingNotificationsTestCase(TestCase):
         with self.assertRaises(Exception):
             alerting.delete_notification_channel_by_uid("test")
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_delete_notification_channel_by_id(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: AlertingNotifications = AlertingNotifications(grafana_api_model=model)
@@ -300,7 +300,7 @@ class AlertingNotificationsTestCase(TestCase):
         with self.assertRaises(ValueError):
             alerting.delete_notification_channel_by_id(0)
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_delete_notification_channel_by_id_no_notification_channel_available(
         self, call_the_api_mock
     ):
@@ -315,7 +315,7 @@ class AlertingNotificationsTestCase(TestCase):
         with self.assertRaises(Exception):
             alerting.delete_notification_channel_by_id(1)
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_test_notification_channel(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: AlertingNotifications = AlertingNotifications(grafana_api_model=model)
@@ -336,7 +336,7 @@ class AlertingNotificationsTestCase(TestCase):
         with self.assertRaises(ValueError):
             alerting.test_notification_channel(dict())
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_test_notification_channel_no_notification_channel_available(
         self, call_the_api_mock
     ):

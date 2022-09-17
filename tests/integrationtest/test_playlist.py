@@ -1,8 +1,8 @@
 import os
 from unittest import TestCase
 
-from src.grafana_api.model import APIModel, PlaylistObject, PlaylistItemObject
-from src.grafana_api.playlist import Playlist
+from grafana_api.model import APIModel, PlaylistObject, PlaylistItemObject
+from grafana_api.playlist import Playlist
 
 
 class PlaylistTest(TestCase):

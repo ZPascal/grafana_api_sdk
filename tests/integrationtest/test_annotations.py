@@ -1,12 +1,12 @@
 import os
 from unittest import TestCase
 
-from src.grafana_api.model import (
+from grafana_api.model import (
     APIModel,
     AnnotationObject,
     AnnotationGraphiteObject,
 )
-from src.grafana_api.annotations import Annotations
+from grafana_api.annotations import Annotations
 
 
 class AnnotationsTest(TestCase):

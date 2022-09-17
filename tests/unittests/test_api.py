@@ -5,8 +5,8 @@ from unittest.mock import MagicMock, patch, Mock
 
 from requests.exceptions import MissingSchema
 
-from src.grafana_api.model import APIModel, RequestsMethods
-from src.grafana_api.api import Api
+from grafana_api.model import APIModel, RequestsMethods
+from grafana_api.api import Api
 
 
 class ApiTestCase(TestCase):
@@ -205,7 +205,7 @@ class ApiTestCase(TestCase):
         with self.assertRaises(requests.exceptions.ConnectionError):
             self.api._Api__check_the_api_call_response(response=mock)
 
-    @patch("src.grafana_api.api.Api._Api__check_if_valid_json")
+    @patch("grafana_api.api.Api._Api__check_if_valid_json")
     def test__check_the_api_call_response_valid_json(self, check_if_valid_json_mock):
         check_if_valid_json_mock.return_value = True
 
