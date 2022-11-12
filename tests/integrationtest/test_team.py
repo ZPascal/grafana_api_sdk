@@ -1,9 +1,9 @@
 import os
 from unittest import TestCase
 
-from src.grafana_api.model import APIModel, TeamObject
-from src.grafana_api.team import Team
-from src.grafana_api.organisation import Organisation
+from grafana_api.model import APIModel, TeamObject
+from grafana_api.team import Team
+from grafana_api.organisation import Organisation
 
 
 class TeamTest(TestCase):

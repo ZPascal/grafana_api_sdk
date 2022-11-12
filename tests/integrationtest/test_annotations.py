@@ -1,12 +1,12 @@
 import os
 from unittest import TestCase
 
-from src.grafana_api.model import (
+from grafana_api.model import (
     APIModel,
     AnnotationObject,
     AnnotationGraphiteObject,
 )
-from src.grafana_api.annotations import Annotations
+from grafana_api.annotations import Annotations
 
 
 class AnnotationsTest(TestCase):
@@ -17,7 +17,7 @@ class AnnotationsTest(TestCase):
     annotations: Annotations = Annotations(model)
 
     def test_a_find_annotations(self):
-        self.assertEqual(101, self.annotations.find_annotations()[0].get("id"))
+        self.assertEqual(131, self.annotations.find_annotations()[0].get("id"))
 
     def test_b_create_annotation(self):
         annotations: AnnotationObject = AnnotationObject(

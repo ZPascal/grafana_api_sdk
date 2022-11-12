@@ -1,17 +1,17 @@
 from unittest import TestCase
 from unittest.mock import MagicMock, Mock, patch
 
-from src.grafana_api.model import (
+from grafana_api.model import (
     APIModel,
     FindAnnotationObject,
     AnnotationObject,
     AnnotationGraphiteObject,
 )
-from src.grafana_api.annotations import Annotations
+from grafana_api.annotations import Annotations
 
 
 class AnnotationsTestCase(TestCase):
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_find_annotations(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
@@ -26,7 +26,7 @@ class AnnotationsTestCase(TestCase):
             annotations.find_annotations(),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_find_annotations_filter_object(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
@@ -53,7 +53,7 @@ class AnnotationsTestCase(TestCase):
             ),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_find_annotations_no_valid_filter_object(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
@@ -80,7 +80,7 @@ class AnnotationsTestCase(TestCase):
             ),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_find_annotations_no_valid_result(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
@@ -93,7 +93,7 @@ class AnnotationsTestCase(TestCase):
         with self.assertRaises(Exception):
             annotations.find_annotations()
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_create_annotation(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
@@ -117,7 +117,7 @@ class AnnotationsTestCase(TestCase):
             ),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_create_annotation_no_annotation_object(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
@@ -130,7 +130,7 @@ class AnnotationsTestCase(TestCase):
         with self.assertRaises(ValueError):
             annotations.create_annotation(None)
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_create_annotation_no_valid_result(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
@@ -152,7 +152,7 @@ class AnnotationsTestCase(TestCase):
                 )
             )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_create_graphite_annotation(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
@@ -173,7 +173,7 @@ class AnnotationsTestCase(TestCase):
             ),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_create_graphite_annotation_no_annotation_object(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
@@ -186,7 +186,7 @@ class AnnotationsTestCase(TestCase):
         with self.assertRaises(ValueError):
             annotations.create_graphite_annotation(None)
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_create_graphite_annotation_no_valid_result(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
@@ -203,7 +203,7 @@ class AnnotationsTestCase(TestCase):
                 )
             )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_update_annotation(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
@@ -228,7 +228,7 @@ class AnnotationsTestCase(TestCase):
             ),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_update_annotation_no_annotation_object(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
@@ -241,7 +241,7 @@ class AnnotationsTestCase(TestCase):
         with self.assertRaises(ValueError):
             annotations.update_annotation(0, None)
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_update_annotation_no_valid_result(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
@@ -264,7 +264,7 @@ class AnnotationsTestCase(TestCase):
                 ),
             )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_delete_annotation(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
@@ -279,7 +279,7 @@ class AnnotationsTestCase(TestCase):
             annotations.delete_annotation(1),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_delete_annotation_no_annotation_object(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
@@ -292,7 +292,7 @@ class AnnotationsTestCase(TestCase):
         with self.assertRaises(ValueError):
             annotations.delete_annotation(0)
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_delete_annotation_no_valid_result(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
@@ -305,7 +305,7 @@ class AnnotationsTestCase(TestCase):
         with self.assertRaises(Exception):
             annotations.delete_annotation(1)
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_find_annotation_tags(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
@@ -320,7 +320,7 @@ class AnnotationsTestCase(TestCase):
             annotations.find_annotation_tags(tag="test", limit=1000),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_find_annotation_tags_only_limit(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
@@ -335,7 +335,7 @@ class AnnotationsTestCase(TestCase):
             annotations.find_annotation_tags(limit=1000),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_find_annotation_tags_only_tag(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
@@ -350,7 +350,7 @@ class AnnotationsTestCase(TestCase):
             annotations.find_annotation_tags(tag="test"),
         )
 
-    @patch("src.grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.api.Api.call_the_api")
     def test_find_annotation_tags_no_valid_result(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)

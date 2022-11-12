@@ -137,7 +137,7 @@ The method includes a functionality to create a new folder inside the organizati
 
 ```python
 def update_folder(title: str,
-                  uid: str = None,
+                  uid: str,
                   version: int = 0,
                   overwrite: bool = False) -> dict
 ```

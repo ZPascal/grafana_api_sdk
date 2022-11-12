@@ -1,12 +1,12 @@
 import os
 import json
-from unittest import TestCase, main
+from unittest import TestCase
 
 import requests.exceptions
 
-from src.grafana_api.model import APIModel
-from src.grafana_api.dashboard import Dashboard
-from src.grafana_api.folder import Folder
+from grafana_api.model import APIModel
+from grafana_api.dashboard import Dashboard
+from grafana_api.folder import Folder
 
 
 class DashboardTest(TestCase):
@@ -104,7 +104,3 @@ class DashboardTest(TestCase):
                 dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
                 dashboard_name=os.environ["GRAFANA_DASHBOARD_NAME"],
             )
-
-
-if __name__ == "__main__":
-    main()

@@ -1,13 +1,13 @@
 import os
 from unittest import TestCase
 
-from src.grafana_api.model import (
+from grafana_api.model import (
     APIModel,
     AlertmanagerConfig,
     AlertmanagerReceivers,
     DatasourceRuleQuery,
 )
-from src.grafana_api.alerting import Alerting
+from grafana_api.alerting import Alerting
 
 
 class AlertingTest(TestCase):
@@ -57,7 +57,10 @@ class AlertingTest(TestCase):
         result: dict = {
             "template_files": None,
             "alertmanager_config": {
-                "route": {"group_by": ["grafana_folder", "alertname"], "receiver": "grafana-default-email"},
+                "route": {
+                    "group_by": ["grafana_folder", "alertname"],
+                    "receiver": "grafana-default-email",
+                },
                 "templates": None,
                 "receivers": [
                     {
@@ -119,10 +122,13 @@ class AlertingTest(TestCase):
             "data": {
                 "alerts": [
                     {
-                        "labels": {"alertname": "Test", "grafana_folder": "Github Integrationtest"},
+                        "labels": {
+                            "alertname": "Test",
+                            "grafana_folder": "Github Integrationtest",
+                        },
                         "annotations": {},
                         "state": "Normal",
-                        "activeAt": "0001-01-01T00:00:00Z",
+                        "activeAt": "2022-08-30T05:19:00+02:00",
                         "value": "",
                     }
                 ]

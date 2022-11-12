@@ -1,9 +1,9 @@
 import os
 from unittest import TestCase
 
-from src.grafana_api.model import APIModel
-from src.grafana_api.user import CurrentUser
-from src.grafana_api.dashboard import Dashboard
+from grafana_api.model import APIModel
+from grafana_api.user import CurrentUser
+from grafana_api.dashboard import Dashboard
 
 
 class CurrentUserTest(TestCase):
