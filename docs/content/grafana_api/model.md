@@ -1,34 +1,34 @@
 # Table of Contents
 
-* [grafana\_api.model](#grafana_api.model)
-  * [APIEndpoints](#grafana_api.model.APIEndpoints)
-  * [RequestsMethods](#grafana_api.model.RequestsMethods)
-  * [APIModel](#grafana_api.model.APIModel)
-  * [DatasourceQuery](#grafana_api.model.DatasourceQuery)
-  * [DatasourceRuleQuery](#grafana_api.model.DatasourceRuleQuery)
-  * [Alert](#grafana_api.model.Alert)
-  * [Silence](#grafana_api.model.Silence)
-  * [AlertmanagerConfig](#grafana_api.model.AlertmanagerConfig)
-  * [AlertmanagerReceivers](#grafana_api.model.AlertmanagerReceivers)
-  * [RulerRule](#grafana_api.model.RulerRule)
-  * [UserObject](#grafana_api.model.UserObject)
-  * [PlaylistObject](#grafana_api.model.PlaylistObject)
-  * [PlaylistItemObject](#grafana_api.model.PlaylistItemObject)
-  * [TeamObject](#grafana_api.model.TeamObject)
-  * [QueryDatasourceObject](#grafana_api.model.QueryDatasourceObject)
-  * [QueryObject](#grafana_api.model.QueryObject)
-  * [FindAnnotationObject](#grafana_api.model.FindAnnotationObject)
-  * [AnnotationObject](#grafana_api.model.AnnotationObject)
-  * [AnnotationGraphiteObject](#grafana_api.model.AnnotationGraphiteObject)
-  * [GlobalUser](#grafana_api.model.GlobalUser)
-  * [CustomRole](#grafana_api.model.CustomRole)
-  * [RolePermission](#grafana_api.model.RolePermission)
+* [model](#model)
+  * [APIEndpoints](#model.APIEndpoints)
+  * [RequestsMethods](#model.RequestsMethods)
+  * [APIModel](#model.APIModel)
+  * [DatasourceQuery](#model.DatasourceQuery)
+  * [DatasourceRuleQuery](#model.DatasourceRuleQuery)
+  * [Alert](#model.Alert)
+  * [Silence](#model.Silence)
+  * [AlertmanagerConfig](#model.AlertmanagerConfig)
+  * [AlertmanagerReceivers](#model.AlertmanagerReceivers)
+  * [RulerRule](#model.RulerRule)
+  * [UserObject](#model.UserObject)
+  * [PlaylistObject](#model.PlaylistObject)
+  * [PlaylistItemObject](#model.PlaylistItemObject)
+  * [TeamObject](#model.TeamObject)
+  * [QueryDatasourceObject](#model.QueryDatasourceObject)
+  * [QueryObject](#model.QueryObject)
+  * [FindAnnotationObject](#model.FindAnnotationObject)
+  * [AnnotationObject](#model.AnnotationObject)
+  * [AnnotationGraphiteObject](#model.AnnotationGraphiteObject)
+  * [GlobalUser](#model.GlobalUser)
+  * [CustomRole](#model.CustomRole)
+  * [RolePermission](#model.RolePermission)
 
-<a id="grafana_api.model"></a>
+<a id="model"></a>
 
-# grafana\_api.model
+# model
 
-<a id="grafana_api.model.APIEndpoints"></a>
+<a id="model.APIEndpoints"></a>
 
 ## APIEndpoints Objects
 
@@ -38,7 +38,7 @@ class APIEndpoints(Enum)
 
 The class includes all necessary API endpoint strings to connect the Grafana API
 
-<a id="grafana_api.model.RequestsMethods"></a>
+<a id="model.RequestsMethods"></a>
 
 ## RequestsMethods Objects
 
@@ -48,7 +48,7 @@ class RequestsMethods(Enum)
 
 The class includes all necessary methods to establish an HTTP/ HTTPS connection to the Grafana API endpoints
 
-<a id="grafana_api.model.APIModel"></a>
+<a id="model.APIModel"></a>
 
 ## APIModel Objects
 
@@ -65,7 +65,7 @@ The class includes all necessary variables to establish a connection to the Graf
 - `username` _str_ - Specify the username of the Grafana system
 - `password` _str_ - Specify the password of the Grafana system
 
-<a id="grafana_api.model.DatasourceQuery"></a>
+<a id="model.DatasourceQuery"></a>
 
 ## DatasourceQuery Objects
 
@@ -84,7 +84,7 @@ The class includes all necessary variables to specify a query for the datasource
 - `max_data_points` _int_ - Specify maximum amount of data points that dashboard panel can render (default 100)
 - `output_format` _str_ - Specify the output format of the query (default time_series)
 
-<a id="grafana_api.model.DatasourceRuleQuery"></a>
+<a id="model.DatasourceRuleQuery"></a>
 
 ## DatasourceRuleQuery Objects
 
@@ -102,7 +102,7 @@ The class includes all necessary variables to specify a query for the datasource
 - `ref_id` _str_ - Specify a reference id of the search command
 - `relative_time_range` _dict_ - Specify the related time range of the search command
 
-<a id="grafana_api.model.Alert"></a>
+<a id="model.Alert"></a>
 
 ## Alert Objects
 
@@ -120,7 +120,7 @@ The class includes all necessary variables to generate an alert object that is n
 - `generator_url` _str_ - Specify the url of the generator endpoint
 - `labels` _dict_ - Specify labels of the alert
 
-<a id="grafana_api.model.Silence"></a>
+<a id="model.Silence"></a>
 
 ## Silence Objects
 
@@ -139,7 +139,7 @@ The class includes all necessary variables to generate a silence object that is 
 - `id` _str_ - Specify an id for the silence
 - `matchers` _dict_ - Specify matchers for the silence
 
-<a id="grafana_api.model.AlertmanagerConfig"></a>
+<a id="model.AlertmanagerConfig"></a>
 
 ## AlertmanagerConfig Objects
 
@@ -158,7 +158,7 @@ The class includes all necessary variables to generate an Alertmanager config ob
 - `route` _dict_ - Specify the route of the Alertmanager
 - `templates` _list_ - Specify an Alertmanager template
 
-<a id="grafana_api.model.AlertmanagerReceivers"></a>
+<a id="model.AlertmanagerReceivers"></a>
 
 ## AlertmanagerReceivers Objects
 
@@ -181,7 +181,7 @@ The class includes all necessary variables to generate an Alertmanager receivers
 - `webhook_configs` _list_ - Specify the webhook configuration of the receiver's
 - `wechat_configs` _list_ - Specify the wechaty configuration of the receiver's
 
-<a id="grafana_api.model.RulerRule"></a>
+<a id="model.RulerRule"></a>
 
 ## RulerRule Objects
 
@@ -201,7 +201,7 @@ The class includes all necessary variables to generate a Ruler rule object that 
 - `record` _str_ - Specify recode value of the rule
 - `for_id` _int_ - Specify the id of the rule if you update an existing rule (default 0)
 
-<a id="grafana_api.model.UserObject"></a>
+<a id="model.UserObject"></a>
 
 ## UserObject Objects
 
@@ -218,7 +218,7 @@ The class includes all necessary variables to generate a User object that is nec
 - `login` _str_ - Specify the expression of the rule
 - `theme` _str_ - Specify the Grafana alert of the rule
 
-<a id="grafana_api.model.PlaylistObject"></a>
+<a id="model.PlaylistObject"></a>
 
 ## PlaylistObject Objects
 
@@ -234,7 +234,7 @@ The class includes all necessary variables to generate a playlist object
 - `interval` _str_ - Specify the interval of the playlist
 - `items` _list_ - Specify a list of PlaylistItemObjects
 
-<a id="grafana_api.model.PlaylistItemObject"></a>
+<a id="model.PlaylistItemObject"></a>
 
 ## PlaylistItemObject Objects
 
@@ -251,7 +251,7 @@ The class includes all necessary variables to generate a playlist item object th
 - `order` _int_ - Specify the order of the playlist item
 - `title` _str_ - Specify the title of the playlist item
 
-<a id="grafana_api.model.TeamObject"></a>
+<a id="model.TeamObject"></a>
 
 ## TeamObject Objects
 
@@ -267,7 +267,7 @@ The class includes all necessary variables to generate a team object that is nec
 - `email` _str_ - Specify the email of the team
 - `org_id` _int_ - Specify the org_id of the team
 
-<a id="grafana_api.model.QueryDatasourceObject"></a>
+<a id="model.QueryDatasourceObject"></a>
 
 ## QueryDatasourceObject Objects
 
@@ -282,7 +282,7 @@ The class includes all necessary variables to generate a query datasource object
 - `type` _str_ - Specify the type of the datasource query
 - `uid` _str_ - Specify the uid of the datasource query
 
-<a id="grafana_api.model.QueryObject"></a>
+<a id="model.QueryObject"></a>
 
 ## QueryObject Objects
 
@@ -299,7 +299,7 @@ The class includes all necessary variables to generate a query object that is ne
 - `scenario_id` _str_ - Specify the scenario_id of the query history
 - `datasource` _QueryDatasourceObject_ - Specify the datasource of the type QueryDatasourceObject
 
-<a id="grafana_api.model.FindAnnotationObject"></a>
+<a id="model.FindAnnotationObject"></a>
 
 ## FindAnnotationObject Objects
 
@@ -321,7 +321,7 @@ The class includes all necessary variables to generate a find annotation object
 - `type` _str_ - Specify the optional type e.g. alert or annotation (default None)
 - `tags` _list_ - Specify the optional tags (default None)
 
-<a id="grafana_api.model.AnnotationObject"></a>
+<a id="model.AnnotationObject"></a>
 
 ## AnnotationObject Objects
 
@@ -340,7 +340,7 @@ The class includes all necessary variables to generate an annotation object
 - `dashboard_uid` _str_ - Specify the optional dashboard_uid (default None)
 - `panel_id` _int_ - Specify the optional panel_id (default None)
 
-<a id="grafana_api.model.AnnotationGraphiteObject"></a>
+<a id="model.AnnotationGraphiteObject"></a>
 
 ## AnnotationGraphiteObject Objects
 
@@ -357,7 +357,7 @@ The class includes all necessary variables to generate a Graphite annotation obj
 - `when` _int_ - Specify the optional time as number in milliseconds
 - `data` _str_ - Specify the optional annotation description message
 
-<a id="grafana_api.model.GlobalUser"></a>
+<a id="model.GlobalUser"></a>
 
 ## GlobalUser Objects
 
@@ -375,7 +375,7 @@ The class includes all necessary variables to generate a global user object
 - `password` _str_ - Specify the password of the user
 - `org_id` _int_ - Specify the optional org id of the user (default None)
 
-<a id="grafana_api.model.CustomRole"></a>
+<a id="model.CustomRole"></a>
 
 ## CustomRole Objects
 
@@ -397,7 +397,7 @@ The class includes all necessary variables to generate a custom role object
 - `hidden` _bool_ - Specify whether the role is hidden or not.  If set to True, then the role does not show in the role picker. It will not be listed by API endpoints unless explicitly specified (default False)
 - `permissions` _list_ - Specify the optional permissions of the role as a list of the RolePermission objects (default None)
 
-<a id="grafana_api.model.RolePermission"></a>
+<a id="model.RolePermission"></a>
 
 ## RolePermission Objects
 
