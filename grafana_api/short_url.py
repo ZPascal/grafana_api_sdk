@@ -40,7 +40,7 @@ class ShortUrl:
                     RequestsMethods.POST,
                     json.dumps(dict({"path": path})),
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("url") is None:

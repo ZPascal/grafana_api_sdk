@@ -94,7 +94,6 @@ class Annotations:
             .call_the_api(
                 f"{APIEndpoints.ANNOTATIONS.value}{custom_query}",
             )
-            .json()
         )
 
         if api_call == list() or api_call[0].get("id") is None:
@@ -155,7 +154,6 @@ class Annotations:
                     RequestsMethods.POST,
                     json.dumps(annotation_object),
                 )
-                .json()
             )
 
             if (
@@ -210,7 +208,7 @@ class Annotations:
                     RequestsMethods.POST,
                     json.dumps(annotation_object),
                 )
-                .json()
+    
             )
 
             if (
@@ -266,7 +264,6 @@ class Annotations:
                     RequestsMethods.PATCH,
                     json.dumps(annotation_object),
                 )
-                .json()
             )
 
             if api_call.get("message") != "Annotation patched":
@@ -306,7 +303,6 @@ class Annotations:
                     f"{APIEndpoints.ANNOTATIONS.value}/{id}",
                     RequestsMethods.DELETE,
                 )
-                .json()
             )
 
             if api_call.get("message") != "Annotation deleted":
@@ -359,7 +355,6 @@ class Annotations:
             .call_the_api(
                 f"{APIEndpoints.ANNOTATIONS.value}/tags{filter_values}",
             )
-            .json()
         )
 
         if api_call == dict() or api_call.get("result") is None:

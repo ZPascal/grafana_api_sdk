@@ -11,10 +11,7 @@ class PreferencesTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         preferences: Preferences = Preferences(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"homeDashboardId": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"homeDashboardId": "test"})
 
         self.assertEqual(
             dict({"homeDashboardId": "test"}),
@@ -26,10 +23,7 @@ class PreferencesTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         preferences: Preferences = Preferences(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             preferences.get_current_user_preferences()
@@ -39,10 +33,7 @@ class PreferencesTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         preferences: Preferences = Preferences(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Preferences updated"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Preferences updated"})
 
         self.assertEqual(
             None,
@@ -56,10 +47,7 @@ class PreferencesTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         preferences: Preferences = Preferences(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             preferences.update_current_user_preferences("", None, "")
@@ -69,10 +57,7 @@ class PreferencesTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         preferences: Preferences = Preferences(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Test"})
 
         with self.assertRaises(Exception):
             preferences.update_current_user_preferences("test", 0, "test")
@@ -82,10 +67,7 @@ class PreferencesTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         preferences: Preferences = Preferences(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"homeDashboardId": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"homeDashboardId": "test"})
 
         self.assertEqual(
             dict({"homeDashboardId": "test"}),
@@ -97,10 +79,7 @@ class PreferencesTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         preferences: Preferences = Preferences(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             preferences.get_current_org_preferences()
@@ -110,10 +89,7 @@ class PreferencesTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         preferences: Preferences = Preferences(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Preferences updated"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Preferences updated"})
 
         self.assertEqual(
             None,
@@ -125,10 +101,7 @@ class PreferencesTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         preferences: Preferences = Preferences(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             preferences.update_current_org_preferences("", None, "")
@@ -138,10 +111,7 @@ class PreferencesTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         preferences: Preferences = Preferences(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Test"})
 
         with self.assertRaises(Exception):
             preferences.update_current_org_preferences("test", 0, "test")

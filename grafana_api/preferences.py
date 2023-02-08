@@ -35,7 +35,7 @@ class Preferences:
             .call_the_api(
                 APIEndpoints.USER_PREFERENCES.value,
             )
-            .json()
+
         )
 
         if api_call == dict() or api_call.get("homeDashboardId") is None:
@@ -84,7 +84,7 @@ class Preferences:
                     RequestsMethods.PATCH,
                     json.dumps(modified_values),
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Preferences updated":
@@ -113,7 +113,7 @@ class Preferences:
             .call_the_api(
                 APIEndpoints.ORG_PREFERENCES.value,
             )
-            .json()
+
         )
 
         if api_call == dict() or api_call.get("homeDashboardId") is None:
@@ -162,7 +162,7 @@ class Preferences:
                     RequestsMethods.PATCH,
                     json.dumps(modified_values),
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Preferences updated":

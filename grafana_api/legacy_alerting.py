@@ -49,7 +49,7 @@ class Alerting:
                     api_string,
                     RequestsMethods.GET,
                 )
-                .json()
+    
             )
 
             if api_call == list() or api_call[0].get("id") is None:
@@ -96,7 +96,7 @@ class Alerting:
                     f"{APIEndpoints.LEGACY_ALERTS.value}/{dashboard_ids_string}",
                     RequestsMethods.GET,
                 )
-                .json()
+    
             )
 
             if api_call == list() or api_call[0].get("id") is None:
@@ -129,7 +129,7 @@ class Alerting:
                     f"{APIEndpoints.LEGACY_ALERTS.value}/{id}",
                     RequestsMethods.GET,
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -168,7 +168,7 @@ class Alerting:
                     RequestsMethods.POST,
                     json.dumps(json_complete),
                 )
-                .json()
+    
             )
 
             if api_call.get(

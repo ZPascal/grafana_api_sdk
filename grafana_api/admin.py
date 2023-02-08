@@ -1,5 +1,6 @@
 import json
 import logging
+from urllib3 import response
 
 from .model import (
     APIModel,
@@ -40,7 +41,7 @@ class Admin:
             .call_the_api(
                 f"{APIEndpoints.ADMIN.value}/settings",
             )
-            .json()
+
         )
 
         if api_call == dict() or api_call.get("DEFAULT") is None:
@@ -79,7 +80,7 @@ class Admin:
                     RequestsMethods.PUT,
                     json.dumps(settings_update),
                 )
-                .json()
+
             )
 
             if api_call.get("message") != "Settings updated":
@@ -106,7 +107,7 @@ class Admin:
             .call_the_api(
                 f"{APIEndpoints.ADMIN.value}/stats",
             )
-            .json()
+
         )
 
         if api_call == dict() or api_call.get("orgs") is None:
@@ -130,7 +131,7 @@ class Admin:
             .call_the_api(
                 f"{APIEndpoints.ADMIN.value}/usage-report-preview",
             )
-            .json()
+
         )
 
         if api_call == dict() or api_call.get("version") is None:
@@ -179,8 +180,9 @@ class Admin:
                     RequestsMethods.POST,
                     json.dumps(user_object),
                 )
-                .json()
             )
+
+            print(api_call)
 
             if api_call.get("message") != "User created":
                 logging.error(f"Please, check the error: {api_call}.")
@@ -214,7 +216,7 @@ class Admin:
                     RequestsMethods.PUT,
                     json.dumps(dict({"password": password})),
                 )
-                .json()
+
             )
 
             if api_call.get("message") != "User password updated":
@@ -251,7 +253,7 @@ class Admin:
                     RequestsMethods.PUT,
                     json.dumps(dict({"isGrafanaAdmin": is_grafana_admin})),
                 )
-                .json()
+
             )
 
             if api_call.get("message") != "User permissions updated":
@@ -286,7 +288,6 @@ class Admin:
                     f"{APIEndpoints.ADMIN.value}/users/{id}",
                     RequestsMethods.DELETE,
                 )
-                .json()
             )
 
             if api_call.get("message") != "User deleted":
@@ -316,7 +317,6 @@ class Admin:
                 RequestsMethods.POST,
                 json.dumps(dict({"paused": True})),
             )
-            .json()
         )
 
         if api_call.get("state") != "Paused":
@@ -343,7 +343,6 @@ class Admin:
                 RequestsMethods.POST,
                 json.dumps(dict({"paused": False})),
             )
-            .json()
         )
 
         if api_call.get("state") != "Unpaused":
@@ -372,7 +371,7 @@ class Admin:
                 .call_the_api(
                     f"{APIEndpoints.ADMIN.value}/users/{id}/auth-tokens",
                 )
-                .json()
+    
             )
 
             if api_call == list() or api_call[0].get("id") is None:
@@ -407,7 +406,7 @@ class Admin:
                     RequestsMethods.POST,
                     json.dumps(dict({"authTokenId": auth_token_id})),
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "User auth token revoked":
@@ -441,7 +440,7 @@ class Admin:
                     RequestsMethods.POST,
                     json.dumps(dict()),
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "User auth token revoked":
@@ -470,7 +469,7 @@ class Admin:
                 RequestsMethods.POST,
                 json.dumps(dict()),
             )
-            .json()
+
         )
 
         if api_call.get("message") != "Dashboards config reloaded":
@@ -496,7 +495,7 @@ class Admin:
                 RequestsMethods.POST,
                 json.dumps(dict()),
             )
-            .json()
+
         )
 
         if api_call.get("message") != "Datasources config reloaded":
@@ -522,7 +521,7 @@ class Admin:
                 RequestsMethods.POST,
                 json.dumps(dict()),
             )
-            .json()
+
         )
 
         if api_call.get("message") != "Plugins config reloaded":
@@ -548,7 +547,7 @@ class Admin:
                 RequestsMethods.POST,
                 json.dumps(dict()),
             )
-            .json()
+
         )
 
         if api_call.get("message") != "Notifications config reloaded":
@@ -574,7 +573,7 @@ class Admin:
                 RequestsMethods.POST,
                 json.dumps(dict()),
             )
-            .json()
+
         )
 
         if api_call.get("message") != "Accesscontrol config reloaded":
@@ -600,7 +599,7 @@ class Admin:
                 RequestsMethods.POST,
                 json.dumps(dict()),
             )
-            .json()
+
         )
 
         if api_call.get("message") != "LDAP config reloaded":
@@ -619,13 +618,13 @@ class Admin:
             None
         """
 
-        api_call: any = Api(self.grafana_api_model).call_the_api(
+        api_call: response = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.ADMIN.value}/encryption/rotate-data-keys",
             RequestsMethods.POST,
             json.dumps(dict()),
         )
 
-        if api_call.status_code != 204:
+        if api_call.status != 204:
             logging.error(f"Please, check the error: {api_call}.")
             raise Exception
         else:

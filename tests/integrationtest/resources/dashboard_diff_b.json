@@ -1,8 +1,8 @@
 {
   "dashboard": {
     "id": null,
-    "uid": "test1",
-    "title": "Test",
+    "uid": "testB",
+    "title": "TestB",
     "tags": [],
     "style": "dark",
     "timezone": "browser",
@@ -24,9 +24,9 @@
     "annotations": {
       "list": []
     },
-    "refresh": "5s",
+    "refresh": "15s",
     "schemaVersion": 17,
-    "version": 0,
+    "version": 1,
     "links": []
   }
 }

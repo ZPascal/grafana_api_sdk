@@ -16,10 +16,7 @@ class AnnotationsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list([{"id": "test"}]))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list([{"id": "test"}])
 
         self.assertEqual(
             list([{"id": "test"}]),
@@ -31,10 +28,7 @@ class AnnotationsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list([{"id": "test"}]))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list([{"id": "test"}])
 
         self.assertEqual(
             list([{"id": "test"}]),
@@ -58,10 +52,7 @@ class AnnotationsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list([{"id": "test"}]))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list([{"id": "test"}])
 
         self.assertEqual(
             list([{"id": "test"}]),
@@ -85,10 +76,7 @@ class AnnotationsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list()
 
         with self.assertRaises(Exception):
             annotations.find_annotations()
@@ -98,10 +86,7 @@ class AnnotationsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Annotation added", "id": 1}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Annotation added", "id": 1})
 
         self.assertEqual(
             1,
@@ -122,10 +107,7 @@ class AnnotationsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             annotations.create_annotation(None)
@@ -135,10 +117,7 @@ class AnnotationsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             annotations.create_annotation(
@@ -157,12 +136,7 @@ class AnnotationsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(
-            return_value=dict({"message": "Graphite annotation added", "id": 1})
-        )
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Graphite annotation added", "id": 1})
 
         self.assertEqual(
             1,
@@ -178,10 +152,7 @@ class AnnotationsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             annotations.create_graphite_annotation(None)
@@ -191,10 +162,7 @@ class AnnotationsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             annotations.create_graphite_annotation(
@@ -208,10 +176,7 @@ class AnnotationsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Annotation patched"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Annotation patched"})
 
         self.assertEqual(
             None,
@@ -233,10 +198,7 @@ class AnnotationsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             annotations.update_annotation(0, None)
@@ -246,10 +208,7 @@ class AnnotationsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Test"})
 
         with self.assertRaises(Exception):
             annotations.update_annotation(
@@ -269,10 +228,7 @@ class AnnotationsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Annotation deleted"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Annotation deleted"})
 
         self.assertEqual(
             None,
@@ -284,10 +240,7 @@ class AnnotationsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             annotations.delete_annotation(0)
@@ -297,10 +250,7 @@ class AnnotationsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Test"})
 
         with self.assertRaises(Exception):
             annotations.delete_annotation(1)
@@ -310,10 +260,7 @@ class AnnotationsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"result": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"result": "test"})
 
         self.assertEqual(
             dict({"result": "test"}),
@@ -325,10 +272,7 @@ class AnnotationsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"result": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"result": "test"})
 
         self.assertEqual(
             dict({"result": "test"}),
@@ -340,10 +284,7 @@ class AnnotationsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"result": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"result": "test"})
 
         self.assertEqual(
             dict({"result": "test"}),
@@ -355,10 +296,7 @@ class AnnotationsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             annotations.find_annotation_tags()

@@ -11,10 +11,7 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Report was sent"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Report was sent"})
 
         self.assertEqual(None, reporting.send_report(1, emails="test,test"))
 
@@ -23,10 +20,7 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             reporting.send_report(0, emails="")
@@ -36,10 +30,7 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Test"})
 
         with self.assertRaises(Exception):
             reporting.send_report(1, use_emails_from_report=True)

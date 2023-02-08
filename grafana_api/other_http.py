@@ -1,6 +1,7 @@
 import logging
 
-import requests
+import urllib3
+import json
 
 from .model import APIModel, APIEndpoints
 from .api import Api
@@ -32,7 +33,7 @@ class OtherHTTP:
         api_call: dict = (
             Api(self.grafana_api_model)
             .call_the_api(f"{APIEndpoints.FRONTEND.value}/settings")
-            .json()
+
         )
 
         if api_call == dict():
@@ -53,8 +54,7 @@ class OtherHTTP:
 
         api_call: str = (
             Api(self.grafana_api_model)
-            .call_the_api(f"{APIEndpoints.LOGIN.value}/ping")
-            .text
+            .call_the_api(f"{APIEndpoints.LOGIN.value}/ping").data.decode("utf-8")
         )
 
         if api_call != "Logged in":
@@ -73,9 +73,14 @@ class OtherHTTP:
             api_call (dict): Returns the health information
         """
 
-        api_call: dict = requests.get(
-            f"{self.grafana_api_model.host}/api/health"
-        ).json()
+        http = urllib3.PoolManager(num_pools=self.grafana_api_model.num_pools,
+                                   retries=self.grafana_api_model.retries,
+                                   timeout=self.grafana_api_model.timeout,
+                                   ssl_context=self.grafana_api_model.ssl_context)
+
+        api_call: dict = json.loads(
+            http.request("GET", f"{self.grafana_api_model.host}/api/health").data.decode("utf-8")
+        )
 
         if api_call == dict() or api_call.get("commit") is None:
             logging.error(f"Check the error: {api_call}.")
@@ -93,7 +98,12 @@ class OtherHTTP:
             api_call (str): Returns the metrics information
         """
 
-        api_call: str = requests.get(f"{self.grafana_api_model.host}/metrics").text
+        http = urllib3.PoolManager(num_pools=self.grafana_api_model.num_pools,
+                                   retries=self.grafana_api_model.retries,
+                                   timeout=self.grafana_api_model.timeout,
+                                   ssl_context=self.grafana_api_model.ssl_context)
+
+        api_call: str = http.request("GET", f"{self.grafana_api_model.host}/metrics").data.decode("utf-8")
 
         if len(api_call) == 0 or api_call is None:
             logging.error(f"Check the error: {api_call}.")

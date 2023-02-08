@@ -128,7 +128,7 @@ class AlertingTest(TestCase):
                         },
                         "annotations": {},
                         "state": "Normal",
-                        "activeAt": "2022-08-30T05:19:00+02:00",
+                        "activeAt": "2022-11-28T01:36:00+01:00",
                         "value": "",
                     }
                 ]

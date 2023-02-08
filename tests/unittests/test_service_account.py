@@ -13,10 +13,7 @@ class ServiceAccountTestCase(TestCase):
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_search_service_account(self, call_the_api_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"totalCount": 2}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"totalCount": 2})
 
         self.assertEqual(
             dict({"totalCount": 2}),
@@ -25,10 +22,7 @@ class ServiceAccountTestCase(TestCase):
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_search_service_account_specify_query(self, call_the_api_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"totalCount": 2}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"totalCount": 2})
 
         self.assertEqual(
             dict({"totalCount": 2}),
@@ -37,20 +31,14 @@ class ServiceAccountTestCase(TestCase):
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_search_service_account_no_valid_result(self, call_the_api_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             self.service_account.search_service_account()
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_create_service_account(self, call_the_api_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"id": 2}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"id": 2})
 
         self.assertEqual(
             dict({"id": 2}),
@@ -59,30 +47,21 @@ class ServiceAccountTestCase(TestCase):
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_create_service_account_no_name(self, call_the_api_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"id": 2}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"id": 2})
 
         with self.assertRaises(ValueError):
             self.service_account.create_service_account("", ""),
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_create_service_account_no_valid_result(self, call_the_api_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             self.service_account.create_service_account("test", "test")
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_service_account_by_id(self, call_the_api_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"id": 2}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"id": 2})
 
         self.assertEqual(
             dict({"id": 2}),
@@ -91,30 +70,21 @@ class ServiceAccountTestCase(TestCase):
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_service_account_by_id_no_id(self, call_the_api_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"id": 2}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"id": 2})
 
         with self.assertRaises(ValueError):
             self.service_account.get_service_account_by_id(0),
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_service_account_by_id_no_valid_result(self, call_the_api_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             self.service_account.get_service_account_by_id(1)
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_update_service_account(self, call_the_api_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"id": 2}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"id": 2})
 
         self.assertEqual(
             dict({"id": 2}),
@@ -123,30 +93,21 @@ class ServiceAccountTestCase(TestCase):
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_update_service_account_no_id(self, call_the_api_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"id": 2}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"id": 2})
 
         with self.assertRaises(ValueError):
             self.service_account.update_service_account(0, "", ""),
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_update_service_account_no_valid_result(self, call_the_api_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             self.service_account.update_service_account(1, "test", "test")
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_service_account_token_by_id(self, call_the_api_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list([{"id": 2}]))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list([{"id": 2}])
 
         self.assertEqual(
             list([{"id": 2}]),
@@ -155,30 +116,21 @@ class ServiceAccountTestCase(TestCase):
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_service_account_token_by_id_no_id(self, call_the_api_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list([{"id": 2}]))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list([{"id": 2}])
 
         with self.assertRaises(ValueError):
             self.service_account.get_service_account_token_by_id(0),
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_service_account_token_by_id_no_valid_result(self, call_the_api_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list()
 
         with self.assertRaises(Exception):
             self.service_account.get_service_account_token_by_id(1)
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_create_service_account_token_by_id(self, call_the_api_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"id": 2}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"id": 2})
 
         self.assertEqual(
             dict({"id": 2}),
@@ -187,10 +139,7 @@ class ServiceAccountTestCase(TestCase):
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_create_service_account_token_by_id_no_id(self, call_the_api_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"id": 2}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"id": 2})
 
         with self.assertRaises(ValueError):
             self.service_account.create_service_account_token_by_id(0, "", ""),
@@ -199,20 +148,14 @@ class ServiceAccountTestCase(TestCase):
     def test_create_service_account_token_by_id_no_valid_result(
         self, call_the_api_mock
     ):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             self.service_account.create_service_account_token_by_id(1, "test", "test")
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_delete_service_account_token_by_id(self, call_the_api_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "API key deleted"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "API key deleted"})
 
         self.assertEqual(
             None,
@@ -221,10 +164,7 @@ class ServiceAccountTestCase(TestCase):
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_delete_service_account_token_by_id_no_id(self, call_the_api_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"id": 2}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"id": 2})
 
         with self.assertRaises(ValueError):
             self.service_account.delete_service_account_token_by_id(0, 0)
@@ -233,10 +173,7 @@ class ServiceAccountTestCase(TestCase):
     def test_delete_service_account_token_by_id_no_valid_result(
         self, call_the_api_mock
     ):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Test"})
 
         with self.assertRaises(Exception):
             self.service_account.delete_service_account_token_by_id(1, 1)

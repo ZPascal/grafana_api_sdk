@@ -40,10 +40,9 @@ class Authentication:
                 APIEndpoints.AUTHENTICATION.value,
                 org_id_header=org_id_header,
             )
-            .json()
         )
 
-        if api_call == list() or api_call[0].get("id") is None:
+        if api_call != list() and api_call[0].get("id") is None:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
@@ -89,7 +88,7 @@ class Authentication:
                     ),
                     org_id_header=org_id_header,
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -128,7 +127,7 @@ class Authentication:
                     RequestsMethods.DELETE,
                     org_id_header=org_id_header,
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "API key deleted":

@@ -1,7 +1,7 @@
 import json
 import logging
 
-from .model import APIModel, APIEndpoints, RequestsMethods
+from .model import APIModel, APIEndpoints, RequestsMethods, CorrelationObject
 from .api import Api
 
 
@@ -20,18 +20,12 @@ class Correlations:
 
     def create_correlations(
         self,
-        source_datasource_uid: str,
-        target_datasource_uid: str,
-        label: str,
-        description: str,
+        correlation_object: CorrelationObject
     ) -> dict:
         """The method includes a functionality to create a correlation between two data sources - the source data source identified by source uid in the path, and the target data source which is specified in the body
 
          Args:
-            source_datasource_uid (str): Specify the source data source uid
-            target_datasource_uid (str): Specify the target data source uid
-            label (str): Specify a label for the correlation
-            description (str): Specify a description for the correlation
+            correlation_object (CorrelationObject): Specify the correlation object
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -42,27 +36,33 @@ class Correlations:
         """
 
         if (
-            len(source_datasource_uid) != 0
-            and len(target_datasource_uid) != 0
-            and len(label) != 0
-            and len(description) != 0
+            len(correlation_object.source_datasource_uid) != 0
+            and len(correlation_object.target_datasource_uid) != 0
+            and len(correlation_object.label) != 0
+            and len(correlation_object.description) != 0
+            and len(correlation_object.config_type) != 0
+            and len(correlation_object.config_field) != 0
         ):
             api_call: dict = (
                 Api(self.grafana_api_model)
                 .call_the_api(
-                    f"{APIEndpoints.DATASOURCES.value}/uid/{source_datasource_uid}/correlations",
+                    f"{APIEndpoints.DATASOURCES.value}/uid/{correlation_object.source_datasource_uid}/correlations",
                     RequestsMethods.POST,
                     json.dumps(
                         dict(
                             {
-                                "targetUID": target_datasource_uid,
-                                "label": label,
-                                "description": description,
+                                "targetUID": correlation_object.target_datasource_uid,
+                                "label": correlation_object.label,
+                                "description": correlation_object.description,
+                                "config": {
+                                    "type": correlation_object.config_type,
+                                    "field": correlation_object.config_field,
+                                    "target": correlation_object.config_target,
+                                }
                             }
                         )
                     ),
                 )
-                .json()
             )
 
             if api_call == dict() or api_call.get("message") is None:
@@ -72,7 +72,7 @@ class Correlations:
                 return api_call
         else:
             logging.error(
-                "There is no datasource_uid, target_uid, label or description defined."
+                "There is no datasource_uid, target_uid, label, description, config_type or config_field defined."
             )
             raise ValueError
 
@@ -98,7 +98,7 @@ class Correlations:
                     f"{APIEndpoints.DATASOURCES.value}/uid/{source_datasource_uid}/correlations/{correlation_uid}",
                     RequestsMethods.DELETE,
                 )
-                .json()
+    
             )
 
             if "Correlation deleted" != api_call.get("message"):
@@ -147,13 +147,15 @@ class Correlations:
                 json.dumps(dict({"label": label, "description": description})),
             )
 
-            if api_call.json() == dict() or api_call.json().get("message") is None:
-                logging.error(f"Check the error: {api_call.json()}.")
+            if api_call == dict() or api_call.get("message") is None:
+                logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
-                return api_call.json()
+                return api_call
         else:
             logging.error(
                 "There is no source_datasource_uid, correlation_uid, label or description defined."
             )
             raise ValueError
+
+    #TODO Get correlations https://grafana.com/docs/grafana/latest/developers/http_api/correlations/#get-single-correlation

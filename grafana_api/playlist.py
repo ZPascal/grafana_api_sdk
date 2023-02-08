@@ -1,8 +1,6 @@
 import json
 import logging
 
-from requests import Response
-
 from .model import (
     APIModel,
     APIEndpoints,
@@ -55,10 +53,10 @@ class Playlist:
             .call_the_api(
                 api_request_url,
             )
-            .json()
+
         )
 
-        if api_call == list() or api_call[0].get("id") is None:
+        if api_call == list() or api_call[0].get("uid") is None:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
@@ -84,10 +82,10 @@ class Playlist:
                 .call_the_api(
                     f"{APIEndpoints.PLAYLISTS.value}/{playlist_uid}",
                 )
-                .json()
+    
             )
 
-            if api_call == dict() or api_call.get("id") is None:
+            if api_call == dict() or api_call.get("uid") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -116,10 +114,9 @@ class Playlist:
                 .call_the_api(
                     f"{APIEndpoints.PLAYLISTS.value}/{playlist_uid}/items",
                 )
-                .json()
             )
 
-            if api_call == list() or api_call[0].get("id") is None:
+            if api_call == list() or api_call[0].get("value") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -148,10 +145,10 @@ class Playlist:
                 .call_the_api(
                     f"{APIEndpoints.PLAYLISTS.value}/{playlist_uid}/dashboards",
                 )
-                .json()
+    
             )
 
-            if api_call == list() or api_call[0].get("id") is None:
+            if api_call == list() or api_call[0].get("title") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -202,10 +199,10 @@ class Playlist:
                         )
                     ),
                 )
-                .json()
+    
             )
 
-            if api_call == dict() or api_call.get("id") is None:
+            if api_call == dict() or api_call.get("uid") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -257,10 +254,10 @@ class Playlist:
                         )
                     ),
                 )
-                .json()
+    
             )
 
-            if api_call == dict() or api_call.get("id") is None:
+            if api_call == dict() or api_call.get("uid") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -284,13 +281,13 @@ class Playlist:
         """
 
         if len(playlist_uid) != 0:
-            api_call: Response = Api(self.grafana_api_model).call_the_api(
+            api_call = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.PLAYLISTS.value}/{playlist_uid}",
                 RequestsMethods.DELETE,
             )
 
-            if api_call.status_code != 200:
-                logging.error(f"Check the error: {api_call.text}.")
+            if api_call.status != 200:
+                logging.error(f"Check the error: {api_call.data}.")
                 raise Exception
             else:
                 logging.info("You successfully deleted the corresponding playlist.")

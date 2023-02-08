@@ -16,7 +16,7 @@ class SnapshotTest(TestCase):
 
     def test_a_create_new_snapshot(self):
         snapshot: dict = self.snapshot.create_new_snapshot(
-            self.dashboard.get_dashboard_by_uid("test1").get("dashboard"),
+            self.dashboard.get_dashboard_by_uid("tests").get("dashboard"),
             name="TestSnapshot1",
         )
         self.assertIsNotNone(snapshot.get("id"))
@@ -37,7 +37,7 @@ class SnapshotTest(TestCase):
 
     def test_c_delete_snapshot_by_delete_key(self):
         snapshot: dict = self.snapshot.create_new_snapshot(
-            self.dashboard.get_dashboard_by_uid("test1").get("dashboard"),
+            self.dashboard.get_dashboard_by_uid("tests").get("dashboard"),
             name="TestSnapshot2",
             delete_key="test",
         )

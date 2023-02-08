@@ -47,7 +47,7 @@ class Alerting:
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/alerts",
                 )
-                .json()
+
             )
 
             if api_call == list() or api_call[0].get("receivers") is None:
@@ -101,7 +101,7 @@ class Alerting:
                     RequestsMethods.POST,
                     json.dumps(alerts_json_list),
                 )
-                .json()
+
             )
 
             if api_call != dict():
@@ -135,7 +135,7 @@ class Alerting:
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/alerts",
                 )
-                .json()
+
             )
 
             if api_call == list() or api_call[0].get("alerts") is None:
@@ -174,7 +174,7 @@ class Alerting:
                     f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silence/{silence_id}",
                     RequestsMethods.DELETE,
                 )
-                .json()
+
             )
 
             if api_call != dict():
@@ -212,7 +212,7 @@ class Alerting:
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silence/{silence_id}",
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -246,7 +246,7 @@ class Alerting:
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silences",
                 )
-                .json()
+    
             )
 
             if api_call == list() or api_call[0].get("id") is None:
@@ -297,7 +297,7 @@ class Alerting:
                     RequestsMethods.POST,
                     json.dumps(silence_json_dict),
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -331,7 +331,7 @@ class Alerting:
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/status",
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("config") is None:
@@ -366,7 +366,7 @@ class Alerting:
                     f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/config/api/v1/alerts",
                     RequestsMethods.DELETE,
                 )
-                .json()
+    
             )
 
             if (
@@ -403,7 +403,7 @@ class Alerting:
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/config/api/v1/alerts",
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("alertmanager_config") is None:
@@ -463,7 +463,7 @@ class Alerting:
                     RequestsMethods.POST,
                     json.dumps(alertmanager_configuration_json_dict),
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("message") != "configuration created":
@@ -531,10 +531,11 @@ class Alerting:
                 f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/config/api/v1/receivers/test",
                 RequestsMethods.POST,
                 json.dumps(alertmanager_receivers_json_dict),
+                response_status_code=True
             )
 
-            status_code: int = api_call.status_code
-            api_call_dict: dict = api_call.json()
+            status_code: int = api_call.get("status")
+            api_call_dict: dict = api_call
 
             alert_manager_status_dict: dict = dict(
                 {
@@ -582,7 +583,6 @@ class Alerting:
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_PROMETHEUS.value}/{recipient}/api/v1/alerts",
                 )
-                .json()
             )
 
             if api_call == dict() or api_call.get("data") is None:
@@ -616,7 +616,6 @@ class Alerting:
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_PROMETHEUS.value}/{recipient}/api/v1/rules",
                 )
-                .json()
             )
 
             if api_call == dict() or api_call.get("data") is None:
@@ -650,7 +649,6 @@ class Alerting:
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_RULER.value}/{recipient}/api/v1/rules",
                 )
-                .json()
             )
 
             if api_call == dict():
@@ -687,7 +685,7 @@ class Alerting:
                     f"{APIEndpoints.ALERTS_RULER.value}/{recipient}/api/v1/rules/{namespace}",
                     RequestsMethods.DELETE,
                 )
-                .json()
+    
             )
 
             if api_call != dict():
@@ -725,7 +723,7 @@ class Alerting:
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_RULER.value}/{recipient}/api/v1/rules/{namespace}",
                 )
-                .json()
+    
             )
 
             if api_call == dict():
@@ -800,7 +798,7 @@ class Alerting:
                         }
                     ),
                 )
-                .json()
+    
             )
 
             if api_call != dict():
@@ -844,7 +842,7 @@ class Alerting:
                     f"{APIEndpoints.ALERTS_RULER.value}/{recipient}/api/v1/rules/{namespace}/{group_name}",
                     RequestsMethods.DELETE,
                 )
-                .json()
+    
             )
 
             if api_call != dict():
@@ -887,7 +885,7 @@ class Alerting:
                 .call_the_api(
                     f"{APIEndpoints.ALERTS_RULER.value}/{recipient}/api/v1/rules/{namespace}/{group_name}",
                 )
-                .json()
+    
             )
 
             if api_call == dict():
@@ -949,7 +947,7 @@ class Alerting:
                         }
                     ),
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("message") is not None:
@@ -1028,7 +1026,7 @@ class Alerting:
                         }
                     ),
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("message") is not None:
@@ -1058,7 +1056,7 @@ class Alerting:
                 f"{APIEndpoints.ALERTS_NGALERT.value}/admin_config",
                 RequestsMethods.DELETE,
             )
-            .json()
+
         )
 
         if api_call != dict() and api_call.get("message") is not None:
@@ -1081,9 +1079,10 @@ class Alerting:
 
         api_call: any = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.ALERTS_NGALERT.value}/admin_config",
+            response_status_code=True
         )
 
-        status_code: int = api_call.status_code
+        status_code: int = api_call.get("status")
 
         alert_manager_status_dict: dict = dict(
             {
@@ -1093,7 +1092,7 @@ class Alerting:
         )
 
         if status_code == 200:
-            return api_call.json()
+            return api_call
         elif 404 <= status_code <= 500:
             logging.error(alert_manager_status_dict.get(status_code))
             raise Exception
@@ -1131,7 +1130,7 @@ class Alerting:
                         }
                     ),
                 )
-                .json()
+    
             )
 
             if api_call != dict():
@@ -1162,7 +1161,7 @@ class Alerting:
             .call_the_api(
                 f"{APIEndpoints.ALERTS_NGALERT.value}/Alertmanagers",
             )
-            .json()
+
         )
 
         if api_call == dict():

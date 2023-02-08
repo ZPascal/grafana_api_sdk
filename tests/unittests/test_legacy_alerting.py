@@ -11,10 +11,7 @@ class LegacyAlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list([dict({"id": "test"})]))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list([dict({"id": "test"})])
 
         self.assertEqual(list([dict({"id": "test"})]), alerting.get_alerts())
 
@@ -23,10 +20,7 @@ class LegacyAlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list([dict({"id": "test"})]))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list([dict({"id": "test"})])
 
         self.assertEqual(list([dict({"id": "test"})]), alerting.get_alerts("test"))
 
@@ -42,10 +36,7 @@ class LegacyAlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list()
 
         with self.assertRaises(Exception):
             alerting.get_alerts()
@@ -55,10 +46,7 @@ class LegacyAlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list([dict({"id": "test"})]))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list([dict({"id": "test"})])
 
         self.assertEqual(
             list([dict({"id": "test"})]),
@@ -77,10 +65,7 @@ class LegacyAlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list()
 
         with self.assertRaises(Exception):
             alerting.get_alerts_by_dashboard_ids(list([1, 2]))
@@ -90,10 +75,7 @@ class LegacyAlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"id": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"id": "test"})
 
         self.assertEqual(dict({"id": "test"}), alerting.get_alert_by_id(1))
 
@@ -109,10 +91,7 @@ class LegacyAlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             alerting.get_alert_by_id(1)
@@ -122,10 +101,7 @@ class LegacyAlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "alert paused"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "alert paused"})
 
         self.assertEqual(None, alerting.pause_alert_by_id(1))
 
@@ -141,10 +117,7 @@ class LegacyAlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             alerting.pause_alert_by_id(1)

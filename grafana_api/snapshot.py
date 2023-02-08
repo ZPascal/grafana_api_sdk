@@ -76,7 +76,7 @@ class Snapshot:
                     RequestsMethods.POST,
                     json.dumps(snapshot_json),
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -103,7 +103,7 @@ class Snapshot:
             .call_the_api(
                 APIEndpoints.DASHBOARD_SNAPSHOTS.value,
             )
-            .json()
+
         )
 
         if api_call == list() or api_call[0].get("id") is None:
@@ -132,7 +132,7 @@ class Snapshot:
                 .call_the_api(
                     f"{APIEndpoints.SNAPSHOTS.value}/{key}",
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("dashboard").get("id") is None:
@@ -164,7 +164,7 @@ class Snapshot:
                 .call_the_api(
                     f"{APIEndpoints.SNAPSHOTS.value}/{key}", RequestsMethods.DELETE
                 )
-                .json()
+    
             )
 
             if (
@@ -199,7 +199,7 @@ class Snapshot:
                 .call_the_api(
                     f"{APIEndpoints.SNAPSHOTS.value}-delete/{delete_key}",
                 )
-                .json()
+    
             )
 
             if (

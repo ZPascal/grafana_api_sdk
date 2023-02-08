@@ -11,10 +11,7 @@ class OtherHTTPTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         other_http: OtherHTTP = OtherHTTP(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"allowOrgCreate": True}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"allowOrgCreate": True})
 
         self.assertEqual(
             dict({"allowOrgCreate": True}), other_http.get_frontend_settings()
@@ -25,10 +22,7 @@ class OtherHTTPTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         other_http: OtherHTTP = OtherHTTP(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             other_http.get_frontend_settings()
@@ -38,10 +32,7 @@ class OtherHTTPTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         other_http: OtherHTTP = OtherHTTP(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.text = "Logged in"
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value.data = b"Logged in"
 
         self.assertEqual(
             None, other_http.renew_login_session_based_on_remember_cookie()
@@ -54,60 +45,45 @@ class OtherHTTPTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         other_http: OtherHTTP = OtherHTTP(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value.data = b""
 
         with self.assertRaises(Exception):
             other_http.renew_login_session_based_on_remember_cookie()
 
-    @patch("requests.get")
-    def test_get_health_status(self, get_mock):
+    @patch("urllib3.PoolManager")
+    def test_get_health_status(self, pool_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         other_http: OtherHTTP = OtherHTTP(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"commit": "087143285"}))
-
-        get_mock.return_value = mock
+        pool_mock.return_value.request.return_value.data = b'{"commit": "087143285"}'
 
         self.assertEqual(dict({"commit": "087143285"}), other_http.get_health_status())
 
-    @patch("requests.get")
-    def test_get_health_status_no_valid_result(self, get_mock):
+    @patch("urllib3.PoolManager")
+    def test_get_health_status_no_valid_result(self, pool_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         other_http: OtherHTTP = OtherHTTP(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        get_mock.return_value = mock
+        pool_mock.return_value.request.return_value.data = b"{}"
 
         with self.assertRaises(Exception):
             other_http.get_health_status()
 
-    @patch("requests.get")
-    def test_get_metrics(self, get_mock):
+    @patch("urllib3.PoolManager")
+    def test_get_metrics(self, pool_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         other_http: OtherHTTP = OtherHTTP(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.text = "test"
-
-        get_mock.return_value = mock
+        pool_mock.return_value.request.return_value.data = b"test"
 
         self.assertEqual("test", other_http.get_metrics())
 
-    @patch("requests.get")
-    def test_get_metrics_no_valid_result(self, get_mock):
+    @patch("urllib3.PoolManager")
+    def test_get_metrics_no_valid_result(self, pool_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         other_http: OtherHTTP = OtherHTTP(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.text = ""
-
-        get_mock.return_value = mock
+        pool_mock.return_value.request.return_value.data = b""
 
         with self.assertRaises(Exception):
             other_http.get_metrics()

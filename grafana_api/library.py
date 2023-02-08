@@ -67,7 +67,7 @@ class Library:
                 f"{APIEndpoints.LIBRARY.value}?perpage={results_per_page}&page={pages}&kind={kind}"
                 f"&sortDirection={sort_direction}{additional_parameters}",
             )
-            .json()
+
         )
 
         if api_call == dict() or api_call.get("result") is None:
@@ -96,7 +96,7 @@ class Library:
                 .call_the_api(
                     f"{APIEndpoints.LIBRARY.value}/{uid}",
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("result") is None:
@@ -128,7 +128,7 @@ class Library:
                 .call_the_api(
                     f"{APIEndpoints.LIBRARY.value}/name/{name}",
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("result") is None:
@@ -160,7 +160,7 @@ class Library:
                 .call_the_api(
                     f"{APIEndpoints.LIBRARY.value}/{uid}/connections",
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("result") is None:
@@ -226,7 +226,7 @@ class Library:
                     RequestsMethods.POST,
                     json.dumps(request_parameters),
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("result") is None:
@@ -297,7 +297,6 @@ class Library:
                     RequestsMethods.PATCH,
                     json.dumps(request_parameters),
                 )
-                .json()
             )
 
             if api_call == dict() or api_call.get("result") is None:
@@ -332,7 +331,7 @@ class Library:
                     f"{APIEndpoints.LIBRARY.value}/{uid}",
                     RequestsMethods.DELETE,
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Library element deleted":

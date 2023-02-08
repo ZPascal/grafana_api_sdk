@@ -11,8 +11,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(return_value=dict({"enabled": True}))
+        call_the_api_mock.return_value = dict({"status": 200, "enabled": True})
 
         self.assertEqual(
             True,
@@ -24,7 +23,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(Exception):
             rbac.get_status()
@@ -34,7 +33,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 501
+        call_the_api_mock.return_value = dict({"status": 501})
 
         with self.assertRaises(Exception):
             rbac.get_status()
@@ -44,11 +43,10 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(return_value=dict({"test": "test"}))
+        call_the_api_mock.return_value = list([{"status": 200, "test": "test"}])
 
         self.assertEqual(
-            dict({"test": "test"}),
+            list([{"status": 200, "test": "test"}]),
             rbac.get_all_roles(include_hidden_roles=True),
         )
 
@@ -57,7 +55,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = list([{"status": 404}])
 
         with self.assertRaises(Exception):
             rbac.get_all_roles()
@@ -67,7 +65,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 501
+        call_the_api_mock.return_value = list([{"status": 501}])
 
         with self.assertRaises(Exception):
             rbac.get_all_roles()
@@ -77,11 +75,10 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(return_value=dict({"test": "test"}))
+        call_the_api_mock.return_value = dict({"status": 200, "test": "test"})
 
         self.assertEqual(
-            dict({"test": "test"}),
+            dict({"status": 200, "test": "test"}),
             rbac.get_role(uid="test"),
         )
 
@@ -90,7 +87,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(ValueError):
             rbac.get_role(uid="")
@@ -100,7 +97,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(Exception):
             rbac.get_role(uid="test")
@@ -110,7 +107,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 501
+        call_the_api_mock.return_value = dict({"status": 501})
 
         with self.assertRaises(Exception):
             rbac.get_role(uid="test")
@@ -129,11 +126,10 @@ class RBACTestCase(TestCase):
             permissions=list([RolePermission(action="test", scope="test")]),
         )
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(return_value=dict({"test": "test"}))
+        call_the_api_mock.return_value = dict({"status": 200, "test": "test"})
 
         self.assertEqual(
-            dict({"test": "test"}),
+            dict({"status": 200, "test": "test"}),
             rbac.create_role(custom_role),
         )
 
@@ -145,11 +141,10 @@ class RBACTestCase(TestCase):
             name="Test",
         )
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(return_value=dict({"test": "test"}))
+        call_the_api_mock.return_value = dict({"status": 200, "test": "test"})
 
         self.assertEqual(
-            dict({"test": "test"}),
+            dict({"status": 200, "test": "test"}),
             rbac.create_role(custom_role),
         )
 
@@ -161,11 +156,10 @@ class RBACTestCase(TestCase):
             name="Test", permissions=list([RolePermission(action="test")])
         )
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(return_value=dict({"test": "test"}))
+        call_the_api_mock.return_value = dict({"status": 200, "test": "test"})
 
         self.assertEqual(
-            dict({"test": "test"}),
+            dict({"status": 200, "test": "test"}),
             rbac.create_role(custom_role),
         )
 
@@ -177,8 +171,7 @@ class RBACTestCase(TestCase):
             name="Test", permissions=list([RolePermission(action=None)])
         )
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(return_value=dict({"test": "test"}))
+        call_the_api_mock.return_value = dict({"status": 200, "test": "test"})
 
         with self.assertRaises(ValueError):
             rbac.create_role(custom_role)
@@ -188,7 +181,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(ValueError):
             rbac.create_role(None)
@@ -207,7 +200,7 @@ class RBACTestCase(TestCase):
             permissions=list([RolePermission(action="test", scope="test")]),
         )
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(Exception):
             rbac.create_role(custom_role)
@@ -226,7 +219,7 @@ class RBACTestCase(TestCase):
             permissions=list([RolePermission(action="test", scope="test")]),
         )
 
-        call_the_api_mock.return_value.status_code = 501
+        call_the_api_mock.return_value = dict({"status": 501})
 
         with self.assertRaises(Exception):
             rbac.create_role(custom_role)
@@ -245,11 +238,10 @@ class RBACTestCase(TestCase):
             permissions=list([RolePermission(action="test", scope="test")]),
         )
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(return_value=dict({"test": "test"}))
+        call_the_api_mock.return_value = dict({"status": 200, "test": "test"})
 
         self.assertEqual(
-            dict({"test": "test"}),
+            dict({"status": 200, "test": "test"}),
             rbac.update_role("test", custom_role),
         )
 
@@ -261,11 +253,10 @@ class RBACTestCase(TestCase):
             name="Test",
         )
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(return_value=dict({"test": "test"}))
+        call_the_api_mock.return_value = dict({"status": 200, "test": "test"})
 
         self.assertEqual(
-            dict({"test": "test"}),
+            dict({"status": 200, "test": "test"}),
             rbac.update_role("test", custom_role),
         )
 
@@ -277,11 +268,10 @@ class RBACTestCase(TestCase):
             name="Test", permissions=list([RolePermission(action="test")])
         )
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(return_value=dict({"test": "test"}))
+        call_the_api_mock.return_value = dict({"status": 200, "test": "test"})
 
         self.assertEqual(
-            dict({"test": "test"}),
+            dict({"status": 200, "test": "test"}),
             rbac.update_role("test", custom_role),
         )
 
@@ -293,8 +283,7 @@ class RBACTestCase(TestCase):
             name="Test", permissions=list([RolePermission(action=None)])
         )
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(return_value=dict({"test": "test"}))
+        call_the_api_mock.return_value = dict({"status": 200, "test": "test"})
 
         with self.assertRaises(ValueError):
             rbac.update_role("test", custom_role)
@@ -304,7 +293,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(ValueError):
             rbac.update_role(None, None)
@@ -323,7 +312,7 @@ class RBACTestCase(TestCase):
             permissions=list([RolePermission(action="test", scope="test")]),
         )
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(Exception):
             rbac.update_role("test", custom_role)
@@ -342,7 +331,7 @@ class RBACTestCase(TestCase):
             permissions=list([RolePermission(action="test", scope="test")]),
         )
 
-        call_the_api_mock.return_value.status_code = 501
+        call_the_api_mock.return_value = dict({"status": 501})
 
         with self.assertRaises(Exception):
             rbac.update_role("test", custom_role)
@@ -352,10 +341,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(
-            return_value=dict({"message": "Role deleted"})
-        )
+        call_the_api_mock.return_value = dict({"status": 200, "message": "Role deleted"})
 
         self.assertEqual(
             None,
@@ -367,10 +353,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(
-            return_value=dict({"message": "test"})
-        )
+        call_the_api_mock.return_value = dict({"status": 200, "message": "test"})
 
         with self.assertRaises(Exception):
             rbac.delete_role("test")
@@ -380,7 +363,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(ValueError):
             rbac.delete_role("")
@@ -390,7 +373,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(Exception):
             rbac.delete_role("test")
@@ -400,7 +383,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 501
+        call_the_api_mock.return_value = dict({"status": 501})
 
         with self.assertRaises(Exception):
             rbac.delete_role("test")
@@ -410,11 +393,10 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(return_value=list(["test", "test"]))
+        call_the_api_mock.return_value = list([{"status": 200, "test": "test"}, {"test"}])
 
         self.assertEqual(
-            list(["test", "test"]),
+            list([{"status": 200, "test": "test"}, {"test"}]),
             rbac.get_user_assigned_roles(1, True),
         )
 
@@ -423,7 +405,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = list([{"status": 404}])
 
         with self.assertRaises(ValueError):
             rbac.get_user_assigned_roles(0)
@@ -433,7 +415,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = list([{"status": 404}])
 
         with self.assertRaises(Exception):
             rbac.get_user_assigned_roles(1)
@@ -443,7 +425,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 501
+        call_the_api_mock.return_value = list([{"status": 501}])
 
         with self.assertRaises(Exception):
             rbac.get_user_assigned_roles(1)
@@ -453,11 +435,10 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(return_value=list(["test", "test"]))
+        call_the_api_mock.return_value = list([{"status": 200, "test": "test"}, {"test"}])
 
         self.assertEqual(
-            list(["test", "test"]),
+            list([{"status": 200, "test": "test"}, {"test"}]),
             rbac.get_user_assigned_permissions(1),
         )
 
@@ -466,7 +447,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = list([{"status": 404}])
 
         with self.assertRaises(ValueError):
             rbac.get_user_assigned_permissions(0)
@@ -476,7 +457,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = list([{"status": 404}])
 
         with self.assertRaises(Exception):
             rbac.get_user_assigned_permissions(1)
@@ -486,7 +467,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 501
+        call_the_api_mock.return_value = list([{"status": 501}])
 
         with self.assertRaises(Exception):
             rbac.get_user_assigned_permissions(1)
@@ -496,10 +477,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(
-            return_value=dict({"message": "Role added to the user."})
-        )
+        call_the_api_mock.return_value = dict({"status": 200, "message": "Role added to the user."})
 
         self.assertEqual(
             None,
@@ -511,10 +489,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(
-            return_value=dict({"message": "Test"})
-        )
+        call_the_api_mock.return_value = dict({"status": 200, "message": "Test"})
 
         with self.assertRaises(Exception):
             rbac.add_user_role_assignment(1, "test", True)
@@ -524,7 +499,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(ValueError):
             rbac.add_user_role_assignment(0, "")
@@ -534,7 +509,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(Exception):
             rbac.add_user_role_assignment(1, "test")
@@ -544,7 +519,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 501
+        call_the_api_mock.return_value = dict({"status": 501})
 
         with self.assertRaises(Exception):
             rbac.add_user_role_assignment(1, "test")
@@ -554,10 +529,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(
-            return_value=dict({"message": "Role removed from user."})
-        )
+        call_the_api_mock.return_value = dict({"status": 200, "message": "Role removed from user."})
 
         self.assertEqual(
             None,
@@ -569,10 +541,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(
-            return_value=dict({"message": "Test"})
-        )
+        call_the_api_mock.return_value = dict({"status": 200, "message": "Test"})
 
         with self.assertRaises(Exception):
             rbac.remove_user_role_assignment(1, "test")
@@ -582,7 +551,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(ValueError):
             rbac.remove_user_role_assignment(0, "")
@@ -592,7 +561,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(Exception):
             rbac.remove_user_role_assignment(1, "test")
@@ -602,7 +571,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 501
+        call_the_api_mock.return_value = dict({"status": 501})
 
         with self.assertRaises(Exception):
             rbac.remove_user_role_assignment(1, "test")
@@ -612,10 +581,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(
-            return_value=dict({"message": "User roles have been updated."})
-        )
+        call_the_api_mock.return_value = dict({"status": 200, "message": "User roles have been updated."})
 
         self.assertEqual(
             None,
@@ -627,10 +593,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(
-            return_value=dict({"message": "Test"})
-        )
+        call_the_api_mock.return_value = dict({"status": 200, "message": "Test"})
 
         with self.assertRaises(Exception):
             rbac.update_user_role_assignments(1, list(["test", "test"]))
@@ -640,7 +603,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(ValueError):
             rbac.update_user_role_assignments(0, list())
@@ -650,7 +613,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(Exception):
             rbac.update_user_role_assignments(1, list(["test", "test"]))
@@ -660,7 +623,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 501
+        call_the_api_mock.return_value = dict({"status": 501})
 
         with self.assertRaises(Exception):
             rbac.update_user_role_assignments(1, list(["test", "test"]))
@@ -670,11 +633,10 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(return_value=list(["test", "test"]))
+        call_the_api_mock.return_value = list([{"status": 200, "test": "test"}, {"test"}])
 
         self.assertEqual(
-            list(["test", "test"]),
+            list([{"status": 200, "test": "test"}, {"test"}]),
             rbac.get_service_account_assigned_roles(1, True),
         )
 
@@ -685,7 +647,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = list([{"status": 404}])
 
         with self.assertRaises(ValueError):
             rbac.get_service_account_assigned_roles(0)
@@ -695,7 +657,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = list([{"status": 404}])
 
         with self.assertRaises(Exception):
             rbac.get_service_account_assigned_roles(1)
@@ -707,7 +669,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 501
+        call_the_api_mock.return_value = list([{"status": 501}])
 
         with self.assertRaises(Exception):
             rbac.get_service_account_assigned_roles(1)
@@ -717,11 +679,10 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(return_value=list(["test", "test"]))
+        call_the_api_mock.return_value = list([{"status": 200, "test": "test"}, {"test"}])
 
         self.assertEqual(
-            list(["test", "test"]),
+            list([{"status": 200, "test": "test"}, {"test"}]),
             rbac.get_service_account_assigned_permissions(1),
         )
 
@@ -732,7 +693,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = list([{"status": 404}])
 
         with self.assertRaises(ValueError):
             rbac.get_service_account_assigned_permissions(0)
@@ -744,7 +705,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = list([{"status": 404}])
 
         with self.assertRaises(Exception):
             rbac.get_service_account_assigned_permissions(1)
@@ -756,7 +717,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 501
+        call_the_api_mock.return_value = list([{"status": 501}])
 
         with self.assertRaises(Exception):
             rbac.get_service_account_assigned_permissions(1)
@@ -766,10 +727,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(
-            return_value=dict({"message": "Role added to the user."})
-        )
+        call_the_api_mock.return_value = dict({"status": 200, "message": "Role added to the user."})
 
         self.assertEqual(
             None,
@@ -783,10 +741,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(
-            return_value=dict({"message": "Test"})
-        )
+        call_the_api_mock.return_value = dict({"status": 200, "message": "Test"})
 
         with self.assertRaises(Exception):
             rbac.add_service_account_role_assignment(1, "test", True)
@@ -798,7 +753,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(ValueError):
             rbac.add_service_account_role_assignment(0, "")
@@ -808,7 +763,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(Exception):
             rbac.add_service_account_role_assignment(1, "test")
@@ -820,7 +775,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 501
+        call_the_api_mock.return_value = dict({"status": 501})
 
         with self.assertRaises(Exception):
             rbac.add_service_account_role_assignment(1, "test")
@@ -830,10 +785,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(
-            return_value=dict({"message": "Role removed from user."})
-        )
+        call_the_api_mock.return_value = dict({"status": 200, "message": "Role removed from user."})
 
         self.assertEqual(
             None,
@@ -847,10 +799,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(
-            return_value=dict({"message": "Test"})
-        )
+        call_the_api_mock.return_value = dict({"status": 200, "message": "Test"})
 
         with self.assertRaises(Exception):
             rbac.remove_service_account_role_assignment(1, "test")
@@ -862,7 +811,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(ValueError):
             rbac.remove_service_account_role_assignment(0, "")
@@ -872,7 +821,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(Exception):
             rbac.remove_service_account_role_assignment(1, "test")
@@ -884,7 +833,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 501
+        call_the_api_mock.return_value = dict({"status": 501})
 
         with self.assertRaises(Exception):
             rbac.remove_service_account_role_assignment(1, "test")
@@ -894,10 +843,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(
-            return_value=dict({"message": "User roles have been updated."})
-        )
+        call_the_api_mock.return_value = dict({"status": 200, "message": "User roles have been updated."})
 
         self.assertEqual(
             None,
@@ -913,10 +859,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(
-            return_value=dict({"message": "Test"})
-        )
+        call_the_api_mock.return_value = dict({"status": 200, "message": "Test"})
 
         with self.assertRaises(Exception):
             rbac.update_service_account_role_assignments(1, ["test", "test"])
@@ -928,7 +871,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(ValueError):
             rbac.update_service_account_role_assignments(0, [])
@@ -938,7 +881,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(Exception):
             rbac.update_service_account_role_assignments(1, ["test", "test"])
@@ -950,7 +893,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 501
+        call_the_api_mock.return_value = dict({"status": 501})
 
         with self.assertRaises(Exception):
             rbac.update_service_account_role_assignments(1, ["test", "test"])
@@ -960,11 +903,10 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(return_value=list(["test", "test"]))
+        call_the_api_mock.return_value = list([{"status": 200, "test": "test"}, {"test"}])
 
         self.assertEqual(
-            list(["test", "test"]),
+            list([{"status": 200, "test": "test"}, {"test"}]),
             rbac.get_team_assigned_roles(1, True),
         )
 
@@ -973,7 +915,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = list([{"status": 404}])
 
         with self.assertRaises(ValueError):
             rbac.get_team_assigned_roles(0)
@@ -983,7 +925,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = list([{"status": 404}])
 
         with self.assertRaises(Exception):
             rbac.get_team_assigned_roles(1)
@@ -993,7 +935,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 501
+        call_the_api_mock.return_value = list([{"status": 501}])
 
         with self.assertRaises(Exception):
             rbac.get_team_assigned_roles(1)
@@ -1003,10 +945,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(
-            return_value=dict({"message": "Role added to the team."})
-        )
+        call_the_api_mock.return_value = dict({"status": 200, "message": "Role added to the team."})
 
         self.assertEqual(
             None,
@@ -1018,10 +957,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(
-            return_value=dict({"message": "Test"})
-        )
+        call_the_api_mock.return_value = dict({"status": 200, "message": "Test"})
 
         with self.assertRaises(Exception):
             rbac.add_team_role_assignment(1, "test")
@@ -1031,7 +967,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(ValueError):
             rbac.add_team_role_assignment(0, "")
@@ -1041,7 +977,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(Exception):
             rbac.add_team_role_assignment(1, "test")
@@ -1051,7 +987,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 501
+        call_the_api_mock.return_value = dict({"status": 501})
 
         with self.assertRaises(Exception):
             rbac.add_team_role_assignment(1, "test")
@@ -1061,10 +997,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(
-            return_value=dict({"message": "Role removed from team."})
-        )
+        call_the_api_mock.return_value = dict({"status": 200, "message": "Role removed from team."})
 
         self.assertEqual(
             None,
@@ -1076,10 +1009,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(
-            return_value=dict({"message": "Test"})
-        )
+        call_the_api_mock.return_value = dict({"status": 200, "message": "Test"})
 
         with self.assertRaises(Exception):
             rbac.remove_team_role_assignment(1, "test")
@@ -1089,7 +1019,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(ValueError):
             rbac.remove_team_role_assignment(0, "")
@@ -1099,7 +1029,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(Exception):
             rbac.remove_team_role_assignment(1, "test")
@@ -1109,7 +1039,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 501
+        call_the_api_mock.return_value = dict({"status": 501})
 
         with self.assertRaises(Exception):
             rbac.remove_team_role_assignment(1, "test")
@@ -1119,10 +1049,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(
-            return_value=dict({"message": "Team roles have been updated."})
-        )
+        call_the_api_mock.return_value = dict({"status": 200, "message": "Team roles have been updated."})
 
         self.assertEqual(
             None,
@@ -1134,10 +1061,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(
-            return_value=dict({"message": "Test"})
-        )
+        call_the_api_mock.return_value = dict({"status": 200, "message": "Test"})
 
         with self.assertRaises(Exception):
             rbac.update_team_role_assignments(1, ["test", "test"])
@@ -1147,7 +1071,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(ValueError):
             rbac.update_team_role_assignments(0, [])
@@ -1157,7 +1081,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(Exception):
             rbac.update_team_role_assignments(1, ["test", "test"])
@@ -1167,7 +1091,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 501
+        call_the_api_mock.return_value = dict({"status": 501})
 
         with self.assertRaises(Exception):
             rbac.update_team_role_assignments(1, ["test", "test"])
@@ -1177,10 +1101,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(
-            return_value=dict({"message": "Reset performed"})
-        )
+        call_the_api_mock.return_value = dict({"status": 200, "message": "Reset performed"})
 
         self.assertEqual(
             None,
@@ -1194,10 +1115,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
-        call_the_api_mock.return_value.json = Mock(
-            return_value=dict({"message": "Test"})
-        )
+        call_the_api_mock.return_value = dict({"status": 200, "message": "Test"})
 
         with self.assertRaises(Exception):
             rbac.reset_basic_roles_to_their_default()
@@ -1207,7 +1125,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = dict({"status": 404})
 
         with self.assertRaises(Exception):
             rbac.reset_basic_roles_to_their_default()
@@ -1219,7 +1137,7 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 501
+        call_the_api_mock.return_value = dict({"status": 501})
 
         with self.assertRaises(Exception):
             rbac.reset_basic_roles_to_their_default()

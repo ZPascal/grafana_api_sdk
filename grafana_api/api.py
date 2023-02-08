@@ -1,7 +1,9 @@
 import logging
 import json
+import base64
 
-import requests
+import urllib3
+from urllib3 import exceptions
 
 from .model import RequestsMethods, ERROR_MESSAGES, APIModel
 
@@ -24,8 +26,8 @@ class Api:
         api_call: str,
         method: RequestsMethods = RequestsMethods.GET,
         json_complete: str = None,
-        timeout: float = None,
         org_id_header: int = None,
+        response_status_code: bool = False,
     ) -> any:
         """The method execute a defined API call against the Grafana endpoints
 
@@ -33,8 +35,8 @@ class Api:
             api_call (str): Specify the API call endpoint
             method (RequestsMethods): Specify the used method (default GET)
             json_complete (str): Specify the inserted JSON as string
-            timeout (float): Specify the timeout for the corresponding API call
             org_id_header (int): Specify the optional organization id for the corresponding API call
+            response_status_code (bool): Specify if the response should include the original status code
 
         Raises:
             Exception: Unspecified error by executing the API call
@@ -52,12 +54,10 @@ class Api:
             self.grafana_api_model.username is not None
             and self.grafana_api_model.password is not None
         ):
-            url: str = (
-                f"{self.grafana_api_model.username}:{self.grafana_api_model.password}@"
-            )
-            api_url = api_url.replace("https://", f"https://{url}")
-            api_url = api_url.replace("http://", f"http://{url}")
-            headers: dict = dict()
+            credentials: str = base64.b64encode(
+                str.encode(f"{self.grafana_api_model.username}:{self.grafana_api_model.password}")
+            ).decode("utf-8")
+            headers.update({"Authorization": f"Basic {credentials}"})
 
         headers["Content-Type"] = "application/json"
         headers["Accept"] = "application/json"
@@ -65,20 +65,23 @@ class Api:
         if org_id_header is not None and type(org_id_header) == int:
             headers["X-Grafana-Org-Id"] = org_id_header
 
+        http = urllib3.PoolManager(num_pools=self.grafana_api_model.num_pools,
+                                   retries=self.grafana_api_model.retries,
+                                   headers=headers,
+                                   timeout=self.grafana_api_model.timeout,
+                                   ssl_context=self.grafana_api_model.ssl_context)
+
         try:
             if method.value == RequestsMethods.GET.value:
                 return Api.__check_the_api_call_response(
-                    requests.get(api_url, headers=headers, timeout=timeout)
+                    http.request("GET", api_url),
+                    response_status_code,
                 )
             elif method.value == RequestsMethods.PUT.value:
                 if json_complete is not None:
                     return Api.__check_the_api_call_response(
-                        requests.put(
-                            api_url,
-                            data=json_complete,
-                            headers=headers,
-                            timeout=timeout,
-                        )
+                        http.request("PUT", api_url, body=json_complete),
+                        response_status_code,
                     )
                 else:
                     logging.error("Please define the json_complete.")
@@ -86,12 +89,8 @@ class Api:
             elif method.value == RequestsMethods.POST.value:
                 if json_complete is not None:
                     return Api.__check_the_api_call_response(
-                        requests.post(
-                            api_url,
-                            data=json_complete,
-                            headers=headers,
-                            timeout=timeout,
-                        )
+                        http.request("POST", api_url, body=json_complete),
+                        response_status_code
                     )
                 else:
                     logging.error("Please define the json_complete.")
@@ -99,19 +98,16 @@ class Api:
             elif method.value == RequestsMethods.PATCH.value:
                 if json_complete is not None:
                     return Api.__check_the_api_call_response(
-                        requests.patch(
-                            api_url,
-                            data=json_complete,
-                            headers=headers,
-                            timeout=timeout,
-                        )
+                        http.request("PATCH", api_url, body=json_complete),
+                        response_status_code
                     )
                 else:
                     logging.error("Please define the json_complete.")
                     raise Exception
             elif method.value == RequestsMethods.DELETE.value:
                 return Api.__check_the_api_call_response(
-                    requests.delete(api_url, headers=headers, timeout=timeout)
+                    http.request("DELETE", api_url),
+                    response_status_code
                 )
             else:
                 logging.error("Please define a valid method.")
@@ -120,11 +116,12 @@ class Api:
             raise e
 
     @staticmethod
-    def __check_the_api_call_response(response: any = None) -> any:
+    def __check_the_api_call_response(response: any = None, response_status_code: bool = False) -> any:
         """The method includes a functionality to check the output of API call method for errors
 
         Args:
             response (any): Specify the inserted response
+            response_status_code (bool): Specify if the original status code should be attached to the result
 
         Raises:
             Exception: Unspecified error by executing the API call
@@ -133,16 +130,25 @@ class Api:
             api_call (any): Returns the value of the api call
         """
 
-        if Api.__check_if_valid_json(response.text):
-            if len(response.text) != 0 and type(response.json()) == dict:
+        if Api.__check_if_valid_json(response.data.decode("utf-8")):
+            if len(json.loads(response.data.decode("utf-8"))) != 0 and \
+                    type(json.loads(response.data.decode("utf-8"))) == dict:
                 if (
-                    "message" in response.json().keys()
-                    and response.json()["message"] in ERROR_MESSAGES
+                    "message" in json.loads(response.data.decode("utf-8")).keys()
+                    and json.loads(response.data.decode("utf-8"))["message"] in ERROR_MESSAGES
                 ):
-                    logging.error(response.json()["message"])
-                    raise requests.exceptions.ConnectionError
+                    logging.error(json.loads(response.data.decode("utf-8"))["message"])
+                    raise exceptions.ConnectionError
 
-        return response
+            json_response: (dict | list) = json.loads(response.data.decode("utf-8"))
+
+            if type(json_response) == dict and response_status_code:
+                json_response.update({"status": response.status})
+            elif type(json_response) == list and response_status_code:
+                json_response[0].update({"status": response.status})
+            return json_response
+        else:
+            return response
 
     @staticmethod
     def __check_if_valid_json(response: any) -> bool:
@@ -157,7 +163,7 @@ class Api:
 
         try:
             json.loads(response)
-        except ValueError:
+        except (TypeError, ValueError):
             return False
         return True
 

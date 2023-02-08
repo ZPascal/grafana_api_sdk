@@ -67,7 +67,7 @@ class QueryHistory:
                         )
                     ),
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("result") is None:
@@ -122,7 +122,7 @@ class QueryHistory:
                 .call_the_api(
                     f"{APIEndpoints.QUERY_HISTORY.value}?{datasource_uids_str}&searchString='{search_string}'&sort='{sort}'&onlyStarred={only_starred}&page={pages}&limit={results_per_page}",
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("result") is None:
@@ -154,7 +154,7 @@ class QueryHistory:
                 .call_the_api(
                     f"{APIEndpoints.QUERY_HISTORY.value}/{uid}", RequestsMethods.DELETE
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Query deleted":
@@ -189,7 +189,7 @@ class QueryHistory:
                     RequestsMethods.PATCH,
                     json.dumps({"comment": comment}),
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("result") is None:
@@ -223,7 +223,7 @@ class QueryHistory:
                     RequestsMethods.POST,
                     json.dumps({}),
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("result") is None:
@@ -256,7 +256,7 @@ class QueryHistory:
                     f"{APIEndpoints.QUERY_HISTORY.value}/star/{uid}",
                     RequestsMethods.DELETE,
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("result") is None:

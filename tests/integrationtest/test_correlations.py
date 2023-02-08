@@ -1,7 +1,7 @@
 import os
 from unittest import TestCase
 
-from grafana_api.model import APIModel
+from grafana_api.model import APIModel, CorrelationObject
 from grafana_api.correlations import Correlations
 from grafana_api.datasource import Datasource
 
@@ -24,9 +24,10 @@ class CorrelationsTest(TestCase):
 
     def test_b_correlations_lifecycle(self):
         data_source: dict = self.data_source.get_datasource_by_name("TestData DB 1")
-        correlations_object = self.correlations.create_correlations(
-            "5yBH2Yxnk", data_source["uid"], "Test", "Test correlations"
-        )
+        correlation_object: CorrelationObject = CorrelationObject("5yBH2Yxnk", data_source["uid"],
+                                                                  "Test", "Test correlations",
+                                                                  "query", "message", dict())
+        correlations_object = self.correlations.create_correlations(correlation_object)
         self.assertEqual("Correlation created", correlations_object.get("message"))
 
         correlations_object_uid: str = correlations_object.get("result").get("uid")

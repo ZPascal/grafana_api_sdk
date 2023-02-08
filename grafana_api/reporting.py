@@ -66,7 +66,7 @@ class Reporting:
                     json.dumps(result),
                     timeout=60,
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Report was sent":

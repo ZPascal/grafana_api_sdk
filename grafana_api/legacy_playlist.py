@@ -1,8 +1,6 @@
 import json
 import logging
 
-from requests import Response
-
 from .model import (
     APIModel,
     APIEndpoints,
@@ -45,7 +43,7 @@ class LegacyPlaylist:
                 .call_the_api(
                     f"{APIEndpoints.PLAYLISTS.value}/{playlist_id}",
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -77,7 +75,7 @@ class LegacyPlaylist:
                 .call_the_api(
                     f"{APIEndpoints.PLAYLISTS.value}/{playlist_id}/items",
                 )
-                .json()
+    
             )
 
             if api_call == list() or api_call[0].get("id") is None:
@@ -109,7 +107,7 @@ class LegacyPlaylist:
                 .call_the_api(
                     f"{APIEndpoints.PLAYLISTS.value}/{playlist_id}/dashboards",
                 )
-                .json()
+    
             )
 
             if api_call == list() or api_call[0].get("id") is None:
@@ -164,7 +162,7 @@ class LegacyPlaylist:
                         )
                     ),
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -191,13 +189,14 @@ class LegacyPlaylist:
         """
 
         if playlist_id != 0:
-            api_call: Response = Api(self.grafana_api_model).call_the_api(
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.PLAYLISTS.value}/{playlist_id}",
                 RequestsMethods.DELETE,
+                response_status_code=True
             )
 
-            if api_call.status_code != 200:
-                logging.error(f"Check the error: {api_call.text}.")
+            if api_call.get("status") != 200:
+                logging.error(f"Check the error: {api_call.get(api_call)}.")
                 raise Exception
             else:
                 logging.info("You successfully deleted the corresponding playlist.")

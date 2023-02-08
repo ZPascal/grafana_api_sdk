@@ -32,11 +32,12 @@ class RBAC:
             api_call (bool): Return a flag indicating if the role-based access control is enabled or not
         """
 
-        api_call: any = Api(self.grafana_api_model).call_the_api(
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.RBAC.value}/status",
+            response_status_code=True
         )
 
-        status_code: int = api_call.status_code
+        status_code: int = api_call.get("status")
 
         alert_manager_status_dict: dict = dict(
             {
@@ -47,7 +48,7 @@ class RBAC:
         )
 
         if status_code == 200:
-            return bool(api_call.json().get("enabled"))
+            return bool(api_call.get("enabled"))
         elif 403 <= status_code <= 500:
             logging.error(alert_manager_status_dict.get(status_code))
             raise Exception
@@ -76,11 +77,12 @@ class RBAC:
         if include_hidden_roles:
             additional_parameters = "?includeHidden=true"
 
-        api_call: any = Api(self.grafana_api_model).call_the_api(
+        api_call: list = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.RBAC.value}/roles{additional_parameters}",
+            response_status_code=True
         )
 
-        status_code: int = api_call.status_code
+        status_code: int = api_call[0].get("status")
 
         alert_manager_status_dict: dict = dict(
             {
@@ -90,7 +92,7 @@ class RBAC:
         )
 
         if status_code == 200:
-            return api_call.json()
+            return api_call
         elif 403 <= status_code <= 500:
             logging.error(alert_manager_status_dict.get(status_code))
             raise Exception
@@ -117,11 +119,12 @@ class RBAC:
         """
 
         if len(uid) != 0:
-            api_call: any = Api(self.grafana_api_model).call_the_api(
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/roles/{uid}",
+                response_status_code=True
             )
 
-            status_code: int = api_call.status_code
+            status_code: int = api_call.get("status")
 
             alert_manager_status_dict: dict = dict(
                 {
@@ -131,7 +134,7 @@ class RBAC:
             )
 
             if status_code == 200:
-                return api_call.json()
+                return api_call
             elif 403 <= status_code <= 500:
                 logging.error(alert_manager_status_dict.get(status_code))
                 raise Exception
@@ -200,13 +203,14 @@ class RBAC:
                     permission_list.append(permission_object)
                 role_object.update(dict({"permissions": permission_list}))
 
-            api_call: any = Api(self.grafana_api_model).call_the_api(
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/roles",
                 RequestsMethods.POST,
                 json.dumps(role_object),
+                response_status_code=True
             )
 
-            status_code: int = api_call.status_code
+            status_code: int = api_call.get("status")
 
             alert_manager_status_dict: dict = dict(
                 {
@@ -217,7 +221,7 @@ class RBAC:
             )
 
             if status_code == 200:
-                return api_call.json()
+                return api_call
             elif 400 <= status_code <= 500:
                 logging.error(alert_manager_status_dict.get(status_code))
                 raise Exception
@@ -287,13 +291,14 @@ class RBAC:
                     permission_list.append(permission_object)
                 role_object.update(dict({"permissions": permission_list}))
 
-            api_call: any = Api(self.grafana_api_model).call_the_api(
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/roles/{uid}",
                 RequestsMethods.PUT,
                 json.dumps(role_object),
+                response_status_code=True
             )
 
-            status_code: int = api_call.status_code
+            status_code: int = api_call.get("status")
 
             alert_manager_status_dict: dict = dict(
                 {
@@ -305,7 +310,7 @@ class RBAC:
             )
 
             if status_code == 200:
-                return api_call.json()
+                return api_call
             elif 400 <= status_code <= 500:
                 logging.error(alert_manager_status_dict.get(status_code))
                 raise Exception
@@ -337,13 +342,14 @@ class RBAC:
         """
 
         if len(uid) != 0:
-            api_call: any = Api(self.grafana_api_model).call_the_api(
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/roles/{uid}?force={force.__str__().lower()}&"
                 f"global={global_role.__str__().lower()}",
                 RequestsMethods.DELETE,
+                response_status_code=True
             )
 
-            status_code: int = api_call.status_code
+            status_code: int = api_call.get("status")
 
             alert_manager_status_dict: dict = dict(
                 {
@@ -354,7 +360,7 @@ class RBAC:
             )
 
             if status_code == 200:
-                if "Role deleted" != api_call.json().get("message"):
+                if "Role deleted" != api_call.get("message"):
                     logging.error(f"Please, check the error: {api_call}.")
                     raise Exception
                 else:
@@ -395,11 +401,12 @@ class RBAC:
             if include_hidden_roles:
                 additional_parameters = "?includeHidden=true"
 
-            api_call: any = Api(self.grafana_api_model).call_the_api(
+            api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/users/{user_id}/roles{additional_parameters}",
+                response_status_code=True
             )
 
-            status_code: int = api_call.status_code
+            status_code: int = api_call[0].get("status")
 
             alert_manager_status_dict: dict = dict(
                 {
@@ -409,7 +416,7 @@ class RBAC:
             )
 
             if status_code == 200:
-                return api_call.json()
+                return api_call
             elif 403 <= status_code <= 500:
                 logging.error(alert_manager_status_dict.get(status_code))
                 raise Exception
@@ -439,11 +446,12 @@ class RBAC:
         """
 
         if user_id != 0 and user_id is not None:
-            api_call: any = Api(self.grafana_api_model).call_the_api(
+            api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/users/{user_id}/permissions",
+                response_status_code=True
             )
 
-            status_code: int = api_call.status_code
+            status_code: int = api_call[0].get("status")
 
             alert_manager_status_dict: dict = dict(
                 {
@@ -453,7 +461,7 @@ class RBAC:
             )
 
             if status_code == 200:
-                return api_call.json()
+                return api_call
             elif 403 <= status_code <= 500:
                 logging.error(alert_manager_status_dict.get(status_code))
                 raise Exception
@@ -487,13 +495,14 @@ class RBAC:
         """
 
         if user_id != 0 and user_id is not None and len(role_uid) != 0:
-            api_call: any = Api(self.grafana_api_model).call_the_api(
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/users/{user_id}/roles",
                 RequestsMethods.POST,
                 json.dumps({"global": global_assignment, "roleUid": role_uid}),
+                response_status_code=True
             )
 
-            status_code: int = api_call.status_code
+            status_code: int = api_call.get("status")
 
             alert_manager_status_dict: dict = dict(
                 {
@@ -504,7 +513,7 @@ class RBAC:
             )
 
             if status_code == 200:
-                if "Role added to the user." != api_call.json().get("message"):
+                if "Role added to the user." != api_call.get("message"):
                     logging.error(f"Please, check the error: {api_call}.")
                     raise Exception
                 else:
@@ -539,12 +548,13 @@ class RBAC:
         """
 
         if user_id != 0 and user_id is not None and len(role_uid) != 0:
-            api_call: any = Api(self.grafana_api_model).call_the_api(
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/users/{user_id}/roles/{role_uid}",
                 RequestsMethods.DELETE,
+                response_status_code=True
             )
 
-            status_code: int = api_call.status_code
+            status_code: int = api_call.get("status")
 
             alert_manager_status_dict: dict = dict(
                 {
@@ -554,7 +564,7 @@ class RBAC:
             )
 
             if status_code == 200:
-                if "Role removed from user." != api_call.json().get("message"):
+                if "Role removed from user." != api_call.get("message"):
                     logging.error(f"Please, check the error: {api_call}.")
                     raise Exception
                 else:
@@ -601,13 +611,14 @@ class RBAC:
             if include_hidden_roles:
                 additional_parameters = "?includeHidden=true"
 
-            api_call: any = Api(self.grafana_api_model).call_the_api(
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/users/{user_id}/roles{additional_parameters}",
                 RequestsMethods.PUT,
                 json.dumps({"global": global_assignment, "roleUids": role_uids}),
+                response_status_code=True
             )
 
-            status_code: int = api_call.status_code
+            status_code: int = api_call.get("status")
 
             alert_manager_status_dict: dict = dict(
                 {
@@ -618,7 +629,7 @@ class RBAC:
             )
 
             if status_code == 200:
-                if "User roles have been updated." != api_call.json().get("message"):
+                if "User roles have been updated." != api_call.get("message"):
                     logging.error(f"Please, check the error: {api_call}.")
                     raise Exception
                 else:
@@ -659,11 +670,12 @@ class RBAC:
             if include_hidden_roles:
                 additional_parameters = "?includeHidden=true"
 
-            api_call: any = Api(self.grafana_api_model).call_the_api(
+            api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/users/{service_account_id}/roles{additional_parameters}",
+                response_status_code=True
             )
 
-            status_code: int = api_call.status_code
+            status_code: int = api_call[0].get("status")
 
             alert_manager_status_dict: dict = dict(
                 {
@@ -673,7 +685,7 @@ class RBAC:
             )
 
             if status_code == 200:
-                return api_call.json()
+                return api_call
             elif 403 <= status_code <= 500:
                 logging.error(alert_manager_status_dict.get(status_code))
                 raise Exception
@@ -703,11 +715,12 @@ class RBAC:
         """
 
         if service_account_id != 0 and service_account_id is not None:
-            api_call: any = Api(self.grafana_api_model).call_the_api(
+            api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/users/{service_account_id}/permissions",
+                response_status_code=True
             )
 
-            status_code: int = api_call.status_code
+            status_code: int = api_call[0].get("status")
 
             alert_manager_status_dict: dict = dict(
                 {
@@ -717,7 +730,7 @@ class RBAC:
             )
 
             if status_code == 200:
-                return api_call.json()
+                return api_call
             elif 403 <= status_code <= 500:
                 logging.error(alert_manager_status_dict.get(status_code))
                 raise Exception
@@ -755,13 +768,16 @@ class RBAC:
             and service_account_id is not None
             and len(role_uid) != 0
         ):
-            api_call: any = Api(self.grafana_api_model).call_the_api(
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/users/{service_account_id}/roles",
                 RequestsMethods.POST,
                 json.dumps({"global": global_assignment, "roleUid": role_uid}),
+                response_status_code=True
             )
 
-            status_code: int = api_call.status_code
+            status_code: int = api_call.get("status")
+            print(api_call)
+            print(status_code)
 
             alert_manager_status_dict: dict = dict(
                 {
@@ -772,7 +788,7 @@ class RBAC:
             )
 
             if status_code == 200:
-                if "Role added to the user." != api_call.json().get("message"):
+                if "Role added to the user." != api_call.get("message"):
                     logging.error(f"Please, check the error: {api_call}.")
                     raise Exception
                 else:
@@ -815,12 +831,13 @@ class RBAC:
             and service_account_id is not None
             and len(role_uid) != 0
         ):
-            api_call: any = Api(self.grafana_api_model).call_the_api(
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/users/{service_account_id}/roles/{role_uid}",
                 RequestsMethods.DELETE,
+                response_status_code=True
             )
 
-            status_code: int = api_call.status_code
+            status_code: int = api_call.get("status")
 
             alert_manager_status_dict: dict = dict(
                 {
@@ -830,7 +847,7 @@ class RBAC:
             )
 
             if status_code == 200:
-                if "Role removed from user." != api_call.json().get("message"):
+                if "Role removed from user." != api_call.get("message"):
                     logging.error(f"Please, check the error: {api_call}.")
                     raise Exception
                 else:
@@ -883,13 +900,14 @@ class RBAC:
             if include_hidden_roles:
                 additional_parameters = "?includeHidden=true"
 
-            api_call: any = Api(self.grafana_api_model).call_the_api(
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/users/{service_account_id}/roles{additional_parameters}",
                 RequestsMethods.PUT,
                 json.dumps({"global": global_assignment, "roleUids": role_uids}),
+                response_status_code=True
             )
 
-            status_code: int = api_call.status_code
+            status_code: int = api_call.get("status")
 
             alert_manager_status_dict: dict = dict(
                 {
@@ -900,7 +918,7 @@ class RBAC:
             )
 
             if status_code == 200:
-                if "User roles have been updated." != api_call.json().get("message"):
+                if "User roles have been updated." != api_call.get("message"):
                     logging.error(f"Please, check the error: {api_call}.")
                     raise Exception
                 else:
@@ -943,11 +961,12 @@ class RBAC:
             if include_hidden_roles:
                 additional_parameters = "?includeHidden=true"
 
-            api_call: any = Api(self.grafana_api_model).call_the_api(
+            api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/teams/{team_id}/roles{additional_parameters}",
+                response_status_code=True
             )
 
-            status_code: int = api_call.status_code
+            status_code: int = api_call[0].get("status")
 
             alert_manager_status_dict: dict = dict(
                 {
@@ -957,7 +976,7 @@ class RBAC:
             )
 
             if status_code == 200:
-                return api_call.json()
+                return api_call
             elif 403 <= status_code <= 500:
                 logging.error(alert_manager_status_dict.get(status_code))
                 raise Exception
@@ -988,13 +1007,14 @@ class RBAC:
         """
 
         if team_id != 0 and team_id is not None and len(role_uid) != 0:
-            api_call: any = Api(self.grafana_api_model).call_the_api(
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/teams/{team_id}/roles",
                 RequestsMethods.POST,
                 json.dumps({"roleUid": role_uid}),
+                response_status_code=True
             )
 
-            status_code: int = api_call.status_code
+            status_code: int = api_call.get("status")
 
             alert_manager_status_dict: dict = dict(
                 {
@@ -1005,7 +1025,7 @@ class RBAC:
             )
 
             if status_code == 200:
-                if "Role added to the team." != api_call.json().get("message"):
+                if "Role added to the team." != api_call.get("message"):
                     logging.error(f"Please, check the error: {api_call}.")
                     raise Exception
                 else:
@@ -1040,12 +1060,13 @@ class RBAC:
         """
 
         if team_id != 0 and team_id is not None and len(role_uid) != 0:
-            api_call: any = Api(self.grafana_api_model).call_the_api(
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/teams/{team_id}/roles/{role_uid}",
                 RequestsMethods.DELETE,
+                response_status_code=True
             )
 
-            status_code: int = api_call.status_code
+            status_code: int = api_call.get("status")
 
             alert_manager_status_dict: dict = dict(
                 {
@@ -1055,7 +1076,7 @@ class RBAC:
             )
 
             if status_code == 200:
-                if "Role removed from team." != api_call.json().get("message"):
+                if "Role removed from team." != api_call.get("message"):
                     logging.error(f"Please, check the error: {api_call}.")
                     raise Exception
                 else:
@@ -1100,13 +1121,14 @@ class RBAC:
             if include_hidden_roles:
                 additional_parameters = "?includeHidden=true"
 
-            api_call: any = Api(self.grafana_api_model).call_the_api(
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/teams/{team_id}/roles{additional_parameters}",
                 RequestsMethods.PUT,
                 json.dumps({"roleUids": role_uids}),
+                response_status_code=True
             )
 
-            status_code: int = api_call.status_code
+            status_code: int = api_call.get("status")
 
             alert_manager_status_dict: dict = dict(
                 {
@@ -1117,7 +1139,7 @@ class RBAC:
             )
 
             if status_code == 200:
-                if "Team roles have been updated." != api_call.json().get("message"):
+                if "Team roles have been updated." != api_call.get("message"):
                     logging.error(f"Please, check the error: {api_call}.")
                     raise Exception
                 else:
@@ -1146,13 +1168,14 @@ class RBAC:
             None
         """
 
-        api_call: any = Api(self.grafana_api_model).call_the_api(
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.RBAC.value}/roles/hard-reset",
             RequestsMethods.POST,
             json.dumps({"BasicRoles": True}),
+            response_status_code=True
         )
 
-        status_code: int = api_call.status_code
+        status_code: int = api_call.get("status")
 
         alert_manager_status_dict: dict = dict(
             {
@@ -1161,7 +1184,7 @@ class RBAC:
         )
 
         if status_code == 200:
-            if "Reset performed" != api_call.json().get("message"):
+            if "Reset performed" != api_call.get("message"):
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:

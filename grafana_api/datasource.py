@@ -40,7 +40,7 @@ class Datasource:
                 APIEndpoints.DATASOURCES.value,
                 RequestsMethods.GET,
             )
-            .json()
+
         )
 
         if api_call == list() or api_call[0].get("id") is None:
@@ -74,7 +74,7 @@ class Datasource:
                     f"{APIEndpoints.DATASOURCES.value}/{datasource_id}",
                     RequestsMethods.GET,
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -111,7 +111,7 @@ class Datasource:
                     f"{APIEndpoints.DATASOURCES.value}/uid/{uid}",
                     RequestsMethods.GET,
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -148,7 +148,7 @@ class Datasource:
                     f"{APIEndpoints.DATASOURCES.value}/name/{name}",
                     RequestsMethods.GET,
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -185,7 +185,7 @@ class Datasource:
                     f"{APIEndpoints.DATASOURCES.value}/id/{name}",
                     RequestsMethods.GET,
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -222,7 +222,7 @@ class Datasource:
                     RequestsMethods.POST,
                     json.dumps(data_source),
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Datasource added":
@@ -261,7 +261,7 @@ class Datasource:
                     RequestsMethods.PUT,
                     json.dumps(data_source),
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Datasource updated":
@@ -298,7 +298,7 @@ class Datasource:
                     f"{APIEndpoints.DATASOURCES.value}/{datasource_id}",
                     RequestsMethods.DELETE,
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Data source deleted":
@@ -335,7 +335,7 @@ class Datasource:
                     f"{APIEndpoints.DATASOURCES.value}/uid/{uid}",
                     RequestsMethods.DELETE,
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Data source deleted":
@@ -372,7 +372,7 @@ class Datasource:
                     f"{APIEndpoints.DATASOURCES.value}/name/{name}",
                     RequestsMethods.DELETE,
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Data source deleted":
@@ -425,7 +425,7 @@ class Datasource:
                     RequestsMethods.POST,
                     json.dumps(datasource_queries_json_list),
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("results") == dict():
@@ -463,7 +463,7 @@ class Datasource:
                     RequestsMethods.POST,
                     json.dumps({}),
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Datasource permissions enabled":
@@ -501,7 +501,7 @@ class Datasource:
                     RequestsMethods.POST,
                     json.dumps({}),
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Datasource permissions disabled":
@@ -538,7 +538,7 @@ class Datasource:
                     f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions",
                     RequestsMethods.GET,
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("datasourceId") is None:
@@ -579,7 +579,7 @@ class Datasource:
                     RequestsMethods.POST,
                     json.dumps(datasource_permission),
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Datasource permission added":
@@ -617,7 +617,7 @@ class Datasource:
                     f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions/{permission_id}",
                     RequestsMethods.DELETE,
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Datasource permission removed":

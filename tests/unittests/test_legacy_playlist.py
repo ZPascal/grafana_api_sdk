@@ -11,10 +11,7 @@ class LegacyPlaylistTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"id": 1}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"id": 1})
 
         self.assertEqual(dict({"id": 1}), playlist.get_playlist(1))
 
@@ -25,10 +22,7 @@ class LegacyPlaylistTestCase(TestCase):
         )
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             playlist.get_playlist(0)
@@ -38,10 +32,7 @@ class LegacyPlaylistTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             playlist.get_playlist(1)
@@ -51,10 +42,7 @@ class LegacyPlaylistTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list([{"id": 1}]))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list([{"id": 1}])
 
         self.assertEqual(list([{"id": 1}]), playlist.get_playlist_items(1))
 
@@ -65,10 +53,7 @@ class LegacyPlaylistTestCase(TestCase):
         )
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list()
 
         with self.assertRaises(ValueError):
             playlist.get_playlist_items(0)
@@ -78,10 +63,7 @@ class LegacyPlaylistTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list()
 
         with self.assertRaises(Exception):
             playlist.get_playlist_items(1)
@@ -91,10 +73,7 @@ class LegacyPlaylistTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list([{"id": 1}]))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list([{"id": 1}])
 
         self.assertEqual(list([{"id": 1}]), playlist.get_playlist_dashboards(1))
 
@@ -105,10 +84,7 @@ class LegacyPlaylistTestCase(TestCase):
         )
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list()
 
         with self.assertRaises(ValueError):
             playlist.get_playlist_dashboards(0)
@@ -118,10 +94,7 @@ class LegacyPlaylistTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list()
 
         with self.assertRaises(Exception):
             playlist.get_playlist_dashboards(1)
@@ -137,10 +110,7 @@ class LegacyPlaylistTestCase(TestCase):
             "test", "5m", list([playlist_items])
         )
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"id": 1}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"id": 1})
 
         self.assertEqual(dict({"id": 1}), playlist.update_playlist(1, playlist_object))
 
@@ -151,10 +121,7 @@ class LegacyPlaylistTestCase(TestCase):
         )
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             playlist.update_playlist(1, None)
@@ -170,10 +137,7 @@ class LegacyPlaylistTestCase(TestCase):
             "test", "5m", list([playlist_items])
         )
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             playlist.update_playlist(1, playlist_object)
@@ -183,7 +147,7 @@ class LegacyPlaylistTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
+        call_the_api_mock.return_value = {"status": 200}
 
         self.assertEqual(None, playlist.delete_playlist(1))
 
@@ -194,7 +158,7 @@ class LegacyPlaylistTestCase(TestCase):
         )
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 400
+        call_the_api_mock.return_value.status = 400
 
         with self.assertRaises(ValueError):
             playlist.delete_playlist(0)
@@ -204,7 +168,7 @@ class LegacyPlaylistTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 400
+        call_the_api_mock.return_value.status = 400
 
         with self.assertRaises(Exception):
             playlist.delete_playlist(1)

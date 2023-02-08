@@ -11,10 +11,7 @@ class LibraryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         library: Library = Library(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"result": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"result": "test"})
 
         self.assertEqual(dict({"result": "test"}), library.get_all_library_elements())
 
@@ -23,10 +20,7 @@ class LibraryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         library: Library = Library(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"result": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"result": "test"})
 
         self.assertEqual(
             dict({"result": "test"}),
@@ -43,10 +37,7 @@ class LibraryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         library: Library = Library(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             library.get_all_library_elements()
@@ -56,10 +47,7 @@ class LibraryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         library: Library = Library(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"result": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"result": "test"})
 
         self.assertEqual(
             dict({"result": "test"}), library.get_library_element_by_uid("test")
@@ -70,10 +58,7 @@ class LibraryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         library: Library = Library(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             library.get_library_element_by_uid("")
@@ -83,10 +68,7 @@ class LibraryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         library: Library = Library(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             library.get_library_element_by_uid("test")
@@ -96,10 +78,7 @@ class LibraryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         library: Library = Library(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"result": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"result": "test"})
 
         self.assertEqual(
             dict({"result": "test"}), library.get_library_element_by_name("test")
@@ -110,10 +89,7 @@ class LibraryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         library: Library = Library(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             library.get_library_element_by_name("")
@@ -123,10 +99,7 @@ class LibraryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         library: Library = Library(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             library.get_library_element_by_name("test")
@@ -136,10 +109,7 @@ class LibraryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         library: Library = Library(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"result": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"result": "test"})
 
         self.assertEqual(
             dict({"result": "test"}), library.get_library_element_connections("test")
@@ -150,10 +120,7 @@ class LibraryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         library: Library = Library(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             library.get_library_element_connections("")
@@ -163,10 +130,7 @@ class LibraryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         library: Library = Library(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             library.get_library_element_connections("test")
@@ -176,10 +140,7 @@ class LibraryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         library: Library = Library(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"result": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"result": "test"})
 
         self.assertEqual(
             dict({"result": "test"}),
@@ -191,10 +152,7 @@ class LibraryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         library: Library = Library(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"result": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"result": "test"})
 
         self.assertEqual(
             dict({"result": "test"}),
@@ -208,10 +166,7 @@ class LibraryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         library: Library = Library(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             library.create_library_element(1, dict())
@@ -221,10 +176,7 @@ class LibraryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         library: Library = Library(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             library.create_library_element(1, dict({"test": "test"}))
@@ -234,10 +186,7 @@ class LibraryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         library: Library = Library(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"result": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"result": "test"})
 
         self.assertEqual(
             dict({"result": "test"}),
@@ -251,10 +200,7 @@ class LibraryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         library: Library = Library(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"result": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"result": "test"})
 
         self.assertEqual(
             dict({"result": "test"}),
@@ -268,10 +214,7 @@ class LibraryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         library: Library = Library(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             library.update_library_element("test", 1, "test", "test", dict(), 1)
@@ -281,23 +224,19 @@ class LibraryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         library: Library = Library(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
-            library.update_library_element(1, "test", "test", dict({"test": "test"}), 1)
+            library.update_library_element(
+                "test", 1, "test", "test", dict({"test": "test"}), 1
+            )
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_delete_library_element(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         library: Library = Library(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Library element deleted"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Library element deleted"})
 
         self.assertEqual(None, library.delete_library_element("test"))
 
@@ -306,10 +245,7 @@ class LibraryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         library: Library = Library(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             library.delete_library_element("")
@@ -319,10 +255,7 @@ class LibraryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         library: Library = Library(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             library.delete_library_element("test")

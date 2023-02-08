@@ -11,10 +11,7 @@ class ShortUrlTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         short_url: ShortUrl = ShortUrl(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"url": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"url": "test"})
 
         self.assertEqual("test", short_url.create_short_url(path="Test").get("url"))
 
@@ -23,10 +20,7 @@ class ShortUrlTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         short_url: ShortUrl = ShortUrl(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             short_url.create_short_url(path="")
@@ -36,10 +30,7 @@ class ShortUrlTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         short_url: ShortUrl = ShortUrl(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"url": None}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"url": None})
 
         with self.assertRaises(Exception):
             short_url.create_short_url(path="test")

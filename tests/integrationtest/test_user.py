@@ -26,10 +26,10 @@ class CurrentUserTest(TestCase):
 
     def test_star_a_dashboard(self):
         self.current_user.star_a_dashboard(
-            self.dashboard.get_dashboard_by_uid("test1").get("dashboard").get("id")
+            self.dashboard.get_dashboard_by_uid("tests").get("dashboard").get("id")
         )
 
     def test_unstar_a_dashboard(self):
         self.current_user.unstar_a_dashboard(
-            self.dashboard.get_dashboard_by_uid("test1").get("dashboard").get("id")
+            self.dashboard.get_dashboard_by_uid("tests").get("dashboard").get("id")
         )

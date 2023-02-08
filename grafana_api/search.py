@@ -35,7 +35,7 @@ class Search:
             result: list = (
                 Api(self.grafana_api_model)
                 .call_the_api(f"{APIEndpoints.SEARCH.value}?{search_query}")
-                .json()
+    
             )
             if result == list():
                 raise Exception

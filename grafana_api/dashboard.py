@@ -61,7 +61,7 @@ class Dashboard:
                     RequestsMethods.POST,
                     json.dumps(dashboard_json_complete),
                 )
-                .json()
+    
             )
 
             if api_call.get("status") != "success":
@@ -104,7 +104,7 @@ class Dashboard:
                         f"{APIEndpoints.DASHBOARDS.value}/uid/{dashboard_uid.get('uid')}",
                         RequestsMethods.DELETE,
                     )
-                    .json()
+        
                 )
 
                 if f"Dashboard {dashboard_name} deleted" != api_call.get("message"):
@@ -137,7 +137,7 @@ class Dashboard:
             api_call: dict = (
                 Api(self.grafana_api_model)
                 .call_the_api(f"{APIEndpoints.DASHBOARDS.value}/uid/{uid}")
-                .json()
+    
             )
 
             if api_call.get("dashboard") is None:
@@ -162,7 +162,7 @@ class Dashboard:
         api_call: dict = (
             Api(self.grafana_api_model)
             .call_the_api(f"{APIEndpoints.DASHBOARDS.value}/home")
-            .json()
+
         )
 
         if api_call.get("dashboard") is None:
@@ -184,7 +184,7 @@ class Dashboard:
         api_call: list = (
             Api(self.grafana_api_model)
             .call_the_api(f"{APIEndpoints.DASHBOARDS.value}/tags")
-            .json()
+
         )
 
         if api_call == list() or api_call[0].get("term") is None:
@@ -217,7 +217,7 @@ class Dashboard:
 
             search_query: str = f"{APIEndpoints.SEARCH.value}?folderIds={folder_id}&query={dashboard_name}"
             dashboard_meta: list = (
-                Api(self.grafana_api_model).call_the_api(search_query).json()
+                Api(self.grafana_api_model).call_the_api(search_query)
             )
 
             for dashboard_meta_object in dashboard_meta:
@@ -243,6 +243,10 @@ class Dashboard:
             logging.error("There is no dashboard_name or dashboard_path defined.")
             raise ValueError
 
+    #TODO Get dashboard permissions by uid
+    #https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+
+
     def get_dashboard_permissions(self, id: int) -> list:
         """The method includes a functionality to extract the dashboard permissions based on the specified id
 
@@ -261,7 +265,7 @@ class Dashboard:
             api_call: list = (
                 Api(self.grafana_api_model)
                 .call_the_api(f"{APIEndpoints.DASHBOARDS.value}/id/{id}/permissions")
-                .json()
+    
             )
 
             if api_call == list() or api_call[0].get("role") is None:
@@ -296,7 +300,7 @@ class Dashboard:
                     RequestsMethods.POST,
                     json.dumps(permission_json),
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Dashboard permissions updated":
@@ -307,6 +311,9 @@ class Dashboard:
         else:
             logging.error("There is no dashboard uid or permission json defined.")
             raise ValueError
+
+    #TODO Get dashboard versions by uid and deprecate the old version using owly ids
+    #https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
 
     def get_dashboard_versions(self, id: int) -> list:
         """The method includes a functionality to extract the versions of a dashboard based on the specified id
@@ -328,7 +335,7 @@ class Dashboard:
                 .call_the_api(
                     f"{APIEndpoints.DASHBOARDS.value}/id/{id}/versions",
                 )
-                .json()
+    
             )
 
             if api_call == list() or api_call[0].get("id") is None:
@@ -361,7 +368,7 @@ class Dashboard:
                 .call_the_api(
                     f"{APIEndpoints.DASHBOARDS.value}/id/{id}/versions/{version_id}",
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -396,7 +403,7 @@ class Dashboard:
                     RequestsMethods.POST,
                     json.dumps(version),
                 )
-                .json()
+    
             )
 
             if (
@@ -439,8 +446,8 @@ class Dashboard:
                 and dashboard_id_and_version_new != 0
             ):
                 diff_object: dict = dict()
-                diff_object.update(dashboard_id_and_version_base)
-                diff_object.update(dashboard_id_and_version_new)
+                diff_object.update({"base": dashboard_id_and_version_base})
+                diff_object.update({"new": dashboard_id_and_version_new})
                 diff_object.update({"diffType": diff_type.lower()})
 
                 api_call: any = Api(self.grafana_api_model).call_the_api(
@@ -449,11 +456,11 @@ class Dashboard:
                     json.dumps(diff_object),
                 )
 
-                if api_call.status_code != 200:
-                    logging.error(f"Check the error: {api_call.text}.")
+                if api_call.status != 200:
+                    logging.error(f"Check the error: {api_call.data}.")
                     raise Exception
                 else:
-                    return api_call.text
+                    return api_call.data
             else:
                 logging.error(
                     "There is no dashboard_uid_and_version_base or dashboard_uid_and_version_new defined."

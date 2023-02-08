@@ -34,7 +34,7 @@ class AlertingNotifications:
                 APIEndpoints.ALERT_NOTIFICATIONS.value,
                 RequestsMethods.GET,
             )
-            .json()
+
         )
 
         if api_call == list() or api_call[0].get("id") is None:
@@ -59,7 +59,7 @@ class AlertingNotifications:
                 f"{APIEndpoints.ALERT_NOTIFICATIONS.value}/lookup",
                 RequestsMethods.GET,
             )
-            .json()
+
         )
 
         if api_call == list() or api_call[0].get("id") is None:
@@ -89,7 +89,7 @@ class AlertingNotifications:
                     f"{APIEndpoints.ALERT_NOTIFICATIONS.value}/uid/{uid}",
                     RequestsMethods.GET,
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -122,7 +122,7 @@ class AlertingNotifications:
                     f"{APIEndpoints.ALERT_NOTIFICATIONS.value}/{id}",
                     RequestsMethods.GET,
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -156,7 +156,7 @@ class AlertingNotifications:
                     RequestsMethods.POST,
                     json.dumps(notification_channel),
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -193,7 +193,7 @@ class AlertingNotifications:
                     RequestsMethods.PUT,
                     json.dumps(notification_channel),
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -230,7 +230,7 @@ class AlertingNotifications:
                     RequestsMethods.PUT,
                     json.dumps(notification_channel),
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -263,7 +263,7 @@ class AlertingNotifications:
                     f"{APIEndpoints.ALERT_NOTIFICATIONS.value}/uid/{uid}",
                     RequestsMethods.DELETE,
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Notification deleted":
@@ -296,7 +296,7 @@ class AlertingNotifications:
                     f"{APIEndpoints.ALERT_NOTIFICATIONS.value}/{id}",
                     RequestsMethods.DELETE,
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Notification deleted":
@@ -330,7 +330,7 @@ class AlertingNotifications:
                     RequestsMethods.POST,
                     json.dumps(notification_channel),
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Test notification sent":

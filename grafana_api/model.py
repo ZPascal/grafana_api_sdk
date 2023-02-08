@@ -1,3 +1,4 @@
+import ssl
 from enum import Enum
 from typing import NamedTuple
 
@@ -72,12 +73,20 @@ class APIModel(NamedTuple):
         token (str): Specify the access token of the Grafana system
         username (str): Specify the username of the Grafana system
         password (str): Specify the password of the Grafana system
+        timeout (float): Specify the timeout of the Grafana system
+        ssl_context (ssl.SSLContext): Specify the custom ssl context of the Grafana system
+        num_pools (int): Specify the number of the connection pool
+        retries (any): Specify the number of the retries. Please use False as parameter to disable the retries
     """
 
     host: str
     token: str = None
     username: str = None
     password: str = None
+    timeout: float = 10.0
+    ssl_context: ssl.SSLContext = ssl.create_default_context()
+    num_pools: int = 10
+    retries: any = 10
 
 
 class DatasourceQuery(NamedTuple):
@@ -313,6 +322,28 @@ class QueryObject(NamedTuple):
     key: str
     scenario_id: str
     datasource: QueryDatasourceObject
+
+
+class CorrelationObject(NamedTuple):
+    """The class includes all necessary variables to generate a find annotation object
+
+    Args:
+        source_datasource_uid (str): Specify the source datasource uid (default None)
+        target_datasource_uid (str): Specify the target datasource uid (default None)
+        label (str): Specify the label (default 100)
+        description (str): Specify the description (default None)
+        config_type (str): Specify the config type (default None)
+        config_field (str): Specify the config field (default None)
+        config_target (str): Specify the config target (default None)
+    """
+
+    source_datasource_uid: str = None
+    target_datasource_uid: str = None
+    label: str = None
+    description: str = None
+    config_type: str = None
+    config_field: str = None
+    config_target: dict = {}
 
 
 class FindAnnotationObject(NamedTuple):

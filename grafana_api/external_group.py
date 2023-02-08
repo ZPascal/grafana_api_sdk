@@ -44,7 +44,7 @@ class ExternalGroup:
                 .call_the_api(
                     f"{APIEndpoints.EXTERNAL_GROUPS.value}/{team_id}/groups",
                 )
-                .json()
+    
             )
 
             if api_call == list() or api_call[0].get("orgId") is None:
@@ -86,7 +86,7 @@ class ExternalGroup:
                     RequestsMethods.POST,
                     json.dumps(dict({"groupId": group_id})),
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Group added to Team":
@@ -127,7 +127,7 @@ class ExternalGroup:
                     f"{APIEndpoints.EXTERNAL_GROUPS.value}/{team_id}/groups/{group_id}",
                     RequestsMethods.DELETE,
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Team Group removed":

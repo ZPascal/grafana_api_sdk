@@ -49,7 +49,7 @@ class ServiceAccount:
             .call_the_api(
                 api_request_url,
             )
-            .json()
+
         )
 
         if api_call == dict() or api_call.get("totalCount") is None:
@@ -85,7 +85,7 @@ class ServiceAccount:
                     RequestsMethods.POST,
                     json.dumps(dict({"name": name, "role": role})),
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -121,7 +121,7 @@ class ServiceAccount:
                 .call_the_api(
                     f"{APIEndpoints.SERVICE_ACCOUNTS.value}/{id}",
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -161,7 +161,7 @@ class ServiceAccount:
                     RequestsMethods.PATCH,
                     json.dumps(dict({"name": name, "role": role})),
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -197,7 +197,7 @@ class ServiceAccount:
                 .call_the_api(
                     f"{APIEndpoints.SERVICE_ACCOUNTS.value}/{id}/tokens",
                 )
-                .json()
+    
             )
 
             if api_call == list() or api_call[0].get("id") is None:
@@ -237,7 +237,7 @@ class ServiceAccount:
                     RequestsMethods.POST,
                     json.dumps(dict({"name": name, "role": role})),
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -274,7 +274,7 @@ class ServiceAccount:
                 .call_the_api(
                     f"{APIEndpoints.SERVICE_ACCOUNTS.value}/{id}/tokens/{token_id}",
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "API key deleted":

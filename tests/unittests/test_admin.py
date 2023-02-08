@@ -16,10 +16,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"DEFAULT": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"DEFAULT": "test"})
 
         self.assertEqual(
             dict({"DEFAULT": "test"}),
@@ -33,10 +30,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             admin.get_settings()
@@ -48,10 +42,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Settings updated"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Settings updated"})
 
         self.assertEqual(
             None,
@@ -65,10 +56,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Settings updated"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Settings updated"})
 
         self.assertEqual(
             None,
@@ -82,10 +70,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Settings updated"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Settings updated"})
 
         self.assertEqual(
             None,
@@ -99,10 +84,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             admin.update_settings(None, None)
@@ -114,10 +96,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Test"})
 
         with self.assertRaises(Exception):
             admin.update_settings(dict({"test": "test"}))
@@ -129,10 +108,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"orgs": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"orgs": "test"})
 
         self.assertEqual(
             dict({"orgs": "test"}),
@@ -146,10 +122,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             admin.get_stats()
@@ -161,10 +134,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"version": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"version": "test"})
 
         self.assertEqual(
             dict({"version": "test"}),
@@ -178,10 +148,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             admin.get_preview_report()
@@ -193,10 +160,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"id": 10, "message": "User created"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"id": 10, "message": "User created"})
 
         user: GlobalUser = GlobalUser(
             name="test", email="test", login="test", password="test", org_id=1
@@ -214,10 +178,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"id": 10, "message": "User created"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"id": 10, "message": "User created"})
 
         user: GlobalUser = GlobalUser(
             name="test", email="test", login="test", password="test"
@@ -235,10 +196,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             admin.create_global_user(None)
@@ -250,10 +208,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Test"})
 
         user: GlobalUser = GlobalUser(
             name="test", email="test", login="test", password="test", org_id=1
@@ -269,10 +224,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "User password updated"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "User password updated"})
 
         self.assertEqual(
             None,
@@ -286,10 +238,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             admin.update_user_password(0, "")
@@ -301,10 +250,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Test"})
 
         with self.assertRaises(Exception):
             admin.update_user_password(10, "test")
@@ -316,10 +262,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "User permissions updated"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "User permissions updated"})
 
         self.assertEqual(
             None,
@@ -333,10 +276,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             admin.update_user_permissions(0, None)
@@ -348,10 +288,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Test"})
 
         with self.assertRaises(Exception):
             admin.update_user_permissions(10, True)
@@ -363,10 +300,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "User deleted"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "User deleted"})
 
         self.assertEqual(
             None,
@@ -380,10 +314,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             admin.delete_global_user(0)
@@ -395,10 +326,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Test"})
 
         with self.assertRaises(Exception):
             admin.delete_global_user(10)
@@ -410,10 +338,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"state": "Paused"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"state": "Paused"})
 
         self.assertEqual(
             None,
@@ -427,10 +352,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"state": "Test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"state": "Test"})
 
         with self.assertRaises(Exception):
             admin.pause_all_alerts()
@@ -442,10 +364,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"state": "Unpaused"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"state": "Unpaused"})
 
         self.assertEqual(
             None,
@@ -459,10 +378,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"state": "Test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"state": "Test"})
 
         with self.assertRaises(Exception):
             admin.unpause_all_alerts()
@@ -474,10 +390,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list([dict({"id": 1})]))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list([dict({"id": 1})])
 
         self.assertEqual(
             list([dict({"id": 1})]),
@@ -491,10 +404,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list()
 
         with self.assertRaises(ValueError):
             admin.get_user_auth_token(0)
@@ -506,10 +416,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list()
 
         with self.assertRaises(Exception):
             admin.get_user_auth_token(10)
@@ -521,10 +428,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "User auth token revoked"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "User auth token revoked"})
 
         self.assertEqual(
             None,
@@ -538,10 +442,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list()
 
         with self.assertRaises(ValueError):
             admin.revoke_user_auth_token(0, 0)
@@ -553,10 +454,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Test"})
 
         with self.assertRaises(Exception):
             admin.revoke_user_auth_token(10, 10)
@@ -568,10 +466,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "User auth token revoked"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "User auth token revoked"})
 
         self.assertEqual(
             None,
@@ -585,10 +480,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list()
 
         with self.assertRaises(ValueError):
             admin.logout_user(0)
@@ -600,10 +492,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Test"})
 
         with self.assertRaises(Exception):
             admin.logout_user(10)
@@ -615,10 +504,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Dashboards config reloaded"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Dashboards config reloaded"})
 
         self.assertEqual(
             None,
@@ -634,10 +520,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Test"})
 
         with self.assertRaises(Exception):
             admin.reload_dashboards_provisioning_configuration()
@@ -649,10 +532,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Datasources config reloaded"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Datasources config reloaded"})
 
         self.assertEqual(
             None,
@@ -668,10 +548,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Test"})
 
         with self.assertRaises(Exception):
             admin.reload_datasources_provisioning_configuration()
@@ -683,10 +560,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Plugins config reloaded"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Plugins config reloaded"})
 
         self.assertEqual(
             None,
@@ -702,10 +576,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Test"})
 
         with self.assertRaises(Exception):
             admin.reload_plugins_provisioning_configuration()
@@ -717,12 +588,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(
-            return_value=dict({"message": "Notifications config reloaded"})
-        )
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Notifications config reloaded"})
 
         self.assertEqual(
             None,
@@ -738,10 +604,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Test"})
 
         with self.assertRaises(Exception):
             admin.reload_notifications_provisioning_configuration()
@@ -753,12 +616,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(
-            return_value=dict({"message": "Accesscontrol config reloaded"})
-        )
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Accesscontrol config reloaded"})
 
         self.assertEqual(
             None,
@@ -774,10 +632,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Test"})
 
         with self.assertRaises(Exception):
             admin.reload_access_controls_provisioning_configuration()
@@ -789,10 +644,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "LDAP config reloaded"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "LDAP config reloaded"})
 
         self.assertEqual(
             None,
@@ -806,10 +658,7 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Test"})
 
         with self.assertRaises(Exception):
             admin.reload_ldap_configuration()
@@ -822,7 +671,7 @@ class AdminTestCase(TestCase):
         admin: Admin = Admin(grafana_api_model=model)
 
         mock: Mock = Mock()
-        mock.status_code = 204
+        mock.status = 204
 
         call_the_api_mock.return_value = mock
 
@@ -839,7 +688,7 @@ class AdminTestCase(TestCase):
         admin: Admin = Admin(grafana_api_model=model)
 
         mock: Mock = Mock()
-        mock.status_code = 400
+        mock.status = 400
 
         call_the_api_mock.return_value = mock
 

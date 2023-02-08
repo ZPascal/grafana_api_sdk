@@ -61,7 +61,7 @@ class User:
             .call_the_api(
                 api_request_url,
             )
-            .json()
+
         )
 
         if api_call == list() or api_call[0].get("id") is None:
@@ -94,7 +94,7 @@ class User:
                 .call_the_api(
                     f"{APIEndpoints.USERS.value}/{id}",
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -130,7 +130,7 @@ class User:
                 .call_the_api(
                     f"{APIEndpoints.USERS.value}/lookup?loginOrEmail={username_or_email}",
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -178,7 +178,7 @@ class User:
                         )
                     ),
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "User updated":
@@ -214,7 +214,7 @@ class User:
                 .call_the_api(
                     f"{APIEndpoints.USERS.value}/{id}/orgs",
                 )
-                .json()
+    
             )
 
             if api_call == list() or api_call[0].get("orgId") is None:
@@ -250,7 +250,7 @@ class User:
                 .call_the_api(
                     f"{APIEndpoints.USERS.value}/{id}/teams",
                 )
-                .json()
+    
             )
 
             if api_call == list() or api_call[0].get("id") is None:
@@ -285,7 +285,7 @@ class User:
                     RequestsMethods.POST,
                     json.dumps(dict()),
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Active organization changed":
@@ -326,7 +326,6 @@ class CurrentUser:
             .call_the_api(
                 f"{APIEndpoints.USER.value}",
             )
-            .json()
         )
 
         if api_call == dict() or api_call.get("id") is None:
@@ -373,7 +372,7 @@ class CurrentUser:
                         )
                     ),
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "User password changed":
@@ -407,7 +406,7 @@ class CurrentUser:
                     RequestsMethods.POST,
                     json.dumps(dict()),
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Active organization changed":
@@ -434,7 +433,7 @@ class CurrentUser:
             .call_the_api(
                 f"{APIEndpoints.USER.value}/orgs",
             )
-            .json()
+
         )
 
         if api_call == list() or api_call[0].get("orgId") is None:
@@ -458,7 +457,7 @@ class CurrentUser:
             .call_the_api(
                 f"{APIEndpoints.USER.value}/teams",
             )
-            .json()
+
         )
 
         if api_call == list() or api_call[0].get("id") is None:
@@ -489,7 +488,7 @@ class CurrentUser:
                     RequestsMethods.POST,
                     json.dumps(dict()),
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Dashboard starred!":
@@ -522,7 +521,7 @@ class CurrentUser:
                     f"{APIEndpoints.USER.value}/stars/dashboard/{dashboard_id}",
                     RequestsMethods.DELETE,
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Dashboard unstarred":
@@ -549,7 +548,7 @@ class CurrentUser:
             .call_the_api(
                 f"{APIEndpoints.USER.value}/auth-tokens",
             )
-            .json()
+
         )
 
         if api_call == list() or api_call[0].get("id") is None:
@@ -580,7 +579,7 @@ class CurrentUser:
                     RequestsMethods.POST,
                     json.dumps(dict({"authTokenId": auth_token_id})),
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "User auth token revoked":

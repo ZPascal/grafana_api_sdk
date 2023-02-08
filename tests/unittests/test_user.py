@@ -13,10 +13,7 @@ class UserTestCase(TestCase):
         )
         user: User = User(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list([{"id": 1}]))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list([{"id": 1}])
 
         self.assertEqual(list([{"id": 1}]), user.search_users())
 
@@ -27,10 +24,7 @@ class UserTestCase(TestCase):
         )
         user: User = User(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list([{"id": 1}]))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list([{"id": 1}])
 
         self.assertEqual(
             list([{"id": 1}]),
@@ -44,10 +38,7 @@ class UserTestCase(TestCase):
         )
         user: User = User(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list()
 
         with self.assertRaises(Exception):
             user.search_users()
@@ -59,10 +50,7 @@ class UserTestCase(TestCase):
         )
         user: User = User(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"id": 1}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"id": 1})
 
         self.assertEqual(dict({"id": 1}), user.get_user_by_id(1))
 
@@ -73,10 +61,7 @@ class UserTestCase(TestCase):
         )
         user: User = User(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             user.get_user_by_id(0)
@@ -88,10 +73,7 @@ class UserTestCase(TestCase):
         )
         user: User = User(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             user.get_user_by_id(1)
@@ -103,10 +85,7 @@ class UserTestCase(TestCase):
         )
         user: User = User(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"id": 1}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"id": 1})
 
         self.assertEqual(dict({"id": 1}), user.get_user_by_username_or_email("test"))
 
@@ -119,10 +98,7 @@ class UserTestCase(TestCase):
         )
         user: User = User(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             user.get_user_by_username_or_email("")
@@ -134,10 +110,7 @@ class UserTestCase(TestCase):
         )
         user: User = User(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             user.get_user_by_username_or_email("test")
@@ -152,10 +125,7 @@ class UserTestCase(TestCase):
             email="test", name="test", login="test", theme="test"
         )
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "User updated"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "User updated"})
 
         self.assertEqual(None, user.update_user(1, user_object))
 
@@ -166,10 +136,7 @@ class UserTestCase(TestCase):
         )
         user: User = User(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             user.update_user("", None)
@@ -184,10 +151,7 @@ class UserTestCase(TestCase):
             email="test", name="test", login="test", theme="test"
         )
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "test"})
 
         with self.assertRaises(Exception):
             user.update_user(1, user_object)
@@ -199,10 +163,7 @@ class UserTestCase(TestCase):
         )
         user: User = User(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list([{"orgId": 1}]))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list([{"orgId": 1}])
 
         self.assertEqual(list([{"orgId": 1}]), user.get_user_organizations(1))
 
@@ -213,10 +174,7 @@ class UserTestCase(TestCase):
         )
         user: User = User(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list()
 
         with self.assertRaises(ValueError):
             user.get_user_organizations(0)
@@ -228,10 +186,7 @@ class UserTestCase(TestCase):
         )
         user: User = User(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list()
 
         with self.assertRaises(Exception):
             user.get_user_organizations(1)
@@ -243,10 +198,7 @@ class UserTestCase(TestCase):
         )
         user: User = User(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list([{"id": 1}]))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list([{"id": 1}])
 
         self.assertEqual(list([{"id": 1}]), user.get_user_teams(1))
 
@@ -257,10 +209,7 @@ class UserTestCase(TestCase):
         )
         user: User = User(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list()
 
         with self.assertRaises(ValueError):
             user.get_user_teams(0)
@@ -272,10 +221,7 @@ class UserTestCase(TestCase):
         )
         user: User = User(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list()
 
         with self.assertRaises(Exception):
             user.get_user_teams(1)
@@ -287,10 +233,7 @@ class UserTestCase(TestCase):
         )
         user: User = User(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Active organization changed"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Active organization changed"})
 
         self.assertEqual(None, user.switch_specific_user_context(1, 1))
 
@@ -301,10 +244,7 @@ class UserTestCase(TestCase):
         )
         user: User = User(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list()
 
         with self.assertRaises(ValueError):
             user.switch_specific_user_context(0, 0)
@@ -316,10 +256,7 @@ class UserTestCase(TestCase):
         )
         user: User = User(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "test"})
 
         with self.assertRaises(Exception):
             user.switch_specific_user_context(1, 1)
@@ -331,10 +268,7 @@ class CurrentUserTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"id": 1}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"id": 1})
 
         self.assertEqual(dict({"id": 1}), current_user.get_user())
 
@@ -343,10 +277,7 @@ class CurrentUserTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             current_user.get_user()
@@ -356,10 +287,7 @@ class CurrentUserTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "User password changed"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "User password changed"})
 
         self.assertEqual(None, current_user.update_password("test", "test", "test"))
 
@@ -368,10 +296,7 @@ class CurrentUserTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             current_user.update_password("", "", "")
@@ -381,10 +306,7 @@ class CurrentUserTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "test"})
 
         with self.assertRaises(Exception):
             current_user.update_password("test", "test", "test")
@@ -394,10 +316,7 @@ class CurrentUserTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Active organization changed"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Active organization changed"})
 
         self.assertEqual(None, current_user.switch_current_user_context(1))
 
@@ -406,10 +325,7 @@ class CurrentUserTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             current_user.switch_current_user_context(0)
@@ -419,10 +335,7 @@ class CurrentUserTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "test"})
 
         with self.assertRaises(Exception):
             current_user.switch_current_user_context(1)
@@ -432,10 +345,7 @@ class CurrentUserTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list([{"orgId": 1}]))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list([{"orgId": 1}])
 
         self.assertEqual(list([{"orgId": 1}]), current_user.get_user_organizations())
 
@@ -444,10 +354,7 @@ class CurrentUserTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list()
 
         with self.assertRaises(Exception):
             current_user.get_user_organizations()
@@ -457,10 +364,7 @@ class CurrentUserTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list([{"id": 1}]))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list([{"id": 1}])
 
         self.assertEqual(list([{"id": 1}]), current_user.get_user_teams())
 
@@ -469,10 +373,7 @@ class CurrentUserTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list()
 
         with self.assertRaises(Exception):
             current_user.get_user_teams()
@@ -482,10 +383,7 @@ class CurrentUserTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Dashboard starred!"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Dashboard starred!"})
 
         self.assertEqual(None, current_user.star_a_dashboard(1))
 
@@ -494,10 +392,7 @@ class CurrentUserTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             current_user.star_a_dashboard(0)
@@ -507,10 +402,7 @@ class CurrentUserTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "test"})
 
         with self.assertRaises(Exception):
             current_user.star_a_dashboard(1)
@@ -520,10 +412,7 @@ class CurrentUserTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "Dashboard unstarred"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "Dashboard unstarred"})
 
         self.assertEqual(None, current_user.unstar_a_dashboard(1))
 
@@ -532,10 +421,7 @@ class CurrentUserTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             current_user.unstar_a_dashboard(0)
@@ -545,10 +431,7 @@ class CurrentUserTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "test"})
 
         with self.assertRaises(Exception):
             current_user.unstar_a_dashboard(1)
@@ -558,10 +441,7 @@ class CurrentUserTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list([{"id": 1}]))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list([{"id": 1}])
 
         self.assertEqual(list([{"id": 1}]), current_user.get_auth_tokens())
 
@@ -570,10 +450,7 @@ class CurrentUserTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=list())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = list()
 
         with self.assertRaises(Exception):
             current_user.get_auth_tokens()
@@ -583,10 +460,7 @@ class CurrentUserTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "User auth token revoked"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "User auth token revoked"})
 
         self.assertEqual(None, current_user.revoke_auth_token(1))
 
@@ -595,10 +469,7 @@ class CurrentUserTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             current_user.revoke_auth_token(0)
@@ -608,10 +479,7 @@ class CurrentUserTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "test"}))
-
-        call_the_api_mock.return_value = mock
+        call_the_api_mock.return_value = dict({"message": "test"})
 
         with self.assertRaises(Exception):
             current_user.revoke_auth_token(1)

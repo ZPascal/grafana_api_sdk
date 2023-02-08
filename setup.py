@@ -26,6 +26,6 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     packages=["grafana_api"],
-    install_requires=["requests"],
+    install_requires=["urllib3"],
     python_requires=">=3.6",
 )

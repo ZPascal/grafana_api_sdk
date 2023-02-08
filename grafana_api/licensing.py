@@ -1,5 +1,5 @@
 import json
-from requests import Response
+from urllib3 import response
 import logging
 
 from .model import (
@@ -39,15 +39,15 @@ class Licensing:
             api_call (bool): Returns the result if the license is available or not
         """
 
-        api_call: Response = Api(self.grafana_api_model).call_the_api(
+        api_call: response = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.LICENSING.value}/check",
         )
 
-        if api_call.status_code != 200:
+        if api_call.status != 200:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
-            return json.loads(str(api_call.text))
+            return json.loads(str(api_call.data.decode("utf-8")))
 
     def manually_force_license_refresh(self):
         """The method includes a functionality to manually ask license issuer for a new token
@@ -70,7 +70,7 @@ class Licensing:
                 RequestsMethods.POST,
                 json.dumps({}),
             )
-            .json()
+
         )
 
         if api_call == dict() or api_call.get("jti") is None:
@@ -93,12 +93,13 @@ class Licensing:
             api_call (dict): Returns the result of license refresh call
         """
 
-        api_call: Response = Api(self.grafana_api_model).call_the_api(
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.LICENSING.value}/token",
             RequestsMethods.DELETE,
+            response_status_code=True
         )
 
-        if api_call.status_code != 200:
+        if api_call.get("status") != 200:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:

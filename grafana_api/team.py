@@ -58,7 +58,7 @@ class Team:
             .call_the_api(
                 api_request_url,
             )
-            .json()
+
         )
 
         if api_call == dict() or api_call.get("totalCount") is None:
@@ -91,7 +91,7 @@ class Team:
                 .call_the_api(
                     f"{APIEndpoints.TEAMS.value}/{id}",
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -129,7 +129,7 @@ class Team:
                     RequestsMethods.POST,
                     json.dumps(dict({"name": team.name, "email": team.name})),
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Team created":
@@ -169,7 +169,7 @@ class Team:
                     RequestsMethods.PUT,
                     json.dumps(dict({"name": name, "email": email})),
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Team updated":
@@ -206,7 +206,7 @@ class Team:
                     f"{APIEndpoints.TEAMS.value}/{id}",
                     RequestsMethods.DELETE,
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Team deleted":
@@ -242,7 +242,7 @@ class Team:
                 .call_the_api(
                     f"{APIEndpoints.TEAMS.value}/{id}/members",
                 )
-                .json()
+    
             )
 
             if api_call == list() or api_call[0].get("userId") is None:
@@ -281,7 +281,7 @@ class Team:
                     RequestsMethods.POST,
                     json.dumps(dict({"userId": user_id})),
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Member added to Team":
@@ -319,7 +319,7 @@ class Team:
                     f"{APIEndpoints.TEAMS.value}/{id}/members/{user_id}",
                     RequestsMethods.DELETE,
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Team Member removed":
@@ -355,7 +355,7 @@ class Team:
                 .call_the_api(
                     f"{APIEndpoints.TEAMS.value}/{id}/preferences",
                 )
-                .json()
+    
             )
 
             if api_call == dict() or api_call.get("homeDashboardId") is None:
@@ -411,7 +411,7 @@ class Team:
                         )
                     ),
                 )
-                .json()
+    
             )
 
             if api_call.get("message") != "Preferences updated":
