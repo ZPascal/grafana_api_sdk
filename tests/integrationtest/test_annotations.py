@@ -1,12 +1,13 @@
 import os
 from unittest import TestCase
 
-from src.grafana_api.model import (
+from grafana_api.model import (
     APIModel,
     AnnotationObject,
     AnnotationGraphiteObject,
+    FindAnnotationObject,
 )
-from src.grafana_api.annotations import Annotations
+from grafana_api.annotations import Annotations
 
 
 class AnnotationsTest(TestCase):
@@ -17,21 +18,21 @@ class AnnotationsTest(TestCase):
     annotations: Annotations = Annotations(model)
 
     def test_a_find_annotations(self):
-        self.assertEqual(101, self.annotations.find_annotations()[0].get("id"))
+        self.assertEqual(140, self.annotations.find_annotations()[0].get("id"))
 
     def test_b_create_annotation(self):
         annotations: AnnotationObject = AnnotationObject(
-            dashboard_uid="test1",
+            dashboard_uid="tests",
             time=1000,
             time_end=10000,
             tags=["test"],
             text="test1",
         )
-        self.assertIsNotNone(self.annotations.create_annotation(annotations))
-        length: int = len(self.annotations.find_annotations())
+
+        annotation_id: int = self.annotations.create_annotation(annotations)
 
         self.assertEqual(
-            "test1", self.annotations.find_annotations()[length - 1].get("dashboardUID")
+            "tests", self.find_annotation_by_id(annotation_id, "dashboardUID")
         )
 
     def test_c_create_graphite_annotation(self):
@@ -45,24 +46,38 @@ class AnnotationsTest(TestCase):
             text="test12", time_end=None, time=None, tags=None
         )
 
-        length: int = len(self.annotations.find_annotations())
+        annotation_id: int = self.find_annotation_by_text("test1")
 
         self.assertIsNone(
             self.annotations.update_annotation(
-                self.annotations.find_annotations()[length - 2].get("id"), annotations
+                annotation_id, annotations
             )
         )
+
         self.assertEqual(
-            "test12", self.annotations.find_annotations()[length - 2].get("text")
+            "test12", self.find_annotation_by_id(annotation_id, "text")
         )
 
     def test_e_delete_annotation(self):
-        length: int = len(self.annotations.find_annotations())
+        annotation_id: int = self.find_annotation_by_text("test12")
+
         self.assertIsNone(
             self.annotations.delete_annotation(
-                self.annotations.find_annotations()[length - 1].get("id")
+                annotation_id
             )
         )
 
     def test_find_annotation_tags(self):
         self.assertIsNotNone(self.annotations.find_annotation_tags())
+
+    def find_annotation_by_text(self, text: str) -> int:
+        find_annotation: FindAnnotationObject = FindAnnotationObject(limit=10000)
+        for annotation in self.annotations.find_annotations(find_annotation):
+            if annotation.get("text") == text:
+                return annotation["id"]
+
+    def find_annotation_by_id(self, annotation_id: int, search_field: str) -> str:
+        find_annotation: FindAnnotationObject = FindAnnotationObject(limit=10000)
+        for annotation in self.annotations.find_annotations(find_annotation):
+            if annotation.get("id") == annotation_id:
+                return annotation[search_field]

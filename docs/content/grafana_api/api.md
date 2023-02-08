@@ -1,14 +1,14 @@
 # Table of Contents
 
-* [grafana\_api.api](#grafana_api.api)
-  * [Api](#grafana_api.api.Api)
-    * [call\_the\_api](#grafana_api.api.Api.call_the_api)
+* [api](#api)
+  * [Api](#api.Api)
+    * [call\_the\_api](#api.Api.call_the_api)
 
-<a id="grafana_api.api"></a>
+<a id="api"></a>
 
-# grafana\_api.api
+# api
 
-<a id="grafana_api.api.Api"></a>
+<a id="api.Api"></a>
 
 ## Api Objects
 
@@ -27,7 +27,7 @@ The class includes all necessary methods to make API calls to the Grafana API en
 
 - `grafana_api_model` _APIModel_ - This is where we store the grafana_api_model
 
-<a id="grafana_api.api.Api.call_the_api"></a>
+<a id="api.Api.call_the_api"></a>
 
 #### call\_the\_api
 

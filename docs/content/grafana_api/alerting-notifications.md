@@ -1,23 +1,23 @@
 # Table of Contents
 
-* [grafana\_api.alerting\_notifications](#grafana_api.alerting_notifications)
-  * [AlertingNotifications](#grafana_api.alerting_notifications.AlertingNotifications)
-    * [get\_all\_notification\_channels](#grafana_api.alerting_notifications.AlertingNotifications.get_all_notification_channels)
-    * [get\_all\_notification\_channels\_lookup](#grafana_api.alerting_notifications.AlertingNotifications.get_all_notification_channels_lookup)
-    * [get\_notification\_channel\_by\_uid](#grafana_api.alerting_notifications.AlertingNotifications.get_notification_channel_by_uid)
-    * [get\_notification\_channel\_by\_id](#grafana_api.alerting_notifications.AlertingNotifications.get_notification_channel_by_id)
-    * [create\_notification\_channel](#grafana_api.alerting_notifications.AlertingNotifications.create_notification_channel)
-    * [update\_notification\_channel\_by\_uid](#grafana_api.alerting_notifications.AlertingNotifications.update_notification_channel_by_uid)
-    * [update\_notification\_channel\_by\_id](#grafana_api.alerting_notifications.AlertingNotifications.update_notification_channel_by_id)
-    * [delete\_notification\_channel\_by\_uid](#grafana_api.alerting_notifications.AlertingNotifications.delete_notification_channel_by_uid)
-    * [delete\_notification\_channel\_by\_id](#grafana_api.alerting_notifications.AlertingNotifications.delete_notification_channel_by_id)
-    * [test\_notification\_channel](#grafana_api.alerting_notifications.AlertingNotifications.test_notification_channel)
+* [alerting\_notifications](#alerting_notifications)
+  * [AlertingNotifications](#alerting_notifications.AlertingNotifications)
+    * [get\_all\_notification\_channels](#alerting_notifications.AlertingNotifications.get_all_notification_channels)
+    * [get\_all\_notification\_channels\_lookup](#alerting_notifications.AlertingNotifications.get_all_notification_channels_lookup)
+    * [get\_notification\_channel\_by\_uid](#alerting_notifications.AlertingNotifications.get_notification_channel_by_uid)
+    * [get\_notification\_channel\_by\_id](#alerting_notifications.AlertingNotifications.get_notification_channel_by_id)
+    * [create\_notification\_channel](#alerting_notifications.AlertingNotifications.create_notification_channel)
+    * [update\_notification\_channel\_by\_uid](#alerting_notifications.AlertingNotifications.update_notification_channel_by_uid)
+    * [update\_notification\_channel\_by\_id](#alerting_notifications.AlertingNotifications.update_notification_channel_by_id)
+    * [delete\_notification\_channel\_by\_uid](#alerting_notifications.AlertingNotifications.delete_notification_channel_by_uid)
+    * [delete\_notification\_channel\_by\_id](#alerting_notifications.AlertingNotifications.delete_notification_channel_by_id)
+    * [test\_notification\_channel](#alerting_notifications.AlertingNotifications.test_notification_channel)
 
-<a id="grafana_api.alerting_notifications"></a>
+<a id="alerting_notifications"></a>
 
-# grafana\_api.alerting\_notifications
+# alerting\_notifications
 
-<a id="grafana_api.alerting_notifications.AlertingNotifications"></a>
+<a id="alerting_notifications.AlertingNotifications"></a>
 
 ## AlertingNotifications Objects
 
@@ -36,7 +36,7 @@ The class includes all necessary methods to access the Grafana alerting notifica
 
 - `grafana_api_model` _APIModel_ - This is where we store the grafana_api_model
 
-<a id="grafana_api.alerting_notifications.AlertingNotifications.get_all_notification_channels"></a>
+<a id="alerting_notifications.AlertingNotifications.get_all_notification_channels"></a>
 
 #### get\_all\_notification\_channels
 
@@ -55,7 +55,7 @@ The method includes a functionality to get all alerting notification channels
 
 - `api_call` _list_ - Returns all notification channels
 
-<a id="grafana_api.alerting_notifications.AlertingNotifications.get_all_notification_channels_lookup"></a>
+<a id="alerting_notifications.AlertingNotifications.get_all_notification_channels_lookup"></a>
 
 #### get\_all\_notification\_channels\_lookup
 
@@ -74,7 +74,7 @@ The method includes a functionality to lookup and get reduced information of all
 
 - `api_call` _list_ - Returns all notification channels as reduced information
 
-<a id="grafana_api.alerting_notifications.AlertingNotifications.get_notification_channel_by_uid"></a>
+<a id="alerting_notifications.AlertingNotifications.get_notification_channel_by_uid"></a>
 
 #### get\_notification\_channel\_by\_uid
 
@@ -99,7 +99,7 @@ The method includes a functionality to get an alerting notification channel spec
 
 - `api_call` _dict_ - Returns the specified notification channel
 
-<a id="grafana_api.alerting_notifications.AlertingNotifications.get_notification_channel_by_id"></a>
+<a id="alerting_notifications.AlertingNotifications.get_notification_channel_by_id"></a>
 
 #### get\_notification\_channel\_by\_id
 
@@ -124,7 +124,7 @@ The method includes a functionality to get an alerting notification channel spec
 
 - `api_call` _dict_ - Returns the specified notification channel
 
-<a id="grafana_api.alerting_notifications.AlertingNotifications.create_notification_channel"></a>
+<a id="alerting_notifications.AlertingNotifications.create_notification_channel"></a>
 
 #### create\_notification\_channel
 
@@ -149,7 +149,7 @@ The method includes a functionality to create an alerting notification channel s
 
 - `api_call` _dict_ - Returns the newly created notification channel
 
-<a id="grafana_api.alerting_notifications.AlertingNotifications.update_notification_channel_by_uid"></a>
+<a id="alerting_notifications.AlertingNotifications.update_notification_channel_by_uid"></a>
 
 #### update\_notification\_channel\_by\_uid
 
@@ -176,7 +176,7 @@ The method includes a functionality to update an alerting notification channel s
 
 - `api_call` _dict_ - Returns the updated notification channel
 
-<a id="grafana_api.alerting_notifications.AlertingNotifications.update_notification_channel_by_id"></a>
+<a id="alerting_notifications.AlertingNotifications.update_notification_channel_by_id"></a>
 
 #### update\_notification\_channel\_by\_id
 
@@ -203,7 +203,7 @@ The method includes a functionality to update an alerting notification channel s
 
 - `api_call` _dict_ - Returns the updated notification channel
 
-<a id="grafana_api.alerting_notifications.AlertingNotifications.delete_notification_channel_by_uid"></a>
+<a id="alerting_notifications.AlertingNotifications.delete_notification_channel_by_uid"></a>
 
 #### delete\_notification\_channel\_by\_uid
 
@@ -228,7 +228,7 @@ The method includes a functionality to delete an alerting notification channel s
 
   None
 
-<a id="grafana_api.alerting_notifications.AlertingNotifications.delete_notification_channel_by_id"></a>
+<a id="alerting_notifications.AlertingNotifications.delete_notification_channel_by_id"></a>
 
 #### delete\_notification\_channel\_by\_id
 
@@ -253,7 +253,7 @@ The method includes a functionality to delete an alerting notification channel s
 
   None
 
-<a id="grafana_api.alerting_notifications.AlertingNotifications.test_notification_channel"></a>
+<a id="alerting_notifications.AlertingNotifications.test_notification_channel"></a>
 
 #### test\_notification\_channel
 

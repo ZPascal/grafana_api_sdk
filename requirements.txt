@@ -1,4 +1,5 @@
-requests
 pydoc-markdown==4.6.3
 mkdocs
 mkdocs-material
+setuptools~=57.0.0
+urllib3~=1.26.7

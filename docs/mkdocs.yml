@@ -7,12 +7,33 @@ nav:
   - Model: grafana_api/model.md
   - Api: grafana_api/api.md
   - Alerting: grafana_api/alerting.md
+  - Alerting Provisioning: grafana_api/alerting-provisioning.md
   - Legacy Alerting: grafana_api/legacy-alerting.md
   - Alerting Notifications: grafana_api/alerting-notifications.md
+  - Admin: grafana_api/admin.md
+  - Annotations: grafana_api/annotations.md
+  - Authentication: grafana_api/authentication.md
+  - Correlations: grafana_api/correlations.md
   - Datasource: grafana_api/datasource.md
   - Dashboard: grafana_api/dashboard.md
+  - External Group: grafana_api/external-group.md
   - Folder: grafana_api/folder.md
+  - Library: grafana_api/library.md
+  - Licensing: grafana_api/licensing.md
+  - Organisation: grafana_api/organisation.md
+  - Other HTTP: grafana_api/other-http.md
+  - PlayList: grafana_api/playlist.md
+  - Legacy Playlist: grafana_api/legacy-playlist.md
+  - Preferences: grafana_api/preferences.md
+  - Query History: grafana_api/query-history.md
+  - RBAC: grafana_api/rbac.md
+  - Reporting: grafana_api/reporting.md
   - Search: grafana_api/search.md
+  - Service Account: grafana_api/service-account.md
+  - Short url: grafana_api/short-url.md
+  - Snapshot: grafana_api/snapshot.md
+  - Team: grafana_api/team.md
+  - User: grafana_api/user.md
 repo_url: https://github.com/ZPascal/grafana_api_sdk
 site_name: Grafana API SDK
 theme: material

@@ -1,12 +1,10 @@
-import requests
+from urllib3 import exceptions
 
 from unittest import TestCase
 from unittest.mock import MagicMock, patch, Mock
 
-from requests.exceptions import MissingSchema
-
-from src.grafana_api.model import APIModel, RequestsMethods
-from src.grafana_api.api import Api
+from grafana_api.model import APIModel, RequestsMethods
+from grafana_api.api import Api
 
 
 class ApiTestCase(TestCase):
@@ -21,63 +19,47 @@ class ApiTestCase(TestCase):
         with self.assertRaises(Exception):
             self.api.call_the_api(api_call=MagicMock(), method=MagicMock())
 
-    @patch("requests.get")
-    def test_call_the_api_basic_auth(self, get_mock):
+    @patch("urllib3.PoolManager")
+    def test_call_the_api_basic_auth(self, pool_mock):
         model: APIModel = APIModel(
             host="https://test.test.de", username="test", password="test"
         )
         api: Api = Api(grafana_api_model=model)
 
-        mock: Mock = Mock()
-        mock.json = Mock(return_value={"status": "success"})
-        mock.text = str('{"status": "success"}')
-
-        get_mock.return_value = mock
+        pool_mock.return_value.request.return_value.data = b'{"status": 200}'
 
         self.assertEqual(
-            "success",
-            api.call_the_api(api_call=MagicMock()).json()["status"],
+            200,
+            api.call_the_api(api_call=MagicMock())["status"],
         )
 
-    @patch("requests.get")
-    def test_call_the_api_org_id(self, get_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value={"status": "success"})
-        mock.text = str('{"status": "success"}')
-
-        get_mock.return_value = mock
+    @patch("urllib3.PoolManager")
+    def test_call_the_api_org_id(self, pool_mock):
+        pool_mock.return_value.request.return_value.data = b'{"status": "success"}'
 
         self.assertEqual(
             "success",
-            self.api.call_the_api(api_call=MagicMock(), org_id_header=1).json()[
+            self.api.call_the_api(api_call=MagicMock(), org_id_header=1)[
                 "status"
             ],
         )
 
-    @patch("requests.get")
-    def test_call_the_api_get_valid(self, get_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value={"status": "success"})
-        mock.text = str('{"status": "success"}')
-
-        get_mock.return_value = mock
+    @patch("urllib3.PoolManager")
+    def test_call_the_api_get_valid(self, pool_mock):
+        pool_mock.return_value.request.return_value.data = b'{"status": "success"}'
 
         self.assertEqual(
             "success",
-            self.api.call_the_api(api_call=MagicMock()).json()["status"],
+            self.api.call_the_api(api_call=MagicMock())["status"],
         )
 
     def test_call_the_api_get_not_valid(self):
-        with self.assertRaises(MissingSchema):
+        with self.assertRaises(exceptions.MaxRetryError):
             self.api.call_the_api(api_call=MagicMock(), method=RequestsMethods.GET)
 
-    @patch("requests.put")
-    def test_call_the_api_put_valid(self, put_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value={"status": "success"})
-        mock.text = str('{"status": "success"}')
-
-        put_mock.return_value = mock
+    @patch("urllib3.PoolManager")
+    def test_call_the_api_put_valid(self, pool_mock):
+        pool_mock.return_value.request.return_value.data = b'{"status": "success"}'
 
         self.assertEqual(
             "success",
@@ -85,20 +67,16 @@ class ApiTestCase(TestCase):
                 api_call=MagicMock(),
                 method=RequestsMethods.PUT,
                 json_complete=MagicMock(),
-            ).json()["status"],
+            )["status"],
         )
 
     def test_call_the_api_put_not_valid(self):
         with self.assertRaises(Exception):
             self.api.call_the_api(api_call=MagicMock(), method=RequestsMethods.PUT)
 
-    @patch("requests.post")
-    def test_call_the_api_post_valid(self, post_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value={"status": "success"})
-        mock.text = str('{"status": "success"}')
-
-        post_mock.return_value = mock
+    @patch("urllib3.PoolManager")
+    def test_call_the_api_post_valid(self, pool_mock):
+        pool_mock.return_value.request.return_value.data = b'{"status": "success"}'
 
         self.assertEqual(
             "success",
@@ -106,11 +84,11 @@ class ApiTestCase(TestCase):
                 api_call=MagicMock(),
                 method=RequestsMethods.POST,
                 json_complete=MagicMock(),
-            ).json()["status"],
+            )["status"],
         )
 
     def test_call_the_api_post_not_valid(self):
-        with self.assertRaises(MissingSchema):
+        with self.assertRaises(exceptions.ProtocolError):
             self.api.call_the_api(
                 api_call=MagicMock(),
                 method=RequestsMethods.POST,
@@ -121,13 +99,9 @@ class ApiTestCase(TestCase):
         with self.assertRaises(Exception):
             self.api.call_the_api(api_call=MagicMock(), method=RequestsMethods.POST)
 
-    @patch("requests.patch")
-    def test_call_the_api_patch_valid(self, post_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value={"status": "success"})
-        mock.text = str('{"status": "success"}')
-
-        post_mock.return_value = mock
+    @patch("urllib3.PoolManager")
+    def test_call_the_api_patch_valid(self, pool_mock):
+        pool_mock.return_value.request.return_value.data = b'{"status": "success"}'
 
         self.assertEqual(
             "success",
@@ -135,11 +109,11 @@ class ApiTestCase(TestCase):
                 api_call=MagicMock(),
                 method=RequestsMethods.PATCH,
                 json_complete=MagicMock(),
-            ).json()["status"],
+            )["status"],
         )
 
     def test_call_the_api_patch_not_valid(self):
-        with self.assertRaises(MissingSchema):
+        with self.assertRaises(exceptions.ProtocolError):
             self.api.call_the_api(
                 api_call=MagicMock(),
                 method=RequestsMethods.PATCH,
@@ -150,19 +124,15 @@ class ApiTestCase(TestCase):
         with self.assertRaises(Exception):
             self.api.call_the_api(api_call=MagicMock(), method=RequestsMethods.PATCH)
 
-    @patch("requests.delete")
-    def test_call_the_api_delete_valid(self, delete_mock):
-        mock: Mock = Mock()
-        mock.json = Mock(return_value={"message": "Deletion successful"})
-        mock.text = str('{"message": "Deletion successful"}')
-
-        delete_mock.return_value = mock
+    @patch("urllib3.PoolManager")
+    def test_call_the_api_delete_valid(self, pool_mock):
+        pool_mock.return_value.request.return_value.data = b'{"message": "Deletion successful"}'
 
         self.assertEqual(
             "Deletion successful",
             self.api.call_the_api(
                 api_call=MagicMock(), method=RequestsMethods.DELETE
-            ).json()["message"],
+            )["message"],
         )
 
     def test_call_the_api_delete_not_valid(self):
@@ -171,50 +141,66 @@ class ApiTestCase(TestCase):
 
     def test_check_the_api_call_response(self):
         mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"test": "test"}))
-        mock.text = str('{"test": "test"}')
+        mock.data = b'{"test": "test"}'
 
         self.assertEqual(
             dict({"test": "test"}),
-            self.api._Api__check_the_api_call_response(response=mock).json(),
+            self.api._Api__check_the_api_call_response(response=mock),
         )
 
     def test_check_the_api_call_response_no_error_message(self):
         mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "test"}))
-        mock.text = str('{"message": "test"}')
+        mock.data = b'{"message": "test"}'
 
         self.assertEqual(
             dict({"message": "test"}),
-            self.api._Api__check_the_api_call_response(response=mock).json(),
+            self.api._Api__check_the_api_call_response(response=mock),
         )
 
     def test_check_the_api_call_response_no_json_response_value(self):
         mock: Mock = Mock()
-        mock.text = "test"
+        mock.data = b"test"
 
         self.assertEqual(
-            "test", self.api._Api__check_the_api_call_response(response=mock).text
+            b"test", self.api._Api__check_the_api_call_response(response=mock).data
         )
 
     def test_check_the_api_call_response_exception(self):
         mock: Mock = Mock()
-        mock.json = Mock(return_value=dict({"message": "invalid API key"}))
-        mock.text = str('{"message": "invalid API key"}')
+        mock.data = b'{"message": "invalid API key"}'
 
-        with self.assertRaises(requests.exceptions.ConnectionError):
+        with self.assertRaises(exceptions.ProtocolError):
             self.api._Api__check_the_api_call_response(response=mock)
 
-    @patch("src.grafana_api.api.Api._Api__check_if_valid_json")
+    @patch("grafana_api.api.Api._Api__check_if_valid_json")
     def test__check_the_api_call_response_valid_json(self, check_if_valid_json_mock):
         check_if_valid_json_mock.return_value = True
 
         mock: Mock = Mock()
-        mock.json = Mock(return_value=str(""))
-        mock.text = str("")
+        mock.data = b"{}"
 
         self.assertEqual(
-            "", self.api._Api__check_the_api_call_response(response=mock).text
+            {}, self.api._Api__check_the_api_call_response(response=mock)
+        )
+
+    def test_check_the_api_call_response_return_status_code_dict(self):
+        mock: Mock = Mock()
+        mock.data = b'{"test": "test"}'
+        mock.status = 200
+
+        self.assertEqual(
+            dict({"status": 200, "test": "test"}),
+            self.api._Api__check_the_api_call_response(response=mock, response_status_code=True),
+        )
+
+    def test_check_the_api_call_response_return_status_code_list(self):
+        mock: Mock = Mock()
+        mock.data = b'[{"test": "test"}, {"test": "test"}]'
+        mock.status = 200
+
+        self.assertEqual(
+            list([{"status": 200, "test": "test"}, {"test": "test"}]),
+            self.api._Api__check_the_api_call_response(response=mock, response_status_code=True),
         )
 
     def test_prepare_api_string(self):
