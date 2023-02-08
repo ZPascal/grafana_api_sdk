@@ -34,18 +34,14 @@ The class includes all necessary methods to access the Grafana correlations API 
 #### create\_correlations
 
 ```python
-def create_correlations(source_datasource_uid: str, target_datasource_uid: str,
-                        label: str, description: str) -> dict
+def create_correlations(correlation_object: CorrelationObject) -> dict
 ```
 
 The method includes a functionality to create a correlation between two data sources - the source data source identified by source uid in the path, and the target data source which is specified in the body
 
 **Arguments**:
 
-- `source_datasource_uid` _str_ - Specify the source data source uid
-- `target_datasource_uid` _str_ - Specify the target data source uid
-- `label` _str_ - Specify a label for the correlation
-- `description` _str_ - Specify a description for the correlation
+- `correlation_object` _CorrelationObject_ - Specify the correlation object
   
 
 **Raises**:

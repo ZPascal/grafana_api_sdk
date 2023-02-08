@@ -17,6 +17,7 @@
   * [TeamObject](#model.TeamObject)
   * [QueryDatasourceObject](#model.QueryDatasourceObject)
   * [QueryObject](#model.QueryObject)
+  * [CorrelationObject](#model.CorrelationObject)
   * [FindAnnotationObject](#model.FindAnnotationObject)
   * [AnnotationObject](#model.AnnotationObject)
   * [AnnotationGraphiteObject](#model.AnnotationGraphiteObject)
@@ -64,6 +65,10 @@ The class includes all necessary variables to establish a connection to the Graf
 - `token` _str_ - Specify the access token of the Grafana system
 - `username` _str_ - Specify the username of the Grafana system
 - `password` _str_ - Specify the password of the Grafana system
+- `timeout` _float_ - Specify the timeout of the Grafana system
+- `ssl_context` _ssl.SSLContext_ - Specify the custom ssl context of the Grafana system
+- `num_pools` _int_ - Specify the number of the connection pool
+- `retries` _any_ - Specify the number of the retries. Please use False as parameter to disable the retries
 
 <a id="model.DatasourceQuery"></a>
 
@@ -298,6 +303,26 @@ The class includes all necessary variables to generate a query object that is ne
 - `key` _str_ - Specify the key of the query history
 - `scenario_id` _str_ - Specify the scenario_id of the query history
 - `datasource` _QueryDatasourceObject_ - Specify the datasource of the type QueryDatasourceObject
+
+<a id="model.CorrelationObject"></a>
+
+## CorrelationObject Objects
+
+```python
+class CorrelationObject(NamedTuple)
+```
+
+The class includes all necessary variables to generate a find annotation object
+
+**Arguments**:
+
+- `source_datasource_uid` _str_ - Specify the source datasource uid (default None)
+- `target_datasource_uid` _str_ - Specify the target datasource uid (default None)
+- `label` _str_ - Specify the label (default 100)
+- `description` _str_ - Specify the description (default None)
+- `config_type` _str_ - Specify the config type (default None)
+- `config_field` _str_ - Specify the config field (default None)
+- `config_target` _str_ - Specify the config target (default None)
 
 <a id="model.FindAnnotationObject"></a>
 
