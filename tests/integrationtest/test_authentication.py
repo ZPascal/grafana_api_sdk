@@ -32,5 +32,4 @@ class AuthenticationTest(TestCase):
             )
         )
 
-
-    #TODO Test service account functionaly inside the integration test case
+    # TODO Test service account functionaly inside the integration test case

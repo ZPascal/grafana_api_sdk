@@ -34,13 +34,9 @@ class Datasource:
             api_call (list): Returns the list of all datasources
         """
 
-        api_call: list = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                APIEndpoints.DATASOURCES.value,
-                RequestsMethods.GET,
-            )
-
+        api_call: list = Api(self.grafana_api_model).call_the_api(
+            APIEndpoints.DATASOURCES.value,
+            RequestsMethods.GET,
         )
 
         if api_call == list() or api_call[0].get("id") is None:
@@ -68,13 +64,9 @@ class Datasource:
         """
 
         if datasource_id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.DATASOURCES.value}/{datasource_id}",
-                    RequestsMethods.GET,
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/{datasource_id}",
+                RequestsMethods.GET,
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -105,13 +97,9 @@ class Datasource:
         """
 
         if len(uid) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.DATASOURCES.value}/uid/{uid}",
-                    RequestsMethods.GET,
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/uid/{uid}",
+                RequestsMethods.GET,
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -142,13 +130,9 @@ class Datasource:
         """
 
         if len(name) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.DATASOURCES.value}/name/{name}",
-                    RequestsMethods.GET,
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/name/{name}",
+                RequestsMethods.GET,
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -179,13 +163,9 @@ class Datasource:
         """
 
         if len(name) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.DATASOURCES.value}/id/{name}",
-                    RequestsMethods.GET,
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/id/{name}",
+                RequestsMethods.GET,
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -215,14 +195,10 @@ class Datasource:
         """
 
         if data_source != dict():
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    APIEndpoints.DATASOURCES.value,
-                    RequestsMethods.POST,
-                    json.dumps(data_source),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                APIEndpoints.DATASOURCES.value,
+                RequestsMethods.POST,
+                json.dumps(data_source),
             )
 
             if api_call.get("message") != "Datasource added":
@@ -254,14 +230,10 @@ class Datasource:
         """
 
         if datasource_id != 0 and data_source != dict():
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.DATASOURCES.value}/{datasource_id}",
-                    RequestsMethods.PUT,
-                    json.dumps(data_source),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/{datasource_id}",
+                RequestsMethods.PUT,
+                json.dumps(data_source),
             )
 
             if api_call.get("message") != "Datasource updated":
@@ -292,13 +264,9 @@ class Datasource:
         """
 
         if datasource_id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.DATASOURCES.value}/{datasource_id}",
-                    RequestsMethods.DELETE,
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/{datasource_id}",
+                RequestsMethods.DELETE,
             )
 
             if api_call.get("message") != "Data source deleted":
@@ -329,13 +297,9 @@ class Datasource:
         """
 
         if len(uid) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.DATASOURCES.value}/uid/{uid}",
-                    RequestsMethods.DELETE,
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/uid/{uid}",
+                RequestsMethods.DELETE,
             )
 
             if api_call.get("message") != "Data source deleted":
@@ -366,13 +330,9 @@ class Datasource:
         """
 
         if len(name) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.DATASOURCES.value}/name/{name}",
-                    RequestsMethods.DELETE,
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/name/{name}",
+                RequestsMethods.DELETE,
             )
 
             if api_call.get("message") != "Data source deleted":
@@ -418,14 +378,10 @@ class Datasource:
                 )
                 datasource_queries_json_list.append(datasource_query_json_dict)
 
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    APIEndpoints.DATASOURCE_QUERY.value,
-                    RequestsMethods.POST,
-                    json.dumps(datasource_queries_json_list),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                APIEndpoints.DATASOURCE_QUERY.value,
+                RequestsMethods.POST,
+                json.dumps(datasource_queries_json_list),
             )
 
             if api_call == dict() or api_call.get("results") == dict():
@@ -456,14 +412,10 @@ class Datasource:
         """
 
         if datasource_id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/enable-permissions",
-                    RequestsMethods.POST,
-                    json.dumps({}),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/enable-permissions",
+                RequestsMethods.POST,
+                json.dumps({}),
             )
 
             if api_call.get("message") != "Datasource permissions enabled":
@@ -494,14 +446,10 @@ class Datasource:
         """
 
         if datasource_id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/disable-permissions",
-                    RequestsMethods.POST,
-                    json.dumps({}),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/disable-permissions",
+                RequestsMethods.POST,
+                json.dumps({}),
             )
 
             if api_call.get("message") != "Datasource permissions disabled":
@@ -532,13 +480,9 @@ class Datasource:
         """
 
         if datasource_id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions",
-                    RequestsMethods.GET,
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions",
+                RequestsMethods.GET,
             )
 
             if api_call == dict() or api_call.get("datasourceId") is None:
@@ -572,14 +516,10 @@ class Datasource:
         """
 
         if datasource_id != 0 and datasource_permission != dict():
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions",
-                    RequestsMethods.POST,
-                    json.dumps(datasource_permission),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions",
+                RequestsMethods.POST,
+                json.dumps(datasource_permission),
             )
 
             if api_call.get("message") != "Datasource permission added":
@@ -611,13 +551,9 @@ class Datasource:
         """
 
         if datasource_id != 0 and permission_id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions/{permission_id}",
-                    RequestsMethods.DELETE,
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions/{permission_id}",
+                RequestsMethods.DELETE,
             )
 
             if api_call.get("message") != "Datasource permission removed":

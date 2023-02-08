@@ -48,12 +48,8 @@ class Playlist:
         if query is not None and (limit is not None or limit != 0):
             api_request_url: str = f"{api_request_url}?query={query}&limit={limit}"
 
-        api_call: list = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                api_request_url,
-            )
-
+        api_call: list = Api(self.grafana_api_model).call_the_api(
+            api_request_url,
         )
 
         if api_call == list() or api_call[0].get("uid") is None:
@@ -77,12 +73,8 @@ class Playlist:
         """
 
         if len(playlist_uid) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.PLAYLISTS.value}/{playlist_uid}",
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.PLAYLISTS.value}/{playlist_uid}",
             )
 
             if api_call == dict() or api_call.get("uid") is None:
@@ -109,11 +101,8 @@ class Playlist:
         """
 
         if len(playlist_uid) != 0:
-            api_call: list = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.PLAYLISTS.value}/{playlist_uid}/items",
-                )
+            api_call: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.PLAYLISTS.value}/{playlist_uid}/items",
             )
 
             if api_call == list() or api_call[0].get("value") is None:
@@ -140,12 +129,8 @@ class Playlist:
         """
 
         if len(playlist_uid) != 0:
-            api_call: list = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.PLAYLISTS.value}/{playlist_uid}/dashboards",
-                )
-    
+            api_call: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.PLAYLISTS.value}/{playlist_uid}/dashboards",
             )
 
             if api_call == list() or api_call[0].get("title") is None:
@@ -184,22 +169,18 @@ class Playlist:
                     }
                 )
 
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.PLAYLISTS.value}",
-                    RequestsMethods.POST,
-                    json.dumps(
-                        dict(
-                            {
-                                "name": playlist.name,
-                                "interval": playlist.interval,
-                                "items": items,
-                            }
-                        )
-                    ),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.PLAYLISTS.value}",
+                RequestsMethods.POST,
+                json.dumps(
+                    dict(
+                        {
+                            "name": playlist.name,
+                            "interval": playlist.interval,
+                            "items": items,
+                        }
+                    )
+                ),
             )
 
             if api_call == dict() or api_call.get("uid") is None:
@@ -239,22 +220,18 @@ class Playlist:
                     }
                 )
 
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.PLAYLISTS.value}/{playlist_uid}",
-                    RequestsMethods.PUT,
-                    json.dumps(
-                        dict(
-                            {
-                                "name": playlist.name,
-                                "interval": playlist.interval,
-                                "items": items,
-                            }
-                        )
-                    ),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.PLAYLISTS.value}/{playlist_uid}",
+                RequestsMethods.PUT,
+                json.dumps(
+                    dict(
+                        {
+                            "name": playlist.name,
+                            "interval": playlist.interval,
+                            "items": items,
+                        }
+                    )
+                ),
             )
 
             if api_call == dict() or api_call.get("uid") is None:

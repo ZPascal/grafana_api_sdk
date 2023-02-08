@@ -61,13 +61,9 @@ class Library:
         if folder_filter_ids is not None and len(folder_filter_ids) != 0:
             additional_parameters += f"&folderFilter={folder_filter_ids}"
 
-        api_call: dict = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                f"{APIEndpoints.LIBRARY.value}?perpage={results_per_page}&page={pages}&kind={kind}"
-                f"&sortDirection={sort_direction}{additional_parameters}",
-            )
-
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.LIBRARY.value}?perpage={results_per_page}&page={pages}&kind={kind}"
+            f"&sortDirection={sort_direction}{additional_parameters}",
         )
 
         if api_call == dict() or api_call.get("result") is None:
@@ -91,12 +87,8 @@ class Library:
         """
 
         if len(uid) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.LIBRARY.value}/{uid}",
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.LIBRARY.value}/{uid}",
             )
 
             if api_call == dict() or api_call.get("result") is None:
@@ -123,12 +115,8 @@ class Library:
         """
 
         if len(name) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.LIBRARY.value}/name/{name}",
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.LIBRARY.value}/name/{name}",
             )
 
             if api_call == dict() or api_call.get("result") is None:
@@ -155,12 +143,8 @@ class Library:
         """
 
         if len(uid) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.LIBRARY.value}/{uid}/connections",
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.LIBRARY.value}/{uid}/connections",
             )
 
             if api_call == dict() or api_call.get("result") is None:
@@ -219,14 +203,10 @@ class Library:
             if uid is not None and len(uid) != 0:
                 request_parameters.update({"uid": uid})
 
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    APIEndpoints.LIBRARY.value,
-                    RequestsMethods.POST,
-                    json.dumps(request_parameters),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                APIEndpoints.LIBRARY.value,
+                RequestsMethods.POST,
+                json.dumps(request_parameters),
             )
 
             if api_call == dict() or api_call.get("result") is None:
@@ -290,13 +270,10 @@ class Library:
                 }
             )
 
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.LIBRARY.value}/{uid}",
-                    RequestsMethods.PATCH,
-                    json.dumps(request_parameters),
-                )
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.LIBRARY.value}/{uid}",
+                RequestsMethods.PATCH,
+                json.dumps(request_parameters),
             )
 
             if api_call == dict() or api_call.get("result") is None:
@@ -325,13 +302,9 @@ class Library:
         """
 
         if len(uid) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.LIBRARY.value}/{uid}",
-                    RequestsMethods.DELETE,
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.LIBRARY.value}/{uid}",
+                RequestsMethods.DELETE,
             )
 
             if api_call.get("message") != "Library element deleted":

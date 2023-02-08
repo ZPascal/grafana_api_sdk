@@ -298,8 +298,8 @@ class TeamTestCase(TestCase):
         team: Team = Team(grafana_api_model=model)
 
         call_the_api_mock.return_value = dict(
-                {"theme": "light", "homeDashboardId": "Test", "timezone": "utc"}
-            )
+            {"theme": "light", "homeDashboardId": "Test", "timezone": "utc"}
+        )
 
         self.assertEqual(
             dict({"theme": "light", "homeDashboardId": "Test", "timezone": "utc"}),

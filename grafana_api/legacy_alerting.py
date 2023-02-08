@@ -43,13 +43,9 @@ class Alerting:
             api_string = APIEndpoints.LEGACY_ALERTS.value
 
         if len(api_string) != 0:
-            api_call: list = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    api_string,
-                    RequestsMethods.GET,
-                )
-    
+            api_call: list = Api(self.grafana_api_model).call_the_api(
+                api_string,
+                RequestsMethods.GET,
             )
 
             if api_call == list() or api_call[0].get("id") is None:
@@ -90,13 +86,9 @@ class Alerting:
                 if i < len(dashboard_ids) - 1:
                     dashboard_ids_string = f"{dashboard_ids_string}&"
 
-            api_call: list = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.LEGACY_ALERTS.value}/{dashboard_ids_string}",
-                    RequestsMethods.GET,
-                )
-    
+            api_call: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.LEGACY_ALERTS.value}/{dashboard_ids_string}",
+                RequestsMethods.GET,
             )
 
             if api_call == list() or api_call[0].get("id") is None:
@@ -123,13 +115,9 @@ class Alerting:
         """
 
         if id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.LEGACY_ALERTS.value}/{id}",
-                    RequestsMethods.GET,
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.LEGACY_ALERTS.value}/{id}",
+                RequestsMethods.GET,
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -161,14 +149,10 @@ class Alerting:
                 "paused": paused,
             }
 
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.LEGACY_ALERTS.value}/{id}/pause",
-                    RequestsMethods.POST,
-                    json.dumps(json_complete),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.LEGACY_ALERTS.value}/{id}/pause",
+                RequestsMethods.POST,
+                json.dumps(json_complete),
             )
 
             if api_call.get(

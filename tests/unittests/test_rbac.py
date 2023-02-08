@@ -341,7 +341,9 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 200, "message": "Role deleted"})
+        call_the_api_mock.return_value = dict(
+            {"status": 200, "message": "Role deleted"}
+        )
 
         self.assertEqual(
             None,
@@ -393,7 +395,9 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"status": 200, "test": "test"}, {"test"}])
+        call_the_api_mock.return_value = list(
+            [{"status": 200, "test": "test"}, {"test"}]
+        )
 
         self.assertEqual(
             list([{"status": 200, "test": "test"}, {"test"}]),
@@ -435,7 +439,9 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"status": 200, "test": "test"}, {"test"}])
+        call_the_api_mock.return_value = list(
+            [{"status": 200, "test": "test"}, {"test"}]
+        )
 
         self.assertEqual(
             list([{"status": 200, "test": "test"}, {"test"}]),
@@ -477,7 +483,9 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 200, "message": "Role added to the user."})
+        call_the_api_mock.return_value = dict(
+            {"status": 200, "message": "Role added to the user."}
+        )
 
         self.assertEqual(
             None,
@@ -529,7 +537,9 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 200, "message": "Role removed from user."})
+        call_the_api_mock.return_value = dict(
+            {"status": 200, "message": "Role removed from user."}
+        )
 
         self.assertEqual(
             None,
@@ -581,7 +591,9 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 200, "message": "User roles have been updated."})
+        call_the_api_mock.return_value = dict(
+            {"status": 200, "message": "User roles have been updated."}
+        )
 
         self.assertEqual(
             None,
@@ -633,7 +645,9 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"status": 200, "test": "test"}, {"test"}])
+        call_the_api_mock.return_value = list(
+            [{"status": 200, "test": "test"}, {"test"}]
+        )
 
         self.assertEqual(
             list([{"status": 200, "test": "test"}, {"test"}]),
@@ -679,7 +693,9 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"status": 200, "test": "test"}, {"test"}])
+        call_the_api_mock.return_value = list(
+            [{"status": 200, "test": "test"}, {"test"}]
+        )
 
         self.assertEqual(
             list([{"status": 200, "test": "test"}, {"test"}]),
@@ -727,7 +743,9 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 200, "message": "Role added to the user."})
+        call_the_api_mock.return_value = dict(
+            {"status": 200, "message": "Role added to the user."}
+        )
 
         self.assertEqual(
             None,
@@ -785,7 +803,9 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 200, "message": "Role removed from user."})
+        call_the_api_mock.return_value = dict(
+            {"status": 200, "message": "Role removed from user."}
+        )
 
         self.assertEqual(
             None,
@@ -843,7 +863,9 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 200, "message": "User roles have been updated."})
+        call_the_api_mock.return_value = dict(
+            {"status": 200, "message": "User roles have been updated."}
+        )
 
         self.assertEqual(
             None,
@@ -903,7 +925,9 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"status": 200, "test": "test"}, {"test"}])
+        call_the_api_mock.return_value = list(
+            [{"status": 200, "test": "test"}, {"test"}]
+        )
 
         self.assertEqual(
             list([{"status": 200, "test": "test"}, {"test"}]),
@@ -945,7 +969,9 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 200, "message": "Role added to the team."})
+        call_the_api_mock.return_value = dict(
+            {"status": 200, "message": "Role added to the team."}
+        )
 
         self.assertEqual(
             None,
@@ -997,7 +1023,9 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 200, "message": "Role removed from team."})
+        call_the_api_mock.return_value = dict(
+            {"status": 200, "message": "Role removed from team."}
+        )
 
         self.assertEqual(
             None,
@@ -1049,7 +1077,9 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 200, "message": "Team roles have been updated."})
+        call_the_api_mock.return_value = dict(
+            {"status": 200, "message": "Team roles have been updated."}
+        )
 
         self.assertEqual(
             None,
@@ -1101,7 +1131,9 @@ class RBACTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         rbac: RBAC = RBAC(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 200, "message": "Reset performed"})
+        call_the_api_mock.return_value = dict(
+            {"status": 200, "message": "Reset performed"}
+        )
 
         self.assertEqual(
             None,

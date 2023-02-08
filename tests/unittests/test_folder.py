@@ -187,7 +187,9 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 200, "message": "Folder deleted"})
+        call_the_api_mock.return_value = dict(
+            {"status": 200, "message": "Folder deleted"}
+        )
 
         self.assertEqual(None, folder.delete_folder("test"))
 
@@ -246,7 +248,9 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Dashboard permissions updated"})
+        call_the_api_mock.return_value = dict(
+            {"message": "Dashboard permissions updated"}
+        )
 
         self.assertEqual(
             None, folder.update_folder_permissions("test", dict({"test": "test"}))
@@ -314,7 +318,9 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"title": "test", "id": 12, "test": "test"}])
+        call_the_api_mock.return_value = list(
+            [{"title": "test", "id": 12, "test": "test"}]
+        )
 
         self.assertEqual(
             list([{"title": "test", "id": 12}]), folder.get_all_folder_ids_and_names()

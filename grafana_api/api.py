@@ -55,7 +55,9 @@ class Api:
             and self.grafana_api_model.password is not None
         ):
             credentials: str = base64.b64encode(
-                str.encode(f"{self.grafana_api_model.username}:{self.grafana_api_model.password}")
+                str.encode(
+                    f"{self.grafana_api_model.username}:{self.grafana_api_model.password}"
+                )
             ).decode("utf-8")
             headers.update({"Authorization": f"Basic {credentials}"})
 
@@ -65,11 +67,13 @@ class Api:
         if org_id_header is not None and type(org_id_header) == int:
             headers["X-Grafana-Org-Id"] = org_id_header
 
-        http = urllib3.PoolManager(num_pools=self.grafana_api_model.num_pools,
-                                   retries=self.grafana_api_model.retries,
-                                   headers=headers,
-                                   timeout=self.grafana_api_model.timeout,
-                                   ssl_context=self.grafana_api_model.ssl_context)
+        http = urllib3.PoolManager(
+            num_pools=self.grafana_api_model.num_pools,
+            retries=self.grafana_api_model.retries,
+            headers=headers,
+            timeout=self.grafana_api_model.timeout,
+            ssl_context=self.grafana_api_model.ssl_context,
+        )
 
         try:
             if method.value == RequestsMethods.GET.value:
@@ -90,7 +94,7 @@ class Api:
                 if json_complete is not None:
                     return Api.__check_the_api_call_response(
                         http.request("POST", api_url, body=json_complete),
-                        response_status_code
+                        response_status_code,
                     )
                 else:
                     logging.error("Please define the json_complete.")
@@ -99,15 +103,14 @@ class Api:
                 if json_complete is not None:
                     return Api.__check_the_api_call_response(
                         http.request("PATCH", api_url, body=json_complete),
-                        response_status_code
+                        response_status_code,
                     )
                 else:
                     logging.error("Please define the json_complete.")
                     raise Exception
             elif method.value == RequestsMethods.DELETE.value:
                 return Api.__check_the_api_call_response(
-                    http.request("DELETE", api_url),
-                    response_status_code
+                    http.request("DELETE", api_url), response_status_code
                 )
             else:
                 logging.error("Please define a valid method.")
@@ -116,7 +119,9 @@ class Api:
             raise e
 
     @staticmethod
-    def __check_the_api_call_response(response: any = None, response_status_code: bool = False) -> any:
+    def __check_the_api_call_response(
+        response: any = None, response_status_code: bool = False
+    ) -> any:
         """The method includes a functionality to check the output of API call method for errors
 
         Args:
@@ -131,11 +136,14 @@ class Api:
         """
 
         if Api.__check_if_valid_json(response.data.decode("utf-8")):
-            if len(json.loads(response.data.decode("utf-8"))) != 0 and \
-                    type(json.loads(response.data.decode("utf-8"))) == dict:
+            if (
+                len(json.loads(response.data.decode("utf-8"))) != 0
+                and type(json.loads(response.data.decode("utf-8"))) == dict
+            ):
                 if (
                     "message" in json.loads(response.data.decode("utf-8")).keys()
-                    and json.loads(response.data.decode("utf-8"))["message"] in ERROR_MESSAGES
+                    and json.loads(response.data.decode("utf-8"))["message"]
+                    in ERROR_MESSAGES
                 ):
                     logging.error(json.loads(response.data.decode("utf-8"))["message"])
                     raise exceptions.ConnectionError

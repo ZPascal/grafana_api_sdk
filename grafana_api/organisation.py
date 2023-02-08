@@ -32,10 +32,8 @@ class Organisation:
             api_call (dict): Returns the current organization
         """
 
-        api_call: dict = (
-            Api(self.grafana_api_model)
-            .call_the_api(APIEndpoints.ORGANISATION.value)
-
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            APIEndpoints.ORGANISATION.value
         )
 
         if api_call == dict() or api_call.get("id") is None:
@@ -58,10 +56,8 @@ class Organisation:
             api_call (list): Returns the users of the current organization
         """
 
-        api_call: list = (
-            Api(self.grafana_api_model)
-            .call_the_api(f"{APIEndpoints.ORGANISATION.value}/users")
-
+        api_call: list = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.ORGANISATION.value}/users"
         )
 
         if api_call == list() or api_call[0].get("orgId") is None:
@@ -84,10 +80,8 @@ class Organisation:
             api_call (list): Returns the users of the current organization
         """
 
-        api_call: list = (
-            Api(self.grafana_api_model)
-            .call_the_api(f"{APIEndpoints.ORGANISATION.value}/users/lookup")
-
+        api_call: list = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.ORGANISATION.value}/users/lookup"
         )
 
         if api_call == list() or api_call[0].get("userId") is None:
@@ -116,14 +110,10 @@ class Organisation:
         """
 
         if user_id != 0 and len(role) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.ORGANISATION.value}/users/{user_id}",
-                    RequestsMethods.PATCH,
-                    json.dumps(dict({"role": role})),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.ORGANISATION.value}/users/{user_id}",
+                RequestsMethods.PATCH,
+                json.dumps(dict({"role": role})),
             )
 
             if api_call.get("message") != "Organization user updated":
@@ -154,13 +144,9 @@ class Organisation:
         """
 
         if user_id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.ORGANISATION.value}/users/{user_id}",
-                    RequestsMethods.DELETE,
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.ORGANISATION.value}/users/{user_id}",
+                RequestsMethods.DELETE,
             )
 
             if api_call.get("message") != "User removed from organization":
@@ -191,14 +177,10 @@ class Organisation:
         """
 
         if len(name) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    APIEndpoints.ORGANISATION.value,
-                    RequestsMethods.PUT,
-                    json.dumps(dict({"name": name})),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                APIEndpoints.ORGANISATION.value,
+                RequestsMethods.PUT,
+                json.dumps(dict({"name": name})),
             )
 
             if api_call.get("message") != "Organization updated":
@@ -232,14 +214,10 @@ class Organisation:
         """
 
         if len(login_or_email) != 0 and len(role) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.ORGANISATION.value}/users",
-                    RequestsMethods.POST,
-                    json.dumps(dict({"loginOrEmail": login_or_email, "role": role})),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.ORGANISATION.value}/users",
+                RequestsMethods.POST,
+                json.dumps(dict({"loginOrEmail": login_or_email, "role": role})),
             )
 
             if api_call.get("message") != "User added to organization":
@@ -284,10 +262,8 @@ class OrganisationAdmin:
         """
 
         if org_id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(f"{APIEndpoints.ORGANISATIONS.value}/{org_id}")
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.ORGANISATIONS.value}/{org_id}"
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -319,10 +295,8 @@ class OrganisationAdmin:
         """
 
         if len(name) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(f"{APIEndpoints.ORGANISATIONS.value}/name/{name}")
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.ORGANISATIONS.value}/name/{name}"
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -349,10 +323,8 @@ class OrganisationAdmin:
              api_call (list): Returns all organizations as list
         """
 
-        api_call: list = (
-            Api(self.grafana_api_model)
-            .call_the_api(APIEndpoints.ORGANISATIONS.value)
-
+        api_call: list = Api(self.grafana_api_model).call_the_api(
+            APIEndpoints.ORGANISATIONS.value
         )
 
         if api_call == list() or api_call[0].get("id") is None:
@@ -381,14 +353,10 @@ class OrganisationAdmin:
         """
 
         if len(name) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    APIEndpoints.ORGANISATIONS.value,
-                    RequestsMethods.POST,
-                    json.dumps(dict({"name": name})),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                APIEndpoints.ORGANISATIONS.value,
+                RequestsMethods.POST,
+                json.dumps(dict({"name": name})),
             )
 
             if api_call.get("message") != "Organization created":
@@ -420,14 +388,10 @@ class OrganisationAdmin:
         """
 
         if org_id != 0 and len(name) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.ORGANISATIONS.value}/{org_id}",
-                    RequestsMethods.PUT,
-                    json.dumps(dict({"name": name})),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.ORGANISATIONS.value}/{org_id}",
+                RequestsMethods.PUT,
+                json.dumps(dict({"name": name})),
             )
 
             if api_call.get("message") != "Organization updated":
@@ -458,13 +422,9 @@ class OrganisationAdmin:
         """
 
         if org_id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.ORGANISATIONS.value}/{org_id}",
-                    RequestsMethods.DELETE,
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.ORGANISATIONS.value}/{org_id}",
+                RequestsMethods.DELETE,
             )
 
             if api_call.get("message") != "Organization deleted":
@@ -495,10 +455,8 @@ class OrganisationAdmin:
         """
 
         if org_id != 0:
-            api_call: list = (
-                Api(self.grafana_api_model)
-                .call_the_api(f"{APIEndpoints.ORGANISATIONS.value}/{org_id}/users")
-    
+            api_call: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.ORGANISATIONS.value}/{org_id}/users"
             )
 
             if api_call == list() or api_call[0].get("orgId") is None:
@@ -531,14 +489,10 @@ class OrganisationAdmin:
         """
 
         if org_id != 0 and len(login_or_email) != 0 and len(role) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.ORGANISATIONS.value}/{org_id}/users",
-                    RequestsMethods.POST,
-                    json.dumps(dict({"loginOrEmail": login_or_email, "role": role})),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.ORGANISATIONS.value}/{org_id}/users",
+                RequestsMethods.POST,
+                json.dumps(dict({"loginOrEmail": login_or_email, "role": role})),
             )
 
             if api_call.get("message") != "User added to organization":
@@ -571,14 +525,10 @@ class OrganisationAdmin:
         """
 
         if org_id != 0 and user_id != 0 and len(role) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.ORGANISATIONS.value}/{org_id}/users/{user_id}",
-                    RequestsMethods.PATCH,
-                    json.dumps(dict({"role": role})),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.ORGANISATIONS.value}/{org_id}/users/{user_id}",
+                RequestsMethods.PATCH,
+                json.dumps(dict({"role": role})),
             )
 
             if api_call.get("message") != "Organization user updated":
@@ -610,13 +560,9 @@ class OrganisationAdmin:
         """
 
         if org_id != 0 and user_id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.ORGANISATIONS.value}/{org_id}/users/{user_id}",
-                    RequestsMethods.DELETE,
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.ORGANISATIONS.value}/{org_id}/users/{user_id}",
+                RequestsMethods.DELETE,
             )
 
             if api_call.get("message") != "User removed from organization":

@@ -11,7 +11,8 @@ from .model import (
 )
 from .api import Api
 
-#TODO implement the new test cases
+# TODO implement the new test cases
+
 
 class AlertingProvisioning:
     """The class includes all necessary methods to access the Grafana alerting provisioning API endpoints
@@ -43,11 +44,8 @@ class AlertingProvisioning:
         if (type(recipient) == int and recipient != 0) or (
             type(recipient) == str and len(recipient) != 0
         ):
-            api_call: list = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.ALERTING_PROVISIONING.value}/alert-rules/",
-                )
+            api_call: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.ALERTING_PROVISIONING.value}/alert-rules/",
             )
 
             if api_call == list() or api_call[0].get("receivers") is None:

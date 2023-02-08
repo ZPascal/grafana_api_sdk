@@ -38,12 +38,8 @@ class LegacyPlaylist:
         """
 
         if playlist_id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.PLAYLISTS.value}/{playlist_id}",
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.PLAYLISTS.value}/{playlist_id}",
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -70,12 +66,8 @@ class LegacyPlaylist:
         """
 
         if playlist_id != 0:
-            api_call: list = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.PLAYLISTS.value}/{playlist_id}/items",
-                )
-    
+            api_call: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.PLAYLISTS.value}/{playlist_id}/items",
             )
 
             if api_call == list() or api_call[0].get("id") is None:
@@ -102,12 +94,8 @@ class LegacyPlaylist:
         """
 
         if playlist_id != 0:
-            api_call: list = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.PLAYLISTS.value}/{playlist_id}/dashboards",
-                )
-    
+            api_call: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.PLAYLISTS.value}/{playlist_id}/dashboards",
             )
 
             if api_call == list() or api_call[0].get("id") is None:
@@ -147,22 +135,18 @@ class LegacyPlaylist:
                     }
                 )
 
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.PLAYLISTS.value}/{playlist_id}",
-                    RequestsMethods.PUT,
-                    json.dumps(
-                        dict(
-                            {
-                                "name": playlist.name,
-                                "interval": playlist.interval,
-                                "items": items,
-                            }
-                        )
-                    ),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.PLAYLISTS.value}/{playlist_id}",
+                RequestsMethods.PUT,
+                json.dumps(
+                    dict(
+                        {
+                            "name": playlist.name,
+                            "interval": playlist.interval,
+                            "items": items,
+                        }
+                    )
+                ),
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -192,7 +176,7 @@ class LegacyPlaylist:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.PLAYLISTS.value}/{playlist_id}",
                 RequestsMethods.DELETE,
-                response_status_code=True
+                response_status_code=True,
             )
 
             if api_call.get("status") != 200:

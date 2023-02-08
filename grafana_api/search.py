@@ -32,10 +32,8 @@ class Search:
         """
 
         if len(search_query) != 0:
-            result: list = (
-                Api(self.grafana_api_model)
-                .call_the_api(f"{APIEndpoints.SEARCH.value}?{search_query}")
-    
+            result: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.SEARCH.value}?{search_query}"
             )
             if result == list():
                 raise Exception

@@ -53,21 +53,17 @@ class QueryHistory:
                 )
                 queries_json_list.append(query_json_dict)
 
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    APIEndpoints.QUERY_HISTORY.value,
-                    RequestsMethods.POST,
-                    json.dumps(
-                        dict(
-                            {
-                                "datasourceUid": datasource_uid,
-                                "queries": queries_json_list,
-                            }
-                        )
-                    ),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                APIEndpoints.QUERY_HISTORY.value,
+                RequestsMethods.POST,
+                json.dumps(
+                    dict(
+                        {
+                            "datasourceUid": datasource_uid,
+                            "queries": queries_json_list,
+                        }
+                    )
+                ),
             )
 
             if api_call == dict() or api_call.get("result") is None:
@@ -117,12 +113,8 @@ class QueryHistory:
                 if len(datasource_uids) != 1 and i != len(datasource_uids) - 1:
                     datasource_uids_str = f"{datasource_uids_str}&"
 
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.QUERY_HISTORY.value}?{datasource_uids_str}&searchString='{search_string}'&sort='{sort}'&onlyStarred={only_starred}&page={pages}&limit={results_per_page}",
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.QUERY_HISTORY.value}?{datasource_uids_str}&searchString='{search_string}'&sort='{sort}'&onlyStarred={only_starred}&page={pages}&limit={results_per_page}",
             )
 
             if api_call == dict() or api_call.get("result") is None:
@@ -149,12 +141,8 @@ class QueryHistory:
         """
 
         if len(uid) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.QUERY_HISTORY.value}/{uid}", RequestsMethods.DELETE
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.QUERY_HISTORY.value}/{uid}", RequestsMethods.DELETE
             )
 
             if api_call.get("message") != "Query deleted":
@@ -182,14 +170,10 @@ class QueryHistory:
         """
 
         if len(uid) != 0 and len(comment) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.QUERY_HISTORY.value}/{uid}",
-                    RequestsMethods.PATCH,
-                    json.dumps({"comment": comment}),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.QUERY_HISTORY.value}/{uid}",
+                RequestsMethods.PATCH,
+                json.dumps({"comment": comment}),
             )
 
             if api_call == dict() or api_call.get("result") is None:
@@ -216,14 +200,10 @@ class QueryHistory:
         """
 
         if len(uid) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.QUERY_HISTORY.value}/star/{uid}",
-                    RequestsMethods.POST,
-                    json.dumps({}),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.QUERY_HISTORY.value}/star/{uid}",
+                RequestsMethods.POST,
+                json.dumps({}),
             )
 
             if api_call == dict() or api_call.get("result") is None:
@@ -250,13 +230,9 @@ class QueryHistory:
         """
 
         if len(uid) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.QUERY_HISTORY.value}/star/{uid}",
-                    RequestsMethods.DELETE,
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.QUERY_HISTORY.value}/star/{uid}",
+                RequestsMethods.DELETE,
             )
 
             if api_call == dict() or api_call.get("result") is None:

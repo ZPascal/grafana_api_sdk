@@ -532,7 +532,9 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Datasources config reloaded"})
+        call_the_api_mock.return_value = dict(
+            {"message": "Datasources config reloaded"}
+        )
 
         self.assertEqual(
             None,
@@ -588,7 +590,9 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Notifications config reloaded"})
+        call_the_api_mock.return_value = dict(
+            {"message": "Notifications config reloaded"}
+        )
 
         self.assertEqual(
             None,
@@ -616,7 +620,9 @@ class AdminTestCase(TestCase):
         )
         admin: Admin = Admin(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Accesscontrol config reloaded"})
+        call_the_api_mock.return_value = dict(
+            {"message": "Accesscontrol config reloaded"}
+        )
 
         self.assertEqual(
             None,

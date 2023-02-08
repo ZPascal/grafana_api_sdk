@@ -301,7 +301,9 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Datasource permissions enabled"})
+        call_the_api_mock.return_value = dict(
+            {"message": "Datasource permissions enabled"}
+        )
 
         self.assertEqual(None, datasource.enable_datasource_permissions(1))
 
@@ -327,7 +329,9 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Datasource permissions disabled"})
+        call_the_api_mock.return_value = dict(
+            {"message": "Datasource permissions disabled"}
+        )
 
         self.assertEqual(None, datasource.disable_datasource_permissions(1))
 
@@ -385,7 +389,9 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Datasource permission added"})
+        call_the_api_mock.return_value = dict(
+            {"message": "Datasource permission added"}
+        )
 
         self.assertEqual(
             None, datasource.add_datasource_permissions(1, dict({"test": "test"}))
@@ -415,7 +421,9 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Datasource permission removed"})
+        call_the_api_mock.return_value = dict(
+            {"message": "Datasource permission removed"}
+        )
 
         self.assertEqual(None, datasource.delete_datasource_permissions(1, 1))
 

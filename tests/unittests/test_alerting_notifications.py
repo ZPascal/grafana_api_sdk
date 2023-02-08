@@ -24,7 +24,6 @@ class AlertingNotificationsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: AlertingNotifications = AlertingNotifications(grafana_api_model=model)
 
-
         call_the_api_mock.return_value = list()
 
         with self.assertRaises(Exception):

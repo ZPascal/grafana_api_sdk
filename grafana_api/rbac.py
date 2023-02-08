@@ -33,8 +33,7 @@ class RBAC:
         """
 
         api_call: dict = Api(self.grafana_api_model).call_the_api(
-            f"{APIEndpoints.RBAC.value}/status",
-            response_status_code=True
+            f"{APIEndpoints.RBAC.value}/status", response_status_code=True
         )
 
         status_code: int = api_call.get("status")
@@ -79,7 +78,7 @@ class RBAC:
 
         api_call: list = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.RBAC.value}/roles{additional_parameters}",
-            response_status_code=True
+            response_status_code=True,
         )
 
         status_code: int = api_call[0].get("status")
@@ -120,8 +119,7 @@ class RBAC:
 
         if len(uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.RBAC.value}/roles/{uid}",
-                response_status_code=True
+                f"{APIEndpoints.RBAC.value}/roles/{uid}", response_status_code=True
             )
 
             status_code: int = api_call.get("status")
@@ -207,7 +205,7 @@ class RBAC:
                 f"{APIEndpoints.RBAC.value}/roles",
                 RequestsMethods.POST,
                 json.dumps(role_object),
-                response_status_code=True
+                response_status_code=True,
             )
 
             status_code: int = api_call.get("status")
@@ -295,7 +293,7 @@ class RBAC:
                 f"{APIEndpoints.RBAC.value}/roles/{uid}",
                 RequestsMethods.PUT,
                 json.dumps(role_object),
-                response_status_code=True
+                response_status_code=True,
             )
 
             status_code: int = api_call.get("status")
@@ -346,7 +344,7 @@ class RBAC:
                 f"{APIEndpoints.RBAC.value}/roles/{uid}?force={force.__str__().lower()}&"
                 f"global={global_role.__str__().lower()}",
                 RequestsMethods.DELETE,
-                response_status_code=True
+                response_status_code=True,
             )
 
             status_code: int = api_call.get("status")
@@ -403,7 +401,7 @@ class RBAC:
 
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/users/{user_id}/roles{additional_parameters}",
-                response_status_code=True
+                response_status_code=True,
             )
 
             status_code: int = api_call[0].get("status")
@@ -448,7 +446,7 @@ class RBAC:
         if user_id != 0 and user_id is not None:
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/users/{user_id}/permissions",
-                response_status_code=True
+                response_status_code=True,
             )
 
             status_code: int = api_call[0].get("status")
@@ -499,7 +497,7 @@ class RBAC:
                 f"{APIEndpoints.RBAC.value}/users/{user_id}/roles",
                 RequestsMethods.POST,
                 json.dumps({"global": global_assignment, "roleUid": role_uid}),
-                response_status_code=True
+                response_status_code=True,
             )
 
             status_code: int = api_call.get("status")
@@ -551,7 +549,7 @@ class RBAC:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/users/{user_id}/roles/{role_uid}",
                 RequestsMethods.DELETE,
-                response_status_code=True
+                response_status_code=True,
             )
 
             status_code: int = api_call.get("status")
@@ -615,7 +613,7 @@ class RBAC:
                 f"{APIEndpoints.RBAC.value}/users/{user_id}/roles{additional_parameters}",
                 RequestsMethods.PUT,
                 json.dumps({"global": global_assignment, "roleUids": role_uids}),
-                response_status_code=True
+                response_status_code=True,
             )
 
             status_code: int = api_call.get("status")
@@ -672,7 +670,7 @@ class RBAC:
 
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/users/{service_account_id}/roles{additional_parameters}",
-                response_status_code=True
+                response_status_code=True,
             )
 
             status_code: int = api_call[0].get("status")
@@ -717,7 +715,7 @@ class RBAC:
         if service_account_id != 0 and service_account_id is not None:
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/users/{service_account_id}/permissions",
-                response_status_code=True
+                response_status_code=True,
             )
 
             status_code: int = api_call[0].get("status")
@@ -772,7 +770,7 @@ class RBAC:
                 f"{APIEndpoints.RBAC.value}/users/{service_account_id}/roles",
                 RequestsMethods.POST,
                 json.dumps({"global": global_assignment, "roleUid": role_uid}),
-                response_status_code=True
+                response_status_code=True,
             )
 
             status_code: int = api_call.get("status")
@@ -834,7 +832,7 @@ class RBAC:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/users/{service_account_id}/roles/{role_uid}",
                 RequestsMethods.DELETE,
-                response_status_code=True
+                response_status_code=True,
             )
 
             status_code: int = api_call.get("status")
@@ -904,7 +902,7 @@ class RBAC:
                 f"{APIEndpoints.RBAC.value}/users/{service_account_id}/roles{additional_parameters}",
                 RequestsMethods.PUT,
                 json.dumps({"global": global_assignment, "roleUids": role_uids}),
-                response_status_code=True
+                response_status_code=True,
             )
 
             status_code: int = api_call.get("status")
@@ -963,7 +961,7 @@ class RBAC:
 
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/teams/{team_id}/roles{additional_parameters}",
-                response_status_code=True
+                response_status_code=True,
             )
 
             status_code: int = api_call[0].get("status")
@@ -1011,7 +1009,7 @@ class RBAC:
                 f"{APIEndpoints.RBAC.value}/teams/{team_id}/roles",
                 RequestsMethods.POST,
                 json.dumps({"roleUid": role_uid}),
-                response_status_code=True
+                response_status_code=True,
             )
 
             status_code: int = api_call.get("status")
@@ -1063,7 +1061,7 @@ class RBAC:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/teams/{team_id}/roles/{role_uid}",
                 RequestsMethods.DELETE,
-                response_status_code=True
+                response_status_code=True,
             )
 
             status_code: int = api_call.get("status")
@@ -1125,7 +1123,7 @@ class RBAC:
                 f"{APIEndpoints.RBAC.value}/teams/{team_id}/roles{additional_parameters}",
                 RequestsMethods.PUT,
                 json.dumps({"roleUids": role_uids}),
-                response_status_code=True
+                response_status_code=True,
             )
 
             status_code: int = api_call.get("status")
@@ -1172,7 +1170,7 @@ class RBAC:
             f"{APIEndpoints.RBAC.value}/roles/hard-reset",
             RequestsMethods.POST,
             json.dumps({"BasicRoles": True}),
-            response_status_code=True
+            response_status_code=True,
         )
 
         status_code: int = api_call.get("status")

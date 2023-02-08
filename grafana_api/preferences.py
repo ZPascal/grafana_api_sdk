@@ -30,12 +30,8 @@ class Preferences:
             api_call (dict): Returns the current user preferences
         """
 
-        api_call: dict = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                APIEndpoints.USER_PREFERENCES.value,
-            )
-
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            APIEndpoints.USER_PREFERENCES.value,
         )
 
         if api_call == dict() or api_call.get("homeDashboardId") is None:
@@ -77,14 +73,10 @@ class Preferences:
             modified_values.update(dict({"timezone": timezone}))
 
         if len(modified_values) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    APIEndpoints.USER_PREFERENCES.value,
-                    RequestsMethods.PATCH,
-                    json.dumps(modified_values),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                APIEndpoints.USER_PREFERENCES.value,
+                RequestsMethods.PATCH,
+                json.dumps(modified_values),
             )
 
             if api_call.get("message") != "Preferences updated":
@@ -108,12 +100,8 @@ class Preferences:
             api_call (dict): Returns the current user preferences
         """
 
-        api_call: dict = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                APIEndpoints.ORG_PREFERENCES.value,
-            )
-
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            APIEndpoints.ORG_PREFERENCES.value,
         )
 
         if api_call == dict() or api_call.get("homeDashboardId") is None:
@@ -155,14 +143,10 @@ class Preferences:
             modified_values.update(dict({"timezone": timezone}))
 
         if len(modified_values) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    APIEndpoints.ORG_PREFERENCES.value,
-                    RequestsMethods.PATCH,
-                    json.dumps(modified_values),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                APIEndpoints.ORG_PREFERENCES.value,
+                RequestsMethods.PATCH,
+                json.dumps(modified_values),
             )
 
             if api_call.get("message") != "Preferences updated":

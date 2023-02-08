@@ -28,8 +28,8 @@ class Folder:
             api_call (list): Returns all folders
         """
 
-        api_call: list = (
-            Api(self.grafana_api_model).call_the_api(APIEndpoints.FOLDERS.value)
+        api_call: list = Api(self.grafana_api_model).call_the_api(
+            APIEndpoints.FOLDERS.value
         )
 
         if api_call == list() or api_call[0].get("id") is None:
@@ -53,10 +53,8 @@ class Folder:
         """
 
         if len(uid) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(f"{APIEndpoints.FOLDERS.value}/{uid}")
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.FOLDERS.value}/{uid}"
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -83,12 +81,8 @@ class Folder:
         """
 
         if id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.FOLDERS.value}/id/{id}",
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.FOLDERS.value}/id/{id}",
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -122,14 +116,10 @@ class Folder:
             if uid is not None and len(uid) != 0:
                 folder_information.update({"uid": uid})
 
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    APIEndpoints.FOLDERS.value,
-                    RequestsMethods.POST,
-                    json.dumps(folder_information),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                APIEndpoints.FOLDERS.value,
+                RequestsMethods.POST,
+                json.dumps(folder_information),
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -172,14 +162,10 @@ class Folder:
             if version is not None:
                 folder_information.update({"version": version})
 
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.FOLDERS.value}/{uid}",
-                    RequestsMethods.PUT,
-                    json.dumps(folder_information),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.FOLDERS.value}/{uid}",
+                RequestsMethods.PUT,
+                json.dumps(folder_information),
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -206,13 +192,10 @@ class Folder:
         """
 
         if len(uid) != 0:
-            api_call = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.FOLDERS.value}/{uid}",
-                    RequestsMethods.DELETE,
-                    response_status_code=True
-                )
+            api_call = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.FOLDERS.value}/{uid}",
+                RequestsMethods.DELETE,
+                response_status_code=True,
             )
 
             if api_call.get("status") != 200:
@@ -239,13 +222,9 @@ class Folder:
         """
 
         if len(uid) != 0:
-            api_call: list = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.FOLDERS.value}/{uid}/permissions",
-                    RequestsMethods.GET,
-                )
-    
+            api_call: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.FOLDERS.value}/{uid}/permissions",
+                RequestsMethods.GET,
             )
 
             if api_call == list() or api_call[0].get("folderId") is None:
@@ -273,14 +252,10 @@ class Folder:
         """
 
         if len(uid) != 0 and len(permission_json) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.FOLDERS.value}/{uid}/permissions",
-                    RequestsMethods.POST,
-                    json.dumps(permission_json),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.FOLDERS.value}/{uid}/permissions",
+                RequestsMethods.POST,
+                json.dumps(permission_json),
             )
 
             if api_call.get("message") != "Dashboard permissions updated":
@@ -335,10 +310,8 @@ class Folder:
             folders (list): Returns a list of dicts with folder ids and the corresponding names
         """
 
-        folders_raw: list = (
-            Api(self.grafana_api_model)
-            .call_the_api(f"{APIEndpoints.SEARCH.value}?folderIds=0")
-
+        folders_raw: list = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.SEARCH.value}?folderIds=0"
         )
         folders_raw_len: int = len(folders_raw)
         folders: list = list()

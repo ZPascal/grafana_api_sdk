@@ -53,12 +53,8 @@ class Team:
         if query is not None and len(query) != 0:
             api_request_url: str = f"{api_request_url}&query={query}"
 
-        api_call: dict = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                api_request_url,
-            )
-
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            api_request_url,
         )
 
         if api_call == dict() or api_call.get("totalCount") is None:
@@ -86,12 +82,8 @@ class Team:
         """
 
         if id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.TEAMS.value}/{id}",
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.TEAMS.value}/{id}",
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -122,14 +114,10 @@ class Team:
         """
 
         if team is not None:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.TEAMS.value}",
-                    RequestsMethods.POST,
-                    json.dumps(dict({"name": team.name, "email": team.name})),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.TEAMS.value}",
+                RequestsMethods.POST,
+                json.dumps(dict({"name": team.name, "email": team.name})),
             )
 
             if api_call.get("message") != "Team created":
@@ -162,14 +150,10 @@ class Team:
         """
 
         if id != 0 and len(name) != 0 and len(email) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.TEAMS.value}/{id}",
-                    RequestsMethods.PUT,
-                    json.dumps(dict({"name": name, "email": email})),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.TEAMS.value}/{id}",
+                RequestsMethods.PUT,
+                json.dumps(dict({"name": name, "email": email})),
             )
 
             if api_call.get("message") != "Team updated":
@@ -200,13 +184,9 @@ class Team:
         """
 
         if id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.TEAMS.value}/{id}",
-                    RequestsMethods.DELETE,
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.TEAMS.value}/{id}",
+                RequestsMethods.DELETE,
             )
 
             if api_call.get("message") != "Team deleted":
@@ -237,12 +217,8 @@ class Team:
         """
 
         if id != 0:
-            api_call: list = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.TEAMS.value}/{id}/members",
-                )
-    
+            api_call: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.TEAMS.value}/{id}/members",
             )
 
             if api_call == list() or api_call[0].get("userId") is None:
@@ -274,14 +250,10 @@ class Team:
         """
 
         if id != 0 and user_id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.TEAMS.value}/{id}/members",
-                    RequestsMethods.POST,
-                    json.dumps(dict({"userId": user_id})),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.TEAMS.value}/{id}/members",
+                RequestsMethods.POST,
+                json.dumps(dict({"userId": user_id})),
             )
 
             if api_call.get("message") != "Member added to Team":
@@ -313,13 +285,9 @@ class Team:
         """
 
         if id != 0 and user_id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.TEAMS.value}/{id}/members/{user_id}",
-                    RequestsMethods.DELETE,
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.TEAMS.value}/{id}/members/{user_id}",
+                RequestsMethods.DELETE,
             )
 
             if api_call.get("message") != "Team Member removed":
@@ -350,12 +318,8 @@ class Team:
         """
 
         if id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.TEAMS.value}/{id}/preferences",
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.TEAMS.value}/{id}/preferences",
             )
 
             if api_call == dict() or api_call.get("homeDashboardId") is None:
@@ -396,22 +360,18 @@ class Team:
             and home_dashboard_id is not None
             and timezone is not None
         ):
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.TEAMS.value}/{id}/preferences",
-                    RequestsMethods.PUT,
-                    json.dumps(
-                        dict(
-                            {
-                                "theme": theme,
-                                "homeDashboardId": home_dashboard_id,
-                                "timezone": timezone,
-                            }
-                        )
-                    ),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.TEAMS.value}/{id}/preferences",
+                RequestsMethods.PUT,
+                json.dumps(
+                    dict(
+                        {
+                            "theme": theme,
+                            "homeDashboardId": home_dashboard_id,
+                            "timezone": timezone,
+                        }
+                    )
+                ),
             )
 
             if api_call.get("message") != "Preferences updated":

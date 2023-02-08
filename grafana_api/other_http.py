@@ -30,10 +30,8 @@ class OtherHTTP:
             api_call (dict): Returns the corresponding frontend settings
         """
 
-        api_call: dict = (
-            Api(self.grafana_api_model)
-            .call_the_api(f"{APIEndpoints.FRONTEND.value}/settings")
-
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.FRONTEND.value}/settings"
         )
 
         if api_call == dict():
@@ -54,7 +52,8 @@ class OtherHTTP:
 
         api_call: str = (
             Api(self.grafana_api_model)
-            .call_the_api(f"{APIEndpoints.LOGIN.value}/ping").data.decode("utf-8")
+            .call_the_api(f"{APIEndpoints.LOGIN.value}/ping")
+            .data.decode("utf-8")
         )
 
         if api_call != "Logged in":
@@ -73,13 +72,17 @@ class OtherHTTP:
             api_call (dict): Returns the health information
         """
 
-        http = urllib3.PoolManager(num_pools=self.grafana_api_model.num_pools,
-                                   retries=self.grafana_api_model.retries,
-                                   timeout=self.grafana_api_model.timeout,
-                                   ssl_context=self.grafana_api_model.ssl_context)
+        http = urllib3.PoolManager(
+            num_pools=self.grafana_api_model.num_pools,
+            retries=self.grafana_api_model.retries,
+            timeout=self.grafana_api_model.timeout,
+            ssl_context=self.grafana_api_model.ssl_context,
+        )
 
         api_call: dict = json.loads(
-            http.request("GET", f"{self.grafana_api_model.host}/api/health").data.decode("utf-8")
+            http.request(
+                "GET", f"{self.grafana_api_model.host}/api/health"
+            ).data.decode("utf-8")
         )
 
         if api_call == dict() or api_call.get("commit") is None:
@@ -98,12 +101,16 @@ class OtherHTTP:
             api_call (str): Returns the metrics information
         """
 
-        http = urllib3.PoolManager(num_pools=self.grafana_api_model.num_pools,
-                                   retries=self.grafana_api_model.retries,
-                                   timeout=self.grafana_api_model.timeout,
-                                   ssl_context=self.grafana_api_model.ssl_context)
+        http = urllib3.PoolManager(
+            num_pools=self.grafana_api_model.num_pools,
+            retries=self.grafana_api_model.retries,
+            timeout=self.grafana_api_model.timeout,
+            ssl_context=self.grafana_api_model.ssl_context,
+        )
 
-        api_call: str = http.request("GET", f"{self.grafana_api_model.host}/metrics").data.decode("utf-8")
+        api_call: str = http.request(
+            "GET", f"{self.grafana_api_model.host}/metrics"
+        ).data.decode("utf-8")
 
         if len(api_call) == 0 or api_call is None:
             logging.error(f"Check the error: {api_call}.")

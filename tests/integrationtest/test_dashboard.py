@@ -105,10 +105,10 @@ class DashboardTest(TestCase):
                 dashboard_name=os.environ["GRAFANA_DASHBOARD_NAME"],
             )
 
-#TODO Test version and permission endpoint
+    # TODO Test version and permission endpoint
     def test_f_calculate_dashboard_diff_json_mode(self):
         with open(
-                f"{os.getcwd()}{os.sep}tests{os.sep}integrationtest{os.sep}resources{os.sep}dashboard_diff_a.json"
+            f"{os.getcwd()}{os.sep}tests{os.sep}integrationtest{os.sep}resources{os.sep}dashboard_diff_a.json"
         ) as file:
             json_dashboard_a = json.load(file)
 
@@ -120,7 +120,7 @@ class DashboardTest(TestCase):
         )
 
         with open(
-                f"{os.getcwd()}{os.sep}tests{os.sep}integrationtest{os.sep}resources{os.sep}dashboard_diff_b.json"
+            f"{os.getcwd()}{os.sep}tests{os.sep}integrationtest{os.sep}resources{os.sep}dashboard_diff_b.json"
         ) as file:
             json_dashboard_b = json.load(file)
 
@@ -132,9 +132,9 @@ class DashboardTest(TestCase):
         )
 
         dashboard_a: dict = self.dashboard.get_dashboard_uid_and_id_by_name_and_folder(
-                dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
-                dashboard_name="TestA",
-            )
+            dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
+            dashboard_name="TestA",
+        )
 
         dashboard_b: dict = self.dashboard.get_dashboard_uid_and_id_by_name_and_folder(
             dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
@@ -150,16 +150,20 @@ class DashboardTest(TestCase):
             dashboard_b["uid"],
         )
 
-        diff_a: dict = dict({"dashboardId": dashboard_a['id'], "version": 1})
-        diff_b: dict = dict({"dashboardId": dashboard_b['id'], "version": 1})
+        diff_a: dict = dict({"dashboardId": dashboard_a["id"], "version": 1})
+        diff_b: dict = dict({"dashboardId": dashboard_b["id"], "version": 1})
         self.assertIsNotNone(self.dashboard.calculate_dashboard_diff(diff_a, diff_b))
 
-        self.dashboard.delete_dashboard_by_name_and_path("TestA", os.environ["GRAFANA_DASHBOARD_PATH"])
-        self.dashboard.delete_dashboard_by_name_and_path("TestB", os.environ["GRAFANA_DASHBOARD_PATH"])
+        self.dashboard.delete_dashboard_by_name_and_path(
+            "TestA", os.environ["GRAFANA_DASHBOARD_PATH"]
+        )
+        self.dashboard.delete_dashboard_by_name_and_path(
+            "TestB", os.environ["GRAFANA_DASHBOARD_PATH"]
+        )
 
     def test_f_calculate_dashboard_diff_json_mode(self):
         with open(
-                f"{os.getcwd()}{os.sep}tests{os.sep}integrationtest{os.sep}resources{os.sep}dashboard_diff_a.json"
+            f"{os.getcwd()}{os.sep}tests{os.sep}integrationtest{os.sep}resources{os.sep}dashboard_diff_a.json"
         ) as file:
             json_dashboard_a = json.load(file)
 
@@ -171,7 +175,7 @@ class DashboardTest(TestCase):
         )
 
         with open(
-                f"{os.getcwd()}{os.sep}tests{os.sep}integrationtest{os.sep}resources{os.sep}dashboard_diff_b.json"
+            f"{os.getcwd()}{os.sep}tests{os.sep}integrationtest{os.sep}resources{os.sep}dashboard_diff_b.json"
         ) as file:
             json_dashboard_b = json.load(file)
 
@@ -183,9 +187,9 @@ class DashboardTest(TestCase):
         )
 
         dashboard_a: dict = self.dashboard.get_dashboard_uid_and_id_by_name_and_folder(
-                dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
-                dashboard_name="TestA",
-            )
+            dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
+            dashboard_name="TestA",
+        )
 
         dashboard_b: dict = self.dashboard.get_dashboard_uid_and_id_by_name_and_folder(
             dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
@@ -201,9 +205,15 @@ class DashboardTest(TestCase):
             dashboard_b["uid"],
         )
 
-        diff_a: dict = dict({"dashboardId": dashboard_a['id'], "version": 1})
-        diff_b: dict = dict({"dashboardId": dashboard_b['id'], "version": 1})
-        self.assertIsNotNone(self.dashboard.calculate_dashboard_diff(diff_a, diff_b, "basic"))
+        diff_a: dict = dict({"dashboardId": dashboard_a["id"], "version": 1})
+        diff_b: dict = dict({"dashboardId": dashboard_b["id"], "version": 1})
+        self.assertIsNotNone(
+            self.dashboard.calculate_dashboard_diff(diff_a, diff_b, "basic")
+        )
 
-        self.dashboard.delete_dashboard_by_name_and_path("TestA", os.environ["GRAFANA_DASHBOARD_PATH"])
-        self.dashboard.delete_dashboard_by_name_and_path("TestB", os.environ["GRAFANA_DASHBOARD_PATH"])
+        self.dashboard.delete_dashboard_by_name_and_path(
+            "TestA", os.environ["GRAFANA_DASHBOARD_PATH"]
+        )
+        self.dashboard.delete_dashboard_by_name_and_path(
+            "TestB", os.environ["GRAFANA_DASHBOARD_PATH"]
+        )

@@ -87,7 +87,9 @@ class OrganisationTestCase(TestCase):
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_delete_organization_user_by_user_id(self, call_the_api_mock):
-        call_the_api_mock.return_value = dict({"message": "User removed from organization"})
+        call_the_api_mock.return_value = dict(
+            {"message": "User removed from organization"}
+        )
 
         self.assertEqual(None, self.organisation.delete_organization_user_by_user_id(1))
 
@@ -129,7 +131,9 @@ class OrganisationTestCase(TestCase):
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_add_new_user_to_current_organization(self, call_the_api_mock):
-        call_the_api_mock.return_value = dict({"message": "User added to organization", "userId": 1})
+        call_the_api_mock.return_value = dict(
+            {"message": "User added to organization", "userId": 1}
+        )
 
         self.assertEqual(
             1, self.organisation.add_new_user_to_current_organization("test", "test")
@@ -215,7 +219,9 @@ class OrganisationAdminTestCase(TestCase):
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_create_organization(self, call_the_api_mock):
-        call_the_api_mock.return_value = dict({"message": "Organization created", "orgId": 10})
+        call_the_api_mock.return_value = dict(
+            {"message": "Organization created", "orgId": 10}
+        )
 
         self.assertEqual(10, self.organisation.create_organization("test"))
 
@@ -298,7 +304,9 @@ class OrganisationAdminTestCase(TestCase):
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_add_organization_user(self, call_the_api_mock):
-        call_the_api_mock.return_value = dict({"message": "User added to organization", "userId": 10})
+        call_the_api_mock.return_value = dict(
+            {"message": "User added to organization", "userId": 10}
+        )
 
         self.assertEqual(10, self.organisation.add_organization_user(1, "test", "test"))
 
@@ -340,7 +348,9 @@ class OrganisationAdminTestCase(TestCase):
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_delete_organization_user(self, call_the_api_mock):
-        call_the_api_mock.return_value = dict({"message": "User removed from organization"})
+        call_the_api_mock.return_value = dict(
+            {"message": "User removed from organization"}
+        )
 
         self.assertEqual(None, self.organisation.delete_organization_user(1, 10))
 

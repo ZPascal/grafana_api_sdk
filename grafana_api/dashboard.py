@@ -54,14 +54,10 @@ class Dashboard:
                 "overwrite": overwrite,
             }
 
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.DASHBOARDS.value}/db",
-                    RequestsMethods.POST,
-                    json.dumps(dashboard_json_complete),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DASHBOARDS.value}/db",
+                RequestsMethods.POST,
+                json.dumps(dashboard_json_complete),
             )
 
             if api_call.get("status") != "success":
@@ -98,13 +94,9 @@ class Dashboard:
             )
 
             if len(dashboard_uid) != 0:
-                api_call: dict = (
-                    Api(self.grafana_api_model)
-                    .call_the_api(
-                        f"{APIEndpoints.DASHBOARDS.value}/uid/{dashboard_uid.get('uid')}",
-                        RequestsMethods.DELETE,
-                    )
-        
+                api_call: dict = Api(self.grafana_api_model).call_the_api(
+                    f"{APIEndpoints.DASHBOARDS.value}/uid/{dashboard_uid.get('uid')}",
+                    RequestsMethods.DELETE,
                 )
 
                 if f"Dashboard {dashboard_name} deleted" != api_call.get("message"):
@@ -134,10 +126,8 @@ class Dashboard:
         """
 
         if len(uid) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(f"{APIEndpoints.DASHBOARDS.value}/uid/{uid}")
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DASHBOARDS.value}/uid/{uid}"
             )
 
             if api_call.get("dashboard") is None:
@@ -159,10 +149,8 @@ class Dashboard:
             api_call (dict): Returns the home dashboard
         """
 
-        api_call: dict = (
-            Api(self.grafana_api_model)
-            .call_the_api(f"{APIEndpoints.DASHBOARDS.value}/home")
-
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.DASHBOARDS.value}/home"
         )
 
         if api_call.get("dashboard") is None:
@@ -181,10 +169,8 @@ class Dashboard:
             api_call (list): Returns all dashboard tags
         """
 
-        api_call: list = (
-            Api(self.grafana_api_model)
-            .call_the_api(f"{APIEndpoints.DASHBOARDS.value}/tags")
-
+        api_call: list = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.DASHBOARDS.value}/tags"
         )
 
         if api_call == list() or api_call[0].get("term") is None:
@@ -216,8 +202,8 @@ class Dashboard:
             ).get_folder_id_by_dashboard_path(dashboard_path)
 
             search_query: str = f"{APIEndpoints.SEARCH.value}?folderIds={folder_id}&query={dashboard_name}"
-            dashboard_meta: list = (
-                Api(self.grafana_api_model).call_the_api(search_query)
+            dashboard_meta: list = Api(self.grafana_api_model).call_the_api(
+                search_query
             )
 
             for dashboard_meta_object in dashboard_meta:
@@ -243,9 +229,8 @@ class Dashboard:
             logging.error("There is no dashboard_name or dashboard_path defined.")
             raise ValueError
 
-    #TODO Get dashboard permissions by uid
-    #https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
-
+    # TODO Get dashboard permissions by uid
+    # https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
 
     def get_dashboard_permissions(self, id: int) -> list:
         """The method includes a functionality to extract the dashboard permissions based on the specified id
@@ -262,10 +247,8 @@ class Dashboard:
         """
 
         if id != 0:
-            api_call: list = (
-                Api(self.grafana_api_model)
-                .call_the_api(f"{APIEndpoints.DASHBOARDS.value}/id/{id}/permissions")
-    
+            api_call: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DASHBOARDS.value}/id/{id}/permissions"
             )
 
             if api_call == list() or api_call[0].get("role") is None:
@@ -293,14 +276,10 @@ class Dashboard:
         """
 
         if id != 0 and len(permission_json) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.DASHBOARDS.value}/id/{id}/permissions",
-                    RequestsMethods.POST,
-                    json.dumps(permission_json),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DASHBOARDS.value}/id/{id}/permissions",
+                RequestsMethods.POST,
+                json.dumps(permission_json),
             )
 
             if api_call.get("message") != "Dashboard permissions updated":
@@ -312,8 +291,8 @@ class Dashboard:
             logging.error("There is no dashboard uid or permission json defined.")
             raise ValueError
 
-    #TODO Get dashboard versions by uid and deprecate the old version using owly ids
-    #https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+    # TODO Get dashboard versions by uid and deprecate the old version using owly ids
+    # https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
 
     def get_dashboard_versions(self, id: int) -> list:
         """The method includes a functionality to extract the versions of a dashboard based on the specified id
@@ -330,12 +309,8 @@ class Dashboard:
         """
 
         if id != 0:
-            api_call: list = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.DASHBOARDS.value}/id/{id}/versions",
-                )
-    
+            api_call: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DASHBOARDS.value}/id/{id}/versions",
             )
 
             if api_call == list() or api_call[0].get("id") is None:
@@ -363,12 +338,8 @@ class Dashboard:
         """
 
         if id != 0 and version_id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.DASHBOARDS.value}/id/{id}/versions/{version_id}",
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DASHBOARDS.value}/id/{id}/versions/{version_id}",
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -396,14 +367,10 @@ class Dashboard:
         """
 
         if id != 0 and version != dict():
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.DASHBOARDS.value}/id/{id}/restore",
-                    RequestsMethods.POST,
-                    json.dumps(version),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DASHBOARDS.value}/id/{id}/restore",
+                RequestsMethods.POST,
+                json.dumps(version),
             )
 
             if (

@@ -233,7 +233,9 @@ class UserTestCase(TestCase):
         )
         user: User = User(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Active organization changed"})
+        call_the_api_mock.return_value = dict(
+            {"message": "Active organization changed"}
+        )
 
         self.assertEqual(None, user.switch_specific_user_context(1, 1))
 
@@ -316,7 +318,9 @@ class CurrentUserTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Active organization changed"})
+        call_the_api_mock.return_value = dict(
+            {"message": "Active organization changed"}
+        )
 
         self.assertEqual(None, current_user.switch_current_user_context(1))
 

@@ -49,23 +49,15 @@ class AnnotationsTest(TestCase):
         annotation_id: int = self.find_annotation_by_text("test1")
 
         self.assertIsNone(
-            self.annotations.update_annotation(
-                annotation_id, annotations
-            )
+            self.annotations.update_annotation(annotation_id, annotations)
         )
 
-        self.assertEqual(
-            "test12", self.find_annotation_by_id(annotation_id, "text")
-        )
+        self.assertEqual("test12", self.find_annotation_by_id(annotation_id, "text"))
 
     def test_e_delete_annotation(self):
         annotation_id: int = self.find_annotation_by_text("test12")
 
-        self.assertIsNone(
-            self.annotations.delete_annotation(
-                annotation_id
-            )
-        )
+        self.assertIsNone(self.annotations.delete_annotation(annotation_id))
 
     def test_find_annotation_tags(self):
         self.assertIsNotNone(self.annotations.find_annotation_tags())

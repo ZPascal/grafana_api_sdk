@@ -69,14 +69,10 @@ class Snapshot:
                 "deleteKey": delete_key,
             }
 
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    APIEndpoints.SNAPSHOTS.value,
-                    RequestsMethods.POST,
-                    json.dumps(snapshot_json),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                APIEndpoints.SNAPSHOTS.value,
+                RequestsMethods.POST,
+                json.dumps(snapshot_json),
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -98,12 +94,8 @@ class Snapshot:
             api_call (list): Returns all dashboard snapshots
         """
 
-        api_call: list = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                APIEndpoints.DASHBOARD_SNAPSHOTS.value,
-            )
-
+        api_call: list = Api(self.grafana_api_model).call_the_api(
+            APIEndpoints.DASHBOARD_SNAPSHOTS.value,
         )
 
         if api_call == list() or api_call[0].get("id") is None:
@@ -127,12 +119,8 @@ class Snapshot:
         """
 
         if len(key) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.SNAPSHOTS.value}/{key}",
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.SNAPSHOTS.value}/{key}",
             )
 
             if api_call == dict() or api_call.get("dashboard").get("id") is None:
@@ -159,12 +147,8 @@ class Snapshot:
         """
 
         if len(key) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.SNAPSHOTS.value}/{key}", RequestsMethods.DELETE
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.SNAPSHOTS.value}/{key}", RequestsMethods.DELETE
             )
 
             if (
@@ -194,12 +178,8 @@ class Snapshot:
         """
 
         if len(delete_key) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.SNAPSHOTS.value}-delete/{delete_key}",
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.SNAPSHOTS.value}-delete/{delete_key}",
             )
 
             if (

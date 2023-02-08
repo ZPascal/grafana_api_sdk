@@ -63,14 +63,10 @@ class Licensing:
             api_call (dict): Returns the result of license refresh call
         """
 
-        api_call: dict = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                f"{APIEndpoints.LICENSING.value}/token/renew",
-                RequestsMethods.POST,
-                json.dumps({}),
-            )
-
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.LICENSING.value}/token/renew",
+            RequestsMethods.POST,
+            json.dumps({}),
         )
 
         if api_call == dict() or api_call.get("jti") is None:
@@ -96,7 +92,7 @@ class Licensing:
         api_call: dict = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.LICENSING.value}/token",
             RequestsMethods.DELETE,
-            response_status_code=True
+            response_status_code=True,
         )
 
         if api_call.get("status") != 200:

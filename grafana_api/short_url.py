@@ -33,14 +33,10 @@ class ShortUrl:
         """
 
         if len(path) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    APIEndpoints.SHORT_URLS.value,
-                    RequestsMethods.POST,
-                    json.dumps(dict({"path": path})),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                APIEndpoints.SHORT_URLS.value,
+                RequestsMethods.POST,
+                json.dumps(dict({"path": path})),
             )
 
             if api_call == dict() or api_call.get("url") is None:

@@ -89,11 +89,8 @@ class Annotations:
         if len(custom_query) == 1:
             custom_query = ""
 
-        api_call: list = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                f"{APIEndpoints.ANNOTATIONS.value}{custom_query}",
-            )
+        api_call: list = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.ANNOTATIONS.value}{custom_query}",
         )
 
         if api_call == list() or api_call[0].get("id") is None:
@@ -147,13 +144,10 @@ class Annotations:
             if annotation.panel_id is not None:
                 annotation_object.update(dict({"panelId": annotation.panel_id}))
 
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    APIEndpoints.ANNOTATIONS.value,
-                    RequestsMethods.POST,
-                    json.dumps(annotation_object),
-                )
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                APIEndpoints.ANNOTATIONS.value,
+                RequestsMethods.POST,
+                json.dumps(annotation_object),
             )
 
             if (
@@ -201,14 +195,10 @@ class Annotations:
             if annotation.data is not None:
                 annotation_object.update(dict({"data": annotation.data}))
 
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.ANNOTATIONS.value}/graphite",
-                    RequestsMethods.POST,
-                    json.dumps(annotation_object),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.ANNOTATIONS.value}/graphite",
+                RequestsMethods.POST,
+                json.dumps(annotation_object),
             )
 
             if (
@@ -257,13 +247,10 @@ class Annotations:
             if annotation.tags is not None and len(annotation.tags) != 0:
                 annotation_object.update(dict({"text": annotation.text}))
 
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.ANNOTATIONS.value}/{id}",
-                    RequestsMethods.PATCH,
-                    json.dumps(annotation_object),
-                )
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.ANNOTATIONS.value}/{id}",
+                RequestsMethods.PATCH,
+                json.dumps(annotation_object),
             )
 
             if api_call.get("message") != "Annotation patched":
@@ -297,12 +284,9 @@ class Annotations:
         """
 
         if id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.ANNOTATIONS.value}/{id}",
-                    RequestsMethods.DELETE,
-                )
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.ANNOTATIONS.value}/{id}",
+                RequestsMethods.DELETE,
             )
 
             if api_call.get("message") != "Annotation deleted":
@@ -350,11 +334,8 @@ class Annotations:
             else:
                 filter_values = f"{filter_values}&limit={limit}"
 
-        api_call: dict = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                f"{APIEndpoints.ANNOTATIONS.value}/tags{filter_values}",
-            )
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.ANNOTATIONS.value}/tags{filter_values}",
         )
 
         if api_call == dict() or api_call.get("result") is None:

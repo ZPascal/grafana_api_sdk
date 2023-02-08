@@ -58,15 +58,11 @@ class Reporting:
                     {"id": id, "useEmailsFromReport": use_emails_from_report}
                 )
 
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    APIEndpoints.REPORTING.value,
-                    RequestsMethods.POST,
-                    json.dumps(result),
-                    timeout=60,
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                APIEndpoints.REPORTING.value,
+                RequestsMethods.POST,
+                json.dumps(result),
+                timeout=60,
             )
 
             if api_call.get("message") != "Report was sent":

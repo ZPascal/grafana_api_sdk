@@ -34,12 +34,9 @@ class Authentication:
             api_call (list): Returns the result of the API token call
         """
 
-        api_call: list = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                APIEndpoints.AUTHENTICATION.value,
-                org_id_header=org_id_header,
-            )
+        api_call: list = Api(self.grafana_api_model).call_the_api(
+            APIEndpoints.AUTHENTICATION.value,
+            org_id_header=org_id_header,
         )
 
         if api_call != list() and api_call[0].get("id") is None:
@@ -72,23 +69,19 @@ class Authentication:
         """
 
         if len(name) != 0 and len(role) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    APIEndpoints.AUTHENTICATION.value,
-                    RequestsMethods.POST,
-                    json.dumps(
-                        dict(
-                            {
-                                "name": name,
-                                "role": role,
-                                "secondsToLive": seconds_to_live,
-                            }
-                        )
-                    ),
-                    org_id_header=org_id_header,
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                APIEndpoints.AUTHENTICATION.value,
+                RequestsMethods.POST,
+                json.dumps(
+                    dict(
+                        {
+                            "name": name,
+                            "role": role,
+                            "secondsToLive": seconds_to_live,
+                        }
+                    )
+                ),
+                org_id_header=org_id_header,
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -120,14 +113,10 @@ class Authentication:
         """
 
         if token_id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.AUTHENTICATION.value}/{token_id}",
-                    RequestsMethods.DELETE,
-                    org_id_header=org_id_header,
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.AUTHENTICATION.value}/{token_id}",
+                RequestsMethods.DELETE,
+                org_id_header=org_id_header,
             )
 
             if api_call.get("message") != "API key deleted":

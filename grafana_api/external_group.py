@@ -39,12 +39,8 @@ class ExternalGroup:
             api_call (list): Returns the external groups
         """
         if team_id != 0:
-            api_call: list = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.EXTERNAL_GROUPS.value}/{team_id}/groups",
-                )
-    
+            api_call: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.EXTERNAL_GROUPS.value}/{team_id}/groups",
             )
 
             if api_call == list() or api_call[0].get("orgId") is None:
@@ -79,14 +75,10 @@ class ExternalGroup:
             api_call (list): Returns the external groups
         """
         if team_id != 0 and len(group_id) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.EXTERNAL_GROUPS.value}/{team_id}/groups",
-                    RequestsMethods.POST,
-                    json.dumps(dict({"groupId": group_id})),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.EXTERNAL_GROUPS.value}/{team_id}/groups",
+                RequestsMethods.POST,
+                json.dumps(dict({"groupId": group_id})),
             )
 
             if api_call.get("message") != "Group added to Team":
@@ -121,13 +113,9 @@ class ExternalGroup:
             api_call (list): Returns the external groups
         """
         if team_id != 0 and len(group_id) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.EXTERNAL_GROUPS.value}/{team_id}/groups/{group_id}",
-                    RequestsMethods.DELETE,
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.EXTERNAL_GROUPS.value}/{team_id}/groups/{group_id}",
+                RequestsMethods.DELETE,
             )
 
             if api_call.get("message") != "Team Group removed":

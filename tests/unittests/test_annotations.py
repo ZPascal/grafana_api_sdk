@@ -136,7 +136,9 @@ class AnnotationsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         annotations: Annotations = Annotations(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Graphite annotation added", "id": 1})
+        call_the_api_mock.return_value = dict(
+            {"message": "Graphite annotation added", "id": 1}
+        )
 
         self.assertEqual(
             1,

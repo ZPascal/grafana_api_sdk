@@ -36,12 +36,8 @@ class Admin:
             api_call (dict): Returns the corresponding settings
         """
 
-        api_call: dict = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                f"{APIEndpoints.ADMIN.value}/settings",
-            )
-
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.ADMIN.value}/settings",
         )
 
         if api_call == dict() or api_call.get("DEFAULT") is None:
@@ -73,14 +69,10 @@ class Admin:
             if removals is not None:
                 settings_update.update(dict({"removals": removals}))
 
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.ADMIN.value}/settings",
-                    RequestsMethods.PUT,
-                    json.dumps(settings_update),
-                )
-
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.ADMIN.value}/settings",
+                RequestsMethods.PUT,
+                json.dumps(settings_update),
             )
 
             if api_call.get("message") != "Settings updated":
@@ -102,12 +94,8 @@ class Admin:
             api_call (dict): Returns the corresponding statistics
         """
 
-        api_call: dict = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                f"{APIEndpoints.ADMIN.value}/stats",
-            )
-
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.ADMIN.value}/stats",
         )
 
         if api_call == dict() or api_call.get("orgs") is None:
@@ -126,12 +114,8 @@ class Admin:
             api_call (dict): Returns the preview report
         """
 
-        api_call: dict = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                f"{APIEndpoints.ADMIN.value}/usage-report-preview",
-            )
-
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.ADMIN.value}/usage-report-preview",
         )
 
         if api_call == dict() or api_call.get("version") is None:
@@ -173,13 +157,10 @@ class Admin:
             if user.org_id is not None:
                 user_object.update(dict({"OrgId": user.org_id}))
 
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.ADMIN.value}/users",
-                    RequestsMethods.POST,
-                    json.dumps(user_object),
-                )
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.ADMIN.value}/users",
+                RequestsMethods.POST,
+                json.dumps(user_object),
             )
 
             print(api_call)
@@ -209,14 +190,10 @@ class Admin:
         """
 
         if id != 0 and len(password) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.ADMIN.value}/users/{id}/password",
-                    RequestsMethods.PUT,
-                    json.dumps(dict({"password": password})),
-                )
-
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.ADMIN.value}/users/{id}/password",
+                RequestsMethods.PUT,
+                json.dumps(dict({"password": password})),
             )
 
             if api_call.get("message") != "User password updated":
@@ -246,14 +223,10 @@ class Admin:
         """
 
         if id != 0 and is_grafana_admin is not None:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.ADMIN.value}/users/{id}/permissions",
-                    RequestsMethods.PUT,
-                    json.dumps(dict({"isGrafanaAdmin": is_grafana_admin})),
-                )
-
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.ADMIN.value}/users/{id}/permissions",
+                RequestsMethods.PUT,
+                json.dumps(dict({"isGrafanaAdmin": is_grafana_admin})),
             )
 
             if api_call.get("message") != "User permissions updated":
@@ -282,12 +255,9 @@ class Admin:
         """
 
         if id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.ADMIN.value}/users/{id}",
-                    RequestsMethods.DELETE,
-                )
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.ADMIN.value}/users/{id}",
+                RequestsMethods.DELETE,
             )
 
             if api_call.get("message") != "User deleted":
@@ -310,13 +280,10 @@ class Admin:
             None
         """
 
-        api_call: dict = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                f"{APIEndpoints.ADMIN.value}/pause-all-alerts",
-                RequestsMethods.POST,
-                json.dumps(dict({"paused": True})),
-            )
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.ADMIN.value}/pause-all-alerts",
+            RequestsMethods.POST,
+            json.dumps(dict({"paused": True})),
         )
 
         if api_call.get("state") != "Paused":
@@ -336,13 +303,10 @@ class Admin:
             None
         """
 
-        api_call: dict = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                f"{APIEndpoints.ADMIN.value}/pause-all-alerts",
-                RequestsMethods.POST,
-                json.dumps(dict({"paused": False})),
-            )
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.ADMIN.value}/pause-all-alerts",
+            RequestsMethods.POST,
+            json.dumps(dict({"paused": False})),
         )
 
         if api_call.get("state") != "Unpaused":
@@ -366,12 +330,8 @@ class Admin:
         """
 
         if id != 0:
-            api_call: list = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.ADMIN.value}/users/{id}/auth-tokens",
-                )
-    
+            api_call: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.ADMIN.value}/users/{id}/auth-tokens",
             )
 
             if api_call == list() or api_call[0].get("id") is None:
@@ -399,14 +359,10 @@ class Admin:
         """
 
         if id != 0 and auth_token_id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.ADMIN.value}/users/{id}/revoke-auth-token",
-                    RequestsMethods.POST,
-                    json.dumps(dict({"authTokenId": auth_token_id})),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.ADMIN.value}/users/{id}/revoke-auth-token",
+                RequestsMethods.POST,
+                json.dumps(dict({"authTokenId": auth_token_id})),
             )
 
             if api_call.get("message") != "User auth token revoked":
@@ -433,14 +389,10 @@ class Admin:
         """
 
         if id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.ADMIN.value}/users/{id}/logout",
-                    RequestsMethods.POST,
-                    json.dumps(dict()),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.ADMIN.value}/users/{id}/logout",
+                RequestsMethods.POST,
+                json.dumps(dict()),
             )
 
             if api_call.get("message") != "User auth token revoked":
@@ -462,14 +414,10 @@ class Admin:
             None
         """
 
-        api_call: dict = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                f"{APIEndpoints.ADMIN.value}/provisioning/dashboards/reload",
-                RequestsMethods.POST,
-                json.dumps(dict()),
-            )
-
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.ADMIN.value}/provisioning/dashboards/reload",
+            RequestsMethods.POST,
+            json.dumps(dict()),
         )
 
         if api_call.get("message") != "Dashboards config reloaded":
@@ -488,14 +436,10 @@ class Admin:
             None
         """
 
-        api_call: dict = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                f"{APIEndpoints.ADMIN.value}/provisioning/datasources/reload",
-                RequestsMethods.POST,
-                json.dumps(dict()),
-            )
-
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.ADMIN.value}/provisioning/datasources/reload",
+            RequestsMethods.POST,
+            json.dumps(dict()),
         )
 
         if api_call.get("message") != "Datasources config reloaded":
@@ -514,14 +458,10 @@ class Admin:
             None
         """
 
-        api_call: dict = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                f"{APIEndpoints.ADMIN.value}/provisioning/plugins/reload",
-                RequestsMethods.POST,
-                json.dumps(dict()),
-            )
-
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.ADMIN.value}/provisioning/plugins/reload",
+            RequestsMethods.POST,
+            json.dumps(dict()),
         )
 
         if api_call.get("message") != "Plugins config reloaded":
@@ -540,14 +480,10 @@ class Admin:
             None
         """
 
-        api_call: dict = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                f"{APIEndpoints.ADMIN.value}/provisioning/notifications/reload",
-                RequestsMethods.POST,
-                json.dumps(dict()),
-            )
-
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.ADMIN.value}/provisioning/notifications/reload",
+            RequestsMethods.POST,
+            json.dumps(dict()),
         )
 
         if api_call.get("message") != "Notifications config reloaded":
@@ -566,14 +502,10 @@ class Admin:
             None
         """
 
-        api_call: dict = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                f"{APIEndpoints.ADMIN.value}/provisioning/access-control/reload",
-                RequestsMethods.POST,
-                json.dumps(dict()),
-            )
-
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.ADMIN.value}/provisioning/access-control/reload",
+            RequestsMethods.POST,
+            json.dumps(dict()),
         )
 
         if api_call.get("message") != "Accesscontrol config reloaded":
@@ -592,14 +524,10 @@ class Admin:
             None
         """
 
-        api_call: dict = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                f"{APIEndpoints.ADMIN.value}/ldap/reload",
-                RequestsMethods.POST,
-                json.dumps(dict()),
-            )
-
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.ADMIN.value}/ldap/reload",
+            RequestsMethods.POST,
+            json.dumps(dict()),
         )
 
         if api_call.get("message") != "LDAP config reloaded":

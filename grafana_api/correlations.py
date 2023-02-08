@@ -18,10 +18,7 @@ class Correlations:
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
-    def create_correlations(
-        self,
-        correlation_object: CorrelationObject
-    ) -> dict:
+    def create_correlations(self, correlation_object: CorrelationObject) -> dict:
         """The method includes a functionality to create a correlation between two data sources - the source data source identified by source uid in the path, and the target data source which is specified in the body
 
          Args:
@@ -43,26 +40,23 @@ class Correlations:
             and len(correlation_object.config_type) != 0
             and len(correlation_object.config_field) != 0
         ):
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.DATASOURCES.value}/uid/{correlation_object.source_datasource_uid}/correlations",
-                    RequestsMethods.POST,
-                    json.dumps(
-                        dict(
-                            {
-                                "targetUID": correlation_object.target_datasource_uid,
-                                "label": correlation_object.label,
-                                "description": correlation_object.description,
-                                "config": {
-                                    "type": correlation_object.config_type,
-                                    "field": correlation_object.config_field,
-                                    "target": correlation_object.config_target,
-                                }
-                            }
-                        )
-                    ),
-                )
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/uid/{correlation_object.source_datasource_uid}/correlations",
+                RequestsMethods.POST,
+                json.dumps(
+                    dict(
+                        {
+                            "targetUID": correlation_object.target_datasource_uid,
+                            "label": correlation_object.label,
+                            "description": correlation_object.description,
+                            "config": {
+                                "type": correlation_object.config_type,
+                                "field": correlation_object.config_field,
+                                "target": correlation_object.config_target,
+                            },
+                        }
+                    )
+                ),
             )
 
             if api_call == dict() or api_call.get("message") is None:
@@ -92,13 +86,9 @@ class Correlations:
         """
 
         if len(source_datasource_uid) != 0 and len(correlation_uid) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.DATASOURCES.value}/uid/{source_datasource_uid}/correlations/{correlation_uid}",
-                    RequestsMethods.DELETE,
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/uid/{source_datasource_uid}/correlations/{correlation_uid}",
+                RequestsMethods.DELETE,
             )
 
             if "Correlation deleted" != api_call.get("message"):
@@ -158,4 +148,4 @@ class Correlations:
             )
             raise ValueError
 
-    #TODO Get correlations https://grafana.com/docs/grafana/latest/developers/http_api/correlations/#get-single-correlation
+    # TODO Get correlations https://grafana.com/docs/grafana/latest/developers/http_api/correlations/#get-single-correlation

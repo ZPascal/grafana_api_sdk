@@ -10,7 +10,9 @@ class CorrelationsTestCase(TestCase):
     def test_create_correlations(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         correlations: Correlations = Correlations(grafana_api_model=model)
-        correlation_object: CorrelationObject = CorrelationObject("test", "test", "test", "test", "test", "test")
+        correlation_object: CorrelationObject = CorrelationObject(
+            "test", "test", "test", "test", "test", "test"
+        )
 
         call_the_api_mock.return_value = dict({"message": "test"})
 
@@ -22,7 +24,9 @@ class CorrelationsTestCase(TestCase):
     def test_create_correlations_no_source_datasource_uid(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         correlations: Correlations = Correlations(grafana_api_model=model)
-        correlation_object: CorrelationObject = CorrelationObject("test", "test", "test", "test", "test", "")
+        correlation_object: CorrelationObject = CorrelationObject(
+            "test", "test", "test", "test", "test", ""
+        )
 
         with self.assertRaises(ValueError):
             correlations.create_correlations(correlation_object)
@@ -31,7 +35,9 @@ class CorrelationsTestCase(TestCase):
     def test_create_correlations_creation_not_possible(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         correlations: Correlations = Correlations(grafana_api_model=model)
-        correlation_object: CorrelationObject = CorrelationObject("test", "test", "test", "test", "test", "test")
+        correlation_object: CorrelationObject = CorrelationObject(
+            "test", "test", "test", "test", "test", "test"
+        )
 
         call_the_api_mock.return_value = dict({"status": "error"})
 

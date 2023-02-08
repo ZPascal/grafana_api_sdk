@@ -93,7 +93,10 @@ class PlaylistTestCase(TestCase):
 
         call_the_api_mock.return_value = list([{"uid": "test", "value": "test"}])
 
-        self.assertEqual(list([{"uid": "test", "value": "test"}]), playlist.get_playlist_items("test"))
+        self.assertEqual(
+            list([{"uid": "test", "value": "test"}]),
+            playlist.get_playlist_items("test"),
+        )
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_playlist_items_no_playlist_uid(self, call_the_api_mock):
@@ -124,7 +127,10 @@ class PlaylistTestCase(TestCase):
 
         call_the_api_mock.return_value = list([{"uid": "test", "title": "test"}])
 
-        self.assertEqual(list([{"uid": "test", "title": "test"}]), playlist.get_playlist_dashboards("test"))
+        self.assertEqual(
+            list([{"uid": "test", "title": "test"}]),
+            playlist.get_playlist_dashboards("test"),
+        )
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_playlist_dashboards_no_playlist_uid(self, call_the_api_mock):
@@ -161,7 +167,9 @@ class PlaylistTestCase(TestCase):
 
         call_the_api_mock.return_value = dict({"uid": "test"})
 
-        self.assertEqual(dict({"uid": "test"}), playlist.create_playlist(playlist_object))
+        self.assertEqual(
+            dict({"uid": "test"}), playlist.create_playlist(playlist_object)
+        )
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_create_playlist_no_playlist_object(self, call_the_api_mock):

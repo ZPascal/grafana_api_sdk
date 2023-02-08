@@ -151,7 +151,9 @@ class DashboardTestCase(TestCase):
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         folder_id_by_dashboard_path_mock.return_value = 1
-        call_the_api_mock.return_value = list([{"uid": "test", "title": "test", "id": 10}])
+        call_the_api_mock.return_value = list(
+            [{"uid": "test", "title": "test", "id": 10}]
+        )
 
         self.assertEqual(
             dict({"uid": "test", "id": 10}),
@@ -201,7 +203,9 @@ class DashboardTestCase(TestCase):
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         folder_id_by_dashboard_path_mock.return_value = 1
-        call_the_api_mock.return_value = list([{"uid": "test", "title": "test123", "id": 1}])
+        call_the_api_mock.return_value = list(
+            [{"uid": "test", "title": "test123", "id": 1}]
+        )
 
         self.assertEqual(
             None,
@@ -341,7 +345,9 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Dashboard permissions updated"})
+        call_the_api_mock.return_value = dict(
+            {"message": "Dashboard permissions updated"}
+        )
 
         self.assertEqual(
             None, dashboard.update_dashboard_permissions(1, {"test": "test"})

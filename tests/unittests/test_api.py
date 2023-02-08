@@ -39,9 +39,7 @@ class ApiTestCase(TestCase):
 
         self.assertEqual(
             "success",
-            self.api.call_the_api(api_call=MagicMock(), org_id_header=1)[
-                "status"
-            ],
+            self.api.call_the_api(api_call=MagicMock(), org_id_header=1)["status"],
         )
 
     @patch("urllib3.PoolManager")
@@ -126,13 +124,15 @@ class ApiTestCase(TestCase):
 
     @patch("urllib3.PoolManager")
     def test_call_the_api_delete_valid(self, pool_mock):
-        pool_mock.return_value.request.return_value.data = b'{"message": "Deletion successful"}'
+        pool_mock.return_value.request.return_value.data = (
+            b'{"message": "Deletion successful"}'
+        )
 
         self.assertEqual(
             "Deletion successful",
-            self.api.call_the_api(
-                api_call=MagicMock(), method=RequestsMethods.DELETE
-            )["message"],
+            self.api.call_the_api(api_call=MagicMock(), method=RequestsMethods.DELETE)[
+                "message"
+            ],
         )
 
     def test_call_the_api_delete_not_valid(self):
@@ -179,9 +179,7 @@ class ApiTestCase(TestCase):
         mock: Mock = Mock()
         mock.data = b"{}"
 
-        self.assertEqual(
-            {}, self.api._Api__check_the_api_call_response(response=mock)
-        )
+        self.assertEqual({}, self.api._Api__check_the_api_call_response(response=mock))
 
     def test_check_the_api_call_response_return_status_code_dict(self):
         mock: Mock = Mock()
@@ -190,7 +188,9 @@ class ApiTestCase(TestCase):
 
         self.assertEqual(
             dict({"status": 200, "test": "test"}),
-            self.api._Api__check_the_api_call_response(response=mock, response_status_code=True),
+            self.api._Api__check_the_api_call_response(
+                response=mock, response_status_code=True
+            ),
         )
 
     def test_check_the_api_call_response_return_status_code_list(self):
@@ -200,7 +200,9 @@ class ApiTestCase(TestCase):
 
         self.assertEqual(
             list([{"status": 200, "test": "test"}, {"test": "test"}]),
-            self.api._Api__check_the_api_call_response(response=mock, response_status_code=True),
+            self.api._Api__check_the_api_call_response(
+                response=mock, response_status_code=True
+            ),
         )
 
     def test_prepare_api_string(self):

@@ -56,12 +56,8 @@ class User:
         if query is not None and len(query) != 0:
             api_request_url: str = f"{api_request_url}&query={query}"
 
-        api_call: list = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                api_request_url,
-            )
-
+        api_call: list = Api(self.grafana_api_model).call_the_api(
+            api_request_url,
         )
 
         if api_call == list() or api_call[0].get("id") is None:
@@ -89,12 +85,8 @@ class User:
         """
 
         if id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.USERS.value}/{id}",
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.USERS.value}/{id}",
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -125,12 +117,8 @@ class User:
         """
 
         if len(username_or_email) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.USERS.value}/lookup?loginOrEmail={username_or_email}",
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.USERS.value}/lookup?loginOrEmail={username_or_email}",
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -162,23 +150,19 @@ class User:
         """
 
         if id != 0 and user is not None:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.USERS.value}/{id}",
-                    RequestsMethods.PUT,
-                    json.dumps(
-                        dict(
-                            {
-                                "email": user.email,
-                                "name": user.name,
-                                "login": user.login,
-                                "theme": user.theme,
-                            }
-                        )
-                    ),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.USERS.value}/{id}",
+                RequestsMethods.PUT,
+                json.dumps(
+                    dict(
+                        {
+                            "email": user.email,
+                            "name": user.name,
+                            "login": user.login,
+                            "theme": user.theme,
+                        }
+                    )
+                ),
             )
 
             if api_call.get("message") != "User updated":
@@ -209,12 +193,8 @@ class User:
         """
 
         if id != 0:
-            api_call: list = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.USERS.value}/{id}/orgs",
-                )
-    
+            api_call: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.USERS.value}/{id}/orgs",
             )
 
             if api_call == list() or api_call[0].get("orgId") is None:
@@ -245,12 +225,8 @@ class User:
         """
 
         if id != 0:
-            api_call: list = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.USERS.value}/{id}/teams",
-                )
-    
+            api_call: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.USERS.value}/{id}/teams",
             )
 
             if api_call == list() or api_call[0].get("id") is None:
@@ -278,14 +254,10 @@ class User:
         """
 
         if user_id != 0 and org_id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.USERS.value}/{user_id}/using/{org_id}",
-                    RequestsMethods.POST,
-                    json.dumps(dict()),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.USERS.value}/{user_id}/using/{org_id}",
+                RequestsMethods.POST,
+                json.dumps(dict()),
             )
 
             if api_call.get("message") != "Active organization changed":
@@ -321,11 +293,8 @@ class CurrentUser:
             api_call (dict): Returns the user information
         """
 
-        api_call: dict = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                f"{APIEndpoints.USER.value}",
-            )
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.USER.value}",
         )
 
         if api_call == dict() or api_call.get("id") is None:
@@ -357,22 +326,18 @@ class CurrentUser:
             and len(new_password) != 0
             and len(confirm_new_password) != 0
         ):
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.USER.value}/password",
-                    RequestsMethods.PUT,
-                    json.dumps(
-                        dict(
-                            {
-                                "oldPassword": old_password,
-                                "newPassword": new_password,
-                                "confirmNew": confirm_new_password,
-                            }
-                        )
-                    ),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.USER.value}/password",
+                RequestsMethods.PUT,
+                json.dumps(
+                    dict(
+                        {
+                            "oldPassword": old_password,
+                            "newPassword": new_password,
+                            "confirmNew": confirm_new_password,
+                        }
+                    )
+                ),
             )
 
             if api_call.get("message") != "User password changed":
@@ -399,14 +364,10 @@ class CurrentUser:
         """
 
         if org_id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.USER.value}/using/{org_id}",
-                    RequestsMethods.POST,
-                    json.dumps(dict()),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.USER.value}/using/{org_id}",
+                RequestsMethods.POST,
+                json.dumps(dict()),
             )
 
             if api_call.get("message") != "Active organization changed":
@@ -428,12 +389,8 @@ class CurrentUser:
             api_call (list): Returns a list of organizations
         """
 
-        api_call: list = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                f"{APIEndpoints.USER.value}/orgs",
-            )
-
+        api_call: list = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.USER.value}/orgs",
         )
 
         if api_call == list() or api_call[0].get("orgId") is None:
@@ -452,12 +409,8 @@ class CurrentUser:
             api_call (list): Returns a list of teams
         """
 
-        api_call: list = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                f"{APIEndpoints.USER.value}/teams",
-            )
-
+        api_call: list = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.USER.value}/teams",
         )
 
         if api_call == list() or api_call[0].get("id") is None:
@@ -481,14 +434,10 @@ class CurrentUser:
         """
 
         if dashboard_id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.USER.value}/stars/dashboard/{dashboard_id}",
-                    RequestsMethods.POST,
-                    json.dumps(dict()),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.USER.value}/stars/dashboard/{dashboard_id}",
+                RequestsMethods.POST,
+                json.dumps(dict()),
             )
 
             if api_call.get("message") != "Dashboard starred!":
@@ -515,13 +464,9 @@ class CurrentUser:
         """
 
         if dashboard_id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.USER.value}/stars/dashboard/{dashboard_id}",
-                    RequestsMethods.DELETE,
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.USER.value}/stars/dashboard/{dashboard_id}",
+                RequestsMethods.DELETE,
             )
 
             if api_call.get("message") != "Dashboard unstarred":
@@ -543,12 +488,8 @@ class CurrentUser:
             api_call (list): Returns a list of auth tokens of the current user
         """
 
-        api_call: list = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                f"{APIEndpoints.USER.value}/auth-tokens",
-            )
-
+        api_call: list = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.USER.value}/auth-tokens",
         )
 
         if api_call == list() or api_call[0].get("id") is None:
@@ -572,14 +513,10 @@ class CurrentUser:
         """
 
         if auth_token_id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.USER.value}/revoke-auth-token",
-                    RequestsMethods.POST,
-                    json.dumps(dict({"authTokenId": auth_token_id})),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.USER.value}/revoke-auth-token",
+                RequestsMethods.POST,
+                json.dumps(dict({"authTokenId": auth_token_id})),
             )
 
             if api_call.get("message") != "User auth token revoked":

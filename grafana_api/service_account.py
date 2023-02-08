@@ -44,12 +44,8 @@ class ServiceAccount:
         if query is not None and len(query) != 0:
             api_request_url: str = f"{api_request_url}&query={query}"
 
-        api_call: dict = (
-            Api(self.grafana_api_model)
-            .call_the_api(
-                api_request_url,
-            )
-
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            api_request_url,
         )
 
         if api_call == dict() or api_call.get("totalCount") is None:
@@ -78,14 +74,10 @@ class ServiceAccount:
         """
 
         if len(name) != 0 and len(role) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    APIEndpoints.SERVICE_ACCOUNTS.value,
-                    RequestsMethods.POST,
-                    json.dumps(dict({"name": name, "role": role})),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                APIEndpoints.SERVICE_ACCOUNTS.value,
+                RequestsMethods.POST,
+                json.dumps(dict({"name": name, "role": role})),
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -116,12 +108,8 @@ class ServiceAccount:
         """
 
         if id is not None and id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.SERVICE_ACCOUNTS.value}/{id}",
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.SERVICE_ACCOUNTS.value}/{id}",
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -154,14 +142,10 @@ class ServiceAccount:
         """
 
         if id is not None and id != 0 and len(name) != 0 and len(role) != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.SERVICE_ACCOUNTS.value}/{id}",
-                    RequestsMethods.PATCH,
-                    json.dumps(dict({"name": name, "role": role})),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.SERVICE_ACCOUNTS.value}/{id}",
+                RequestsMethods.PATCH,
+                json.dumps(dict({"name": name, "role": role})),
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -192,12 +176,8 @@ class ServiceAccount:
         """
 
         if id is not None and id != 0:
-            api_call: list = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.SERVICE_ACCOUNTS.value}/{id}/tokens",
-                )
-    
+            api_call: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.SERVICE_ACCOUNTS.value}/{id}/tokens",
             )
 
             if api_call == list() or api_call[0].get("id") is None:
@@ -230,14 +210,10 @@ class ServiceAccount:
         """
 
         if id is not None and id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.SERVICE_ACCOUNTS.value}/{id}/tokens",
-                    RequestsMethods.POST,
-                    json.dumps(dict({"name": name, "role": role})),
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.SERVICE_ACCOUNTS.value}/{id}/tokens",
+                RequestsMethods.POST,
+                json.dumps(dict({"name": name, "role": role})),
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -269,12 +245,8 @@ class ServiceAccount:
         """
 
         if id is not None and id != 0 and token_id is not None and token_id != 0:
-            api_call: dict = (
-                Api(self.grafana_api_model)
-                .call_the_api(
-                    f"{APIEndpoints.SERVICE_ACCOUNTS.value}/{id}/tokens/{token_id}",
-                )
-    
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.SERVICE_ACCOUNTS.value}/{id}/tokens/{token_id}",
             )
 
             if api_call.get("message") != "API key deleted":

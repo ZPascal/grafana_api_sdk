@@ -111,10 +111,10 @@ class SnapshotTestCase(TestCase):
         snapshot: Snapshot = Snapshot(grafana_api_model=model)
 
         call_the_api_mock.return_value = dict(
-                {
-                    "message": "Snapshot deleted. It might take an hour before it's cleared from any CDN caches."
-                }
-            )
+            {
+                "message": "Snapshot deleted. It might take an hour before it's cleared from any CDN caches."
+            }
+        )
 
         self.assertEqual(None, snapshot.delete_snapshot_by_key("test"))
 
@@ -144,10 +144,10 @@ class SnapshotTestCase(TestCase):
         snapshot: Snapshot = Snapshot(grafana_api_model=model)
 
         call_the_api_mock.return_value = dict(
-                {
-                    "message": "Snapshot deleted. It might take an hour before it's cleared from any CDN caches."
-                }
-            )
+            {
+                "message": "Snapshot deleted. It might take an hour before it's cleared from any CDN caches."
+            }
+        )
 
         self.assertEqual(None, snapshot.delete_snapshot_by_delete_key("test"))
 
