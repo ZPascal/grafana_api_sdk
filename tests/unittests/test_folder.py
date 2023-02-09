@@ -1,5 +1,5 @@
 from unittest import TestCase
-from unittest.mock import MagicMock, Mock, patch
+from unittest.mock import MagicMock, patch
 
 from grafana_api.model import APIModel
 from grafana_api.folder import Folder
@@ -187,9 +187,7 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {"status": 200, "message": "Folder deleted"}
-        )
+        call_the_api_mock.return_value.status = 200
 
         self.assertEqual(None, folder.delete_folder("test"))
 
@@ -198,7 +196,7 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value.status = 404
 
         with self.assertRaises(ValueError):
             folder.delete_folder("")
@@ -208,7 +206,7 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "error"})
+        call_the_api_mock.return_value.status = 404
 
         with self.assertRaises(Exception):
             folder.delete_folder("test")

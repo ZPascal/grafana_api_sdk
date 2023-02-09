@@ -1,14 +1,6 @@
-import datetime
-import json
 import logging
 
-from .model import (
-    APIModel,
-    APIEndpoints,
-    RequestsMethods,
-    Silence,
-    AlertmanagerConfig,
-)
+from .model import APIModel, APIEndpoints
 from .api import Api
 
 # TODO implement the new test cases

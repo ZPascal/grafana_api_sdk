@@ -195,10 +195,9 @@ class Folder:
             api_call = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.FOLDERS.value}/{uid}",
                 RequestsMethods.DELETE,
-                response_status_code=True,
             )
 
-            if api_call.get("status") != 200:
+            if api_call.status != 200:
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:

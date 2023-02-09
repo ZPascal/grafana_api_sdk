@@ -1,5 +1,5 @@
 from unittest import TestCase
-from unittest.mock import MagicMock, Mock, patch
+from unittest.mock import MagicMock, patch
 
 from grafana_api.model import APIModel, QueryObject, QueryDatasourceObject
 from grafana_api.query_history import QueryHistory

@@ -161,7 +161,7 @@ class DashboardTest(TestCase):
             "TestB", os.environ["GRAFANA_DASHBOARD_PATH"]
         )
 
-    def test_f_calculate_dashboard_diff_json_mode(self):
+    def test_g_calculate_dashboard_diff_basic_mode(self):
         with open(
             f"{os.getcwd()}{os.sep}tests{os.sep}integrationtest{os.sep}resources{os.sep}dashboard_diff_a.json"
         ) as file:
