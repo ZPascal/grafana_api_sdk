@@ -129,14 +129,23 @@ class ServiceAccountTestCase(TestCase):
         )
 
     @patch("grafana_api.api.Api.call_the_api")
-    def test_get_service_account_token_by_id_no_id(self, call_the_api_mock):
+    def test_get_service_account_tokens_by_id(self, call_the_api_mock):
+        call_the_api_mock.return_value = list([{"id": 2}])
+
+        self.assertEqual(
+            list([{"id": 2}]),
+            self.service_account.get_service_account_tokens_by_id(1),
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_service_account_tokens_by_id_no_id(self, call_the_api_mock):
         call_the_api_mock.return_value = list([{"id": 2}])
 
         with self.assertRaises(ValueError):
             self.service_account.get_service_account_tokens_by_id(0),
 
     @patch("grafana_api.api.Api.call_the_api")
-    def test_get_service_account_token_by_id_no_valid_result(self, call_the_api_mock):
+    def test_get_service_account_tokens_by_id_no_valid_result(self, call_the_api_mock):
         call_the_api_mock.return_value = list([{"id": None}])
 
         with self.assertRaises(Exception):
