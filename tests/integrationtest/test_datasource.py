@@ -1,8 +1,8 @@
 import os
 from unittest import TestCase
 
-from src.grafana_api.model import APIModel
-from src.grafana_api.datasource import Datasource
+from grafana_api.model import APIModel
+from grafana_api.datasource import Datasource
 
 
 class DataSourceTest(TestCase):
