@@ -54,6 +54,38 @@ class ServiceAccount:
         else:
             return api_call
 
+    def get_service_account_by_id(self, id: int) -> dict:
+        """The method includes a functionality to get a service account specified by the id
+
+        Required Permissions:
+            Action: serviceaccounts:read
+            Scope: serviceaccounts:*
+
+        Args:
+            id (int): Specify the id of the service account
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (dict): Returns the service account
+        """
+
+        if id is not None and id != 0:
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.SERVICE_ACCOUNTS.value}/{id}",
+            )
+
+            if api_call == dict() or api_call.get("id") is None:
+                logging.error(f"Check the error: {api_call}.")
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error("There is no id defined.")
+            raise ValueError
+
     def create_service_account(self, name: str, role: str) -> dict:
         """The method includes a functionality to create a service account
 
@@ -87,38 +119,6 @@ class ServiceAccount:
                 return api_call
         else:
             logging.error("There is no name or role defined.")
-            raise ValueError
-
-    def get_service_account_by_id(self, id: int) -> dict:
-        """The method includes a functionality to get a service account specified by the id
-
-        Required Permissions:
-            Action: serviceaccounts:read
-            Scope: serviceaccounts:*
-
-        Args:
-            id (int): Specify the id of the service account
-
-        Raises:
-            ValueError: Missed specifying a necessary value
-            Exception: Unspecified error by executing the API call
-
-        Returns:
-            api_call (dict): Returns the service account
-        """
-
-        if id is not None and id != 0:
-            api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.SERVICE_ACCOUNTS.value}/{id}",
-            )
-
-            if api_call == dict() or api_call.get("id") is None:
-                logging.error(f"Check the error: {api_call}.")
-                raise Exception
-            else:
-                return api_call
-        else:
-            logging.error("There is no id defined.")
             raise ValueError
 
     def update_service_account(self, id: int, name: str, role: str) -> dict:
@@ -157,8 +157,41 @@ class ServiceAccount:
             logging.error("There is no id, name or role defined.")
             raise ValueError
 
-    def get_service_account_token_by_id(self, id: int) -> list:
-        """The method includes a functionality to get a service account token specified by the id
+    def delete_service_account(self, id: int):
+        """The method includes a functionality to delete a service account specified by the id
+
+        Required Permissions:
+            Action: serviceaccounts:delete
+            Scope: serviceaccounts:id:*
+
+        Args:
+            id (int): Specify the id of the service account
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            None
+        """
+
+        if id is not None and id != 0:
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.SERVICE_ACCOUNTS.value}/{id}",
+                RequestsMethods.DELETE,
+            )
+
+            if api_call.get("message") != "Service account deleted":
+                logging.error(f"Check the error: {api_call}.")
+                raise Exception
+            else:
+                logging.info("You successfully deleted the service account.")
+        else:
+            logging.error("There is no id defined.")
+            raise ValueError
+
+    def get_service_account_tokens_by_id(self, id: int) -> list:
+        """The method includes a functionality to get a service account tokens specified by the id
 
         Required Permissions:
             Action: serviceaccounts:read
@@ -180,7 +213,7 @@ class ServiceAccount:
                 f"{APIEndpoints.SERVICE_ACCOUNTS.value}/{id}/tokens",
             )
 
-            if api_call == list() or api_call[0].get("id") is None:
+            if api_call != list() and api_call[0].get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -247,13 +280,163 @@ class ServiceAccount:
         if id is not None and id != 0 and token_id is not None and token_id != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.SERVICE_ACCOUNTS.value}/{id}/tokens/{token_id}",
+                RequestsMethods.DELETE,
             )
 
-            if api_call.get("message") != "API key deleted":
+            if api_call.get("message") != "Service account token deleted":
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
                 logging.info("You successfully deleted the service account token.")
         else:
             logging.error("There is no id or token_id defined.")
+            raise ValueError
+
+    def migrate_api_keys_to_service_accounts(self):
+        """The method includes a functionality to migrate all api keys to service accounts
+
+        Required Permissions:
+            Action: serviceaccounts:write
+            Scope: serviceaccounts:*
+
+        Raises:
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            None
+        """
+
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.SERVICE_ACCOUNTS.value}/migrate",
+            RequestsMethods.POST,
+            json.dumps(dict()),
+        )
+
+        if api_call.get("message") != "API keys migrated to service accounts":
+            logging.error(f"Check the error: {api_call}.")
+            raise Exception
+        else:
+            logging.info(
+                "You successfully migrated the API keys to the service accounts."
+            )
+
+    def migrate_api_key_to_service_account(self, key_id: int):
+        """The method includes a functionality to migrate an api key to a service account specified by the key id
+
+        Required Permissions:
+            Action: serviceaccounts:write
+            Scope: serviceaccounts:*
+
+        Args:
+            key_id (int): Specify the api key id of the api key
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            None
+        """
+
+        if key_id is not None and key_id != 0:
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.SERVICE_ACCOUNTS.value}/migrate/{key_id}",
+                RequestsMethods.POST,
+                json.dumps(dict()),
+            )
+
+            if api_call.get("message") != "Service accounts migrated":
+                logging.error(f"Check the error: {api_call}.")
+                raise Exception
+            else:
+                logging.info(
+                    "You successfully migrated the api key to an service account."
+                )
+        else:
+            logging.error("There is no key_id defined.")
+            raise ValueError
+
+    def get_service_account_migration_status(self) -> bool:
+        """The method includes a functionality to get the corresponding api key migration status
+
+        Required Permissions:
+            Action: serviceaccounts:read
+            Scope: global:serviceaccounts:*
+
+        Raises:
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (list): Returns the api key migration status
+        """
+
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.SERVICE_ACCOUNTS.value}/migrationstatus",
+        )
+
+        if api_call == dict() or api_call.get("migrated") is None:
+            logging.error(f"Check the error: {api_call}.")
+            raise Exception
+        else:
+            return api_call.get("migrated")
+
+    def hide_the_api_keys_tab(self):
+        """The method includes a functionality to hide the api keys tab inside the UI
+
+        Required Permissions:
+            Action: serviceaccounts:write
+            Scope: serviceaccounts:*
+
+        Raises:
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            None
+        """
+
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.SERVICE_ACCOUNTS.value}/hideApiKeys",
+            RequestsMethods.POST,
+            json.dumps(dict()),
+        )
+
+        if api_call.get("message") != "API keys hidden":
+            logging.error(f"Check the error: {api_call}.")
+            raise Exception
+        else:
+            logging.info("You successfully hide the api keys tab inside the UI.")
+
+    def revert_service_account_token_to_api_key(self, id: int, key_id: int):
+        """The method includes a functionality to revert a service account and transform it to the legacy api token specified by the service account id and the key id
+
+        Required Permissions:
+            Action: serviceaccounts:delete
+            Scope: serviceaccounts:id:*
+
+        Args:
+            id (int): Specify the id of the service account
+            key_id (int): Specify the api key id of the api key
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            None
+        """
+
+        if id is not None and id != 0 and key_id is not None and key_id != 0:
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.SERVICE_ACCOUNTS.value}/{id}/revert/{key_id}",
+                RequestsMethods.POST,
+                json.dumps(dict()),
+            )
+
+            if api_call.get("message") != "reverted service account to API key":
+                logging.error(f"Check the error: {api_call}.")
+                raise Exception
+            else:
+                logging.info("You successfully reverted the service account.")
+        else:
+            logging.error("There is no id or key_id defined.")
             raise ValueError

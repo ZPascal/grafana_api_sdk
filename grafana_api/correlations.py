@@ -18,6 +18,85 @@ class Correlations:
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
+    def get_correlation(self, datasource_uid: str, correlation_uid: str) -> dict:
+        """The method includes a functionality to get a specific correlation from a data source - the data source identified by source uid and the correlation uid
+
+         Args:
+            datasource_uid (str): Specify the correlation data source uid
+            correlation_uid (str): Specify the correlation uid
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (dict): Returns the corresponding correlation
+        """
+
+        if len(datasource_uid) != 0 and len(correlation_uid) != 0:
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/uid/{datasource_uid}/correlations/{correlation_uid}",
+                RequestsMethods.GET,
+            )
+
+            if api_call == dict() or api_call.get("description") is None:
+                logging.error(f"Check the error: {api_call}.")
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error("There is no datasource_uid or correlation_uid defined.")
+            raise ValueError
+
+    def get_all_correlations_by_datasource_uid(self, datasource_uid: str) -> list:
+        """The method includes a functionality to get all correlations from a data source - the data source identified by source uid
+
+         Args:
+            datasource_uid (str): Specify the correlation data source uid
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (list): Returns the corresponding correlations
+        """
+
+        if len(datasource_uid) != 0:
+            api_call: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/uid/{datasource_uid}/correlations",
+                RequestsMethods.GET,
+            )
+
+            if api_call == list() or api_call[0].get("description") is None:
+                logging.error(f"Check the error: {api_call}.")
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error("There is no datasource_uid defined.")
+            raise ValueError
+
+    def get_all_correlations(self) -> list:
+        """The method includes a functionality to get all correlations
+
+        Raises:
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (list): Returns the corresponding correlations
+        """
+
+        api_call: list = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.DATASOURCES.value}/correlations", RequestsMethods.GET
+        )
+
+        if api_call == list() or api_call[0].get("description") is None:
+            logging.error(f"Check the error: {api_call}.")
+            raise Exception
+        else:
+            return api_call
+
     def create_correlations(self, correlation_object: CorrelationObject) -> dict:
         """The method includes a functionality to create a correlation between two data sources - the source data source identified by source uid in the path, and the target data source which is specified in the body
 
@@ -147,5 +226,3 @@ class Correlations:
                 "There is no source_datasource_uid, correlation_uid, label or description defined."
             )
             raise ValueError
-
-    # TODO Get correlations https://grafana.com/docs/grafana/latest/developers/http_api/correlations/#get-single-correlation

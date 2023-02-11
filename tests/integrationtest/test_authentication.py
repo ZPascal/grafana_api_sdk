@@ -31,5 +31,3 @@ class AuthenticationTest(TestCase):
                 self.authentication.get_api_tokens()[0].get("id")
             )
         )
-
-    # TODO Test service account functionaly inside the integration test case

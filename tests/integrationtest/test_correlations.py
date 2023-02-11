@@ -33,23 +33,35 @@ class CorrelationsTest(TestCase):
             "message",
             dict(),
         )
-        correlations_object = self.correlations.create_correlations(correlation_object)
-        self.assertEqual("Correlation created", correlations_object.get("message"))
+        correlation_object: dict = self.correlations.create_correlations(
+            correlation_object
+        )
+        self.assertEqual("Correlation created", correlation_object.get("message"))
 
-        correlations_object_uid: str = correlations_object.get("result").get("uid")
-        data_source_uid: str = correlations_object.get("result").get("sourceUID")
+        correlation_uid: str = correlation_object.get("result").get("uid")
+        data_source_uid: str = correlation_object.get("result").get("sourceUID")
+
+        self.assertEqual(
+            correlation_object.get("result"),
+            self.correlations.get_correlation(data_source_uid, correlation_uid),
+        )
+        self.assertEqual(
+            [correlation_object.get("result")],
+            self.correlations.get_all_correlations_by_datasource_uid(data_source_uid),
+        )
+        self.assertEqual(
+            [correlation_object.get("result")], self.correlations.get_all_correlations()
+        )
 
         self.assertEqual(
             "Correlation updated",
             self.correlations.update_correlations(
-                data_source_uid, correlations_object_uid, "Test1", "Test1 correlations"
+                data_source_uid, correlation_uid, "Test1", "Test1 correlations"
             ).get("message"),
         )
         self.assertEqual(
             None,
-            self.correlations.delete_correlations(
-                data_source_uid, correlations_object_uid
-            ),
+            self.correlations.delete_correlations(data_source_uid, correlation_uid),
         )
 
     def test_c_delete_data_source(self):
