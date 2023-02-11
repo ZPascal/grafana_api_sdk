@@ -2,6 +2,9 @@
 
 * [correlations](#correlations)
   * [Correlations](#correlations.Correlations)
+    * [get\_correlation](#correlations.Correlations.get_correlation)
+    * [get\_all\_correlations\_by\_datasource\_uid](#correlations.Correlations.get_all_correlations_by_datasource_uid)
+    * [get\_all\_correlations](#correlations.Correlations.get_all_correlations)
     * [create\_correlations](#correlations.Correlations.create_correlations)
     * [delete\_correlations](#correlations.Correlations.delete_correlations)
     * [update\_correlations](#correlations.Correlations.update_correlations)
@@ -28,6 +31,76 @@ The class includes all necessary methods to access the Grafana correlations API 
 **Attributes**:
 
 - `grafana_api_model` _APIModel_ - This is where we store the grafana_api_model
+
+<a id="correlations.Correlations.get_correlation"></a>
+
+#### get\_correlation
+
+```python
+def get_correlation(datasource_uid: str, correlation_uid: str) -> dict
+```
+
+The method includes a functionality to get a specific correlation from a data source - the data source identified by source uid and the correlation uid
+
+**Arguments**:
+
+- `datasource_uid` _str_ - Specify the correlation data source uid
+- `correlation_uid` _str_ - Specify the correlation uid
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+- `api_call` _dict_ - Returns the corresponding correlation
+
+<a id="correlations.Correlations.get_all_correlations_by_datasource_uid"></a>
+
+#### get\_all\_correlations\_by\_datasource\_uid
+
+```python
+def get_all_correlations_by_datasource_uid(datasource_uid: str) -> list
+```
+
+The method includes a functionality to get all correlations from a data source - the data source identified by source uid
+
+**Arguments**:
+
+- `datasource_uid` _str_ - Specify the correlation data source uid
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+- `api_call` _list_ - Returns the corresponding correlations
+
+<a id="correlations.Correlations.get_all_correlations"></a>
+
+#### get\_all\_correlations
+
+```python
+def get_all_correlations() -> list
+```
+
+The method includes a functionality to get all correlations
+
+**Raises**:
+
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+- `api_call` _list_ - Returns the corresponding correlations
 
 <a id="correlations.Correlations.create_correlations"></a>
 
