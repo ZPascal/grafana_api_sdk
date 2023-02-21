@@ -344,7 +344,7 @@ The method includes a functionality to get the corresponding api key migration s
 
 Required Permissions:
 Action: serviceaccounts:read
-Scope: global:serviceaccounts:*
+Scope: serviceaccounts:*
 
 **Raises**:
 

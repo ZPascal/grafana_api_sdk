@@ -7,6 +7,21 @@
   * [DatasourceQuery](#model.DatasourceQuery)
   * [DatasourceRuleQuery](#model.DatasourceRuleQuery)
   * [Alert](#model.Alert)
+  * [AlertRuleQueryModelCondition](#model.AlertRuleQueryModelCondition)
+  * [AlertRuleQueryModel](#model.AlertRuleQueryModel)
+  * [AlertQuery](#model.AlertQuery)
+  * [AlertRule](#model.AlertRule)
+  * [EmbeddedContactPoint](#model.EmbeddedContactPoint)
+  * [MatchType](#model.MatchType)
+  * [Matcher](#model.Matcher)
+  * [Route](#model.Route)
+  * [DayOfMonthRange](#model.DayOfMonthRange)
+  * [MonthRange](#model.MonthRange)
+  * [TimeRange](#model.TimeRange)
+  * [WeekdayRange](#model.WeekdayRange)
+  * [YearRange](#model.YearRange)
+  * [TimeInterval](#model.TimeInterval)
+  * [MuteTimeInterval](#model.MuteTimeInterval)
   * [Silence](#model.Silence)
   * [AlertmanagerConfig](#model.AlertmanagerConfig)
   * [AlertmanagerReceivers](#model.AlertmanagerReceivers)
@@ -22,8 +37,8 @@
   * [AnnotationObject](#model.AnnotationObject)
   * [AnnotationGraphiteObject](#model.AnnotationGraphiteObject)
   * [GlobalUser](#model.GlobalUser)
-  * [CustomRole](#model.CustomRole)
   * [RolePermission](#model.RolePermission)
+  * [CustomRole](#model.CustomRole)
 
 <a id="model"></a>
 
@@ -47,14 +62,15 @@ The class includes all necessary API endpoint strings to connect the Grafana API
 class RequestsMethods(Enum)
 ```
 
-The class includes all necessary methods to establish an HTTP/ HTTPS connection to the Grafana API endpoints
+The class includes all necessary method values to establish an HTTP/ HTTPS connection to the Grafana API endpoints
 
 <a id="model.APIModel"></a>
 
 ## APIModel Objects
 
 ```python
-class APIModel(NamedTuple)
+@dataclass
+class APIModel()
 ```
 
 The class includes all necessary variables to establish a connection to the Grafana API endpoints
@@ -75,7 +91,8 @@ The class includes all necessary variables to establish a connection to the Graf
 ## DatasourceQuery Objects
 
 ```python
-class DatasourceQuery(NamedTuple)
+@dataclass
+class DatasourceQuery()
 ```
 
 The class includes all necessary variables to specify a query for the datasource search endpoint
@@ -94,7 +111,8 @@ The class includes all necessary variables to specify a query for the datasource
 ## DatasourceRuleQuery Objects
 
 ```python
-class DatasourceRuleQuery(NamedTuple)
+@dataclass
+class DatasourceRuleQuery()
 ```
 
 The class includes all necessary variables to specify a query for the datasource rule search endpoint
@@ -112,7 +130,8 @@ The class includes all necessary variables to specify a query for the datasource
 ## Alert Objects
 
 ```python
-class Alert(NamedTuple)
+@dataclass
+class Alert()
 ```
 
 The class includes all necessary variables to generate an alert object that is necessary to communicate with the Grafana alert endpoint
@@ -125,12 +144,291 @@ The class includes all necessary variables to generate an alert object that is n
 - `generator_url` _str_ - Specify the url of the generator endpoint
 - `labels` _dict_ - Specify labels of the alert
 
+<a id="model.AlertRuleQueryModelCondition"></a>
+
+## AlertRuleQueryModelCondition Objects
+
+```python
+@dataclass
+class AlertRuleQueryModelCondition()
+```
+
+The class includes all necessary variables to generate an alert rule query model condition object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+**Arguments**:
+
+- `evaluator_params` _list_ - Specify the evaluator parameters
+- `evaluator_type` _str_ - Specify the evaluator type
+- `operator_type` _str_ - Specify the operator type
+- `query_params` _list_ - Specify the query parameters
+- `reducer_params` _list_ - Specify the reducer parameters
+- `reducer_type` _str_ - Specify the reducer type
+- `type` _str_ - Specify the type
+
+<a id="model.AlertRuleQueryModel"></a>
+
+## AlertRuleQueryModel Objects
+
+```python
+@dataclass
+class AlertRuleQueryModel()
+```
+
+The class includes all necessary variables to generate an alert rule query model object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+**Arguments**:
+
+- `conditions` _list_ - Specify the conditions list based on the AlertRuleQueryModelCondition objects
+- `datasource` _dict_ - Specify the datasource dictionary
+- `expression` _str_ - Specify the expression string
+- `hide` _bool_ - Specify the if the query should be hided
+- `interval_ms` _int_ - Specify the interval in ms
+- `max_data_points` _int_ - Specify the max data points
+- `ref_id` _str_ - Specify the unique identifier of the alert rule query model
+- `type` _str_ - Specify the corresponding type
+
+<a id="model.AlertQuery"></a>
+
+## AlertQuery Objects
+
+```python
+@dataclass
+class AlertQuery()
+```
+
+The class includes all necessary variables to generate an alert query object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+**Arguments**:
+
+- `datasource_uid` _str_ - Specify the datasource uid
+- `model` _AlertRuleQueryModel_ - Specify the model as AlertRuleQueryModel
+- `query_type` _str_ - Specify the query type
+- `ref_id` _str_ - Specify the unique identifier of the alert query
+- `relative_time_range_from` _int_ - Specify the relative from time range
+- `relative_time_range_to` _int_ - Specify the relative to time range
+
+<a id="model.AlertRule"></a>
+
+## AlertRule Objects
+
+```python
+@dataclass
+class AlertRule()
+```
+
+The class includes all necessary variables to generate an alert rule object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+**Arguments**:
+
+- `condition` _str_ - Specify the condition
+- `data` _list_ - Specify the data as AlertQuery list
+- `exec_err_state` _str_ - Specify the execution error state
+- `folder_uid` _str_ - Specify the folder uid
+- `no_data_state` _str_ - Specify the no data state
+- `org_id` _int_ - Specify the org id
+- `rule_group` _str_ - Specify the rule group of the alert rule
+- `title` _str_ - Specify the title of the alert rule
+- `uid` _str_ - Specify the uid of the alert rule
+- `for_time` _int_ - Specify the for duration as integer
+- `annotations` _dict_ - Specify the annotations dictionary (default None)
+- `updated` _str_ - Specify the updated date time as string (default None)
+- `provenance` _str_ - Specify the provenance (default None)
+- `id` _int_ - Specify the alert rule id (default 0)
+- `labels` _dict_ - Specify the labels as dictionary (default None)
+
+<a id="model.EmbeddedContactPoint"></a>
+
+## EmbeddedContactPoint Objects
+
+```python
+@dataclass
+class EmbeddedContactPoint()
+```
+
+The class includes all necessary variables to generate an embedded contact point object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+**Arguments**:
+
+- `name` _str_ - Specify the name of the embedded contact point
+- `type` _str_ - Specify the type of the embedded contact point
+- `settings` _dict_ - Specify the settings of the embedded contact point
+- `disable_resolve_message` _bool_ - Specify if the resolve message should be disabled (default None)
+- `provenance` _str_ - Specify the provenance (default None)
+- `uid` _str_ - Specify the uid of the embedded contact point (default None)
+
+<a id="model.MatchType"></a>
+
+## MatchType Objects
+
+```python
+class MatchType(Enum)
+```
+
+The class includes all necessary values to set the corresponding match type
+
+<a id="model.Matcher"></a>
+
+## Matcher Objects
+
+```python
+@dataclass
+class Matcher()
+```
+
+The class includes all necessary variables to generate an alert rule route matcher object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+**Arguments**:
+
+- `name` _str_ - Specify the name of the matcher
+- `type` _MatchType_ - Specify the type of the matcher
+- `value` _str_ - Specify the value of the matcher
+
+<a id="model.Route"></a>
+
+## Route Objects
+
+```python
+@dataclass
+class Route()
+```
+
+The class includes all necessary variables to generate an alert rule route that is necessary to communicate with the Grafana alert provisioning endpoint
+
+**Arguments**:
+
+- `continue_parameter` _bool_ - Specify the continue parameter
+- `group_by_str` _List[str]_ - Specify the list of group by strings
+- `mute_time_intervals` _List[str]_ - Specify the mute time interval as list
+- `receiver` _str_ - Specify the receiver
+- `routes` _List[Route]_ - Specify the list of routes
+- `group_interval` _int_ - Specify the group time interval
+- `group_wait` _int_ - Specify the group wait time
+- `object_matchers` _List[Matcher]_ - Specify the list of object matchers
+- `provenance` _str_ - Specify the provenance
+- `repeat_interval` _int_ - Specify the repeat interval
+
+<a id="model.DayOfMonthRange"></a>
+
+## DayOfMonthRange Objects
+
+```python
+@dataclass
+class DayOfMonthRange()
+```
+
+The class includes all necessary variables to generate a day of month range object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+**Arguments**:
+
+- `begin` _int_ - Specify the begin time
+- `end` _int_ - Specify the end time
+
+<a id="model.MonthRange"></a>
+
+## MonthRange Objects
+
+```python
+@dataclass
+class MonthRange()
+```
+
+The class includes all necessary variables to generate a month range object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+**Arguments**:
+
+- `begin` _int_ - Specify the begin time
+- `end` _int_ - Specify the end time
+
+<a id="model.TimeRange"></a>
+
+## TimeRange Objects
+
+```python
+@dataclass
+class TimeRange()
+```
+
+The class includes all necessary variables to generate a time range object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+**Arguments**:
+
+- `begin` _int_ - Specify the begin time
+- `end` _int_ - Specify the end time
+
+<a id="model.WeekdayRange"></a>
+
+## WeekdayRange Objects
+
+```python
+@dataclass
+class WeekdayRange()
+```
+
+The class includes all necessary variables to generate a weekday range object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+**Arguments**:
+
+- `begin` _int_ - Specify the begin time
+- `end` _int_ - Specify the end time
+
+<a id="model.YearRange"></a>
+
+## YearRange Objects
+
+```python
+@dataclass
+class YearRange()
+```
+
+The class includes all necessary variables to generate a year range object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+**Arguments**:
+
+- `begin` _int_ - Specify the begin time
+- `end` _int_ - Specify the end time
+
+<a id="model.TimeInterval"></a>
+
+## TimeInterval Objects
+
+```python
+@dataclass
+class TimeInterval()
+```
+
+The class includes all necessary variables to generate a time interval object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+**Arguments**:
+
+- `days_of_month` _List[DayOfMonthRange]_ - Specify the days of month list
+- `months` _List[MonthRange]_ - Specify the months list
+- `times` _List[TimeRange]_ - Specify the times list
+- `weekdays` _List[WeekdayRange]_ - Specify the weekdays list
+- `years` _List[YearRange]_ - Specify the year range list
+
+<a id="model.MuteTimeInterval"></a>
+
+## MuteTimeInterval Objects
+
+```python
+@dataclass
+class MuteTimeInterval()
+```
+
+The class includes all necessary variables to generate a mute time interval object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+**Arguments**:
+
+- `name` _str_ - Specify the name of the mute time interval.
+- `time_intervals` _List[TimeInterval]_ - Specify the list of time interval objects
+
 <a id="model.Silence"></a>
 
 ## Silence Objects
 
 ```python
-class Silence(NamedTuple)
+@dataclass
+class Silence()
 ```
 
 The class includes all necessary variables to generate a silence object that is necessary to communicate with the Grafana silence endpoint
@@ -149,7 +447,8 @@ The class includes all necessary variables to generate a silence object that is 
 ## AlertmanagerConfig Objects
 
 ```python
-class AlertmanagerConfig(NamedTuple)
+@dataclass
+class AlertmanagerConfig()
 ```
 
 The class includes all necessary variables to generate an Alertmanager config object that is necessary to communicate and set up the Grafana Alertmanager endpoint
@@ -159,7 +458,7 @@ The class includes all necessary variables to generate an Alertmanager config ob
 - `global_config` _dict_ - Specify the global config of the Alertmanager
 - `inhibit_rules` _list_ - Specify the inhibit rules of the Alertmanager
 - `mute_time_intervals` _list_ - Specify the mute time intervals of the Alertmanager
-- `receivers` _list_ - Specify the receivers of the Alertmanager
+- `receivers` _list_ - Specify the receiver's of the Alertmanager
 - `route` _dict_ - Specify the route of the Alertmanager
 - `templates` _list_ - Specify an Alertmanager template
 
@@ -168,10 +467,11 @@ The class includes all necessary variables to generate an Alertmanager config ob
 ## AlertmanagerReceivers Objects
 
 ```python
-class AlertmanagerReceivers(NamedTuple)
+@dataclass
+class AlertmanagerReceivers()
 ```
 
-The class includes all necessary variables to generate an Alertmanager receivers object that is necessary to communicate and set up the Grafana Alertmanager receivers endpoint
+The class includes all necessary variables to generate an Alertmanager receiver's object that is necessary to communicate and set up the Grafana Alertmanager receivers endpoint
 
 **Arguments**:
 
@@ -191,7 +491,8 @@ The class includes all necessary variables to generate an Alertmanager receivers
 ## RulerRule Objects
 
 ```python
-class RulerRule(NamedTuple)
+@dataclass
+class RulerRule()
 ```
 
 The class includes all necessary variables to generate a Ruler rule object that is necessary to communicate and set up a Grafana Ruler rule
@@ -211,7 +512,8 @@ The class includes all necessary variables to generate a Ruler rule object that 
 ## UserObject Objects
 
 ```python
-class UserObject(NamedTuple)
+@dataclass
+class UserObject()
 ```
 
 The class includes all necessary variables to generate a User object that is necessary to update a Grafana User
@@ -228,7 +530,8 @@ The class includes all necessary variables to generate a User object that is nec
 ## PlaylistObject Objects
 
 ```python
-class PlaylistObject(NamedTuple)
+@dataclass
+class PlaylistObject()
 ```
 
 The class includes all necessary variables to generate a playlist object
@@ -244,7 +547,8 @@ The class includes all necessary variables to generate a playlist object
 ## PlaylistItemObject Objects
 
 ```python
-class PlaylistItemObject(NamedTuple)
+@dataclass
+class PlaylistItemObject()
 ```
 
 The class includes all necessary variables to generate a playlist item object that is necessary to update a playlist
@@ -261,7 +565,8 @@ The class includes all necessary variables to generate a playlist item object th
 ## TeamObject Objects
 
 ```python
-class TeamObject(NamedTuple)
+@dataclass
+class TeamObject()
 ```
 
 The class includes all necessary variables to generate a team object that is necessary to create a team
@@ -277,7 +582,8 @@ The class includes all necessary variables to generate a team object that is nec
 ## QueryDatasourceObject Objects
 
 ```python
-class QueryDatasourceObject(NamedTuple)
+@dataclass
+class QueryDatasourceObject()
 ```
 
 The class includes all necessary variables to generate a query datasource object that is necessary to create a query history object
@@ -292,7 +598,8 @@ The class includes all necessary variables to generate a query datasource object
 ## QueryObject Objects
 
 ```python
-class QueryObject(NamedTuple)
+@dataclass
+class QueryObject()
 ```
 
 The class includes all necessary variables to generate a query object that is necessary to create a query history
@@ -309,7 +616,8 @@ The class includes all necessary variables to generate a query object that is ne
 ## CorrelationObject Objects
 
 ```python
-class CorrelationObject(NamedTuple)
+@dataclass
+class CorrelationObject()
 ```
 
 The class includes all necessary variables to generate a find annotation object
@@ -329,7 +637,8 @@ The class includes all necessary variables to generate a find annotation object
 ## FindAnnotationObject Objects
 
 ```python
-class FindAnnotationObject(NamedTuple)
+@dataclass
+class FindAnnotationObject()
 ```
 
 The class includes all necessary variables to generate a find annotation object
@@ -351,7 +660,8 @@ The class includes all necessary variables to generate a find annotation object
 ## AnnotationObject Objects
 
 ```python
-class AnnotationObject(NamedTuple)
+@dataclass
+class AnnotationObject()
 ```
 
 The class includes all necessary variables to generate an annotation object
@@ -370,7 +680,8 @@ The class includes all necessary variables to generate an annotation object
 ## AnnotationGraphiteObject Objects
 
 ```python
-class AnnotationGraphiteObject(NamedTuple)
+@dataclass
+class AnnotationGraphiteObject()
 ```
 
 The class includes all necessary variables to generate a Graphite annotation object
@@ -387,7 +698,8 @@ The class includes all necessary variables to generate a Graphite annotation obj
 ## GlobalUser Objects
 
 ```python
-class GlobalUser(NamedTuple)
+@dataclass
+class GlobalUser()
 ```
 
 The class includes all necessary variables to generate a global user object
@@ -400,12 +712,29 @@ The class includes all necessary variables to generate a global user object
 - `password` _str_ - Specify the password of the user
 - `org_id` _int_ - Specify the optional org id of the user (default None)
 
+<a id="model.RolePermission"></a>
+
+## RolePermission Objects
+
+```python
+@dataclass
+class RolePermission()
+```
+
+The class includes all necessary variables to generate a role permission object
+
+**Arguments**:
+
+- `action` _str_ - Specify the custom role action definition
+- `scope` _str_ - Specify the scope definition. If not present, no scope will be mapped to the permission (default None)
+
 <a id="model.CustomRole"></a>
 
 ## CustomRole Objects
 
 ```python
-class CustomRole(NamedTuple)
+@dataclass
+class CustomRole()
 ```
 
 The class includes all necessary variables to generate a custom role object
@@ -421,19 +750,4 @@ The class includes all necessary variables to generate a custom role object
 - `group` _str_ - Specify the optional org group of the role (default None)
 - `hidden` _bool_ - Specify whether the role is hidden or not.  If set to True, then the role does not show in the role picker. It will not be listed by API endpoints unless explicitly specified (default False)
 - `permissions` _list_ - Specify the optional permissions of the role as a list of the RolePermission objects (default None)
-
-<a id="model.RolePermission"></a>
-
-## RolePermission Objects
-
-```python
-class RolePermission(NamedTuple)
-```
-
-The class includes all necessary variables to generate a role permission object
-
-**Arguments**:
-
-- `action` _str_ - Specify the custom role action definition
-- `scope` _str_ - Specify the scope definition. If not present, no scope will be mapped to the permission (default None)
 
