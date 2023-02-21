@@ -1,6 +1,13 @@
+import sys
 import ssl
 from enum import Enum
-from typing import NamedTuple
+from typing import List
+from dataclasses import dataclass, field
+
+if sys.version_info < (3, 11):
+    from typing_extensions import Self
+else:
+    from typing import Self
 
 # The constant includes all necessary error messages that can occurs, if you establish a connection to the Grafana API.
 ERROR_MESSAGES: list = ["invalid API key"]
@@ -9,55 +16,55 @@ ERROR_MESSAGES: list = ["invalid API key"]
 class APIEndpoints(Enum):
     """The class includes all necessary API endpoint strings to connect the Grafana API"""
 
-    api_prefix = "/api"
-    version_1 = "v1"
+    api_prefix: str = "/api"
+    version_1: str = "v1"
 
-    SEARCH = f"{api_prefix}/search"
-    DASHBOARDS = f"{api_prefix}/dashboards"
-    FOLDERS = f"{api_prefix}/folders"
-    LEGACY_ALERTS = f"{api_prefix}/alerts"
-    ALERT_NOTIFICATIONS = f"{api_prefix}/alert-notifications"
-    ALERTS_ALERTMANAGER = f"{api_prefix}/alertmanager"
-    ALERTS_PROMETHEUS = f"{api_prefix}/prometheus"
-    ALERTS_RULER = f"{api_prefix}/ruler"
-    ALERTS_TESTING = f"{api_prefix}/v1"
-    ALERTS_NGALERT = f"{api_prefix}/v1/ngalert"
-    DATASOURCES = f"{api_prefix}/datasources"
-    DATASOURCE_QUERY = f"{api_prefix}/tsdb/query"
-    SHORT_URLS = f"{api_prefix}/short-urls"
-    ORGANISATION = f"{api_prefix}/org"
-    ORGANISATIONS = f"{api_prefix}/orgs"
-    USER = f"{api_prefix}/user"
-    USERS = f"{api_prefix}/users"
-    SNAPSHOTS = f"{api_prefix}/snapshots"
-    DASHBOARD_SNAPSHOTS = f"{api_prefix}/dashboard/snapshots"
-    PLAYLISTS = f"{api_prefix}/playlists"
-    TEAMS = f"{api_prefix}/teams"
-    QUERY_HISTORY = f"{api_prefix}/query-history"
-    REPORTING = f"{api_prefix}/reports/email"
-    LICENSING = f"{api_prefix}/licensing"
-    FRONTEND = f"{api_prefix}/frontend"
-    LOGIN = f"{api_prefix}/login"
-    AUTHENTICATION = f"{api_prefix}/auth/keys"
-    EXTERNAL_GROUPS = f"{api_prefix}/teams"
-    USER_PREFERENCES = f"{api_prefix}/user/preferences"
-    ORG_PREFERENCES = f"{api_prefix}/org/preferences"
-    ANNOTATIONS = f"{api_prefix}/annotations"
-    ADMIN = f"{api_prefix}/admin"
-    SERVICE_ACCOUNTS = f"{api_prefix}/serviceaccounts"
-    RBAC = f"{api_prefix}/access-control"
-    LIBRARY = f"{api_prefix}/library-elements"
-    ALERTING_PROVISIONING = f"{api_prefix}{version_1}/provisioning"
+    SEARCH: str = f"{api_prefix}/search"
+    DASHBOARDS: str = f"{api_prefix}/dashboards"
+    FOLDERS: str = f"{api_prefix}/folders"
+    LEGACY_ALERTS: str = f"{api_prefix}/alerts"
+    ALERT_NOTIFICATIONS: str = f"{api_prefix}/alert-notifications"
+    ALERTS_ALERTMANAGER: str = f"{api_prefix}/alertmanager"
+    ALERTS_PROMETHEUS: str = f"{api_prefix}/prometheus"
+    ALERTS_RULER: str = f"{api_prefix}/ruler"
+    ALERTS_TESTING: str = f"{api_prefix}/v1"
+    ALERTS_NGALERT: str = f"{api_prefix}/v1/ngalert"
+    DATASOURCES: str = f"{api_prefix}/datasources"
+    DATASOURCE_QUERY: str = f"{api_prefix}/tsdb/query"
+    SHORT_URLS: str = f"{api_prefix}/short-urls"
+    ORGANISATION: str = f"{api_prefix}/org"
+    ORGANISATIONS: str = f"{api_prefix}/orgs"
+    USER: str = f"{api_prefix}/user"
+    USERS: str = f"{api_prefix}/users"
+    SNAPSHOTS: str = f"{api_prefix}/snapshots"
+    DASHBOARD_SNAPSHOTS: str = f"{api_prefix}/dashboard/snapshots"
+    PLAYLISTS: str = f"{api_prefix}/playlists"
+    TEAMS: str = f"{api_prefix}/teams"
+    QUERY_HISTORY: str = f"{api_prefix}/query-history"
+    REPORTING: str = f"{api_prefix}/reports/email"
+    LICENSING: str = f"{api_prefix}/licensing"
+    FRONTEND: str = f"{api_prefix}/frontend"
+    LOGIN: str = f"{api_prefix}/login"
+    AUTHENTICATION: str = f"{api_prefix}/auth/keys"
+    EXTERNAL_GROUPS: str = f"{api_prefix}/teams"
+    USER_PREFERENCES: str = f"{api_prefix}/user/preferences"
+    ORG_PREFERENCES: str = f"{api_prefix}/org/preferences"
+    ANNOTATIONS: str = f"{api_prefix}/annotations"
+    ADMIN: str = f"{api_prefix}/admin"
+    SERVICE_ACCOUNTS: str = f"{api_prefix}/serviceaccounts"
+    RBAC: str = f"{api_prefix}/access-control"
+    LIBRARY: str = f"{api_prefix}/library-elements"
+    ALERTING_PROVISIONING: str = f"{api_prefix}{version_1}/provisioning"
 
 
 class RequestsMethods(Enum):
-    """The class includes all necessary methods to establish an HTTP/ HTTPS connection to the Grafana API endpoints"""
+    """The class includes all necessary method values to establish an HTTP/ HTTPS connection to the Grafana API endpoints"""
 
-    GET = "GET"
-    PUT = "PUT"
-    POST = "POST"
-    PATCH = "PATCH"
-    DELETE = "DELETE"
+    GET: str = "GET"
+    PUT: str = "PUT"
+    POST: str = "POST"
+    PATCH: str = "PATCH"
+    DELETE: str = "DELETE"
 
 
 class SortDirection(Enum):
@@ -65,7 +72,8 @@ class SortDirection(Enum):
     DESC = "alpha-desc"
 
 
-class APIModel(NamedTuple):
+@dataclass
+class APIModel:
     """The class includes all necessary variables to establish a connection to the Grafana API endpoints
 
     Args:
@@ -89,7 +97,8 @@ class APIModel(NamedTuple):
     retries: any = 10
 
 
-class DatasourceQuery(NamedTuple):
+@dataclass
+class DatasourceQuery:
     """The class includes all necessary variables to specify a query for the datasource search endpoint
 
     Args:
@@ -109,7 +118,8 @@ class DatasourceQuery(NamedTuple):
     output_format: str = "time_series"
 
 
-class DatasourceRuleQuery(NamedTuple):
+@dataclass
+class DatasourceRuleQuery:
     """The class includes all necessary variables to specify a query for the datasource rule search endpoint
 
     Args:
@@ -127,7 +137,8 @@ class DatasourceRuleQuery(NamedTuple):
     relative_time_range: dict
 
 
-class Alert(NamedTuple):
+@dataclass
+class Alert:
     """The class includes all necessary variables to generate an alert object that is necessary to communicate with the Grafana alert endpoint
 
     Args:
@@ -145,7 +156,285 @@ class Alert(NamedTuple):
     labels: dict
 
 
-class Silence(NamedTuple):
+@dataclass
+class AlertRuleQueryModelCondition:
+    """The class includes all necessary variables to generate an alert rule query model condition object that is necessary to communicate with the Grafana alert provisioning endpoint
+    Args:
+        evaluator_params (list): Specify the evaluator parameters
+        evaluator_type (str): Specify the evaluator type
+        operator_type (str): Specify the operator type
+        query_params (list): Specify the query parameters
+        reducer_params (list): Specify the reducer parameters
+        reducer_type (str): Specify the reducer type
+        type (str): Specify the type
+    """
+
+    evaluator_params: list
+    evaluator_type: str
+    operator_type: str
+    query_params: list
+    reducer_params: list
+    reducer_type: str
+    type: str
+
+
+@dataclass
+class AlertRuleQueryModel:
+    """The class includes all necessary variables to generate an alert rule query model object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+    Args:
+        conditions (list): Specify the conditions list based on the AlertRuleQueryModelCondition objects
+        datasource (dict): Specify the datasource dictionary
+        expression (str): Specify the expression string
+        hide (bool): Specify the if the query should be hided
+        interval_ms (int): Specify the interval in ms
+        max_data_points (int): Specify the max data points
+        ref_id (str): Specify the unique identifier of the alert rule query model
+        type (str): Specify the corresponding type
+    """
+    conditions: List[AlertRuleQueryModelCondition]
+    datasource: dict
+    expression: str
+    hide: bool
+    interval_ms: int
+    max_data_points: int
+    ref_id: str
+    type: str
+
+
+@dataclass
+class AlertQuery:
+    """The class includes all necessary variables to generate an alert query object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+    Args:
+        datasource_uid (str): Specify the datasource uid
+        model (AlertRuleQueryModel): Specify the model as AlertRuleQueryModel
+        query_type (str): Specify the query type
+        ref_id (str): Specify the unique identifier of the alert query
+        relative_time_range_from (int): Specify the relative from time range
+        relative_time_range_to (int): Specify the relative to time range
+    """
+
+    datasource_uid: str
+    model: AlertRuleQueryModel
+    query_type: str
+    ref_id: str
+    relative_time_range_from: int
+    relative_time_range_to: int
+
+
+@dataclass
+class AlertRule:
+    """The class includes all necessary variables to generate an alert rule object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+    Args:
+        condition (str): Specify the condition
+        data (list): Specify the data as AlertQuery list
+        exec_err_state (str): Specify the execution error state
+        folder_uid (str): Specify the folder uid
+        no_data_state (str): Specify the no data state
+        org_id (int): Specify the org id
+        rule_group (str):  Specify the rule group of the alert rule
+        title (str): Specify the title of the alert rule
+        uid (str): Specify the uid of the alert rule
+        for_time (int): Specify the for duration as integer
+        annotations (dict): Specify the annotations dictionary (default None)
+        updated (str): Specify the updated date time as string (default None)
+        provenance (str): Specify the provenance (default None)
+        id (int): Specify the alert rule id (default 0)
+        labels (dict): Specify the labels as dictionary (default None)
+    """
+
+    condition: str
+    data: List[AlertQuery]
+    exec_err_state: str
+    folder_uid: str
+    no_data_state: str
+    org_id: int
+    rule_group: str
+    title: str
+    uid: str
+    for_time: int
+    annotations: dict = None
+    updated: str = None
+    provenance: str = None
+    id: int = 0
+    labels: dict = None
+
+
+@dataclass
+class EmbeddedContactPoint:
+    """The class includes all necessary variables to generate an embedded contact point object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+    Args:
+        name (str): Specify the name of the embedded contact point
+        type (str): Specify the type of the embedded contact point
+        settings (dict): Specify the settings of the embedded contact point
+        disable_resolve_message (bool): Specify if the resolve message should be disabled (default None)
+        provenance (str): Specify the provenance (default None)
+        uid (str): Specify the uid of the embedded contact point (default None)
+    """
+
+    name: str
+    type: str
+    settings: dict
+    disable_resolve_message: bool = None
+    provenance: str = None
+    uid: str = None
+
+
+class MatchType(Enum):
+    """The class includes all necessary values to set the corresponding match type"""
+
+    MatchEqual: int = 0
+    MatchNotEqual: int = 1
+    MatchRegexp: int = 2
+    MatchNotRegexp: int = 3
+
+
+@dataclass
+class Matcher:
+    """The class includes all necessary variables to generate an alert rule route matcher object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+    Args:
+        name (str): Specify the name of the matcher
+        type (MatchType): Specify the type of the matcher
+        value (str): Specify the value of the matcher
+    """
+
+    name: str
+    type: MatchType
+    value: str
+
+
+@dataclass
+class Route:
+    """The class includes all necessary variables to generate an alert rule route that is necessary to communicate with the Grafana alert provisioning endpoint
+
+    Args:
+        continue_parameter (bool): Specify the continue parameter
+        group_by_str (List[str]): Specify the list of group by strings
+        mute_time_intervals (List[str]): Specify the mute time interval as list
+        receiver (str): Specify the receiver
+        routes (List[Route]): Specify the list of routes
+        group_interval (int): Specify the group time interval
+        group_wait (int): Specify the group wait time
+        object_matchers (List[Matcher]):  Specify the list of object matchers
+        provenance (str): Specify the provenance
+        repeat_interval (int): Specify the repeat interval
+    """
+
+    continue_parameter: bool
+    group_by_str: List[str]
+    mute_time_intervals: List[str]
+    receiver: str
+    routes: List[Self]
+    group_interval: int
+    group_wait: int
+    object_matchers: List[Matcher]
+    provenance: str
+    repeat_interval: int
+
+
+@dataclass
+class DayOfMonthRange:
+    """The class includes all necessary variables to generate a day of month range object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+    Args:
+        begin (int): Specify the begin time
+        end (int): Specify the end time
+    """
+
+    begin: int
+    end: int
+
+
+@dataclass
+class MonthRange:
+    """The class includes all necessary variables to generate a month range object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+    Args:
+        begin (int): Specify the begin time
+        end (int): Specify the end time
+    """
+
+    begin: int
+    end: int
+
+
+@dataclass
+class TimeRange:
+    """The class includes all necessary variables to generate a time range object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+    Args:
+        begin (int): Specify the begin time
+        end (int): Specify the end time
+    """
+
+    begin: int
+    end: int
+
+
+@dataclass
+class WeekdayRange:
+    """The class includes all necessary variables to generate a weekday range object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+    Args:
+        begin (int): Specify the begin time
+        end (int): Specify the end time
+    """
+
+    begin: int
+    end: int
+
+
+@dataclass
+class YearRange:
+    """The class includes all necessary variables to generate a year range object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+    Args:
+        begin (int): Specify the begin time
+        end (int): Specify the end time
+    """
+
+    begin: int
+    end: int
+
+
+@dataclass
+class TimeInterval:
+    """The class includes all necessary variables to generate a time interval object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+    Args:
+        days_of_month (List[DayOfMonthRange]): Specify the days of month list
+        months (List[MonthRange]):  Specify the months list
+        times (List[TimeRange]):  Specify the times list
+        weekdays (List[WeekdayRange]):  Specify the weekdays list
+        years (List[YearRange]):  Specify the year range list
+    """
+
+    days_of_month: List[DayOfMonthRange]
+    months: List[MonthRange]
+    times: List[TimeRange]
+    weekdays: List[WeekdayRange]
+    years: List[YearRange]
+
+
+@dataclass
+class MuteTimeInterval:
+    """The class includes all necessary variables to generate a mute time interval object that is necessary to communicate with the Grafana alert provisioning endpoint
+
+    Args:
+        name (str): Specify the name of the mute time interval.
+        time_intervals (List[TimeInterval]): Specify the list of time interval objects
+    """
+
+    name: str = None
+    time_intervals: List[TimeInterval] = None
+
+
+@dataclass
+class Silence:
     """The class includes all necessary variables to generate a silence object that is necessary to communicate with the Grafana silence endpoint
 
     Args:
@@ -165,14 +454,15 @@ class Silence(NamedTuple):
     matchers: dict
 
 
-class AlertmanagerConfig(NamedTuple):
+@dataclass
+class AlertmanagerConfig:
     """The class includes all necessary variables to generate an Alertmanager config object that is necessary to communicate and set up the Grafana Alertmanager endpoint
 
     Args:
         global_config (dict): Specify the global config of the Alertmanager
         inhibit_rules (list): Specify the inhibit rules of the Alertmanager
         mute_time_intervals (list): Specify the mute time intervals of the Alertmanager
-        receivers (list):  Specify the receivers of the Alertmanager
+        receivers (list):  Specify the receiver's of the Alertmanager
         route (dict): Specify the route of the Alertmanager
         templates (list): Specify an Alertmanager template
     """
@@ -185,8 +475,9 @@ class AlertmanagerConfig(NamedTuple):
     templates: list
 
 
-class AlertmanagerReceivers(NamedTuple):
-    """The class includes all necessary variables to generate an Alertmanager receivers object that is necessary to communicate and set up the Grafana Alertmanager receivers endpoint
+@dataclass
+class AlertmanagerReceivers:
+    """The class includes all necessary variables to generate an Alertmanager receiver's object that is necessary to communicate and set up the Grafana Alertmanager receivers endpoint
 
     Args:
         name (str): Specify the name of the receiver
@@ -214,7 +505,8 @@ class AlertmanagerReceivers(NamedTuple):
     wechat_configs: list
 
 
-class RulerRule(NamedTuple):
+@dataclass
+class RulerRule:
     """The class includes all necessary variables to generate a Ruler rule object that is necessary to communicate and set up a Grafana Ruler rule
 
     Args:
@@ -236,7 +528,8 @@ class RulerRule(NamedTuple):
     for_id: int = 0
 
 
-class UserObject(NamedTuple):
+@dataclass
+class UserObject:
     """The class includes all necessary variables to generate a User object that is necessary to update a Grafana User
 
     Args:
@@ -252,7 +545,8 @@ class UserObject(NamedTuple):
     theme: str
 
 
-class PlaylistObject(NamedTuple):
+@dataclass
+class PlaylistObject:
     """The class includes all necessary variables to generate a playlist object
 
     Args:
@@ -266,7 +560,8 @@ class PlaylistObject(NamedTuple):
     items: list
 
 
-class PlaylistItemObject(NamedTuple):
+@dataclass
+class PlaylistItemObject:
     """The class includes all necessary variables to generate a playlist item object that is necessary to update a playlist
 
     Args:
@@ -282,7 +577,8 @@ class PlaylistItemObject(NamedTuple):
     title: str
 
 
-class TeamObject(NamedTuple):
+@dataclass
+class TeamObject:
     """The class includes all necessary variables to generate a team object that is necessary to create a team
 
     Args:
@@ -296,7 +592,8 @@ class TeamObject(NamedTuple):
     org_id: int
 
 
-class QueryDatasourceObject(NamedTuple):
+@dataclass
+class QueryDatasourceObject:
     """The class includes all necessary variables to generate a query datasource object that is necessary to create a query history object
 
     Args:
@@ -308,7 +605,8 @@ class QueryDatasourceObject(NamedTuple):
     uid: str
 
 
-class QueryObject(NamedTuple):
+@dataclass
+class QueryObject:
     """The class includes all necessary variables to generate a query object that is necessary to create a query history
 
     Args:
@@ -324,7 +622,8 @@ class QueryObject(NamedTuple):
     datasource: QueryDatasourceObject
 
 
-class CorrelationObject(NamedTuple):
+@dataclass
+class CorrelationObject:
     """The class includes all necessary variables to generate a find annotation object
 
     Args:
@@ -343,10 +642,11 @@ class CorrelationObject(NamedTuple):
     description: str = None
     config_type: str = None
     config_field: str = None
-    config_target: dict = {}
+    config_target: dict = field(default_factory=dict)
 
 
-class FindAnnotationObject(NamedTuple):
+@dataclass
+class FindAnnotationObject:
     """The class includes all necessary variables to generate a find annotation object
 
     Args:
@@ -372,7 +672,8 @@ class FindAnnotationObject(NamedTuple):
     tags: list = None
 
 
-class AnnotationObject(NamedTuple):
+@dataclass
+class AnnotationObject:
     """The class includes all necessary variables to generate an annotation object
 
     Args:
@@ -392,7 +693,8 @@ class AnnotationObject(NamedTuple):
     panel_id: int = None
 
 
-class AnnotationGraphiteObject(NamedTuple):
+@dataclass
+class AnnotationGraphiteObject:
     """The class includes all necessary variables to generate a Graphite annotation object
 
     Args:
@@ -408,7 +710,8 @@ class AnnotationGraphiteObject(NamedTuple):
     data: str = None
 
 
-class GlobalUser(NamedTuple):
+@dataclass
+class GlobalUser:
     """The class includes all necessary variables to generate a global user object
 
     Args:
@@ -426,7 +729,21 @@ class GlobalUser(NamedTuple):
     org_id: int = None
 
 
-class CustomRole(NamedTuple):
+@dataclass
+class RolePermission:
+    """The class includes all necessary variables to generate a role permission object
+
+    Args:
+        action (str): Specify the custom role action definition
+        scope (str): Specify the scope definition. If not present, no scope will be mapped to the permission (default None)
+    """
+
+    action: str
+    scope: str = None
+
+
+@dataclass
+class CustomRole:
     """The class includes all necessary variables to generate a custom role object
 
     Args:
@@ -449,16 +766,4 @@ class CustomRole(NamedTuple):
     display_name: str = None
     group: str = None
     hidden: bool = False
-    permissions: list = None
-
-
-class RolePermission(NamedTuple):
-    """The class includes all necessary variables to generate a role permission object
-
-    Args:
-        action (str): Specify the custom role action definition
-        scope (str): Specify the scope definition. If not present, no scope will be mapped to the permission (default None)
-    """
-
-    action: str
-    scope: str = None
+    permissions: List[RolePermission] = None

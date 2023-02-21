@@ -361,7 +361,7 @@ class ServiceAccount:
 
         Required Permissions:
             Action: serviceaccounts:read
-            Scope: global:serviceaccounts:*
+            Scope: serviceaccounts:*
 
         Raises:
             Exception: Unspecified error by executing the API call
