@@ -1,29 +1,29 @@
 # Table of Contents
 
-* [grafana\_api.datasource](#grafana_api.datasource)
-  * [Datasource](#grafana_api.datasource.Datasource)
-    * [get\_all\_datasources](#grafana_api.datasource.Datasource.get_all_datasources)
-    * [get\_datasource\_by\_id](#grafana_api.datasource.Datasource.get_datasource_by_id)
-    * [get\_datasource\_by\_uid](#grafana_api.datasource.Datasource.get_datasource_by_uid)
-    * [get\_datasource\_by\_name](#grafana_api.datasource.Datasource.get_datasource_by_name)
-    * [get\_datasource\_id\_by\_name](#grafana_api.datasource.Datasource.get_datasource_id_by_name)
-    * [create\_datasource](#grafana_api.datasource.Datasource.create_datasource)
-    * [update\_datasource](#grafana_api.datasource.Datasource.update_datasource)
-    * [delete\_datasource\_by\_id](#grafana_api.datasource.Datasource.delete_datasource_by_id)
-    * [delete\_datasource\_by\_uid](#grafana_api.datasource.Datasource.delete_datasource_by_uid)
-    * [delete\_datasource\_by\_name](#grafana_api.datasource.Datasource.delete_datasource_by_name)
-    * [query\_datasource\_by\_id](#grafana_api.datasource.Datasource.query_datasource_by_id)
-    * [enable\_datasource\_permissions](#grafana_api.datasource.Datasource.enable_datasource_permissions)
-    * [disable\_datasource\_permissions](#grafana_api.datasource.Datasource.disable_datasource_permissions)
-    * [get\_datasource\_permissions](#grafana_api.datasource.Datasource.get_datasource_permissions)
-    * [add\_datasource\_permissions](#grafana_api.datasource.Datasource.add_datasource_permissions)
-    * [delete\_datasource\_permissions](#grafana_api.datasource.Datasource.delete_datasource_permissions)
+* [datasource](#datasource)
+  * [Datasource](#datasource.Datasource)
+    * [get\_all\_datasources](#datasource.Datasource.get_all_datasources)
+    * [get\_datasource\_by\_id](#datasource.Datasource.get_datasource_by_id)
+    * [get\_datasource\_by\_uid](#datasource.Datasource.get_datasource_by_uid)
+    * [get\_datasource\_by\_name](#datasource.Datasource.get_datasource_by_name)
+    * [get\_datasource\_id\_by\_name](#datasource.Datasource.get_datasource_id_by_name)
+    * [create\_datasource](#datasource.Datasource.create_datasource)
+    * [update\_datasource](#datasource.Datasource.update_datasource)
+    * [delete\_datasource\_by\_id](#datasource.Datasource.delete_datasource_by_id)
+    * [delete\_datasource\_by\_uid](#datasource.Datasource.delete_datasource_by_uid)
+    * [delete\_datasource\_by\_name](#datasource.Datasource.delete_datasource_by_name)
+    * [query\_datasource\_by\_id](#datasource.Datasource.query_datasource_by_id)
+    * [enable\_datasource\_permissions](#datasource.Datasource.enable_datasource_permissions)
+    * [disable\_datasource\_permissions](#datasource.Datasource.disable_datasource_permissions)
+    * [get\_datasource\_permissions](#datasource.Datasource.get_datasource_permissions)
+    * [add\_datasource\_permissions](#datasource.Datasource.add_datasource_permissions)
+    * [delete\_datasource\_permissions](#datasource.Datasource.delete_datasource_permissions)
 
-<a id="grafana_api.datasource"></a>
+<a id="datasource"></a>
 
-# grafana\_api.datasource
+# datasource
 
-<a id="grafana_api.datasource.Datasource"></a>
+<a id="datasource.Datasource"></a>
 
 ## Datasource Objects
 
@@ -44,7 +44,7 @@ HINT: Note Grafana Enterprise API need required permissions if fine-grained acce
 
 - `grafana_api_model` _APIModel_ - This is where we store the grafana_api_model
 
-<a id="grafana_api.datasource.Datasource.get_all_datasources"></a>
+<a id="datasource.Datasource.get_all_datasources"></a>
 
 #### get\_all\_datasources
 
@@ -67,7 +67,7 @@ Scope: datasources:*
 
 - `api_call` _list_ - Returns the list of all datasources
 
-<a id="grafana_api.datasource.Datasource.get_datasource_by_id"></a>
+<a id="datasource.Datasource.get_datasource_by_id"></a>
 
 #### get\_datasource\_by\_id
 
@@ -96,7 +96,7 @@ The method includes a functionality to get the datasource specified by the datas
 
 - `api_call` _dict_ - Returns a datasource
 
-<a id="grafana_api.datasource.Datasource.get_datasource_by_uid"></a>
+<a id="datasource.Datasource.get_datasource_by_uid"></a>
 
 #### get\_datasource\_by\_uid
 
@@ -125,7 +125,7 @@ The method includes a functionality to get the datasource specified by the datas
 
 - `api_call` _dict_ - Returns a datasource
 
-<a id="grafana_api.datasource.Datasource.get_datasource_by_name"></a>
+<a id="datasource.Datasource.get_datasource_by_name"></a>
 
 #### get\_datasource\_by\_name
 
@@ -154,7 +154,7 @@ The method includes a functionality to get the datasource specified by the datas
 
 - `api_call` _dict_ - Returns a datasource
 
-<a id="grafana_api.datasource.Datasource.get_datasource_id_by_name"></a>
+<a id="datasource.Datasource.get_datasource_id_by_name"></a>
 
 #### get\_datasource\_id\_by\_name
 
@@ -183,7 +183,7 @@ The method includes a functionality to get the datasource id specified by the da
 
 - `api_call` _int_ - Returns a datasource id
 
-<a id="grafana_api.datasource.Datasource.create_datasource"></a>
+<a id="datasource.Datasource.create_datasource"></a>
 
 #### create\_datasource
 
@@ -211,7 +211,7 @@ The method includes a functionality to create a datasource specified by the data
 
   None
 
-<a id="grafana_api.datasource.Datasource.update_datasource"></a>
+<a id="datasource.Datasource.update_datasource"></a>
 
 #### update\_datasource
 
@@ -241,7 +241,7 @@ The method includes a functionality to update a datasource specified by the data
 
   None
 
-<a id="grafana_api.datasource.Datasource.delete_datasource_by_id"></a>
+<a id="datasource.Datasource.delete_datasource_by_id"></a>
 
 #### delete\_datasource\_by\_id
 
@@ -270,7 +270,7 @@ The method includes a functionality to delete a datasource specified by the data
 
   None
 
-<a id="grafana_api.datasource.Datasource.delete_datasource_by_uid"></a>
+<a id="datasource.Datasource.delete_datasource_by_uid"></a>
 
 #### delete\_datasource\_by\_uid
 
@@ -299,7 +299,7 @@ The method includes a functionality to delete a datasource specified by the data
 
   None
 
-<a id="grafana_api.datasource.Datasource.delete_datasource_by_name"></a>
+<a id="datasource.Datasource.delete_datasource_by_name"></a>
 
 #### delete\_datasource\_by\_name
 
@@ -328,7 +328,7 @@ The method includes a functionality to delete a datasource specified by the data
 
   None
 
-<a id="grafana_api.datasource.Datasource.query_datasource_by_id"></a>
+<a id="datasource.Datasource.query_datasource_by_id"></a>
 
 #### query\_datasource\_by\_id
 
@@ -356,7 +356,7 @@ The method includes a functionality to execute a queries inside the datasource i
 
 - `api_call` _dict_ - Returns the result of the specified query
 
-<a id="grafana_api.datasource.Datasource.enable_datasource_permissions"></a>
+<a id="datasource.Datasource.enable_datasource_permissions"></a>
 
 #### enable\_datasource\_permissions
 
@@ -385,7 +385,7 @@ The method includes a functionality to enable datasource permissions specified b
 
   None
 
-<a id="grafana_api.datasource.Datasource.disable_datasource_permissions"></a>
+<a id="datasource.Datasource.disable_datasource_permissions"></a>
 
 #### disable\_datasource\_permissions
 
@@ -414,7 +414,7 @@ The method includes a functionality to disable datasource permissions specified 
 
   None
 
-<a id="grafana_api.datasource.Datasource.get_datasource_permissions"></a>
+<a id="datasource.Datasource.get_datasource_permissions"></a>
 
 #### get\_datasource\_permissions
 
@@ -443,7 +443,7 @@ The method includes a functionality to get the datasource permissions specified 
 
 - `api_call` _dict_ - Returns the datasource permissions
 
-<a id="grafana_api.datasource.Datasource.add_datasource_permissions"></a>
+<a id="datasource.Datasource.add_datasource_permissions"></a>
 
 #### add\_datasource\_permissions
 
@@ -474,7 +474,7 @@ The method includes a functionality to add datasource permission specified by th
 
   None
 
-<a id="grafana_api.datasource.Datasource.delete_datasource_permissions"></a>
+<a id="datasource.Datasource.delete_datasource_permissions"></a>
 
 #### delete\_datasource\_permissions
 
