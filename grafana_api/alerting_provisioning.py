@@ -1,6 +1,6 @@
 import json
 import logging
-from typing import List, Dict
+from typing import List
 
 from .model import APIModel, APIEndpoints, RequestsMethods, AlertRule, AlertQuery, AlertRuleQueryModel, \
     AlertRuleQueryModelCondition, EmbeddedContactPoint, Route, Matcher, MuteTimeInterval, TimeInterval, \

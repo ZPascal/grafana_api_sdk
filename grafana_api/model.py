@@ -1,13 +1,9 @@
-import sys
 import ssl
 from enum import Enum
-from typing import List
+from typing import List, TypeVar
 from dataclasses import dataclass, field
 
-if sys.version_info < (3, 11):
-    from typing_extensions import Self
-else:
-    from typing import Self
+Self = TypeVar("Self", bound="Route")
 
 # The constant includes all necessary error messages that can occurs, if you establish a connection to the Grafana API.
 ERROR_MESSAGES: list = ["invalid API key"]
