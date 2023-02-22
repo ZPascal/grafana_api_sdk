@@ -1,25 +1,25 @@
 # Table of Contents
 
-* [grafana\_api.dashboard](#grafana_api.dashboard)
-  * [Dashboard](#grafana_api.dashboard.Dashboard)
-    * [create\_or\_update\_dashboard](#grafana_api.dashboard.Dashboard.create_or_update_dashboard)
-    * [delete\_dashboard\_by\_name\_and\_path](#grafana_api.dashboard.Dashboard.delete_dashboard_by_name_and_path)
-    * [get\_dashboard\_by\_uid](#grafana_api.dashboard.Dashboard.get_dashboard_by_uid)
-    * [get\_dashboard\_home](#grafana_api.dashboard.Dashboard.get_dashboard_home)
-    * [get\_dashboard\_tags](#grafana_api.dashboard.Dashboard.get_dashboard_tags)
-    * [get\_dashboard\_uid\_and\_id\_by\_name\_and\_folder](#grafana_api.dashboard.Dashboard.get_dashboard_uid_and_id_by_name_and_folder)
-    * [get\_dashboard\_permissions](#grafana_api.dashboard.Dashboard.get_dashboard_permissions)
-    * [update\_dashboard\_permissions](#grafana_api.dashboard.Dashboard.update_dashboard_permissions)
-    * [get\_dashboard\_versions](#grafana_api.dashboard.Dashboard.get_dashboard_versions)
-    * [get\_dashboard\_version](#grafana_api.dashboard.Dashboard.get_dashboard_version)
-    * [restore\_dashboard\_version](#grafana_api.dashboard.Dashboard.restore_dashboard_version)
-    * [calculate\_dashboard\_diff](#grafana_api.dashboard.Dashboard.calculate_dashboard_diff)
+* [dashboard](#dashboard)
+  * [Dashboard](#dashboard.Dashboard)
+    * [create\_or\_update\_dashboard](#dashboard.Dashboard.create_or_update_dashboard)
+    * [delete\_dashboard\_by\_name\_and\_path](#dashboard.Dashboard.delete_dashboard_by_name_and_path)
+    * [get\_dashboard\_by\_uid](#dashboard.Dashboard.get_dashboard_by_uid)
+    * [get\_dashboard\_home](#dashboard.Dashboard.get_dashboard_home)
+    * [get\_dashboard\_tags](#dashboard.Dashboard.get_dashboard_tags)
+    * [get\_dashboard\_uid\_and\_id\_by\_name\_and\_folder](#dashboard.Dashboard.get_dashboard_uid_and_id_by_name_and_folder)
+    * [get\_dashboard\_permissions](#dashboard.Dashboard.get_dashboard_permissions)
+    * [update\_dashboard\_permissions](#dashboard.Dashboard.update_dashboard_permissions)
+    * [get\_dashboard\_versions](#dashboard.Dashboard.get_dashboard_versions)
+    * [get\_dashboard\_version](#dashboard.Dashboard.get_dashboard_version)
+    * [restore\_dashboard\_version](#dashboard.Dashboard.restore_dashboard_version)
+    * [calculate\_dashboard\_diff](#dashboard.Dashboard.calculate_dashboard_diff)
 
-<a id="grafana_api.dashboard"></a>
+<a id="dashboard"></a>
 
-# grafana\_api.dashboard
+# dashboard
 
-<a id="grafana_api.dashboard.Dashboard"></a>
+<a id="dashboard.Dashboard"></a>
 
 ## Dashboard Objects
 
@@ -38,7 +38,7 @@ The class includes all necessary methods to access the Grafana dashboard API end
 
 - `grafana_api_model` _APIModel_ - This is where we store the grafana_api_model
 
-<a id="grafana_api.dashboard.Dashboard.create_or_update_dashboard"></a>
+<a id="dashboard.Dashboard.create_or_update_dashboard"></a>
 
 #### create\_or\_update\_dashboard
 
@@ -69,7 +69,7 @@ The method includes a functionality to create the specified dashboard
 
   None
 
-<a id="grafana_api.dashboard.Dashboard.delete_dashboard_by_name_and_path"></a>
+<a id="dashboard.Dashboard.delete_dashboard_by_name_and_path"></a>
 
 #### delete\_dashboard\_by\_name\_and\_path
 
@@ -96,7 +96,7 @@ The method includes a functionality to delete the specified dashboard inside the
 
   None
 
-<a id="grafana_api.dashboard.Dashboard.get_dashboard_by_uid"></a>
+<a id="dashboard.Dashboard.get_dashboard_by_uid"></a>
 
 #### get\_dashboard\_by\_uid
 
@@ -121,7 +121,7 @@ The method includes a functionality to get the dashboard from the specified uid
 
 - `api_call` _dict_ - Returns the dashboard
 
-<a id="grafana_api.dashboard.Dashboard.get_dashboard_home"></a>
+<a id="dashboard.Dashboard.get_dashboard_home"></a>
 
 #### get\_dashboard\_home
 
@@ -140,7 +140,7 @@ The method includes a functionality to get the home dashboard
 
 - `api_call` _dict_ - Returns the home dashboard
 
-<a id="grafana_api.dashboard.Dashboard.get_dashboard_tags"></a>
+<a id="dashboard.Dashboard.get_dashboard_tags"></a>
 
 #### get\_dashboard\_tags
 
@@ -159,7 +159,7 @@ The method includes a functionality to get the all tags of all dashboards
 
 - `api_call` _list_ - Returns all dashboard tags
 
-<a id="grafana_api.dashboard.Dashboard.get_dashboard_uid_and_id_by_name_and_folder"></a>
+<a id="dashboard.Dashboard.get_dashboard_uid_and_id_by_name_and_folder"></a>
 
 #### get\_dashboard\_uid\_and\_id\_by\_name\_and\_folder
 
@@ -186,7 +186,7 @@ The method includes a functionality to extract the dashboard uid specified insid
 
 - `api_call` _dict_ - Returns the dashboard uid and the id
 
-<a id="grafana_api.dashboard.Dashboard.get_dashboard_permissions"></a>
+<a id="dashboard.Dashboard.get_dashboard_permissions"></a>
 
 #### get\_dashboard\_permissions
 
@@ -211,7 +211,7 @@ The method includes a functionality to extract the dashboard permissions based o
 
 - `api_call` _list_ - Returns the dashboard permissions of a dashboard as list
 
-<a id="grafana_api.dashboard.Dashboard.update_dashboard_permissions"></a>
+<a id="dashboard.Dashboard.update_dashboard_permissions"></a>
 
 #### update\_dashboard\_permissions
 
@@ -237,7 +237,7 @@ The method includes a functionality to update the dashboard permissions based on
 
   None
 
-<a id="grafana_api.dashboard.Dashboard.get_dashboard_versions"></a>
+<a id="dashboard.Dashboard.get_dashboard_versions"></a>
 
 #### get\_dashboard\_versions
 
@@ -262,7 +262,7 @@ The method includes a functionality to extract the versions of a dashboard based
 
 - `api_call` _list_ - Returns all dashboard versions of a dashboard as list
 
-<a id="grafana_api.dashboard.Dashboard.get_dashboard_version"></a>
+<a id="dashboard.Dashboard.get_dashboard_version"></a>
 
 #### get\_dashboard\_version
 
@@ -288,7 +288,7 @@ The method includes a functionality to extract a specified version of a dashboar
 
 - `api_call` _list_ - Returns a dashboard version of a dashboard as dict
 
-<a id="grafana_api.dashboard.Dashboard.restore_dashboard_version"></a>
+<a id="dashboard.Dashboard.restore_dashboard_version"></a>
 
 #### restore\_dashboard\_version
 
@@ -314,7 +314,7 @@ The method includes a functionality to restore a specified version of a dashboar
 
   None
 
-<a id="grafana_api.dashboard.Dashboard.calculate_dashboard_diff"></a>
+<a id="dashboard.Dashboard.calculate_dashboard_diff"></a>
 
 #### calculate\_dashboard\_diff
 

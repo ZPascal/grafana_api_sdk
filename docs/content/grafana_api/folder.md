@@ -1,23 +1,23 @@
 # Table of Contents
 
-* [grafana\_api.folder](#grafana_api.folder)
-  * [Folder](#grafana_api.folder.Folder)
-    * [get\_folders](#grafana_api.folder.Folder.get_folders)
-    * [get\_folder\_by\_uid](#grafana_api.folder.Folder.get_folder_by_uid)
-    * [get\_folder\_by\_id](#grafana_api.folder.Folder.get_folder_by_id)
-    * [create\_folder](#grafana_api.folder.Folder.create_folder)
-    * [update\_folder](#grafana_api.folder.Folder.update_folder)
-    * [delete\_folder](#grafana_api.folder.Folder.delete_folder)
-    * [get\_folder\_permissions](#grafana_api.folder.Folder.get_folder_permissions)
-    * [update\_folder\_permissions](#grafana_api.folder.Folder.update_folder_permissions)
-    * [get\_folder\_id\_by\_dashboard\_path](#grafana_api.folder.Folder.get_folder_id_by_dashboard_path)
-    * [get\_all\_folder\_ids\_and\_names](#grafana_api.folder.Folder.get_all_folder_ids_and_names)
+* [folder](#folder)
+  * [Folder](#folder.Folder)
+    * [get\_folders](#folder.Folder.get_folders)
+    * [get\_folder\_by\_uid](#folder.Folder.get_folder_by_uid)
+    * [get\_folder\_by\_id](#folder.Folder.get_folder_by_id)
+    * [create\_folder](#folder.Folder.create_folder)
+    * [update\_folder](#folder.Folder.update_folder)
+    * [delete\_folder](#folder.Folder.delete_folder)
+    * [get\_folder\_permissions](#folder.Folder.get_folder_permissions)
+    * [update\_folder\_permissions](#folder.Folder.update_folder_permissions)
+    * [get\_folder\_id\_by\_dashboard\_path](#folder.Folder.get_folder_id_by_dashboard_path)
+    * [get\_all\_folder\_ids\_and\_names](#folder.Folder.get_all_folder_ids_and_names)
 
-<a id="grafana_api.folder"></a>
+<a id="folder"></a>
 
-# grafana\_api.folder
+# folder
 
-<a id="grafana_api.folder.Folder"></a>
+<a id="folder.Folder"></a>
 
 ## Folder Objects
 
@@ -36,7 +36,7 @@ The class includes all necessary methods to access the Grafana folder API endpoi
 
 - `grafana_api_model` _APIModel_ - This is where we store the grafana_api_model
 
-<a id="grafana_api.folder.Folder.get_folders"></a>
+<a id="folder.Folder.get_folders"></a>
 
 #### get\_folders
 
@@ -55,7 +55,7 @@ The method includes a functionality to extract all folders inside the organizati
 
 - `api_call` _list_ - Returns all folders
 
-<a id="grafana_api.folder.Folder.get_folder_by_uid"></a>
+<a id="folder.Folder.get_folder_by_uid"></a>
 
 #### get\_folder\_by\_uid
 
@@ -80,7 +80,7 @@ The method includes a functionality to extract all folder information specified 
 
 - `api_call` _dict_ - Returns a folder
 
-<a id="grafana_api.folder.Folder.get_folder_by_id"></a>
+<a id="folder.Folder.get_folder_by_id"></a>
 
 #### get\_folder\_by\_id
 
@@ -105,7 +105,7 @@ The method includes a functionality to extract all folder information specified 
 
 - `api_call` _dict_ - Returns a folder
 
-<a id="grafana_api.folder.Folder.create_folder"></a>
+<a id="folder.Folder.create_folder"></a>
 
 #### create\_folder
 
@@ -131,13 +131,13 @@ The method includes a functionality to create a new folder inside the organizati
 
 - `api_call` _dict_ - Returns a newly created folder
 
-<a id="grafana_api.folder.Folder.update_folder"></a>
+<a id="folder.Folder.update_folder"></a>
 
 #### update\_folder
 
 ```python
 def update_folder(title: str,
-                  uid: str = None,
+                  uid: str,
                   version: int = 0,
                   overwrite: bool = False) -> dict
 ```
@@ -162,7 +162,7 @@ The method includes a functionality to update a folder information inside the or
 
 - `api_call` _dict_ - Returns an updated folder
 
-<a id="grafana_api.folder.Folder.delete_folder"></a>
+<a id="folder.Folder.delete_folder"></a>
 
 #### delete\_folder
 
@@ -187,7 +187,7 @@ The method includes a functionality to delete a folder inside the organization s
 
   None
 
-<a id="grafana_api.folder.Folder.get_folder_permissions"></a>
+<a id="folder.Folder.get_folder_permissions"></a>
 
 #### get\_folder\_permissions
 
@@ -212,7 +212,7 @@ The method includes a functionality to extract the folder permissions inside the
 
 - `api_call` _list_ - Returns a list of folder permissions
 
-<a id="grafana_api.folder.Folder.update_folder_permissions"></a>
+<a id="folder.Folder.update_folder_permissions"></a>
 
 #### update\_folder\_permissions
 
@@ -238,7 +238,7 @@ The method includes a functionality to update the folder permissions based on th
 
   None
 
-<a id="grafana_api.folder.Folder.get_folder_id_by_dashboard_path"></a>
+<a id="folder.Folder.get_folder_id_by_dashboard_path"></a>
 
 #### get\_folder\_id\_by\_dashboard\_path
 
@@ -263,7 +263,7 @@ The method includes a functionality to extract the folder id specified inside mo
 
 - `folder_id` _int_ - Returns the folder id
 
-<a id="grafana_api.folder.Folder.get_all_folder_ids_and_names"></a>
+<a id="folder.Folder.get_all_folder_ids_and_names"></a>
 
 #### get\_all\_folder\_ids\_and\_names
 
