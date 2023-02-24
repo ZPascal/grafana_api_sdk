@@ -1,39 +1,39 @@
 # Table of Contents
 
-* [grafana\_api.alerting](#grafana_api.alerting)
-  * [Alerting](#grafana_api.alerting.Alerting)
-    * [get\_alertmanager\_alerts](#grafana_api.alerting.Alerting.get_alertmanager_alerts)
-    * [create\_or\_update\_alertmanager\_alerts](#grafana_api.alerting.Alerting.create_or_update_alertmanager_alerts)
-    * [get\_alertmanager\_group\_alerts](#grafana_api.alerting.Alerting.get_alertmanager_group_alerts)
-    * [delete\_alertmanager\_silence\_by\_id](#grafana_api.alerting.Alerting.delete_alertmanager_silence_by_id)
-    * [get\_alertmanager\_silence\_by\_id](#grafana_api.alerting.Alerting.get_alertmanager_silence_by_id)
-    * [get\_alertmanager\_silences](#grafana_api.alerting.Alerting.get_alertmanager_silences)
-    * [create\_or\_update\_alertmanager\_silence](#grafana_api.alerting.Alerting.create_or_update_alertmanager_silence)
-    * [get\_alertmanager\_status](#grafana_api.alerting.Alerting.get_alertmanager_status)
-    * [delete\_alertmanager\_config](#grafana_api.alerting.Alerting.delete_alertmanager_config)
-    * [get\_alertmanager\_config](#grafana_api.alerting.Alerting.get_alertmanager_config)
-    * [create\_or\_update\_alertmanager\_config](#grafana_api.alerting.Alerting.create_or_update_alertmanager_config)
-    * [test\_alertmanager\_receivers](#grafana_api.alerting.Alerting.test_alertmanager_receivers)
-    * [get\_prometheus\_alerts](#grafana_api.alerting.Alerting.get_prometheus_alerts)
-    * [get\_prometheus\_rules](#grafana_api.alerting.Alerting.get_prometheus_rules)
-    * [get\_ruler\_rules](#grafana_api.alerting.Alerting.get_ruler_rules)
-    * [delete\_ruler\_namespace](#grafana_api.alerting.Alerting.delete_ruler_namespace)
-    * [get\_ruler\_groups\_by\_namespace](#grafana_api.alerting.Alerting.get_ruler_groups_by_namespace)
-    * [create\_or\_update\_ruler\_group\_by\_namespace](#grafana_api.alerting.Alerting.create_or_update_ruler_group_by_namespace)
-    * [delete\_ruler\_group](#grafana_api.alerting.Alerting.delete_ruler_group)
-    * [get\_ruler\_group](#grafana_api.alerting.Alerting.get_ruler_group)
-    * [test\_rule](#grafana_api.alerting.Alerting.test_rule)
-    * [test\_recipient\_rule](#grafana_api.alerting.Alerting.test_recipient_rule)
-    * [delete\_ngalert\_organization\_configuration](#grafana_api.alerting.Alerting.delete_ngalert_organization_configuration)
-    * [get\_ngalert\_organization\_configuration](#grafana_api.alerting.Alerting.get_ngalert_organization_configuration)
-    * [create\_or\_update\_ngalert\_organization\_configuration](#grafana_api.alerting.Alerting.create_or_update_ngalert_organization_configuration)
-    * [get\_ngalert\_alertmanagers\_by\_organization](#grafana_api.alerting.Alerting.get_ngalert_alertmanagers_by_organization)
+* [alerting](#alerting)
+  * [Alerting](#alerting.Alerting)
+    * [get\_alertmanager\_alerts](#alerting.Alerting.get_alertmanager_alerts)
+    * [create\_or\_update\_alertmanager\_alerts](#alerting.Alerting.create_or_update_alertmanager_alerts)
+    * [get\_alertmanager\_group\_alerts](#alerting.Alerting.get_alertmanager_group_alerts)
+    * [delete\_alertmanager\_silence\_by\_id](#alerting.Alerting.delete_alertmanager_silence_by_id)
+    * [get\_alertmanager\_silence\_by\_id](#alerting.Alerting.get_alertmanager_silence_by_id)
+    * [get\_alertmanager\_silences](#alerting.Alerting.get_alertmanager_silences)
+    * [create\_or\_update\_alertmanager\_silence](#alerting.Alerting.create_or_update_alertmanager_silence)
+    * [get\_alertmanager\_status](#alerting.Alerting.get_alertmanager_status)
+    * [delete\_alertmanager\_config](#alerting.Alerting.delete_alertmanager_config)
+    * [get\_alertmanager\_config](#alerting.Alerting.get_alertmanager_config)
+    * [create\_or\_update\_alertmanager\_config](#alerting.Alerting.create_or_update_alertmanager_config)
+    * [test\_alertmanager\_receivers](#alerting.Alerting.test_alertmanager_receivers)
+    * [get\_prometheus\_alerts](#alerting.Alerting.get_prometheus_alerts)
+    * [get\_prometheus\_rules](#alerting.Alerting.get_prometheus_rules)
+    * [get\_ruler\_rules](#alerting.Alerting.get_ruler_rules)
+    * [delete\_ruler\_namespace](#alerting.Alerting.delete_ruler_namespace)
+    * [get\_ruler\_groups\_by\_namespace](#alerting.Alerting.get_ruler_groups_by_namespace)
+    * [create\_or\_update\_ruler\_group\_by\_namespace](#alerting.Alerting.create_or_update_ruler_group_by_namespace)
+    * [delete\_ruler\_group](#alerting.Alerting.delete_ruler_group)
+    * [get\_ruler\_group](#alerting.Alerting.get_ruler_group)
+    * [test\_rule](#alerting.Alerting.test_rule)
+    * [test\_recipient\_rule](#alerting.Alerting.test_recipient_rule)
+    * [delete\_ngalert\_organization\_configuration](#alerting.Alerting.delete_ngalert_organization_configuration)
+    * [get\_ngalert\_organization\_configuration](#alerting.Alerting.get_ngalert_organization_configuration)
+    * [create\_or\_update\_ngalert\_organization\_configuration](#alerting.Alerting.create_or_update_ngalert_organization_configuration)
+    * [get\_ngalert\_alertmanagers\_by\_organization](#alerting.Alerting.get_ngalert_alertmanagers_by_organization)
 
-<a id="grafana_api.alerting"></a>
+<a id="alerting"></a>
 
-# grafana\_api.alerting
+# alerting
 
-<a id="grafana_api.alerting.Alerting"></a>
+<a id="alerting.Alerting"></a>
 
 ## Alerting Objects
 
@@ -52,7 +52,7 @@ The class includes all necessary methods to access the Grafana alerting API endp
 
 - `grafana_api_model` _APIModel_ - This is where we store the grafana_api_model
 
-<a id="grafana_api.alerting.Alerting.get_alertmanager_alerts"></a>
+<a id="alerting.Alerting.get_alertmanager_alerts"></a>
 
 #### get\_alertmanager\_alerts
 
@@ -77,7 +77,7 @@ The method includes a functionality to get the Alertmanager alerts specified by 
 
 - `api_call` _list_ - Returns the list of Alertmanager alerts
 
-<a id="grafana_api.alerting.Alerting.create_or_update_alertmanager_alerts"></a>
+<a id="alerting.Alerting.create_or_update_alertmanager_alerts"></a>
 
 #### create\_or\_update\_alertmanager\_alerts
 
@@ -104,7 +104,7 @@ The method includes a functionality to create or update the Alertmanager alerts 
 
   None
 
-<a id="grafana_api.alerting.Alerting.get_alertmanager_group_alerts"></a>
+<a id="alerting.Alerting.get_alertmanager_group_alerts"></a>
 
 #### get\_alertmanager\_group\_alerts
 
@@ -129,7 +129,7 @@ The method includes a functionality to get the Alertmanager group alerts specifi
 
 - `api_call` _list_ - Returns the list of Alertmanager group alerts
 
-<a id="grafana_api.alerting.Alerting.delete_alertmanager_silence_by_id"></a>
+<a id="alerting.Alerting.delete_alertmanager_silence_by_id"></a>
 
 #### delete\_alertmanager\_silence\_by\_id
 
@@ -156,7 +156,7 @@ The method includes a functionality to delete the Alertmanager silence specified
 
   None
 
-<a id="grafana_api.alerting.Alerting.get_alertmanager_silence_by_id"></a>
+<a id="alerting.Alerting.get_alertmanager_silence_by_id"></a>
 
 #### get\_alertmanager\_silence\_by\_id
 
@@ -183,7 +183,7 @@ The method includes a functionality to get the Alertmanager silence specified by
 
 - `api_call` _dict_ - Returns the dict of Alertmanager silence alert
 
-<a id="grafana_api.alerting.Alerting.get_alertmanager_silences"></a>
+<a id="alerting.Alerting.get_alertmanager_silences"></a>
 
 #### get\_alertmanager\_silences
 
@@ -208,7 +208,7 @@ The method includes a functionality to get all Alertmanager silences specified b
 
 - `api_call` _list_ - Returns the list of Alertmanager silence alerts
 
-<a id="grafana_api.alerting.Alerting.create_or_update_alertmanager_silence"></a>
+<a id="alerting.Alerting.create_or_update_alertmanager_silence"></a>
 
 #### create\_or\_update\_alertmanager\_silence
 
@@ -235,7 +235,7 @@ The method includes a functionality to create or update the Alertmanager silence
 
 - `api_call` _dict_ - Returns the dict of newly created silence alert
 
-<a id="grafana_api.alerting.Alerting.get_alertmanager_status"></a>
+<a id="alerting.Alerting.get_alertmanager_status"></a>
 
 #### get\_alertmanager\_status
 
@@ -260,7 +260,7 @@ The method includes a functionality to get the Alertmanager status specified by 
 
 - `api_call` _dict_ - Returns the dict of the Alertmanager status
 
-<a id="grafana_api.alerting.Alerting.delete_alertmanager_config"></a>
+<a id="alerting.Alerting.delete_alertmanager_config"></a>
 
 #### delete\_alertmanager\_config
 
@@ -285,7 +285,7 @@ The method includes a functionality to delete the Alertmanager config specified 
 
   None
 
-<a id="grafana_api.alerting.Alerting.get_alertmanager_config"></a>
+<a id="alerting.Alerting.get_alertmanager_config"></a>
 
 #### get\_alertmanager\_config
 
@@ -310,7 +310,7 @@ The method includes a functionality to get the Alertmanager config specified by 
 
 - `api_call` _dict_ - Returns the dict of the Alertmanager config
 
-<a id="grafana_api.alerting.Alerting.create_or_update_alertmanager_config"></a>
+<a id="alerting.Alerting.create_or_update_alertmanager_config"></a>
 
 #### create\_or\_update\_alertmanager\_config
 
@@ -340,7 +340,7 @@ The method includes a functionality to create or update the Alertmanager config 
 
   None
 
-<a id="grafana_api.alerting.Alerting.test_alertmanager_receivers"></a>
+<a id="alerting.Alerting.test_alertmanager_receivers"></a>
 
 #### test\_alertmanager\_receivers
 
@@ -369,7 +369,7 @@ The method includes a functionality to test the Alertmanager receivers specified
 
   None
 
-<a id="grafana_api.alerting.Alerting.get_prometheus_alerts"></a>
+<a id="alerting.Alerting.get_prometheus_alerts"></a>
 
 #### get\_prometheus\_alerts
 
@@ -394,7 +394,7 @@ The method includes a functionality to get all prometheus alerts specified by th
 
 - `api_call` _dict_ - Returns the dict of the prometheus alerts
 
-<a id="grafana_api.alerting.Alerting.get_prometheus_rules"></a>
+<a id="alerting.Alerting.get_prometheus_rules"></a>
 
 #### get\_prometheus\_rules
 
@@ -419,7 +419,7 @@ The method includes a functionality to get all prometheus rules specified by the
 
 - `api_call` _dict_ - Returns the dict of the prometheus rules
 
-<a id="grafana_api.alerting.Alerting.get_ruler_rules"></a>
+<a id="alerting.Alerting.get_ruler_rules"></a>
 
 #### get\_ruler\_rules
 
@@ -444,7 +444,7 @@ The method includes a functionality to get all ruler rules specified by the reci
 
 - `api_call` _dict_ - Returns the dict of the ruler rules
 
-<a id="grafana_api.alerting.Alerting.delete_ruler_namespace"></a>
+<a id="alerting.Alerting.delete_ruler_namespace"></a>
 
 #### delete\_ruler\_namespace
 
@@ -470,7 +470,7 @@ The method includes a functionality to delete a ruler namespace specified by the
 
   None
 
-<a id="grafana_api.alerting.Alerting.get_ruler_groups_by_namespace"></a>
+<a id="alerting.Alerting.get_ruler_groups_by_namespace"></a>
 
 #### get\_ruler\_groups\_by\_namespace
 
@@ -497,7 +497,7 @@ The method includes a functionality to get all ruler groups specified by the nam
 
 - `api_call` _dict_ - Returns the dict of the ruler groups
 
-<a id="grafana_api.alerting.Alerting.create_or_update_ruler_group_by_namespace"></a>
+<a id="alerting.Alerting.create_or_update_ruler_group_by_namespace"></a>
 
 #### create\_or\_update\_ruler\_group\_by\_namespace
 
@@ -530,7 +530,7 @@ The method includes a functionality to create or update a ruler group specified 
 
   None
 
-<a id="grafana_api.alerting.Alerting.delete_ruler_group"></a>
+<a id="alerting.Alerting.delete_ruler_group"></a>
 
 #### delete\_ruler\_group
 
@@ -559,7 +559,7 @@ The method includes a functionality to delete a ruler group specified by the nam
 
   None
 
-<a id="grafana_api.alerting.Alerting.get_ruler_group"></a>
+<a id="alerting.Alerting.get_ruler_group"></a>
 
 #### get\_ruler\_group
 
@@ -588,7 +588,7 @@ The method includes a functionality to get a ruler group specified by the namesp
 
 - `api_call` _dict_ - Returns the dict of all ruler groups
 
-<a id="grafana_api.alerting.Alerting.test_rule"></a>
+<a id="alerting.Alerting.test_rule"></a>
 
 #### test\_rule
 
@@ -613,7 +613,7 @@ The method includes a functionality to test a rule specified by a list of dataso
 
 - `api_call` _str_ - Returns the result of the specified query
 
-<a id="grafana_api.alerting.Alerting.test_recipient_rule"></a>
+<a id="alerting.Alerting.test_recipient_rule"></a>
 
 #### test\_recipient\_rule
 
@@ -644,7 +644,7 @@ The method includes a functionality to test a recipient role specified by the ex
 
 - `api_call` _dict_ - Returns the result of the specified recipient rule
 
-<a id="grafana_api.alerting.Alerting.delete_ngalert_organization_configuration"></a>
+<a id="alerting.Alerting.delete_ngalert_organization_configuration"></a>
 
 #### delete\_ngalert\_organization\_configuration
 
@@ -663,7 +663,7 @@ The method includes a functionality to delete the NGAlert organization admin con
 
   None
 
-<a id="grafana_api.alerting.Alerting.get_ngalert_organization_configuration"></a>
+<a id="alerting.Alerting.get_ngalert_organization_configuration"></a>
 
 #### get\_ngalert\_organization\_configuration
 
@@ -682,7 +682,7 @@ The method includes a functionality to get the NGAlert organization admin config
 
 - `api_call` _dict_ - Returns the NGAlert organization configuration
 
-<a id="grafana_api.alerting.Alerting.create_or_update_ngalert_organization_configuration"></a>
+<a id="alerting.Alerting.create_or_update_ngalert_organization_configuration"></a>
 
 #### create\_or\_update\_ngalert\_organization\_configuration
 
@@ -709,7 +709,7 @@ The method includes a functionality to create or update the NGAlert organization
 
   None
 
-<a id="grafana_api.alerting.Alerting.get_ngalert_alertmanagers_by_organization"></a>
+<a id="alerting.Alerting.get_ngalert_alertmanagers_by_organization"></a>
 
 #### get\_ngalert\_alertmanagers\_by\_organization
 
