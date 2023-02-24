@@ -188,6 +188,7 @@ class AlertRuleQueryModel:
         ref_id (str): Specify the unique identifier of the alert rule query model
         type (str): Specify the corresponding type
     """
+
     conditions: List[AlertRuleQueryModelCondition]
     datasource: dict
     expression: str
@@ -312,24 +313,24 @@ class Route:
         group_by_str (List[str]): Specify the list of group by strings
         mute_time_intervals (List[str]): Specify the mute time interval as list
         receiver (str): Specify the receiver
-        routes (List[Route]): Specify the list of routes
         group_interval (int): Specify the group time interval
         group_wait (int): Specify the group wait time
         object_matchers (List[Matcher]):  Specify the list of object matchers
         provenance (str): Specify the provenance
         repeat_interval (int): Specify the repeat interval
+        routes (List[Route]): Specify the list of routes (default None)
     """
 
     continue_parameter: bool
     group_by_str: List[str]
     mute_time_intervals: List[str]
     receiver: str
-    routes: List[Self]
     group_interval: int
     group_wait: int
     object_matchers: List[Matcher]
     provenance: str
     repeat_interval: int
+    routes: List[Self] = None
 
 
 @dataclass

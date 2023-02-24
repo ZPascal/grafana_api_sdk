@@ -18,8 +18,12 @@ class AnnotationsTest(TestCase):
     annotations: Annotations = Annotations(model)
 
     def test_a_find_annotations(self):
-        self.assertEqual(140, self.find_annotation_by_text(
-            "Test {alertname=Test, grafana_folder=Github Integrationtest} - Normal"))
+        self.assertEqual(
+            140,
+            self.find_annotation_by_text(
+                "Test {alertname=Test, grafana_folder=Github Integrationtest} - Normal"
+            ),
+        )
 
     def test_b_create_annotation(self):
         annotations: AnnotationObject = AnnotationObject(
