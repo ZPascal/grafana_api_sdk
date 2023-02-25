@@ -1,30 +1,32 @@
 {
-  "dashboard": {
-    "annotations": {
-      "list": []
-    },
-    "editable": true,
-    "fiscalYearStartMonth": 0,
-    "graphTooltip": 0,
-    "id": 152,
-    "links": [],
-    "liveNow": false,
-    "panels": [],
-    "schemaVersion": 34,
-    "style": "dark",
-    "tags": [],
-    "templating": {
-      "list": []
-    },
-    "time": {
-      "from": "now-6h",
-      "to": "now"
-    },
-    "timepicker": {},
-    "timezone": "",
-    "title": "Test 1",
-    "uid": "test1",
-    "version": 3,
-    "weekStart": ""
-  }
+ "dashboard": {
+  "annotations": {
+   "list": []
+  },
+  "editable": true,
+  "graphTooltip": 1,
+  "hideControls": false,
+  "id": 653,
+  "links": [],
+  "panels": [],
+  "refresh": "5s",
+  "schemaVersion": 17,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+   "list": []
+  },
+  "time": {
+   "from": "now-6h",
+   "to": "now"
+  },
+  "timepicker": {
+   "refresh_intervals": [],
+   "time_options": []
+  },
+  "timezone": "browser",
+  "title": "1Test",
+  "uid": "tests",
+  "version": 2
+ }
 }

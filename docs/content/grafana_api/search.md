@@ -1,14 +1,14 @@
 # Table of Contents
 
-* [grafana\_api.search](#grafana_api.search)
-  * [Search](#grafana_api.search.Search)
-    * [search](#grafana_api.search.Search.search)
+* [search](#search)
+  * [Search](#search.Search)
+    * [search](#search.Search.search)
 
-<a id="grafana_api.search"></a>
+<a id="search"></a>
 
-# grafana\_api.search
+# search
 
-<a id="grafana_api.search.Search"></a>
+<a id="search.Search"></a>
 
 ## Search Objects
 
@@ -27,7 +27,7 @@ The class includes all necessary methods to access the Grafana search API endpoi
 
 - `grafana_api_model` _APIModel_ - This is where we store the grafana_api_model
 
-<a id="grafana_api.search.Search.search"></a>
+<a id="search.Search.search"></a>
 
 #### search
 
