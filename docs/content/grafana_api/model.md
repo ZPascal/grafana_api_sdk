@@ -300,12 +300,12 @@ The class includes all necessary variables to generate an alert rule route that 
 - `group_by_str` _List[str]_ - Specify the list of group by strings
 - `mute_time_intervals` _List[str]_ - Specify the mute time interval as list
 - `receiver` _str_ - Specify the receiver
-- `routes` _List[Route]_ - Specify the list of routes
 - `group_interval` _int_ - Specify the group time interval
 - `group_wait` _int_ - Specify the group wait time
 - `object_matchers` _List[Matcher]_ - Specify the list of object matchers
 - `provenance` _str_ - Specify the provenance
 - `repeat_interval` _int_ - Specify the repeat interval
+- `routes` _List[Route]_ - Specify the list of routes (default None)
 
 <a id="model.DayOfMonthRange"></a>
 
