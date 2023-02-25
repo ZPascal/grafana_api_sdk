@@ -291,7 +291,7 @@ class Dashboard:
             logging.error("There is no dashboard uid or permission json defined.")
             raise ValueError
 
-    # TODO Get dashboard versions by uid and deprecate the old version using owly ids
+    # TODO Get dashboard versions by uid and deprecate the old version using only ids
     # https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
 
     def get_dashboard_versions(self, id: int) -> list:

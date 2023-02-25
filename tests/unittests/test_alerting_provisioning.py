@@ -11,6 +11,13 @@ from grafana_api.model import (
     Route,
     Matcher,
     MatchType,
+    MuteTimeInterval,
+    TimeInterval,
+    DayOfMonthRange,
+    MonthRange,
+    TimeRange,
+    WeekdayRange,
+    YearRange,
 )
 from grafana_api.alerting_provisioning import AlertingProvisioning
 
@@ -141,7 +148,7 @@ class AlertingProvisioningTestCase(TestCase):
         call_the_api_mock.return_value = dict({"status": 400})
 
         with self.assertRaises(Exception):
-            alerting_provisioning.update_alert_rule("", self.alert_rule)
+            alerting_provisioning.update_alert_rule("test", self.alert_rule)
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_update_the_interval_of_a_alert_rule_group(self, call_the_api_mock):
@@ -409,6 +416,304 @@ class AlertingProvisioningTestCase(TestCase):
 
         with self.assertRaises(Exception):
             alerting_provisioning.add_notification_policies(self.route)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_all_mute_timings(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = list([{"test": "test"}])
+
+        self.assertEqual(
+            list([{"test": "test"}]), alerting_provisioning.get_all_mute_timings()
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_all_mute_timings_not_possible(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = list()
+
+        with self.assertRaises(Exception):
+            alerting_provisioning.get_all_mute_timings()
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_mute_timing(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = dict({"test": "test"})
+
+        self.assertEqual(
+            dict({"test": "test"}), alerting_provisioning.get_mute_timing("test")
+        )
+
+    def test_get_mute_timing_no_name(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        with self.assertRaises(ValueError):
+            alerting_provisioning.get_mute_timing("")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_mute_timing_not_possible(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = dict()
+
+        with self.assertRaises(Exception):
+            alerting_provisioning.get_mute_timing("test")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_add_mute_timing(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+        days_of_month: DayOfMonthRange = DayOfMonthRange(1, 1)
+        month_range: MonthRange = MonthRange(1, 1)
+        time_range: TimeRange = TimeRange(1, 1)
+        weekday_range: WeekdayRange = WeekdayRange(1, 1)
+        year_range: YearRange = YearRange(1, 1)
+        time_interval: TimeInterval = TimeInterval(
+            [days_of_month], [month_range], [time_range], [weekday_range], [year_range]
+        )
+        mute_time_interval: MuteTimeInterval = MuteTimeInterval("test", [time_interval])
+
+        call_the_api_mock.return_value = dict({"status": 201})
+
+        self.assertEqual(
+            None, alerting_provisioning.add_mute_timing(mute_time_interval)
+        )
+
+    def test_add_mute_timing_no_mute_time_interval(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        with self.assertRaises(ValueError):
+            alerting_provisioning.add_mute_timing(None)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_add_mute_timing_not_possible(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+        mute_time_interval: MuteTimeInterval = MuteTimeInterval("test")
+
+        call_the_api_mock.return_value = dict({"status": 400})
+
+        with self.assertRaises(Exception):
+            alerting_provisioning.add_mute_timing(mute_time_interval)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_update_mute_timing(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+        mute_time_interval: MuteTimeInterval = MuteTimeInterval("test", None)
+
+        call_the_api_mock.return_value = dict({"status": 201})
+
+        self.assertEqual(
+            None, alerting_provisioning.update_mute_timing("test", mute_time_interval)
+        )
+
+    def test_update_mute_timing_no_name(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        with self.assertRaises(ValueError):
+            alerting_provisioning.update_mute_timing("", None)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_update_mute_timing_not_possible(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+        mute_time_interval: MuteTimeInterval = MuteTimeInterval("test")
+
+        call_the_api_mock.return_value = dict({"status": 400})
+
+        with self.assertRaises(Exception):
+            alerting_provisioning.update_mute_timing("test", mute_time_interval)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_delete_mute_timing(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = dict({"status": 201})
+
+        self.assertEqual(None, alerting_provisioning.delete_mute_timing("test"))
+
+    def test_delete_mute_timing_no_name(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        with self.assertRaises(ValueError):
+            alerting_provisioning.delete_mute_timing("")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_delete_mute_timing_not_possible(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = dict({"status": 400})
+
+        with self.assertRaises(Exception):
+            alerting_provisioning.delete_mute_timing("test")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_all_message_templates(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = list([{"test": "test"}])
+
+        self.assertEqual(
+            list([{"test": "test"}]), alerting_provisioning.get_all_message_templates()
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_all_message_templates_not_possible(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = list()
+
+        with self.assertRaises(Exception):
+            alerting_provisioning.get_all_message_templates()
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_message_template(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = dict({"status": 201, "test": "test"})
+
+        self.assertEqual(
+            dict({"status": 201, "test": "test"}),
+            alerting_provisioning.get_message_template("test"),
+        )
+
+    def test_get_message_template_no_name(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        with self.assertRaises(ValueError):
+            alerting_provisioning.get_message_template("")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_message_template_not_possible(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = dict({"status": 400})
+
+        with self.assertRaises(Exception):
+            alerting_provisioning.get_message_template("test")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_create_or_update_message_template(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = dict({"status": 201})
+
+        self.assertEqual(
+            None,
+            alerting_provisioning.create_or_update_message_template("test", "test"),
+        )
+
+    def test_create_or_update_message_template_no_name(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        with self.assertRaises(ValueError):
+            alerting_provisioning.create_or_update_message_template("", "")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_create_or_update_message_template_not_possible(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = dict({"status": 400})
+
+        with self.assertRaises(Exception):
+            alerting_provisioning.create_or_update_message_template("test", "test")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_delete_message_template(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = dict({"status": 201})
+
+        self.assertEqual(None, alerting_provisioning.delete_message_template("test"))
+
+    def test_delete_message_template_no_name(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        with self.assertRaises(ValueError):
+            alerting_provisioning.delete_message_template("")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_delete_message_template_not_possible(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = dict({"status": 400})
+
+        with self.assertRaises(Exception):
+            alerting_provisioning.delete_message_template("test")
 
     @staticmethod
     def __create_alert_rule_mock() -> AlertRule:

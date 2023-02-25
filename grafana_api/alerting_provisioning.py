@@ -23,8 +23,6 @@ from .model import (
 )
 from .api import Api
 
-
-# TODO Unittests
 # TODO Integrationtest
 
 
@@ -412,7 +410,7 @@ class AlertingProvisioning:
             Exception: Unspecified error by executing the API call
 
         Returns:
-            api_call (list): Returns all mute timings
+            api_call (dict): Returns the mute timing
         """
 
         if len(name) != 0:
@@ -440,7 +438,7 @@ class AlertingProvisioning:
             Exception: Unspecified error by executing the API call
 
         Returns:
-            api_call (list): Returns all mute timings
+            None
         """
 
         if mute_time_interval is not None:
@@ -472,7 +470,7 @@ class AlertingProvisioning:
             Exception: Unspecified error by executing the API call
 
         Returns:
-            api_call (list): Returns all mute timings
+            None
         """
 
         if len(name) != 0 and mute_time_interval is not None:
@@ -503,7 +501,7 @@ class AlertingProvisioning:
             Exception: Unspecified error by executing the API call
 
         Returns:
-            api_call (list): Returns all mute timings
+            None
         """
 
         if len(name) != 0:
@@ -553,7 +551,7 @@ class AlertingProvisioning:
             Exception: Unspecified error by executing the API call
 
         Returns:
-            api_call (list): Returns all message templates
+            api_call (dict): Returns the message template
         """
 
         if len(name) != 0:
@@ -614,7 +612,7 @@ class AlertingProvisioning:
             Exception: Unspecified error by executing the API call
 
         Returns:
-            api_call (list): Returns all mute timings
+            None
         """
 
         if len(name) != 0:
@@ -633,10 +631,18 @@ class AlertingProvisioning:
             logging.error("There is no name defined.")
             raise ValueError
 
-    # TODO Document the helpers
     def __create_mute_timing_dictionary(
         self, mute_time_interval: MuteTimeInterval
     ) -> dict:
+        """The method includes a functionality to create the mute timing dictionary
+
+        Args:
+            mute_time_interval (MuteTimeInterval): Specify the mute time interval
+
+        Returns:
+            result (dict): Returns the mute timing dictionary
+        """
+
         return dict(
             {
                 "name": mute_time_interval.name,
@@ -648,23 +654,35 @@ class AlertingProvisioning:
 
     def __create_mute_timing_interval_list(
         self, time_intervals: List[TimeInterval]
-    ) -> list:
+    ) -> (list, None):
+        """The method includes a functionality to create the mute timing interval list
+
+        Args:
+            time_intervals (List[TimeInterval]): Specify the list of time intervals
+
+        Returns:
+            result (list, None): Returns the mute time interval list or None
+        """
+
         mute_timing_interval_list: list = list()
 
-        for time_interval in time_intervals:
-            mute_timing_interval_list.append(
-                {
-                    "daysOfMonth": self.__create_timing_list(
-                        time_interval.days_of_month
-                    ),
-                    "months": self.__create_timing_list(time_interval.months),
-                    "times": self.__create_timing_list(time_interval.times),
-                    "weekdays": self.__create_timing_list(time_interval.weekdays),
-                    "years": self.__create_timing_list(time_interval.years),
-                }
-            )
+        if time_intervals is not None and type(time_intervals) == list:
+            for time_interval in time_intervals:
+                mute_timing_interval_list.append(
+                    {
+                        "daysOfMonth": self.__create_timing_list(
+                            time_interval.days_of_month
+                        ),
+                        "months": self.__create_timing_list(time_interval.months),
+                        "times": self.__create_timing_list(time_interval.times),
+                        "weekdays": self.__create_timing_list(time_interval.weekdays),
+                        "years": self.__create_timing_list(time_interval.years),
+                    }
+                )
 
-        return mute_timing_interval_list
+            return mute_timing_interval_list
+        else:
+            return time_intervals
 
     @staticmethod
     def __create_timing_list(
@@ -676,6 +694,15 @@ class AlertingProvisioning:
             List[YearRange],
         )
     ) -> list:
+        """The method includes a functionality to create the timing list
+
+        Args:
+            timing (List[DayOfMonthRange], List[MonthRange], List[TimeRange], List[WeekdayRange], List[YearRange]): Specify the list of time points
+
+        Returns:
+            timing_list (list): Returns the time list
+        """
+
         timing_list: list = list()
 
         for time in timing:
@@ -684,6 +711,15 @@ class AlertingProvisioning:
         return timing_list
 
     def __create_alert_route_dictionary(self, route: Route) -> dict:
+        """The method includes a functionality to create the alert route dictionary
+
+        Args:
+            route (Route): Specify the route
+
+        Returns:
+            result (dict): Returns the alert route dictionary
+        """
+
         return dict(
             {
                 "continue": route.continue_parameter,
@@ -702,6 +738,15 @@ class AlertingProvisioning:
         )
 
     def __create_alert_routes_list(self, routes: List[Route]) -> (list, None):
+        """The method includes a functionality to create the alert route list
+
+        Args:
+            routes (List[Route]): Specify the list of alert routes
+
+        Returns:
+            result (list, None): Returns the alert routes list or None
+        """
+
         routes_list: list = list()
 
         if routes is not None and type(routes) == list:
@@ -714,6 +759,15 @@ class AlertingProvisioning:
 
     @staticmethod
     def __create_object_matcher_list(matchers: List[Matcher]) -> list:
+        """The method includes a functionality to create the object matcher list
+
+        Args:
+            matchers (List[Matcher]): Specify the list of object matchers
+
+        Returns:
+            route_matchers_list (list): Returns the list of object matchers
+        """
+
         route_matchers_list: list = list()
 
         for matcher in matchers:
@@ -730,11 +784,20 @@ class AlertingProvisioning:
         return route_matchers_list
 
     def __create_alert_rule_dictionary(self, alert_rule: AlertRule) -> dict:
+        """The method includes a functionality to create the alert rule dictionary
+
+        Args:
+            alert_rule (AlertRule): Specify the alert rule
+
+        Returns:
+            result (dict): Returns the alert rule dictionary
+        """
+
         return dict(
             {
                 "annotations": alert_rule.annotations,
                 "condition": alert_rule.condition,
-                "data": self.__create_alert_rule_query_dictionary(alert_rule.data),
+                "data": self.__create_alert_rule_query_list(alert_rule.data),
                 "execErrState": alert_rule.exec_err_state,
                 "folderUID": alert_rule.folder_uid,
                 "id": alert_rule.id,
@@ -750,9 +813,16 @@ class AlertingProvisioning:
             }
         )
 
-    def __create_alert_rule_query_dictionary(
-        self, alert_queries: List[AlertQuery]
-    ) -> list:
+    def __create_alert_rule_query_list(self, alert_queries: List[AlertQuery]) -> list:
+        """The method includes a functionality to create the alert rule query list
+
+        Args:
+            alert_queries (List[AlertQuery]): Specify the alert rule query list
+
+        Returns:
+            alert_rule_queries_list (list): Returns the alert rule query list
+        """
+
         alert_rule_queries_list: list = list()
 
         for alert_query in alert_queries:
@@ -778,6 +848,15 @@ class AlertingProvisioning:
     def __create_alert_rule_query_model_dictionary(
         self, alert_query_model: AlertRuleQueryModel
     ) -> dict:
+        """The method includes a functionality to create the alert rule query model dictionary
+
+        Args:
+            alert_query_model (AlertRuleQueryModel): Specify the alert rule query model
+
+        Returns:
+            result (dict): Returns the alert rule query model dictionary
+        """
+
         return dict(
             {
                 "conditions": self.__create_alert_rule_query_model_condition_list(
@@ -797,6 +876,14 @@ class AlertingProvisioning:
     def __create_alert_rule_query_model_condition_list(
         alert_rule_query_model_conditions: List[AlertRuleQueryModelCondition],
     ) -> list:
+        """The method includes a functionality to create the alert rule query model condition list
+
+        Args:
+            alert_rule_query_model_conditions (List[AlertRuleQueryModelCondition]): Specify the alert rule query model conditions list
+
+        Returns:
+            alert_rule_query_model_conditions_list (list): Returns the alert rule query model conditions list
+        """
 
         alert_rule_query_model_conditions_list: list = list()
 
