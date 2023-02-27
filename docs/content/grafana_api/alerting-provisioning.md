@@ -356,7 +356,7 @@ The method includes a functionality to get a mute timings specified by the name
 
 **Returns**:
 
-- `api_call` _list_ - Returns all mute timings
+- `api_call` _dict_ - Returns the mute timing
 
 <a id="alerting_provisioning.AlertingProvisioning.add_mute_timing"></a>
 
@@ -381,7 +381,7 @@ The method includes a functionality to create a mute timing
 
 **Returns**:
 
-- `api_call` _list_ - Returns all mute timings
+  None
 
 <a id="alerting_provisioning.AlertingProvisioning.update_mute_timing"></a>
 
@@ -407,7 +407,7 @@ The method includes a functionality to update an existing mute timing
 
 **Returns**:
 
-- `api_call` _list_ - Returns all mute timings
+  None
 
 <a id="alerting_provisioning.AlertingProvisioning.delete_mute_timing"></a>
 
@@ -432,7 +432,7 @@ The method includes a functionality to delete a mute timings specified by the na
 
 **Returns**:
 
-- `api_call` _list_ - Returns all mute timings
+  None
 
 <a id="alerting_provisioning.AlertingProvisioning.get_all_message_templates"></a>
 
@@ -476,7 +476,7 @@ The method includes a functionality to get a message template specified by the n
 
 **Returns**:
 
-- `api_call` _list_ - Returns all message templates
+- `api_call` _dict_ - Returns the message template
 
 <a id="alerting_provisioning.AlertingProvisioning.create_or_update_message_template"></a>
 
@@ -527,5 +527,5 @@ The method includes a functionality to delete a message template
 
 **Returns**:
 
-- `api_call` _list_ - Returns all mute timings
+  None
 
