@@ -15,15 +15,9 @@ from .model import (
     Matcher,
     MuteTimeInterval,
     TimeInterval,
-    DayOfMonthRange,
-    MonthRange,
     TimeRange,
-    WeekdayRange,
-    YearRange,
 )
 from .api import Api
-
-# TODO Integrationtest
 
 
 class AlertingProvisioning:
@@ -58,7 +52,7 @@ class AlertingProvisioning:
                 f"{APIEndpoints.ALERTING_PROVISIONING.value}/alert-rules/{uid}",
             )
 
-            if api_call == dict() or api_call.get("id") is not None:
+            if api_call == dict() or api_call.get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -88,6 +82,7 @@ class AlertingProvisioning:
                 json.dumps(self.__create_alert_rule_dictionary(alert_rule)),
                 response_status_code=True,
             )
+
             if 200 <= api_call.get("status") >= 300:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
@@ -119,6 +114,7 @@ class AlertingProvisioning:
                 json.dumps(self.__create_alert_rule_dictionary(alert_rule)),
                 response_status_code=True,
             )
+
             if 200 <= api_call.get("status") >= 300:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
@@ -153,6 +149,7 @@ class AlertingProvisioning:
                 json.dumps({"interval": alert_rule_group_interval}),
                 response_status_code=True,
             )
+
             if 200 <= api_call.get("status") >= 300:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
@@ -185,6 +182,7 @@ class AlertingProvisioning:
                 RequestsMethods.DELETE,
                 response_status_code=True,
             )
+
             if 200 <= api_call.get("status") >= 300:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
@@ -393,7 +391,7 @@ class AlertingProvisioning:
             f"{APIEndpoints.ALERTING_PROVISIONING.value}/mute-timings",
         )
 
-        if api_call == list():
+        if type(api_call) != list:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
@@ -534,7 +532,7 @@ class AlertingProvisioning:
             f"{APIEndpoints.ALERTING_PROVISIONING.value}/templates",
         )
 
-        if api_call == list():
+        if type(api_call) != list:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
@@ -670,13 +668,11 @@ class AlertingProvisioning:
             for time_interval in time_intervals:
                 mute_timing_interval_list.append(
                     {
-                        "daysOfMonth": self.__create_timing_list(
-                            time_interval.days_of_month
-                        ),
-                        "months": self.__create_timing_list(time_interval.months),
-                        "times": self.__create_timing_list(time_interval.times),
-                        "weekdays": self.__create_timing_list(time_interval.weekdays),
-                        "years": self.__create_timing_list(time_interval.years),
+                        "days_of_month": time_interval.days_of_month,
+                        "months": time_interval.months,
+                        "times": self.__create_time_range_list(time_interval.times),
+                        "weekdays": time_interval.weekdays,
+                        "years": time_interval.years,
                     }
                 )
 
@@ -685,19 +681,11 @@ class AlertingProvisioning:
             return time_intervals
 
     @staticmethod
-    def __create_timing_list(
-        timing: (
-            List[DayOfMonthRange],
-            List[MonthRange],
-            List[TimeRange],
-            List[WeekdayRange],
-            List[YearRange],
-        )
-    ) -> list:
-        """The method includes a functionality to create the timing list
+    def __create_time_range_list(timing: List[TimeRange]) -> (list, None):
+        """The method includes a functionality to create the time range list
 
         Args:
-            timing (List[DayOfMonthRange], List[MonthRange], List[TimeRange], List[WeekdayRange], List[YearRange]): Specify the list of time points
+            timing (List[TimeRange]): Specify the list of time points
 
         Returns:
             timing_list (list): Returns the time list
@@ -705,10 +693,15 @@ class AlertingProvisioning:
 
         timing_list: list = list()
 
-        for time in timing:
-            timing_list.append({"begin": time.begin, "end": time.end})
+        if timing is not None and type(timing) == list:
+            for time in timing:
+                timing_list.append(
+                    {"start_time": time.start_time, "end_time": time.end_time}
+                )
 
-        return timing_list
+            return timing_list
+        else:
+            return timing
 
     def __create_alert_route_dictionary(self, route: Route) -> dict:
         """The method includes a functionality to create the alert route dictionary
@@ -758,7 +751,7 @@ class AlertingProvisioning:
             return routes
 
     @staticmethod
-    def __create_object_matcher_list(matchers: List[Matcher]) -> list:
+    def __create_object_matcher_list(matchers: List[Matcher]) -> (list, None):
         """The method includes a functionality to create the object matcher list
 
         Args:
@@ -770,18 +763,21 @@ class AlertingProvisioning:
 
         route_matchers_list: list = list()
 
-        for matcher in matchers:
-            route_matcher_dict: dict = dict(
-                {
-                    "name": matcher.name,
-                    "type": matcher.type.value,
-                    "value": matcher.value,
-                }
-            )
+        if matchers is not None and type(matchers) == list:
+            for matcher in matchers:
+                route_matcher_dict: dict = dict(
+                    {
+                        "name": matcher.name,
+                        "type": matcher.type.value,
+                        "value": matcher.value,
+                    }
+                )
 
-            route_matchers_list.append(route_matcher_dict)
+                route_matchers_list.append(route_matcher_dict)
 
-        return route_matchers_list
+            return route_matchers_list
+        else:
+            return matchers
 
     def __create_alert_rule_dictionary(self, alert_rule: AlertRule) -> dict:
         """The method includes a functionality to create the alert rule dictionary

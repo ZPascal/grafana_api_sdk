@@ -105,7 +105,6 @@ class DashboardTest(TestCase):
                 dashboard_name=os.environ["GRAFANA_DASHBOARD_NAME"],
             )
 
-    # TODO Test version and permission endpoint
     def test_f_calculate_dashboard_diff_json_mode(self):
         with open(
             f"{os.getcwd()}{os.sep}tests{os.sep}integrationtest{os.sep}resources{os.sep}dashboard_diff_a.json"

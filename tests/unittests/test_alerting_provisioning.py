@@ -13,11 +13,7 @@ from grafana_api.model import (
     MatchType,
     MuteTimeInterval,
     TimeInterval,
-    DayOfMonthRange,
-    MonthRange,
     TimeRange,
-    WeekdayRange,
-    YearRange,
 )
 from grafana_api.alerting_provisioning import AlertingProvisioning
 
@@ -29,19 +25,13 @@ class AlertingProvisioningTestCase(TestCase):
             "test", "test", {"test": "test"}
         )
         matcher: Matcher = Matcher("test", MatchType.MatchEqual, "test")
-        route_2: Route = Route(
-            False, ["test"], ["test"], "test", 1, 1, [matcher], "test", 1
-        )
+        route_2: Route = Route(False, ["test"], "test", "test")
         self.route: Route = Route(
             False,
             ["test"],
-            ["test"],
             "test",
-            1,
-            1,
-            [matcher],
             "test",
-            1,
+            object_matchers=[matcher],
             routes=[route_2],
         )
 
@@ -52,10 +42,10 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"test": "test"})
+        call_the_api_mock.return_value = dict({"id": "test"})
 
         self.assertEqual(
-            dict({"test": "test"}),
+            dict({"id": "test"}),
             alerting_provisioning.get_alert_rule("test"),
         )
 
@@ -87,7 +77,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 201})
+        call_the_api_mock.return_value = dict({"status": 200})
 
         self.assertEqual(
             None,
@@ -122,7 +112,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 201})
+        call_the_api_mock.return_value = dict({"status": 200})
 
         self.assertEqual(
             None,
@@ -198,7 +188,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 201})
+        call_the_api_mock.return_value = dict({"status": 204})
 
         self.assertEqual(
             None,
@@ -437,7 +427,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = list()
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             alerting_provisioning.get_all_mute_timings()
@@ -482,13 +472,9 @@ class AlertingProvisioningTestCase(TestCase):
         alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
             grafana_api_model=model
         )
-        days_of_month: DayOfMonthRange = DayOfMonthRange(1, 1)
-        month_range: MonthRange = MonthRange(1, 1)
         time_range: TimeRange = TimeRange(1, 1)
-        weekday_range: WeekdayRange = WeekdayRange(1, 1)
-        year_range: YearRange = YearRange(1, 1)
         time_interval: TimeInterval = TimeInterval(
-            [days_of_month], [month_range], [time_range], [weekday_range], [year_range]
+            ["test"], ["test"], [time_range], ["test"], ["test"]
         )
         mute_time_interval: MuteTimeInterval = MuteTimeInterval("test", [time_interval])
 
@@ -608,7 +594,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = list()
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             alerting_provisioning.get_all_message_templates()
@@ -736,5 +722,14 @@ class AlertingProvisioningTestCase(TestCase):
             "test", alert_rule_query_model, "test", "test", 1, 1
         )
         return AlertRule(
-            "test", [alert_query], "test", "test", "test", 1, "test", "test", "test", 1
+            "test",
+            [alert_query],
+            "test",
+            "test",
+            "test",
+            1,
+            "test",
+            "test",
+            "test",
+            "1m",
         )

@@ -50,7 +50,7 @@ class APIEndpoints(Enum):
     SERVICE_ACCOUNTS: str = f"{api_prefix}/serviceaccounts"
     RBAC: str = f"{api_prefix}/access-control"
     LIBRARY: str = f"{api_prefix}/library-elements"
-    ALERTING_PROVISIONING: str = f"{api_prefix}{version_1}/provisioning"
+    ALERTING_PROVISIONING: str = f"{api_prefix}/{version_1}/provisioning"
 
 
 class RequestsMethods(Enum):
@@ -251,7 +251,7 @@ class AlertRule:
     rule_group: str
     title: str
     uid: str
-    for_time: int
+    for_time: str
     annotations: dict = None
     updated: str = None
     provenance: str = None
@@ -311,52 +311,26 @@ class Route:
     Args:
         continue_parameter (bool): Specify the continue parameter
         group_by_str (List[str]): Specify the list of group by strings
-        mute_time_intervals (List[str]): Specify the mute time interval as list
         receiver (str): Specify the receiver
-        group_interval (int): Specify the group time interval
-        group_wait (int): Specify the group wait time
-        object_matchers (List[Matcher]):  Specify the list of object matchers
         provenance (str): Specify the provenance
-        repeat_interval (int): Specify the repeat interval
+        object_matchers (List[Matcher]):  Specify the list of object matchers (default None)
+        group_interval (str): Specify the group time interval (default None)
+        group_wait (str): Specify the group wait time (default None)
+        repeat_interval (str): Specify the repeat interval (default None)
         routes (List[Route]): Specify the list of routes (default None)
+        mute_time_intervals (List[str]): Specify the mute time interval as list (default None)
     """
 
     continue_parameter: bool
     group_by_str: List[str]
-    mute_time_intervals: List[str]
     receiver: str
-    group_interval: int
-    group_wait: int
-    object_matchers: List[Matcher]
     provenance: str
-    repeat_interval: int
+    object_matchers: List[Matcher] = None
+    group_interval: str = None
+    group_wait: str = None
+    repeat_interval: str = None
     routes: List[Self] = None
-
-
-@dataclass
-class DayOfMonthRange:
-    """The class includes all necessary variables to generate a day of month range object that is necessary to communicate with the Grafana alert provisioning endpoint
-
-    Args:
-        begin (int): Specify the begin time
-        end (int): Specify the end time
-    """
-
-    begin: int
-    end: int
-
-
-@dataclass
-class MonthRange:
-    """The class includes all necessary variables to generate a month range object that is necessary to communicate with the Grafana alert provisioning endpoint
-
-    Args:
-        begin (int): Specify the begin time
-        end (int): Specify the end time
-    """
-
-    begin: int
-    end: int
+    mute_time_intervals: List[str] = None
 
 
 @dataclass
@@ -364,38 +338,12 @@ class TimeRange:
     """The class includes all necessary variables to generate a time range object that is necessary to communicate with the Grafana alert provisioning endpoint
 
     Args:
-        begin (int): Specify the begin time
-        end (int): Specify the end time
+        start_time (str): Specify the start time e.g. 14:00
+        start_time (str): Specify the end time e.g. 15:00
     """
 
-    begin: int
-    end: int
-
-
-@dataclass
-class WeekdayRange:
-    """The class includes all necessary variables to generate a weekday range object that is necessary to communicate with the Grafana alert provisioning endpoint
-
-    Args:
-        begin (int): Specify the begin time
-        end (int): Specify the end time
-    """
-
-    begin: int
-    end: int
-
-
-@dataclass
-class YearRange:
-    """The class includes all necessary variables to generate a year range object that is necessary to communicate with the Grafana alert provisioning endpoint
-
-    Args:
-        begin (int): Specify the begin time
-        end (int): Specify the end time
-    """
-
-    begin: int
-    end: int
+    start_time: str
+    end_time: str
 
 
 @dataclass
@@ -403,18 +351,18 @@ class TimeInterval:
     """The class includes all necessary variables to generate a time interval object that is necessary to communicate with the Grafana alert provisioning endpoint
 
     Args:
-        days_of_month (List[DayOfMonthRange]): Specify the days of month list
-        months (List[MonthRange]):  Specify the months list
-        times (List[TimeRange]):  Specify the times list
-        weekdays (List[WeekdayRange]):  Specify the weekdays list
-        years (List[YearRange]):  Specify the year range list
+        days_of_month (List[str]): Specify the days of month list (default None)
+        months (List[str]):  Specify the months list (default None)
+        times (TimeRange):  Specify the times list (default None)
+        weekdays (List[str]):  Specify the weekdays list (default None)
+        years (List[str]):  Specify the year range list (default None)
     """
 
-    days_of_month: List[DayOfMonthRange]
-    months: List[MonthRange]
-    times: List[TimeRange]
-    weekdays: List[WeekdayRange]
-    years: List[YearRange]
+    days_of_month: List[str] = None
+    months: List[str] = None
+    times: List[TimeRange] = None
+    weekdays: List[str] = None
+    years: List[str] = None
 
 
 @dataclass

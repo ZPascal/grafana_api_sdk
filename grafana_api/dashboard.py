@@ -229,9 +229,6 @@ class Dashboard:
             logging.error("There is no dashboard_name or dashboard_path defined.")
             raise ValueError
 
-    # TODO Get dashboard permissions by uid
-    # https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
-
     def get_dashboard_permissions(self, id: int) -> list:
         """The method includes a functionality to extract the dashboard permissions based on the specified id
 
@@ -249,6 +246,34 @@ class Dashboard:
         if id != 0:
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DASHBOARDS.value}/id/{id}/permissions"
+            )
+
+            if api_call == list() or api_call[0].get("role") is None:
+                logging.error(f"Please, check the error: {api_call}.")
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error("There is no dashboard id defined.")
+            raise ValueError
+
+    def get_dashboard_permissions_by_uid(self, uid: str) -> list:
+        """The method includes a functionality to extract the dashboard permissions based on the specified uid
+
+        Args:
+            uid (str): Specify the uid of the dashboard
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (list): Returns the dashboard permissions of a dashboard as list
+        """
+
+        if len(uid) != 0:
+            api_call: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DASHBOARDS.value}/uid/{uid}/permissions"
             )
 
             if api_call == list() or api_call[0].get("role") is None:
@@ -288,11 +313,39 @@ class Dashboard:
             else:
                 logging.info("You successfully modified the dashboard permissions.")
         else:
-            logging.error("There is no dashboard uid or permission json defined.")
+            logging.error("There is no dashboard id or permission json defined.")
             raise ValueError
 
-    # TODO Get dashboard versions by uid and deprecate the old version using only ids
-    # https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+    def update_dashboard_permissions_by_uid(self, uid: str, permission_json: dict):
+        """The method includes a functionality to update the dashboard permissions based on the specified uid and the permission json document
+
+        Args:
+            uid (str): Specify the uid of the dashboard
+            permission_json (dict): Specify the inserted permissions as dict
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            None
+        """
+
+        if len(uid) != 0 and len(permission_json) != 0:
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DASHBOARDS.value}/uid/{uid}/permissions",
+                RequestsMethods.POST,
+                json.dumps(permission_json),
+            )
+
+            if api_call.get("message") != "Dashboard permissions updated":
+                logging.error(f"Please, check the error: {api_call}.")
+                raise Exception
+            else:
+                logging.info("You successfully modified the dashboard permissions.")
+        else:
+            logging.error("There is no dashboard uid or permission json defined.")
+            raise ValueError
 
     def get_dashboard_versions(self, id: int) -> list:
         """The method includes a functionality to extract the versions of a dashboard based on the specified id
@@ -314,6 +367,34 @@ class Dashboard:
             )
 
             if api_call == list() or api_call[0].get("id") is None:
+                logging.error(f"Please, check the error: {api_call}.")
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error("There is no dashboard id defined.")
+            raise ValueError
+
+    def get_dashboard_versions_by_uid(self, uid: str) -> list:
+        """The method includes a functionality to extract the versions of a dashboard based on the specified uid
+
+        Args:
+            uid (str): Specify the id of the dashboard
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (list): Returns all dashboard versions of a dashboard as list
+        """
+
+        if len(uid) != 0:
+            api_call: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DASHBOARDS.value}/uid/{uid}/versions",
+            )
+
+            if api_call == list() or api_call[0].get("uid") is None:
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
@@ -348,11 +429,40 @@ class Dashboard:
             else:
                 return api_call
         else:
+            logging.error("There is no dashboard id or version_id defined.")
+            raise ValueError
+
+    def get_dashboard_version_by_uid(self, uid: str, version_id: int) -> dict:
+        """The method includes a functionality to extract a specified version of a dashboard based on the specified dashboard uid and a version_id of the dashboard
+
+        Args:
+            uid (str): Specify the uid of the dashboard
+            version_id (int): Specify the version_id of a dashboard
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (list): Returns a dashboard version of a dashboard as dict
+        """
+
+        if len(uid) != 0 and version_id != 0:
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DASHBOARDS.value}/uid/{uid}/versions/{version_id}",
+            )
+
+            if api_call == dict() or api_call.get("uid") is None:
+                logging.error(f"Please, check the error: {api_call}.")
+                raise Exception
+            else:
+                return api_call
+        else:
             logging.error("There is no dashboard uid or version_id defined.")
             raise ValueError
 
     def restore_dashboard_version(self, id: int, version: dict):
-        """The method includes a functionality to restore a specified version of a dashboard based on the specified dashboard uid and a version as dict of the dashboard
+        """The method includes a functionality to restore a specified version of a dashboard based on the specified dashboard id and a version as dict of the dashboard
 
         Args:
             id (int): Specify the id of the dashboard
@@ -369,6 +479,40 @@ class Dashboard:
         if id != 0 and version != dict():
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DASHBOARDS.value}/id/{id}/restore",
+                RequestsMethods.POST,
+                json.dumps(version),
+            )
+
+            if (
+                api_call.get("status") != "success"
+                or api_call.get("message") is not None
+            ):
+                logging.error(f"Check the error: {api_call}.")
+                raise Exception
+            else:
+                logging.info("You successfully restored the dashboard.")
+        else:
+            logging.error("There is no dashboard id or version_id defined.")
+            raise ValueError
+
+    def restore_dashboard_version_by_uid(self, uid: str, version: dict):
+        """The method includes a functionality to restore a specified version of a dashboard based on the specified dashboard uid and a version as dict of the dashboard
+
+        Args:
+            uid (str): Specify the uid of the dashboard
+            version (dict): Specify the version_id of a dashboard
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            None
+        """
+
+        if len(uid) != 0 and version != dict():
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DASHBOARDS.value}/uid/{uid}/restore",
                 RequestsMethods.POST,
                 json.dumps(version),
             )

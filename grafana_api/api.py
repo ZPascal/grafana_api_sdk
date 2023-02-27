@@ -156,7 +156,12 @@ class Api:
                 json_response[0].update({"status": response.status})
             return json_response
         else:
-            return response
+            if response_status_code:
+                return dict(
+                    {"status": response.status, "data": response.data.decode("utf-8")}
+                )
+            else:
+                return response
 
     @staticmethod
     def __check_if_valid_json(response: any) -> bool:
