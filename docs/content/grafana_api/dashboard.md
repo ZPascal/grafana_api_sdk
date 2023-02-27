@@ -9,10 +9,15 @@
     * [get\_dashboard\_tags](#dashboard.Dashboard.get_dashboard_tags)
     * [get\_dashboard\_uid\_and\_id\_by\_name\_and\_folder](#dashboard.Dashboard.get_dashboard_uid_and_id_by_name_and_folder)
     * [get\_dashboard\_permissions](#dashboard.Dashboard.get_dashboard_permissions)
+    * [get\_dashboard\_permissions\_by\_uid](#dashboard.Dashboard.get_dashboard_permissions_by_uid)
     * [update\_dashboard\_permissions](#dashboard.Dashboard.update_dashboard_permissions)
+    * [update\_dashboard\_permissions\_by\_uid](#dashboard.Dashboard.update_dashboard_permissions_by_uid)
     * [get\_dashboard\_versions](#dashboard.Dashboard.get_dashboard_versions)
+    * [get\_dashboard\_versions\_by\_uid](#dashboard.Dashboard.get_dashboard_versions_by_uid)
     * [get\_dashboard\_version](#dashboard.Dashboard.get_dashboard_version)
+    * [get\_dashboard\_version\_by\_uid](#dashboard.Dashboard.get_dashboard_version_by_uid)
     * [restore\_dashboard\_version](#dashboard.Dashboard.restore_dashboard_version)
+    * [restore\_dashboard\_version\_by\_uid](#dashboard.Dashboard.restore_dashboard_version_by_uid)
     * [calculate\_dashboard\_diff](#dashboard.Dashboard.calculate_dashboard_diff)
 
 <a id="dashboard"></a>
@@ -211,6 +216,31 @@ The method includes a functionality to extract the dashboard permissions based o
 
 - `api_call` _list_ - Returns the dashboard permissions of a dashboard as list
 
+<a id="dashboard.Dashboard.get_dashboard_permissions_by_uid"></a>
+
+#### get\_dashboard\_permissions\_by\_uid
+
+```python
+def get_dashboard_permissions_by_uid(uid: str) -> list
+```
+
+The method includes a functionality to extract the dashboard permissions based on the specified uid
+
+**Arguments**:
+
+- `uid` _str_ - Specify the uid of the dashboard
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+- `api_call` _list_ - Returns the dashboard permissions of a dashboard as list
+
 <a id="dashboard.Dashboard.update_dashboard_permissions"></a>
 
 #### update\_dashboard\_permissions
@@ -224,6 +254,32 @@ The method includes a functionality to update the dashboard permissions based on
 **Arguments**:
 
 - `id` _int_ - Specify the id of the dashboard
+- `permission_json` _dict_ - Specify the inserted permissions as dict
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+  None
+
+<a id="dashboard.Dashboard.update_dashboard_permissions_by_uid"></a>
+
+#### update\_dashboard\_permissions\_by\_uid
+
+```python
+def update_dashboard_permissions_by_uid(uid: str, permission_json: dict)
+```
+
+The method includes a functionality to update the dashboard permissions based on the specified uid and the permission json document
+
+**Arguments**:
+
+- `uid` _str_ - Specify the uid of the dashboard
 - `permission_json` _dict_ - Specify the inserted permissions as dict
   
 
@@ -262,6 +318,31 @@ The method includes a functionality to extract the versions of a dashboard based
 
 - `api_call` _list_ - Returns all dashboard versions of a dashboard as list
 
+<a id="dashboard.Dashboard.get_dashboard_versions_by_uid"></a>
+
+#### get\_dashboard\_versions\_by\_uid
+
+```python
+def get_dashboard_versions_by_uid(uid: str) -> list
+```
+
+The method includes a functionality to extract the versions of a dashboard based on the specified uid
+
+**Arguments**:
+
+- `uid` _str_ - Specify the id of the dashboard
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+- `api_call` _list_ - Returns all dashboard versions of a dashboard as list
+
 <a id="dashboard.Dashboard.get_dashboard_version"></a>
 
 #### get\_dashboard\_version
@@ -288,6 +369,32 @@ The method includes a functionality to extract a specified version of a dashboar
 
 - `api_call` _list_ - Returns a dashboard version of a dashboard as dict
 
+<a id="dashboard.Dashboard.get_dashboard_version_by_uid"></a>
+
+#### get\_dashboard\_version\_by\_uid
+
+```python
+def get_dashboard_version_by_uid(uid: str, version_id: int) -> dict
+```
+
+The method includes a functionality to extract a specified version of a dashboard based on the specified dashboard uid and a version_id of the dashboard
+
+**Arguments**:
+
+- `uid` _str_ - Specify the uid of the dashboard
+- `version_id` _int_ - Specify the version_id of a dashboard
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+- `api_call` _list_ - Returns a dashboard version of a dashboard as dict
+
 <a id="dashboard.Dashboard.restore_dashboard_version"></a>
 
 #### restore\_dashboard\_version
@@ -296,11 +403,37 @@ The method includes a functionality to extract a specified version of a dashboar
 def restore_dashboard_version(id: int, version: dict)
 ```
 
-The method includes a functionality to restore a specified version of a dashboard based on the specified dashboard uid and a version as dict of the dashboard
+The method includes a functionality to restore a specified version of a dashboard based on the specified dashboard id and a version as dict of the dashboard
 
 **Arguments**:
 
 - `id` _int_ - Specify the id of the dashboard
+- `version` _dict_ - Specify the version_id of a dashboard
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+  None
+
+<a id="dashboard.Dashboard.restore_dashboard_version_by_uid"></a>
+
+#### restore\_dashboard\_version\_by\_uid
+
+```python
+def restore_dashboard_version_by_uid(uid: str, version: dict)
+```
+
+The method includes a functionality to restore a specified version of a dashboard based on the specified dashboard uid and a version as dict of the dashboard
+
+**Arguments**:
+
+- `uid` _str_ - Specify the uid of the dashboard
 - `version` _dict_ - Specify the version_id of a dashboard
   
 

@@ -15,11 +15,7 @@
   * [MatchType](#model.MatchType)
   * [Matcher](#model.Matcher)
   * [Route](#model.Route)
-  * [DayOfMonthRange](#model.DayOfMonthRange)
-  * [MonthRange](#model.MonthRange)
   * [TimeRange](#model.TimeRange)
-  * [WeekdayRange](#model.WeekdayRange)
-  * [YearRange](#model.YearRange)
   * [TimeInterval](#model.TimeInterval)
   * [MuteTimeInterval](#model.MuteTimeInterval)
   * [Silence](#model.Silence)
@@ -298,46 +294,14 @@ The class includes all necessary variables to generate an alert rule route that 
 
 - `continue_parameter` _bool_ - Specify the continue parameter
 - `group_by_str` _List[str]_ - Specify the list of group by strings
-- `mute_time_intervals` _List[str]_ - Specify the mute time interval as list
 - `receiver` _str_ - Specify the receiver
-- `group_interval` _int_ - Specify the group time interval
-- `group_wait` _int_ - Specify the group wait time
-- `object_matchers` _List[Matcher]_ - Specify the list of object matchers
 - `provenance` _str_ - Specify the provenance
-- `repeat_interval` _int_ - Specify the repeat interval
+- `object_matchers` _List[Matcher]_ - Specify the list of object matchers (default None)
+- `group_interval` _str_ - Specify the group time interval (default None)
+- `group_wait` _str_ - Specify the group wait time (default None)
+- `repeat_interval` _str_ - Specify the repeat interval (default None)
 - `routes` _List[Route]_ - Specify the list of routes (default None)
-
-<a id="model.DayOfMonthRange"></a>
-
-## DayOfMonthRange Objects
-
-```python
-@dataclass
-class DayOfMonthRange()
-```
-
-The class includes all necessary variables to generate a day of month range object that is necessary to communicate with the Grafana alert provisioning endpoint
-
-**Arguments**:
-
-- `begin` _int_ - Specify the begin time
-- `end` _int_ - Specify the end time
-
-<a id="model.MonthRange"></a>
-
-## MonthRange Objects
-
-```python
-@dataclass
-class MonthRange()
-```
-
-The class includes all necessary variables to generate a month range object that is necessary to communicate with the Grafana alert provisioning endpoint
-
-**Arguments**:
-
-- `begin` _int_ - Specify the begin time
-- `end` _int_ - Specify the end time
+- `mute_time_intervals` _List[str]_ - Specify the mute time interval as list (default None)
 
 <a id="model.TimeRange"></a>
 
@@ -352,40 +316,8 @@ The class includes all necessary variables to generate a time range object that 
 
 **Arguments**:
 
-- `begin` _int_ - Specify the begin time
-- `end` _int_ - Specify the end time
-
-<a id="model.WeekdayRange"></a>
-
-## WeekdayRange Objects
-
-```python
-@dataclass
-class WeekdayRange()
-```
-
-The class includes all necessary variables to generate a weekday range object that is necessary to communicate with the Grafana alert provisioning endpoint
-
-**Arguments**:
-
-- `begin` _int_ - Specify the begin time
-- `end` _int_ - Specify the end time
-
-<a id="model.YearRange"></a>
-
-## YearRange Objects
-
-```python
-@dataclass
-class YearRange()
-```
-
-The class includes all necessary variables to generate a year range object that is necessary to communicate with the Grafana alert provisioning endpoint
-
-**Arguments**:
-
-- `begin` _int_ - Specify the begin time
-- `end` _int_ - Specify the end time
+- `start_time` _str_ - Specify the start time e.g. 14:00
+- `start_time` _str_ - Specify the end time e.g. 15:00
 
 <a id="model.TimeInterval"></a>
 
@@ -400,11 +332,11 @@ The class includes all necessary variables to generate a time interval object th
 
 **Arguments**:
 
-- `days_of_month` _List[DayOfMonthRange]_ - Specify the days of month list
-- `months` _List[MonthRange]_ - Specify the months list
-- `times` _List[TimeRange]_ - Specify the times list
-- `weekdays` _List[WeekdayRange]_ - Specify the weekdays list
-- `years` _List[YearRange]_ - Specify the year range list
+- `days_of_month` _List[str]_ - Specify the days of month list (default None)
+- `months` _List[str]_ - Specify the months list (default None)
+- `times` _TimeRange_ - Specify the times list (default None)
+- `weekdays` _List[str]_ - Specify the weekdays list (default None)
+- `years` _List[str]_ - Specify the year range list (default None)
 
 <a id="model.MuteTimeInterval"></a>
 
