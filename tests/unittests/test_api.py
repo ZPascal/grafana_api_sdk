@@ -173,13 +173,30 @@ class ApiTestCase(TestCase):
             self.api._Api__check_the_api_call_response(response=mock)
 
     @patch("grafana_api.api.Api._Api__check_if_valid_json")
-    def test__check_the_api_call_response_valid_json(self, check_if_valid_json_mock):
+    def test_check_the_api_call_response_valid_json(self, check_if_valid_json_mock):
         check_if_valid_json_mock.return_value = True
 
         mock: Mock = Mock()
         mock.data = b"{}"
 
         self.assertEqual({}, self.api._Api__check_the_api_call_response(response=mock))
+
+    @patch("grafana_api.api.Api._Api__check_if_valid_json")
+    def test_check_the_api_call_response_no_valid_json_status_code_result(
+        self, check_if_valid_json_mock
+    ):
+        check_if_valid_json_mock.return_value = False
+
+        mock: Mock = Mock()
+        mock.data = b""
+        mock.status = 200
+
+        self.assertEqual(
+            dict({"status": 200, "data": ""}),
+            self.api._Api__check_the_api_call_response(
+                response=mock, response_status_code=True
+            ),
+        )
 
     def test_check_the_api_call_response_return_status_code_dict(self):
         mock: Mock = Mock()
