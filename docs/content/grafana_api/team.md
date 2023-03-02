@@ -314,10 +314,11 @@ Scope: teams:*
 def update_team_preferences(id: int,
                             theme: str = "",
                             timezone: str = "",
-                            home_dashboard_id: int = 0)
+                            home_dashboard_id: int = 0,
+                            home_dashboard_uid: str = None)
 ```
 
-The method includes a functionality to update the organization team preferences specified by the team_id, theme, home_dashboard_id and timezone
+The method includes a functionality to update the organization team preferences specified by the team_id, theme, timezone and home_dashboard_id or home_dashboard_uid
 
 Required Permissions:
 Action: teams:write
@@ -329,6 +330,7 @@ Scope: teams:*
 - `theme` _str_ - Specify the team theme e.g. light or dark (default Grafana theme)
 - `timezone` _str_ - Specify the team timezone e.g. utc or browser (default Grafana timezone)
 - `home_dashboard_id` _int_ - Specify the home team dashboard by id (default 0)
+- `home_dashboard_uid` _str_ - Specify the home team dashboard by uid (default None)
   
 
 **Raises**:
