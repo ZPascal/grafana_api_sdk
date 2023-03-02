@@ -312,8 +312,8 @@ Scope: teams:*
 
 ```python
 def update_team_preferences(id: int,
-                            theme: str = "",
-                            timezone: str = "",
+                            theme: str = None,
+                            timezone: str = None,
                             home_dashboard_id: int = 0,
                             home_dashboard_uid: str = None)
 ```
@@ -327,8 +327,8 @@ Scope: teams:*
 **Arguments**:
 
 - `id` _int_ - Specify the team id
-- `theme` _str_ - Specify the team theme e.g. light or dark (default Grafana theme)
-- `timezone` _str_ - Specify the team timezone e.g. utc or browser (default Grafana timezone)
+- `theme` _str_ - Specify the team theme e.g. light or dark (default Grafana None)
+- `timezone` _str_ - Specify the team timezone e.g. utc or browser (default Grafana None)
 - `home_dashboard_id` _int_ - Specify the home team dashboard by id (default 0)
 - `home_dashboard_uid` _str_ - Specify the home team dashboard by uid (default None)
   

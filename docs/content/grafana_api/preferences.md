@@ -54,20 +54,20 @@ The method includes a functionality to get the current user preferences
 #### update\_current\_user\_preferences
 
 ```python
-def update_current_user_preferences(theme: str = "",
+def update_current_user_preferences(theme: str = None,
+                                    timezone: str = None,
                                     home_dashboard_id: int = 0,
-                                    home_dashboard_uid: str = None,
-                                    timezone: str = "")
+                                    home_dashboard_uid: str = None)
 ```
 
 The method includes a functionality to update the current user preferences
 
 **Arguments**:
 
-- `theme` _str_ - Specify the theme e.g. light, dark, or an empty string for the default theme (default empty string)
+- `theme` _str_ - Specify the theme e.g. light, dark, or an empty string for the default theme (default None)
 - `home_dashboard_id` _int_ - Specify the dashboard id of the home folder (default 0)
 - `home_dashboard_uid` _str_ - Specify the home team dashboard by uid (default None)
-- `timezone` _str_ - Specify the timezone e.g. utc, browser, or an empty string for the default (default empty string)
+- `timezone` _str_ - Specify the timezone e.g. utc, browser, or an empty string for the default (default None)
   
 
 **Raises**:
@@ -104,20 +104,20 @@ The method includes a functionality to get the current org preferences
 #### update\_current\_org\_preferences
 
 ```python
-def update_current_org_preferences(theme: str = "",
+def update_current_org_preferences(theme: str = None,
                                    home_dashboard_id: int = 0,
                                    home_dashboard_uid: str = None,
-                                   timezone: str = "")
+                                   timezone: str = None)
 ```
 
 The method includes a functionality to update the current org preferences
 
 **Arguments**:
 
-- `theme` _str_ - Specify the theme e.g. light, dark, or an empty string for the default theme (default empty string)
+- `theme` _str_ - Specify the theme e.g. light, dark, or an empty string for the default theme (default None)
 - `home_dashboard_id` _int_ - Specify the dashboard id of the home folder (default 0)
 - `home_dashboard_uid` _str_ - Specify the home team dashboard by uid (default None)
-- `timezone` _str_ - Specify the timezone e.g. utc, browser, or an empty string for the default (default empty string)
+- `timezone` _str_ - Specify the timezone e.g. utc, browser, or an empty string for the default (default None)
   
 
 **Raises**:
