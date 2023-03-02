@@ -41,19 +41,16 @@ class Preferences:
             return api_call
 
     def update_current_user_preferences(
-        self,
-        theme: str = "",
-        home_dashboard_id: int = 0,
-        home_dashboard_uid: str = None,
-        timezone: str = "",
+            self, theme: str = None, timezone: str = None, home_dashboard_id: int = 0,
+            home_dashboard_uid: str = None
     ):
         """The method includes a functionality to update the current user preferences
 
         Args:
-            theme (str): Specify the theme e.g. light, dark, or an empty string for the default theme (default empty string)
+            theme (str): Specify the theme e.g. light, dark, or an empty string for the default theme (default None)
             home_dashboard_id (int): Specify the dashboard id of the home folder (default 0)
             home_dashboard_uid (str): Specify the home team dashboard by uid (default None)
-            timezone (str): Specify the timezone e.g. utc, browser, or an empty string for the default (default empty string)
+            timezone (str): Specify the timezone e.g. utc, browser, or an empty string for the default (default None)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -63,18 +60,20 @@ class Preferences:
             None
         """
 
-        if len(theme) != 0 or (home_dashboard_id != 0 or home_dashboard_uid is not None) or len(timezone) != 0:
+        if (
+            theme is not None or (home_dashboard_id != 0 or home_dashboard_uid is not None) or timezone is not None
+        ):
             modified_values: dict = dict()
 
-            if len(theme) != 0:
+            if theme is not None:
                 modified_values.update(dict({"theme": theme}))
 
-            if home_dashboard_id is not None and type(home_dashboard_id) == int:
+            if home_dashboard_id != 0 and type(home_dashboard_id) == int:
                 modified_values.update(dict({"homeDashboardId": home_dashboard_id}))
-            elif home_dashboard_uid is not None:
+            else:
                 modified_values.update({"homeDashboardUID": home_dashboard_uid})
 
-            if len(timezone) != 0:
+            if timezone is not None:
                 modified_values.update(dict({"timezone": timezone}))
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
@@ -116,18 +115,18 @@ class Preferences:
 
     def update_current_org_preferences(
         self,
-        theme: str = "",
+        theme: str = None,
         home_dashboard_id: int = 0,
         home_dashboard_uid: str = None,
-        timezone: str = "",
+        timezone: str = None,
     ):
         """The method includes a functionality to update the current org preferences
 
         Args:
-            theme (str): Specify the theme e.g. light, dark, or an empty string for the default theme (default empty string)
+            theme (str): Specify the theme e.g. light, dark, or an empty string for the default theme (default None)
             home_dashboard_id (int): Specify the dashboard id of the home folder (default 0)
             home_dashboard_uid (str): Specify the home team dashboard by uid (default None)
-            timezone (str): Specify the timezone e.g. utc, browser, or an empty string for the default (default empty string)
+            timezone (str): Specify the timezone e.g. utc, browser, or an empty string for the default (default None)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -137,18 +136,20 @@ class Preferences:
             None
         """
 
-        if len(theme) != 0 or (home_dashboard_id != 0 or home_dashboard_uid is not None) or len(timezone) != 0:
+        if (
+                theme is not None or (home_dashboard_id != 0 or home_dashboard_uid is not None) or timezone is not None
+        ):
             modified_values: dict = dict()
 
-            if len(theme) != 0:
+            if theme is not None:
                 modified_values.update(dict({"theme": theme}))
 
-            if home_dashboard_id is not None and type(home_dashboard_id) == int:
+            if home_dashboard_id != 0 and type(home_dashboard_id) == int:
                 modified_values.update(dict({"homeDashboardId": home_dashboard_id}))
-            elif home_dashboard_uid is not None:
+            else:
                 modified_values.update({"homeDashboardUID": home_dashboard_uid})
 
-            if len(timezone) != 0:
+            if timezone is not None:
                 modified_values.update(dict({"timezone": timezone}))
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(

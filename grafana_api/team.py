@@ -26,7 +26,7 @@ class Team:
         self.grafana_api_model = grafana_api_model
 
     def search_team(
-        self, results_per_page: int = 1000, pages: int = 1, query: str = None
+            self, results_per_page: int = 1000, pages: int = 1, query: str = None
     ) -> dict:
         """The method includes a functionality to get the organization teams specified by the optional pagination functionality
 
@@ -332,7 +332,8 @@ class Team:
             raise ValueError
 
     def update_team_preferences(
-        self, id: int, theme: str = "", timezone: str = "", home_dashboard_id: int = 0, home_dashboard_uid: str = None
+            self, id: int, theme: str = None, timezone: str = None, home_dashboard_id: int = 0,
+            home_dashboard_uid: str = None
     ):
         """The method includes a functionality to update the organization team preferences specified by the team_id, theme, timezone and home_dashboard_id or home_dashboard_uid
 
@@ -342,8 +343,8 @@ class Team:
 
         Args:
             id (int): Specify the team id
-            theme (str): Specify the team theme e.g. light or dark (default Grafana theme)
-            timezone (str): Specify the team timezone e.g. utc or browser (default Grafana timezone)
+            theme (str): Specify the team theme e.g. light or dark (default Grafana None)
+            timezone (str): Specify the team timezone e.g. utc or browser (default Grafana None)
             home_dashboard_id (int): Specify the home team dashboard by id (default 0)
             home_dashboard_uid (str): Specify the home team dashboard by uid (default None)
 
@@ -356,21 +357,23 @@ class Team:
         """
 
         if (
-            id != 0
-            and theme is not None
-            and (home_dashboard_id != 0 or home_dashboard_uid is not None)
-            and timezone is not None
+                id != 0
+                and (theme is not None
+                     or (home_dashboard_id != 0 or home_dashboard_uid is not None)
+                     or timezone is not None)
         ):
-            team_preferences: dict = dict(
-                {
-                    "theme": theme,
-                    "timezone": timezone,
-                }
-            )
-            if home_dashboard_id != 0:
-                team_preferences.update({"homeDashboardId": home_dashboard_id})
-            elif home_dashboard_uid is not None:
+            team_preferences: dict = dict()
+
+            if theme is not None:
+                team_preferences.update(dict({"theme": theme}))
+
+            if home_dashboard_id != 0 and type(home_dashboard_id) == int:
+                team_preferences.update(dict({"homeDashboardId": home_dashboard_id}))
+            else:
                 team_preferences.update({"homeDashboardUID": home_dashboard_uid})
+
+            if timezone is not None:
+                team_preferences.update(dict({"timezone": timezone}))
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.TEAMS.value}/{id}/preferences",
