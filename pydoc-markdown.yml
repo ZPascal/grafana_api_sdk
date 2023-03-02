@@ -1,5 +1,6 @@
 loaders:
   - type: python
+    search_path: [grafana_api]
 processors:
   - type: filter
   - type: smart
@@ -14,23 +15,65 @@ renderer:
       name: grafana_api
       children:
         - title: Model
-          contents: [ grafana_api.model.* ]
+          contents: [ model.* ]
         - title: Api
-          contents: [ grafana_api.api.* ]
+          contents: [ api.* ]
         - title: Alerting
-          contents: [ grafana_api.alerting.* ]
+          contents: [ alerting.* ]
+        - title: Alerting Provisioning
+          contents: [ alerting_provisioning.* ]
         - title: Legacy Alerting
-          contents: [ grafana_api.legacy_alerting.* ]
+          contents: [ legacy_alerting.* ]
         - title: Alerting Notifications
-          contents: [ grafana_api.alerting_notifications.* ]
+          contents: [ alerting_notifications.* ]
+        - title: Admin
+          contents: [ admin.* ]
+        - title: Annotations
+          contents: [ annotations.* ]
+        - title: Authentication
+          contents: [ authentication.* ]
+        - title: Correlations
+          contents: [ correlations.* ]
         - title: Datasource
-          contents: [ grafana_api.datasource.* ]
+          contents: [ datasource.* ]
         - title: Dashboard
-          contents: [ grafana_api.dashboard.* ]
+          contents: [ dashboard.* ]
+        - title: External Group
+          contents: [ external_group.* ]
         - title: Folder
-          contents: [ grafana_api.folder.* ]
+          contents: [ folder.* ]
+        - title: Library
+          contents: [ library.* ]
+        - title: Licensing
+          contents: [ licensing.* ]
+        - title: Organisation
+          contents: [ organisation.* ]
+        - title: Other HTTP
+          contents: [ other_http.* ]
+        - title: PlayList
+          contents: [ playlist.* ]
+        - title: Legacy Playlist
+          contents: [ legacy_playlist.* ]
+        - title: Preferences
+          contents: [ preferences.* ]
+        - title: Query History
+          contents: [ query_history.* ]
+        - title: RBAC
+          contents: [ rbac.* ]
+        - title: Reporting
+          contents: [ reporting.* ]
         - title: Search
-          contents: [ grafana_api.search.* ]
+          contents: [ search.* ]
+        - title: Service Account
+          contents: [ service_account.* ]
+        - title: Short url
+          contents: [ short_url.* ]
+        - title: Snapshot
+          contents: [ snapshot.* ]
+        - title: Team
+          contents: [ team.* ]
+        - title: User
+          contents: [ user.* ]
   mkdocs_config:
     site_name: Grafana API SDK
     theme: material
