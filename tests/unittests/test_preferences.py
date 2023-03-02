@@ -37,11 +37,15 @@ class PreferencesTestCase(TestCase):
 
         self.assertEqual(
             None,
-            preferences.update_current_user_preferences(theme="test", home_dashboard_id=1, timezone="test"),
+            preferences.update_current_user_preferences(
+                theme="test", home_dashboard_id=1, timezone="test"
+            ),
         )
 
     @patch("grafana_api.api.Api.call_the_api")
-    def test_update_current_user_preferences_home_dashboard_uid(self, call_the_api_mock):
+    def test_update_current_user_preferences_home_dashboard_uid(
+        self, call_the_api_mock
+    ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         preferences: Preferences = Preferences(grafana_api_model=model)
 
@@ -49,11 +53,15 @@ class PreferencesTestCase(TestCase):
 
         self.assertEqual(
             None,
-            preferences.update_current_user_preferences(theme="test", home_dashboard_uid="test", timezone="test"),
+            preferences.update_current_user_preferences(
+                theme="test", home_dashboard_uid="test", timezone="test"
+            ),
         )
 
     @patch("grafana_api.api.Api.call_the_api")
-    def test_update_current_user_preferences_no_theme_and_timezone(self, call_the_api_mock):
+    def test_update_current_user_preferences_no_theme_and_timezone(
+        self, call_the_api_mock
+    ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         preferences: Preferences = Preferences(grafana_api_model=model)
 
@@ -61,7 +69,9 @@ class PreferencesTestCase(TestCase):
 
         self.assertEqual(
             None,
-            preferences.update_current_user_preferences(theme=None, home_dashboard_uid="test", timezone=None),
+            preferences.update_current_user_preferences(
+                theme=None, home_dashboard_uid="test", timezone=None
+            ),
         )
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -129,7 +139,9 @@ class PreferencesTestCase(TestCase):
 
         self.assertEqual(
             None,
-            preferences.update_current_org_preferences("test", home_dashboard_uid="test", timezone="test")
+            preferences.update_current_org_preferences(
+                "test", home_dashboard_uid="test", timezone="test"
+            ),
         )
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -141,7 +153,9 @@ class PreferencesTestCase(TestCase):
 
         self.assertEqual(
             None,
-            preferences.update_current_org_preferences(theme=None, home_dashboard_id=1, timezone="test")
+            preferences.update_current_org_preferences(
+                theme=None, home_dashboard_id=1, timezone="test"
+            ),
         )
 
     @patch("grafana_api.api.Api.call_the_api")

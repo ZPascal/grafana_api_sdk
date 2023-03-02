@@ -80,10 +80,16 @@ class TeamTest(TestCase):
 
     def test_get_team_preferences(self):
         print(self.team.get_team_preferences(4))
-        self.assertEqual("tests", self.team.get_team_preferences(4).get("homeDashboardUID"))
+        self.assertEqual(
+            "tests", self.team.get_team_preferences(4).get("homeDashboardUID")
+        )
 
     def test_update_team_preferences(self):
-        self.assertIsNone(self.team.update_team_preferences(4, timezone="utc", home_dashboard_uid="tests"))
+        self.assertIsNone(
+            self.team.update_team_preferences(
+                4, timezone="utc", home_dashboard_uid="tests"
+            )
+        )
 
         self.assertEqual("utc", self.team.get_team_preferences(4).get("timezone"))
 

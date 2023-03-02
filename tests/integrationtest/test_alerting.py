@@ -58,7 +58,7 @@ class AlertingTest(TestCase):
             "template_files": None,
             "template_file_provenances": {"test": "api"},
             "alertmanager_config": {
-                'muteTimeProvenances': {'test': 'api'},
+                "muteTimeProvenances": {"test": "api"},
                 "route": {
                     "group_by": ["grafana_folder", "alertname"],
                     "receiver": "grafana-default-email",

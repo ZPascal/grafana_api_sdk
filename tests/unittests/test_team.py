@@ -350,7 +350,10 @@ class TeamTestCase(TestCase):
 
         call_the_api_mock.return_value = dict({"message": "Preferences updated"})
 
-        self.assertEqual(None, team.update_team_preferences(1, home_dashboard_uid="test", timezone="test"))
+        self.assertEqual(
+            None,
+            team.update_team_preferences(1, home_dashboard_uid="test", timezone="test"),
+        )
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_update_team_preferences_only_theme_update(self, call_the_api_mock):
@@ -361,7 +364,12 @@ class TeamTestCase(TestCase):
 
         call_the_api_mock.return_value = dict({"message": "Preferences updated"})
 
-        self.assertEqual(None, team.update_team_preferences(1, home_dashboard_uid="test", home_dashboard_id=0, theme="test"))
+        self.assertEqual(
+            None,
+            team.update_team_preferences(
+                1, home_dashboard_uid="test", home_dashboard_id=0, theme="test"
+            ),
+        )
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_update_team_preferences_no_id(self, call_the_api_mock):

@@ -37,9 +37,7 @@ class AlertingProvisioningTest(TestCase):
         time_interval: TimeInterval = TimeInterval(
             ["1"], ["1:3"], weekdays=["monday"], years=["2023:2035"]
         )
-        mute_time_interval: MuteTimeInterval = MuteTimeInterval(
-            "test", [time_interval]
-        )
+        mute_time_interval: MuteTimeInterval = MuteTimeInterval("test", [time_interval])
         cls.alerting_provisioning.add_mute_timing(mute_time_interval)
 
         cls.alerting_provisioning.create_or_update_message_template("test", "TEST")

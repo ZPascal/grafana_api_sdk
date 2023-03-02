@@ -26,7 +26,7 @@ class Team:
         self.grafana_api_model = grafana_api_model
 
     def search_team(
-            self, results_per_page: int = 1000, pages: int = 1, query: str = None
+        self, results_per_page: int = 1000, pages: int = 1, query: str = None
     ) -> dict:
         """The method includes a functionality to get the organization teams specified by the optional pagination functionality
 
@@ -332,8 +332,12 @@ class Team:
             raise ValueError
 
     def update_team_preferences(
-            self, id: int, theme: str = None, timezone: str = None, home_dashboard_id: int = 0,
-            home_dashboard_uid: str = None
+        self,
+        id: int,
+        theme: str = None,
+        timezone: str = None,
+        home_dashboard_id: int = 0,
+        home_dashboard_uid: str = None,
     ):
         """The method includes a functionality to update the organization team preferences specified by the team_id, theme, timezone and home_dashboard_id or home_dashboard_uid
 
@@ -356,11 +360,10 @@ class Team:
             None
         """
 
-        if (
-                id != 0
-                and (theme is not None
-                     or (home_dashboard_id != 0 or home_dashboard_uid is not None)
-                     or timezone is not None)
+        if id != 0 and (
+            theme is not None
+            or (home_dashboard_id != 0 or home_dashboard_uid is not None)
+            or timezone is not None
         ):
             team_preferences: dict = dict()
 
@@ -378,9 +381,7 @@ class Team:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.TEAMS.value}/{id}/preferences",
                 RequestsMethods.PUT,
-                json.dumps(
-                    team_preferences
-                ),
+                json.dumps(team_preferences),
             )
 
             if api_call.get("message") != "Preferences updated":

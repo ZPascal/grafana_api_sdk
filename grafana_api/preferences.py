@@ -41,8 +41,11 @@ class Preferences:
             return api_call
 
     def update_current_user_preferences(
-            self, theme: str = None, timezone: str = None, home_dashboard_id: int = 0,
-            home_dashboard_uid: str = None
+        self,
+        theme: str = None,
+        timezone: str = None,
+        home_dashboard_id: int = 0,
+        home_dashboard_uid: str = None,
     ):
         """The method includes a functionality to update the current user preferences
 
@@ -61,7 +64,9 @@ class Preferences:
         """
 
         if (
-            theme is not None or (home_dashboard_id != 0 or home_dashboard_uid is not None) or timezone is not None
+            theme is not None
+            or (home_dashboard_id != 0 or home_dashboard_uid is not None)
+            or timezone is not None
         ):
             modified_values: dict = dict()
 
@@ -137,7 +142,9 @@ class Preferences:
         """
 
         if (
-                theme is not None or (home_dashboard_id != 0 or home_dashboard_uid is not None) or timezone is not None
+            theme is not None
+            or (home_dashboard_id != 0 or home_dashboard_uid is not None)
+            or timezone is not None
         ):
             modified_values: dict = dict()
 

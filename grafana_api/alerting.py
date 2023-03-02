@@ -422,7 +422,11 @@ class Alerting:
                 json.dumps(alertmanager_configuration_json_dict),
             )
 
-            if api_call == dict() or api_call.get("message") != "policies were provisioned and cannot be changed through the UI":
+            if (
+                api_call == dict()
+                or api_call.get("message")
+                != "policies were provisioned and cannot be changed through the UI"
+            ):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:

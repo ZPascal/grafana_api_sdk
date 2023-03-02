@@ -706,8 +706,10 @@ class AlertingProvisioningTestCase(TestCase):
         alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
             grafana_api_model=model
         )
-        self.assertEqual(None, alerting_provisioning._AlertingProvisioning__create_time_range_list(None))
-
+        self.assertEqual(
+            None,
+            alerting_provisioning._AlertingProvisioning__create_time_range_list(None),
+        )
 
     @staticmethod
     def __create_alert_rule_mock() -> AlertRule:

@@ -315,7 +315,11 @@ class AlertingTestCase(TestCase):
             {"test": "test"}, ["test"], ["test"], ["test"], {"test": "test"}, ["test"]
         )
 
-        call_the_api_mock.return_value = dict({"message": "policies were provisioned and cannot be changed through the UI"})
+        call_the_api_mock.return_value = dict(
+            {
+                "message": "policies were provisioned and cannot be changed through the UI"
+            }
+        )
 
         self.assertEqual(
             None,
