@@ -27,7 +27,7 @@ class AlertingTest(TestCase):
                     "name": "grafana-default-email-1",
                     "grafana_managed_receiver_configs": [
                         {
-                            "uid": None,
+                            "uid": "test",
                             "name": "email receiver 1",
                             "type": "email",
                             "disableResolveMessage": False,
@@ -44,7 +44,7 @@ class AlertingTest(TestCase):
 
     def test_b_get_alertmanager_config(self):
         self.assertEqual(
-            "grafana-default-email-1",
+            "grafana-default-email",
             self.alerting.get_alertmanager_config()
             .get("alertmanager_config")
             .get("route")
@@ -56,10 +56,13 @@ class AlertingTest(TestCase):
 
         result: dict = {
             "template_files": None,
+            "template_file_provenances": {"test": "api"},
             "alertmanager_config": {
+                'muteTimeProvenances': {'test': 'api'},
                 "route": {
                     "group_by": ["grafana_folder", "alertname"],
                     "receiver": "grafana-default-email",
+                    "provenance": "api",
                 },
                 "templates": None,
                 "receivers": [
@@ -117,23 +120,7 @@ class AlertingTest(TestCase):
         )
 
     def test_get_prometheus_alerts(self):
-        result: dict = {
-            "status": "success",
-            "data": {
-                "alerts": [
-                    {
-                        "labels": {
-                            "alertname": "Test",
-                            "grafana_folder": "Github Integrationtest",
-                        },
-                        "annotations": {},
-                        "state": "Normal",
-                        "activeAt": "2022-11-28T01:36:00+01:00",
-                        "value": "",
-                    }
-                ]
-            },
-        }
+        result: dict = {"data": {"alerts": []}, "status": "success"}
         self.assertEqual(result, self.alerting.get_prometheus_alerts())
 
     def test_get_prometheus_rules(self):

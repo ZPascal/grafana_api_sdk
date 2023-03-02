@@ -322,7 +322,7 @@ class Team:
                 f"{APIEndpoints.TEAMS.value}/{id}/preferences",
             )
 
-            if api_call == dict() or api_call.get("homeDashboardId") is None:
+            if type(api_call) != dict or api_call == dict():
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -332,9 +332,9 @@ class Team:
             raise ValueError
 
     def update_team_preferences(
-        self, id: int, theme: str = "", timezone: str = "", home_dashboard_id: int = 0
+        self, id: int, theme: str = "", timezone: str = "", home_dashboard_id: int = 0, home_dashboard_uid: str = None
     ):
-        """The method includes a functionality to update the organization team preferences specified by the team_id, theme, home_dashboard_id and timezone
+        """The method includes a functionality to update the organization team preferences specified by the team_id, theme, timezone and home_dashboard_id or home_dashboard_uid
 
         Required Permissions:
             Action: teams:write
@@ -345,6 +345,7 @@ class Team:
             theme (str): Specify the team theme e.g. light or dark (default Grafana theme)
             timezone (str): Specify the team timezone e.g. utc or browser (default Grafana timezone)
             home_dashboard_id (int): Specify the home team dashboard by id (default 0)
+            home_dashboard_uid (str): Specify the home team dashboard by uid (default None)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -357,20 +358,25 @@ class Team:
         if (
             id != 0
             and theme is not None
-            and home_dashboard_id is not None
+            and (home_dashboard_id != 0 or home_dashboard_uid is not None)
             and timezone is not None
         ):
+            team_preferences: dict = dict(
+                {
+                    "theme": theme,
+                    "timezone": timezone,
+                }
+            )
+            if home_dashboard_id != 0:
+                team_preferences.update({"homeDashboardId": home_dashboard_id})
+            elif home_dashboard_uid is not None:
+                team_preferences.update({"homeDashboardUID": home_dashboard_uid})
+
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.TEAMS.value}/{id}/preferences",
                 RequestsMethods.PUT,
                 json.dumps(
-                    dict(
-                        {
-                            "theme": theme,
-                            "homeDashboardId": home_dashboard_id,
-                            "timezone": timezone,
-                        }
-                    )
+                    team_preferences
                 ),
             )
 

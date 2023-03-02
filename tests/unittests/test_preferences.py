@@ -50,7 +50,7 @@ class PreferencesTestCase(TestCase):
         call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
-            preferences.update_current_user_preferences("", None, "")
+            preferences.update_current_user_preferences("", 0, timezone="")
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_update_current_user_preferences_no_valid_result(self, call_the_api_mock):
@@ -104,7 +104,7 @@ class PreferencesTestCase(TestCase):
         call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
-            preferences.update_current_org_preferences("", None, "")
+            preferences.update_current_org_preferences()
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_update_current_org_preferences_no_valid_result(self, call_the_api_mock):

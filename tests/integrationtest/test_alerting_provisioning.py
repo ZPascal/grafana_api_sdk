@@ -17,12 +17,32 @@ from grafana_api.model import (
 from grafana_api.alerting_provisioning import AlertingProvisioning
 
 
-class AlertingNotificationsTest(TestCase):
+class AlertingProvisioningTest(TestCase):
     model: APIModel = APIModel(
         host=os.environ["GRAFANA_HOST"],
         token=os.environ["GRAFANA_TOKEN"],
     )
     alerting_provisioning: AlertingProvisioning = AlertingProvisioning(model)
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        time_interval: TimeInterval = TimeInterval(
+            ["1"], ["1:3"], weekdays=["monday"], years=["2023:2035"]
+        )
+        mute_time_interval: MuteTimeInterval = MuteTimeInterval(
+            "test1", [time_interval]
+        )
+        cls.alerting_provisioning.add_mute_timing(mute_time_interval)
+
+        time_interval: TimeInterval = TimeInterval(
+            ["1"], ["1:3"], weekdays=["monday"], years=["2023:2035"]
+        )
+        mute_time_interval: MuteTimeInterval = MuteTimeInterval(
+            "test", [time_interval]
+        )
+        cls.alerting_provisioning.add_mute_timing(mute_time_interval)
+
+        cls.alerting_provisioning.create_or_update_message_template("test", "TEST")
 
     def test_a_get_alert_rule(self):
         self.assertEqual(
@@ -125,7 +145,7 @@ class AlertingNotificationsTest(TestCase):
 
     def test_m_get_all_mute_timings(self):
         self.assertEqual(
-            "test", self.alerting_provisioning.get_all_mute_timings()[0].get("name")
+            "test1", self.alerting_provisioning.get_all_mute_timings()[0].get("name")
         )
 
     def test_n_get_mute_timing(self):
@@ -135,14 +155,14 @@ class AlertingNotificationsTest(TestCase):
 
     def test_o_add_mute_timing(self):
         time_interval: TimeInterval = TimeInterval(
-            ["1"], ["1:3"], weekdays=["monday"], years=["2023:2035"]
+            ["1"], ["1:2"], weekdays=["monday"], years=["2023:2040"]
         )
         mute_time_interval: MuteTimeInterval = MuteTimeInterval(
-            "test1", [time_interval]
+            "test2", [time_interval]
         )
         self.alerting_provisioning.add_mute_timing(mute_time_interval)
         self.assertEqual(
-            "test1", self.alerting_provisioning.get_mute_timing("test1").get("name")
+            "test2", self.alerting_provisioning.get_mute_timing("test2").get("name")
         )
 
     def test_p_update_mute_timing(self):
@@ -154,30 +174,31 @@ class AlertingNotificationsTest(TestCase):
             years=["2023:2035"],
         )
         mute_time_interval: MuteTimeInterval = MuteTimeInterval(
-            "test1", [time_interval]
+            "test2", [time_interval]
         )
-        self.alerting_provisioning.update_mute_timing("test1", mute_time_interval)
+        self.alerting_provisioning.update_mute_timing("test2", mute_time_interval)
         self.assertEqual(
             ["2"],
-            self.alerting_provisioning.get_mute_timing("test1")
+            self.alerting_provisioning.get_mute_timing("test2")
             .get("time_intervals")[0]
             .get("days_of_month"),
         )
         self.assertEqual(
             ["1:4"],
-            self.alerting_provisioning.get_mute_timing("test1")
+            self.alerting_provisioning.get_mute_timing("test2")
             .get("time_intervals")[0]
             .get("months"),
         )
         self.assertEqual(
             [{"start_time": "14:00", "end_time": "15:00"}],
-            self.alerting_provisioning.get_mute_timing("test1")
+            self.alerting_provisioning.get_mute_timing("test2")
             .get("time_intervals")[0]
             .get("times"),
         )
 
     def test_q_delete_mute_timing(self):
         self.alerting_provisioning.delete_mute_timing("test1")
+        self.alerting_provisioning.delete_mute_timing("test2")
         self.assertEqual(1, len(self.alerting_provisioning.get_all_mute_timings()))
 
     def test_r_get_all_message_templates(self):

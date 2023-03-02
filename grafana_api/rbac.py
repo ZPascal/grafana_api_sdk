@@ -774,9 +774,6 @@ class RBAC:
             )
 
             status_code: int = api_call.get("status")
-            print(api_call)
-            print(status_code)
-
             alert_manager_status_dict: dict = dict(
                 {
                     403: "Access denied.",

@@ -135,8 +135,6 @@ class Api:
             api_call (any): Returns the value of the api call
         """
 
-        print(Api.__check_if_valid_json(response.data.decode("utf-8")))
-
         if Api.__check_if_valid_json(response.data.decode("utf-8")):
             if (
                 len(json.loads(response.data.decode("utf-8"))) != 0

@@ -163,8 +163,6 @@ class Admin:
                 json.dumps(user_object),
             )
 
-            print(api_call)
-
             if api_call.get("message") != "User created":
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
