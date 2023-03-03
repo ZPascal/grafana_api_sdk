@@ -76,7 +76,7 @@ class AlertingProvisioningTest(TestCase):
         )
         now: datetime = datetime.now()
         self.assertIn(
-            now.strftime("%Y-%m-%dT%H:%M"),
+            now.strftime("%Y-%m-%dT%H:%M%z"),
             self.alerting_provisioning.get_alert_rule("Z9GoLXx7y").get("updated"),
         )
 
