@@ -1,5 +1,5 @@
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 from unittest import TestCase
 
 from grafana_api.model import (
@@ -74,9 +74,9 @@ class AlertingProvisioningTest(TestCase):
                 "6U_QdWJnz", "Test", 1200
             )
         )
-        now: datetime = datetime.now()
+        now: datetime = datetime.now(timezone.utc)
         self.assertIn(
-            now.strftime("%Y-%m-%dT%H:%M%z"),
+            now.strftime("%Y-%m-%dT%H:%M"),
             self.alerting_provisioning.get_alert_rule("Z9GoLXx7y").get("updated"),
         )
 

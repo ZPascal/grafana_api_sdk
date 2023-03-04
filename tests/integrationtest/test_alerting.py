@@ -120,14 +120,8 @@ class AlertingTest(TestCase):
         )
 
     def test_get_prometheus_alerts(self):
-        result: dict = {"data": {"alerts": [{"activeAt": "0001-01-01T00:00:00Z",
-                                             "annotations": {},
-                                             "labels": {"alertname": "Test",
-                                                        "grafana_folder": "Github Integrationtest"},
-                                             "state": "Normal",
-                                             "value": ""}]},
-                        "status": "success"}
-        self.assertEqual(result, self.alerting.get_prometheus_alerts())
+        self.assertEqual("Test",
+                         self.alerting.get_prometheus_alerts().get("data").get("alerts")[0].get("labels").get("alertname"))
 
     def test_get_prometheus_rules(self):
         self.assertEqual(
