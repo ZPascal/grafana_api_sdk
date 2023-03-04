@@ -1,4 +1,4 @@
-import os
+import os, time
 from datetime import datetime, timezone
 from unittest import TestCase
 
@@ -74,11 +74,12 @@ class AlertingProvisioningTest(TestCase):
                 "6U_QdWJnz", "Test", 1200
             )
         )
-        now: datetime = datetime.now(timezone.utc)
-        print(now.strftime("%Y-%m-%dT%H:%M"))
+        os.environ["TZ"] = "Europe/Berlin"
+        time.tzset()
+        print(time.strftime("%Y-%m-%dT%H:%M"))
         print(self.alerting_provisioning.get_alert_rule("Z9GoLXx7y"))
         self.assertIn(
-            now.strftime("%Y-%m-%dT%H:%M"),
+            time.strftime("%Y-%m-%dT%H:%M"),
             self.alerting_provisioning.get_alert_rule("Z9GoLXx7y").get("updated"),
         )
 
