@@ -76,8 +76,7 @@ class AlertingProvisioningTest(TestCase):
         )
         os.environ["TZ"] = "Europe/Berlin"
         time.tzset()
-        print(time.strftime("%Y-%m-%dT%H:%M"))
-        print(self.alerting_provisioning.get_alert_rule("Z9GoLXx7y"))
+
         self.assertIn(
             time.strftime("%Y-%m-%dT%H:%M"),
             self.alerting_provisioning.get_alert_rule("Z9GoLXx7y").get("updated"),
