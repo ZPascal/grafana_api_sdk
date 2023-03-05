@@ -1,13 +1,13 @@
 import os
 from unittest import TestCase
 
-from src.grafana_api.model import (
+from grafana_api.model import (
     APIModel,
     QueryObject,
     QueryDatasourceObject,
 )
-from src.grafana_api.datasource import Datasource
-from src.grafana_api.query_history import QueryHistory
+from grafana_api.datasource import Datasource
+from grafana_api.query_history import QueryHistory
 
 
 class QueryHistoryTest(TestCase):

@@ -1,17 +1,17 @@
 # Table of Contents
 
-* [grafana\_api.legacy\_alerting](#grafana_api.legacy_alerting)
-  * [Alerting](#grafana_api.legacy_alerting.Alerting)
-    * [get\_alerts](#grafana_api.legacy_alerting.Alerting.get_alerts)
-    * [get\_alerts\_by\_dashboard\_ids](#grafana_api.legacy_alerting.Alerting.get_alerts_by_dashboard_ids)
-    * [get\_alert\_by\_id](#grafana_api.legacy_alerting.Alerting.get_alert_by_id)
-    * [pause\_alert\_by\_id](#grafana_api.legacy_alerting.Alerting.pause_alert_by_id)
+* [legacy\_alerting](#legacy_alerting)
+  * [Alerting](#legacy_alerting.Alerting)
+    * [get\_alerts](#legacy_alerting.Alerting.get_alerts)
+    * [get\_alerts\_by\_dashboard\_ids](#legacy_alerting.Alerting.get_alerts_by_dashboard_ids)
+    * [get\_alert\_by\_id](#legacy_alerting.Alerting.get_alert_by_id)
+    * [pause\_alert\_by\_id](#legacy_alerting.Alerting.pause_alert_by_id)
 
-<a id="grafana_api.legacy_alerting"></a>
+<a id="legacy_alerting"></a>
 
-# grafana\_api.legacy\_alerting
+# legacy\_alerting
 
-<a id="grafana_api.legacy_alerting.Alerting"></a>
+<a id="legacy_alerting.Alerting"></a>
 
 ## Alerting Objects
 
@@ -30,7 +30,7 @@ The class includes all necessary methods to access the Grafana legacy alerting A
 
 - `grafana_api_model` _APIModel_ - This is where we store the grafana_api_model
 
-<a id="grafana_api.legacy_alerting.Alerting.get_alerts"></a>
+<a id="legacy_alerting.Alerting.get_alerts"></a>
 
 #### get\_alerts
 
@@ -55,7 +55,7 @@ The method includes a functionality to get the legacy alerts
 
 - `api_call` _list_ - Returns a list of all alerts
 
-<a id="grafana_api.legacy_alerting.Alerting.get_alerts_by_dashboard_ids"></a>
+<a id="legacy_alerting.Alerting.get_alerts_by_dashboard_ids"></a>
 
 #### get\_alerts\_by\_dashboard\_ids
 
@@ -80,7 +80,7 @@ The method includes a functionality to get legacy alerts specified by the dashbo
 
 - `api_call` _list_ - Returns a list of alerts
 
-<a id="grafana_api.legacy_alerting.Alerting.get_alert_by_id"></a>
+<a id="legacy_alerting.Alerting.get_alert_by_id"></a>
 
 #### get\_alert\_by\_id
 
@@ -105,7 +105,7 @@ The method includes a functionality to get the legacy alert specified by the ale
 
 - `api_call` _dict_ - Returns an alert
 
-<a id="grafana_api.legacy_alerting.Alerting.pause_alert_by_id"></a>
+<a id="legacy_alerting.Alerting.pause_alert_by_id"></a>
 
 #### pause\_alert\_by\_id
 

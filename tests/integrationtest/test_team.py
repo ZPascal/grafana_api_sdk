@@ -1,9 +1,9 @@
 import os
 from unittest import TestCase
 
-from src.grafana_api.model import APIModel, TeamObject
-from src.grafana_api.team import Team
-from src.grafana_api.organisation import Organisation
+from grafana_api.model import APIModel, TeamObject
+from grafana_api.team import Team
+from grafana_api.organisation import Organisation
 
 
 class TeamTest(TestCase):
@@ -79,10 +79,17 @@ class TeamTest(TestCase):
         self.team.delete_team_by_id(team_id)
 
     def test_get_team_preferences(self):
-        self.assertEqual(0, self.team.get_team_preferences(4).get("homeDashboardId"))
+        print(self.team.get_team_preferences(4))
+        self.assertEqual(
+            "tests", self.team.get_team_preferences(4).get("homeDashboardUID")
+        )
 
     def test_update_team_preferences(self):
-        self.assertIsNone(self.team.update_team_preferences(4, timezone="utc"))
+        self.assertIsNone(
+            self.team.update_team_preferences(
+                4, timezone="utc", home_dashboard_uid="tests"
+            )
+        )
 
         self.assertEqual("utc", self.team.get_team_preferences(4).get("timezone"))
 

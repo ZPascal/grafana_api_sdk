@@ -1,10 +1,10 @@
 import os
 from unittest import TestCase
 
-from src.grafana_api.model import (
+from grafana_api.model import (
     APIModel,
 )
-from src.grafana_api.preferences import Preferences
+from grafana_api.preferences import Preferences
 
 
 class PreferencesTest(TestCase):
