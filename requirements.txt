@@ -3,4 +3,3 @@ mkdocs
 mkdocs-material
 setuptools~=57.0.0
 urllib3~=1.26.7
-typing_extensions~=4.5.0
