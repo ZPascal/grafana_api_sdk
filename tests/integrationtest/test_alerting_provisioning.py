@@ -1,7 +1,8 @@
-import os, time
-from datetime import datetime, timezone
+import os
+import time
 from unittest import TestCase
 
+from grafana_api.alerting_provisioning import AlertingProvisioning
 from grafana_api.model import (
     APIModel,
     AlertRule,
@@ -14,7 +15,6 @@ from grafana_api.model import (
     TimeInterval,
     TimeRange,
 )
-from grafana_api.alerting_provisioning import AlertingProvisioning
 
 
 class AlertingProvisioningTest(TestCase):
