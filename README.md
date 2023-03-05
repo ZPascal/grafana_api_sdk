@@ -102,6 +102,28 @@ In general my focus inside this project is to implement and deliver old and new 
 - Delete a notification channel by uid
 - Test a notification channel
 
+### Alerting Provisioning
+- Get alert rule
+- Add alert rule
+- Update alert rule
+- Update ethe interval fo the alert rule group
+- Delete alert rule
+- Get all contact points
+- Add contact point
+- Update contact point
+- Delete contact point
+- Get notification policies
+- Add notification policies
+- Get all mute timings
+- Get mute timings
+- Add mute timing
+- Update mute timing
+- Delete mute timing
+- Get all message templates
+- Get message template
+- Create or update message template
+- Delete message template
+
 ### Organization
 - Get current organisation
 - Update the current organisation name
@@ -289,14 +311,13 @@ In general my focus inside this project is to implement and deliver old and new 
 - Update library element
 - Delete library element
 
-## Feature timeline
-
-The following table describes the plan to implement the rest of the Grafana API functionality. Please, open an issue and vote them up, if you prefer a faster implementation of an API functionality.
-
-| API endpoint group | Implementation week | Maintainer | PR | State |
-|:------------------:|:-------------------:|:----------:|:--:|:-----:|
-| [Alerting Provisioning HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/) | 36 | |    |  |
-| [Correlations API](https://grafana.com/docs/grafana/latest/developers/http_api/correlations/) | 36 | |    |  |
+### Correlations
+- Get correlation
+- Get all correlations by datasource uid
+- Get all correlations
+- Create correlations
+- Update correlations
+- Delete correlations
 
 ## Installation
 
