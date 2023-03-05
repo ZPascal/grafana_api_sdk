@@ -33,7 +33,7 @@ The following list describes the currently supported features of the Grafana API
 - [x] [Service Account HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/)
 - [x] [RBAC HTTP API](https://grafana.com/docs/grafana/latest/http_api/access_control/)
 - [x] [Correlations API](https://grafana.com/docs/grafana/latest/developers/http_api/correlations/)
-- [ ] [Alerting Provisioning HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/)
+- [x] [Alerting Provisioning HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/)
 
 ## Installation
 
