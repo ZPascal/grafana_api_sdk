@@ -16,10 +16,15 @@ In general my focus inside this project is to implement and deliver old and new 
 - Create/ Update a dashboard 
 - Delete a dashboard
 - Get permissions of a dashboard
+- Get permissions of a dashboard by uid
 - Update the permissions of a dashboard
+- Update the permissions of a dashboard by uid
 - Get all dashboard versions
+- Get all dashboard versions by uid
 - Get dashboard version of a specific dashboard
+- Get dashboard version of a specific dashboard by uid
 - Restore a dashboard version of a specific dashboard
+- Restore a dashboard version of a specific dashboard by uid
 - Compare two dashboard versions and extract the diff between booth dashboards
 
 ### Folder
