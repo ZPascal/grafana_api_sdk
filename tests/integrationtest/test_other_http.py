@@ -1,10 +1,10 @@
 import os
 from unittest import TestCase
 
-from src.grafana_api.model import (
+from grafana_api.model import (
     APIModel,
 )
-from src.grafana_api.other_http import OtherHTTP
+from grafana_api.other_http import OtherHTTP
 
 
 class OtherHTTPTest(TestCase):

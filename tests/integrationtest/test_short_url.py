@@ -1,8 +1,8 @@
 import os
 from unittest import TestCase
 
-from src.grafana_api.model import APIModel
-from src.grafana_api.short_url import ShortUrl
+from grafana_api.model import APIModel
+from grafana_api.short_url import ShortUrl
 
 
 class ShortUrlTest(TestCase):
