@@ -1,4 +1,5 @@
 import os
+import time
 from unittest import TestCase
 
 from grafana_api.model import (
@@ -120,8 +121,15 @@ class AlertingTest(TestCase):
         )
 
     def test_get_prometheus_alerts(self):
-        self.assertEqual("Test",
-                         self.alerting.get_prometheus_alerts().get("data").get("alerts")[0].get("labels").get("alertname"))
+        MAX_TRIES: int = 3
+
+        for i in range(0, MAX_TRIES):
+            if len(self.alerting.get_prometheus_alerts().get("data").get("alerts")) != 0:
+                time.sleep(0.1 + i/2)
+                self.assertEqual("Test",
+                                 self.alerting.get_prometheus_alerts().get("data").get("alerts")[0].get("labels").get("alertname"))
+            elif i == MAX_TRIES:
+                self.fail("Conditions not yet fulfilled.")
 
     def test_get_prometheus_rules(self):
         self.assertEqual(
