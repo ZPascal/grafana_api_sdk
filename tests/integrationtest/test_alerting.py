@@ -125,7 +125,7 @@ class AlertingTest(TestCase):
 
         for i in range(0, MAX_TRIES):
             if len(self.alerting.get_prometheus_alerts().get("data").get("alerts")) != 0:
-                time.sleep(0.1 + i/2)
+                time.sleep(0.1 + i / 2)
                 self.assertEqual("Test",
                                  self.alerting.get_prometheus_alerts().get("data").get("alerts")[0].get("labels").get("alertname"))
             elif i == MAX_TRIES:
