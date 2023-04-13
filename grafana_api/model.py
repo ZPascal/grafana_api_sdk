@@ -6,7 +6,7 @@ from dataclasses import dataclass, field
 Self = TypeVar("Self", bound="Route")
 
 # The constant includes all necessary error messages that can occurs, if you establish a connection to the Grafana API.
-ERROR_MESSAGES: list = ["invalid API key"]
+ERROR_MESSAGES: list = ["invalid API key", "Expired API key"]
 
 
 class APIEndpoints(Enum):
