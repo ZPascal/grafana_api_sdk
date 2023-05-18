@@ -32,7 +32,7 @@ class OtherHTTPTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         other_http: OtherHTTP = OtherHTTP(grafana_api_model=model)
 
-        call_the_api_mock.return_value.data = b"Logged in"
+        call_the_api_mock.return_value = dict({"message": "Logged in"})
 
         self.assertEqual(
             None, other_http.renew_login_session_based_on_remember_cookie()
@@ -45,7 +45,7 @@ class OtherHTTPTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         other_http: OtherHTTP = OtherHTTP(grafana_api_model=model)
 
-        call_the_api_mock.return_value.data = b""
+        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             other_http.renew_login_session_based_on_remember_cookie()

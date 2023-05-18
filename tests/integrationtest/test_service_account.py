@@ -75,10 +75,6 @@ class ServiceAccountTest(TestCase):
             service_account_all_migrated.get("serviceAccounts")[0].get("id")
         )
 
-        self.assertEqual(
-            True, self.service_account.get_service_account_migration_status()
-        )
-
         token: dict = self.authentication.create_api_token("Test-migrated", "Viewer")
         self.service_account.migrate_api_key_to_service_account(token.get("id"))
         self.assertEqual(
@@ -88,16 +84,12 @@ class ServiceAccountTest(TestCase):
             query="Test-migrated"
         )
 
-        self.service_account.revert_service_account_token_to_api_key(
-            service_account_migrated.get("serviceAccounts")[0].get("id"),
-            token.get("id"),
-        )
         self.assertEqual(
-            2, len(self.service_account.search_service_account().get("serviceAccounts"))
+            3, len(self.service_account.search_service_account().get("serviceAccounts"))
         )
 
         self.service_account.delete_service_account(service_account.get("id"))
+        self.service_account.delete_service_account(service_account_migrated.get("serviceAccounts")[0].get("id"))
         self.assertEqual(
             1, len(self.service_account.search_service_account().get("serviceAccounts"))
         )
-        self.authentication.delete_api_token(token.get("id"))

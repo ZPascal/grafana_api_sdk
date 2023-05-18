@@ -49,14 +49,9 @@ class OtherHTTP:
         Returns:
             None
         """
+        api_call: dict = Api(self.grafana_api_model).call_the_api(f"{APIEndpoints.LOGIN.value}/ping")
 
-        api_call: str = (
-            Api(self.grafana_api_model)
-            .call_the_api(f"{APIEndpoints.LOGIN.value}/ping")
-            .data.decode("utf-8")
-        )
-
-        if api_call != "Logged in":
+        if api_call.get("message") != "Logged in":
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
