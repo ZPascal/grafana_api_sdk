@@ -79,7 +79,6 @@ class TeamTest(TestCase):
         self.team.delete_team_by_id(team_id)
 
     def test_get_team_preferences(self):
-        print(self.team.get_team_preferences(4))
         self.assertEqual(
             "tests", self.team.get_team_preferences(4).get("homeDashboardUID")
         )
