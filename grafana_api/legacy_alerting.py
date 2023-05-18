@@ -1,5 +1,6 @@
 import json
 import logging
+import re
 
 from .model import APIModel, APIEndpoints, RequestsMethods
 from .api import Api
@@ -114,11 +115,21 @@ class Alerting:
             api_call (dict): Returns an alert
         """
 
+        def _to_camel_case(input_value: str) -> str:
+            content = re.findall('[A-Z][^A-Z]*', input_value)
+            if content != list():
+                if len(content) != 1:
+                    return content[0].lower() + "".join(content[1:])
+                else:
+                    return content[0].lower()
+            return input_value
+
         if id != 0:
-            api_call: dict = Api(self.grafana_api_model).call_the_api(
+            api_call_raw: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.LEGACY_ALERTS.value}/{id}",
                 RequestsMethods.GET,
             )
+            api_call: dict = {_to_camel_case(k): v for k, v in api_call_raw.items()}
 
             if api_call == dict() or api_call.get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
