@@ -27,6 +27,7 @@ class Api:
         method: RequestsMethods = RequestsMethods.GET,
         json_complete: str = None,
         org_id_header: int = None,
+        disable_provenance_header: bool = False,
         response_status_code: bool = False,
     ) -> any:
         """The method execute a defined API call against the Grafana endpoints
@@ -35,8 +36,9 @@ class Api:
             api_call (str): Specify the API call endpoint
             method (RequestsMethods): Specify the used method (default GET)
             json_complete (str): Specify the inserted JSON as string
-            org_id_header (int): Specify the optional organization id for the corresponding API call
-            response_status_code (bool): Specify if the response should include the original status code
+            org_id_header (int): Specify the optional organization id as header for the corresponding API call
+            disable_provenance_header (bool): Specify the optional disable provenance as header for the corresponding API call (default False)
+            response_status_code (bool): Specify if the response should include the original status code (default False)
 
         Raises:
             Exception: Unspecified error by executing the API call
@@ -66,6 +68,9 @@ class Api:
 
         if org_id_header is not None and type(org_id_header) == int:
             headers["X-Grafana-Org-Id"] = org_id_header
+
+        if type(disable_provenance_header) == bool and disable_provenance_header:
+            headers["X-Disable-Provenance"] = f"{disable_provenance_header}"
 
         http = urllib3.PoolManager(
             num_pools=self.grafana_api_model.num_pools,
@@ -126,7 +131,7 @@ class Api:
 
         Args:
             response (any): Specify the inserted response
-            response_status_code (bool): Specify if the original status code should be attached to the result
+            response_status_code (bool): Specify if the original status code should be attached to the result (default False)
 
         Raises:
             Exception: Unspecified error by executing the API call

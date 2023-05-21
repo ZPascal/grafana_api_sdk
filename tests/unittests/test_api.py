@@ -43,6 +43,15 @@ class ApiTestCase(TestCase):
         )
 
     @patch("urllib3.PoolManager")
+    def test_call_the_api_disable_provenance(self, pool_mock):
+        pool_mock.return_value.request.return_value.data = b'{"status": "success"}'
+
+        self.assertEqual(
+            "success",
+            self.api.call_the_api(api_call=MagicMock(), disable_provenance_header=True)["status"],
+        )
+
+    @patch("urllib3.PoolManager")
     def test_call_the_api_get_valid(self, pool_mock):
         pool_mock.return_value.request.return_value.data = b'{"status": "success"}'
 

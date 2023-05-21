@@ -61,11 +61,12 @@ class AlertingProvisioning:
             logging.error("There is no uid defined.")
             raise ValueError
 
-    def add_alert_rule(self, alert_rule: AlertRule):
+    def add_alert_rule(self, alert_rule: AlertRule, disable_provenance: bool = False):
         """The method includes a functionality to create a new alert rule
 
         Args:
             alert_rule (AlertRule): Specify the alert rule
+            disable_provenance (bool): Specify if the provenance header should be set or not (default False)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -81,6 +82,7 @@ class AlertingProvisioning:
                 RequestsMethods.POST,
                 json.dumps(self.__create_alert_rule_dictionary(alert_rule)),
                 response_status_code=True,
+                disable_provenance_header=disable_provenance,
             )
 
             if 200 <= api_call.get("status") >= 300:
@@ -92,12 +94,13 @@ class AlertingProvisioning:
             logging.error("There is no alert_rule defined.")
             raise ValueError
 
-    def update_alert_rule(self, uid: str, alert_rule: AlertRule):
+    def update_alert_rule(self, uid: str, alert_rule: AlertRule, disable_provenance: bool = False):
         """The method includes a functionality to update an existing alert rule
 
         Args:
             uid (str): Specify the alert rule uid
             alert_rule (AlertRule): Specify the alert rule
+            disable_provenance (bool): Specify if the provenance header should be set or not (default False)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -113,6 +116,7 @@ class AlertingProvisioning:
                 RequestsMethods.PUT,
                 json.dumps(self.__create_alert_rule_dictionary(alert_rule)),
                 response_status_code=True,
+                disable_provenance_header=disable_provenance,
             )
 
             if 200 <= api_call.get("status") >= 300:
@@ -125,7 +129,7 @@ class AlertingProvisioning:
             raise ValueError
 
     def update_the_interval_of_a_alert_rule_group(
-        self, folder_uid: str, group: str, alert_rule_group_interval: int
+        self, folder_uid: str, group: str, alert_rule_group_interval: int, disable_provenance: bool = False
     ):
         """The method includes a functionality to update the interval of a alert rule group
 
@@ -133,6 +137,7 @@ class AlertingProvisioning:
             folder_uid (str): Specify the folder uid
             group (str): Specify the group
             alert_rule_group_interval (int): Specify the alert rule group interval
+            disable_provenance (bool): Specify if the provenance header should be set or not (default False)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -148,6 +153,7 @@ class AlertingProvisioning:
                 RequestsMethods.PUT,
                 json.dumps({"interval": alert_rule_group_interval}),
                 response_status_code=True,
+                disable_provenance_header=disable_provenance,
             )
 
             if 200 <= api_call.get("status") >= 300:
@@ -163,11 +169,12 @@ class AlertingProvisioning:
             )
             raise ValueError
 
-    def delete_alert_rule(self, uid: str):
+    def delete_alert_rule(self, uid: str, disable_provenance: bool = False):
         """The method includes a functionality to delete an alert rule
 
         Args:
             uid (str): Specify the alert rule uid
+            disable_provenance (bool): Specify if the provenance header should be set or not (default False)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -181,6 +188,7 @@ class AlertingProvisioning:
                 f"{APIEndpoints.ALERTING_PROVISIONING.value}/alert-rules/{uid}",
                 RequestsMethods.DELETE,
                 response_status_code=True,
+                disable_provenance_header=disable_provenance,
             )
 
             if 200 <= api_call.get("status") >= 300:
@@ -212,11 +220,12 @@ class AlertingProvisioning:
         else:
             return api_call
 
-    def add_contact_point(self, embedded_contact_point: EmbeddedContactPoint):
+    def add_contact_point(self, embedded_contact_point: EmbeddedContactPoint, disable_provenance: bool = False):
         """The method includes a functionality to create a contact point
 
         Args:
             embedded_contact_point (EmbeddedContactPoint): Specify the embedded contact point
+            disable_provenance (bool): Specify if the provenance header should be set or not (default False)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -241,6 +250,7 @@ class AlertingProvisioning:
                     }
                 ),
                 response_status_code=True,
+                disable_provenance_header=disable_provenance,
             )
 
             if 200 <= api_call.get("status") >= 300:
@@ -253,13 +263,14 @@ class AlertingProvisioning:
             raise ValueError
 
     def update_contact_point(
-        self, uid: str, embedded_contact_point: EmbeddedContactPoint
+        self, uid: str, embedded_contact_point: EmbeddedContactPoint, disable_provenance: bool = False
     ):
         """The method includes a functionality to update a contact point
 
         Args:
             uid (str): Specify the uid of the contact point
             embedded_contact_point (EmbeddedContactPoint): Specify the embedded contact point
+            disable_provenance (bool): Specify if the provenance header should be set or not (default False)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -284,6 +295,7 @@ class AlertingProvisioning:
                     }
                 ),
                 response_status_code=True,
+                disable_provenance_header=disable_provenance,
             )
 
             if 200 <= api_call.get("status") >= 300:
@@ -346,11 +358,12 @@ class AlertingProvisioning:
         else:
             return api_call
 
-    def add_notification_policies(self, route: Route):
+    def add_notification_policies(self, route: Route, disable_provenance: bool = False):
         """The method includes a functionality to set the notification policy tree
 
         Args:
             route (Route): Specify the alert rule routes
+            disable_provenance (bool): Specify if the provenance header should be set or not (default False)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -366,6 +379,7 @@ class AlertingProvisioning:
                 RequestsMethods.PUT,
                 json.dumps(self.__create_alert_route_dictionary(route)),
                 response_status_code=True,
+                disable_provenance_header=disable_provenance,
             )
 
             if 200 <= api_call.get("status") >= 300:
@@ -425,11 +439,12 @@ class AlertingProvisioning:
             logging.error("There is no name defined.")
             raise ValueError
 
-    def add_mute_timing(self, mute_time_interval: MuteTimeInterval):
+    def add_mute_timing(self, mute_time_interval: MuteTimeInterval, disable_provenance: bool = False):
         """The method includes a functionality to create a mute timing
 
         Args:
             mute_time_interval (MuteTimeInterval): Specify the mute time interval
+            disable_provenance (bool): Specify if the provenance header should be set or not (default False)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -445,6 +460,7 @@ class AlertingProvisioning:
                 RequestsMethods.POST,
                 json.dumps(self.__create_mute_timing_dictionary(mute_time_interval)),
                 response_status_code=True,
+                disable_provenance_header=disable_provenance,
             )
 
             if 200 <= api_call.get("status") >= 300:
@@ -456,12 +472,13 @@ class AlertingProvisioning:
             logging.error("There is no mute_time_interval defined.")
             raise ValueError
 
-    def update_mute_timing(self, name: str, mute_time_interval: MuteTimeInterval):
+    def update_mute_timing(self, name: str, mute_time_interval: MuteTimeInterval, disable_provenance: bool = False):
         """The method includes a functionality to update an existing mute timing
 
         Args:
             name (str): Specify the mute timing name
             mute_time_interval (MuteTimeInterval): Specify the mute time interval
+            disable_provenance (bool): Specify if the provenance header should be set or not (default False)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -477,6 +494,7 @@ class AlertingProvisioning:
                 RequestsMethods.PUT,
                 json.dumps(self.__create_mute_timing_dictionary(mute_time_interval)),
                 response_status_code=True,
+                disable_provenance_header=disable_provenance,
             )
 
             if 200 <= api_call.get("status") >= 300:
@@ -567,12 +585,13 @@ class AlertingProvisioning:
             logging.error("There is no name defined.")
             raise ValueError
 
-    def create_or_update_message_template(self, name: str, message_template: str):
+    def create_or_update_message_template(self, name: str, message_template: str, disable_provenance: bool = False):
         """The method includes a functionality to create or update a message template
 
         Args:
             name (str): Specify the message template name
             message_template (str): Specify the message template
+            disable_provenance (bool): Specify if the provenance header should be set or not (default False)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -588,6 +607,7 @@ class AlertingProvisioning:
                 RequestsMethods.PUT,
                 json.dumps({"template": message_template}),
                 response_status_code=True,
+                disable_provenance_header=disable_provenance,
             )
 
             if 200 <= api_call.get("status") >= 300:
