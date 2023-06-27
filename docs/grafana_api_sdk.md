@@ -57,5 +57,42 @@ with open("/tmp/test/test.json") as file:
 dashboard.create_or_update_dashboard(message="Create a new test dashboard", dashboard_json=json_dashboard, dashboard_path="test")
 ```
 
+## TLS/ mTLS
+
+It is possible to pass a custom ssl_context to the underlying library to perform the requests to the HTTP API. For this step and to support custom TLS/ mTLS, there is an option to inject the Python ssl_context. More information can be found [here](https://docs.python.org/3/library/ssl.html#ssl.create_default_context) and a dummy TLS/ mTLS implementation below.
+
+### TLS
+
+```python
+import ssl
+
+from grafana_api.model import APIModel
+
+ssl_ctx = ssl.create_default_context(
+    ssl.Purpose.SERVER_AUTH,
+    cafile="/test/path/ca.crt"
+)
+ssl_ctx.verify_mode = ssl.CERT_REQUIRED
+
+model: APIModel = APIModel(host="test", token="test", ssl_context=ssl_ctx)
+```
+
+### mTLS
+
+```python
+import ssl
+
+from grafana_api.model import APIModel
+
+ssl_ctx = ssl.create_default_context(
+    ssl.Purpose.SERVER_AUTH,
+    cafile="/test/path/ca.crt",
+)
+ssl_ctx.verify_mode = ssl.CERT_REQUIRED
+ssl_ctx.load_cert_chain(certfile="/test/path/client.crt", keyfile="/test/path/client.key",)
+
+model: APIModel = APIModel(host="test", token="test", ssl_context=ssl_ctx)
+```
+
 ## Templating
 If you want to template your JSON document based on a predefined folder structure you can check out one of my other [project](https://github.com/ZPascal/grafana_dashboard_templater) and integrate the functionality inside your code.
