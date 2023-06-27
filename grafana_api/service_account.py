@@ -312,7 +312,7 @@ class ServiceAccount:
             json.dumps(dict()),
         )
 
-        if api_call.get("message") != "API keys migrated to service accounts":
+        if api_call.get("migrated") is None and api_call.get("message") != "API keys migrated to service accounts":
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:

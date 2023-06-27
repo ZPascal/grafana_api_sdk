@@ -48,7 +48,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Execute the linting checks
-        uses: reviewdog/action-flake8@v3.6.0
+        uses: reviewdog/action-flake8@v3.7.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           flake8_args: --config=.flake8
@@ -79,7 +79,7 @@ jobs:
         run: export PYTHONPATH=$PWD && pytest --junitxml=pytest.xml --cov=. tests/unittests | tee pytest-coverage.txt
 
       - name: Execute the coverage checks
-        uses: MishaKav/pytest-coverage-comment@v1.1.37
+        uses: MishaKav/pytest-coverage-comment@v1.1.47
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           pytest-coverage-path: ./pytest-coverage.txt
@@ -94,7 +94,7 @@ jobs:
         run: pydoc-markdown --render-toc && rm -rf docs/content && mv build/docs/* docs
 
       - name: Check changed files
-        uses: tj-actions/verify-changed-files@v12.0
+        uses: tj-actions/verify-changed-files@v16.0
         id: verify-changed-files
         with:
           files: |
