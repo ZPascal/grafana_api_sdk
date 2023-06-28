@@ -290,6 +290,10 @@ In general my focus inside this project is to implement and deliver old and new 
 - Get service account token by id
 - Create service account token by id
 - Delete service account by id
+- Migrate API token to service account by token id
+- Revert the generated service account to API token
+- Get service account migration status
+- Hide the API keys tab inside the UI
 
 ### RBAC
 - Get status

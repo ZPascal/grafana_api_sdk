@@ -12,6 +12,7 @@ The following list describes the currently supported features of the Grafana API
 - [x] [Annotations HTTP API](https://grafana.com/docs/grafana/latest/http_api/annotations/)
 - [x] [Authentication HTTP API](https://grafana.com/docs/grafana/latest/http_api/auth/)
 - [x] [Data source HTTP API](https://grafana.com/docs/grafana/latest/http_api/data_source/)
+- [x] [Datasource query and resource caching](https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/)
 - [x] [Datasource Permissions HTTP API](https://grafana.com/docs/grafana/latest/http_api/datasource_permissions/)
 - [x] [Folder HTTP API](https://grafana.com/docs/grafana/v7.5/http_api/folder/)
 - [x] [Folder Permissions HTTP API](https://grafana.com/docs/grafana/v7.5/http_api/folder_permissions/)
