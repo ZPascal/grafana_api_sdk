@@ -18,6 +18,12 @@
     * [get\_datasource\_permissions](#datasource.Datasource.get_datasource_permissions)
     * [add\_datasource\_permissions](#datasource.Datasource.add_datasource_permissions)
     * [delete\_datasource\_permissions](#datasource.Datasource.delete_datasource_permissions)
+  * [DatasourceQueryResourceCaching](#datasource.DatasourceQueryResourceCaching)
+    * [get\_datasource\_cache](#datasource.DatasourceQueryResourceCaching.get_datasource_cache)
+    * [enable\_datasource\_cache](#datasource.DatasourceQueryResourceCaching.enable_datasource_cache)
+    * [disable\_datasource\_cache](#datasource.DatasourceQueryResourceCaching.disable_datasource_cache)
+    * [clean\_datasource\_cache](#datasource.DatasourceQueryResourceCaching.clean_datasource_cache)
+    * [update\_datasource\_cache](#datasource.DatasourceQueryResourceCaching.update_datasource_cache)
 
 <a id="datasource"></a>
 
@@ -503,4 +509,172 @@ The method includes a functionality to delete datasource permission specified by
 **Returns**:
 
   None
+
+<a id="datasource.DatasourceQueryResourceCaching"></a>
+
+## DatasourceQueryResourceCaching Objects
+
+```python
+class DatasourceQueryResourceCaching()
+```
+
+The class includes all necessary methods to access the Grafana datasource query and resource caching API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights. The functionality is a Grafana ENTERPRISE feature
+
+HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
+
+**Arguments**:
+
+- `grafana_api_model` _APIModel_ - Inject a Grafana API model object that includes all necessary values and information
+  
+
+**Attributes**:
+
+- `grafana_api_model` _APIModel_ - This is where we store the grafana_api_model
+
+<a id="datasource.DatasourceQueryResourceCaching.get_datasource_cache"></a>
+
+#### get\_datasource\_cache
+
+```python
+def get_datasource_cache(uid: str) -> dict
+```
+
+The method includes a functionality to get the datasource cache config specified by the datasource uid
+
+**Arguments**:
+
+- `uid` _str_ - Specify the uid of the datasource
+  
+  Required Permissions:
+- `Action` - datasources.caching:write
+- `Scope` - datasources:*
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+- `api_call` _dict_ - Returns a datasource
+
+<a id="datasource.DatasourceQueryResourceCaching.enable_datasource_cache"></a>
+
+#### enable\_datasource\_cache
+
+```python
+def enable_datasource_cache(uid: str) -> dict
+```
+
+The method includes a functionality to enable the datasource cache specified by the datasource uid
+
+**Arguments**:
+
+- `uid` _str_ - Specify the uid of the datasource
+  
+  Required Permissions:
+- `Action` - datasources.caching:read
+- `Scope` - datasources:*
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+- `api_call` _dict_ - Returns a datasource
+
+<a id="datasource.DatasourceQueryResourceCaching.disable_datasource_cache"></a>
+
+#### disable\_datasource\_cache
+
+```python
+def disable_datasource_cache(uid: str) -> dict
+```
+
+The method includes a functionality to disable the datasource cache specified by the datasource uid
+
+**Arguments**:
+
+- `uid` _str_ - Specify the uid of the datasource
+  
+  Required Permissions:
+- `Action` - datasources.caching:write
+- `Scope` - datasources:*
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+- `api_call` _dict_ - Returns a datasource
+
+<a id="datasource.DatasourceQueryResourceCaching.clean_datasource_cache"></a>
+
+#### clean\_datasource\_cache
+
+```python
+def clean_datasource_cache(uid: str) -> dict
+```
+
+The method includes a functionality to clean the datasource cache of all data sources with caching enabled. The uid of the datasource will only be used to return the configuration for that data source
+
+**Arguments**:
+
+- `uid` _str_ - Specify the uid of the datasource
+  
+  Required Permissions:
+- `Action` - datasources.caching:write
+- `Scope` - datasources:*
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+- `api_call` _dict_ - Returns a datasource
+
+<a id="datasource.DatasourceQueryResourceCaching.update_datasource_cache"></a>
+
+#### update\_datasource\_cache
+
+```python
+def update_datasource_cache(uid: str,
+                            datasource_cache: DatasourceCache) -> dict
+```
+
+The method includes a functionality to update the datasource cache specified by the datasource uid
+
+**Arguments**:
+
+- `uid` _str_ - Specify the uid of the datasource
+- `datasource_cache` _DatasourceCache_ - Specif the datasource cache object
+  
+  Required Permissions:
+- `Action` - datasources.caching:write
+- `Scope` - datasources:*
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+- `api_call` _dict_ - Returns a datasource
 
