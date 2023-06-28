@@ -35,6 +35,7 @@
   * [GlobalUser](#model.GlobalUser)
   * [RolePermission](#model.RolePermission)
   * [CustomRole](#model.CustomRole)
+  * [DatasourceCache](#model.DatasourceCache)
 
 <a id="model"></a>
 
@@ -682,4 +683,24 @@ The class includes all necessary variables to generate a custom role object
 - `group` _str_ - Specify the optional org group of the role (default None)
 - `hidden` _bool_ - Specify whether the role is hidden or not.  If set to True, then the role does not show in the role picker. It will not be listed by API endpoints unless explicitly specified (default False)
 - `permissions` _list_ - Specify the optional permissions of the role as a list of the RolePermission objects (default None)
+
+<a id="model.DatasourceCache"></a>
+
+## DatasourceCache Objects
+
+```python
+@dataclass
+class DatasourceCache()
+```
+
+The class includes all necessary variables to generate a datasource cache object
+
+**Arguments**:
+
+- `datasource_id` _int_ - Specify the datasource id
+- `datasource_uid` _str_ - Specify the datasource uid
+- `enabled` _bool_ - Specify if caching should be enabled for the datasource
+- `use_default_ttl` _bool_ - Specify if the configured default TTL (Time-To-Live) should be used for both query and resource caching, instead of the user-specified values
+- `ttl_queries_ms` _int_ - Specify the TTL to use for query caching, in milliseconds
+- `ttl_resources_ms` _int_ - Specify the TTL to use for resource caching, in milliseconds
 
