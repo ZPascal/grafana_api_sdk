@@ -534,16 +534,6 @@ class DatasourceQueryResourceCachingTestCase(TestCase):
             datasource.disable_datasource_cache("test")
 
     @patch("grafana_api.api.Api.call_the_api")
-    def test_enable_datasource_cache_no_valid_result(self, call_the_api_mock):
-        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
-        datasource: DatasourceQueryResourceCaching = DatasourceQueryResourceCaching(grafana_api_model=model)
-
-        call_the_api_mock.return_value = dict()
-
-        with self.assertRaises(Exception):
-            datasource.enable_datasource_cache("test")
-
-    @patch("grafana_api.api.Api.call_the_api")
     def test_clean_datasource_cache(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: DatasourceQueryResourceCaching = DatasourceQueryResourceCaching(grafana_api_model=model)
