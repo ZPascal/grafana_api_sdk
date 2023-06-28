@@ -712,3 +712,24 @@ class CustomRole:
     group: str = None
     hidden: bool = False
     permissions: List[RolePermission] = None
+
+
+@dataclass
+class DatasourceCache:
+    """The class includes all necessary variables to generate a datasource cache object
+
+    Args:
+        datasource_id (int): Specify the datasource id
+        datasource_uid (str): Specify the datasource uid
+        enabled (bool): Specify if caching should be enabled for the datasource
+        use_default_ttl (bool): Specify if the configured default TTL (Time-To-Live) should be used for both query and resource caching, instead of the user-specified values
+        ttl_queries_ms (int): Specify the TTL to use for query caching, in milliseconds
+        ttl_resources_ms (int): Specify the TTL to use for resource caching, in milliseconds
+    """
+
+    datasource_id: int
+    datasource_uid: str
+    enabled: bool
+    use_default_ttl: bool
+    ttl_queries_ms: int
+    ttl_resources_ms: int

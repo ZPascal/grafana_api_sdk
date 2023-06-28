@@ -10,9 +10,6 @@ The main feature that is implemented inside this library:
 
 In general my focus inside this project is to implement and deliver old and new features from the Grafana API, to document all features and functionality clear and to increase the overall test coverage of the project.
 
-## Features on the roadmap
-- [ ] [Query and resource caching API](https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/) Planned for CW 26/27
-
 ## Currently, supported features
 
 ### Dashboard
@@ -62,6 +59,13 @@ In general my focus inside this project is to implement and deliver old and new 
 - Get datasource permissions
 - Add datasource permissions
 - Delete datasource permissions
+
+### Datasource query and resource caching
+- Get datasource cache by uid
+- Enable datasource cache by uid
+- Disable datasource cache by uid
+- Update datasource cache by uid
+- Clean all datasource caches
 
 ### Legacy Alerting
 - Get alerts

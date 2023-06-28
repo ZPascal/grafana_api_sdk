@@ -1,7 +1,7 @@
 import json
 import logging
 
-from .model import APIModel, APIEndpoints, RequestsMethods
+from .model import APIModel, APIEndpoints, RequestsMethods, DatasourceCache
 from .api import Api
 
 
@@ -563,4 +563,206 @@ class Datasource:
                 logging.info("You successfully removed a datasource permission.")
         else:
             logging.error("There is no datasource_id or permission_id defined.")
+            raise ValueError
+
+
+class DatasourceQueryResourceCaching:
+    """The class includes all necessary methods to access the Grafana datasource query and resource caching API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights. The functionality is a Grafana ENTERPRISE feature
+
+    HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
+
+    Args:
+        grafana_api_model (APIModel): Inject a Grafana API model object that includes all necessary values and information
+
+    Attributes:
+        grafana_api_model (APIModel): This is where we store the grafana_api_model
+    """
+
+    def __init__(self, grafana_api_model: APIModel):
+        self.grafana_api_model = grafana_api_model
+
+    def get_datasource_cache(self, uid: str) -> dict:
+        """The method includes a functionality to get the datasource cache config specified by the datasource uid
+
+        Args:
+            uid (str): Specify the uid of the datasource
+
+        Required Permissions:
+            Action: datasources.caching:write
+            Scope: datasources:*
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (dict): Returns a datasource
+        """
+
+        if len(uid) != 0:
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/{uid}/cache",
+            )
+
+            if api_call == dict() or api_call.get("dataSourceID") is None:
+                logging.error(f"Check the error: {api_call}.")
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error("There is no uid defined.")
+            raise ValueError
+
+    def enable_datasource_cache(self, uid: str) -> dict:
+        """The method includes a functionality to enable the datasource cache specified by the datasource uid
+
+        Args:
+            uid (str): Specify the uid of the datasource
+
+        Required Permissions:
+            Action: datasources.caching:read
+            Scope: datasources:*
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (dict): Returns a datasource
+        """
+
+        if len(uid) != 0:
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/{uid}/cache/enable",
+                RequestsMethods.POST,
+            )
+
+            if api_call == dict() or api_call.get("dataSourceID") is None:
+                logging.error(f"Check the error: {api_call}.")
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error("There is no uid defined.")
+            raise ValueError
+
+    def disable_datasource_cache(self, uid: str) -> dict:
+        """The method includes a functionality to disable the datasource cache specified by the datasource uid
+
+        Args:
+            uid (str): Specify the uid of the datasource
+
+        Required Permissions:
+            Action: datasources.caching:write
+            Scope: datasources:*
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (dict): Returns a datasource
+        """
+
+        if len(uid) != 0:
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/{uid}/cache/disable",
+                RequestsMethods.POST,
+            )
+
+            if api_call == dict() or api_call.get("dataSourceID") is None:
+                logging.error(f"Check the error: {api_call}.")
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error("There is no uid defined.")
+            raise ValueError
+
+    def clean_datasource_cache(self, uid: str) -> dict:
+        """The method includes a functionality to clean the datasource cache of all data sources with caching enabled. The uid of the datasource will only be used to return the configuration for that data source
+
+        Args:
+            uid (str): Specify the uid of the datasource
+
+        Required Permissions:
+            Action: datasources.caching:write
+            Scope: datasources:*
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (dict): Returns a datasource
+        """
+
+        if len(uid) != 0:
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/{uid}/cache/clean",
+                RequestsMethods.POST,
+            )
+
+            if api_call == dict() or api_call.get("dataSourceID") is None:
+                logging.error(f"Check the error: {api_call}.")
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error("There is no uid defined.")
+            raise ValueError
+
+    def update_datasource_cache(self, uid: str, datasource_cache: DatasourceCache) -> dict:
+        """The method includes a functionality to update the datasource cache specified by the datasource uid
+
+        Args:
+            uid (str): Specify the uid of the datasource
+            datasource_cache (DatasourceCache): Specif the datasource cache object
+
+        Required Permissions:
+            Action: datasources.caching:write
+            Scope: datasources:*
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (dict): Returns a datasource
+        """
+
+        if (
+            len(uid) != 0
+            and datasource_cache is not None
+            and datasource_cache.datasource_id != 0
+            and len(datasource_cache.datasource_uid) != 0
+            and datasource_cache.enabled is not None
+            and datasource_cache.use_default_ttl is not None
+            and datasource_cache.ttl_queries_ms != 0
+            and datasource_cache.ttl_resources_ms != 0
+        ):
+            datasource_cache_object: dict = dict(
+                {
+                    "dataSourceID": datasource_cache.datasource_id,
+                    "dataSourceUID": datasource_cache.datasource_uid,
+                    "enabled": datasource_cache.enabled,
+                    "useDefaultTTL": datasource_cache.use_default_ttl,
+                    "ttlQueriesMs": datasource_cache.ttl_queries_ms,
+                    "ttlResourcesMs": datasource_cache.ttl_resources_ms,
+                }
+            )
+
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/{uid}/cache",
+                RequestsMethods.POST,
+                json.dumps(datasource_cache_object)
+            )
+
+            if api_call == dict() or api_call.get("dataSourceID") is None:
+                logging.error(f"Check the error: {api_call}.")
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error("There is no uid or the right datasource_cache object defined.")
             raise ValueError
