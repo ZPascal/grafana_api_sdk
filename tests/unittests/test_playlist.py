@@ -249,7 +249,7 @@ class PlaylistTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: Playlist = Playlist(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status = 200
+        call_the_api_mock.return_value.status_code = 200
 
         self.assertEqual(None, playlist.delete_playlist("test"))
 
@@ -260,7 +260,7 @@ class PlaylistTestCase(TestCase):
         )
         playlist: Playlist = Playlist(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status = 400
+        call_the_api_mock.return_value.status_code = 400
 
         with self.assertRaises(ValueError):
             playlist.delete_playlist("")
@@ -270,7 +270,7 @@ class PlaylistTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: Playlist = Playlist(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status = 400
+        call_the_api_mock.return_value.status_code = 400
 
         with self.assertRaises(Exception):
             playlist.delete_playlist("test")

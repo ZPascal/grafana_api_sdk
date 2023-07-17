@@ -20,7 +20,7 @@ jobs:
       - name: Install the requirements
         run: pip install -r requirements.txt
 
-      - name: Execute the integrationtests
+      - name: Execute the integrationtests (http1.1)
         run: python3 --version && python3 -m unittest discover tests/integrationtest
         env:
           GRAFANA_HOST: ${{ secrets.GRAFANA_HOST }}
@@ -29,3 +29,15 @@ jobs:
           GRAFANA_DASHBOARD_NAME: ${{ secrets.GRAFANA_DASHBOARD_NAME }}
           GRAFANA_USERNAME: ${{ secrets.GRAFANA_USERNAME }}
           GRAFANA_PASSWORD: ${{ secrets.GRAFANA_PASSWORD }}
+          HTTP2: "False"
+
+      - name: Execute the integrationtests (http2)
+        run: python3 --version && python3 -m unittest discover tests/integrationtest
+        env:
+          GRAFANA_HOST: ${{ secrets.GRAFANA_HOST }}
+          GRAFANA_TOKEN: ${{ secrets.GRAFANA_TOKEN }}
+          GRAFANA_DASHBOARD_PATH: ${{ secrets.GRAFANA_DASHBOARD_PATH }}
+          GRAFANA_DASHBOARD_NAME: ${{ secrets.GRAFANA_DASHBOARD_NAME }}
+          GRAFANA_USERNAME: ${{ secrets.GRAFANA_USERNAME }}
+          GRAFANA_PASSWORD: ${{ secrets.GRAFANA_PASSWORD }}
+          HTTP2: "True"

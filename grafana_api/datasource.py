@@ -712,7 +712,9 @@ class DatasourceQueryResourceCaching:
             logging.error("There is no uid defined.")
             raise ValueError
 
-    def update_datasource_cache(self, uid: str, datasource_cache: DatasourceCache) -> dict:
+    def update_datasource_cache(
+        self, uid: str, datasource_cache: DatasourceCache
+    ) -> dict:
         """The method includes a functionality to update the datasource cache specified by the datasource uid
 
         Args:
@@ -755,7 +757,7 @@ class DatasourceQueryResourceCaching:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/{uid}/cache",
                 RequestsMethods.POST,
-                json.dumps(datasource_cache_object)
+                json.dumps(datasource_cache_object),
             )
 
             if api_call == dict() or api_call.get("dataSourceID") is None:
@@ -764,5 +766,7 @@ class DatasourceQueryResourceCaching:
             else:
                 return api_call
         else:
-            logging.error("There is no uid or the right datasource_cache object defined.")
+            logging.error(
+                "There is no uid or the right datasource_cache object defined."
+            )
             raise ValueError

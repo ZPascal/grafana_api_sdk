@@ -94,7 +94,9 @@ class AlertingProvisioning:
             logging.error("There is no alert_rule defined.")
             raise ValueError
 
-    def update_alert_rule(self, uid: str, alert_rule: AlertRule, disable_provenance: bool = False):
+    def update_alert_rule(
+        self, uid: str, alert_rule: AlertRule, disable_provenance: bool = False
+    ):
         """The method includes a functionality to update an existing alert rule
 
         Args:
@@ -129,7 +131,11 @@ class AlertingProvisioning:
             raise ValueError
 
     def update_the_interval_of_a_alert_rule_group(
-        self, folder_uid: str, group: str, alert_rule_group_interval: int, disable_provenance: bool = False
+        self,
+        folder_uid: str,
+        group: str,
+        alert_rule_group_interval: int,
+        disable_provenance: bool = False,
     ):
         """The method includes a functionality to update the interval of a alert rule group
 
@@ -220,7 +226,11 @@ class AlertingProvisioning:
         else:
             return api_call
 
-    def add_contact_point(self, embedded_contact_point: EmbeddedContactPoint, disable_provenance: bool = False):
+    def add_contact_point(
+        self,
+        embedded_contact_point: EmbeddedContactPoint,
+        disable_provenance: bool = False,
+    ):
         """The method includes a functionality to create a contact point
 
         Args:
@@ -263,7 +273,10 @@ class AlertingProvisioning:
             raise ValueError
 
     def update_contact_point(
-        self, uid: str, embedded_contact_point: EmbeddedContactPoint, disable_provenance: bool = False
+        self,
+        uid: str,
+        embedded_contact_point: EmbeddedContactPoint,
+        disable_provenance: bool = False,
     ):
         """The method includes a functionality to update a contact point
 
@@ -405,7 +418,7 @@ class AlertingProvisioning:
             f"{APIEndpoints.ALERTING_PROVISIONING.value}/mute-timings",
         )
 
-        if type(api_call) != list:
+        if isinstance(api_call, list) is False:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
@@ -439,7 +452,9 @@ class AlertingProvisioning:
             logging.error("There is no name defined.")
             raise ValueError
 
-    def add_mute_timing(self, mute_time_interval: MuteTimeInterval, disable_provenance: bool = False):
+    def add_mute_timing(
+        self, mute_time_interval: MuteTimeInterval, disable_provenance: bool = False
+    ):
         """The method includes a functionality to create a mute timing
 
         Args:
@@ -472,7 +487,12 @@ class AlertingProvisioning:
             logging.error("There is no mute_time_interval defined.")
             raise ValueError
 
-    def update_mute_timing(self, name: str, mute_time_interval: MuteTimeInterval, disable_provenance: bool = False):
+    def update_mute_timing(
+        self,
+        name: str,
+        mute_time_interval: MuteTimeInterval,
+        disable_provenance: bool = False,
+    ):
         """The method includes a functionality to update an existing mute timing
 
         Args:
@@ -550,7 +570,7 @@ class AlertingProvisioning:
             f"{APIEndpoints.ALERTING_PROVISIONING.value}/templates",
         )
 
-        if type(api_call) != list:
+        if isinstance(api_call, list) is False:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
@@ -585,7 +605,9 @@ class AlertingProvisioning:
             logging.error("There is no name defined.")
             raise ValueError
 
-    def create_or_update_message_template(self, name: str, message_template: str, disable_provenance: bool = False):
+    def create_or_update_message_template(
+        self, name: str, message_template: str, disable_provenance: bool = False
+    ):
         """The method includes a functionality to create or update a message template
 
         Args:
@@ -684,7 +706,7 @@ class AlertingProvisioning:
 
         mute_timing_interval_list: list = list()
 
-        if time_intervals is not None and type(time_intervals) == list:
+        if time_intervals is not None and isinstance(time_intervals, list):
             for time_interval in time_intervals:
                 mute_timing_interval_list.append(
                     {
@@ -713,7 +735,7 @@ class AlertingProvisioning:
 
         timing_list: list = list()
 
-        if timing is not None and type(timing) == list:
+        if timing is not None and isinstance(timing, list):
             for time in timing:
                 timing_list.append(
                     {"start_time": time.start_time, "end_time": time.end_time}
@@ -762,7 +784,7 @@ class AlertingProvisioning:
 
         routes_list: list = list()
 
-        if routes is not None and type(routes) == list:
+        if routes is not None and isinstance(routes, list):
             for route in routes:
                 routes_list.append(self.__create_alert_route_dictionary(route))
 
@@ -783,7 +805,7 @@ class AlertingProvisioning:
 
         route_matchers_list: list = list()
 
-        if matchers is not None and type(matchers) == list:
+        if matchers is not None and isinstance(matchers, list):
             for matcher in matchers:
                 route_matcher_dict: dict = dict(
                     {

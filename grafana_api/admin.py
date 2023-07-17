@@ -1,6 +1,6 @@
 import json
 import logging
-from urllib3 import response
+from httpx import Response
 
 from .model import (
     APIModel,
@@ -544,13 +544,13 @@ class Admin:
             None
         """
 
-        api_call: response = Api(self.grafana_api_model).call_the_api(
+        api_call: Response = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.ADMIN.value}/encryption/rotate-data-keys",
             RequestsMethods.POST,
             json.dumps(dict()),
         )
 
-        if api_call.status != 204:
+        if api_call.status_code != 204:
             logging.error(f"Please, check the error: {api_call}.")
             raise Exception
         else:

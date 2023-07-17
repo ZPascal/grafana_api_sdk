@@ -1,4 +1,5 @@
 import os
+
 import time
 from unittest import TestCase
 
@@ -21,6 +22,7 @@ class AlertingProvisioningTest(TestCase):
     model: APIModel = APIModel(
         host=os.environ["GRAFANA_HOST"],
         token=os.environ["GRAFANA_TOKEN"],
+        http2_support=True if os.environ["HTTP2"] == "True" else False,
     )
     alerting_provisioning: AlertingProvisioning = AlertingProvisioning(model)
 

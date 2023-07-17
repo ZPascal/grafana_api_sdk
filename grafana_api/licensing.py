@@ -1,5 +1,5 @@
 import json
-from urllib3 import response
+from httpx import Response
 import logging
 
 from .model import (
@@ -39,15 +39,15 @@ class Licensing:
             api_call (bool): Returns the result if the license is available or not
         """
 
-        api_call: response = Api(self.grafana_api_model).call_the_api(
+        api_call: Response = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.LICENSING.value}/check",
         )
 
-        if api_call.status != 200:
+        if api_call.status_code != 200:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
-            return json.loads(str(api_call.data.decode("utf-8")))
+            return json.loads(str(api_call.text))
 
     def manually_force_license_refresh(self):
         """The method includes a functionality to manually ask license issuer for a new token
