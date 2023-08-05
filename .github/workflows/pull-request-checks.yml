@@ -69,7 +69,7 @@ jobs:
       matrix:
         python-version: [ '3.10' ]
     outputs:
-      run_integration_test: ${{ steps.verify-coverage.outputs.result }}
+      run_integration_test: ${{ steps.verifyCoverage.outputs.result }}
 
     steps:
       - uses: actions/checkout@v3
@@ -125,7 +125,7 @@ jobs:
           branch: ${{ github.head_ref }}
 
       - name: Verify Coverage
-        id: verify-coverage
+        id: verifyCoverage
         run: echo "result=true" >> "$GITHUB_OUTPUT"
 
   pr-documentation:
