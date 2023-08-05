@@ -24,7 +24,7 @@ jobs:
           cache: 'pip'
 
       - name: Install the requirements
-        run: pip install -r requirements.txt
+        run: pip install -r requirements.txt && pip install setuptools~=65.5.1
 
       - name: Install pypa/build
         run: >-

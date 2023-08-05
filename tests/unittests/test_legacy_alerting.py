@@ -85,10 +85,16 @@ class LegacyAlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"Id": "test", "PanelId": 112, "NewStateDate": "2022-06-17T09:34:08Z"})
+        call_the_api_mock.return_value = dict(
+            {"Id": "test", "PanelId": 112, "NewStateDate": "2022-06-17T09:34:08Z"}
+        )
 
-        self.assertEqual(dict({"id": "test", "panelId": 112, "newStateDate": "2022-06-17T09:34:08Z"}),
-                         alerting.get_alert_by_id(1))
+        self.assertEqual(
+            dict(
+                {"id": "test", "panelId": 112, "newStateDate": "2022-06-17T09:34:08Z"}
+            ),
+            alerting.get_alert_by_id(1),
+        )
 
     def test_get_alert_by_id_no_id(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())

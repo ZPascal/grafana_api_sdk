@@ -6,6 +6,7 @@
     * [renew\_login\_session\_based\_on\_remember\_cookie](#other_http.OtherHTTP.renew_login_session_based_on_remember_cookie)
     * [get\_health\_status](#other_http.OtherHTTP.get_health_status)
     * [get\_metrics](#other_http.OtherHTTP.get_metrics)
+    * [get\_plugin\_metrics](#other_http.OtherHTTP.get_plugin_metrics)
 
 <a id="other_http"></a>
 
@@ -92,13 +93,49 @@ The method includes a functionality to get the health information
 #### get\_metrics
 
 ```python
-def get_metrics() -> str
+def get_metrics(basic_auth_username: str = None,
+                basic_auth_password: str = None) -> str
 ```
 
 The method includes a functionality to get the Grafana metrics information
 
+**Arguments**:
+
+- `basic_auth_username` _str_ - Specify the optional basic auth username
+- `basic_auth_password` _str_ - Specify the optional basic auth password
+  
+
 **Raises**:
 
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+- `api_call` _str_ - Returns the metrics information
+
+<a id="other_http.OtherHTTP.get_plugin_metrics"></a>
+
+#### get\_plugin\_metrics
+
+```python
+def get_plugin_metrics(plugin_id: str,
+                       basic_auth_username: str = None,
+                       basic_auth_password: str = None) -> str
+```
+
+The method includes a functionality to get the Grafana plugin metrics information
+
+**Arguments**:
+
+- `plugin_id` _str_ - Specify the plugin id
+- `basic_auth_username` _str_ - Specify the optional basic auth username
+- `basic_auth_password` _str_ - Specify the optional basic auth password
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
 - `Exception` - Unspecified error by executing the API call
   
 

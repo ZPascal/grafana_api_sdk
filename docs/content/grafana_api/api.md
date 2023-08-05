@@ -3,6 +3,8 @@
 * [api](#api)
   * [Api](#api.Api)
     * [call\_the\_api](#api.Api.call_the_api)
+    * [prepare\_api\_string](#api.Api.prepare_api_string)
+    * [create\_the\_http\_api\_client](#api.Api.create_the_http_api_client)
 
 <a id="api"></a>
 
@@ -60,4 +62,44 @@ The method execute a defined API call against the Grafana endpoints
 **Returns**:
 
 - `api_call` _any_ - Returns the value of the api call
+
+<a id="api.Api.prepare_api_string"></a>
+
+#### prepare\_api\_string
+
+```python
+@staticmethod
+def prepare_api_string(query_string: str) -> str
+```
+
+The method includes a functionality to prepare the api string for the queries
+
+**Arguments**:
+
+- `query_string` _str_ - Specify the corresponding query string
+  
+
+**Returns**:
+
+- `query_string` _str_ - Returns the adjusted query string
+
+<a id="api.Api.create_the_http_api_client"></a>
+
+#### create\_the\_http\_api\_client
+
+```python
+def create_the_http_api_client(
+        headers: dict = None) -> Union[httpx.Client, httpx.AsyncClient]
+```
+
+The method includes a functionality to create the corresponding HTTP client
+
+**Arguments**:
+
+- `headers` _dict_ - Specify the optional inserted headers (Default None)
+  
+
+**Returns**:
+
+- `client` _Union[httpx.Client, httpx.AsyncClient]_ - Returns the corresponding client
 

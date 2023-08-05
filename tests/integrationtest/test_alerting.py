@@ -1,4 +1,5 @@
 import os
+
 import time
 from unittest import TestCase
 
@@ -15,6 +16,7 @@ class AlertingTest(TestCase):
     model: APIModel = APIModel(
         host=os.environ["GRAFANA_HOST"],
         token=os.environ["GRAFANA_TOKEN"],
+        http2_support=True if os.environ["HTTP2"] == "True" else False,
     )
     alerting: Alerting = Alerting(model)
 
@@ -124,10 +126,19 @@ class AlertingTest(TestCase):
         MAX_TRIES: int = 3
 
         for i in range(0, MAX_TRIES):
-            if len(self.alerting.get_prometheus_alerts().get("data").get("alerts")) != 0:
+            if (
+                len(self.alerting.get_prometheus_alerts().get("data").get("alerts"))
+                != 0
+            ):
                 time.sleep(0.1 + i / 2)
-                self.assertEqual("Test",
-                                 self.alerting.get_prometheus_alerts().get("data").get("alerts")[0].get("labels").get("alertname"))
+                self.assertEqual(
+                    "Test",
+                    self.alerting.get_prometheus_alerts()
+                    .get("data")
+                    .get("alerts")[0]
+                    .get("labels")
+                    .get("alertname"),
+                )
             elif i == MAX_TRIES:
                 self.fail("Conditions not yet fulfilled.")
 

@@ -1,8 +1,9 @@
 import os
+
 import json
 from unittest import TestCase
 
-import urllib3
+import httpx
 
 from grafana_api.model import APIModel
 from grafana_api.dashboard import Dashboard
@@ -13,6 +14,7 @@ class DashboardTest(TestCase):
     model: APIModel = APIModel(
         host=os.environ["GRAFANA_HOST"],
         token=os.environ["GRAFANA_TOKEN"],
+        http2_support=True if os.environ["HTTP2"] == "True" else False,
     )
     dashboard: Dashboard = Dashboard(model)
     folder: Folder = Folder(model)
@@ -99,7 +101,7 @@ class DashboardTest(TestCase):
 
         dashboard: Dashboard = Dashboard(model)
 
-        with self.assertRaises(urllib3.exceptions.ConnectionError):
+        with self.assertRaises(httpx.ConnectError):
             dashboard.delete_dashboard_by_name_and_path(
                 dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
                 dashboard_name=os.environ["GRAFANA_DASHBOARD_NAME"],

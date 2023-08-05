@@ -11,6 +11,7 @@ class CurrentUserTest(TestCase):
         host=os.environ["GRAFANA_HOST"],
         username=os.environ["GRAFANA_USERNAME"],
         password=os.environ["GRAFANA_PASSWORD"],
+        http2_support=True if os.environ["HTTP2"] == "True" else False,
     )
     current_user: CurrentUser = CurrentUser(model)
     dashboard: Dashboard = Dashboard(model)

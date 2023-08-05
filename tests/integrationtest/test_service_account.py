@@ -1,4 +1,5 @@
 import os
+
 from unittest import TestCase
 
 from grafana_api.model import APIModel
@@ -10,6 +11,7 @@ class ServiceAccountTest(TestCase):
     model: APIModel = APIModel(
         host=os.environ["GRAFANA_HOST"],
         token=os.environ["GRAFANA_TOKEN"],
+        http2_support=True if os.environ["HTTP2"] == "True" else False,
     )
     service_account: ServiceAccount = ServiceAccount(grafana_api_model=model)
     authentication: Authentication = Authentication(grafana_api_model=model)
@@ -89,7 +91,9 @@ class ServiceAccountTest(TestCase):
         )
 
         self.service_account.delete_service_account(service_account.get("id"))
-        self.service_account.delete_service_account(service_account_migrated.get("serviceAccounts")[0].get("id"))
+        self.service_account.delete_service_account(
+            service_account_migrated.get("serviceAccounts")[0].get("id")
+        )
         self.assertEqual(
             1, len(self.service_account.search_service_account().get("serviceAccounts"))
         )

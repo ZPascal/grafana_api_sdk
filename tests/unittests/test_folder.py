@@ -187,7 +187,7 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status = 200
+        call_the_api_mock.return_value.status_code = 200
 
         self.assertEqual(None, folder.delete_folder("test"))
 
@@ -196,7 +196,7 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status = 404
+        call_the_api_mock.return_value.status_code = 404
 
         with self.assertRaises(ValueError):
             folder.delete_folder("")
@@ -206,7 +206,7 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status = 404
+        call_the_api_mock.return_value.status_code = 404
 
         with self.assertRaises(Exception):
             folder.delete_folder("test")

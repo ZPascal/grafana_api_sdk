@@ -1,4 +1,5 @@
 import ssl
+import httpx
 from enum import Enum
 from typing import List, TypeVar
 from dataclasses import dataclass, field
@@ -78,6 +79,7 @@ class APIModel:
         username (str): Specify the username of the Grafana system
         password (str): Specify the password of the Grafana system
         timeout (float): Specify the timeout of the Grafana system
+        http2_support (bool): Specify if you want to use HTTP/2
         ssl_context (ssl.SSLContext): Specify the custom ssl context of the Grafana system
         num_pools (int): Specify the number of the connection pool
         retries (any): Specify the number of the retries. Please use False as parameter to disable the retries
@@ -88,7 +90,8 @@ class APIModel:
     username: str = None
     password: str = None
     timeout: float = 10.0
-    ssl_context: ssl.SSLContext = ssl.create_default_context()
+    http2_support: bool = False
+    ssl_context: ssl.SSLContext = httpx.create_ssl_context(http2=http2_support)
     num_pools: int = 10
     retries: any = 10
 

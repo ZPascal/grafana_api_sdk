@@ -1,9 +1,11 @@
 import logging
 import json
 import base64
+from typing import Union
 
-import urllib3
-from urllib3 import exceptions
+import httpx
+from httpx import ConnectError
+import asyncio
 
 from .model import RequestsMethods, ERROR_MESSAGES, APIModel
 
@@ -66,30 +68,64 @@ class Api:
         headers["Content-Type"] = "application/json"
         headers["Accept"] = "application/json"
 
-        if org_id_header is not None and type(org_id_header) == int:
+        if org_id_header is not None and isinstance(org_id_header, int):
             headers["X-Grafana-Org-Id"] = org_id_header
 
-        if type(disable_provenance_header) == bool and disable_provenance_header:
+        if isinstance(disable_provenance_header, bool) and disable_provenance_header:
             headers["X-Disable-Provenance"] = f"{disable_provenance_header}"
 
-        http = urllib3.PoolManager(
-            num_pools=self.grafana_api_model.num_pools,
-            retries=self.grafana_api_model.retries,
-            headers=headers,
-            timeout=self.grafana_api_model.timeout,
-            ssl_context=self.grafana_api_model.ssl_context,
+        http: Union[httpx.Client, httpx.AsyncClient] = self.create_the_http_api_client(
+            headers
         )
+
+        if self.grafana_api_model.http2_support:
+
+            async def _execute_async_api_call():
+                async with http:
+                    return await self._execute_the_async_api_call(
+                        http, method, api_url, response_status_code, json_complete
+                    )
+
+            return asyncio.run(_execute_async_api_call())
+
+        return self._execute_the_api_call(
+            http, method, api_url, response_status_code, json_complete
+        )
+
+    def _execute_the_api_call(
+        self,
+        http: httpx.Client,
+        method: RequestsMethods,
+        api_url: str,
+        response_status_code: bool,
+        json_complete: str,
+    ) -> any:
+        """The method includes a functionality to execute a synchronous api call
+
+        Args:
+            http (httpx.Client): Specify the used synchronous client
+            method (RequestsMethods): Specify the used method
+            api_url (str): Specify the used api url
+            response_status_code (bool): Specify if the response code should be returned
+            json_complete (str): Specify the forwarded json in case of patch, post or put calls
+
+        Raises:
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (any): Returns the value of the api call
+        """
 
         try:
             if method.value == RequestsMethods.GET.value:
-                return Api.__check_the_api_call_response(
+                return self._check_the_api_call_response(
                     http.request("GET", api_url),
                     response_status_code,
                 )
             elif method.value == RequestsMethods.PUT.value:
                 if json_complete is not None:
-                    return Api.__check_the_api_call_response(
-                        http.request("PUT", api_url, body=json_complete),
+                    return self._check_the_api_call_response(
+                        http.request("PUT", api_url, content=json_complete),
                         response_status_code,
                     )
                 else:
@@ -97,8 +133,8 @@ class Api:
                     raise Exception
             elif method.value == RequestsMethods.POST.value:
                 if json_complete is not None:
-                    return Api.__check_the_api_call_response(
-                        http.request("POST", api_url, body=json_complete),
+                    return self._check_the_api_call_response(
+                        http.request("POST", api_url, content=json_complete),
                         response_status_code,
                     )
                 else:
@@ -106,15 +142,15 @@ class Api:
                     raise Exception
             elif method.value == RequestsMethods.PATCH.value:
                 if json_complete is not None:
-                    return Api.__check_the_api_call_response(
-                        http.request("PATCH", api_url, body=json_complete),
+                    return self._check_the_api_call_response(
+                        http.request("PATCH", api_url, content=json_complete),
                         response_status_code,
                     )
                 else:
                     logging.error("Please define the json_complete.")
                     raise Exception
             elif method.value == RequestsMethods.DELETE.value:
-                return Api.__check_the_api_call_response(
+                return self._check_the_api_call_response(
                     http.request("DELETE", api_url), response_status_code
                 )
             else:
@@ -123,8 +159,75 @@ class Api:
         except Exception as e:
             raise e
 
+    async def _execute_the_async_api_call(
+        self,
+        http: httpx.AsyncClient,
+        method: RequestsMethods,
+        api_url: str,
+        response_status_code: bool,
+        json_complete: str,
+    ):
+        """The method includes a functionality to execute an asynchronous api call
+
+        Args:
+            http (httpx.AsyncClient): Specify the used asynchronous client
+            method (RequestsMethods): Specify the used method
+            api_url (str): Specify the used api url
+            response_status_code (bool): Specify if the response code should be returned
+            json_complete (str): Specify the forwarded json in case of patch, post or put calls
+
+        Raises:
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (any): Returns the value of the api call
+        """
+
+        try:
+            if method.value == RequestsMethods.GET.value:
+                return self._check_the_api_call_response(
+                    await http.request("GET", api_url),
+                    response_status_code,
+                )
+            elif method.value == RequestsMethods.PUT.value:
+                if json_complete is not None:
+                    return self._check_the_api_call_response(
+                        await http.request("PUT", api_url, content=json_complete),
+                        response_status_code,
+                    )
+                else:
+                    logging.error("Please define the json_complete.")
+                    raise Exception
+            elif method.value == RequestsMethods.POST.value:
+                if json_complete is not None:
+                    return self._check_the_api_call_response(
+                        await http.request("POST", api_url, content=json_complete),
+                        response_status_code,
+                    )
+                else:
+                    logging.error("Please define the json_complete.")
+                    raise Exception
+            elif method.value == RequestsMethods.PATCH.value:
+                if json_complete is not None:
+                    return self._check_the_api_call_response(
+                        await http.request("PATCH", api_url, content=json_complete),
+                        response_status_code,
+                    )
+                else:
+                    logging.error("Please define the json_complete.")
+                    raise Exception
+            elif method.value == RequestsMethods.DELETE.value:
+                return self._check_the_api_call_response(
+                    await http.request("DELETE", api_url), response_status_code
+                )
+            else:
+                logging.error("Please define a valid method.")
+                raise Exception
+        except Exception as e:
+            raise e
+
     @staticmethod
-    def __check_the_api_call_response(
+    def _check_the_api_call_response(
         response: any = None, response_status_code: bool = False
     ) -> any:
         """The method includes a functionality to check the output of API call method for errors
@@ -140,43 +243,40 @@ class Api:
             api_call (any): Returns the value of the api call
         """
 
-        if Api.__check_if_valid_json(response.data.decode("utf-8")):
+        if Api._check_if_valid_json(response.text):
             if (
-                len(json.loads(response.data.decode("utf-8"))) != 0
-                and type(json.loads(response.data.decode("utf-8"))) == dict
+                len(json.loads(response.text)) != 0
+                and type(json.loads(response.text)) == dict
             ):
                 if (
-                    "message" in json.loads(response.data.decode("utf-8")).keys()
-                    and json.loads(response.data.decode("utf-8"))["message"]
-                    in ERROR_MESSAGES
+                    "message" in json.loads(response.text).keys()
+                    and json.loads(response.text)["message"] in ERROR_MESSAGES
                 ):
-                    logging.error(json.loads(response.data.decode("utf-8"))["message"])
-                    raise exceptions.ConnectionError
+                    logging.error(json.loads(response.text)["message"])
+                    raise ConnectError(str(json.loads(response.text)["message"]))
 
-            json_response: (dict | list) = json.loads(response.data.decode("utf-8"))
+            json_response: Union[dict, list] = json.loads(response.text)
 
-            if type(json_response) == dict and response_status_code:
-                json_response.update({"status": response.status})
-            elif type(json_response) == list and response_status_code:
-                json_response[0].update({"status": response.status})
+            if isinstance(json_response, dict) and response_status_code:
+                json_response.update({"status": response.status_code})
+            elif isinstance(json_response, list) and response_status_code:
+                json_response[0].update({"status": response.status_code})
             return json_response
         else:
             if response_status_code:
-                return dict(
-                    {"status": response.status, "data": response.data.decode("utf-8")}
-                )
+                return dict({"status": response.status_code, "data": response.text})
             else:
                 return response
 
     @staticmethod
-    def __check_if_valid_json(response: any) -> bool:
+    def _check_if_valid_json(response: any) -> bool:
         """The method includes a functionality to check if the response json is valid
 
         Args:
             response (any): Specify the inserted response json
 
         Returns:
-            api_call (bool): Returns if the json is valid or not
+            result (bool): Returns if the json is valid or not
         """
 
         try:
@@ -187,7 +287,57 @@ class Api:
 
     @staticmethod
     def prepare_api_string(query_string: str) -> str:
+        """The method includes a functionality to prepare the api string for the queries
+
+        Args:
+            query_string (str): Specify the corresponding query string
+
+        Returns:
+            query_string (str): Returns the adjusted query string
+        """
+
         if len(query_string) >= 1:
             return f"{query_string}&"
         else:
             return query_string
+
+    def create_the_http_api_client(
+        self, headers: dict = None
+    ) -> Union[httpx.Client, httpx.AsyncClient]:
+        """The method includes a functionality to create the corresponding HTTP client
+
+        Args:
+            headers (dict): Specify the optional inserted headers (Default None)
+
+        Returns:
+            client (Union[httpx.Client, httpx.AsyncClient]): Returns the corresponding client
+        """
+
+        transport: httpx.HTTPTransport = httpx.HTTPTransport(
+            retries=self.grafana_api_model.retries
+        )
+        limits: httpx.Limits = httpx.Limits(
+            max_connections=self.grafana_api_model.num_pools
+        )
+        http2: bool = self.grafana_api_model.http2_support
+
+        if http2:
+            async_transport: httpx.AsyncHTTPTransport = httpx.AsyncHTTPTransport(
+                retries=self.grafana_api_model.retries, http2=http2
+            )
+            return httpx.AsyncClient(
+                http2=True,
+                limits=limits,
+                timeout=self.grafana_api_model.timeout,
+                headers=headers,
+                transport=async_transport,
+                verify=self.grafana_api_model.ssl_context,
+            )
+        else:
+            return httpx.Client(
+                limits=limits,
+                timeout=self.grafana_api_model.timeout,
+                headers=headers,
+                transport=transport,
+                verify=self.grafana_api_model.ssl_context,
+            )

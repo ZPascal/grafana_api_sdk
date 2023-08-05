@@ -11,8 +11,8 @@ class LicenseTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         licensing: Licensing = Licensing(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status = 200
-        call_the_api_mock.return_value.data = b"true"
+        call_the_api_mock.return_value.status_code = 200
+        call_the_api_mock.return_value.text = "true"
 
         self.assertEqual(True, licensing.check_license_availability())
 
@@ -21,7 +21,7 @@ class LicenseTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         licensing: Licensing = Licensing(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status = 400
+        call_the_api_mock.return_value.status_code = 400
 
         with self.assertRaises(Exception):
             licensing.check_license_availability()

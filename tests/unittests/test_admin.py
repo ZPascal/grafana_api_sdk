@@ -677,7 +677,7 @@ class AdminTestCase(TestCase):
         admin: Admin = Admin(grafana_api_model=model)
 
         mock: Mock = Mock()
-        mock.status = 204
+        mock.status_code = 204
 
         call_the_api_mock.return_value = mock
 
@@ -694,7 +694,7 @@ class AdminTestCase(TestCase):
         admin: Admin = Admin(grafana_api_model=model)
 
         mock: Mock = Mock()
-        mock.status = 400
+        mock.status_code = 400
 
         call_the_api_mock.return_value = mock
 
