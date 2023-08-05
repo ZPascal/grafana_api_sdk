@@ -11,6 +11,8 @@ jobs:
     strategy:
       matrix:
         python-version: [ '3.10' ]
+    outputs:
+      run_integration_test: ${{ steps.verify-unittest.outputs.result }}
 
     steps:
       - uses: actions/checkout@v3
@@ -26,13 +28,16 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Execute the unittests
-        run: python3 -m unittest discover tests/unittests
+        id: verify-unittest
+        run: python3 -m unittest discover tests/unittests && echo "result=true" >> "$GITHUB_OUTPUT"
 
   pr-lint:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: [ '3.10' ]
+    outputs:
+      run_integration_test: ${{ steps.verify-lint.outputs.result }}
 
     steps:
       - uses: actions/checkout@v3
@@ -44,21 +49,24 @@ jobs:
           architecture: x64
           cache: 'pip'
 
-      - name: Install the requirements
-        run: pip install -r requirements.txt
-
       - name: Execute the linting checks
-        uses: reviewdog/action-flake8@v3.7.0
+        uses: reviewdog/action-flake8@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           flake8_args: --config=.flake8
           fail_on_error: true
+
+      - name: Verify lint
+        id: verify-lint
+        run: echo "result=true" >> "$GITHUB_OUTPUT"
 
   pr-coverage:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: [ '3.10' ]
+    outputs:
+      run_integration_test: ${{ steps.verify-coverage.outputs.result }}
 
     steps:
       - uses: actions/checkout@v3
@@ -113,11 +121,17 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.head_ref }}
 
+      - name: Verify Coverage
+        id: verify-coverage
+        run: echo "result=true" >> "$GITHUB_OUTPUT"
+
   pr-documentation:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: [ '3.9' ]
+    outputs:
+      run_integration_test: ${{ steps.verify-documentation.outputs.result }}
 
     steps:
       - uses: actions/checkout@v3
@@ -159,3 +173,12 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.head_ref }}
+
+      - name: Verify Documentation
+        id: verify-documentation
+        run: echo "result=true" >> "$GITHUB_OUTPUT"
+
+  validation:
+    if: needs.pr-test.outputs.run_integration_test == 'true' && needs.pr-lint.outputs.run_integration_test == 'true' && needs.pr-coverage.outputs.run_integration_test == 'true' && needs.pr-documentation.outputs.run_integration_test == 'true'
+    uses: ./.github/workflows/integrationtest.yml
+    secrets: inherit

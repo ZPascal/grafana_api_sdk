@@ -5,23 +5,31 @@ on:
     - cron: '0 22 * * 1'
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
   workflow_dispatch:
 
 jobs:
 
-  integrationtest:
+  grafana-api-sdk-test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ '3.10' ]
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+          cache: 'pip'
 
       - name: Install the requirements
         run: pip install -r requirements.txt
 
       - name: Execute the integrationtests (http1.1)
-        run: python3 --version && python3 -m unittest discover tests/integrationtest
+        run: python3 -m unittest discover tests/integrationtest
         env:
           GRAFANA_HOST: ${{ secrets.GRAFANA_HOST }}
           GRAFANA_TOKEN: ${{ secrets.GRAFANA_TOKEN }}
@@ -32,7 +40,7 @@ jobs:
           HTTP2: "False"
 
       - name: Execute the integrationtests (http2)
-        run: python3 --version && python3 -m unittest discover tests/integrationtest
+        run: python3 -m unittest discover tests/integrationtest
         env:
           GRAFANA_HOST: ${{ secrets.GRAFANA_HOST }}
           GRAFANA_TOKEN: ${{ secrets.GRAFANA_TOKEN }}
