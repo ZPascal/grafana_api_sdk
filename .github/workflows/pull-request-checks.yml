@@ -174,11 +174,15 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.head_ref }}
 
-      - name: Verify Documentation
-        id: verify-documentation
-        run: echo "result=true" >> "$GITHUB_OUTPUT"
+      - name: "test"
+        env:
+          OUTPUT1: ${{needs.pr-test.outputs.run_integration_test}}
+          OUTPUT2: ${{needs.pr-lint.outputs.run_integration_test}}
+          OUTPUT3: ${{needs.pr-coverage.outputs.run_integration_test}}
+          OUTPUT4: ${{needs.pr-documentation.outputs.run_integration_test}}
+        run: echo "$OUTPUT1 $OUTPUT2 $OUTPUT3 $OUTPUT4"
 
-  validation:
+  pr-validation:
     if: needs.pr-test.outputs.run_integration_test == 'true' && needs.pr-lint.outputs.run_integration_test == 'true' && needs.pr-coverage.outputs.run_integration_test == 'true' && needs.pr-documentation.outputs.run_integration_test == 'true'
     uses: ./.github/workflows/integrationtest.yml
     secrets: inherit
