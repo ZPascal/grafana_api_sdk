@@ -30,9 +30,6 @@ setuptools.setup(
     extras_require={
         "http2": ["httpx[http2]"],
     },
-    tests_require={
-        "pytest-httpx",
-        "pytest"
-    },
+    tests_require=["pytest-httpx", "pytest"],
     python_requires=">=3.8",
 )
