@@ -116,7 +116,7 @@ class Alerting:
         """
 
         def _to_camel_case(input_value: str) -> str:
-            content = re.findall('[A-Z][^A-Z]*', input_value)
+            content = re.findall("[A-Z][^A-Z]*", input_value)
             if content != list():
                 if len(content) != 1:
                     return content[0].lower() + "".join(content[1:])

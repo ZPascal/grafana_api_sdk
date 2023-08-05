@@ -79,6 +79,7 @@ The class includes all necessary variables to establish a connection to the Graf
 - `username` _str_ - Specify the username of the Grafana system
 - `password` _str_ - Specify the password of the Grafana system
 - `timeout` _float_ - Specify the timeout of the Grafana system
+- `http2_support` _bool_ - Specify if you want to use HTTP/2
 - `ssl_context` _ssl.SSLContext_ - Specify the custom ssl context of the Grafana system
 - `num_pools` _int_ - Specify the number of the connection pool
 - `retries` _any_ - Specify the number of the retries. Please use False as parameter to disable the retries

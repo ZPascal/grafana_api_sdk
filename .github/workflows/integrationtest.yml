@@ -5,23 +5,32 @@ on:
     - cron: '0 22 * * 1'
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
   workflow_dispatch:
+  workflow_call:
 
 jobs:
 
-  test:
+  grafana-api-sdk-test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ '3.10' ]
 
     steps:
       - uses: actions/checkout@v3
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+          cache: 'pip'
+
       - name: Install the requirements
         run: pip install -r requirements.txt
 
-      - name: Execute the integrationtests
-        run: python3 --version && python3 -m unittest discover tests/integrationtest
+      - name: Execute the integrationtests (http1.1)
+        run: python3 -m unittest discover tests/integrationtest
         env:
           GRAFANA_HOST: ${{ secrets.GRAFANA_HOST }}
           GRAFANA_TOKEN: ${{ secrets.GRAFANA_TOKEN }}
@@ -29,3 +38,15 @@ jobs:
           GRAFANA_DASHBOARD_NAME: ${{ secrets.GRAFANA_DASHBOARD_NAME }}
           GRAFANA_USERNAME: ${{ secrets.GRAFANA_USERNAME }}
           GRAFANA_PASSWORD: ${{ secrets.GRAFANA_PASSWORD }}
+          HTTP2: "False"
+
+      - name: Execute the integrationtests (http2)
+        run: python3 -m unittest discover tests/integrationtest
+        env:
+          GRAFANA_HOST: ${{ secrets.GRAFANA_HOST }}
+          GRAFANA_TOKEN: ${{ secrets.GRAFANA_TOKEN }}
+          GRAFANA_DASHBOARD_PATH: ${{ secrets.GRAFANA_DASHBOARD_PATH }}
+          GRAFANA_DASHBOARD_NAME: ${{ secrets.GRAFANA_DASHBOARD_NAME }}
+          GRAFANA_USERNAME: ${{ secrets.GRAFANA_USERNAME }}
+          GRAFANA_PASSWORD: ${{ secrets.GRAFANA_PASSWORD }}
+          HTTP2: "True"

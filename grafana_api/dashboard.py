@@ -567,11 +567,11 @@ class Dashboard:
                     json.dumps(diff_object),
                 )
 
-                if api_call.status != 200:
-                    logging.error(f"Check the error: {api_call.data}.")
+                if api_call.status_code != 200:
+                    logging.error(f"Check the error: {api_call.text}.")
                     raise Exception
                 else:
-                    return api_call.data
+                    return api_call.text
             else:
                 logging.error(
                     "There is no dashboard_uid_and_version_base or dashboard_uid_and_version_new defined."

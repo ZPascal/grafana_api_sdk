@@ -158,7 +158,7 @@ class LegacyPlaylistTestCase(TestCase):
         )
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status = 400
+        call_the_api_mock.return_value.status_code = 400
 
         with self.assertRaises(ValueError):
             playlist.delete_playlist(0)
@@ -168,7 +168,7 @@ class LegacyPlaylistTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status = 400
+        call_the_api_mock.return_value.status_code = 400
 
         with self.assertRaises(Exception):
             playlist.delete_playlist(1)

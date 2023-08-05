@@ -197,7 +197,7 @@ class Folder:
                 RequestsMethods.DELETE,
             )
 
-            if api_call.status != 200:
+            if api_call.status_code != 200:
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:

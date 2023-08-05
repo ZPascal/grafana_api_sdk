@@ -34,7 +34,7 @@ class Preferences:
             APIEndpoints.USER_PREFERENCES.value,
         )
 
-        if type(api_call) != dict or api_call == dict():
+        if isinstance(api_call, dict) is False or api_call == dict():
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
@@ -73,7 +73,7 @@ class Preferences:
             if theme is not None:
                 modified_values.update(dict({"theme": theme}))
 
-            if home_dashboard_id != 0 and type(home_dashboard_id) == int:
+            if home_dashboard_id != 0 and isinstance(home_dashboard_id, int):
                 modified_values.update(dict({"homeDashboardId": home_dashboard_id}))
             else:
                 modified_values.update({"homeDashboardUID": home_dashboard_uid})
@@ -112,7 +112,7 @@ class Preferences:
             APIEndpoints.ORG_PREFERENCES.value,
         )
 
-        if type(api_call) != dict or api_call == dict():
+        if isinstance(api_call, dict) is False or api_call == dict():
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
@@ -151,7 +151,7 @@ class Preferences:
             if theme is not None:
                 modified_values.update(dict({"theme": theme}))
 
-            if home_dashboard_id != 0 and type(home_dashboard_id) == int:
+            if home_dashboard_id != 0 and isinstance(home_dashboard_id, int):
                 modified_values.update(dict({"homeDashboardId": home_dashboard_id}))
             else:
                 modified_values.update({"homeDashboardUID": home_dashboard_uid})

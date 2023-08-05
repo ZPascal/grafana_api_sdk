@@ -263,8 +263,8 @@ class Playlist:
                 RequestsMethods.DELETE,
             )
 
-            if api_call.status != 200:
-                logging.error(f"Check the error: {api_call.data}.")
+            if api_call.status_code != 200:
+                logging.error(f"Check the error: {api_call.text}.")
                 raise Exception
             else:
                 logging.info("You successfully deleted the corresponding playlist.")

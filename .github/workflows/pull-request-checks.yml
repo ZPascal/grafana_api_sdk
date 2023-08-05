@@ -6,11 +6,11 @@ on:
 
 jobs:
 
-  test:
+  pr-test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.x' ]
+        python-version: [ '3.10' ]
 
     steps:
       - uses: actions/checkout@v3
@@ -28,11 +28,11 @@ jobs:
       - name: Execute the unittests
         run: python3 -m unittest discover tests/unittests
 
-  lint:
+  pr-lint:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.x' ]
+        python-version: [ '3.10' ]
 
     steps:
       - uses: actions/checkout@v3
@@ -44,20 +44,18 @@ jobs:
           architecture: x64
           cache: 'pip'
 
-      - name: Install the requirements
-        run: pip install -r requirements.txt
-
       - name: Execute the linting checks
-        uses: reviewdog/action-flake8@v3.7.0
+        uses: reviewdog/action-flake8@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           flake8_args: --config=.flake8
+          fail_on_error: true
 
-  coverage:
+  pr-coverage:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.x' ]
+        python-version: [ '3.10' ]
 
     steps:
       - uses: actions/checkout@v3
@@ -81,14 +79,58 @@ jobs:
       - name: Execute the coverage checks
         uses: MishaKav/pytest-coverage-comment@v1.1.47
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           pytest-coverage-path: ./pytest-coverage.txt
           junitxml-path: ./pytest.xml
           hide-badge: true
-          create-new-commit: true
+          create-new-comment: false
 
       - name: Generate coverage badge
         run: coverage-badge -f -o docs/coverage.svg
+
+      - name: Check changed files
+        uses: tj-actions/verify-changed-files@v16
+        id: verify-changed-files
+        with:
+          files: |
+            docs
+
+      - name: Commit files
+        if: steps.verify-changed-files.outputs.files_changed == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add --force docs
+          git commit -m "docs: Add coverage badge"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        if: steps.verify-changed-files.outputs.files_changed == 'true'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.head_ref }}
+
+  pr-documentation:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ '3.9' ]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+          cache: 'pip'
+
+      - name: Install the requirements
+        run: pip install pydoc-markdown==4.6.3 mkdocs mkdocs-material
 
       - name: Generate documentation
         run: pydoc-markdown --render-toc && rm -rf docs/content && mv build/docs/* docs
@@ -106,7 +148,7 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add --force docs
-          git commit -m "docs: Add coverage badge and documentation"
+          git commit -m "docs: Add the documentation"
 
       - name: Push changes
         uses: ad-m/github-push-action@master
@@ -114,3 +156,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.head_ref }}
+
+  pr-integrationtest:
+    uses: ./.github/workflows/integrationtest.yml
+    secrets: inherit

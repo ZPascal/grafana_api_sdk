@@ -39,8 +39,8 @@ class Alerting:
             api_call (list): Returns the list of Alertmanager alerts
         """
 
-        if (type(recipient) == int and recipient != 0) or (
-            type(recipient) == str and len(recipient) != 0
+        if (isinstance(recipient, int) and recipient != 0) or (
+            isinstance(recipient, str) and len(recipient) != 0
         ):
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/alerts",
@@ -73,8 +73,8 @@ class Alerting:
         """
 
         if (
-            (type(recipient) == int and recipient != 0)
-            or (type(recipient) == str and len(recipient) != 0)
+            (isinstance(recipient, int) and recipient != 0)
+            or (isinstance(recipient, str) and len(recipient) != 0)
         ) and alerts != list():
             alerts_json_list: list = list()
 
@@ -119,8 +119,8 @@ class Alerting:
             api_call (list): Returns the list of Alertmanager group alerts
         """
 
-        if (type(recipient) == int and recipient != 0) or (
-            type(recipient) == str and len(recipient) != 0
+        if (isinstance(recipient, int) and recipient != 0) or (
+            isinstance(recipient, str) and len(recipient) != 0
         ):
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/alerts",
@@ -153,8 +153,8 @@ class Alerting:
         """
 
         if (
-            (type(recipient) == int and recipient != 0)
-            or (type(recipient) == str and len(recipient) != 0)
+            (isinstance(recipient, int) and recipient != 0)
+            or (isinstance(recipient, str) and len(recipient) != 0)
         ) and len(silence_id) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silence/{silence_id}",
@@ -188,8 +188,8 @@ class Alerting:
         """
 
         if (
-            (type(recipient) == int and recipient != 0)
-            or (type(recipient) == str and len(recipient) != 0)
+            (isinstance(recipient, int) and recipient != 0)
+            or (isinstance(recipient, str) and len(recipient) != 0)
         ) and len(silence_id) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silence/{silence_id}",
@@ -218,8 +218,8 @@ class Alerting:
             api_call (list): Returns the list of Alertmanager silence alerts
         """
 
-        if (type(recipient) == int and recipient != 0) or (
-            type(recipient) == str and len(recipient) != 0
+        if (isinstance(recipient, int) and recipient != 0) or (
+            isinstance(recipient, str) and len(recipient) != 0
         ):
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silences",
@@ -252,8 +252,8 @@ class Alerting:
         """
 
         if (
-            (type(recipient) == int and recipient != 0)
-            or (type(recipient) == str and len(recipient) != 0)
+            (isinstance(recipient, int) and recipient != 0)
+            or (isinstance(recipient, str) and len(recipient) != 0)
         ) or silence is not None:
             silence_json_dict: dict = dict(
                 {
@@ -295,8 +295,8 @@ class Alerting:
             api_call (dict): Returns the dict of the Alertmanager status
         """
 
-        if (type(recipient) == int and recipient != 0) or (
-            type(recipient) == str and len(recipient) != 0
+        if (isinstance(recipient, int) and recipient != 0) or (
+            isinstance(recipient, str) and len(recipient) != 0
         ):
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/status",
@@ -325,8 +325,8 @@ class Alerting:
             None
         """
 
-        if (type(recipient) == int and recipient != 0) or (
-            type(recipient) == str and len(recipient) != 0
+        if (isinstance(recipient, int) and recipient != 0) or (
+            isinstance(recipient, str) and len(recipient) != 0
         ):
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/config/api/v1/alerts",
@@ -359,8 +359,8 @@ class Alerting:
             api_call (dict): Returns the dict of the Alertmanager config
         """
 
-        if (type(recipient) == int and recipient != 0) or (
-            type(recipient) == str and len(recipient) != 0
+        if (isinstance(recipient, int) and recipient != 0) or (
+            isinstance(recipient, str) and len(recipient) != 0
         ):
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/config/api/v1/alerts",
@@ -397,8 +397,8 @@ class Alerting:
         """
 
         if (
-            (type(recipient) == int and recipient != 0)
-            or (type(recipient) == str and len(recipient) != 0)
+            (isinstance(recipient, int) and recipient != 0)
+            or (isinstance(recipient, str) and len(recipient) != 0)
         ) and alertmanager_config is not None:
             alertmanager_configuration_json_dict: dict = dict()
 
@@ -455,8 +455,8 @@ class Alerting:
 
         if (
             (
-                (type(recipient) == int and recipient != 0)
-                or (type(recipient) == str and len(recipient) != 0)
+                (isinstance(recipient, int) and recipient != 0)
+                or (isinstance(recipient, str) and len(recipient) != 0)
             )
             and alert != dict()
             and receivers is not None
@@ -535,8 +535,8 @@ class Alerting:
             api_call (dict): Returns the dict of the prometheus alerts
         """
 
-        if (type(recipient) == int and recipient != 0) or (
-            type(recipient) == str and len(recipient) != 0
+        if (isinstance(recipient, int) and recipient != 0) or (
+            isinstance(recipient, str) and len(recipient) != 0
         ):
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_PROMETHEUS.value}/{recipient}/api/v1/alerts",
@@ -565,8 +565,8 @@ class Alerting:
             api_call (dict): Returns the dict of the prometheus rules
         """
 
-        if (type(recipient) == int and recipient != 0) or (
-            type(recipient) == str and len(recipient) != 0
+        if (isinstance(recipient, int) and recipient != 0) or (
+            isinstance(recipient, str) and len(recipient) != 0
         ):
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_PROMETHEUS.value}/{recipient}/api/v1/rules",
@@ -595,8 +595,8 @@ class Alerting:
             api_call (dict): Returns the dict of the ruler rules
         """
 
-        if (type(recipient) == int and recipient != 0) or (
-            type(recipient) == str and len(recipient) != 0
+        if (isinstance(recipient, int) and recipient != 0) or (
+            isinstance(recipient, str) and len(recipient) != 0
         ):
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_RULER.value}/{recipient}/api/v1/rules",
@@ -627,8 +627,8 @@ class Alerting:
         """
 
         if (
-            (type(recipient) == int and recipient != 0)
-            or (type(recipient) == str and len(recipient) != 0)
+            (isinstance(recipient, int) and recipient != 0)
+            or (isinstance(recipient, str) and len(recipient) != 0)
         ) and len(namespace) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_RULER.value}/{recipient}/api/v1/rules/{namespace}",
@@ -662,8 +662,8 @@ class Alerting:
         """
 
         if (
-            (type(recipient) == int and recipient != 0)
-            or (type(recipient) == str and len(recipient) != 0)
+            (isinstance(recipient, int) and recipient != 0)
+            or (isinstance(recipient, str) and len(recipient) != 0)
         ) and len(namespace) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_RULER.value}/{recipient}/api/v1/rules/{namespace}",
@@ -705,8 +705,8 @@ class Alerting:
 
         if (
             (
-                (type(recipient) == int and recipient != 0)
-                or (type(recipient) == str and len(recipient) != 0)
+                (isinstance(recipient, int) and recipient != 0)
+                or (isinstance(recipient, str) and len(recipient) != 0)
             )
             and len(namespace) != 0
             and len(group_name) != 0
@@ -769,8 +769,8 @@ class Alerting:
 
         if (
             (
-                (type(recipient) == int and recipient != 0)
-                or (type(recipient) == str and len(recipient) != 0)
+                (isinstance(recipient, int) and recipient != 0)
+                or (isinstance(recipient, str) and len(recipient) != 0)
             )
             and len(namespace) != 0
             and len(group_name) != 0
@@ -809,8 +809,8 @@ class Alerting:
 
         if (
             (
-                (type(recipient) == int and recipient != 0)
-                or (type(recipient) == str and len(recipient) != 0)
+                (isinstance(recipient, int) and recipient != 0)
+                or (isinstance(recipient, str) and len(recipient) != 0)
             )
             and len(namespace) != 0
             and len(group_name) != 0
@@ -907,8 +907,8 @@ class Alerting:
 
         if (
             (
-                (type(recipient) == int and recipient != 0)
-                or (type(recipient) == str and len(recipient) != 0)
+                (isinstance(recipient, int) and recipient != 0)
+                or (isinstance(recipient, str) and len(recipient) != 0)
             )
             and len(expr) != 0
             and len(condition) != 0

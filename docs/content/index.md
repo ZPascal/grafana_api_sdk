@@ -1,5 +1,12 @@
 # Grafana API SDK
-The repository includes an SDK for the Grafana API. It's possible to communicate with the Grafana API endpoints. Another feature of the SDK is the possibility to specify the used folder for the dashboard.
+The repository includes an SDK for the Grafana API. It's possible to interact with all public available Grafana HTTP API endpoints.
+
+The core features that are implemented inside this SDK:
+
+- All public Grafana API (HTTP) endpoints are supported
+- Full API support for Grafana legacy alerting, current alerting, alerting channels and alert provisioning
+- Possibility to specify custom and self-signed certificates
+- HTTP/2 support
 
 ## Supported Features
 
@@ -58,7 +65,7 @@ with open("/tmp/test/test.json") as file:
 dashboard.create_or_update_dashboard(message="Create a new test dashboard", dashboard_json=json_dashboard, dashboard_path="test")
 ```
 
-## TLS/ mTLS
+## TLS/ mTLS for HTTP/1.1
 
 It is possible to pass a custom ssl_context to the underlying library to perform the requests to the HTTP API. For this step and to support custom TLS/ mTLS, there is an option to inject the Python ssl_context. More information can be found [here](https://docs.python.org/3/library/ssl.html#ssl.create_default_context) and a dummy TLS/ mTLS implementation below.
 
@@ -90,7 +97,42 @@ ssl_ctx = ssl.create_default_context(
     cafile="/test/path/ca.crt",
 )
 ssl_ctx.verify_mode = ssl.CERT_REQUIRED
-ssl_ctx.load_cert_chain(certfile="/test/path/client.crt", keyfile="/test/path/client.key",)
+ssl_ctx.load_cert_chain(certfile="/test/path/client.crt", keyfile="/test/path/client.key")
+
+model: APIModel = APIModel(host="test", token="test", ssl_context=ssl_ctx)
+```
+
+## TLS/ mTLS for HTTP/2
+
+It is possible to pass a custom HTTP/2 conform ssl_context to the underlying library to perform the requests to the HTTP API. For this step and to support custom TLS/ mTLS, there is an option to create the ssl_context by the execution of `httpx.create_ssl_context()` function. More information can be found [here](https://github.com/encode/httpx/blob/e99e2948e64fac2ca498865e9742ff50a69a2155/httpx/_config.py#L46) and a dummy TLS/ mTLS implementation below.
+
+### TLS
+
+```python
+import httpx
+
+from grafana_api.model import APIModel
+
+ssl_ctx = httpx.create_ssl_context(
+    verify="/test/path/ca.crt",
+    http2=True,
+)
+
+model: APIModel = APIModel(host="test", token="test", ssl_context=ssl_ctx)
+```
+
+### mTLS
+
+```python
+import httpx
+
+from grafana_api.model import APIModel
+
+ssl_ctx = httpx.create_ssl_context(
+    cert=("/test/path/client.crt", "/test/path/client.key"),
+    verify="/test/path/ca.crt",
+    http2=True,
+)
 
 model: APIModel = APIModel(host="test", token="test", ssl_context=ssl_ctx)
 ```

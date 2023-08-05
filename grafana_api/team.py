@@ -322,7 +322,7 @@ class Team:
                 f"{APIEndpoints.TEAMS.value}/{id}/preferences",
             )
 
-            if type(api_call) != dict or api_call == dict():
+            if isinstance(api_call, dict) is False or api_call == dict():
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -370,7 +370,7 @@ class Team:
             if theme is not None:
                 team_preferences.update(dict({"theme": theme}))
 
-            if home_dashboard_id != 0 and type(home_dashboard_id) == int:
+            if home_dashboard_id != 0 and isinstance(home_dashboard_id, int):
                 team_preferences.update(dict({"homeDashboardId": home_dashboard_id}))
             else:
                 team_preferences.update({"homeDashboardUID": home_dashboard_uid})

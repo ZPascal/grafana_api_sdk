@@ -602,8 +602,8 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_non_json_output_mock.return_value.status = 200
-        call_the_api_non_json_output_mock.return_value.data = "test"
+        call_the_api_non_json_output_mock.return_value.status_code = 200
+        call_the_api_non_json_output_mock.return_value.text = "test"
         self.assertEqual(
             "test",
             dashboard.calculate_dashboard_diff(

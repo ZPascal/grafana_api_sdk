@@ -1,4 +1,5 @@
 import os
+
 from unittest import TestCase
 
 from grafana_api.model import APIModel, TeamObject
@@ -10,6 +11,7 @@ class TeamTest(TestCase):
     model: APIModel = APIModel(
         host=os.environ["GRAFANA_HOST"],
         token=os.environ["GRAFANA_TOKEN"],
+        http2_support=True if os.environ["HTTP2"] == "True" else False,
     )
     team: Team = Team(model)
 
