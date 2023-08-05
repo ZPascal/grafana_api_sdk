@@ -6,11 +6,11 @@ on:
 
 jobs:
 
-  test:
+  pr-test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.x' ]
+        python-version: [ '3.10' ]
 
     steps:
       - uses: actions/checkout@v3
@@ -28,11 +28,11 @@ jobs:
       - name: Execute the unittests
         run: python3 -m unittest discover tests/unittests
 
-  lint:
+  pr-lint:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.x' ]
+        python-version: [ '3.10' ]
 
     steps:
       - uses: actions/checkout@v3
@@ -54,11 +54,11 @@ jobs:
           flake8_args: --config=.flake8
           fail_on_error: true
 
-  coverage:
+  pr-coverage:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.x' ]
+        python-version: [ '3.10' ]
 
     steps:
       - uses: actions/checkout@v3
@@ -113,11 +113,11 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.head_ref }}
 
-  documentation:
+  pr-documentation:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.9' ]
+        python-version: [ '3.10' ]
 
     steps:
       - uses: actions/checkout@v3
