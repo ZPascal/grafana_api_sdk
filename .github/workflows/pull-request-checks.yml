@@ -11,8 +11,6 @@ jobs:
     strategy:
       matrix:
         python-version: [ '3.10' ]
-    outputs:
-      run_integration_test: ${{ steps.verify-unittest.outputs.result }}
 
     steps:
       - uses: actions/checkout@v3
@@ -30,17 +28,11 @@ jobs:
       - name: Execute the unittests
         run: python3 -m unittest discover tests/unittests
 
-      - name: Verify Test
-        id: verify-unittest
-        run: echo "result=true" >> "$GITHUB_OUTPUT"
-
   pr-lint:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: [ '3.10' ]
-    outputs:
-      run_integration_test: ${{ steps.verify-lint.outputs.result }}
 
     steps:
       - uses: actions/checkout@v3
@@ -59,17 +51,11 @@ jobs:
           flake8_args: --config=.flake8
           fail_on_error: true
 
-      - name: Verify Lint
-        id: verify-lint
-        run: echo "result=true" >> "$GITHUB_OUTPUT"
-
   pr-coverage:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: [ '3.10' ]
-    outputs:
-      run_integration_test: ${{ steps.verifyCoverage.outputs.result }}
 
     steps:
       - uses: actions/checkout@v3
@@ -124,17 +110,11 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.head_ref }}
 
-      - name: Verify Coverage
-        id: verifyCoverage
-        run: echo "result=true" >> "$GITHUB_OUTPUT"
-
   pr-documentation:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: [ '3.9' ]
-    outputs:
-      run_integration_test: ${{ steps.verify-documentation.outputs.result }}
 
     steps:
       - uses: actions/checkout@v3
@@ -177,19 +157,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.head_ref }}
 
-      - name: Verify Documentation
-        id: verify-documentation
-        run: echo "result=true" >> "$GITHUB_OUTPUT"
-
-      - name: "test"
-        env:
-          OUTPUT1: ${{needs.pr-test.outputs.run_integration_test}}
-          OUTPUT2: ${{needs.pr-lint.outputs.run_integration_test}}
-          OUTPUT3: ${{needs.pr-coverage.outputs.run_integration_test}}
-          OUTPUT4: ${{needs.pr-documentation.outputs.run_integration_test}}
-        run: echo "$OUTPUT1 $OUTPUT2 $OUTPUT3 $OUTPUT4" && echo "${{ steps.verify-documentation.outputs.result }}"
-
   pr-validation:
-    if: needs.pr-test.outputs.run_integration_test == 'true' && needs.pr-lint.outputs.run_integration_test == 'true' && needs.pr-coverage.outputs.run_integration_test == 'true' && needs.pr-documentation.outputs.run_integration_test == 'true'
     uses: ./.github/workflows/integrationtest.yml
     secrets: inherit
