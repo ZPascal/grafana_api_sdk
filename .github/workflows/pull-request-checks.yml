@@ -56,6 +56,8 @@ jobs:
     strategy:
       matrix:
         python-version: [ '3.10' ]
+    permissions:
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v3
