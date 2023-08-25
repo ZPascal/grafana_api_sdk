@@ -81,7 +81,7 @@ jobs:
       - name: Execute the coverage checks
         uses: MishaKav/pytest-coverage-comment@v1.1.47
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.TIS_PAT_TOKEN }}
           pytest-coverage-path: ./pytest-coverage.txt
           junitxml-path: ./pytest.xml
           hide-badge: true
