@@ -51,8 +51,10 @@ class CorrelationsTest(TestCase):
             [correlation_object.get("result")],
             self.correlations.get_all_correlations_by_datasource_uid(data_source_uid),
         )
+
         self.assertEqual(
-            [correlation_object.get("result")], self.correlations.get_all_correlations()
+            {"correlations": [correlation_object.get("result")], "limit": 100, "page": 1, "totalCount": 1},
+            self.correlations.get_all_correlations()
         )
 
         self.assertEqual(

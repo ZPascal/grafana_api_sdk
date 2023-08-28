@@ -1,5 +1,6 @@
 import json
 import logging
+from typing import Union
 
 from .model import APIModel, APIEndpoints, RequestsMethods, CorrelationObject
 from .api import Api
@@ -87,11 +88,15 @@ class Correlations:
             api_call (list): Returns the corresponding correlations
         """
 
-        api_call: list = Api(self.grafana_api_model).call_the_api(
+        api_call: Union[list, dict] = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.DATASOURCES.value}/correlations", RequestsMethods.GET
         )
 
-        if api_call == list() or api_call[0].get("description") is None:
+        if isinstance(api_call, dict) and (api_call == dict() or
+                                           api_call.get("correlations")[0].get("description") is None):
+            logging.error(f"Check the error: {api_call}.")
+            raise Exception
+        elif isinstance(api_call, list) and (api_call == list() or api_call[0].get("description") is None):
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
