@@ -11,7 +11,6 @@ from grafana_api.api import Api
 
 class APITest(TestCase):
     https2_support: bool = True if os.environ["HTTP2"] == "True" else False
-    print(https2_support)
     model: APIModel = APIModel(
         host=os.environ["GRAFANA_HOST"],
         token=os.environ["GRAFANA_TOKEN"],

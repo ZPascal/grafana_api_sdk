@@ -257,7 +257,10 @@ class Folder:
                 json.dumps(permission_json),
             )
 
-            if api_call.get("message") != "Dashboard permissions updated":
+            if api_call.get("message") not in [
+                "Dashboard permissions updated",
+                "Folder permissions updated",
+            ]:
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:

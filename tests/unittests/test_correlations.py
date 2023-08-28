@@ -79,11 +79,35 @@ class CorrelationsTestCase(TestCase):
         )
 
     @patch("grafana_api.api.Api.call_the_api")
+    def test_get_all_correlations_dict_result(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        correlations: Correlations = Correlations(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict(
+            {"correlations": [{"description": "test"}]}
+        )
+
+        self.assertEqual(
+            dict({"correlations": [{"description": "test"}]}),
+            correlations.get_all_correlations(),
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
     def test_get_all_correlations_not_possible(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         correlations: Correlations = Correlations(grafana_api_model=model)
 
         call_the_api_mock.return_value = list([{"description": None}])
+
+        with self.assertRaises(Exception):
+            correlations.get_all_correlations(),
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_all_correlations_not_possible_no_dict(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        correlations: Correlations = Correlations(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict({"correlations": [{"description": None}]})
 
         with self.assertRaises(Exception):
             correlations.get_all_correlations(),
