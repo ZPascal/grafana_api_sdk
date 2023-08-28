@@ -90,7 +90,7 @@ class FolderTest(TestCase):
                     "permission": 1,
                     "permissionName": "View",
                     "role": "Viewer",
-                    "slug": "github-integrationtest",
+                    "slug": "",
                     "team": "",
                     "teamAvatarUrl": "",
                     "teamEmail": "",
