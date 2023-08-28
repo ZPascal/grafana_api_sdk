@@ -758,8 +758,8 @@ class AlertingProvisioning:
         return dict(
             {
                 "continue": route.continue_parameter,
-                "groupByStr": route.group_by_str,
-                "muteTimeIntervals": route.mute_time_intervals,
+                "group_by": route.group_by_str,
+                "mute_time_intervals": route.mute_time_intervals,
                 "receiver": route.receiver,
                 "routes": self.__create_alert_routes_list(route.routes),
                 "group_interval": route.group_interval,
