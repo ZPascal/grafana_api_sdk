@@ -83,7 +83,9 @@ class CorrelationsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         correlations: Correlations = Correlations(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"correlations": [{"description": "test"}]})
+        call_the_api_mock.return_value = dict(
+            {"correlations": [{"description": "test"}]}
+        )
 
         self.assertEqual(
             dict({"correlations": [{"description": "test"}]}),

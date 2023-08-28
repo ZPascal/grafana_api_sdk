@@ -92,11 +92,15 @@ class Correlations:
             f"{APIEndpoints.DATASOURCES.value}/correlations", RequestsMethods.GET
         )
 
-        if isinstance(api_call, dict) and (api_call == dict() or
-                                           api_call.get("correlations")[0].get("description") is None):
+        if isinstance(api_call, dict) and (
+            api_call == dict()
+            or api_call.get("correlations")[0].get("description") is None
+        ):
             logging.error(f"Check the error: {api_call}.")
             raise Exception
-        elif isinstance(api_call, list) and (api_call == list() or api_call[0].get("description") is None):
+        elif isinstance(api_call, list) and (
+            api_call == list() or api_call[0].get("description") is None
+        ):
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
