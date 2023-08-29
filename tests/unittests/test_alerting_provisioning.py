@@ -20,7 +20,7 @@ from grafana_api.alerting_provisioning import AlertingProvisioning
 
 class AlertingProvisioningTestCase(TestCase):
     def setUp(self):
-        self.alert_rule: AlertRule = self.__create_alert_rule_mock()
+        self.alert_rule: AlertRule = self._create_alert_rule_mock()
         self.embedded_contact_point: EmbeddedContactPoint = EmbeddedContactPoint(
             "test", "test", {"test": "test"}
         )
@@ -701,18 +701,18 @@ class AlertingProvisioningTestCase(TestCase):
         with self.assertRaises(Exception):
             alerting_provisioning.delete_message_template("test")
 
-    def test__create_time_range_list(self):
+    def test_create_time_range_list(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
             grafana_api_model=model
         )
         self.assertEqual(
             None,
-            alerting_provisioning._AlertingProvisioning__create_time_range_list(None),
+            alerting_provisioning._create_time_range_list(None),
         )
 
     @staticmethod
-    def __create_alert_rule_mock() -> AlertRule:
+    def _create_alert_rule_mock() -> AlertRule:
         alert_rule_query_model_condition: AlertRuleQueryModelCondition = (
             AlertRuleQueryModelCondition(
                 ["test"], "test", "test", ["test"], ["test"], "test", "test"
