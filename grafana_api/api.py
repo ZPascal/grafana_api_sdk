@@ -24,13 +24,13 @@ class Api:
         self.grafana_api_model = grafana_api_model
 
     def call_the_api(
-        self,
-        api_call: str,
-        method: RequestsMethods = RequestsMethods.GET,
-        json_complete: str = None,
-        org_id_header: int = None,
-        disable_provenance_header: bool = False,
-        response_status_code: bool = False,
+            self,
+            api_call: str,
+            method: RequestsMethods = RequestsMethods.GET,
+            json_complete: str = None,
+            org_id_header: int = None,
+            disable_provenance_header: bool = False,
+            response_status_code: bool = False,
     ) -> any:
         """The method execute a defined API call against the Grafana endpoints
 
@@ -55,8 +55,8 @@ class Api:
         )
 
         if (
-            self.grafana_api_model.username is not None
-            and self.grafana_api_model.password is not None
+                self.grafana_api_model.username is not None
+                and self.grafana_api_model.password is not None
         ):
             credentials: str = base64.b64encode(
                 str.encode(
@@ -79,7 +79,6 @@ class Api:
         )
 
         if self.grafana_api_model.http2_support:
-
             async def _execute_async_api_call():
                 async with http:
                     return await self._execute_the_async_api_call(
@@ -93,12 +92,12 @@ class Api:
         )
 
     def _execute_the_api_call(
-        self,
-        http: httpx.Client,
-        method: RequestsMethods,
-        api_url: str,
-        response_status_code: bool,
-        json_complete: str,
+            self,
+            http: httpx.Client,
+            method: RequestsMethods,
+            api_url: str,
+            response_status_code: bool,
+            json_complete: str,
     ) -> any:
         """The method includes a functionality to execute a synchronous api call
 
@@ -160,12 +159,12 @@ class Api:
             raise e
 
     async def _execute_the_async_api_call(
-        self,
-        http: httpx.AsyncClient,
-        method: RequestsMethods,
-        api_url: str,
-        response_status_code: bool,
-        json_complete: str,
+            self,
+            http: httpx.AsyncClient,
+            method: RequestsMethods,
+            api_url: str,
+            response_status_code: bool,
+            json_complete: str,
     ):
         """The method includes a functionality to execute an asynchronous api call
 
@@ -228,7 +227,7 @@ class Api:
 
     @staticmethod
     def _check_the_api_call_response(
-        response: any = None, response_status_code: bool = False
+            response: any = None, response_status_code: bool = False
     ) -> any:
         """The method includes a functionality to check the output of API call method for errors
 
@@ -245,12 +244,12 @@ class Api:
 
         if Api._check_if_valid_json(response.text):
             if (
-                len(json.loads(response.text)) != 0
-                and type(json.loads(response.text)) == dict
+                    len(json.loads(response.text)) != 0
+                    and type(json.loads(response.text)) == dict
             ):
                 if (
-                    "message" in json.loads(response.text).keys()
-                    and json.loads(response.text)["message"] in ERROR_MESSAGES
+                        "message" in json.loads(response.text).keys()
+                        and json.loads(response.text)["message"] in ERROR_MESSAGES
                 ):
                     logging.error(json.loads(response.text)["message"])
                     raise ConnectError(str(json.loads(response.text)["message"]))
@@ -302,7 +301,7 @@ class Api:
             return query_string
 
     def create_the_http_api_client(
-        self, headers: dict = None
+            self, headers: dict = None
     ) -> Union[httpx.Client, httpx.AsyncClient]:
         """The method includes a functionality to create the corresponding HTTP client
 
@@ -314,6 +313,7 @@ class Api:
         """
 
         transport: httpx.HTTPTransport = httpx.HTTPTransport(
+            verify=self.grafana_api_model.ssl_context,
             retries=self.grafana_api_model.retries
         )
         limits: httpx.Limits = httpx.Limits(
