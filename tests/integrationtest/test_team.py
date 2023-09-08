@@ -64,14 +64,14 @@ class TeamTest(TestCase):
         self.assertEqual(1, len(self.team.get_team_members(4)))
 
     def test_d_add_team_member(self):
-        team_id: int = self.__team_creation_util()
+        team_id: int = self._team_creation_util()
 
         self.assertEqual(1, len(self.team.get_team_members(team_id)))
 
         self.team.delete_team_by_id(team_id)
 
     def test_e_delete_team_member(self):
-        team_id: int = self.__team_creation_util()
+        team_id: int = self._team_creation_util()
 
         self.team.delete_team_member(team_id, 8)
 
@@ -94,7 +94,7 @@ class TeamTest(TestCase):
 
         self.assertEqual("utc", self.team.get_team_preferences(4).get("timezone"))
 
-    def __team_creation_util(self) -> int:
+    def _team_creation_util(self) -> int:
         self.test_a_add_team()
         team_id: int = self.team.search_team(query="Test1").get("teams")[0].get("id")
 
