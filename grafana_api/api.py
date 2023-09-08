@@ -314,6 +314,7 @@ class Api:
         """
 
         transport: httpx.HTTPTransport = httpx.HTTPTransport(
+            verify=self.grafana_api_model.ssl_context,
             retries=self.grafana_api_model.retries
         )
         limits: httpx.Limits = httpx.Limits(
