@@ -1,10 +1,10 @@
 # Grafana API SDK
-The repository includes an SDK for the Grafana API. It's possible to interact with all public available Grafana HTTP API endpoints.
+The repository includes an SDK for the Grafana API. It's possible to interact with all publicly available Grafana HTTP API endpoints.
 
 The core features that are implemented inside this SDK:
 
 - All public Grafana API (HTTP) endpoints are supported
-- Full API support for Grafana legacy alerting, current alerting, alerting channels and alert provisioning
+- Full API support for Grafana legacy alerting, current alerting, alerting channels, and alert provisioning
 - Possibility to specify custom and self-signed certificates
 - HTTP/2 support
 

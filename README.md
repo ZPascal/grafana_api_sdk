@@ -1,17 +1,17 @@
 # Grafana API SDK ![Coverage report](https://github.com/ZPascal/grafana_api_sdk/blob/main/docs/coverage.svg)
-The repository includes an SDK for the Grafana API. It's possible to interact with all public available Grafana HTTP API endpoints.
+The repository includes an SDK for the Grafana API. It's possible to interact with all publicly available Grafana HTTP API endpoints.
 
 ## Differences between [grafana-client](https://github.com/panodata/grafana-client), [grafana_api](https://github.com/m0nhawk/grafana_api/) and the [grafana_api_sdk](https://github.com/ZPascal/grafana_api_sdk)
-The grafana-client is only a fork of the non-maintained grafana_api repository. In general, the grafana-client project started at the same time, as I started this project. The corresponding SDK is a completely new project and based on non-other project and include a few features that are currently not implemented inside the grafana-client.
+The grafana-client is only a fork of the non-maintained grafana_api repository. In general, the grafana-client project started at the same time, as I started this project. The corresponding SDK is a completely new project based on nonother projects and includes a few features that are currently not implemented inside the grafana-client.
 
 The core features that are implemented inside this library:
 
 - All public Grafana API (HTTP) endpoints are supported
-- Full API support for Grafana legacy alerting, current alerting, alerting channels and alert provisioning
+- Full API support for Grafana legacy alerting, current alerting, alerting channels, and alert provisioning
 - Possibility to specify custom and self-signed certificates
 - HTTP/2 support
 
-In general my focus inside this project is to implement and deliver old and new features from the Grafana API, to document all features and functionality clear and to increase the overall test coverage of the project.
+In general, my focus on this project is to implement and deliver old and new features from the Grafana API, to document all features and functionality clear,ly and to increase the overall test coverage of the project.
 
 ## Currently, supported features
 
