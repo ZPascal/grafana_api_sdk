@@ -1,6 +1,8 @@
 from unittest import TestCase
 from unittest.mock import MagicMock, patch
 
+import httpx
+
 from grafana_api.model import APIModel
 from grafana_api.folder import Folder
 
@@ -192,6 +194,15 @@ class FolderTestCase(TestCase):
         self.assertEqual(None, folder.delete_folder("test"))
 
     @patch("grafana_api.api.Api.call_the_api")
+    def test_delete_folder_right_message(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        folder: Folder = Folder(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict({"message": "Folder deleted"})
+
+        self.assertEqual(None, folder.delete_folder("test"))
+
+    @patch("grafana_api.api.Api.call_the_api")
     def test_delete_folder_no_uid(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
@@ -202,11 +213,21 @@ class FolderTestCase(TestCase):
             folder.delete_folder("")
 
     @patch("grafana_api.api.Api.call_the_api")
-    def test_delete_folder_error_response(self, call_the_api_mock):
+    def test_delete_folder_error_response_wrong_object(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 404
+        call_the_api_mock.return_value = httpx.Response(404)
+
+        with self.assertRaises(Exception):
+            folder.delete_folder("test")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_delete_folder_error_response_wrong_message(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        folder: Folder = Folder(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict({"message": "test"})
 
         with self.assertRaises(Exception):
             folder.delete_folder("test")
