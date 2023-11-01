@@ -1,6 +1,8 @@
 import logging
 import json
 
+import httpx
+
 from .api import Api
 from .model import APIModel, APIEndpoints, RequestsMethods
 
@@ -132,7 +134,7 @@ class Folder:
             raise ValueError
 
     def update_folder(
-        self, title: str, uid: str, version: int = 0, overwrite: bool = False
+            self, title: str, uid: str, version: int = 0, overwrite: bool = False
     ) -> dict:
         """The method includes a functionality to update a folder information inside the organization specified by the uid, the title, the version of the folder or if folder information be overwritten
 
@@ -197,7 +199,10 @@ class Folder:
                 RequestsMethods.DELETE,
             )
 
-            if api_call.status_code != 200:
+            if isinstance(api_call, dict) and api_call.get("message") != "Folder deleted":
+                logging.error(f"Please, check the error: {api_call}.")
+                raise Exception
+            elif isinstance(api_call, httpx.Response) and api_call.status_code != 200:
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:

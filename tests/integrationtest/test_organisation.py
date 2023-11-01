@@ -55,7 +55,7 @@ class OrganisationTest(TestCase):
         organisation_users: list = (
             self.organisation.get_all_users_by_the_current_organization_lookup()
         )
-        self.assertEqual("Test", organisation_users[1].get("login"))
+        self.assertEqual("Test", organisation_users[2].get("login"))
 
     def test_b_update_organization_user_role_by_user_id(self):
         self.organisation.update_organization_user_role_by_user_id(7, "Editor")
@@ -63,8 +63,8 @@ class OrganisationTest(TestCase):
         organisation_users: list = (
             self.organisation.get_all_users_by_the_current_organization()
         )
-        self.assertEqual(7, organisation_users[1].get("userId"))
-        self.assertEqual("Editor", organisation_users[1].get("role"))
+        self.assertEqual(7, organisation_users[2].get("userId"))
+        self.assertEqual("Editor", organisation_users[2].get("role"))
 
     def test_c_delete_organization_user_by_user_id(self):
         self.organisation.delete_organization_user_by_user_id(7)

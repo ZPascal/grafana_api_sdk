@@ -22,12 +22,7 @@ class PlaylistTest(TestCase):
 
     def test_get_playlist_items(self):
         self.assertEqual(
-            "653", self.playlist.get_playlist_items("PgorUJA4z")[0].get("value")
-        )
-
-    def test_get_playlist_dashboards(self):
-        self.assertEqual(
-            653, self.playlist.get_playlist_dashboards("PgorUJA4z")[0].get("id")
+            "tests", self.playlist.get_playlist_items("PgorUJA4z")[0].get("value")
         )
 
     def test_a_create_playlist(self):

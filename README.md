@@ -13,6 +13,10 @@ The core features that are implemented inside this library:
 
 In general, my focus on this project is to implement and deliver old and new features from the Grafana API, to document all features and functionality clear,ly and to increase the overall test coverage of the project.
 
+## TODO
+- [ ] [Team Sync](https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/)
+- [ ] [Public Dashboard](https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/)
+
 ## Currently, supported features
 
 ### Dashboard
