@@ -16,12 +16,13 @@ In general, my focus on this project is to implement and deliver old and new fea
 ## TODO
 - [ ] [Team Sync](https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/)
   - [x] Implementation
-  - [ ] Unittests
+  - [x] Unittests
   - [ ] Integrationtest
 - [ ] [Public Dashboard](https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/)
   - [ ] Implementation
   - [ ] Unittests
   - [ ] Integrationtest
+- [ ] Adjust the GH Action
 
 ## Currently, supported features
 
