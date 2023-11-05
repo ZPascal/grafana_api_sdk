@@ -394,3 +394,144 @@ class Team:
                 "There is no id, theme, home_dashboard_id or timezone defined."
             )
             raise ValueError
+
+    def get_external_groups(
+        self,
+        id: int,
+    ):
+        """The method includes a functionality to get the team groups specified by the team_id
+
+        Required Permissions:
+            Action: teams.permissions:read
+            Scope: teams:*
+
+        Args:
+            id (int): Specify the team id
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (dict): Returns the organization team preferences
+        """
+
+        if id != 0:
+            api_call: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.TEAMS.value}/{id}/groups",
+            )
+
+            if isinstance(api_call, list) is False or api_call == list():
+                logging.error(f"Check the error: {api_call}.")
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error(
+                "There is no team_id defined."
+            )
+            raise ValueError
+
+    def add_external_group(
+            self,
+            id: int,
+            team_group: str,
+    ):
+        """The method includes a functionality to add a group to the team specified by the team_id and the team_group
+
+        Required Permissions:
+            Action: teams.permissions:write
+            Scope: teams:*
+
+        Args:
+            id (int): Specify the team id
+            team_group (str): Specify the team group
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            None
+        """
+
+        if id != 0 and team_group is not None:
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.TEAMS.value}/{id}/groups",
+                RequestsMethods.POST,
+                json.dumps(dict({"groupId": team_group})),
+                response_status_code=True,
+            )
+
+            status_code: int = api_call.get("status")
+
+            alert_manager_status_dict: dict = dict(
+                {
+                    400: "Group is already added to this team.",
+                    401: "Unauthorized",
+                    403: "Permission denied.",
+                    404: "Team not found.",
+                }
+            )
+
+            if status_code == 200 and api_call.get("message") == "Group added to Team":
+                logging.info("You successfully added the team group.")
+            elif 400 <= status_code <= 404:
+                logging.error(alert_manager_status_dict.get(status_code))
+                raise Exception
+        else:
+            logging.error(
+                "There is no id or team group defined."
+            )
+            raise ValueError
+
+    def remove_external_group(
+            self,
+            id: int,
+            team_group: str,
+    ):
+        """The method includes a functionality to remove a group from a team specified by the team_id and the team_group
+
+        Required Permissions:
+            Action: teams.permissions:write
+            Scope: teams:*
+
+        Args:
+            id (int): Specify the team id
+            team_group (str): Specify the team group
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            None
+        """
+
+        if id != 0 and team_group is not None:
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.TEAMS.value}/{id}/groups??groupId={team_group.encode('UTF-8')}",
+                RequestsMethods.DELETE,
+                response_status_code=True,
+            )
+
+            status_code: int = api_call.get("status")
+
+            alert_manager_status_dict: dict = dict(
+                {
+                    401: "Unauthorized.",
+                    403: "Permission denied.",
+                    404: "Team not found/Group not found.",
+                }
+            )
+
+            if status_code == 200 and api_call.get("message") == "Team Group removed":
+                logging.info("You successfully removed the team group.")
+            elif 400 <= status_code <= 404:
+                logging.error(alert_manager_status_dict.get(status_code))
+                raise Exception
+        else:
+            logging.error(
+                "There is no id or team group defined."
+            )
+            raise ValueError
