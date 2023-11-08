@@ -1,7 +1,7 @@
 import json
 import logging
 
-from .model import APIModel, APIEndpoints, RequestsMethods
+from .model import APIModel, APIEndpoints, RequestsMethods, PublicDashboard
 from .folder import Folder
 from .api import Api
 
@@ -581,4 +581,286 @@ class Dashboard:
             logging.error(
                 f"The diff_type: {diff_type.lower()} is not valid. Please specify a valid value."
             )
+            raise ValueError
+
+    def get_public_dashboards(self, per_page: int = None, page: int = None) -> dict:
+        """The method includes a functionality to get all public available dashboards
+
+        Required Permissions:
+            Action: dashboards:read
+            Scope: dashboards:uid:<dashboard UID>
+
+        Args:
+            per_page (int): Specify the value per page size
+            page (int): Specify the page
+
+        Raises:
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (dict): Returns all public available dashboards
+        """
+
+        optional_parts: str = "?"
+
+        if per_page is not None:
+            optional_parts += f"perpage={per_page}"
+
+        if page is not None:
+            if len(optional_parts) >= 1:
+                optional_parts += "&"
+            optional_parts += f"page={page}"
+
+        if len(optional_parts) == 1:
+            optional_parts: str = ""
+
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.DASHBOARDS.value}/public-dashboards{optional_parts}",
+        )
+
+        if isinstance(api_call, dict) is False or api_call == dict():
+            logging.error(f"Check the error: {api_call}.")
+            raise Exception
+        else:
+            return api_call
+
+    def get_public_dashboard_by_uid(
+        self,
+        dashboard_uid: str,
+    ) -> dict:
+        """The method includes a functionality to get a public available dashboard specified by dashboard_uid
+
+        Required Permissions:
+            Action: dashboards:read
+            Scope: dashboards:uid:<dashboard UID>
+
+        Args:
+            dashboard_uid (str): Specify the dashboard_uid
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (dict): Returns the corresponding public available dashboard
+        """
+
+        if dashboard_uid is not None and len(dashboard_uid) != 0:
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DASHBOARDS.value}/uid/{dashboard_uid}/public-dashboards",
+            )
+
+            if isinstance(api_call, dict) is False or api_call == dict():
+                logging.error(f"Check the error: {api_call}.")
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error("There is no dashboard uid defined.")
+            raise ValueError
+
+    def create_public_dashboard(
+        self, dashboard_uid: str, public_dashboard: PublicDashboard = PublicDashboard()
+    ) -> dict:
+        """The method includes a functionality to create a public available dashboard
+
+        Required Permissions:
+            Action: dashboards.public:write
+            Scope: dashboards:uid:<dashboard UID>
+
+        Args:
+            dashboard_uid (str): Specify the dashboard_uid
+            public_dashboard (PublicDashboard): Specify the optional public dashboard object
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (dict): Returns the corresponding public available dashboard
+        """
+
+        if (
+            dashboard_uid is not None
+            and len(dashboard_uid) != 0
+            and public_dashboard is not None
+        ):
+            public_dashboard_result: dict = dict(
+                {
+                    "uid": public_dashboard.uid,
+                    "accessToken": public_dashboard.access_token,
+                    "timeSelectionEnabled": public_dashboard.time_selection_enabled,
+                    "isEnabled": public_dashboard.is_enabled,
+                    "annotationsEnabled": public_dashboard.annotations_enabled,
+                    "share": public_dashboard.share,
+                }
+            )
+
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DASHBOARDS.value}/uid/{dashboard_uid}/public-dashboards",
+                RequestsMethods.POST,
+                json.dumps(public_dashboard_result),
+                response_status_code=True,
+            )
+
+            status_code: int = api_call.get("status")
+            public_dashboard_status_dict: dict = dict(
+                {
+                    400: "Dashboard is already public.",
+                    401: "Unauthorized.",
+                    403: "Access denied.",
+                    404: "Dashboard not found.",
+                }
+            )
+
+            if status_code == 200 and (
+                isinstance(api_call, dict) is True or api_call != dict()
+            ):
+                return api_call
+            elif 400 <= status_code <= 404:
+                logging.error(public_dashboard_status_dict.get(status_code))
+                raise Exception
+        else:
+            logging.error("There is no dashboard uid or public dashboard defined.")
+            raise ValueError
+
+    def update_public_dashboard(
+        self,
+        dashboard_uid: str,
+        public_dashboard_uid: str,
+        time_selection_enabled: bool = None,
+        is_enabled: bool = None,
+        annotations_enabled: bool = None,
+        share: str = None,
+    ) -> dict:
+        """The method includes a functionality to update a public available dashboard
+
+        Required Permissions:
+            Action: dashboards.public:write
+            Scope: dashboards:uid:<dashboard UID>
+
+        Args:
+            dashboard_uid (str): Specify the dashboard_uid
+            public_dashboard_uid (str): Specify the public_dashboard_uid
+            time_selection_enabled (bool): Specify the optional enablement of the time picker inside the public dashboard (default None)
+            is_enabled (bool): Specify the optional enablement of the public dashboard (default None)
+            annotations_enabled (bool): Specify the optional enablement of the annotations inside the public dashboard (default None)
+            share (str): Specify the optional share mode of the public dashboard (default None)
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (dict): Returns the corresponding public available dashboard
+        """
+
+        if (
+            dashboard_uid is not None
+            and len(dashboard_uid) != 0
+            and public_dashboard_uid is not None
+            and len(public_dashboard_uid) != 0
+        ):
+            public_dashboard_result: dict = dict()
+
+            if time_selection_enabled is not None:
+                public_dashboard_result.update(
+                    {"timeSelectionEnabled": time_selection_enabled}
+                )
+
+            if is_enabled is not None:
+                public_dashboard_result.update({"isEnabled": is_enabled})
+
+            if annotations_enabled is not None:
+                public_dashboard_result.update(
+                    {"annotationsEnabled": annotations_enabled}
+                )
+
+            if share is not None:
+                public_dashboard_result.update({"share": share})
+
+            if public_dashboard_result == dict():
+                logging.error(
+                    "There is no values for the update of the public dashboard defined."
+                )
+                raise ValueError
+
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DASHBOARDS.value}/uid/{dashboard_uid}/public-dashboards/{public_dashboard_uid}",
+                RequestsMethods.PATCH,
+                json.dumps(public_dashboard_result),
+                response_status_code=True,
+            )
+
+            status_code: int = api_call.get("status")
+            public_dashboard_status_dict: dict = dict(
+                {
+                    400: "Dashboard is already public.",
+                    401: "Unauthorized.",
+                    403: "Access denied.",
+                    404: "Public dashboard not found.",
+                }
+            )
+
+            if status_code == 200 and (
+                isinstance(api_call, dict) is True or api_call != dict()
+            ):
+                return api_call
+            elif 400 <= status_code <= 404:
+                logging.error(public_dashboard_status_dict.get(status_code))
+                raise Exception
+        else:
+            logging.error("There is no dashboard uid or public dashboard defined.")
+            raise ValueError
+
+    def delete_public_dashboard(
+        self,
+        dashboard_uid: str,
+        public_dashboard_uid: str,
+    ):
+        """The method includes a functionality to delete a public available dashboard
+
+        Required Permissions:
+            Action: dashboards.public:write
+            Scope: dashboards:uid:<dashboard UID>
+
+        Args:
+            dashboard_uid (str): Specify the dashboard_uid
+            public_dashboard_uid (str): Specify the public_dashboard_uid
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            None
+        """
+
+        if (
+            dashboard_uid is not None
+            and len(dashboard_uid) != 0
+            and public_dashboard_uid is not None
+            and len(public_dashboard_uid) != 0
+        ):
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DASHBOARDS.value}/uid/{dashboard_uid}/public-dashboards/{public_dashboard_uid}",
+                RequestsMethods.DELETE,
+                response_status_code=True,
+            )
+
+            status_code: int = api_call.get("status")
+            public_dashboard_status_dict: dict = dict(
+                {
+                    401: "Unauthorized.",
+                    403: "Access denied.",
+                }
+            )
+
+            if status_code == 200:
+                logging.info("You successfully deleted the public dashboard.")
+            elif 401 <= status_code <= 403:
+                logging.error(public_dashboard_status_dict.get(status_code))
+                raise Exception
+        else:
+            logging.error("There is no dashboard uid or public dashboard defined.")
             raise ValueError

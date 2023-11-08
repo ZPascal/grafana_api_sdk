@@ -11,7 +11,7 @@ from .api import Api
 
 
 class Team:
-    """The class includes all necessary methods to access the Grafana team API endpoints. Be aware that all functionalities inside the class only working with the corresponding access rights, please check the following page for details: https://grafana.com/docs/grafana/latest/http_api/team/#team-api
+    """The class includes all necessary methods to access the Grafana team API endpoints. Be aware that all functionalities inside the class only working with the corresponding access rights, please check the following page for details: https://grafana.com/docs/grafana/latest/http_api/team/#team-api & https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/#team-sync-api
 
     HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
 
@@ -398,8 +398,8 @@ class Team:
     def get_external_groups(
         self,
         id: int,
-    ):
-        """The method includes a functionality to get the team groups specified by the team_id
+    ) -> list:
+        """The method includes a functionality to get the team groups specified by the team_id. The functionality is a Grafana ENTERPRISE feature
 
         Required Permissions:
             Action: teams.permissions:read
@@ -413,7 +413,7 @@ class Team:
             Exception: Unspecified error by executing the API call
 
         Returns:
-            api_call (dict): Returns the organization team preferences
+            api_call (list): Returns the organization team groups
         """
 
         if id != 0:
@@ -427,17 +427,15 @@ class Team:
             else:
                 return api_call
         else:
-            logging.error(
-                "There is no team_id defined."
-            )
+            logging.error("There is no team_id defined.")
             raise ValueError
 
     def add_external_group(
-            self,
-            id: int,
-            team_group: str,
+        self,
+        id: int,
+        team_group: str,
     ):
-        """The method includes a functionality to add a group to the team specified by the team_id and the team_group
+        """The method includes a functionality to add a group to the team specified by the team_id and the team_group. The functionality is a Grafana ENTERPRISE feature
 
         Required Permissions:
             Action: teams.permissions:write
@@ -455,7 +453,7 @@ class Team:
             None
         """
 
-        if id != 0 and team_group is not None:
+        if id != 0 and team_group is not None and len(team_group) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.TEAMS.value}/{id}/groups",
                 RequestsMethods.POST,
@@ -465,10 +463,10 @@ class Team:
 
             status_code: int = api_call.get("status")
 
-            alert_manager_status_dict: dict = dict(
+            external_group_status_dict: dict = dict(
                 {
                     400: "Group is already added to this team.",
-                    401: "Unauthorized",
+                    401: "Unauthorized.",
                     403: "Permission denied.",
                     404: "Team not found.",
                 }
@@ -477,20 +475,18 @@ class Team:
             if status_code == 200 and api_call.get("message") == "Group added to Team":
                 logging.info("You successfully added the team group.")
             elif 400 <= status_code <= 404:
-                logging.error(alert_manager_status_dict.get(status_code))
+                logging.error(external_group_status_dict.get(status_code))
                 raise Exception
         else:
-            logging.error(
-                "There is no id or team group defined."
-            )
+            logging.error("There is no id or team group defined.")
             raise ValueError
 
     def remove_external_group(
-            self,
-            id: int,
-            team_group: str,
+        self,
+        id: int,
+        team_group: str,
     ):
-        """The method includes a functionality to remove a group from a team specified by the team_id and the team_group
+        """The method includes a functionality to remove a group from a team specified by the team_id and the team_group. The functionality is a Grafana ENTERPRISE feature
 
         Required Permissions:
             Action: teams.permissions:write
@@ -508,7 +504,7 @@ class Team:
             None
         """
 
-        if id != 0 and team_group is not None:
+        if id != 0 and team_group is not None and len(team_group) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.TEAMS.value}/{id}/groups??groupId={team_group.encode('UTF-8')}",
                 RequestsMethods.DELETE,
@@ -517,7 +513,7 @@ class Team:
 
             status_code: int = api_call.get("status")
 
-            alert_manager_status_dict: dict = dict(
+            external_group_status_dict: dict = dict(
                 {
                     401: "Unauthorized.",
                     403: "Permission denied.",
@@ -528,10 +524,8 @@ class Team:
             if status_code == 200 and api_call.get("message") == "Team Group removed":
                 logging.info("You successfully removed the team group.")
             elif 400 <= status_code <= 404:
-                logging.error(alert_manager_status_dict.get(status_code))
+                logging.error(external_group_status_dict.get(status_code))
                 raise Exception
         else:
-            logging.error(
-                "There is no id or team group defined."
-            )
+            logging.error("There is no id or team group defined.")
             raise ValueError

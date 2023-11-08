@@ -435,7 +435,9 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 200, "message": "Group added to Team"})
+        call_the_api_mock.return_value = dict(
+            {"status": 200, "message": "Group added to Team"}
+        )
 
         self.assertEqual(None, team.add_external_group(1, "test"))
 
@@ -468,7 +470,9 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 200, "message": "Team Group removed"})
+        call_the_api_mock.return_value = dict(
+            {"status": 200, "message": "Team Group removed"}
+        )
 
         self.assertEqual(None, team.remove_external_group(1, "test"))
 
