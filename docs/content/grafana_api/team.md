@@ -28,7 +28,7 @@
 class Team()
 ```
 
-The class includes all necessary methods to access the Grafana team API endpoints. Be aware that all functionalities inside the class only working with the corresponding access rights, please check the following page for details: https://grafana.com/docs/grafana/latest/http_api/team/`team`-api
+The class includes all necessary methods to access the Grafana team API endpoints. Be aware that all functionalities inside the class only working with the corresponding access rights, please check the following page for details: https://grafana.com/docs/grafana/latest/http_api/team/`team`-api & https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/`team`-sync-api
 
 HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
 
@@ -351,10 +351,10 @@ Scope: teams:*
 #### get\_external\_groups
 
 ```python
-def get_external_groups(id: int)
+def get_external_groups(id: int) -> list
 ```
 
-The method includes a functionality to get the team groups specified by the team_id
+The method includes a functionality to get the team groups specified by the team_id. The functionality is a Grafana ENTERPRISE feature
 
 Required Permissions:
 Action: teams.permissions:read
@@ -373,7 +373,7 @@ Scope: teams:*
 
 **Returns**:
 
-- `api_call` _dict_ - Returns the organization team preferences
+- `api_call` _list_ - Returns the organization team groups
 
 <a id="team.Team.add_external_group"></a>
 
@@ -383,7 +383,7 @@ Scope: teams:*
 def add_external_group(id: int, team_group: str)
 ```
 
-The method includes a functionality to add a group to the team specified by the team_id and the team_group
+The method includes a functionality to add a group to the team specified by the team_id and the team_group. The functionality is a Grafana ENTERPRISE feature
 
 Required Permissions:
 Action: teams.permissions:write
@@ -413,7 +413,7 @@ Scope: teams:*
 def remove_external_group(id: int, team_group: str)
 ```
 
-The method includes a functionality to remove a group from a team specified by the team_id and the team_group
+The method includes a functionality to remove a group from a team specified by the team_id and the team_group. The functionality is a Grafana ENTERPRISE feature
 
 Required Permissions:
 Action: teams.permissions:write
