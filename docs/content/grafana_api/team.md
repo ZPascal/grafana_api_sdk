@@ -12,6 +12,9 @@
     * [delete\_team\_member](#team.Team.delete_team_member)
     * [get\_team\_preferences](#team.Team.get_team_preferences)
     * [update\_team\_preferences](#team.Team.update_team_preferences)
+    * [get\_external\_groups](#team.Team.get_external_groups)
+    * [add\_external\_group](#team.Team.add_external_group)
+    * [remove\_external\_group](#team.Team.remove_external_group)
 
 <a id="team"></a>
 
@@ -331,6 +334,95 @@ Scope: teams:*
 - `timezone` _str_ - Specify the team timezone e.g. utc or browser (default Grafana None)
 - `home_dashboard_id` _int_ - Specify the home team dashboard by id (default 0)
 - `home_dashboard_uid` _str_ - Specify the home team dashboard by uid (default None)
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+  None
+
+<a id="team.Team.get_external_groups"></a>
+
+#### get\_external\_groups
+
+```python
+def get_external_groups(id: int)
+```
+
+The method includes a functionality to get the team groups specified by the team_id
+
+Required Permissions:
+Action: teams.permissions:read
+Scope: teams:*
+
+**Arguments**:
+
+- `id` _int_ - Specify the team id
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+- `api_call` _dict_ - Returns the organization team preferences
+
+<a id="team.Team.add_external_group"></a>
+
+#### add\_external\_group
+
+```python
+def add_external_group(id: int, team_group: str)
+```
+
+The method includes a functionality to add a group to the team specified by the team_id and the team_group
+
+Required Permissions:
+Action: teams.permissions:write
+Scope: teams:*
+
+**Arguments**:
+
+- `id` _int_ - Specify the team id
+- `team_group` _str_ - Specify the team group
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+  None
+
+<a id="team.Team.remove_external_group"></a>
+
+#### remove\_external\_group
+
+```python
+def remove_external_group(id: int, team_group: str)
+```
+
+The method includes a functionality to remove a group from a team specified by the team_id and the team_group
+
+Required Permissions:
+Action: teams.permissions:write
+Scope: teams:*
+
+**Arguments**:
+
+- `id` _int_ - Specify the team id
+- `team_group` _str_ - Specify the team group
   
 
 **Raises**:

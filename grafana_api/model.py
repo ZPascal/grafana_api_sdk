@@ -736,3 +736,24 @@ class DatasourceCache:
     use_default_ttl: bool
     ttl_queries_ms: int
     ttl_resources_ms: int
+
+
+@dataclass
+class PublicDashboard:
+    """The class includes all necessary variables to generate a public dashboard object
+
+    Args:
+        uid (str): Specify the optional unique identifier when creating a public dashboard. If it’s none, it will generate a new uid (default None)
+        access_token (str): Specify the optional unique access token. If it’s none, it will generate a new access token (default None)
+        time_selection_enabled (bool): Specify the optional enablement of the time picker inside the public dashboard (default False)
+        is_enabled (bool): Specify the optional enablement of the public dashboard (default False)
+        annotations_enabled (bool): Specify the optional enablement of the annotations inside the public dashboard (default False)
+        share (str): Specify the optional share mode of the public dashboard (default public)
+    """
+
+    uid: str = None
+    access_token: str = None
+    time_selection_enabled: bool = False
+    is_enabled: bool = False
+    annotations_enabled: bool = False
+    share: str = "public"
