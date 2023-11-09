@@ -109,6 +109,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.head_ref }}
+          atomic: false
 
   pr-documentation:
     runs-on: ubuntu-latest
