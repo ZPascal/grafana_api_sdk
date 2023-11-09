@@ -607,8 +607,9 @@ class Dashboard:
             optional_parts += f"perpage={per_page}"
 
         if page is not None:
-            if len(optional_parts) >= 1:
+            if len(optional_parts) > 1:
                 optional_parts += "&"
+
             optional_parts += f"page={page}"
 
         if len(optional_parts) == 1:

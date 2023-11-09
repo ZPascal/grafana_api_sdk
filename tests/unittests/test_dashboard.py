@@ -752,6 +752,14 @@ class DashboardTestCase(TestCase):
             dashboard.create_public_dashboard("test")
 
     @patch("grafana_api.api.Api.call_the_api")
+    def test_create_public_dashboard_error(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        dashboard: Dashboard = Dashboard(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict({"status": 500})
+        self.assertEqual(None, dashboard.create_public_dashboard("test"))
+
+    @patch("grafana_api.api.Api.call_the_api")
     def test_update_public_dashboard(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
@@ -794,6 +802,14 @@ class DashboardTestCase(TestCase):
             dashboard.update_public_dashboard("test", "test", True)
 
     @patch("grafana_api.api.Api.call_the_api")
+    def test_update_public_dashboard_error(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        dashboard: Dashboard = Dashboard(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict({"status": 500})
+        self.assertEqual(None, dashboard.update_public_dashboard("test", "test", True))
+
+    @patch("grafana_api.api.Api.call_the_api")
     def test_delete_public_dashboard(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
@@ -821,3 +837,11 @@ class DashboardTestCase(TestCase):
         call_the_api_mock.return_value = dict({"status": 401})
         with self.assertRaises(Exception):
             dashboard.delete_public_dashboard("test", "test")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_delete_public_dashboard_error(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        dashboard: Dashboard = Dashboard(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict({"status": 500})
+        self.assertEqual(None, dashboard.delete_public_dashboard("test", "test"))

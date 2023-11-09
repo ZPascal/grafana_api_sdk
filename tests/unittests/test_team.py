@@ -464,6 +464,17 @@ class TeamTestCase(TestCase):
             team.add_external_group(1, "test")
 
     @patch("grafana_api.api.Api.call_the_api")
+    def test_add_external_group_error(self, call_the_api_mock):
+        model: APIModel = APIModel(
+            host=MagicMock(), username=MagicMock(), password=MagicMock()
+        )
+        team: Team = Team(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict({"status": 500})
+
+        self.assertEqual(None, team.add_external_group(1, "test"))
+
+    @patch("grafana_api.api.Api.call_the_api")
     def test_remove_external_group(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
@@ -497,3 +508,14 @@ class TeamTestCase(TestCase):
 
         with self.assertRaises(Exception):
             team.remove_external_group(1, "test")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_remove_external_group_error(self, call_the_api_mock):
+        model: APIModel = APIModel(
+            host=MagicMock(), username=MagicMock(), password=MagicMock()
+        )
+        team: Team = Team(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict({"status": 500})
+
+        self.assertEqual(None, team.remove_external_group(1, "test"))
