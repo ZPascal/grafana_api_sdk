@@ -29,6 +29,11 @@ In general, my focus on this project is to implement and deliver old and new fea
 - Restore a dashboard version of a specific dashboard
 - Restore a dashboard version of a specific dashboard by uid
 - Compare two dashboard versions and extract the diff between booth dashboards
+- Get public dashboards
+- Get public dashboard by uid
+- Create public dashboard
+- Update public dashboard
+- Delete public dashboard
 
 ### Folder
 - Get folder id by dashboard path
@@ -198,6 +203,9 @@ In general, my focus on this project is to implement and deliver old and new fea
 - Delete team member
 - Get team preferences
 - Update team preferences
+- Get external team groups
+- Add external team group
+- Delete external team group
 
 ### Legacy Playlist
 - Search playlist
