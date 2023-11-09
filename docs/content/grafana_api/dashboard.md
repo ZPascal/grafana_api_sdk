@@ -19,6 +19,11 @@
     * [restore\_dashboard\_version](#dashboard.Dashboard.restore_dashboard_version)
     * [restore\_dashboard\_version\_by\_uid](#dashboard.Dashboard.restore_dashboard_version_by_uid)
     * [calculate\_dashboard\_diff](#dashboard.Dashboard.calculate_dashboard_diff)
+    * [get\_public\_dashboards](#dashboard.Dashboard.get_public_dashboards)
+    * [get\_public\_dashboard\_by\_uid](#dashboard.Dashboard.get_public_dashboard_by_uid)
+    * [create\_public\_dashboard](#dashboard.Dashboard.create_public_dashboard)
+    * [update\_public\_dashboard](#dashboard.Dashboard.update_public_dashboard)
+    * [delete\_public\_dashboard](#dashboard.Dashboard.delete_public_dashboard)
 
 <a id="dashboard"></a>
 
@@ -475,4 +480,163 @@ The method includes a functionality to calculate the diff of specified versions 
 **Returns**:
 
 - `api_call` _str_ - Returns the difference of the two specified dashboards
+
+<a id="dashboard.Dashboard.get_public_dashboards"></a>
+
+#### get\_public\_dashboards
+
+```python
+def get_public_dashboards(per_page: int = None, page: int = None) -> dict
+```
+
+The method includes a functionality to get all public available dashboards
+
+Required Permissions:
+Action: dashboards:read
+Scope: dashboards:uid:<dashboard UID>
+
+**Arguments**:
+
+- `per_page` _int_ - Specify the value per page size
+- `page` _int_ - Specify the page
+  
+
+**Raises**:
+
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+- `api_call` _dict_ - Returns all public available dashboards
+
+<a id="dashboard.Dashboard.get_public_dashboard_by_uid"></a>
+
+#### get\_public\_dashboard\_by\_uid
+
+```python
+def get_public_dashboard_by_uid(dashboard_uid: str) -> dict
+```
+
+The method includes a functionality to get a public available dashboard specified by dashboard_uid
+
+Required Permissions:
+Action: dashboards:read
+Scope: dashboards:uid:<dashboard UID>
+
+**Arguments**:
+
+- `dashboard_uid` _str_ - Specify the dashboard_uid
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+- `api_call` _dict_ - Returns the corresponding public available dashboard
+
+<a id="dashboard.Dashboard.create_public_dashboard"></a>
+
+#### create\_public\_dashboard
+
+```python
+def create_public_dashboard(
+    dashboard_uid: str, public_dashboard: PublicDashboard = PublicDashboard()
+) -> dict
+```
+
+The method includes a functionality to create a public available dashboard
+
+Required Permissions:
+Action: dashboards.public:write
+Scope: dashboards:uid:<dashboard UID>
+
+**Arguments**:
+
+- `dashboard_uid` _str_ - Specify the dashboard_uid
+- `public_dashboard` _PublicDashboard_ - Specify the optional public dashboard object
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+- `api_call` _dict_ - Returns the corresponding public available dashboard
+
+<a id="dashboard.Dashboard.update_public_dashboard"></a>
+
+#### update\_public\_dashboard
+
+```python
+def update_public_dashboard(dashboard_uid: str,
+                            public_dashboard_uid: str,
+                            time_selection_enabled: bool = None,
+                            is_enabled: bool = None,
+                            annotations_enabled: bool = None,
+                            share: str = None) -> dict
+```
+
+The method includes a functionality to update a public available dashboard
+
+Required Permissions:
+Action: dashboards.public:write
+Scope: dashboards:uid:<dashboard UID>
+
+**Arguments**:
+
+- `dashboard_uid` _str_ - Specify the dashboard_uid
+- `public_dashboard_uid` _str_ - Specify the public_dashboard_uid
+- `time_selection_enabled` _bool_ - Specify the optional enablement of the time picker inside the public dashboard (default None)
+- `is_enabled` _bool_ - Specify the optional enablement of the public dashboard (default None)
+- `annotations_enabled` _bool_ - Specify the optional enablement of the annotations inside the public dashboard (default None)
+- `share` _str_ - Specify the optional share mode of the public dashboard (default None)
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+- `api_call` _dict_ - Returns the corresponding public available dashboard
+
+<a id="dashboard.Dashboard.delete_public_dashboard"></a>
+
+#### delete\_public\_dashboard
+
+```python
+def delete_public_dashboard(dashboard_uid: str, public_dashboard_uid: str)
+```
+
+The method includes a functionality to delete a public available dashboard
+
+Required Permissions:
+Action: dashboards.public:write
+Scope: dashboards:uid:<dashboard UID>
+
+**Arguments**:
+
+- `dashboard_uid` _str_ - Specify the dashboard_uid
+- `public_dashboard_uid` _str_ - Specify the public_dashboard_uid
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+  None
 

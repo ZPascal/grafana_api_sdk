@@ -218,3 +218,29 @@ class DashboardTest(TestCase):
         self.dashboard.delete_dashboard_by_name_and_path(
             "TestB", os.environ["GRAFANA_DASHBOARD_PATH"]
         )
+
+    def test_h_public_dashboards(self):
+        public_dashboards: dict = dict(
+            {"page": 1, "perPage": 1000, "publicDashboards": [], "totalCount": 0}
+        )
+        self.assertEqual(public_dashboards, self.dashboard.get_public_dashboards())
+
+        public_dashboard_uid: str = self.dashboard.create_public_dashboard("tests").get(
+            "uid"
+        )
+
+        self.assertIsNotNone(public_dashboard_uid)
+        self.assertEqual(
+            public_dashboard_uid,
+            self.dashboard.get_public_dashboard_by_uid("tests").get("uid"),
+        )
+
+        self.assertEqual(
+            True,
+            self.dashboard.update_public_dashboard(
+                "tests", public_dashboard_uid, time_selection_enabled=True
+            ).get("timeSelectionEnabled"),
+        )
+        self.dashboard.delete_public_dashboard("tests", public_dashboard_uid)
+
+        self.assertEqual(public_dashboards, self.dashboard.get_public_dashboards())

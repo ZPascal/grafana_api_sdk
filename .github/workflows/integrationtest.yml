@@ -40,6 +40,9 @@ jobs:
           GRAFANA_PASSWORD: ${{ secrets.GRAFANA_PASSWORD }}
           HTTP2: "False"
 
+      - name: Wait 20 seconds
+        run: sleep 20
+
       - name: Execute the integrationtests (http2)
         run: python3 -m unittest discover tests/integrationtest
         env:
