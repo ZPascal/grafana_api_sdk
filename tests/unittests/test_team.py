@@ -394,3 +394,106 @@ class TeamTestCase(TestCase):
 
         with self.assertRaises(Exception):
             team.update_team_preferences(1, home_dashboard_uid="test")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_external_groups(self, call_the_api_mock):
+        model: APIModel = APIModel(
+            host=MagicMock(), username=MagicMock(), password=MagicMock()
+        )
+        team: Team = Team(grafana_api_model=model)
+
+        call_the_api_mock.return_value = list(["test"])
+
+        self.assertEqual(list(["test"]), team.get_external_groups(1))
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_external_groups_no_team_id(self, call_the_api_mock):
+        model: APIModel = APIModel(
+            host=MagicMock(), username=MagicMock(), password=MagicMock()
+        )
+        team: Team = Team(grafana_api_model=model)
+
+        with self.assertRaises(ValueError):
+            team.get_external_groups(0)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_external_groups_no_valid_result(self, call_the_api_mock):
+        model: APIModel = APIModel(
+            host=MagicMock(), username=MagicMock(), password=MagicMock()
+        )
+        team: Team = Team(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict()
+
+        with self.assertRaises(Exception):
+            team.get_external_groups(1)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_add_external_group(self, call_the_api_mock):
+        model: APIModel = APIModel(
+            host=MagicMock(), username=MagicMock(), password=MagicMock()
+        )
+        team: Team = Team(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict(
+            {"status": 200, "message": "Group added to Team"}
+        )
+
+        self.assertEqual(None, team.add_external_group(1, "test"))
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_add_external_group_no_team_id(self, call_the_api_mock):
+        model: APIModel = APIModel(
+            host=MagicMock(), username=MagicMock(), password=MagicMock()
+        )
+        team: Team = Team(grafana_api_model=model)
+
+        with self.assertRaises(ValueError):
+            team.add_external_group(0, None)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_add_external_group_no_valid_result(self, call_the_api_mock):
+        model: APIModel = APIModel(
+            host=MagicMock(), username=MagicMock(), password=MagicMock()
+        )
+        team: Team = Team(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict({"status": 401})
+
+        with self.assertRaises(Exception):
+            team.add_external_group(1, "test")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_remove_external_group(self, call_the_api_mock):
+        model: APIModel = APIModel(
+            host=MagicMock(), username=MagicMock(), password=MagicMock()
+        )
+        team: Team = Team(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict(
+            {"status": 200, "message": "Team Group removed"}
+        )
+
+        self.assertEqual(None, team.remove_external_group(1, "test"))
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_remove_external_group_no_team_id(self, call_the_api_mock):
+        model: APIModel = APIModel(
+            host=MagicMock(), username=MagicMock(), password=MagicMock()
+        )
+        team: Team = Team(grafana_api_model=model)
+
+        with self.assertRaises(ValueError):
+            team.remove_external_group(0, None)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_remove_external_group_no_valid_result(self, call_the_api_mock):
+        model: APIModel = APIModel(
+            host=MagicMock(), username=MagicMock(), password=MagicMock()
+        )
+        team: Team = Team(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict({"status": 401})
+
+        with self.assertRaises(Exception):
+            team.remove_external_group(1, "test")

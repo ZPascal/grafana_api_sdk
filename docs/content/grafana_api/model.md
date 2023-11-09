@@ -36,6 +36,7 @@
   * [RolePermission](#model.RolePermission)
   * [CustomRole](#model.CustomRole)
   * [DatasourceCache](#model.DatasourceCache)
+  * [PublicDashboard](#model.PublicDashboard)
 
 <a id="model"></a>
 
@@ -704,4 +705,24 @@ The class includes all necessary variables to generate a datasource cache object
 - `use_default_ttl` _bool_ - Specify if the configured default TTL (Time-To-Live) should be used for both query and resource caching, instead of the user-specified values
 - `ttl_queries_ms` _int_ - Specify the TTL to use for query caching, in milliseconds
 - `ttl_resources_ms` _int_ - Specify the TTL to use for resource caching, in milliseconds
+
+<a id="model.PublicDashboard"></a>
+
+## PublicDashboard Objects
+
+```python
+@dataclass
+class PublicDashboard()
+```
+
+The class includes all necessary variables to generate a public dashboard object
+
+**Arguments**:
+
+- `uid` _str_ - Specify the optional unique identifier when creating a public dashboard. If it’s none, it will generate a new uid (default None)
+- `access_token` _str_ - Specify the optional unique access token. If it’s none, it will generate a new access token (default None)
+- `time_selection_enabled` _bool_ - Specify the optional enablement of the time picker inside the public dashboard (default False)
+- `is_enabled` _bool_ - Specify the optional enablement of the public dashboard (default False)
+- `annotations_enabled` _bool_ - Specify the optional enablement of the annotations inside the public dashboard (default False)
+- `share` _str_ - Specify the optional share mode of the public dashboard (default public)
 

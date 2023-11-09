@@ -243,7 +243,7 @@ class Api:
             api_call (any): Returns the value of the api call
         """
 
-        if Api._check_if_valid_json(response.text):
+        if Api._check_if_valid_json(response.text) and response.text != "null":
             if (
                 len(json.loads(response.text)) != 0
                 and type(json.loads(response.text)) == dict
@@ -315,7 +315,7 @@ class Api:
 
         transport: httpx.HTTPTransport = httpx.HTTPTransport(
             verify=self.grafana_api_model.ssl_context,
-            retries=self.grafana_api_model.retries
+            retries=self.grafana_api_model.retries,
         )
         limits: httpx.Limits = httpx.Limits(
             max_connections=self.grafana_api_model.num_pools

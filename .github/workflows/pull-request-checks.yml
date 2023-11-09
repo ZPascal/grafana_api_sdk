@@ -103,12 +103,16 @@ jobs:
           git add --force docs
           git commit -m "docs: Add coverage badge"
 
+      - name: Test
+        run: echo ${{ github.head_ref }} && echo ${{ github.ref }} && echo ${{ github.base_ref }}
+
       - name: Push changes
         uses: ad-m/github-push-action@master
         if: steps.verify-changed-files.outputs.files_changed == 'true'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.head_ref }}
+
 
   pr-documentation:
     runs-on: ubuntu-latest
