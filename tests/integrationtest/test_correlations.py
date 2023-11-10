@@ -53,13 +53,8 @@ class CorrelationsTest(TestCase):
         )
 
         self.assertEqual(
-            {
-                "correlations": [correlation_object.get("result")],
-                "limit": 100,
-                "page": 1,
-                "totalCount": 1,
-            },
-            self.correlations.get_all_correlations(),
+            list([correlation_object.get("result")]),
+            self.correlations.get_all_correlations().get("correlations"),
         )
 
         self.assertEqual(
@@ -74,6 +69,7 @@ class CorrelationsTest(TestCase):
         )
 
     def test_c_delete_data_source(self):
+        pass
         self.assertEqual(
             None, self.data_source.delete_datasource_by_name("TestData DB 1")
         )

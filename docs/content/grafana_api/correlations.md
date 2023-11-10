@@ -88,7 +88,7 @@ The method includes a functionality to get all correlations from a data source -
 #### get\_all\_correlations
 
 ```python
-def get_all_correlations() -> list
+def get_all_correlations() -> Union[list, dict]
 ```
 
 The method includes a functionality to get all correlations
@@ -100,7 +100,7 @@ The method includes a functionality to get all correlations
 
 **Returns**:
 
-- `api_call` _list_ - Returns the corresponding correlations
+- `api_call` _Union[list, dict]_ - Returns the corresponding correlations
 
 <a id="correlations.Correlations.create_correlations"></a>
 

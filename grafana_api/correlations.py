@@ -78,14 +78,14 @@ class Correlations:
             logging.error("There is no datasource_uid defined.")
             raise ValueError
 
-    def get_all_correlations(self) -> list:
+    def get_all_correlations(self) -> Union[list, dict]:
         """The method includes a functionality to get all correlations
 
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
-            api_call (list): Returns the corresponding correlations
+            api_call (Union[list, dict]): Returns the corresponding correlations
         """
 
         api_call: Union[list, dict] = Api(self.grafana_api_model).call_the_api(
