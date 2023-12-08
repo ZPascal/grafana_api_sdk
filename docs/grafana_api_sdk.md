@@ -50,6 +50,8 @@ The following list describes the currently supported features of the Grafana API
 
 ## Installation
 
+Please be aware to not install the `grafana-api` and `grafana-api-sdk` packages in parallel and the same environment. This result in name clashes, and it's not possible to use the Grafana API SDK.
+
 `pip install grafana-api-sdk`
 
 ## Example
