@@ -2,7 +2,7 @@
 The repository includes an SDK for the Grafana API. It's possible to interact with all publicly available Grafana HTTP API endpoints.
 
 ## Differences between [grafana-client](https://github.com/panodata/grafana-client), [grafana_api](https://github.com/m0nhawk/grafana_api/) and the [grafana_api_sdk](https://github.com/ZPascal/grafana_api_sdk)
-The grafana-client is only a fork of the non-maintained grafana_api repository. In general, the grafana-client project started at the same time, as I started this project. The corresponding SDK is a completely new project based on nonother projects and includes a few features that are currently not implemented inside the grafana-client.
+The grafana-client is only a fork of the non-maintained grafana_api repository. In general, the grafana-client project started at the same time, as I started this project. The corresponding SDK is a completely new project based on nonother projects and includes a few features that are currently not implemented inside the grafana-client.  
 
 The core features that are implemented inside this library:
 
@@ -348,6 +348,8 @@ In general, my focus on this project is to implement and deliver old and new fea
 - Delete correlations
 
 ## Installation
+
+Please be aware to not install the `grafana-api` and `grafana-api-sdk` packages in parallel and the same environment. This result in name clashes, and it's not possible to use the Grafana API SDK.
 
 `pip install grafana-api-sdk`
 
