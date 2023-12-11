@@ -83,7 +83,7 @@ jobs:
           pytest-coverage-path: ./pytest-coverage.txt
           junitxml-path: ./pytest.xml
           hide-badge: true
-          create-new-comment: false
+          create-new-comment: true
 
       - name: Generate coverage badge
         run: coverage-badge -f -o docs/coverage.svg
