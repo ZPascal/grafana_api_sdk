@@ -60,9 +60,9 @@ class SnapshotTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         snapshot: Snapshot = Snapshot(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"id": 1}])
+        call_the_api_mock.return_value = list([{"name": "Test"}])
 
-        self.assertEqual(list([{"id": 1}]), snapshot.get_snapshots())
+        self.assertEqual(list([{"name": "Test"}]), snapshot.get_snapshots())
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_snapshots_no_snapshots_available(self, call_the_api_mock):
