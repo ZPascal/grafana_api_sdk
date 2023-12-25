@@ -98,7 +98,7 @@ class Snapshot:
             APIEndpoints.DASHBOARD_SNAPSHOTS.value,
         )
 
-        if api_call == list() or api_call[0].get("id") is None:
+        if api_call == list() or api_call[0].get("name") is None:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
