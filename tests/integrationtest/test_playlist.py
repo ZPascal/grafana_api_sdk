@@ -21,7 +21,6 @@ class PlaylistTest(TestCase):
         self.assertEqual("Test1", self.playlist.get_playlist("ce7b96dd-480a-4d8f-9950-e5082993574b").get("name"))
 
     def test_get_playlist_items(self):
-        print(self.playlist.get_playlist_items("ce7b96dd-480a-4d8f-9950-e5082993574b"))
         self.assertEqual(
             "dashboard_by_id", self.playlist.get_playlist_items("ce7b96dd-480a-4d8f-9950-e5082993574b")[0].get("type")
         )
