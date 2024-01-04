@@ -15,7 +15,7 @@ class PlaylistTest(TestCase):
     playlist: Playlist = Playlist(model)
 
     def test_search_playlist(self):
-        self.assertEqual("Test", self.playlist.search_playlist()[0].get("name"))
+        self.assertEqual("Test1", self.playlist.search_playlist()[0].get("name"))
 
     def test_get_playlist(self):
         self.assertEqual("Test", self.playlist.get_playlist("b86fcd43-4651-4277-841d-90fff83acfa9").get("name"))
