@@ -79,7 +79,6 @@ class Api:
         )
 
         if self.grafana_api_model.http2_support:
-
             async def _execute_async_api_call():
                 async with http:
                     return await self._execute_the_async_api_call(
