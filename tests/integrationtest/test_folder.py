@@ -99,7 +99,7 @@ class FolderTest(TestCase):
                     "teamId": 0,
                     "title": "Github Integrationtest",
                     "uid": "6U_QdWJnz",
-                    "updated": "2022-06-14T21:32:34+02:00",
+                    "updated": "2024-01-24T19:33:26.34204+01:00",
                     "url": "/dashboards/f/6U_QdWJnz/github-integrationtest",
                     "userAvatarUrl": "",
                     "userEmail": "",
