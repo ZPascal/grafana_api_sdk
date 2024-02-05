@@ -83,13 +83,13 @@ jobs:
           pytest-coverage-path: ./pytest-coverage.txt
           junitxml-path: ./pytest.xml
           hide-badge: true
-          create-new-comment: false
+          create-new-comment: true
 
       - name: Generate coverage badge
         run: coverage-badge -f -o docs/coverage.svg
 
       - name: Check changed files
-        uses: tj-actions/verify-changed-files@v17
+        uses: tj-actions/verify-changed-files@v18
         id: verify-changed-files
         with:
           files: |
@@ -137,7 +137,7 @@ jobs:
         run: pydoc-markdown --render-toc && rm -rf docs/content && mv build/docs/* docs
 
       - name: Check changed files
-        uses: tj-actions/verify-changed-files@v17
+        uses: tj-actions/verify-changed-files@v18
         id: verify-changed-files
         with:
           files: |
