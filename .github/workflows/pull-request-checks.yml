@@ -77,13 +77,13 @@ jobs:
         run: export PYTHONPATH=$PWD && pytest --junitxml=pytest.xml --cov=. tests/unittests | tee pytest-coverage.txt
 
       - name: Execute the coverage checks
-        uses: MishaKav/pytest-coverage-comment@v1.1.50
+        uses: MishaKav/pytest-coverage-comment@v1.1.51
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           pytest-coverage-path: ./pytest-coverage.txt
           junitxml-path: ./pytest.xml
           hide-badge: true
-          create-new-comment: true
+          create-new-comment: false
 
       - name: Generate coverage badge
         run: coverage-badge -f -o docs/coverage.svg
