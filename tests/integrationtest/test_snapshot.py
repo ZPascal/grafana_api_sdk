@@ -33,7 +33,6 @@ class SnapshotTest(TestCase):
         )
 
     def test_d_delete_snapshot_by_key(self):
-        print(self.snapshot.get_snapshots())
         snapshot_key: str = self.snapshot.get_snapshots()[1].get("key")
         self.snapshot.delete_snapshot_by_key(snapshot_key)
         self.assertEqual(1, len(self.snapshot.get_snapshots()))
