@@ -25,6 +25,7 @@ setuptools.setup(
         "License :: OSI Approved",
         "Operating System :: OS Independent",
     ],
+    license="Apache-2.0 License",
     packages=["grafana_api"],
     install_requires=["httpx"],
     extras_require={

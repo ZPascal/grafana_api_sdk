@@ -75,7 +75,7 @@ class Snapshot:
                 json.dumps(snapshot_json),
             )
 
-            if api_call == dict() or api_call.get("id") is None:
+            if api_call == dict() or (api_call.get("id") is None and api_call.get("key") is None):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:

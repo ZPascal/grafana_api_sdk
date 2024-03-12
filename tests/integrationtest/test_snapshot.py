@@ -21,7 +21,7 @@ class SnapshotTest(TestCase):
             self.dashboard.get_dashboard_by_uid("tests").get("dashboard"),
             name="TestSnapshot1",
         )
-        self.assertIsNotNone(snapshot.get("id"))
+        self.assertIsNotNone(snapshot.get("key"))
 
     def test_get_snapshots(self):
         self.assertEqual(1, len(self.snapshot.get_snapshots()))
@@ -32,12 +32,13 @@ class SnapshotTest(TestCase):
             self.snapshot.get_snapshot_by_key(snapshot_key).get("dashboard").get("id")
         )
 
-    def test_b_delete_snapshot_by_key(self):
+    def test_d_delete_snapshot_by_key(self):
+        print(self.snapshot.get_snapshots())
         snapshot_key: str = self.snapshot.get_snapshots()[1].get("key")
         self.snapshot.delete_snapshot_by_key(snapshot_key)
         self.assertEqual(1, len(self.snapshot.get_snapshots()))
 
-    def test_c_delete_snapshot_by_delete_key(self):
+    def test_e_delete_snapshot_by_delete_key(self):
         snapshot: dict = self.snapshot.create_new_snapshot(
             self.dashboard.get_dashboard_by_uid("tests").get("dashboard"),
             name="TestSnapshot2",
