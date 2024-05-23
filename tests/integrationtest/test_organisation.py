@@ -26,14 +26,14 @@ class OrganisationTest(TestCase):
             self.organisation.get_all_users_by_the_current_organization()
         )
 
-        self.assertEqual(4, organisation_users[1].get("userId"))
+        self.assertEqual(8, organisation_users[0].get("userId"))
 
     def test_get_all_users_by_the_current_organization_lookup(self):
         organisation_users: list = (
             self.organisation.get_all_users_by_the_current_organization_lookup()
         )
 
-        self.assertEqual(4, organisation_users[1].get("userId"))
+        self.assertEqual(8, organisation_users[0].get("userId"))
 
     def test_a_update_current_organization(self):
         self.organisation.update_current_organization("Test")
@@ -55,19 +55,19 @@ class OrganisationTest(TestCase):
         organisation_users: list = (
             self.organisation.get_all_users_by_the_current_organization_lookup()
         )
-        self.assertEqual("Test", organisation_users[2].get("login"))
+        self.assertEqual("info@theiotstudio.com", organisation_users[1].get("login"))
 
     def test_b_update_organization_user_role_by_user_id(self):
-        self.organisation.update_organization_user_role_by_user_id(7, "Editor")
+        self.organisation.update_organization_user_role_by_user_id(1967, "Editor")
 
         organisation_users: list = (
             self.organisation.get_all_users_by_the_current_organization()
         )
-        self.assertEqual(7, organisation_users[2].get("userId"))
-        self.assertEqual("Editor", organisation_users[2].get("role"))
+        self.assertEqual(1967, organisation_users[1].get("userId"))
+        self.assertEqual("Editor", organisation_users[1].get("role"))
 
     def test_c_delete_organization_user_by_user_id(self):
-        self.organisation.delete_organization_user_by_user_id(7)
+        self.organisation.delete_organization_user_by_user_id(1967)
 
         organisation_users: list = (
             self.organisation.get_all_users_by_the_current_organization()
