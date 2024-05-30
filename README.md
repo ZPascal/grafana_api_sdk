@@ -347,6 +347,12 @@ In general, my focus on this project is to implement and deliver old and new fea
 - Update correlations
 - Delete correlations
 
+### SSO Settings
+- Get SSO settings
+- Get SSO settings by provider
+- Update SSO settings
+- Delete SSO settings
+
 ## Installation
 
 Please be aware to not install the `grafana-api` and `grafana-api-sdk` packages in parallel and the same environment. This result in name clashes, and it's not possible to use the Grafana API SDK.

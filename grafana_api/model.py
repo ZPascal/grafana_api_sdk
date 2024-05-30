@@ -24,8 +24,8 @@ class APIEndpoints(Enum):
     ALERTS_ALERTMANAGER: str = f"{api_prefix}/alertmanager"
     ALERTS_PROMETHEUS: str = f"{api_prefix}/prometheus"
     ALERTS_RULER: str = f"{api_prefix}/ruler"
-    ALERTS_TESTING: str = f"{api_prefix}/v1"
-    ALERTS_NGALERT: str = f"{api_prefix}/v1/ngalert"
+    ALERTS_TESTING: str = f"{api_prefix}/{version_1}"
+    ALERTS_NGALERT: str = f"{api_prefix}/{version_1}/ngalert"
     DATASOURCES: str = f"{api_prefix}/datasources"
     DATASOURCE_QUERY: str = f"{api_prefix}/tsdb/query"
     SHORT_URLS: str = f"{api_prefix}/short-urls"
@@ -52,6 +52,7 @@ class APIEndpoints(Enum):
     RBAC: str = f"{api_prefix}/access-control"
     LIBRARY: str = f"{api_prefix}/library-elements"
     ALERTING_PROVISIONING: str = f"{api_prefix}/{version_1}/provisioning"
+    SSO_SETTINGS: str = f"{api_prefix}/{version_1}/sso-settings"
 
 
 class RequestsMethods(Enum):
@@ -757,3 +758,22 @@ class PublicDashboard:
     is_enabled: bool = False
     annotations_enabled: bool = False
     share: str = "public"
+
+
+@dataclass
+class SSOSetting:
+    """The class includes all necessary variables to generate an SSO setting object
+
+    Args:
+        api_url (str): Specify the SSO api url
+        client_id (str): Specify the SSO client id
+        client_secret (str): Specify the SSO client secret
+        enabled (bool): Specify if the SSO provider is enabled or not
+        scopes (str): Specify the SSO scopes
+    """
+
+    api_url: str
+    client_id: str
+    client_secret: str
+    enabled: bool
+    scopes: str

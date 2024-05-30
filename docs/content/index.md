@@ -40,6 +40,7 @@ The following list describes the currently supported features of the Grafana API
 - [x] [Playlist HTTP API](https://grafana.com/docs/grafana/latest/http_api/playlist/)
 - [x] [Reporting API](https://grafana.com/docs/grafana/latest/http_api/reporting/)
 - [x] [Short URL HTTP API](https://grafana.com/docs/grafana/latest/http_api/short_url/)
+- [x] [SSO Settings](https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/)
 - [x] [Team HTTP API](https://grafana.com/docs/grafana/latest/http_api/team/)
 - [x] [Team Sync](https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/)
 - [x] [User HTTP API](https://grafana.com/docs/grafana/latest/http_api/user/)
