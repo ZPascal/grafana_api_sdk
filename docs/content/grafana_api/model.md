@@ -37,6 +37,7 @@
   * [CustomRole](#model.CustomRole)
   * [DatasourceCache](#model.DatasourceCache)
   * [PublicDashboard](#model.PublicDashboard)
+  * [SSOSetting](#model.SSOSetting)
 
 <a id="model"></a>
 
@@ -725,4 +726,23 @@ The class includes all necessary variables to generate a public dashboard object
 - `is_enabled` _bool_ - Specify the optional enablement of the public dashboard (default False)
 - `annotations_enabled` _bool_ - Specify the optional enablement of the annotations inside the public dashboard (default False)
 - `share` _str_ - Specify the optional share mode of the public dashboard (default public)
+
+<a id="model.SSOSetting"></a>
+
+## SSOSetting Objects
+
+```python
+@dataclass
+class SSOSetting()
+```
+
+The class includes all necessary variables to generate an SSO setting object
+
+**Arguments**:
+
+- `api_url` _str_ - Specify the SSO api url
+- `client_id` _str_ - Specify the SSO client id
+- `client_secret` _str_ - Specify the SSO client secret
+- `enabled` _bool_ - Specify if the SSO provider is enabled or not
+- `scopes` _str_ - Specify the SSO scopes
 
