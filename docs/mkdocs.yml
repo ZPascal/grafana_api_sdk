@@ -30,6 +30,7 @@ nav:
   - Reporting: grafana_api/reporting.md
   - Search: grafana_api/search.md
   - Service Account: grafana_api/service-account.md
+  - SSO Settings: grafana_api/sso-settings.md
   - Short url: grafana_api/short-url.md
   - Snapshot: grafana_api/snapshot.md
   - Team: grafana_api/team.md

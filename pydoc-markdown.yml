@@ -66,6 +66,8 @@ renderer:
           contents: [ search.* ]
         - title: Service Account
           contents: [ service_account.* ]
+        - title: SSO Settings
+          contents: [ sso_settings.* ]
         - title: Short url
           contents: [ short_url.* ]
         - title: Snapshot
