@@ -847,21 +847,21 @@ class Alerting:
             datasource_rule_query_object_json: dict = dict()
 
             for datasource_rule_query_object in data_query:
-                datasource_rule_query_object_json[
-                    "datasourceUid"
-                ] = datasource_rule_query_object.datasource_uid
-                datasource_rule_query_object_json[
-                    "model"
-                ] = datasource_rule_query_object.model
-                datasource_rule_query_object_json[
-                    "queryType"
-                ] = datasource_rule_query_object.query_type
-                datasource_rule_query_object_json[
-                    "refId"
-                ] = datasource_rule_query_object.ref_id
-                datasource_rule_query_object_json[
-                    "relativeTimeRange"
-                ] = datasource_rule_query_object.relative_time_range
+                datasource_rule_query_object_json["datasourceUid"] = (
+                    datasource_rule_query_object.datasource_uid
+                )
+                datasource_rule_query_object_json["model"] = (
+                    datasource_rule_query_object.model
+                )
+                datasource_rule_query_object_json["queryType"] = (
+                    datasource_rule_query_object.query_type
+                )
+                datasource_rule_query_object_json["refId"] = (
+                    datasource_rule_query_object.ref_id
+                )
+                datasource_rule_query_object_json["relativeTimeRange"] = (
+                    datasource_rule_query_object.relative_time_range
+                )
                 datasource_rule_query_objects_json.append(
                     datasource_rule_query_object_json
                 )
@@ -918,21 +918,21 @@ class Alerting:
             datasource_rule_query_object_json: dict = dict()
 
             for datasource_rule_query_object in data_query:
-                datasource_rule_query_object_json[
-                    "datasourceUid"
-                ] = datasource_rule_query_object.datasource_uid
-                datasource_rule_query_object_json[
-                    "model"
-                ] = datasource_rule_query_object.model
-                datasource_rule_query_object_json[
-                    "queryType"
-                ] = datasource_rule_query_object.query_type
-                datasource_rule_query_object_json[
-                    "refId"
-                ] = datasource_rule_query_object.ref_id
-                datasource_rule_query_object_json[
-                    "relativeTimeRange"
-                ] = datasource_rule_query_object.relative_time_range
+                datasource_rule_query_object_json["datasourceUid"] = (
+                    datasource_rule_query_object.datasource_uid
+                )
+                datasource_rule_query_object_json["model"] = (
+                    datasource_rule_query_object.model
+                )
+                datasource_rule_query_object_json["queryType"] = (
+                    datasource_rule_query_object.query_type
+                )
+                datasource_rule_query_object_json["refId"] = (
+                    datasource_rule_query_object.ref_id
+                )
+                datasource_rule_query_object_json["relativeTimeRange"] = (
+                    datasource_rule_query_object.relative_time_range
+                )
                 datasource_rule_query_objects_json.append(
                     datasource_rule_query_object_json
                 )

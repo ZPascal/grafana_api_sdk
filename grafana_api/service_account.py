@@ -39,7 +39,9 @@ class ServiceAccount:
             api_call (dict): Returns the service accounts
         """
 
-        api_request_url: str = f"{APIEndpoints.SERVICE_ACCOUNTS.value}/search?perpage={results_per_page}&page={pages}"
+        api_request_url: str = (
+            f"{APIEndpoints.SERVICE_ACCOUNTS.value}/search?perpage={results_per_page}&page={pages}"
+        )
 
         if query is not None and len(query) != 0:
             api_request_url: str = f"{api_request_url}&query={query}"
