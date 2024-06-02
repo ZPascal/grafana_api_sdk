@@ -425,6 +425,12 @@ class Reporting:
                             }
                         )
                     )
+                else:
+                    logging.error(
+                        "There is no correct value for the branding_settings email_footer_text or email_footer_link "
+                        "defined."
+                    )
+                    raise ValueError
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.REPORTING.value}/settings",
@@ -579,52 +585,51 @@ class Reporting:
                     logging.error("There is no workdays_only defined.")
                     raise ValueError
 
-            if report.dashboards is not None:
-                dashboard_list: list = list()
-                for dashboard in report.dashboards:
-                    dashboard_object: dict = dict()
+            dashboard_list: list = list()
+            for dashboard in report.dashboards:
+                dashboard_object: dict = dict()
 
-                    if len(dashboard.dashboard_uid) != 0:
-                        dashboard_object.update(
-                            {"dashboard": dict({"uid": dashboard.dashboard_uid})}
-                        )
-                    else:
-                        logging.error("There is no dashboard_uid value defined.")
-                        raise ValueError
+                if len(dashboard.dashboard_uid) != 0:
+                    dashboard_object.update(
+                        {"dashboard": dict({"uid": dashboard.dashboard_uid})}
+                    )
+                else:
+                    logging.error("There is no dashboard_uid value defined.")
+                    raise ValueError
 
-                    if (
-                        len(dashboard.time_range_from) != 0
-                        and len(dashboard.time_range_to) != 0
-                    ):
+                if (
+                    len(dashboard.time_range_from) != 0
+                    and len(dashboard.time_range_to) != 0
+                ):
+                    dashboard_object.update(
+                        {
+                            "timeRange": dict(
+                                {
+                                    "from": dashboard.time_range_from,
+                                    "to": dashboard.time_range_to,
+                                }
+                            )
+                        }
+                    )
+                else:
+                    logging.error(
+                        "There is no time_range_from or time_range_to value defined."
+                    )
+                    raise ValueError
+
+                if dashboard.report_variables is not None:
+                    if dashboard.report_variables != dict():
                         dashboard_object.update(
-                            {
-                                "timeRange": dict(
-                                    {
-                                        "from": dashboard.time_range_from,
-                                        "to": dashboard.time_range_to,
-                                    }
-                                )
-                            }
+                            {"reportVariables": dashboard.report_variables}
                         )
                     else:
                         logging.error(
-                            "There is no time_range_from or time_range_to value defined."
+                            "There is no correct value of the report_variables defined."
                         )
                         raise ValueError
 
-                    if dashboard.report_variables is not None:
-                        if dashboard.report_variables != dict():
-                            dashboard_object.update(
-                                {"reportVariables": dashboard.report_variables}
-                            )
-                        else:
-                            logging.error(
-                                "There is no correct value of the report_variables defined."
-                            )
-                            raise ValueError
-
-                    dashboard_list.append(dashboard_object)
-                report_object.update(dict({"dashboards": dashboard_list}))
+                dashboard_list.append(dashboard_object)
+            report_object.update(dict({"dashboards": dashboard_list}))
 
             return report_object
         else:

@@ -162,6 +162,31 @@ class ReportingTestCase(TestCase):
 
         self.assertEqual(10, reporting.create_report(report))
 
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_create_report_default_report_variables(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        reporting: Reporting = Reporting(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict(
+            {"id": 10, "status": 200, "message": "Report created"}
+        )
+        dashboard_schema: DashboardSchema = DashboardSchema("test", "test", "test")
+        report: Report = Report(
+            "test",
+            "test",
+            "test",
+            "test",
+            "test",
+            "test",
+            "test",
+            "test",
+            "test",
+            False,
+            [dashboard_schema],
+        )
+
+        self.assertEqual(10, reporting.create_report(report))
+
     def test_create_report_no_report(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
@@ -485,12 +510,9 @@ class ReportingTestCase(TestCase):
 
         self.assertEqual(None, reporting.send_report(1, emails="test,test"))
 
-    @patch("grafana_api.api.Api.call_the_api")
-    def test_send_report_no_id(self, call_the_api_mock):
+    def test_send_report_no_id(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
-
-        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             reporting.send_report(0, emails="")
@@ -578,17 +600,27 @@ class ReportingTestCase(TestCase):
             None, reporting.save_report_branding_settings(report_branding_settings)
         )
 
+    def test_save_report_branding_settings_no_branding_settings(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        reporting: Reporting = Reporting(grafana_api_model=model)
+
+        with self.assertRaises(ValueError):
+            reporting.save_report_branding_settings(None)
+
     @patch("grafana_api.api.Api.call_the_api")
-    def test_save_report_branding_settings_no_branding_settings(
+    def test_save_report_branding_settings_sent_by_no_email_footer_text(
         self, call_the_api_mock
     ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
         call_the_api_mock.return_value = dict()
+        report_branding_settings: ReportBrandingSettings = ReportBrandingSettings(
+            "test", "test", "sent-by", "", "test"
+        )
 
         with self.assertRaises(ValueError):
-            reporting.save_report_branding_settings(None)
+            reporting.save_report_branding_settings(report_branding_settings)
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_save_report_branding_settings_not_available(self, call_the_api_mock):
@@ -643,12 +675,9 @@ class ReportingTestCase(TestCase):
 
         self.assertEqual(None, reporting.send_report_test_email(report))
 
-    @patch("grafana_api.api.Api.call_the_api")
-    def test_send_report_test_email_no_report(self, call_the_api_mock):
+    def test_send_report_test_email_no_report(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
-
-        call_the_api_mock.return_value = dict()
 
         with self.assertRaises(ValueError):
             reporting.send_report_test_email(None)
