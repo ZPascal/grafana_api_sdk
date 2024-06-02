@@ -62,6 +62,14 @@ In general, my focus on this project is to implement and deliver old and new fea
 - Delete a datasource by uid
 - Delete a datasource by name
 - Query a datasource by id
+
+### Datasource permissions
+- Get datasource permissions by uid
+- Update the datasource user permissions by uid
+- Update the datasource team permissions by uid
+- Update the datasource basic role permissions by uid
+
+### Legacy Datasource permissions
 - Enabled datasource permissions
 - Disable datasource permissions
 - Get datasource permissions

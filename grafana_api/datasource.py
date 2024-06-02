@@ -1,7 +1,8 @@
 import json
 import logging
+from typing import Union
 
-from .model import APIModel, APIEndpoints, RequestsMethods, DatasourceCache
+from .model import APIModel, APIEndpoints, RequestsMethods, DatasourceCache, DatasourcePermission
 from .api import Api
 
 
@@ -392,6 +393,248 @@ class Datasource:
         else:
             logging.error("There is no time, to or datasource_queries defined.")
             raise ValueError
+
+
+class DatasourcePermissions:
+    """The class includes all necessary methods to access the Grafana datasource permissions API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights
+
+    HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
+
+    Args:
+        grafana_api_model (APIModel): Inject a Grafana API model object that includes all necessary values and information
+
+    Attributes:
+        grafana_api_model (APIModel): This is where we store the grafana_api_model
+    """
+
+    def __init__(self, grafana_api_model: APIModel):
+        self.grafana_api_model = grafana_api_model
+
+    def get_datasource_permissions_by_uid(self, uid: str) -> list:
+        """The method includes a functionality to get the datasource permissions specified by the datasource uid. The functionality is a Grafana ENTERPRISE feature
+
+        Args:
+            uid (str): Specify the uid of the datasource
+
+        Required Permissions:
+            Action: datasources.permissions:read
+            Scope: [datasources:*, datasources:uid:*, datasources:uid:<id>]
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (list): Returns the datasource permissions
+        """
+
+        if len(uid) != 0:
+            api_call: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCE_PERMISSIONS.value}/{uid}",
+            )
+
+            status_code: int = api_call[0].get("status") if isinstance(api_call, list) else api_call.get("status")
+
+            datasource_permissions_status_dict: dict = dict(
+                {
+                    401: "Unauthorized.",
+                    403: "Access Denied.",
+                    500: "Internal error.",
+                }
+            )
+
+            if status_code == 200:
+                return api_call
+            elif 401 <= status_code <= 500:
+                logging.error(datasource_permissions_status_dict.get(status_code))
+                raise Exception
+            else:
+                logging.error(f"Check the error: {api_call}.")
+                raise Exception
+        else:
+            logging.error("There is no uid defined.")
+            raise ValueError
+
+    def update_datasource_user_access_by_uid(self, uid: str, id: int, datasource_user_permission: DatasourcePermission):
+        """The method includes a functionality to update the datasource permission specified by the datasource uid and the user id. The functionality is a Grafana ENTERPRISE feature
+
+        Args:
+            uid (str): Specify the uid of the datasource
+            id (int): Specify the id of the user
+            datasource_user_permission (DatasourcePermission): Specify the datasource user permission
+
+        Required Permissions:
+            Action: datasources.permissions:write
+            Scope: [datasources:*, datasources:uid:*, datasources:uid:<id>]
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            None
+        """
+
+        if len(uid) != 0 and id != 0 and datasource_user_permission.permission is not None:
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCE_PERMISSIONS.value}/{uid}/users/{id}",
+                RequestsMethods.POST,
+                json.dumps({"permission": datasource_user_permission.permission}),
+                response_status_code=True,
+            )
+
+            status_code: int = api_call.get("status")
+
+            datasource_permissions_status_dict: dict = dict(
+                {
+                    400: "Permission cannot be added, see response body for details.",
+                    401: "Unauthorized.",
+                    403: "Access Denied.",
+                }
+            )
+
+            if status_code == 200 and api_call.get("message") == "Permission updated":
+                logging.info("You successfully updated the datasource user permission.")
+            elif status_code == 200 and api_call.get("message") == "Permission removed":
+                logging.info("You successfully removed the datasource user permission.")
+            elif 400 == status_code:
+                logging.error(f"{datasource_permissions_status_dict.get(status_code)} | Response: {api_call}")
+                raise Exception
+            elif 401 <= status_code <= 403:
+                logging.error(datasource_permissions_status_dict.get(status_code))
+                raise Exception
+            else:
+                logging.error(f"Check the error: {api_call}.")
+                raise Exception
+        else:
+            logging.error("There is no uid, id or datasource_user_permission object defined.")
+            raise ValueError
+
+    def update_datasource_team_access_by_uid(self, uid: str, id: int, datasource_team_permission: DatasourcePermission):
+        """The method includes a functionality to update the datasource permission specified by the datasource uid and the team id. The functionality is a Grafana ENTERPRISE feature
+
+        Args:
+            uid (str): Specify the uid of the datasource
+            id (int): Specify the id of the team
+            datasource_team_permission (DatasourcePermission): Specify the datasource team permission
+
+        Required Permissions:
+            Action: datasources.permissions:write
+            Scope: [datasources:*, datasources:uid:*, datasources:uid:<id>]
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            None
+        """
+
+        if len(uid) != 0 and id != 0 and datasource_team_permission.permission is not None:
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCE_PERMISSIONS.value}/{uid}/teams/{id}",
+                RequestsMethods.POST,
+                json.dumps({"permission": datasource_team_permission.permission}),
+                response_status_code=True,
+            )
+
+            status_code: int = api_call.get("status")
+
+            datasource_permissions_status_dict: dict = dict(
+                {
+                    400: "Permission cannot be added, see response body for details.",
+                    401: "Unauthorized.",
+                    403: "Access Denied.",
+                }
+            )
+
+            if status_code == 200 and api_call.get("message") == "Permission updated":
+                logging.info("You successfully updated the datasource team permission.")
+            elif status_code == 200 and api_call.get("message") == "Permission removed":
+                logging.info("You successfully removed the datasource team permission.")
+            elif 400 == status_code:
+                logging.error(f"{datasource_permissions_status_dict.get(status_code)} | Response: {api_call}")
+                raise Exception
+            elif 401 <= status_code <= 403:
+                logging.error(datasource_permissions_status_dict.get(status_code))
+                raise Exception
+            else:
+                logging.error(f"Check the error: {api_call}.")
+                raise Exception
+        else:
+            logging.error("There is no uid, id or datasource_team_permission object defined.")
+            raise ValueError
+
+    def update_datasource_basic_role_access_by_uid(self, uid: str, build_in_role_name: str, datasource_team_permission: DatasourcePermission):
+        """The method includes a functionality to update the datasource permission specified by the datasource uid and the build in role name. The functionality is a Grafana ENTERPRISE feature
+
+        Args:
+            uid (str): Specify the uid of the datasource
+            build_in_role_name (str): Specify the build in role name
+            datasource_team_permission (DatasourcePermission): Specify the datasource team permission
+
+        Required Permissions:
+            Action: datasources.permissions:write
+            Scope: [datasources:*, datasources:uid:*, datasources:uid:<id>]
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            None
+        """
+
+        if len(uid) != 0 and len(build_in_role_name) != 0 and datasource_team_permission.permission is not None:
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCE_PERMISSIONS.value}/{uid}/builtInRoles/{build_in_role_name}",
+                RequestsMethods.POST,
+                json.dumps({"permission": datasource_team_permission.permission}),
+                response_status_code=True,
+            )
+
+            status_code: int = api_call.get("status")
+
+            datasource_permissions_status_dict: dict = dict(
+                {
+                    400: "Permission cannot be added, see response body for details.",
+                    401: "Unauthorized.",
+                    403: "Access Denied.",
+                }
+            )
+
+            if status_code == 200 and api_call.get("message") == "Permission updated":
+                logging.info("You successfully updated the datasource build in role name permission.")
+            elif status_code == 200 and api_call.get("message") == "Permission removed":
+                logging.info("You successfully removed the datasource build in role name permission.")
+            elif 400 == status_code:
+                logging.error(f"{datasource_permissions_status_dict.get(status_code)} | Response: {api_call}")
+                raise Exception
+            elif 401 <= status_code <= 403:
+                logging.error(datasource_permissions_status_dict.get(status_code))
+                raise Exception
+            else:
+                logging.error(f"Check the error: {api_call}.")
+                raise Exception
+        else:
+            logging.error("There is no uid, build_in_role_name or datasource_team_permission object defined.")
+            raise ValueError
+
+
+class DatasourceLegacyPermissions:
+    """The class includes all necessary methods to access the Grafana legacy datasource permissions API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights
+
+    HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
+
+    Args:
+        grafana_api_model (APIModel): Inject a Grafana API model object that includes all necessary values and information
+
+    Attributes:
+        grafana_api_model (APIModel): This is where we store the grafana_api_model
+    """
+
+    def __init__(self, grafana_api_model: APIModel):
+        self.grafana_api_model = grafana_api_model
 
     def enable_datasource_permissions(self, datasource_id: int):
         """The method includes a functionality to enable datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature

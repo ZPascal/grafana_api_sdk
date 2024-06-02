@@ -1,7 +1,7 @@
 import ssl
 import httpx
 from enum import Enum
-from typing import List, TypeVar
+from typing import List, TypeVar, Union
 from dataclasses import dataclass, field
 
 Self = TypeVar("Self", bound="Route")
@@ -28,6 +28,7 @@ class APIEndpoints(Enum):
     ALERTS_NGALERT: str = f"{api_prefix}/{version_1}/ngalert"
     DATASOURCES: str = f"{api_prefix}/datasources"
     DATASOURCE_QUERY: str = f"{api_prefix}/tsdb/query"
+    DATASOURCE_PERMISSIONS: str = f"{api_prefix}/access-control/datasources"
     SHORT_URLS: str = f"{api_prefix}/short-urls"
     ORGANISATION: str = f"{api_prefix}/org"
     ORGANISATIONS: str = f"{api_prefix}/orgs"
@@ -135,6 +136,33 @@ class DatasourceRuleQuery:
     query_type: str
     ref_id: str
     relative_time_range: dict
+
+
+@dataclass
+class DatasourcePermission:
+    """The class includes the necessary variables to generate a datasource permission object that is necessary to communicate with the Grafana datasource permissions endpoint
+
+    Args:
+        permission (Union[str, None]): Specify the datasource permission. Can be query, edit, admin or None. To remove a permission, set the permission value to None
+
+    Raises:
+        ValueError: Missed specifying a necessary value
+
+    Returns:
+        permission (str): Returns the datasource permission
+    """
+
+    def __init__(self, permission: Union[str, None]):
+        if permission is None:
+            self.permission: str = ""
+        elif permission.lower() == "query":
+            self.permission: str = "Query"
+        elif permission.lower() == "edit":
+            self.permission: str = "Edit"
+        elif permission.lower() == "admin":
+            self.permission: str = "Admin"
+        else:
+            raise ValueError
 
 
 @dataclass

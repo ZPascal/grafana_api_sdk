@@ -5,6 +5,7 @@ from grafana_api.model import (
     RequestsMethods,
     APIEndpoints,
     DatasourceQuery,
+    DatasourcePermission,
 )
 
 
@@ -48,3 +49,9 @@ class DatasourceQueryTestCase(TestCase):
         self.assertEqual(1000, datasource_query.interval_ms)
         self.assertEqual(100, datasource_query.max_data_points)
         self.assertEqual("time_series", datasource_query.output_format)
+
+
+class DatasourcePermissionTestCase(TestCase):
+    def test_datasource_permission_init_value_error(self):
+        with self.assertRaises(ValueError):
+            DatasourcePermission("")

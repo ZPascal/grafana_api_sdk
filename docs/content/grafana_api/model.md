@@ -6,6 +6,7 @@
   * [APIModel](#model.APIModel)
   * [DatasourceQuery](#model.DatasourceQuery)
   * [DatasourceRuleQuery](#model.DatasourceRuleQuery)
+  * [DatasourcePermission](#model.DatasourcePermission)
   * [Alert](#model.Alert)
   * [AlertRuleQueryModelCondition](#model.AlertRuleQueryModelCondition)
   * [AlertRuleQueryModel](#model.AlertRuleQueryModel)
@@ -127,6 +128,31 @@ The class includes all necessary variables to specify a query for the datasource
 - `query_type` _str_ - Specify the query time of the search command
 - `ref_id` _str_ - Specify a reference id of the search command
 - `relative_time_range` _dict_ - Specify the related time range of the search command
+
+<a id="model.DatasourcePermission"></a>
+
+## DatasourcePermission Objects
+
+```python
+@dataclass
+class DatasourcePermission()
+```
+
+The class includes the necessary variables to generate a datasource permission object that is necessary to communicate with the Grafana datasource permissions endpoint
+
+**Arguments**:
+
+- `permission` _Union[str, None]_ - Specify the datasource permission. Can be query, edit, admin or None. To remove a permission, set the permission value to None
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+  
+
+**Returns**:
+
+- `permission` _str_ - Returns the datasource permission
 
 <a id="model.Alert"></a>
 
