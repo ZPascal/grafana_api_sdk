@@ -172,7 +172,7 @@ class Datasource:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
-                return api_call.get("id")
+                return int(api_call.get("id"))
         else:
             logging.error("There is no name defined.")
             raise ValueError

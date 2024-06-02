@@ -60,7 +60,9 @@ class OtherHTTP:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
-            logging.info("You successfully renewed the login session based on the cookie.")
+            logging.info(
+                "You successfully renewed the login session based on the cookie."
+            )
 
     def get_health_status(self) -> dict:
         """The method includes a functionality to get the health information

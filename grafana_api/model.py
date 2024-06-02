@@ -38,7 +38,7 @@ class APIEndpoints(Enum):
     PLAYLISTS: str = f"{api_prefix}/playlists"
     TEAMS: str = f"{api_prefix}/teams"
     QUERY_HISTORY: str = f"{api_prefix}/query-history"
-    REPORTING: str = f"{api_prefix}/reports/email"
+    REPORTING: str = f"{api_prefix}/reports"
     LICENSING: str = f"{api_prefix}/licensing"
     FRONTEND: str = f"{api_prefix}/frontend"
     LOGIN: str = f"{api_prefix}/login"
@@ -777,3 +777,80 @@ class SSOSetting:
     client_secret: str
     enabled: bool
     scopes: str
+
+
+@dataclass
+class DashboardSchema:
+    """The class includes all necessary variables to generate a dashboard schema object that is used for the reporting functionality
+
+    Args:
+        dashboard_uid (str): Specify the dashboard uid
+        time_range_from (str): Specify the dashboard time range from
+        time_range_to (str): Specify the dashboard time range to
+        report_variables (dict): Specify the key-value pairs containing the template variables for this report, in dict format. If the value is None, the template variables from the reports dashboard will be used (default None)
+    """
+
+    dashboard_uid: str
+    time_range_from: str
+    time_range_to: str
+    report_variables: dict = None
+
+
+@dataclass
+class Report:
+    """The class includes all necessary variables to generate a report object
+
+    Args:
+        name (str): Specify the name of the report that is used as an email subject
+        recipients (str): Specify the comma-separated list of emails to which to send the report to
+        reply_to (str): Specify the comma-separated list of emails used in a reply-to field of the report email
+        message (str): Specify the text message used for the body of the report email
+        start_date (str): Specify the distribution starts from this date
+        end_date (str): Specify the distribution end from this date
+        time_zone (str): Specify the time zone used to schedule report execution
+        orientation (str): Specify if the orientation should be portrait or landscape
+        layout (str): Specify if the layout should be grid or simple
+        enable_dashboard_url (str): Specify if the dashboard url should be added to the bottom of the report email
+        dashboards (List[DashboardSchema]): Specify the dashboards for which the reports should be generated
+        frequency (str): Specify how often the report should be sent. Can be once, hourly, daily, weekly, monthly, last or custom. The value last schedules the report for the last day of the month. The value custom schedules the report to be sent on a custom interval. It requires interval_frequency and interval_amount to be specified e.g. every 2 weeks, where 2 is an interval_amount and weeks is an interval_frequency (default last)
+        interval_frequency (str): Specify the type of the custom interval hours, days, weeks, months (default None)
+        interval_amount (int): Specify the interval amount of the custom type (default 0)
+        workdays_only (bool): Specify if the report only on Monday-Friday should be sent. Applicable to hourly and daily types of schedule (default None)
+        formats (List[str]): Specify what kind of attachment to generate for the report. Available report formats are csv, pdf and image. The type csv attaches a CSV file for each table panel and the type image embeds an image of a dashboard into the emails body (default List["pdf"])
+    """
+
+    name: str
+    recipients: str
+    reply_to: str
+    message: str
+    start_date: str
+    end_date: str
+    time_zone: str
+    orientation: str
+    layout: str
+    enable_dashboard_url: bool
+    dashboards: List[DashboardSchema]
+    frequency: str = "last"
+    interval_frequency: str = None
+    interval_amount: int = 0
+    workdays_only: bool = None
+    formats: List[str] = field(default_factory=lambda: ["pdf"])
+
+
+@dataclass
+class ReportBrandingSettings:
+    """The class includes all necessary variables to generate a report branding settings object
+
+    Args:
+        report_logo_url (str): Specify the url of an image used as a logo on every page of the report
+        email_logo_url (str): Specify the url of an image used as a logo in the email
+        email_footer_mode (str): Specify the email footer mode. Can be sent-by or none. The value sent-by adds a 'Sent by email footer text' footer link to the email. Requires specifying values in the email_footer_text and email_footer_link fields. The value none suppresses adding a 'Sent by' footer link to the email
+        email_footer_text (str): Specify the text of a URL added to the email 'Sent by' footer (default None)
+        email_footer_link (str): Specify the url address value added to the email 'Sent by' footer (default None)
+    """
+
+    report_logo_url: str
+    email_logo_url: str
+    email_footer_mode: str
+    email_footer_text: str = None
+    email_footer_link: str = None

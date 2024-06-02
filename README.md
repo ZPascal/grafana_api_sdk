@@ -226,7 +226,15 @@ In general, my focus on this project is to implement and deliver old and new fea
 - Delete playlist by uid
 
 ### Reporting
+- Get reports
+- Get report by id
+- Create report
+- Update report
+- Delete report
 - Send report
+- Get report branding settings
+- Save report branding settings
+- Send report test email
 
 ### Query History
 - Add query to history

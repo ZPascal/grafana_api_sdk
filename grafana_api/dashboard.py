@@ -201,7 +201,9 @@ class Dashboard:
                 self.grafana_api_model
             ).get_folder_id_by_dashboard_path(dashboard_path)
 
-            search_query: str = f"{APIEndpoints.SEARCH.value}?folderIds={folder_id}&query={dashboard_name}"
+            search_query: str = (
+                f"{APIEndpoints.SEARCH.value}?folderIds={folder_id}&query={dashboard_name}"
+            )
             dashboard_meta: list = Api(self.grafana_api_model).call_the_api(
                 search_query
             )

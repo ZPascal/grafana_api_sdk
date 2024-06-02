@@ -38,6 +38,9 @@
   * [DatasourceCache](#model.DatasourceCache)
   * [PublicDashboard](#model.PublicDashboard)
   * [SSOSetting](#model.SSOSetting)
+  * [DashboardSchema](#model.DashboardSchema)
+  * [Report](#model.Report)
+  * [ReportBrandingSettings](#model.ReportBrandingSettings)
 
 <a id="model"></a>
 
@@ -745,4 +748,71 @@ The class includes all necessary variables to generate an SSO setting object
 - `client_secret` _str_ - Specify the SSO client secret
 - `enabled` _bool_ - Specify if the SSO provider is enabled or not
 - `scopes` _str_ - Specify the SSO scopes
+
+<a id="model.DashboardSchema"></a>
+
+## DashboardSchema Objects
+
+```python
+@dataclass
+class DashboardSchema()
+```
+
+The class includes all necessary variables to generate a dashboard schema object that is used for the reporting functionality
+
+**Arguments**:
+
+- `dashboard_uid` _str_ - Specify the dashboard uid
+- `time_range_from` _str_ - Specify the dashboard time range from
+- `time_range_to` _str_ - Specify the dashboard time range to
+- `report_variables` _dict_ - Specify the key-value pairs containing the template variables for this report, in dict format. If the value is None, the template variables from the reports dashboard will be used (default None)
+
+<a id="model.Report"></a>
+
+## Report Objects
+
+```python
+@dataclass
+class Report()
+```
+
+The class includes all necessary variables to generate a report object
+
+**Arguments**:
+
+- `name` _str_ - Specify the name of the report that is used as an email subject
+- `recipients` _str_ - Specify the comma-separated list of emails to which to send the report to
+- `reply_to` _str_ - Specify the comma-separated list of emails used in a reply-to field of the report email
+- `message` _str_ - Specify the text message used for the body of the report email
+- `start_date` _str_ - Specify the distribution starts from this date
+- `end_date` _str_ - Specify the distribution end from this date
+- `time_zone` _str_ - Specify the time zone used to schedule report execution
+- `orientation` _str_ - Specify if the orientation should be portrait or landscape
+- `layout` _str_ - Specify if the layout should be grid or simple
+- `enable_dashboard_url` _str_ - Specify if the dashboard url should be added to the bottom of the report email
+- `dashboards` _List[DashboardSchema]_ - Specify the dashboards for which the reports should be generated
+- `frequency` _str_ - Specify how often the report should be sent. Can be once, hourly, daily, weekly, monthly, last or custom. The value last schedules the report for the last day of the month. The value custom schedules the report to be sent on a custom interval. It requires interval_frequency and interval_amount to be specified e.g. every 2 weeks, where 2 is an interval_amount and weeks is an interval_frequency (default last)
+- `interval_frequency` _str_ - Specify the type of the custom interval hours, days, weeks, months (default None)
+- `interval_amount` _int_ - Specify the interval amount of the custom type (default 0)
+- `workdays_only` _bool_ - Specify if the report only on Monday-Friday should be sent. Applicable to hourly and daily types of schedule (default None)
+- `formats` _List[str]_ - Specify what kind of attachment to generate for the report. Available report formats are csv, pdf and image. The type csv attaches a CSV file for each table panel and the type image embeds an image of a dashboard into the emails body (default List["pdf"])
+
+<a id="model.ReportBrandingSettings"></a>
+
+## ReportBrandingSettings Objects
+
+```python
+@dataclass
+class ReportBrandingSettings()
+```
+
+The class includes all necessary variables to generate a report branding settings object
+
+**Arguments**:
+
+- `report_logo_url` _str_ - Specify the url of an image used as a logo on every page of the report
+- `email_logo_url` _str_ - Specify the url of an image used as a logo in the email
+- `email_footer_mode` _str_ - Specify the email footer mode. Can be sent-by or none. The value sent-by adds a 'Sent by email footer text' footer link to the email. Requires specifying values in the email_footer_text and email_footer_link fields. The value none suppresses adding a 'Sent by' footer link to the email
+- `email_footer_text` _str_ - Specify the text of a URL added to the email 'Sent by' footer (default None)
+- `email_footer_link` _str_ - Specify the url address value added to the email 'Sent by' footer (default None)
 

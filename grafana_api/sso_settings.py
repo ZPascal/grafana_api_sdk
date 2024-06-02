@@ -43,7 +43,11 @@ class SSOSettings:
             response_status_code=True,
         )
 
-        status_code: int = api_call[0].get("status") if isinstance(api_call, list) else api_call.get("status")
+        status_code: int = (
+            api_call[0].get("status")
+            if isinstance(api_call, list)
+            else api_call.get("status")
+        )
 
         sso_settings_status_dict: dict = dict(
             {
@@ -83,7 +87,7 @@ class SSOSettings:
         if len(provider) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.SSO_SETTINGS.value}/{provider}",
-                response_status_code=True
+                response_status_code=True,
             )
 
             status_code: int = api_call.get("status")
@@ -93,7 +97,7 @@ class SSOSettings:
                     400: "Bad request.",
                     401: "Unauthorized.",
                     403: "Access Denied.",
-                    404: "SSO Settings not found."
+                    404: "SSO Settings not found.",
                 }
             )
 
@@ -128,7 +132,15 @@ class SSOSettings:
             None
         """
 
-        if len(provider) != 0 and sso_setting is not None and len(sso_setting.api_url) != 0 and len(sso_setting.client_id) != 0 and len(sso_setting.client_secret) != 0 and sso_setting.enabled is not None and len(sso_setting.scopes) != 0:
+        if (
+            len(provider) != 0
+            and sso_setting is not None
+            and len(sso_setting.api_url) != 0
+            and len(sso_setting.client_id) != 0
+            and len(sso_setting.client_secret) != 0
+            and sso_setting.enabled is not None
+            and len(sso_setting.scopes) != 0
+        ):
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.SSO_SETTINGS.value}/{provider}",
                 RequestsMethods.PUT,
@@ -159,7 +171,9 @@ class SSOSettings:
             )
 
             if status_code == 204:
-                logging.info("You successfully updated the corresponding provider SSO setting.")
+                logging.info(
+                    "You successfully updated the corresponding provider SSO setting."
+                )
             elif 400 <= status_code <= 403:
                 logging.error(sso_settings_status_dict.get(status_code))
                 raise Exception
@@ -207,7 +221,9 @@ class SSOSettings:
             )
 
             if status_code == 204:
-                logging.info("You successfully deleted the corresponding provider SSO settings.")
+                logging.info(
+                    "You successfully deleted the corresponding provider SSO settings."
+                )
             elif 400 <= status_code <= 404:
                 logging.error(sso_settings_status_dict.get(status_code))
                 raise Exception
