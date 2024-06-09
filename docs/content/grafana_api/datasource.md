@@ -13,11 +13,17 @@
     * [delete\_datasource\_by\_uid](#datasource.Datasource.delete_datasource_by_uid)
     * [delete\_datasource\_by\_name](#datasource.Datasource.delete_datasource_by_name)
     * [query\_datasource\_by\_id](#datasource.Datasource.query_datasource_by_id)
-    * [enable\_datasource\_permissions](#datasource.Datasource.enable_datasource_permissions)
-    * [disable\_datasource\_permissions](#datasource.Datasource.disable_datasource_permissions)
-    * [get\_datasource\_permissions](#datasource.Datasource.get_datasource_permissions)
-    * [add\_datasource\_permissions](#datasource.Datasource.add_datasource_permissions)
-    * [delete\_datasource\_permissions](#datasource.Datasource.delete_datasource_permissions)
+  * [DatasourcePermissions](#datasource.DatasourcePermissions)
+    * [get\_datasource\_permissions\_by\_uid](#datasource.DatasourcePermissions.get_datasource_permissions_by_uid)
+    * [update\_datasource\_user\_access\_by\_uid](#datasource.DatasourcePermissions.update_datasource_user_access_by_uid)
+    * [update\_datasource\_team\_access\_by\_uid](#datasource.DatasourcePermissions.update_datasource_team_access_by_uid)
+    * [update\_datasource\_basic\_role\_access\_by\_uid](#datasource.DatasourcePermissions.update_datasource_basic_role_access_by_uid)
+  * [DatasourceLegacyPermissions](#datasource.DatasourceLegacyPermissions)
+    * [enable\_datasource\_permissions](#datasource.DatasourceLegacyPermissions.enable_datasource_permissions)
+    * [disable\_datasource\_permissions](#datasource.DatasourceLegacyPermissions.disable_datasource_permissions)
+    * [get\_datasource\_permissions](#datasource.DatasourceLegacyPermissions.get_datasource_permissions)
+    * [add\_datasource\_permissions](#datasource.DatasourceLegacyPermissions.add_datasource_permissions)
+    * [delete\_datasource\_permissions](#datasource.DatasourceLegacyPermissions.delete_datasource_permissions)
   * [DatasourceQueryResourceCaching](#datasource.DatasourceQueryResourceCaching)
     * [get\_datasource\_cache](#datasource.DatasourceQueryResourceCaching.get_datasource_cache)
     * [enable\_datasource\_cache](#datasource.DatasourceQueryResourceCaching.enable_datasource_cache)
@@ -362,7 +368,175 @@ The method includes a functionality to execute a queries inside the datasource i
 
 - `api_call` _dict_ - Returns the result of the specified query
 
-<a id="datasource.Datasource.enable_datasource_permissions"></a>
+<a id="datasource.DatasourcePermissions"></a>
+
+## DatasourcePermissions Objects
+
+```python
+class DatasourcePermissions()
+```
+
+The class includes all necessary methods to access the Grafana datasource permissions API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights
+
+HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
+
+**Arguments**:
+
+- `grafana_api_model` _APIModel_ - Inject a Grafana API model object that includes all necessary values and information
+  
+
+**Attributes**:
+
+- `grafana_api_model` _APIModel_ - This is where we store the grafana_api_model
+
+<a id="datasource.DatasourcePermissions.get_datasource_permissions_by_uid"></a>
+
+#### get\_datasource\_permissions\_by\_uid
+
+```python
+def get_datasource_permissions_by_uid(uid: str) -> list
+```
+
+The method includes a functionality to get the datasource permissions specified by the datasource uid. The functionality is a Grafana ENTERPRISE feature
+
+**Arguments**:
+
+- `uid` _str_ - Specify the uid of the datasource
+  
+  Required Permissions:
+- `Action` - datasources.permissions:read
+- `Scope` - [datasources:*, datasources:uid:*, datasources:uid:<id>]
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+- `api_call` _list_ - Returns the datasource permissions
+
+<a id="datasource.DatasourcePermissions.update_datasource_user_access_by_uid"></a>
+
+#### update\_datasource\_user\_access\_by\_uid
+
+```python
+def update_datasource_user_access_by_uid(
+        uid: str, id: int, datasource_user_permission: DatasourcePermission)
+```
+
+The method includes a functionality to update the datasource permission specified by the datasource uid and the user id. The functionality is a Grafana ENTERPRISE feature
+
+**Arguments**:
+
+- `uid` _str_ - Specify the uid of the datasource
+- `id` _int_ - Specify the id of the user
+- `datasource_user_permission` _DatasourcePermission_ - Specify the datasource user permission
+  
+  Required Permissions:
+- `Action` - datasources.permissions:write
+- `Scope` - [datasources:*, datasources:uid:*, datasources:uid:<id>]
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+  None
+
+<a id="datasource.DatasourcePermissions.update_datasource_team_access_by_uid"></a>
+
+#### update\_datasource\_team\_access\_by\_uid
+
+```python
+def update_datasource_team_access_by_uid(
+        uid: str, id: int, datasource_team_permission: DatasourcePermission)
+```
+
+The method includes a functionality to update the datasource permission specified by the datasource uid and the team id. The functionality is a Grafana ENTERPRISE feature
+
+**Arguments**:
+
+- `uid` _str_ - Specify the uid of the datasource
+- `id` _int_ - Specify the id of the team
+- `datasource_team_permission` _DatasourcePermission_ - Specify the datasource team permission
+  
+  Required Permissions:
+- `Action` - datasources.permissions:write
+- `Scope` - [datasources:*, datasources:uid:*, datasources:uid:<id>]
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+  None
+
+<a id="datasource.DatasourcePermissions.update_datasource_basic_role_access_by_uid"></a>
+
+#### update\_datasource\_basic\_role\_access\_by\_uid
+
+```python
+def update_datasource_basic_role_access_by_uid(
+        uid: str, build_in_role_name: str,
+        datasource_team_permission: DatasourcePermission)
+```
+
+The method includes a functionality to update the datasource permission specified by the datasource uid and the build in role name. The functionality is a Grafana ENTERPRISE feature
+
+**Arguments**:
+
+- `uid` _str_ - Specify the uid of the datasource
+- `build_in_role_name` _str_ - Specify the build in role name
+- `datasource_team_permission` _DatasourcePermission_ - Specify the datasource team permission
+  
+  Required Permissions:
+- `Action` - datasources.permissions:write
+- `Scope` - [datasources:*, datasources:uid:*, datasources:uid:<id>]
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+  None
+
+<a id="datasource.DatasourceLegacyPermissions"></a>
+
+## DatasourceLegacyPermissions Objects
+
+```python
+class DatasourceLegacyPermissions()
+```
+
+The class includes all necessary methods to access the Grafana legacy datasource permissions API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights
+
+HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
+
+**Arguments**:
+
+- `grafana_api_model` _APIModel_ - Inject a Grafana API model object that includes all necessary values and information
+  
+
+**Attributes**:
+
+- `grafana_api_model` _APIModel_ - This is where we store the grafana_api_model
+
+<a id="datasource.DatasourceLegacyPermissions.enable_datasource_permissions"></a>
 
 #### enable\_datasource\_permissions
 
@@ -391,7 +565,7 @@ The method includes a functionality to enable datasource permissions specified b
 
   None
 
-<a id="datasource.Datasource.disable_datasource_permissions"></a>
+<a id="datasource.DatasourceLegacyPermissions.disable_datasource_permissions"></a>
 
 #### disable\_datasource\_permissions
 
@@ -420,7 +594,7 @@ The method includes a functionality to disable datasource permissions specified 
 
   None
 
-<a id="datasource.Datasource.get_datasource_permissions"></a>
+<a id="datasource.DatasourceLegacyPermissions.get_datasource_permissions"></a>
 
 #### get\_datasource\_permissions
 
@@ -449,7 +623,7 @@ The method includes a functionality to get the datasource permissions specified 
 
 - `api_call` _dict_ - Returns the datasource permissions
 
-<a id="datasource.Datasource.add_datasource_permissions"></a>
+<a id="datasource.DatasourceLegacyPermissions.add_datasource_permissions"></a>
 
 #### add\_datasource\_permissions
 
@@ -480,7 +654,7 @@ The method includes a functionality to add datasource permission specified by th
 
   None
 
-<a id="datasource.Datasource.delete_datasource_permissions"></a>
+<a id="datasource.DatasourceLegacyPermissions.delete_datasource_permissions"></a>
 
 #### delete\_datasource\_permissions
 
