@@ -1,9 +1,18 @@
 from unittest import TestCase
 from unittest.mock import MagicMock, patch
 
-from grafana_api.model import APIModel, DatasourceQuery, DatasourceCache, DatasourcePermission
-from grafana_api.datasource import Datasource, DatasourcePermissions, DatasourceLegacyPermissions, \
-    DatasourceQueryResourceCaching
+from grafana_api.model import (
+    APIModel,
+    DatasourceQuery,
+    DatasourceCache,
+    DatasourcePermission,
+)
+from grafana_api.datasource import (
+    Datasource,
+    DatasourcePermissions,
+    DatasourceLegacyPermissions,
+    DatasourceQueryResourceCaching,
+)
 
 
 class DatasourceTestCase(TestCase):
@@ -306,12 +315,12 @@ class DatasourcePermissionsTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict(
-            {"status": 200, "test": "test"}
-        )
+        call_the_api_mock.return_value = dict({"status": 200, "test": "test"})
 
-        self.assertEqual(dict({"status": 200, "test": "test"}),
-                         datasource_permissions.get_datasource_permissions_by_uid("test"))
+        self.assertEqual(
+            dict({"status": 200, "test": "test"}),
+            datasource_permissions.get_datasource_permissions_by_uid("test"),
+        )
 
     def test_get_datasource_permissions_by_uid_no_datasource_uid(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -357,9 +366,12 @@ class DatasourcePermissionsTestCase(TestCase):
             {"status": 200, "message": "Permission updated"}
         )
 
-        self.assertEqual(None,
-                         datasource_permissions.update_datasource_user_access_by_uid("test", 1,
-                                                                                     DatasourcePermission("edit")))
+        self.assertEqual(
+            None,
+            datasource_permissions.update_datasource_user_access_by_uid(
+                "test", 1, DatasourcePermission("edit")
+            ),
+        )
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_update_datasource_user_access_by_uid_remove(self, call_the_api_mock):
@@ -372,9 +384,12 @@ class DatasourcePermissionsTestCase(TestCase):
             {"status": 200, "message": "Permission removed"}
         )
 
-        self.assertEqual(None,
-                         datasource_permissions.update_datasource_user_access_by_uid("test", 1,
-                                                                                     DatasourcePermission(None)))
+        self.assertEqual(
+            None,
+            datasource_permissions.update_datasource_user_access_by_uid(
+                "test", 1, DatasourcePermission(None)
+            ),
+        )
 
     def test_update_datasource_user_access_by_uid_no_datasource_uid(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -383,10 +398,14 @@ class DatasourcePermissionsTestCase(TestCase):
         )
 
         with self.assertRaises(ValueError):
-            datasource_permissions.update_datasource_user_access_by_uid("", 0, DatasourcePermission(None))
+            datasource_permissions.update_datasource_user_access_by_uid(
+                "", 0, DatasourcePermission(None)
+            )
 
     @patch("grafana_api.api.Api.call_the_api")
-    def test_update_datasource_user_access_by_uid_permission_denied(self, call_the_api_mock):
+    def test_update_datasource_user_access_by_uid_permission_denied(
+        self, call_the_api_mock
+    ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource_permissions: DatasourcePermissions = DatasourcePermissions(
             grafana_api_model=model
@@ -395,7 +414,9 @@ class DatasourcePermissionsTestCase(TestCase):
         call_the_api_mock.return_value = dict({"status": 400})
 
         with self.assertRaises(Exception):
-            datasource_permissions.update_datasource_user_access_by_uid("test", 1, DatasourcePermission("edit"))
+            datasource_permissions.update_datasource_user_access_by_uid(
+                "test", 1, DatasourcePermission("edit")
+            )
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_update_datasource_user_access_by_uid_not_possible(self, call_the_api_mock):
@@ -407,10 +428,14 @@ class DatasourcePermissionsTestCase(TestCase):
         call_the_api_mock.return_value = dict({"status": 401})
 
         with self.assertRaises(Exception):
-            datasource_permissions.update_datasource_user_access_by_uid("test", 1, DatasourcePermission("edit"))
+            datasource_permissions.update_datasource_user_access_by_uid(
+                "test", 1, DatasourcePermission("edit")
+            )
 
     @patch("grafana_api.api.Api.call_the_api")
-    def test_update_datasource_user_access_by_uid_general_error(self, call_the_api_mock):
+    def test_update_datasource_user_access_by_uid_general_error(
+        self, call_the_api_mock
+    ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource_permissions: DatasourcePermissions = DatasourcePermissions(
             grafana_api_model=model
@@ -419,7 +444,9 @@ class DatasourcePermissionsTestCase(TestCase):
         call_the_api_mock.return_value = dict({"status": 600})
 
         with self.assertRaises(Exception):
-            datasource_permissions.update_datasource_user_access_by_uid("test", 1, DatasourcePermission("edit"))
+            datasource_permissions.update_datasource_user_access_by_uid(
+                "test", 1, DatasourcePermission("edit")
+            )
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_update_datasource_team_access_by_uid_add(self, call_the_api_mock):
@@ -432,9 +459,12 @@ class DatasourcePermissionsTestCase(TestCase):
             {"status": 200, "message": "Permission updated"}
         )
 
-        self.assertEqual(None,
-                         datasource_permissions.update_datasource_team_access_by_uid("test", 1,
-                                                                                     DatasourcePermission("edit")))
+        self.assertEqual(
+            None,
+            datasource_permissions.update_datasource_team_access_by_uid(
+                "test", 1, DatasourcePermission("edit")
+            ),
+        )
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_update_datasource_team_access_by_uid_remove(self, call_the_api_mock):
@@ -447,9 +477,12 @@ class DatasourcePermissionsTestCase(TestCase):
             {"status": 200, "message": "Permission removed"}
         )
 
-        self.assertEqual(None,
-                         datasource_permissions.update_datasource_team_access_by_uid("test", 1,
-                                                                                     DatasourcePermission(None)))
+        self.assertEqual(
+            None,
+            datasource_permissions.update_datasource_team_access_by_uid(
+                "test", 1, DatasourcePermission(None)
+            ),
+        )
 
     def test_update_datasource_team_access_by_uid_no_datasource_uid(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -458,10 +491,14 @@ class DatasourcePermissionsTestCase(TestCase):
         )
 
         with self.assertRaises(ValueError):
-            datasource_permissions.update_datasource_team_access_by_uid("", 0, DatasourcePermission(None))
+            datasource_permissions.update_datasource_team_access_by_uid(
+                "", 0, DatasourcePermission(None)
+            )
 
     @patch("grafana_api.api.Api.call_the_api")
-    def test_update_datasource_team_access_by_uid_permission_denied(self, call_the_api_mock):
+    def test_update_datasource_team_access_by_uid_permission_denied(
+        self, call_the_api_mock
+    ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource_permissions: DatasourcePermissions = DatasourcePermissions(
             grafana_api_model=model
@@ -470,7 +507,9 @@ class DatasourcePermissionsTestCase(TestCase):
         call_the_api_mock.return_value = dict({"status": 400})
 
         with self.assertRaises(Exception):
-            datasource_permissions.update_datasource_team_access_by_uid("test", 1, DatasourcePermission("Edit"))
+            datasource_permissions.update_datasource_team_access_by_uid(
+                "test", 1, DatasourcePermission("Edit")
+            )
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_update_datasource_team_access_by_uid_not_possible(self, call_the_api_mock):
@@ -482,10 +521,14 @@ class DatasourcePermissionsTestCase(TestCase):
         call_the_api_mock.return_value = dict({"status": 401})
 
         with self.assertRaises(Exception):
-            datasource_permissions.update_datasource_team_access_by_uid("test", 1, DatasourcePermission("Edit"))
+            datasource_permissions.update_datasource_team_access_by_uid(
+                "test", 1, DatasourcePermission("Edit")
+            )
 
     @patch("grafana_api.api.Api.call_the_api")
-    def test_update_datasource_team_access_by_uid_general_error(self, call_the_api_mock):
+    def test_update_datasource_team_access_by_uid_general_error(
+        self, call_the_api_mock
+    ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource_permissions: DatasourcePermissions = DatasourcePermissions(
             grafana_api_model=model
@@ -494,7 +537,9 @@ class DatasourcePermissionsTestCase(TestCase):
         call_the_api_mock.return_value = dict({"status": 600})
 
         with self.assertRaises(Exception):
-            datasource_permissions.update_datasource_team_access_by_uid("test", 1, DatasourcePermission("Edit"))
+            datasource_permissions.update_datasource_team_access_by_uid(
+                "test", 1, DatasourcePermission("Edit")
+            )
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_update_datasource_basic_role_access_by_uid_add(self, call_the_api_mock):
@@ -507,8 +552,12 @@ class DatasourcePermissionsTestCase(TestCase):
             {"status": 200, "message": "Permission updated"}
         )
 
-        self.assertEqual(None,
-                         datasource_permissions.update_datasource_basic_role_access_by_uid("test", "test", DatasourcePermission("admin")))
+        self.assertEqual(
+            None,
+            datasource_permissions.update_datasource_basic_role_access_by_uid(
+                "test", "test", DatasourcePermission("admin")
+            ),
+        )
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_update_datasource_basic_role_access_by_uid_remove(self, call_the_api_mock):
@@ -521,10 +570,12 @@ class DatasourcePermissionsTestCase(TestCase):
             {"status": 200, "message": "Permission removed"}
         )
 
-        self.assertEqual(None,
-                         datasource_permissions.update_datasource_basic_role_access_by_uid("test", "test",
-                                                                                           DatasourcePermission(
-                                                                                               None)))
+        self.assertEqual(
+            None,
+            datasource_permissions.update_datasource_basic_role_access_by_uid(
+                "test", "test", DatasourcePermission(None)
+            ),
+        )
 
     def test_update_datasource_basic_role_access_by_uid_no_datasource_uid(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -533,10 +584,14 @@ class DatasourcePermissionsTestCase(TestCase):
         )
 
         with self.assertRaises(ValueError):
-            datasource_permissions.update_datasource_basic_role_access_by_uid("", "", DatasourcePermission(None))
+            datasource_permissions.update_datasource_basic_role_access_by_uid(
+                "", "", DatasourcePermission(None)
+            )
 
     @patch("grafana_api.api.Api.call_the_api")
-    def test_update_datasource_basic_role_access_by_uid_permission_denied(self, call_the_api_mock):
+    def test_update_datasource_basic_role_access_by_uid_permission_denied(
+        self, call_the_api_mock
+    ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource_permissions: DatasourcePermissions = DatasourcePermissions(
             grafana_api_model=model
@@ -545,11 +600,14 @@ class DatasourcePermissionsTestCase(TestCase):
         call_the_api_mock.return_value = dict({"status": 400})
 
         with self.assertRaises(Exception):
-            datasource_permissions.update_datasource_basic_role_access_by_uid("test", "test",
-                                                                              DatasourcePermission("edit"))
+            datasource_permissions.update_datasource_basic_role_access_by_uid(
+                "test", "test", DatasourcePermission("edit")
+            )
 
     @patch("grafana_api.api.Api.call_the_api")
-    def test_update_datasource_basic_role_access_by_uid_not_possible(self, call_the_api_mock):
+    def test_update_datasource_basic_role_access_by_uid_not_possible(
+        self, call_the_api_mock
+    ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource_permissions: DatasourcePermissions = DatasourcePermissions(
             grafana_api_model=model
@@ -558,10 +616,14 @@ class DatasourcePermissionsTestCase(TestCase):
         call_the_api_mock.return_value = dict({"status": 401})
 
         with self.assertRaises(Exception):
-            datasource_permissions.update_datasource_basic_role_access_by_uid("test", "test", DatasourcePermission("edit"))
+            datasource_permissions.update_datasource_basic_role_access_by_uid(
+                "test", "test", DatasourcePermission("edit")
+            )
 
     @patch("grafana_api.api.Api.call_the_api")
-    def test_update_datasource_basic_role_access_by_uid_general_error(self, call_the_api_mock):
+    def test_update_datasource_basic_role_access_by_uid_general_error(
+        self, call_the_api_mock
+    ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource_permissions: DatasourcePermissions = DatasourcePermissions(
             grafana_api_model=model
@@ -570,27 +632,31 @@ class DatasourcePermissionsTestCase(TestCase):
         call_the_api_mock.return_value = dict({"status": 600})
 
         with self.assertRaises(Exception):
-            datasource_permissions.update_datasource_basic_role_access_by_uid("test", "test", DatasourcePermission("query"))
+            datasource_permissions.update_datasource_basic_role_access_by_uid(
+                "test", "test", DatasourcePermission("query")
+            )
 
 
 class DatasourceLegacyPermissionsTestCase(TestCase):
     @patch("grafana_api.api.Api.call_the_api")
     def test_enable_datasource_permissions(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
-        datasource_legacy_permissions: DatasourceLegacyPermissions = DatasourceLegacyPermissions(
-            grafana_api_model=model
+        datasource_legacy_permissions: DatasourceLegacyPermissions = (
+            DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
         call_the_api_mock.return_value = dict(
             {"message": "Datasource permissions enabled"}
         )
 
-        self.assertEqual(None, datasource_legacy_permissions.enable_datasource_permissions(1))
+        self.assertEqual(
+            None, datasource_legacy_permissions.enable_datasource_permissions(1)
+        )
 
     def test_enable_datasource_permissions_no_datasource_id(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
-        datasource_legacy_permissions: DatasourceLegacyPermissions = DatasourceLegacyPermissions(
-            grafana_api_model=model
+        datasource_legacy_permissions: DatasourceLegacyPermissions = (
+            DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
         with self.assertRaises(ValueError):
@@ -599,8 +665,8 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
     @patch("grafana_api.api.Api.call_the_api")
     def test_enable_datasource_permissions_enable_not_possible(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
-        datasource_legacy_permissions: DatasourceLegacyPermissions = DatasourceLegacyPermissions(
-            grafana_api_model=model
+        datasource_legacy_permissions: DatasourceLegacyPermissions = (
+            DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
         call_the_api_mock.return_value = dict()
@@ -611,20 +677,22 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
     @patch("grafana_api.api.Api.call_the_api")
     def test_disable_datasource_permissions(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
-        datasource_legacy_permissions: DatasourceLegacyPermissions = DatasourceLegacyPermissions(
-            grafana_api_model=model
+        datasource_legacy_permissions: DatasourceLegacyPermissions = (
+            DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
         call_the_api_mock.return_value = dict(
             {"message": "Datasource permissions disabled"}
         )
 
-        self.assertEqual(None, datasource_legacy_permissions.disable_datasource_permissions(1))
+        self.assertEqual(
+            None, datasource_legacy_permissions.disable_datasource_permissions(1)
+        )
 
     def test_disable_datasource_permissions_no_datasource_id(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
-        datasource_legacy_permissions: DatasourceLegacyPermissions = DatasourceLegacyPermissions(
-            grafana_api_model=model
+        datasource_legacy_permissions: DatasourceLegacyPermissions = (
+            DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
         with self.assertRaises(ValueError):
@@ -635,8 +703,8 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
         self, call_the_api_mock
     ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
-        datasource_legacy_permissions: DatasourceLegacyPermissions = DatasourceLegacyPermissions(
-            grafana_api_model=model
+        datasource_legacy_permissions: DatasourceLegacyPermissions = (
+            DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
         call_the_api_mock.return_value = dict()
@@ -647,20 +715,21 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_datasource_permissions(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
-        datasource_legacy_permissions: DatasourceLegacyPermissions = DatasourceLegacyPermissions(
-            grafana_api_model=model
+        datasource_legacy_permissions: DatasourceLegacyPermissions = (
+            DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
         call_the_api_mock.return_value = dict({"datasourceId": "Test"})
 
         self.assertEqual(
-            dict({"datasourceId": "Test"}), datasource_legacy_permissions.get_datasource_permissions(1)
+            dict({"datasourceId": "Test"}),
+            datasource_legacy_permissions.get_datasource_permissions(1),
         )
 
     def test_get_datasource_permissions_no_datasource_id(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
-        datasource_legacy_permissions: DatasourceLegacyPermissions = DatasourceLegacyPermissions(
-            grafana_api_model=model
+        datasource_legacy_permissions: DatasourceLegacyPermissions = (
+            DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
         with self.assertRaises(ValueError):
@@ -671,8 +740,8 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
         self, call_the_api_mock
     ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
-        datasource_legacy_permissions: DatasourceLegacyPermissions = DatasourceLegacyPermissions(
-            grafana_api_model=model
+        datasource_legacy_permissions: DatasourceLegacyPermissions = (
+            DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
         call_the_api_mock.return_value = dict()
@@ -683,8 +752,8 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
     @patch("grafana_api.api.Api.call_the_api")
     def test_add_datasource_permissions(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
-        datasource_legacy_permissions: DatasourceLegacyPermissions = DatasourceLegacyPermissions(
-            grafana_api_model=model
+        datasource_legacy_permissions: DatasourceLegacyPermissions = (
+            DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
         call_the_api_mock.return_value = dict(
@@ -692,13 +761,16 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
         )
 
         self.assertEqual(
-            None, datasource_legacy_permissions.add_datasource_permissions(1, dict({"test": "test"}))
+            None,
+            datasource_legacy_permissions.add_datasource_permissions(
+                1, dict({"test": "test"})
+            ),
         )
 
     def test_add_datasource_permissions_no_datasource_id(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
-        datasource_legacy_permissions: DatasourceLegacyPermissions = DatasourceLegacyPermissions(
-            grafana_api_model=model
+        datasource_legacy_permissions: DatasourceLegacyPermissions = (
+            DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
         with self.assertRaises(ValueError):
@@ -709,32 +781,36 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
         self, call_the_api_mock
     ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
-        datasource_legacy_permissions: DatasourceLegacyPermissions = DatasourceLegacyPermissions(
-            grafana_api_model=model
+        datasource_legacy_permissions: DatasourceLegacyPermissions = (
+            DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
         call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
-            datasource_legacy_permissions.add_datasource_permissions(1, dict({"test": "test"}))
+            datasource_legacy_permissions.add_datasource_permissions(
+                1, dict({"test": "test"})
+            )
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_delete_datasource_permissions(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
-        datasource_legacy_permissions: DatasourceLegacyPermissions = DatasourceLegacyPermissions(
-            grafana_api_model=model
+        datasource_legacy_permissions: DatasourceLegacyPermissions = (
+            DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
         call_the_api_mock.return_value = dict(
             {"message": "Datasource permission removed"}
         )
 
-        self.assertEqual(None, datasource_legacy_permissions.delete_datasource_permissions(1, 1))
+        self.assertEqual(
+            None, datasource_legacy_permissions.delete_datasource_permissions(1, 1)
+        )
 
     def test_delete_datasource_permissions_no_datasource_id(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
-        datasource_legacy_permissions: DatasourceLegacyPermissions = DatasourceLegacyPermissions(
-            grafana_api_model=model
+        datasource_legacy_permissions: DatasourceLegacyPermissions = (
+            DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
         with self.assertRaises(ValueError):
@@ -743,8 +819,8 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
     @patch("grafana_api.api.Api.call_the_api")
     def test_delete_datasource_permissions_delete_not_possible(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
-        datasource_legacy_permissions: DatasourceLegacyPermissions = DatasourceLegacyPermissions(
-            grafana_api_model=model
+        datasource_legacy_permissions: DatasourceLegacyPermissions = (
+            DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
         call_the_api_mock.return_value = dict()
