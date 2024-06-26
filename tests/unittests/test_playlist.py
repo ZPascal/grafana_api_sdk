@@ -249,7 +249,7 @@ class PlaylistTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: Playlist = Playlist(grafana_api_model=model)
 
-        call_the_api_mock.return_value.status_code = 200
+        call_the_api_mock.return_value = dict({"status": 200})
 
         self.assertEqual(None, playlist.delete_playlist("test"))
 

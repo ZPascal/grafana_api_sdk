@@ -17,11 +17,11 @@ class TeamTest(TestCase):
 
     def test_search_team(self):
         self.assertEqual(
-            4, self.team.search_team(query="Test").get("teams")[0].get("id")
+            2583, self.team.search_team(query="Test").get("teams")[0].get("id")
         )
 
     def test_get_team_by_id(self):
-        self.assertEqual(4, self.team.get_team_by_id(4).get("id"))
+        self.assertEqual(2583, self.team.get_team_by_id(2583).get("id"))
 
     def test_a_add_team(self):
         team_object: TeamObject = TeamObject(
@@ -61,7 +61,7 @@ class TeamTest(TestCase):
             )
 
     def test_get_team_members(self):
-        self.assertEqual(1, len(self.team.get_team_members(4)))
+        self.assertEqual(1, len(self.team.get_team_members(2583)))
 
     def test_d_add_team_member(self):
         team_id: int = self._team_creation_util()
@@ -82,17 +82,17 @@ class TeamTest(TestCase):
 
     def test_get_team_preferences(self):
         self.assertEqual(
-            "tests", self.team.get_team_preferences(4).get("homeDashboardUID")
+            "tests", self.team.get_team_preferences(2583).get("homeDashboardUID")
         )
 
     def test_update_team_preferences(self):
         self.assertIsNone(
             self.team.update_team_preferences(
-                4, timezone="utc", home_dashboard_uid="tests"
+                2583, timezone="utc", home_dashboard_uid="tests"
             )
         )
 
-        self.assertEqual("utc", self.team.get_team_preferences(4).get("timezone"))
+        self.assertEqual("utc", self.team.get_team_preferences(2583).get("timezone"))
 
     def _team_creation_util(self) -> int:
         self.test_a_add_team()
