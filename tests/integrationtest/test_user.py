@@ -23,7 +23,7 @@ class CurrentUserTest(TestCase):
         self.assertEqual(1, len(self.current_user.get_user_organizations()))
 
     def test_get_user_teams(self):
-        self.assertEqual(4, self.current_user.get_user_teams()[0].get("id"))
+        self.assertEqual(2583, self.current_user.get_user_teams()[0].get("id"))
 
     def test_star_a_dashboard(self):
         self.current_user.star_a_dashboard(

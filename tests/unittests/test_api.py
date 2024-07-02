@@ -237,7 +237,7 @@ class ApiTestCase(TestCase):
 
     def test_check_the_api_call_response_return_status_code_list(self):
         mock: Mock = Mock()
-        mock.text = b'[{"test": "test"}, {"test": "test"}]'
+        mock.text = '[{"test": "test"}, {"test": "test"}]'
         mock.status_code = 200
 
         self.assertEqual(

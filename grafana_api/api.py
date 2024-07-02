@@ -243,7 +243,7 @@ class Api:
             api_call (any): Returns the value of the api call
         """
 
-        if Api._check_if_valid_json(response.text) and response.text != "null":
+        if Api._check_if_valid_json(response.text):
             if (
                 len(json.loads(response.text)) != 0
                 and type(json.loads(response.text)) == dict
@@ -269,21 +269,26 @@ class Api:
                 return response
 
     @staticmethod
-    def _check_if_valid_json(response: any) -> bool:
+    def _check_if_valid_json(response: str) -> bool:
         """The method includes a functionality to check if the response json is valid
 
         Args:
-            response (any): Specify the inserted response json
+            response (str): Specify the inserted response json as string
 
         Returns:
             result (bool): Returns if the json is valid or not
         """
 
-        try:
-            json.loads(response)
-        except (TypeError, ValueError):
-            return False
-        return True
+        valid_json: bool = False
+
+        if response.encode() not in [b'""\n', b"null"]:
+            try:
+                json.loads(response)
+                valid_json = True
+            except (TypeError, ValueError):
+                valid_json = False
+
+        return valid_json
 
     @staticmethod
     def prepare_api_string(query_string: str) -> str:
