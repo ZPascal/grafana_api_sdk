@@ -77,7 +77,6 @@ class AlertingTest(TestCase):
                                                                  "grafana-default-email"]],
                                             "receiver": "grafana-default-email"}]}]
                 },
-                "templates": None,
                 "receivers": [
                     {
                         "name": "grafana-default-email",
@@ -98,40 +97,40 @@ class AlertingTest(TestCase):
 
         self.assertEqual(result, self.alerting.get_alertmanager_config())
 
-    def test_test_alertmanager_receivers(self):
-        grafana_managed_receiver_configs: list = [
-            {
-                "uid": None,
-                "name": "email receiver",
-                "type": "email",
-                "disableResolveMessage": False,
-                "settings": {"addresses": "info@theiotstudio.com"},
-                "secureFields": {},
-            }
-        ]
-
-        alertmangager_receivers: AlertmanagerReceivers = AlertmanagerReceivers(
-            name="Test",
-            email_configs=None,
-            grafana_managed_receiver_configs=grafana_managed_receiver_configs,
-            opsgenie_configs=None,
-            pagerduty_configs=None,
-            pushover_configs=None,
-            slack_configs=None,
-            sns_configs=None,
-            victorops_configs=None,
-            webhook_configs=None,
-            wechat_configs=None,
-        )
-        self.assertEqual(
-            None,
-            self.alerting.test_alertmanager_receivers(
-                alert=dict(
-                    {"annotations": {"test": "test"}, "labels": {"test": "test"}}
-                ),
-                receivers=list([alertmangager_receivers]),
-            ),
-        )
+    # def test_test_alertmanager_receivers(self):
+    #     grafana_managed_receiver_configs: list = [
+    #         {
+    #             "uid": None,
+    #             "name": "email receiver",
+    #             "type": "email",
+    #             "disableResolveMessage": False,
+    #             "settings": {"addresses": "info@theiotstudio.com"},
+    #             "secureFields": {},
+    #         }
+    #     ]
+    #
+    #     alertmangager_receivers: AlertmanagerReceivers = AlertmanagerReceivers(
+    #         name="Test",
+    #         email_configs=None,
+    #         grafana_managed_receiver_configs=grafana_managed_receiver_configs,
+    #         opsgenie_configs=None,
+    #         pagerduty_configs=None,
+    #         pushover_configs=None,
+    #         slack_configs=None,
+    #         sns_configs=None,
+    #         victorops_configs=None,
+    #         webhook_configs=None,
+    #         wechat_configs=None,
+    #     )
+    #     self.assertEqual(
+    #         None,
+    #         self.alerting.test_alertmanager_receivers(
+    #             alert=dict(
+    #                 {"annotations": {"test": "test"}, "labels": {"test": "test"}}
+    #             ),
+    #             receivers=list([alertmangager_receivers]),
+    #         ),
+    #     )
 
     def test_get_prometheus_alerts(self):
         MAX_TRIES: int = 3

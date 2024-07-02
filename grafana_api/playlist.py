@@ -258,13 +258,14 @@ class Playlist:
         """
 
         if len(playlist_uid) != 0:
-            api_call = Api(self.grafana_api_model).call_the_api(
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.PLAYLISTS.value}/{playlist_uid}",
                 RequestsMethods.DELETE,
+                response_status_code=True,
             )
 
-            if api_call.status_code != 200:
-                logging.error(f"Check the error: {api_call.text}.")
+            if api_call.get("status") != 200:
+                logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
                 logging.info("You successfully deleted the corresponding playlist.")
