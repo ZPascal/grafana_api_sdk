@@ -9,8 +9,9 @@ Self = TypeVar("Self", bound="Route")
 # The constant includes all necessary error messages that can occurs, if you establish a connection to the Grafana API.
 ERROR_MESSAGES: list = ["invalid API key", "Invalid API key", "Expired API key"]
 
-#TODO SSO Integrationtests
-#TODO Check the Alerting case https://github.com/grafana/grafana/blob/main/pkg/services/ngalert/api/tooling/post.json
+
+# TODO SSO Integrationtests
+# TODO Check the Alerting case https://github.com/grafana/grafana/blob/main/pkg/services/ngalert/api/tooling/post.json
 
 
 class APIEndpoints(Enum):

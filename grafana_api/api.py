@@ -281,7 +281,7 @@ class Api:
 
         valid_json: bool = False
 
-        if response.encode() not in [b"\"\"\n", b"null"]:
+        if response.encode() not in [b'""\n', b"null"]:
             try:
                 json.loads(response)
                 valid_json = True
