@@ -85,6 +85,7 @@ class APIModel:
         username (str): Specify the username of the Grafana system
         password (str): Specify the password of the Grafana system
         timeout (float): Specify the timeout of the Grafana system
+        headers (dict): Specify the headers of the Grafana system
         http2_support (bool): Specify if you want to use HTTP/2
         ssl_context (ssl.SSLContext): Specify the custom ssl context of the Grafana system
         num_pools (int): Specify the number of the connection pool
@@ -95,6 +96,7 @@ class APIModel:
     token: str = None
     username: str = None
     password: str = None
+    headers: dict = None
     timeout: float = 10.0
     http2_support: bool = False
     ssl_context: ssl.SSLContext = httpx.create_ssl_context(http2=http2_support)
