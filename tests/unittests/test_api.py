@@ -36,6 +36,57 @@ class ApiTestCase(TestCase):
         )
 
     @patch("httpx.Client")
+    def test_call_the_api_with_headers(self):
+        mock_client = MagicMock(spec=Client)
+        mock_client.request.return_value.text = '{"status": "success"}'
+        self.api.create_the_http_api_client = MagicMock(return_value=mock_client)
+
+        headers = {"X-Custom-Header": "custom_value"}
+        response = self.api.call_the_api(
+            api_call=MagicMock(),
+            method=RequestsMethods.GET,
+            headers=headers,
+        )
+
+        mock_client.request.assert_called_with(
+            method="GET",
+            url=MagicMock(),
+            headers={
+                "Authorization": f"Bearer {self.model.token}",
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "X-Custom-Header": "custom_value",
+            },
+            json=None,
+            timeout=self.model.timeout,
+        )
+        self.assertEqual(response, {"status": "success"})
+
+    @patch("httpx.Client")
+    def test_call_the_api_with_no_headers(self):
+        mock_client = MagicMock(spec=Client)
+        mock_client.request.return_value.text = '{"status": "success"}'
+        self.api.create_the_http_api_client = MagicMock(return_value=mock_client)
+
+        response = self.api.call_the_api(
+            api_call=MagicMock(),
+            method=RequestsMethods.GET,
+        )
+
+        mock_client.request.assert_called_with(
+            method="GET",
+            url=MagicMock(),
+            headers={
+                "Authorization": f"Bearer {self.model.token}",
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
+            json=None,
+            timeout=self.model.timeout,
+        )
+        self.assertEqual(response, {"status": "success"})
+
+    @patch("httpx.Client")
     def test_call_the_api_org_id(self, httpx_client_mock):
         httpx_client_mock.return_value.request.return_value.text = (
             '{"status": "success"}'
