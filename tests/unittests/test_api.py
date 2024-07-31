@@ -247,6 +247,9 @@ class ApiTestCase(TestCase):
             ),
         )
 
+    def test_check_if_valid_json_null(self):
+        self.assertEqual(False, self.api._check_if_valid_json("null"))
+
     def test_prepare_api_string(self):
         self.assertEqual("test&", self.api.prepare_api_string("test"))
 
