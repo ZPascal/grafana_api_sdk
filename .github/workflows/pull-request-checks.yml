@@ -4,6 +4,11 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  contents: write
+  checks: write
+  pull-requests: write
+
 jobs:
 
   pr-test:
@@ -30,7 +35,6 @@ jobs:
 
   pr-lint:
     runs-on: ubuntu-latest
-    permissions: write-all
     strategy:
       matrix:
         python-version: [ '3.10' ]
@@ -54,7 +58,6 @@ jobs:
 
   pr-coverage:
     runs-on: ubuntu-latest
-    permissions: write-all
     strategy:
       matrix:
         python-version: [ '3.10' ]
@@ -81,7 +84,6 @@ jobs:
       - name: Execute the coverage checks
         uses: MishaKav/pytest-coverage-comment@v1.1.52
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           pytest-coverage-path: ./pytest-coverage.txt
           junitxml-path: ./pytest.xml
           hide-badge: true
