@@ -50,7 +50,12 @@ class Api:
         """
 
         api_url: str = f"{self.grafana_api_model.host}{api_call}"
-        headers: dict = dict(
+
+        headers: dict = dict()
+        if self.grafana_api_model.headers is not None:
+            headers: dict = self.grafana_api_model.headers
+
+        headers.update(
             {"Authorization": f"Bearer {self.grafana_api_model.token}"},
         )
 
