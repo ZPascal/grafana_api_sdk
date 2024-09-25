@@ -25,11 +25,11 @@ class Alerting:
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
-    def get_alertmanager_alerts(self, recipient: any = "grafana") -> list:
-        """The method includes a functionality to get the Alertmanager alerts specified by the recipient
+    def get_alertmanager_alerts(self, datasource_uid: str = "grafana") -> list:
+        """The method includes a functionality to get the Alertmanager alerts specified by the datasource_uid
 
         Args:
-            recipient (any): Specify the recipient datasource id of the alerts (default grafana)
+            datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -39,11 +39,9 @@ class Alerting:
             api_call (list): Returns the list of Alertmanager alerts
         """
 
-        if (isinstance(recipient, int) and recipient != 0) or (
-            isinstance(recipient, str) and len(recipient) != 0
-        ):
+        if len(datasource_uid) != 0:
             api_call: list = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/alerts",
+                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/api/v2/alerts",
             )
 
             if api_call == list() or api_call[0].get("receivers") is None:
@@ -52,17 +50,17 @@ class Alerting:
             else:
                 return api_call
         else:
-            logging.error("There is no recipient defined.")
+            logging.error("There is no datasource_uid defined.")
             raise ValueError
 
     def create_or_update_alertmanager_alerts(
-        self, alerts: list, recipient: any = "grafana"
+        self, alerts: list, datasource_uid: str = "grafana"
     ):
-        """The method includes a functionality to create or update the Alertmanager alerts specified by the recipient and the alerts list
+        """The method includes a functionality to create or update the Alertmanager alerts specified by the datasource_uid and the alerts list
 
         Args:
             alerts (list): Specify a list of the alert objects
-            recipient (any): Specify the recipient datasource id of the alerts (default grafana)
+            datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -72,10 +70,7 @@ class Alerting:
             None
         """
 
-        if (
-            (isinstance(recipient, int) and recipient != 0)
-            or (isinstance(recipient, str) and len(recipient) != 0)
-        ) and alerts != list():
+        if len(datasource_uid) != 0and alerts != list():
             alerts_json_list: list = list()
 
             for alert in alerts:
@@ -91,7 +86,7 @@ class Alerting:
                 alerts_json_list.append(alert_json_dict)
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/alerts/groups",
+                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/api/v2/alerts",
                 RequestsMethods.POST,
                 json.dumps(alerts_json_list),
             )
@@ -102,14 +97,14 @@ class Alerting:
             else:
                 logging.info("You successfully created alerts.")
         else:
-            logging.error("There is no recipient or alerts defined.")
+            logging.error("There is no datasource_uid or alerts defined.")
             raise ValueError
 
-    def get_alertmanager_group_alerts(self, recipient: any = "grafana") -> list:
-        """The method includes a functionality to get the Alertmanager group alerts specified by the recipient
+    def get_alertmanager_group_alerts(self, datasource_uid: str = "grafana") -> list:
+        """The method includes a functionality to get the Alertmanager group alerts specified by the datasource_uid
 
         Args:
-            recipient (any): Specify the recipient datasource id of the alerts (default grafana)
+            datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -119,11 +114,9 @@ class Alerting:
             api_call (list): Returns the list of Alertmanager group alerts
         """
 
-        if (isinstance(recipient, int) and recipient != 0) or (
-            isinstance(recipient, str) and len(recipient) != 0
-        ):
+        if len(datasource_uid) != 0:
             api_call: list = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/alerts",
+                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/api/v2/alerts/groups",
             )
 
             if api_call == list() or api_call[0].get("alerts") is None:
@@ -132,17 +125,17 @@ class Alerting:
             else:
                 return api_call
         else:
-            logging.error("There is no recipient defined.")
+            logging.error("There is no datasource_uid defined.")
             raise ValueError
 
     def delete_alertmanager_silence_by_id(
-        self, silence_id: str, recipient: any = "grafana"
+        self, silence_id: str, datasource_uid: str = "grafana"
     ):
-        """The method includes a functionality to delete the Alertmanager silence specified by the silence id and the recipient
+        """The method includes a functionality to delete the Alertmanager silence specified by the silence id and the datasource_uid
 
         Args:
             silence_id (str): Specify the silence id of the alerts
-            recipient (any): Specify the recipient datasource id of the alerts (default grafana)
+            datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -152,32 +145,33 @@ class Alerting:
             None
         """
 
-        if (
-            (isinstance(recipient, int) and recipient != 0)
-            or (isinstance(recipient, str) and len(recipient) != 0)
-        ) and len(silence_id) != 0:
+        if len(datasource_uid) != 0 and len(silence_id) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silence/{silence_id}",
+                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/api/v2/silence/{silence_id}",
                 RequestsMethods.DELETE,
             )
 
-            if api_call != dict():
+            if (
+                    api_call == dict()
+                    or api_call.get("message")
+                    != "silence deleted"
+            ):
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
                 logging.info("You successfully deleted a silence.")
         else:
-            logging.error("There is no recipient or silence_id defined.")
+            logging.error("There is no datasource_uid or silence_id defined.")
             raise ValueError
 
     def get_alertmanager_silence_by_id(
-        self, silence_id: str, recipient: any = "grafana"
+        self, silence_id: str, datasource_uid: str = "grafana"
     ) -> dict:
-        """The method includes a functionality to get the Alertmanager silence specified by the silence id and the recipient
+        """The method includes a functionality to get the Alertmanager silence specified by the silence id and the datasource_uid
 
         Args:
             silence_id (str): Specify the silence id of the alerts
-            recipient (any): Specify the recipient datasource id of the alerts (default grafana)
+            datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -187,12 +181,9 @@ class Alerting:
             api_call (dict): Returns the dict of Alertmanager silence alert
         """
 
-        if (
-            (isinstance(recipient, int) and recipient != 0)
-            or (isinstance(recipient, str) and len(recipient) != 0)
-        ) and len(silence_id) != 0:
+        if len(datasource_uid) != 0 and len(silence_id) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silence/{silence_id}",
+                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/api/v2/silence/{silence_id}",
             )
 
             if api_call == dict() or api_call.get("id") is None:
@@ -201,14 +192,14 @@ class Alerting:
             else:
                 return api_call
         else:
-            logging.error("There is no recipient or silence_id defined.")
+            logging.error("There is no datasource_uid or silence_id defined.")
             raise ValueError
 
-    def get_alertmanager_silences(self, recipient: any = "grafana") -> list:
-        """The method includes a functionality to get all Alertmanager silences specified by the recipient
+    def get_alertmanager_silences(self, datasource_uid: str = "grafana") -> list:
+        """The method includes a functionality to get all Alertmanager silences specified by the datasource_uid
 
         Args:
-            recipient (any): Specify the recipient datasource id of the alerts (default grafana)
+            datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -218,11 +209,9 @@ class Alerting:
             api_call (list): Returns the list of Alertmanager silence alerts
         """
 
-        if (isinstance(recipient, int) and recipient != 0) or (
-            isinstance(recipient, str) and len(recipient) != 0
-        ):
+        if len(datasource_uid) != 0:
             api_call: list = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silences",
+                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/api/v2/silences",
             )
 
             if api_call == list() or api_call[0].get("id") is None:
@@ -231,17 +220,17 @@ class Alerting:
             else:
                 return api_call
         else:
-            logging.error("There is no recipient defined.")
+            logging.error("There is no datasource_uid defined.")
             raise ValueError
 
     def create_or_update_alertmanager_silence(
-        self, silence: Silence, recipient: any = "grafana"
+        self, silence: Silence, datasource_uid: str = "grafana"
     ) -> dict:
-        """The method includes a functionality to create or update the Alertmanager silence specified by the silence object and the recipient
+        """The method includes a functionality to create or update the Alertmanager silence specified by the silence object and the datasource_uid
 
         Args:
             silence -> Specify the silence object
-            recipient (any): Specify the recipient datasource id of the alerts (default grafana)
+            datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -251,10 +240,7 @@ class Alerting:
             api_call (dict): Returns the dict of newly created silence alert
         """
 
-        if (
-            (isinstance(recipient, int) and recipient != 0)
-            or (isinstance(recipient, str) and len(recipient) != 0)
-        ) or silence is not None:
+        if len(datasource_uid) != 0 or silence is not None:
             silence_json_dict: dict = dict(
                 {
                     "comment": silence.comment,
@@ -267,25 +253,25 @@ class Alerting:
             )
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/silences",
+                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/api/v2/silences",
                 RequestsMethods.POST,
                 json.dumps(silence_json_dict),
             )
 
-            if api_call == dict() or api_call.get("id") is None:
+            if api_call == dict() or (api_call.get("id") is None and api_call.get("silenceID") is None):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
                 return api_call
         else:
-            logging.error("There is no recipient or silence defined.")
+            logging.error("There is no datasource_uid or silence defined.")
             raise ValueError
 
-    def get_alertmanager_status(self, recipient: str = "grafana") -> dict:
-        """The method includes a functionality to get the Alertmanager status specified by the recipient
+    def get_alertmanager_status(self, datasource_uid: str = "grafana") -> dict:
+        """The method includes a functionality to get the Alertmanager status specified by the datasource_uid
 
         Args:
-            recipient (str): Specify the recipient datasource id of the alerts (default grafana)
+            datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -295,11 +281,9 @@ class Alerting:
             api_call (dict): Returns the dict of the Alertmanager status
         """
 
-        if (isinstance(recipient, int) and recipient != 0) or (
-            isinstance(recipient, str) and len(recipient) != 0
-        ):
+        if len(datasource_uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/api/v2/status",
+                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/api/v2/status",
             )
 
             if api_call == dict() or api_call.get("config") is None:
@@ -308,14 +292,14 @@ class Alerting:
             else:
                 return api_call
         else:
-            logging.error("There is no recipient defined.")
+            logging.error("There is no datasource_uid defined.")
             raise ValueError
 
-    def delete_alertmanager_config(self, recipient: any = "grafana"):
-        """The method includes a functionality to delete the Alertmanager config specified by the recipient
+    def delete_alertmanager_config(self, datasource_uid: str = "grafana"):
+        """The method includes a functionality to delete the Alertmanager config specified by the datasource_uid
 
         Args:
-            recipient (any): Specify the recipient datasource id of the alerts (default grafana)
+            datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -325,11 +309,9 @@ class Alerting:
             None
         """
 
-        if (isinstance(recipient, int) and recipient != 0) or (
-            isinstance(recipient, str) and len(recipient) != 0
-        ):
+        if len(datasource_uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/config/api/v1/alerts",
+                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/config/api/v1/alerts",
                 RequestsMethods.DELETE,
             )
 
@@ -342,14 +324,14 @@ class Alerting:
             else:
                 logging.info("You successfully deleted a alerting config.")
         else:
-            logging.error("There is no recipient defined.")
+            logging.error("There is no datasource_uid defined.")
             raise ValueError
 
-    def get_alertmanager_config(self, recipient: any = "grafana") -> dict:
-        """The method includes a functionality to get the Alertmanager config specified by the recipient
+    def get_alertmanager_config(self, datasource_uid: str = "grafana") -> dict:
+        """The method includes a functionality to get the Alertmanager config specified by the datasource_uid
 
         Args:
-            recipient (any): Specify the recipient datasource id of the alerts (default grafana)
+            datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -359,11 +341,9 @@ class Alerting:
             api_call (dict): Returns the dict of the Alertmanager config
         """
 
-        if (isinstance(recipient, int) and recipient != 0) or (
-            isinstance(recipient, str) and len(recipient) != 0
-        ):
+        if len(datasource_uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/config/api/v1/alerts",
+                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/config/api/v1/alerts",
             )
 
             if api_call == dict() or api_call.get("alertmanager_config") is None:
@@ -372,20 +352,20 @@ class Alerting:
             else:
                 return api_call
         else:
-            logging.error("There is no recipient defined.")
+            logging.error("There is no datasource_uid defined.")
             raise ValueError
 
     def create_or_update_alertmanager_config(
         self,
         alertmanager_config: AlertmanagerConfig,
-        recipient: any = "grafana",
+        datasource_uid: str = "grafana",
         template_files: dict = None,
     ):
-        """The method includes a functionality to create or update the Alertmanager config specified by the Alertmanager config object, recipient and template_files
+        """The method includes a functionality to create or update the Alertmanager config specified by the Alertmanager config object, datasource_uid and template_files
 
         Args:
             alertmanager_config (AlertmanagerConfig): Specify the Alertmanager config object
-            recipient (any): Specify the recipient datasource id of the alerts (default grafana)
+            datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
             template_files(dict): Specify the optional template files (default None)
 
         Raises:
@@ -396,10 +376,7 @@ class Alerting:
             None
         """
 
-        if (
-            (isinstance(recipient, int) and recipient != 0)
-            or (isinstance(recipient, str) and len(recipient) != 0)
-        ) and alertmanager_config is not None:
+        if len(datasource_uid) != 0 and alertmanager_config is not None:
             alertmanager_configuration_json_dict: dict = dict()
 
             alertmanager_configuration_json_dict["alertmanager_config"] = dict(
@@ -417,7 +394,7 @@ class Alerting:
                 alertmanager_configuration_json_dict["template_files"] = template_files
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/config/api/v1/alerts",
+                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/config/api/v1/alerts",
                 RequestsMethods.POST,
                 json.dumps(alertmanager_configuration_json_dict),
             )
@@ -432,18 +409,18 @@ class Alerting:
             else:
                 logging.info("You successfully created an Alertmanager alert config.")
         else:
-            logging.error("There is no recipient or alertmanager_config defined.")
+            logging.error("There is no datasource_uid or alertmanager_config defined.")
             raise ValueError
 
     def test_alertmanager_receivers(
-        self, alert: dict, receivers: list, recipient: any = "grafana"
+        self, alert: dict, receivers: list, datasource_uid: str = "grafana"
     ):
-        """The method includes a functionality to test the Alertmanager receivers specified by the alert dict, receivers object and the recipient
+        """The method includes a functionality to test the Alertmanager receivers specified by the alert dict, receivers object and the datasource_uid
 
         Args:
             alert (dict): Specify the alert dict
             receivers (list): Specify the list of AlertmanagerReceivers objects
-            recipient (any): Specify the recipient datasource id of the alerts (default grafana)
+            datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -453,14 +430,7 @@ class Alerting:
             None
         """
 
-        if (
-            (
-                (isinstance(recipient, int) and recipient != 0)
-                or (isinstance(recipient, str) and len(recipient) != 0)
-            )
-            and alert != dict()
-            and receivers is not None
-        ):
+        if len(datasource_uid) != 0 and alert != dict() and receivers is not None:
             alertmanager_receivers_json_dict: dict = dict()
             receivers_list: list = list()
 
@@ -488,7 +458,7 @@ class Alerting:
             alertmanager_receivers_json_dict["receivers"] = receivers_list
 
             api_call: any = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{recipient}/config/api/v1/receivers/test",
+                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/config/api/v1/receivers/test",
                 RequestsMethods.POST,
                 json.dumps(alertmanager_receivers_json_dict),
                 response_status_code=True,
@@ -518,14 +488,14 @@ class Alerting:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
         else:
-            logging.error("There is no recipient, alert or receivers defined.")
+            logging.error("There is no datasource_uid, alert or receivers defined.")
             raise ValueError
 
-    def get_prometheus_alerts(self, recipient: any = "grafana") -> dict:
-        """The method includes a functionality to get all prometheus alerts specified by the recipient
+    def get_prometheus_alerts(self, datasource_uid: str = "grafana") -> dict:
+        """The method includes a functionality to get all prometheus alerts specified by the datasource_uid
 
         Args:
-            recipient (any): Specify the recipient datasource id of the alerts (default grafana)
+            datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -535,11 +505,9 @@ class Alerting:
             api_call (dict): Returns the dict of the prometheus alerts
         """
 
-        if (isinstance(recipient, int) and recipient != 0) or (
-            isinstance(recipient, str) and len(recipient) != 0
-        ):
+        if len(datasource_uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.ALERTS_PROMETHEUS.value}/{recipient}/api/v1/alerts",
+                f"{APIEndpoints.ALERTS_PROMETHEUS.value}/{datasource_uid}/api/v1/alerts",
             )
 
             if api_call == dict() or api_call.get("data") is None:
@@ -548,14 +516,14 @@ class Alerting:
             else:
                 return api_call
         else:
-            logging.error("There is no recipient defined.")
+            logging.error("There is no datasource_uid defined.")
             raise ValueError
 
-    def get_prometheus_rules(self, recipient: any = "grafana") -> dict:
-        """The method includes a functionality to get all prometheus rules specified by the recipient
+    def get_prometheus_rules(self, datasource_uid: str = "grafana") -> dict:
+        """The method includes a functionality to get all prometheus rules specified by the datasource_uid
 
         Args:
-            recipient (any): Specify the recipient datasource id of the alerts (default grafana)
+            datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -565,11 +533,9 @@ class Alerting:
             api_call (dict): Returns the dict of the prometheus rules
         """
 
-        if (isinstance(recipient, int) and recipient != 0) or (
-            isinstance(recipient, str) and len(recipient) != 0
-        ):
+        if len(datasource_uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.ALERTS_PROMETHEUS.value}/{recipient}/api/v1/rules",
+                f"{APIEndpoints.ALERTS_PROMETHEUS.value}/{datasource_uid}/api/v1/rules",
             )
 
             if api_call == dict() or api_call.get("data") is None:
@@ -578,14 +544,14 @@ class Alerting:
             else:
                 return api_call
         else:
-            logging.error("There is no recipient defined.")
+            logging.error("There is no datasource_uid defined.")
             raise ValueError
 
-    def get_ruler_rules(self, recipient: str = "grafana") -> dict:
-        """The method includes a functionality to get all ruler rules specified by the recipient
+    def get_ruler_rules(self, datasource_uid: str = "grafana") -> dict:
+        """The method includes a functionality to get all ruler rules specified by the datasource_uid
 
         Args:
-            recipient (str): Specify the recipient datasource id of the alerts (default grafana)
+            datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -595,11 +561,9 @@ class Alerting:
             api_call (dict): Returns the dict of the ruler rules
         """
 
-        if (isinstance(recipient, int) and recipient != 0) or (
-            isinstance(recipient, str) and len(recipient) != 0
-        ):
+        if len(datasource_uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.ALERTS_RULER.value}/{recipient}/api/v1/rules",
+                f"{APIEndpoints.ALERTS_RULER.value}/{datasource_uid}/api/v1/rules",
             )
 
             if api_call == dict():
@@ -608,15 +572,15 @@ class Alerting:
             else:
                 return api_call
         else:
-            logging.error("There is no recipient defined.")
+            logging.error("There is no datasource_uid defined.")
             raise ValueError
 
-    def delete_ruler_namespace(self, namespace: str, recipient: any = "grafana"):
-        """The method includes a functionality to delete a ruler namespace specified by the namespace name and the recipient
+    def delete_ruler_namespace(self, namespace: str, datasource_uid: str = "grafana"):
+        """The method includes a functionality to delete a ruler namespace specified by the namespace name and the datasource_uid
 
         Args:
             namespace (str): Specify the namespace name
-            recipient (any): Specify the recipient datasource id of the alerts (default grafana)
+            datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -626,12 +590,9 @@ class Alerting:
             None
         """
 
-        if (
-            (isinstance(recipient, int) and recipient != 0)
-            or (isinstance(recipient, str) and len(recipient) != 0)
-        ) and len(namespace) != 0:
+        if len(datasource_uid) != 0 and len(namespace) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.ALERTS_RULER.value}/{recipient}/api/v1/rules/{namespace}",
+                f"{APIEndpoints.ALERTS_RULER.value}/{datasource_uid}/api/v1/rules/{namespace}",
                 RequestsMethods.DELETE,
             )
 
@@ -641,17 +602,17 @@ class Alerting:
             else:
                 logging.info("You successfully deleted a ruler namespace.")
         else:
-            logging.error("There is no recipient or namespace defined.")
+            logging.error("There is no datasource_uid or namespace defined.")
             raise ValueError
 
     def get_ruler_groups_by_namespace(
-        self, namespace: str, recipient: any = "grafana"
+        self, namespace: str, datasource_uid: str = "grafana"
     ) -> dict:
-        """The method includes a functionality to get all ruler groups specified by the namespace name and the recipient
+        """The method includes a functionality to get all ruler groups specified by the namespace name and the datasource_uid
 
         Args:
             namespace (str): Specify the namespace name
-            recipient (any): Specify the recipient datasource id of the alerts (default grafana)
+            datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -661,12 +622,9 @@ class Alerting:
             api_call (dict): Returns the dict of the ruler groups
         """
 
-        if (
-            (isinstance(recipient, int) and recipient != 0)
-            or (isinstance(recipient, str) and len(recipient) != 0)
-        ) and len(namespace) != 0:
+        if len(datasource_uid) != 0 and len(namespace) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.ALERTS_RULER.value}/{recipient}/api/v1/rules/{namespace}",
+                f"{APIEndpoints.ALERTS_RULER.value}/{datasource_uid}/api/v1/rules/{namespace}",
             )
 
             if api_call == dict():
@@ -675,7 +633,7 @@ class Alerting:
             else:
                 return api_call
         else:
-            logging.error("There is no recipient or namespace defined.")
+            logging.error("There is no datasource_uid or namespace defined.")
             raise ValueError
 
     def create_or_update_ruler_group_by_namespace(
@@ -683,16 +641,16 @@ class Alerting:
         namespace: str,
         group_name: str,
         rules: list,
-        recipient: any = "grafana",
+        datasource_uid: str = "grafana",
         interval: int = 0,
     ):
-        """The method includes a functionality to create or update a ruler group specified by the namespace name, a ruler group name, a ruler rule object list, the recipient and an interval
+        """The method includes a functionality to create or update a ruler group specified by the namespace name, a ruler group name, a ruler rule object list, the datasource_uid and an interval
 
         Args:
             namespace (str): Specify the namespace name
             group_name (str): Specify the ruler group name
             rules (list): Specify the ruler rule object list
-            recipient (any): Specify the recipient datasource id of the alerts (default grafana)
+            datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
             interval (int): Specify the interval of the ruler (default 0)
 
         Raises:
@@ -703,15 +661,7 @@ class Alerting:
             None
         """
 
-        if (
-            (
-                (isinstance(recipient, int) and recipient != 0)
-                or (isinstance(recipient, str) and len(recipient) != 0)
-            )
-            and len(namespace) != 0
-            and len(group_name) != 0
-            and rules != list()
-        ):
+        if len(datasource_uid) != 0 and len(namespace) != 0 and len(group_name) != 0 and rules != list():
             rules_json_list: list = list()
 
             for rule in rules:
@@ -729,7 +679,7 @@ class Alerting:
                 rules_json_list.append(rule_json_dict)
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.ALERTS_RULER.value}/{recipient}/api/v1/rules/{namespace}",
+                f"{APIEndpoints.ALERTS_RULER.value}/{datasource_uid}/api/v1/rules/{namespace}",
                 RequestsMethods.POST,
                 json.dumps(
                     {
@@ -746,18 +696,18 @@ class Alerting:
             else:
                 logging.info("You successfully created an ruler group.")
         else:
-            logging.error("There is no recipient, namespace, name or rules defined.")
+            logging.error("There is no datasource_uid, namespace, name or rules defined.")
             raise ValueError
 
     def delete_ruler_group(
-        self, namespace: str, group_name: str, recipient: any = "grafana"
+        self, namespace: str, group_name: str, datasource_uid: str = "grafana"
     ):
-        """The method includes a functionality to delete a ruler group specified by the namespace name, a ruler group name and the recipient
+        """The method includes a functionality to delete a ruler group specified by the namespace name, a ruler group name and the datasource_uid
 
         Args:
             namespace (str): Specify the namespace name
             group_name (str): Specify the ruler group name
-            recipient (any): Specify the recipient datasource id of the alerts (default grafana)
+            datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -767,16 +717,9 @@ class Alerting:
             None
         """
 
-        if (
-            (
-                (isinstance(recipient, int) and recipient != 0)
-                or (isinstance(recipient, str) and len(recipient) != 0)
-            )
-            and len(namespace) != 0
-            and len(group_name) != 0
-        ):
+        if len(datasource_uid) != 0 and len(namespace) != 0 and len(group_name) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.ALERTS_RULER.value}/{recipient}/api/v1/rules/{namespace}/{group_name}",
+                f"{APIEndpoints.ALERTS_RULER.value}/{datasource_uid}/api/v1/rules/{namespace}/{group_name}",
                 RequestsMethods.DELETE,
             )
 
@@ -786,18 +729,18 @@ class Alerting:
             else:
                 logging.info("You successfully deleted a ruler group.")
         else:
-            logging.error("There is no recipient, namespace or group_name defined.")
+            logging.error("There is no datasource_uid, namespace or group_name defined.")
             raise ValueError
 
     def get_ruler_group(
-        self, namespace: str, group_name: str, recipient: any = "grafana"
+        self, namespace: str, group_name: str, datasource_uid: str = "grafana"
     ) -> dict:
-        """The method includes a functionality to get a ruler group specified by the namespace name, a ruler group name and the recipient
+        """The method includes a functionality to get a ruler group specified by the namespace name, a ruler group name and the datasource_uid
 
         Args:
             namespace (str): Specify the namespace name
             group_name (str): Specify the ruler group name
-            recipient (any): Specify the recipient datasource id of the alerts (default grafana)
+            datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -807,16 +750,9 @@ class Alerting:
             api_call (dict): Returns the dict of all ruler groups
         """
 
-        if (
-            (
-                (isinstance(recipient, int) and recipient != 0)
-                or (isinstance(recipient, str) and len(recipient) != 0)
-            )
-            and len(namespace) != 0
-            and len(group_name) != 0
-        ):
+        if len(datasource_uid) != 0 and len(namespace) != 0 and len(group_name) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.ALERTS_RULER.value}/{recipient}/api/v1/rules/{namespace}/{group_name}",
+                f"{APIEndpoints.ALERTS_RULER.value}/{datasource_uid}/api/v1/rules/{namespace}/{group_name}",
             )
 
             if api_call == dict():
@@ -825,7 +761,7 @@ class Alerting:
             else:
                 return api_call
         else:
-            logging.error("There is no recipient, namespace or group_name defined.")
+            logging.error("There is no datasource_uid, namespace or group_name defined.")
             raise ValueError
 
     def test_rule(self, data_query: list) -> dict:
@@ -886,34 +822,26 @@ class Alerting:
             logging.error("There is no data_query defined.")
             raise ValueError
 
-    def test_recipient_rule(
-        self, expr: str, condition: str, data_query: list, recipient: any = "grafana"
+    def test_datasource_uid_rule(
+        self, expr: str, condition: str, data_query: list, datasource_uid: str = "grafana"
     ) -> dict:
-        """The method includes a functionality to test a recipient role specified by the expr, the condition, a list of data queries and the recipient
+        """The method includes a functionality to test a datasource uid rule specified by the expr, the condition, a list of data queries and the datasource_uid
 
         Args:
             expr (str): Specify a list of datasource rule query objects
             condition (str): Specify the condition
             data_query (list): Specify a list of datasource rule query objects
-            recipient (any): Specify the recipient datasource id of the alerts (default grafana)
+            datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
 
         Raises:
             ValueError: Missed specifying a necessary value
             Exception: Unspecified error by executing the API call
 
         Returns:
-            api_call (dict): Returns the result of the specified recipient rule
+            api_call (dict): Returns the result of the specified datasource_uid rule
         """
 
-        if (
-            (
-                (isinstance(recipient, int) and recipient != 0)
-                or (isinstance(recipient, str) and len(recipient) != 0)
-            )
-            and len(expr) != 0
-            and len(condition) != 0
-            and data_query != list()
-        ):
+        if len(datasource_uid) != 0 and len(expr) != 0 and len(condition) != 0 and data_query != list():
             datasource_rule_query_objects_json: list = list()
             datasource_rule_query_object_json: dict = dict()
 
@@ -938,12 +866,12 @@ class Alerting:
                 )
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"/api/v1/rule/test/{recipient}",
+                f"/api/v1/rule/test/{datasource_uid}",
                 RequestsMethods.POST,
                 json.dumps(
                     {
                         "expr": expr,
-                        "grafana_condition": {
+                        "grafana_alert": {
                             "condition": condition,
                             "data": datasource_rule_query_objects_json,
                             "now": str(datetime.datetime.now()),
@@ -959,7 +887,68 @@ class Alerting:
                 return api_call
         else:
             logging.error(
-                "There is no recipient, expr, condition or data_query defined."
+                "There is no datasource_uid, expr, condition or data_query defined."
+            )
+            raise ValueError
+
+    def test_backtest_rule(self, condition: str, data_query: list) -> dict:
+        """The method includes a functionality to test a rule specified by the condition, a list of data queries
+
+        Args:
+            condition (str): Specify the condition
+            data_query (list): Specify a list of datasource rule query objects
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (dict): Returns the result of the specified rule
+        """
+
+        if len(condition) != 0 and data_query != list():
+            datasource_rule_query_objects_json: list = list()
+            datasource_rule_query_object_json: dict = dict()
+
+            for datasource_rule_query_object in data_query:
+                datasource_rule_query_object_json["datasourceUid"] = (
+                    datasource_rule_query_object.datasource_uid
+                )
+                datasource_rule_query_object_json["model"] = (
+                    datasource_rule_query_object.model
+                )
+                datasource_rule_query_object_json["queryType"] = (
+                    datasource_rule_query_object.query_type
+                )
+                datasource_rule_query_object_json["refId"] = (
+                    datasource_rule_query_object.ref_id
+                )
+                datasource_rule_query_object_json["relativeTimeRange"] = (
+                    datasource_rule_query_object.relative_time_range
+                )
+                datasource_rule_query_objects_json.append(
+                    datasource_rule_query_object_json
+                )
+
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"/api/v1/rule/backtest",
+                RequestsMethods.POST,
+                json.dumps(
+                    {
+                        "condition": condition,
+                        "data": datasource_rule_query_objects_json,
+                    }
+                ),
+            )
+
+            if api_call == dict() or api_call.get("message") is not None:
+                logging.error(f"Check the error: {api_call}.")
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error(
+                "There is no datasource_uid, condition or data_query defined."
             )
             raise ValueError
 
@@ -1057,7 +1046,7 @@ class Alerting:
                 )
         else:
             logging.error(
-                "There is no recipient, expr, condition or data_query defined."
+                "There is no alert_managers or alertmanagers_choice defined."
             )
             raise ValueError
 
