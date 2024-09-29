@@ -107,7 +107,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = dict({"message": "silence deleted"})
 
         self.assertEqual(None, alerting.delete_alertmanager_silence_by_id("test"))
 
@@ -199,6 +199,21 @@ class AlertingTestCase(TestCase):
 
         self.assertEqual(
             dict({"id": "test"}),
+            alerting.create_or_update_alertmanager_silence(silence),
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_create_or_update_alertmanager_silence_return_silence_id(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting: Alerting = Alerting(grafana_api_model=model)
+        silence: Silence = Silence(
+            "test", "test", "test", "test", "test", {"test": "test"}
+        )
+
+        call_the_api_mock.return_value = dict({"silenceID": "test"})
+
+        self.assertEqual(
+            dict({"silenceID": "test"}),
             alerting.create_or_update_alertmanager_silence(silence),
         )
 
@@ -697,7 +712,7 @@ class AlertingTestCase(TestCase):
             alerting.test_rule([datasource_rule_query])
 
     @patch("grafana_api.api.Api.call_the_api")
-    def test_test_recipient_rule(self, call_the_api_mock):
+    def test_test_datasource_uid_rule(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
         datasource_rule_query: DatasourceRuleQuery = DatasourceRuleQuery(
@@ -708,15 +723,37 @@ class AlertingTestCase(TestCase):
 
         self.assertEqual(
             dict({"test": "test"}),
-            alerting.test_recipient_rule("test", "test", [datasource_rule_query]),
+            alerting.test_datasource_uid_rule("test", "test", [datasource_rule_query]),
         )
 
-    def test_test_recipient_rule_no_recipient(self):
+    def test_test_datasource_uid_rule_no_datasource_uid(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
         with self.assertRaises(ValueError):
-            alerting.test_recipient_rule("", "", list(), "")
+            alerting.test_datasource_uid_rule("", "", list(), "")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_test_backtest_rule(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting: Alerting = Alerting(grafana_api_model=model)
+        datasource_rule_query: DatasourceRuleQuery = DatasourceRuleQuery(
+            "test", {"test": "test"}, "test", "test", {"test": "test"}
+        )
+
+        call_the_api_mock.return_value = dict({"test": "test"})
+
+        self.assertEqual(
+            dict({"test": "test"}),
+            alerting.test_backtest_rule("test", [datasource_rule_query]),
+        )
+
+    def test_test_backtest_rule_no_condition(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting: Alerting = Alerting(grafana_api_model=model)
+
+        with self.assertRaises(ValueError):
+            alerting.test_backtest_rule("", list())
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_test_recipient_rule_test_not_possible(self, call_the_api_mock):

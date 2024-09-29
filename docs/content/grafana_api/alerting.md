@@ -23,7 +23,8 @@
     * [delete\_ruler\_group](#alerting.Alerting.delete_ruler_group)
     * [get\_ruler\_group](#alerting.Alerting.get_ruler_group)
     * [test\_rule](#alerting.Alerting.test_rule)
-    * [test\_recipient\_rule](#alerting.Alerting.test_recipient_rule)
+    * [test\_datasource\_uid\_rule](#alerting.Alerting.test_datasource_uid_rule)
+    * [test\_backtest\_rule](#alerting.Alerting.test_backtest_rule)
     * [delete\_ngalert\_organization\_configuration](#alerting.Alerting.delete_ngalert_organization_configuration)
     * [get\_ngalert\_organization\_configuration](#alerting.Alerting.get_ngalert_organization_configuration)
     * [create\_or\_update\_ngalert\_organization\_configuration](#alerting.Alerting.create_or_update_ngalert_organization_configuration)
@@ -57,14 +58,14 @@ The class includes all necessary methods to access the Grafana alerting API endp
 #### get\_alertmanager\_alerts
 
 ```python
-def get_alertmanager_alerts(recipient: any = "grafana") -> list
+def get_alertmanager_alerts(datasource_uid: str = "grafana") -> list
 ```
 
-The method includes a functionality to get the Alertmanager alerts specified by the recipient
+The method includes a functionality to get the Alertmanager alerts specified by the datasource_uid
 
 **Arguments**:
 
-- `recipient` _any_ - Specify the recipient datasource id of the alerts (default grafana)
+- `datasource_uid` _str_ - Specify the datasource uid or recipient of the alerts (default grafana)
   
 
 **Raises**:
@@ -83,15 +84,15 @@ The method includes a functionality to get the Alertmanager alerts specified by 
 
 ```python
 def create_or_update_alertmanager_alerts(alerts: list,
-                                         recipient: any = "grafana")
+                                         datasource_uid: str = "grafana")
 ```
 
-The method includes a functionality to create or update the Alertmanager alerts specified by the recipient and the alerts list
+The method includes a functionality to create or update the Alertmanager alerts specified by the datasource_uid and the alerts list
 
 **Arguments**:
 
 - `alerts` _list_ - Specify a list of the alert objects
-- `recipient` _any_ - Specify the recipient datasource id of the alerts (default grafana)
+- `datasource_uid` _str_ - Specify the datasource uid or recipient of the alerts (default grafana)
   
 
 **Raises**:
@@ -109,14 +110,14 @@ The method includes a functionality to create or update the Alertmanager alerts 
 #### get\_alertmanager\_group\_alerts
 
 ```python
-def get_alertmanager_group_alerts(recipient: any = "grafana") -> list
+def get_alertmanager_group_alerts(datasource_uid: str = "grafana") -> list
 ```
 
-The method includes a functionality to get the Alertmanager group alerts specified by the recipient
+The method includes a functionality to get the Alertmanager group alerts specified by the datasource_uid
 
 **Arguments**:
 
-- `recipient` _any_ - Specify the recipient datasource id of the alerts (default grafana)
+- `datasource_uid` _str_ - Specify the datasource uid or recipient of the alerts (default grafana)
   
 
 **Raises**:
@@ -135,15 +136,15 @@ The method includes a functionality to get the Alertmanager group alerts specifi
 
 ```python
 def delete_alertmanager_silence_by_id(silence_id: str,
-                                      recipient: any = "grafana")
+                                      datasource_uid: str = "grafana")
 ```
 
-The method includes a functionality to delete the Alertmanager silence specified by the silence id and the recipient
+The method includes a functionality to delete the Alertmanager silence specified by the silence id and the datasource_uid
 
 **Arguments**:
 
 - `silence_id` _str_ - Specify the silence id of the alerts
-- `recipient` _any_ - Specify the recipient datasource id of the alerts (default grafana)
+- `datasource_uid` _str_ - Specify the datasource uid or recipient of the alerts (default grafana)
   
 
 **Raises**:
@@ -162,15 +163,15 @@ The method includes a functionality to delete the Alertmanager silence specified
 
 ```python
 def get_alertmanager_silence_by_id(silence_id: str,
-                                   recipient: any = "grafana") -> dict
+                                   datasource_uid: str = "grafana") -> dict
 ```
 
-The method includes a functionality to get the Alertmanager silence specified by the silence id and the recipient
+The method includes a functionality to get the Alertmanager silence specified by the silence id and the datasource_uid
 
 **Arguments**:
 
 - `silence_id` _str_ - Specify the silence id of the alerts
-- `recipient` _any_ - Specify the recipient datasource id of the alerts (default grafana)
+- `datasource_uid` _str_ - Specify the datasource uid or recipient of the alerts (default grafana)
   
 
 **Raises**:
@@ -188,14 +189,14 @@ The method includes a functionality to get the Alertmanager silence specified by
 #### get\_alertmanager\_silences
 
 ```python
-def get_alertmanager_silences(recipient: any = "grafana") -> list
+def get_alertmanager_silences(datasource_uid: str = "grafana") -> list
 ```
 
-The method includes a functionality to get all Alertmanager silences specified by the recipient
+The method includes a functionality to get all Alertmanager silences specified by the datasource_uid
 
 **Arguments**:
 
-- `recipient` _any_ - Specify the recipient datasource id of the alerts (default grafana)
+- `datasource_uid` _str_ - Specify the datasource uid or recipient of the alerts (default grafana)
   
 
 **Raises**:
@@ -214,15 +215,16 @@ The method includes a functionality to get all Alertmanager silences specified b
 
 ```python
 def create_or_update_alertmanager_silence(silence: Silence,
-                                          recipient: any = "grafana") -> dict
+                                          datasource_uid: str = "grafana"
+                                          ) -> dict
 ```
 
-The method includes a functionality to create or update the Alertmanager silence specified by the silence object and the recipient
+The method includes a functionality to create or update the Alertmanager silence specified by the silence object and the datasource_uid
 
 **Arguments**:
 
   silence -> Specify the silence object
-- `recipient` _any_ - Specify the recipient datasource id of the alerts (default grafana)
+- `datasource_uid` _str_ - Specify the datasource uid or recipient of the alerts (default grafana)
   
 
 **Raises**:
@@ -240,14 +242,14 @@ The method includes a functionality to create or update the Alertmanager silence
 #### get\_alertmanager\_status
 
 ```python
-def get_alertmanager_status(recipient: str = "grafana") -> dict
+def get_alertmanager_status(datasource_uid: str = "grafana") -> dict
 ```
 
-The method includes a functionality to get the Alertmanager status specified by the recipient
+The method includes a functionality to get the Alertmanager status specified by the datasource_uid
 
 **Arguments**:
 
-- `recipient` _str_ - Specify the recipient datasource id of the alerts (default grafana)
+- `datasource_uid` _str_ - Specify the datasource uid or recipient of the alerts (default grafana)
   
 
 **Raises**:
@@ -265,14 +267,14 @@ The method includes a functionality to get the Alertmanager status specified by 
 #### delete\_alertmanager\_config
 
 ```python
-def delete_alertmanager_config(recipient: any = "grafana")
+def delete_alertmanager_config(datasource_uid: str = "grafana")
 ```
 
-The method includes a functionality to delete the Alertmanager config specified by the recipient
+The method includes a functionality to delete the Alertmanager config specified by the datasource_uid
 
 **Arguments**:
 
-- `recipient` _any_ - Specify the recipient datasource id of the alerts (default grafana)
+- `datasource_uid` _str_ - Specify the datasource uid or recipient of the alerts (default grafana)
   
 
 **Raises**:
@@ -290,14 +292,14 @@ The method includes a functionality to delete the Alertmanager config specified 
 #### get\_alertmanager\_config
 
 ```python
-def get_alertmanager_config(recipient: any = "grafana") -> dict
+def get_alertmanager_config(datasource_uid: str = "grafana") -> dict
 ```
 
-The method includes a functionality to get the Alertmanager config specified by the recipient
+The method includes a functionality to get the Alertmanager config specified by the datasource_uid
 
 **Arguments**:
 
-- `recipient` _any_ - Specify the recipient datasource id of the alerts (default grafana)
+- `datasource_uid` _str_ - Specify the datasource uid or recipient of the alerts (default grafana)
   
 
 **Raises**:
@@ -317,16 +319,16 @@ The method includes a functionality to get the Alertmanager config specified by 
 ```python
 def create_or_update_alertmanager_config(
         alertmanager_config: AlertmanagerConfig,
-        recipient: any = "grafana",
+        datasource_uid: str = "grafana",
         template_files: dict = None)
 ```
 
-The method includes a functionality to create or update the Alertmanager config specified by the Alertmanager config object, recipient and template_files
+The method includes a functionality to create or update the Alertmanager config specified by the Alertmanager config object, datasource_uid and template_files
 
 **Arguments**:
 
 - `alertmanager_config` _AlertmanagerConfig_ - Specify the Alertmanager config object
-- `recipient` _any_ - Specify the recipient datasource id of the alerts (default grafana)
+- `datasource_uid` _str_ - Specify the datasource uid or recipient of the alerts (default grafana)
 - `template_files(dict)` - Specify the optional template files (default None)
   
 
@@ -347,16 +349,16 @@ The method includes a functionality to create or update the Alertmanager config 
 ```python
 def test_alertmanager_receivers(alert: dict,
                                 receivers: list,
-                                recipient: any = "grafana")
+                                datasource_uid: str = "grafana")
 ```
 
-The method includes a functionality to test the Alertmanager receivers specified by the alert dict, receivers object and the recipient
+The method includes a functionality to test the Alertmanager receivers specified by the alert dict, receivers object and the datasource_uid
 
 **Arguments**:
 
 - `alert` _dict_ - Specify the alert dict
 - `receivers` _list_ - Specify the list of AlertmanagerReceivers objects
-- `recipient` _any_ - Specify the recipient datasource id of the alerts (default grafana)
+- `datasource_uid` _str_ - Specify the datasource uid or recipient of the alerts (default grafana)
   
 
 **Raises**:
@@ -374,14 +376,14 @@ The method includes a functionality to test the Alertmanager receivers specified
 #### get\_prometheus\_alerts
 
 ```python
-def get_prometheus_alerts(recipient: any = "grafana") -> dict
+def get_prometheus_alerts(datasource_uid: str = "grafana") -> dict
 ```
 
-The method includes a functionality to get all prometheus alerts specified by the recipient
+The method includes a functionality to get all prometheus alerts specified by the datasource_uid
 
 **Arguments**:
 
-- `recipient` _any_ - Specify the recipient datasource id of the alerts (default grafana)
+- `datasource_uid` _str_ - Specify the datasource uid or recipient of the alerts (default grafana)
   
 
 **Raises**:
@@ -399,14 +401,14 @@ The method includes a functionality to get all prometheus alerts specified by th
 #### get\_prometheus\_rules
 
 ```python
-def get_prometheus_rules(recipient: any = "grafana") -> dict
+def get_prometheus_rules(datasource_uid: str = "grafana") -> dict
 ```
 
-The method includes a functionality to get all prometheus rules specified by the recipient
+The method includes a functionality to get all prometheus rules specified by the datasource_uid
 
 **Arguments**:
 
-- `recipient` _any_ - Specify the recipient datasource id of the alerts (default grafana)
+- `datasource_uid` _str_ - Specify the datasource uid or recipient of the alerts (default grafana)
   
 
 **Raises**:
@@ -424,14 +426,14 @@ The method includes a functionality to get all prometheus rules specified by the
 #### get\_ruler\_rules
 
 ```python
-def get_ruler_rules(recipient: str = "grafana") -> dict
+def get_ruler_rules(datasource_uid: str = "grafana") -> dict
 ```
 
-The method includes a functionality to get all ruler rules specified by the recipient
+The method includes a functionality to get all ruler rules specified by the datasource_uid
 
 **Arguments**:
 
-- `recipient` _str_ - Specify the recipient datasource id of the alerts (default grafana)
+- `datasource_uid` _str_ - Specify the datasource uid or recipient of the alerts (default grafana)
   
 
 **Raises**:
@@ -449,15 +451,15 @@ The method includes a functionality to get all ruler rules specified by the reci
 #### delete\_ruler\_namespace
 
 ```python
-def delete_ruler_namespace(namespace: str, recipient: any = "grafana")
+def delete_ruler_namespace(namespace: str, datasource_uid: str = "grafana")
 ```
 
-The method includes a functionality to delete a ruler namespace specified by the namespace name and the recipient
+The method includes a functionality to delete a ruler namespace specified by the namespace name and the datasource_uid
 
 **Arguments**:
 
 - `namespace` _str_ - Specify the namespace name
-- `recipient` _any_ - Specify the recipient datasource id of the alerts (default grafana)
+- `datasource_uid` _str_ - Specify the datasource uid or recipient of the alerts (default grafana)
   
 
 **Raises**:
@@ -476,15 +478,15 @@ The method includes a functionality to delete a ruler namespace specified by the
 
 ```python
 def get_ruler_groups_by_namespace(namespace: str,
-                                  recipient: any = "grafana") -> dict
+                                  datasource_uid: str = "grafana") -> dict
 ```
 
-The method includes a functionality to get all ruler groups specified by the namespace name and the recipient
+The method includes a functionality to get all ruler groups specified by the namespace name and the datasource_uid
 
 **Arguments**:
 
 - `namespace` _str_ - Specify the namespace name
-- `recipient` _any_ - Specify the recipient datasource id of the alerts (default grafana)
+- `datasource_uid` _str_ - Specify the datasource uid or recipient of the alerts (default grafana)
   
 
 **Raises**:
@@ -505,18 +507,18 @@ The method includes a functionality to get all ruler groups specified by the nam
 def create_or_update_ruler_group_by_namespace(namespace: str,
                                               group_name: str,
                                               rules: list,
-                                              recipient: any = "grafana",
+                                              datasource_uid: str = "grafana",
                                               interval: int = 0)
 ```
 
-The method includes a functionality to create or update a ruler group specified by the namespace name, a ruler group name, a ruler rule object list, the recipient and an interval
+The method includes a functionality to create or update a ruler group specified by the namespace name, a ruler group name, a ruler rule object list, the datasource_uid and an interval
 
 **Arguments**:
 
 - `namespace` _str_ - Specify the namespace name
 - `group_name` _str_ - Specify the ruler group name
 - `rules` _list_ - Specify the ruler rule object list
-- `recipient` _any_ - Specify the recipient datasource id of the alerts (default grafana)
+- `datasource_uid` _str_ - Specify the datasource uid or recipient of the alerts (default grafana)
 - `interval` _int_ - Specify the interval of the ruler (default 0)
   
 
@@ -537,16 +539,16 @@ The method includes a functionality to create or update a ruler group specified 
 ```python
 def delete_ruler_group(namespace: str,
                        group_name: str,
-                       recipient: any = "grafana")
+                       datasource_uid: str = "grafana")
 ```
 
-The method includes a functionality to delete a ruler group specified by the namespace name, a ruler group name and the recipient
+The method includes a functionality to delete a ruler group specified by the namespace name, a ruler group name and the datasource_uid
 
 **Arguments**:
 
 - `namespace` _str_ - Specify the namespace name
 - `group_name` _str_ - Specify the ruler group name
-- `recipient` _any_ - Specify the recipient datasource id of the alerts (default grafana)
+- `datasource_uid` _str_ - Specify the datasource uid or recipient of the alerts (default grafana)
   
 
 **Raises**:
@@ -566,16 +568,16 @@ The method includes a functionality to delete a ruler group specified by the nam
 ```python
 def get_ruler_group(namespace: str,
                     group_name: str,
-                    recipient: any = "grafana") -> dict
+                    datasource_uid: str = "grafana") -> dict
 ```
 
-The method includes a functionality to get a ruler group specified by the namespace name, a ruler group name and the recipient
+The method includes a functionality to get a ruler group specified by the namespace name, a ruler group name and the datasource_uid
 
 **Arguments**:
 
 - `namespace` _str_ - Specify the namespace name
 - `group_name` _str_ - Specify the ruler group name
-- `recipient` _any_ - Specify the recipient datasource id of the alerts (default grafana)
+- `datasource_uid` _str_ - Specify the datasource uid or recipient of the alerts (default grafana)
   
 
 **Raises**:
@@ -613,25 +615,25 @@ The method includes a functionality to test a rule specified by a list of dataso
 
 - `api_call` _str_ - Returns the result of the specified query
 
-<a id="alerting.Alerting.test_recipient_rule"></a>
+<a id="alerting.Alerting.test_datasource_uid_rule"></a>
 
-#### test\_recipient\_rule
+#### test\_datasource\_uid\_rule
 
 ```python
-def test_recipient_rule(expr: str,
-                        condition: str,
-                        data_query: list,
-                        recipient: any = "grafana") -> dict
+def test_datasource_uid_rule(expr: str,
+                             condition: str,
+                             data_query: list,
+                             datasource_uid: str = "grafana") -> dict
 ```
 
-The method includes a functionality to test a recipient role specified by the expr, the condition, a list of data queries and the recipient
+The method includes a functionality to test a datasource uid rule specified by the expr, the condition, a list of data queries and the datasource_uid
 
 **Arguments**:
 
 - `expr` _str_ - Specify a list of datasource rule query objects
 - `condition` _str_ - Specify the condition
 - `data_query` _list_ - Specify a list of datasource rule query objects
-- `recipient` _any_ - Specify the recipient datasource id of the alerts (default grafana)
+- `datasource_uid` _str_ - Specify the datasource uid or recipient of the alerts (default grafana)
   
 
 **Raises**:
@@ -642,7 +644,33 @@ The method includes a functionality to test a recipient role specified by the ex
 
 **Returns**:
 
-- `api_call` _dict_ - Returns the result of the specified recipient rule
+- `api_call` _dict_ - Returns the result of the specified datasource_uid rule
+
+<a id="alerting.Alerting.test_backtest_rule"></a>
+
+#### test\_backtest\_rule
+
+```python
+def test_backtest_rule(condition: str, data_query: list) -> dict
+```
+
+The method includes a functionality to test a rule specified by the condition, a list of data queries
+
+**Arguments**:
+
+- `condition` _str_ - Specify the condition
+- `data_query` _list_ - Specify a list of datasource rule query objects
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+- `api_call` _dict_ - Returns the result of the specified rule
 
 <a id="alerting.Alerting.delete_ngalert_organization_configuration"></a>
 
