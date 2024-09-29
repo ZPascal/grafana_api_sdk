@@ -70,7 +70,7 @@ class Alerting:
             None
         """
 
-        if len(datasource_uid) != 0and alerts != list():
+        if len(datasource_uid) != 0 and alerts != list():
             alerts_json_list: list = list()
 
             for alert in alerts:
@@ -931,7 +931,7 @@ class Alerting:
                 )
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"/api/v1/rule/backtest",
+                "/api/v1/rule/backtest",
                 RequestsMethods.POST,
                 json.dumps(
                     {

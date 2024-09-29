@@ -753,7 +753,7 @@ class AlertingTestCase(TestCase):
         alerting: Alerting = Alerting(grafana_api_model=model)
 
         with self.assertRaises(ValueError):
-            alerting.test_backtest_rule("",  list())
+            alerting.test_backtest_rule("", list())
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_test_recipient_rule_test_not_possible(self, call_the_api_mock):
