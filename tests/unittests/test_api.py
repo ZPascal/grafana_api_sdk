@@ -38,12 +38,16 @@ class ApiTestCase(TestCase):
     @patch("httpx.Client")
     def test_call_the_api_with_proxy_headers(self, httpx_client_mock):
         model: APIModel = APIModel(
-            host="https://test.test.de", username="test", password="test",
-            headers=dict({"X-Custom-Header": "custom_value"})
+            host="https://test.test.de",
+            username="test",
+            password="test",
+            headers=dict({"X-Custom-Header": "custom_value"}),
         )
         api: Api = Api(grafana_api_model=model)
 
-        httpx_client_mock.return_value.request.return_value.text = '{"status": "success"}'
+        httpx_client_mock.return_value.request.return_value.text = (
+            '{"status": "success"}'
+        )
 
         self.assertEqual(
             "success",
@@ -51,7 +55,17 @@ class ApiTestCase(TestCase):
         )
 
         httpx_client_mock.assert_called()
-        self.assertEqual(dict({"X-Custom-Header": "custom_value", "Authorization": "Basic dGVzdDp0ZXN0", "Content-Type": "application/json", "Accept": "application/json"}), httpx_client_mock.call_args[1]["headers"])
+        self.assertEqual(
+            dict(
+                {
+                    "X-Custom-Header": "custom_value",
+                    "Authorization": "Basic dGVzdDp0ZXN0",
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                }
+            ),
+            httpx_client_mock.call_args[1]["headers"],
+        )
 
     @patch("httpx.Client")
     def test_call_the_api_org_id(self, httpx_client_mock):
