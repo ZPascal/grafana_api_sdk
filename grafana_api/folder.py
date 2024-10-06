@@ -23,6 +23,10 @@ class Folder:
     def get_folders(self) -> list:
         """The method includes a functionality to extract all folders inside the organization
 
+        Required Permissions:
+            Action: folders:read
+            Scope: folders:*
+
         Raises:
             Exception: Unspecified error by executing the API call
 
@@ -45,6 +49,10 @@ class Folder:
 
         Args:
             uid (str): Specify the uid of the folder
+
+        Required Permissions:
+            Action: folders:read
+            Scope: folders:*
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -74,6 +82,10 @@ class Folder:
         Args:
             id (int): Specify the id of the folder
 
+        Required Permissions:
+            Action: folders:read
+            Scope: folders:*
+
         Raises:
             ValueError: Missed specifying a necessary value
             Exception: Unspecified error by executing the API call
@@ -96,12 +108,17 @@ class Folder:
             logging.error("There is no folder id defined.")
             raise ValueError
 
-    def create_folder(self, title: str, uid: str = None) -> dict:
+    def create_folder(self, title: str, uid: str = None, parent_uid: str = None) -> dict:
         """The method includes a functionality to create a new folder inside the organization specified by the defined title and the optional uid
 
         Args:
             title (str): Specify the title of the folder
             uid (str): Specify the uid of the folder (default None)
+            parent_uid (str): Specify the parent_uid of the folder (default None)
+
+        Required Permissions:
+            Action: folders:create, folders:write
+            Scope: folders:*
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -117,6 +134,9 @@ class Folder:
 
             if uid is not None and len(uid) != 0:
                 folder_information.update({"uid": uid})
+
+            if parent_uid is not None and len(parent_uid) != 0:
+                folder_information.update({"parentUid": parent_uid})
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 APIEndpoints.FOLDERS.value,
@@ -143,6 +163,10 @@ class Folder:
             uid (str): Specify the uid of the folder
             version (int): Specify the version of the folder (default 0)
             overwrite (bool): Should the already existing folder information be overwritten (default False)
+
+        Required Permissions:
+            Action: folders:write
+            Scope: folders:*
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -179,11 +203,56 @@ class Folder:
             logging.error("There is no folder title, version or uid defined.")
             raise ValueError
 
+    def move_folder(self, uid: str, parent_uid: str = None):
+        """The method includes a functionality to move a folder inside the organization specified by the defined uid. This feature is only relevant if nested folders are enabled
+
+        Args:
+            uid (str): Specify the uid of the folder
+            parent_uid (str): Specify the parent_uid of the folder. If the value is None, then the folder is moved under the root (default None)
+
+        Required Permissions:
+            Action: folders:create, folders:write
+            Scope: folders:*, folders:uid:<destination folder UID>
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (dict): Returns the moved folder
+        """
+
+        if len(uid) != 0:
+            folder_information: dict = dict()
+
+            if parent_uid is not None and len(parent_uid) != 0:
+                folder_information.update({"parentUid": parent_uid})
+
+            api_call = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.FOLDERS.value}/{uid}/move",
+                RequestsMethods.POST,
+                json.dumps(folder_information),
+            )
+
+            if api_call == dict() or api_call.get("id") is None:
+                logging.error(f"Please, check the error: {api_call}.")
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error("There is no folder uid defined.")
+            raise ValueError
+
+
     def delete_folder(self, uid: str):
         """The method includes a functionality to delete a folder inside the organization specified by the defined uid
 
         Args:
             uid (str): Specify the uid of the folder
+
+        Required Permissions:
+            Action: folders:delete
+            Scope: folders:*
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -220,6 +289,10 @@ class Folder:
         Args:
             uid (str): Specify the uid of the folder
 
+        Required Permissions:
+            Action: folders.permissions:read
+            Scope: folders:*
+
         Raises:
             ValueError: Missed specifying a necessary value
             Exception: Unspecified error by executing the API call
@@ -249,6 +322,10 @@ class Folder:
         Args:
             uid (str): Specify the uid of the folder
             permission_json (dict): Specify the inserted permissions as dict
+
+        Required Permissions:
+            Action: folders.permissions:write
+            Scope: folders:*
 
         Raises:
             ValueError: Missed specifying a necessary value

@@ -738,7 +738,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
         datasource_rule_query: DatasourceRuleQuery = DatasourceRuleQuery(
-            "test", {"test": "test"}, "test", "test", {"test": "test"}
+            "test", {"test": "test"}, "datasourceUid", "test", {"test": "test"}
         )
 
         call_the_api_mock.return_value = dict({"test": "test"})
@@ -756,17 +756,30 @@ class AlertingTestCase(TestCase):
             alerting.test_backtest_rule("", list())
 
     @patch("grafana_api.api.Api.call_the_api")
-    def test_test_recipient_rule_test_not_possible(self, call_the_api_mock):
+    def test_test_backtest_rule_no_fields(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
         datasource_rule_query: DatasourceRuleQuery = DatasourceRuleQuery(
-            "test", {"test": "test"}, "test", "test", {"test": "test"}
+            "test", {"test": "test"}, "datasourceUid", "test", {"test": "test"}
         )
 
         call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
-            alerting.test_recipient_rule("test", "test", [datasource_rule_query])
+            alerting.test_backtest_rule("test", [datasource_rule_query])
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_test_datasource_uid_rule_test_not_possible(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting: Alerting = Alerting(grafana_api_model=model)
+        datasource_rule_query: DatasourceRuleQuery = DatasourceRuleQuery(
+            "test", {"test": "test"}, "datasourceUid", "test", {"test": "test"}
+        )
+
+        call_the_api_mock.return_value = dict()
+
+        with self.assertRaises(Exception):
+            alerting.test_datasource_uid_rule("test", "test", [datasource_rule_query])
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_delete_ngalert_organization_configuration(self, call_the_api_mock):

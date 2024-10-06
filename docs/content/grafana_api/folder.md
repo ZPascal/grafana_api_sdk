@@ -7,6 +7,7 @@
     * [get\_folder\_by\_id](#folder.Folder.get_folder_by_id)
     * [create\_folder](#folder.Folder.create_folder)
     * [update\_folder](#folder.Folder.update_folder)
+    * [move\_folder](#folder.Folder.move_folder)
     * [delete\_folder](#folder.Folder.delete_folder)
     * [get\_folder\_permissions](#folder.Folder.get_folder_permissions)
     * [update\_folder\_permissions](#folder.Folder.update_folder_permissions)
@@ -46,6 +47,10 @@ def get_folders() -> list
 
 The method includes a functionality to extract all folders inside the organization
 
+Required Permissions:
+Action: folders:read
+Scope: folders:*
+
 **Raises**:
 
 - `Exception` - Unspecified error by executing the API call
@@ -68,6 +73,10 @@ The method includes a functionality to extract all folder information specified 
 **Arguments**:
 
 - `uid` _str_ - Specify the uid of the folder
+  
+  Required Permissions:
+- `Action` - folders:read
+- `Scope` - folders:*
   
 
 **Raises**:
@@ -94,6 +103,10 @@ The method includes a functionality to extract all folder information specified 
 
 - `id` _int_ - Specify the id of the folder
   
+  Required Permissions:
+- `Action` - folders:read
+- `Scope` - folders:*
+  
 
 **Raises**:
 
@@ -110,7 +123,7 @@ The method includes a functionality to extract all folder information specified 
 #### create\_folder
 
 ```python
-def create_folder(title: str, uid: str = None) -> dict
+def create_folder(title: str, uid: str = None, parent_uid: str = None) -> dict
 ```
 
 The method includes a functionality to create a new folder inside the organization specified by the defined title and the optional uid
@@ -119,6 +132,11 @@ The method includes a functionality to create a new folder inside the organizati
 
 - `title` _str_ - Specify the title of the folder
 - `uid` _str_ - Specify the uid of the folder (default None)
+- `parent_uid` _str_ - Specify the parent_uid of the folder (default None)
+  
+  Required Permissions:
+- `Action` - folders:create, folders:write
+- `Scope` - folders:*
   
 
 **Raises**:
@@ -151,6 +169,10 @@ The method includes a functionality to update a folder information inside the or
 - `version` _int_ - Specify the version of the folder (default 0)
 - `overwrite` _bool_ - Should the already existing folder information be overwritten (default False)
   
+  Required Permissions:
+- `Action` - folders:write
+- `Scope` - folders:*
+  
 
 **Raises**:
 
@@ -161,6 +183,36 @@ The method includes a functionality to update a folder information inside the or
 **Returns**:
 
 - `api_call` _dict_ - Returns an updated folder
+
+<a id="folder.Folder.move_folder"></a>
+
+#### move\_folder
+
+```python
+def move_folder(uid: str, parent_uid: str = None)
+```
+
+The method includes a functionality to move a folder inside the organization specified by the defined uid. This feature is only relevant if nested folders are enabled
+
+**Arguments**:
+
+- `uid` _str_ - Specify the uid of the folder
+- `parent_uid` _str_ - Specify the parent_uid of the folder. If the value is None, then the folder is moved under the root (default None)
+  
+  Required Permissions:
+- `Action` - folders:create, folders:write
+- `Scope` - folders:*, folders:uid:<destination folder UID>
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+- `api_call` _dict_ - Returns the moved folder
 
 <a id="folder.Folder.delete_folder"></a>
 
@@ -175,6 +227,10 @@ The method includes a functionality to delete a folder inside the organization s
 **Arguments**:
 
 - `uid` _str_ - Specify the uid of the folder
+  
+  Required Permissions:
+- `Action` - folders:delete
+- `Scope` - folders:*
   
 
 **Raises**:
@@ -201,6 +257,10 @@ The method includes a functionality to extract the folder permissions inside the
 
 - `uid` _str_ - Specify the uid of the folder
   
+  Required Permissions:
+- `Action` - folders.permissions:read
+- `Scope` - folders:*
+  
 
 **Raises**:
 
@@ -226,6 +286,10 @@ The method includes a functionality to update the folder permissions based on th
 
 - `uid` _str_ - Specify the uid of the folder
 - `permission_json` _dict_ - Specify the inserted permissions as dict
+  
+  Required Permissions:
+- `Action` - folders.permissions:write
+- `Scope` - folders:*
   
 
 **Raises**:

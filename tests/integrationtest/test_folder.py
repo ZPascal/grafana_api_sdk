@@ -69,14 +69,35 @@ class FolderTest(TestCase):
 
         self.assertEqual("test1", self.folder.get_folders()[1].get("title"))
 
-    def test_b_update_folder(self):
+    def test_b_subfolder(self):
+        parent_uid = self.folder.get_folders()[1].get("uid")
+
+        subfolder: dict = self.folder.create_folder("test2", parent_uid=parent_uid)
+
+        self.assertEqual("test2", self.folder.get_folder_by_uid(subfolder["uid"]).get("title"))
+
+    def test_c_update_folder(self):
         self.folder.update_folder(
             "test2", self.folder.get_folders()[1].get("uid"), version=1
         )
 
         self.assertEqual("test2", self.folder.get_folders()[1].get("title"))
 
-    def test_c_delete_folder(self):
+    def test_d_move_folder(self):
+        parent_uid = self.folder.get_folders()[1].get("uid")
+
+        folder_uid_a = self.folder.create_folder("test11", parent_uid=parent_uid)["uid"]
+        folder_uid_b = self.folder.create_folder("test12")["uid"]
+
+        self.assertEqual("test12", self.folder.get_folder_by_uid(folder_uid_b)["title"])
+
+        moved_folder: dict = self.folder.move_folder(folder_uid_a, parent_uid=folder_uid_b)
+
+        self.assertEqual("test12", moved_folder["parents"][0]["title"])
+        self.folder.delete_folder(moved_folder["parents"][0]["uid"])
+
+
+    def test_e_delete_folder(self):
         self.folder.delete_folder(self.folder.get_folders()[1].get("uid"))
 
         self.assertEqual(1, len(self.folder.get_folders()))
@@ -110,7 +131,7 @@ class FolderTest(TestCase):
             self.folder.get_folder_permissions("6U_QdWJnz"),
         )
 
-    def test_d_update_folder_permissions(self):
+    def test_f_update_folder_permissions(self):
         permission_dict: dict = dict({"items": [{"role": "Viewer", "permission": 2}]})
 
         self.folder.update_folder_permissions("6U_QdWJnz", permission_dict)
