@@ -203,7 +203,9 @@ class AlertingTestCase(TestCase):
         )
 
     @patch("grafana_api.api.Api.call_the_api")
-    def test_create_or_update_alertmanager_silence_return_silence_id(self, call_the_api_mock):
+    def test_create_or_update_alertmanager_silence_return_silence_id(
+        self, call_the_api_mock
+    ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
         silence: Silence = Silence(

@@ -108,7 +108,9 @@ class Folder:
             logging.error("There is no folder id defined.")
             raise ValueError
 
-    def create_folder(self, title: str, uid: str = None, parent_uid: str = None) -> dict:
+    def create_folder(
+        self, title: str, uid: str = None, parent_uid: str = None
+    ) -> dict:
         """The method includes a functionality to create a new folder inside the organization specified by the defined title and the optional uid
 
         Args:
@@ -242,7 +244,6 @@ class Folder:
         else:
             logging.error("There is no folder uid defined.")
             raise ValueError
-
 
     def delete_folder(self, uid: str):
         """The method includes a functionality to delete a folder inside the organization specified by the defined uid

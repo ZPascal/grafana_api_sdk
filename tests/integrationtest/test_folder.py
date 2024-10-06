@@ -74,7 +74,9 @@ class FolderTest(TestCase):
 
         subfolder: dict = self.folder.create_folder("test2", parent_uid=parent_uid)
 
-        self.assertEqual("test2", self.folder.get_folder_by_uid(subfolder["uid"]).get("title"))
+        self.assertEqual(
+            "test2", self.folder.get_folder_by_uid(subfolder["uid"]).get("title")
+        )
 
     def test_c_update_folder(self):
         self.folder.update_folder(
@@ -91,11 +93,12 @@ class FolderTest(TestCase):
 
         self.assertEqual("test12", self.folder.get_folder_by_uid(folder_uid_b)["title"])
 
-        moved_folder: dict = self.folder.move_folder(folder_uid_a, parent_uid=folder_uid_b)
+        moved_folder: dict = self.folder.move_folder(
+            folder_uid_a, parent_uid=folder_uid_b
+        )
 
         self.assertEqual("test12", moved_folder["parents"][0]["title"])
         self.folder.delete_folder(moved_folder["parents"][0]["uid"])
-
 
     def test_e_delete_folder(self):
         self.folder.delete_folder(self.folder.get_folders()[1].get("uid"))

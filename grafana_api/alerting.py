@@ -151,11 +151,7 @@ class Alerting:
                 RequestsMethods.DELETE,
             )
 
-            if (
-                    api_call == dict()
-                    or api_call.get("message")
-                    != "silence deleted"
-            ):
+            if api_call == dict() or api_call.get("message") != "silence deleted":
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
@@ -258,7 +254,9 @@ class Alerting:
                 json.dumps(silence_json_dict),
             )
 
-            if api_call == dict() or (api_call.get("id") is None and api_call.get("silenceID") is None):
+            if api_call == dict() or (
+                api_call.get("id") is None and api_call.get("silenceID") is None
+            ):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -661,7 +659,12 @@ class Alerting:
             None
         """
 
-        if len(datasource_uid) != 0 and len(namespace) != 0 and len(group_name) != 0 and rules != list():
+        if (
+            len(datasource_uid) != 0
+            and len(namespace) != 0
+            and len(group_name) != 0
+            and rules != list()
+        ):
             rules_json_list: list = list()
 
             for rule in rules:
@@ -696,7 +699,9 @@ class Alerting:
             else:
                 logging.info("You successfully created an ruler group.")
         else:
-            logging.error("There is no datasource_uid, namespace, name or rules defined.")
+            logging.error(
+                "There is no datasource_uid, namespace, name or rules defined."
+            )
             raise ValueError
 
     def delete_ruler_group(
@@ -729,7 +734,9 @@ class Alerting:
             else:
                 logging.info("You successfully deleted a ruler group.")
         else:
-            logging.error("There is no datasource_uid, namespace or group_name defined.")
+            logging.error(
+                "There is no datasource_uid, namespace or group_name defined."
+            )
             raise ValueError
 
     def get_ruler_group(
@@ -761,7 +768,9 @@ class Alerting:
             else:
                 return api_call
         else:
-            logging.error("There is no datasource_uid, namespace or group_name defined.")
+            logging.error(
+                "There is no datasource_uid, namespace or group_name defined."
+            )
             raise ValueError
 
     def test_rule(self, data_query: list) -> dict:
@@ -823,7 +832,11 @@ class Alerting:
             raise ValueError
 
     def test_datasource_uid_rule(
-        self, expr: str, condition: str, data_query: list, datasource_uid: str = "grafana"
+        self,
+        expr: str,
+        condition: str,
+        data_query: list,
+        datasource_uid: str = "grafana",
     ) -> dict:
         """The method includes a functionality to test a datasource uid rule specified by the expr, the condition, a list of data queries and the datasource_uid
 
@@ -841,7 +854,12 @@ class Alerting:
             api_call (dict): Returns the result of the specified datasource_uid rule
         """
 
-        if len(datasource_uid) != 0 and len(expr) != 0 and len(condition) != 0 and data_query != list():
+        if (
+            len(datasource_uid) != 0
+            and len(expr) != 0
+            and len(condition) != 0
+            and data_query != list()
+        ):
             datasource_rule_query_objects_json: list = list()
             datasource_rule_query_object_json: dict = dict()
 
@@ -1045,9 +1063,7 @@ class Alerting:
                     "You successfully created an NGAlert organization configuration."
                 )
         else:
-            logging.error(
-                "There is no alert_managers or alertmanagers_choice defined."
-            )
+            logging.error("There is no alert_managers or alertmanagers_choice defined.")
             raise ValueError
 
     def get_ngalert_alertmanagers_by_organization(self) -> dict:

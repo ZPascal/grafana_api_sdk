@@ -113,7 +113,9 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"title": None, "id": 12, "parent_uid": "test"})
+        call_the_api_mock.return_value = dict(
+            {"title": None, "id": 12, "parent_uid": "test"}
+        )
 
         self.assertEqual(
             dict({"title": None, "id": 12, "parent_uid": "test"}),
@@ -215,7 +217,6 @@ class FolderTestCase(TestCase):
         with self.assertRaises(ValueError):
             folder.move_folder("")
 
-
     @patch("grafana_api.api.Api.call_the_api")
     def test_move_folder_parent_uid(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -237,7 +238,6 @@ class FolderTestCase(TestCase):
 
         with self.assertRaises(Exception):
             folder.move_folder("test")
-
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_delete_folder(self, call_the_api_mock):
