@@ -28,9 +28,9 @@ class User:
     def search_users(
         self,
         results_per_page: int = 1000,
-        pages: int = 1,
+        page: int = 1,
         query: str = None,
-    ) -> list:
+    ) -> dict:
         """The method includes a functionality to get all Grafana system users specified by the optional query and paging functionality
 
         Required Permissions:
@@ -39,28 +39,28 @@ class User:
 
         Args:
             results_per_page (int): Specify the results_per_page as integer (default 1000)
-            pages (int): Specify the pages as integer (default 1)
+            page (int): Specify the page as integer (default 1)
             query (str): Specify the query (default None)
 
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
-            api_call (list): Returns the list of Grafana users
+            api_call (dict): Returns the list of Grafana users
         """
 
         api_request_url: str = (
-            f"{APIEndpoints.USERS.value}/search?perpage={results_per_page}&page={pages}"
+            f"{APIEndpoints.USERS.value}/search?perpage={results_per_page}&page={page}"
         )
 
         if query is not None and len(query) != 0:
             api_request_url: str = f"{api_request_url}&query={query}"
 
-        api_call: list = Api(self.grafana_api_model).call_the_api(
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
             api_request_url,
         )
 
-        if api_call == list() or api_call[0].get("id") is None:
+        if api_call == dict() or api_call.get("users") == list() or api_call.get("users")[0].get("id") is None:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
