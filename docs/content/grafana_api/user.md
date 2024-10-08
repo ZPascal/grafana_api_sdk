@@ -3,6 +3,7 @@
 * [user](#user)
   * [User](#user.User)
     * [search\_users](#user.User.search_users)
+    * [search\_users\_with\_paging](#user.User.search_users_with_paging)
     * [get\_user\_by\_id](#user.User.get_user_by_id)
     * [get\_user\_by\_username\_or\_email](#user.User.get_user_by_username_or_email)
     * [update\_user](#user.User.update_user)
@@ -51,11 +52,11 @@ HINT: Note Grafana Enterprise API need required permissions if fine-grained acce
 
 ```python
 def search_users(results_per_page: int = 1000,
-                 pages: int = 1,
-                 query: str = None) -> list
+                 page: int = 1,
+                 sort: str = None) -> list
 ```
 
-The method includes a functionality to get all Grafana system users specified by the optional query and paging functionality
+The method includes a functionality to get all Grafana system users specified by the optional results_per_page, page and sort option
 
 Required Permissions:
 Action: users:read
@@ -64,8 +65,8 @@ Scope: global.users:*
 **Arguments**:
 
 - `results_per_page` _int_ - Specify the results_per_page as integer (default 1000)
-- `pages` _int_ - Specify the pages as integer (default 1)
-- `query` _str_ - Specify the query (default None)
+- `page` _int_ - Specify the page as integer (default 1)
+- `sort` _str_ - Specify the sort option. Valid values are login-asc, login-desc, email-asc, email-desc, name-asc, name-desc, lastSeenAtAge-asc and lastSeenAtAge-desc. By default, if sort is not specified, the user list will be ordered by login, email in ascending order (default None)
   
 
 **Raises**:
@@ -76,6 +77,40 @@ Scope: global.users:*
 **Returns**:
 
 - `api_call` _list_ - Returns the list of Grafana users
+
+<a id="user.User.search_users_with_paging"></a>
+
+#### search\_users\_with\_paging
+
+```python
+def search_users_with_paging(results_per_page: int = 1000,
+                             page: int = 1,
+                             query: str = None,
+                             sort: str = None) -> dict
+```
+
+The method includes a functionality to get all Grafana system users specified by the optional results_per_page, page, query, sort and general paging functionality
+
+Required Permissions:
+Action: users:read
+Scope: global.users:*
+
+**Arguments**:
+
+- `results_per_page` _int_ - Specify the results_per_page as integer (default 1000)
+- `page` _int_ - Specify the page as integer (default 1)
+- `query` _str_ - Specify the query (default None)
+- `sort` _str_ - Specify the sort option. Valid values are login-asc, login-desc, email-asc, email-desc, name-asc, name-desc, lastSeenAtAge-asc and lastSeenAtAge-desc. By default, if sort is not specified, the user list will be ordered by login, email in ascending order (default None)
+  
+
+**Raises**:
+
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+- `api_call` _dict_ - Returns the Grafana users
 
 <a id="user.User.get_user_by_id"></a>
 
