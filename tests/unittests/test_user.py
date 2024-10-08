@@ -18,7 +18,7 @@ class UserTestCase(TestCase):
         self.assertEqual(list([{"id": 1}]), user.search_users())
 
     @patch("grafana_api.api.Api.call_the_api")
-    def test_search_users_query(self, call_the_api_mock):
+    def test_search_users_sort(self, call_the_api_mock):
         model: APIModel = APIModel(
             host=MagicMock(), username=MagicMock(), password=MagicMock()
         )
@@ -28,7 +28,7 @@ class UserTestCase(TestCase):
 
         self.assertEqual(
             list([{"id": 1}]),
-            user.search_users(query="Test"),
+            user.search_users(sort="login-asc"),
         )
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -42,6 +42,57 @@ class UserTestCase(TestCase):
 
         with self.assertRaises(Exception):
             user.search_users()
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_search_users_with_paging(self, call_the_api_mock):
+        model: APIModel = APIModel(
+            host=MagicMock(), username=MagicMock(), password=MagicMock()
+        )
+        user: User = User(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict({"users": []})
+
+        self.assertEqual(dict({"users": []}), user.search_users_with_paging())
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_search_users_with_paging_query(self, call_the_api_mock):
+        model: APIModel = APIModel(
+            host=MagicMock(), username=MagicMock(), password=MagicMock()
+        )
+        user: User = User(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict({"users": []})
+
+        self.assertEqual(
+            dict({"users": []}),
+            user.search_users_with_paging(query="test"),
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_search_users_with_paging_sort(self, call_the_api_mock):
+        model: APIModel = APIModel(
+            host=MagicMock(), username=MagicMock(), password=MagicMock()
+        )
+        user: User = User(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict({"users": []})
+
+        self.assertEqual(
+            dict({"users": []}),
+            user.search_users_with_paging(sort="login-asc"),
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_search_users_with_paging_no_users(self, call_the_api_mock):
+        model: APIModel = APIModel(
+            host=MagicMock(), username=MagicMock(), password=MagicMock()
+        )
+        user: User = User(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict()
+
+        with self.assertRaises(Exception):
+            user.search_users_with_paging()
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_user_by_id(self, call_the_api_mock):

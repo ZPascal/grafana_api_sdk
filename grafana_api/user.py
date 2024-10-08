@@ -28,10 +28,10 @@ class User:
     def search_users(
         self,
         results_per_page: int = 1000,
-        pages: int = 1,
-        query: str = None,
+        page: int = 1,
+        sort: str = None,
     ) -> list:
-        """The method includes a functionality to get all Grafana system users specified by the optional query and paging functionality
+        """The method includes a functionality to get all Grafana system users specified by the optional results_per_page, page and sort option
 
         Required Permissions:
             Action: users:read
@@ -39,8 +39,8 @@ class User:
 
         Args:
             results_per_page (int): Specify the results_per_page as integer (default 1000)
-            pages (int): Specify the pages as integer (default 1)
-            query (str): Specify the query (default None)
+            page (int): Specify the page as integer (default 1)
+            sort (str): Specify the sort option. Valid values are login-asc, login-desc, email-asc, email-desc, name-asc, name-desc, lastSeenAtAge-asc and lastSeenAtAge-desc. By default, if sort is not specified, the user list will be ordered by login, email in ascending order (default None)
 
         Raises:
             Exception: Unspecified error by executing the API call
@@ -50,17 +50,63 @@ class User:
         """
 
         api_request_url: str = (
-            f"{APIEndpoints.USERS.value}/search?perpage={results_per_page}&page={pages}"
+            f"{APIEndpoints.USERS.value}?perpage={results_per_page}&page={page}"
         )
 
-        if query is not None and len(query) != 0:
-            api_request_url: str = f"{api_request_url}&query={query}"
+        if sort is not None and len(sort) != 0:
+            api_request_url: str = f"{api_request_url}&sort={sort}"
 
         api_call: list = Api(self.grafana_api_model).call_the_api(
             api_request_url,
         )
 
         if api_call == list() or api_call[0].get("id") is None:
+            logging.error(f"Check the error: {api_call}.")
+            raise Exception
+        else:
+            return api_call
+
+    def search_users_with_paging(
+        self,
+        results_per_page: int = 1000,
+        pages: int = 1,
+        query: str = None,
+        sort: str = None
+    ) -> dict:
+        """The method includes a functionality to get all Grafana system users specified by the optional results_per_page, page, query, sort and general paging functionality
+
+        Required Permissions:
+            Action: users:read
+            Scope: global.users:*
+
+        Args:
+            results_per_page (int): Specify the results_per_page as integer (default 1000)
+            pages (int): Specify the pages as integer (default 1)
+            query (str): Specify the query (default None)
+            sort (str): Specify the sort option. Valid values are login-asc, login-desc, email-asc, email-desc, name-asc, name-desc, lastSeenAtAge-asc and lastSeenAtAge-desc. By default, if sort is not specified, the user list will be ordered by login, email in ascending order (default None)
+
+        Raises:
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (dict): Returns the Grafana users
+        """
+
+        api_request_url: str = (
+            f"{APIEndpoints.USERS.value}/search?perpage={results_per_page}&page={pages}"
+        )
+
+        if query is not None and len(query) != 0:
+            api_request_url: str = f"{api_request_url}&query={query}"
+
+        if sort is not None and len(sort) != 0:
+            api_request_url: str = f"{api_request_url}&sort={sort}"
+
+        api_call: dict = Api(self.grafana_api_model).call_the_api(
+            api_request_url,
+        )
+
+        if api_call == dict() or api_call.get("users") is None:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
