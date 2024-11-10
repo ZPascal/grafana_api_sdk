@@ -4,7 +4,6 @@ from unittest import TestCase
 
 from grafana_api.model import APIModel
 from grafana_api.service_account import ServiceAccount
-from grafana_api.authentication import Authentication
 
 
 class ServiceAccountTest(TestCase):
@@ -68,7 +67,7 @@ class ServiceAccountTest(TestCase):
             2, len(self.service_account.search_service_account().get("serviceAccounts"))
         )
 
-        #TODO Add the APi token functionality
+        # TODO Add the APi token functionality
 
         self.service_account.delete_service_account(service_account.get("id"))
         self.assertEqual(
