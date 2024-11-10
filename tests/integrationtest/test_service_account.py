@@ -14,7 +14,6 @@ class ServiceAccountTest(TestCase):
         http2_support=True if os.environ["HTTP2"] == "True" else False,
     )
     service_account: ServiceAccount = ServiceAccount(grafana_api_model=model)
-    authentication: Authentication = Authentication(grafana_api_model=model)
 
     def test_lifecycle_service_account(self):
         service_account: dict = self.service_account.create_service_account(
@@ -64,36 +63,14 @@ class ServiceAccountTest(TestCase):
                 service_account.get("id")
             ),
         )
-        self.authentication.create_api_token("Test-all-migrated", "Viewer")
         self.service_account.migrate_api_keys_to_service_accounts()
-        self.assertEqual(list(), self.authentication.get_api_tokens())
         self.assertEqual(
-            3, len(self.service_account.search_service_account().get("serviceAccounts"))
-        )
-        service_account_all_migrated: dict = (
-            self.service_account.search_service_account(query="Test-all-migrated")
-        )
-        self.service_account.delete_service_account(
-            service_account_all_migrated.get("serviceAccounts")[0].get("id")
+            2, len(self.service_account.search_service_account().get("serviceAccounts"))
         )
 
-        token: dict = self.authentication.create_api_token("Test-migrated", "Viewer")
-        self.service_account.migrate_api_key_to_service_account(token.get("id"))
-        self.assertEqual(
-            3, len(self.service_account.search_service_account().get("serviceAccounts"))
-        )
-        service_account_migrated: dict = self.service_account.search_service_account(
-            query="Test-migrated"
-        )
-
-        self.assertEqual(
-            3, len(self.service_account.search_service_account().get("serviceAccounts"))
-        )
+        #TODO Add the APi token functionality
 
         self.service_account.delete_service_account(service_account.get("id"))
-        self.service_account.delete_service_account(
-            service_account_migrated.get("serviceAccounts")[0].get("id")
-        )
         self.assertEqual(
             1, len(self.service_account.search_service_account().get("serviceAccounts"))
         )

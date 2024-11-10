@@ -137,6 +137,7 @@ class Correlations:
                             "targetUID": correlation_object.target_datasource_uid,
                             "label": correlation_object.label,
                             "description": correlation_object.description,
+                            "type": correlation_object.config_type,
                             "config": {
                                 "type": correlation_object.config_type,
                                 "field": correlation_object.config_field,

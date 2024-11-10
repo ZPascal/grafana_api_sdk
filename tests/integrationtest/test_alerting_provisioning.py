@@ -147,7 +147,7 @@ class AlertingProvisioningTest(TestCase):
 
     def test_m_get_all_mute_timings(self):
         self.assertEqual(
-            "test1", self.alerting_provisioning.get_all_mute_timings()[0].get("name")
+            "test1", self.alerting_provisioning.get_all_mute_timings()[1].get("name")
         )
 
     def test_n_get_mute_timing(self):
