@@ -62,12 +62,11 @@ class ServiceAccountTest(TestCase):
                 service_account.get("id")
             ),
         )
-        self.service_account.migrate_api_keys_to_service_accounts()
         self.assertEqual(
             2, len(self.service_account.search_service_account().get("serviceAccounts"))
         )
-
-        # TODO Add the APi token functionality
+        self.service_account.create_service_account_token_by_id(service_account.get("id"), "Test", "Viewer")
+        self.assertEqual(1, self.service_account.search_service_account().get("serviceAccounts")[0].get("tokens"))
 
         self.service_account.delete_service_account(service_account.get("id"))
         self.assertEqual(
