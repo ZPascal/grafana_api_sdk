@@ -69,7 +69,6 @@ class CorrelationsTest(TestCase):
         )
 
     def test_c_delete_data_source(self):
-        pass
         self.assertEqual(
             None, self.data_source.delete_datasource_by_name("TestData DB 1")
         )
