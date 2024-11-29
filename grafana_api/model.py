@@ -99,7 +99,7 @@ class APIModel:
     headers: dict = None
     timeout: float = 10.0
     http2_support: bool = False
-    ssl_context: ssl.SSLContext = httpx.create_ssl_context(http2=http2_support)
+    ssl_context: ssl.SSLContext = httpx.create_ssl_context()
     num_pools: int = 10
     retries: any = 10
 
