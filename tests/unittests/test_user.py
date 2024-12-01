@@ -274,6 +274,17 @@ class UserTestCase(TestCase):
 
         call_the_api_mock.return_value = list()
 
+        self.assertEqual(list(), user.get_user_teams(1))
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_user_teams_invalid_teams(self, call_the_api_mock):
+        model: APIModel = APIModel(
+            host=MagicMock(), username=MagicMock(), password=MagicMock()
+        )
+        user: User = User(grafana_api_model=model)
+
+        call_the_api_mock.return_value = list([{"id": None}])
+
         with self.assertRaises(Exception):
             user.get_user_teams(1)
 
@@ -429,6 +440,15 @@ class CurrentUserTestCase(TestCase):
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
 
         call_the_api_mock.return_value = list()
+
+        self.assertEqual(list(), current_user.get_user_teams())
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_user_teams_invalid_teams(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        current_user: CurrentUser = CurrentUser(grafana_api_model=model)
+
+        call_the_api_mock.return_value = list([{"id": None}])
 
         with self.assertRaises(Exception):
             current_user.get_user_teams()

@@ -275,7 +275,7 @@ class User:
                 f"{APIEndpoints.USERS.value}/{id}/teams",
             )
 
-            if api_call == list() or api_call[0].get("id") is None:
+            if api_call != list() and api_call[0].get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -459,7 +459,7 @@ class CurrentUser:
             f"{APIEndpoints.USER.value}/teams",
         )
 
-        if api_call == list() or api_call[0].get("id") is None:
+        if api_call != list() and api_call[0].get("id") is None:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
