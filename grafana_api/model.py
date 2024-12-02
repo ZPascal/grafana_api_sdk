@@ -86,7 +86,7 @@ class APIModel:
         ssl_context (ssl.SSLContext): Specify the custom ssl context of the Grafana system
         num_pools (int): Specify the number of the connection pool
         retries (any): Specify the number of the retries. Please use False as parameter to disable the retries
-        follow_redirects (bool): Specify if redirects should be followed (default True)
+        follow_redirects (bool): Specify if redirections should be followed (default True)
     """
 
     host: str
