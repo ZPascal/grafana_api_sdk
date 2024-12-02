@@ -773,11 +773,11 @@ class Alerting:
             )
             raise ValueError
 
-    def test_rule(self, data_query: list) -> dict:
+    def test_rule(self, data_queries: list) -> dict:
         """The method includes a functionality to test a rule specified by a list of datasource rule query objects
 
         Args:
-            data_query (list): Specify a list of datasource rule query objects
+            data_queries (list): Specify a list of datasource rule query objects
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -787,11 +787,11 @@ class Alerting:
             api_call (str): Returns the result of the specified query
         """
 
-        if data_query != list():
+        if data_queries != list():
             datasource_rule_query_objects_json: list = list()
             datasource_rule_query_object_json: dict = dict()
 
-            for datasource_rule_query_object in data_query:
+            for datasource_rule_query_object in data_queries:
                 datasource_rule_query_object_json["datasourceUid"] = (
                     datasource_rule_query_object.datasource_uid
                 )
@@ -828,14 +828,14 @@ class Alerting:
             else:
                 return api_call
         else:
-            logging.error("There is no data_query defined.")
+            logging.error("There is no data_queries defined.")
             raise ValueError
 
     def test_datasource_uid_rule(
         self,
         expr: str,
         condition: str,
-        data_query: list,
+        data_queries: list,
         datasource_uid: str = "grafana",
     ) -> dict:
         """The method includes a functionality to test a datasource uid rule specified by the expr, the condition, a list of data queries and the datasource_uid
@@ -843,7 +843,7 @@ class Alerting:
         Args:
             expr (str): Specify a list of datasource rule query objects
             condition (str): Specify the condition
-            data_query (list): Specify a list of datasource rule query objects
+            data_queries (list): Specify a list of datasource rule query objects
             datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
 
         Raises:
@@ -858,12 +858,12 @@ class Alerting:
             len(datasource_uid) != 0
             and len(expr) != 0
             and len(condition) != 0
-            and data_query != list()
+            and data_queries != list()
         ):
             datasource_rule_query_objects_json: list = list()
             datasource_rule_query_object_json: dict = dict()
 
-            for datasource_rule_query_object in data_query:
+            for datasource_rule_query_object in data_queries:
                 datasource_rule_query_object_json["datasourceUid"] = (
                     datasource_rule_query_object.datasource_uid
                 )
@@ -889,7 +889,7 @@ class Alerting:
                 json.dumps(
                     {
                         "expr": expr,
-                        "grafana_alert": {
+                        "grafana_condition": {
                             "condition": condition,
                             "data": datasource_rule_query_objects_json,
                             "now": str(datetime.datetime.now()),
@@ -905,16 +905,16 @@ class Alerting:
                 return api_call
         else:
             logging.error(
-                "There is no datasource_uid, expr, condition or data_query defined."
+                "There is no datasource_uid, expr, condition or data_queries defined."
             )
             raise ValueError
 
-    def test_backtest_rule(self, condition: str, data_query: list) -> dict:
-        """The method includes a functionality to test a rule specified by the condition, a list of data queries
+    def test_backtest_rule(self, condition: str, data_queries: list) -> dict:
+        """The method includes a functionality to test a rule specified by the condition and a list of data queries
 
         Args:
             condition (str): Specify the condition
-            data_query (list): Specify a list of datasource rule query objects
+            data_queries (list): Specify a list of datasource rule query objects
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -924,11 +924,11 @@ class Alerting:
             api_call (dict): Returns the result of the specified rule
         """
 
-        if len(condition) != 0 and data_query != list():
+        if len(condition) != 0 and data_queries != list():
             datasource_rule_query_objects_json: list = list()
             datasource_rule_query_object_json: dict = dict()
 
-            for datasource_rule_query_object in data_query:
+            for datasource_rule_query_object in data_queries:
                 datasource_rule_query_object_json["datasourceUid"] = (
                     datasource_rule_query_object.datasource_uid
                 )
@@ -966,7 +966,7 @@ class Alerting:
                 return api_call
         else:
             logging.error(
-                "There is no datasource_uid, condition or data_query defined."
+                "There is no condition or data_queries defined."
             )
             raise ValueError
 

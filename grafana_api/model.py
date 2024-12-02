@@ -86,6 +86,7 @@ class APIModel:
         ssl_context (ssl.SSLContext): Specify the custom ssl context of the Grafana system
         num_pools (int): Specify the number of the connection pool
         retries (any): Specify the number of the retries. Please use False as parameter to disable the retries
+        follow_redirects (bool): Specify if redirections should be followed (default True)
     """
 
     host: str
@@ -98,6 +99,7 @@ class APIModel:
     ssl_context: ssl.SSLContext = httpx.create_ssl_context()
     num_pools: int = 10
     retries: any = 10
+    follow_redirects: bool = True
 
 
 @dataclass
@@ -438,20 +440,20 @@ class AlertmanagerConfig:
     """The class includes all necessary variables to generate an Alertmanager config object that is necessary to communicate and set up the Grafana Alertmanager endpoint
 
     Args:
-        global_config (dict): Specify the global config of the Alertmanager
-        inhibit_rules (list): Specify the inhibit rules of the Alertmanager
-        mute_time_intervals (list): Specify the mute time intervals of the Alertmanager
+        global_config (Union[dict, None]): Specify the global config of the Alertmanager
+        inhibit_rules (Union[list, None]): Specify the inhibit rules of the Alertmanager
+        mute_time_intervals (Union[list, None]): Specify the mute time intervals of the Alertmanager
         receivers (list):  Specify the receiver's of the Alertmanager
         route (dict): Specify the route of the Alertmanager
-        templates (list): Specify an Alertmanager template
+        templates (Union[list, None]): Specify an Alertmanager template
     """
 
-    global_config: dict
-    inhibit_rules: list
-    mute_time_intervals: list
+    global_config: Union[dict, None]
+    inhibit_rules: Union[list, None]
+    mute_time_intervals: Union[list, None]
     receivers: list
     route: dict
-    templates: list
+    templates: Union[list, None]
 
 
 @dataclass
@@ -460,28 +462,29 @@ class AlertmanagerReceivers:
 
     Args:
         name (str): Specify the name of the receiver
-        email_configs (list): Specify the email configuration of the receiver's
+        email_configs (Union[list, None]): Specify the email configuration of the receiver's
         grafana_managed_receiver_configs (list): Specify the Grafana managed receiver configuration of the receiver's
-        opsgenie_configs (list):  Specify the ops genie configuration of the receiver's
-        pagerduty_configs (dict): Specify the pager duty configuration of the receiver's
-        pushover_configs (list): Specify the push over configuration of the receiver's
-        slack_configs (list): Specify the Slack configuration of the receiver's
-        victorops_configs (list): Specify the victor ops configuration of the receiver's
-        webhook_configs (list): Specify the webhook configuration of the receiver's
-        wechat_configs (list): Specify the wechaty configuration of the receiver's
+        opsgenie_configs (Union[list, None]):  Specify the ops genie configuration of the receiver's
+        pagerduty_configs (Union[list, None]): Specify the pager duty configuration of the receiver's
+        pushover_configs (Union[list, None]): Specify the push over configuration of the receiver's
+        slack_configs (Union[list, None]): Specify the Slack configuration of the receiver's
+        sns_configs (Union[list, None]): Specify the SNS configuration of the receiver's
+        victorops_configs (Union[list, None]): Specify the victor ops configuration of the receiver's
+        webhook_configs (Union[list, None]): Specify the webhook configuration of the receiver's
+        wechat_configs (Union[list, None]): Specify the wechaty configuration of the receiver's
     """
 
     name: str
-    email_configs: list
+    email_configs: Union[list, None]
     grafana_managed_receiver_configs: list
-    opsgenie_configs: list
-    pagerduty_configs: list
-    pushover_configs: list
-    slack_configs: list
-    sns_configs: list
-    victorops_configs: list
-    webhook_configs: list
-    wechat_configs: list
+    opsgenie_configs: Union[list, None]
+    pagerduty_configs: Union[list, None]
+    pushover_configs: Union[list, None]
+    slack_configs: Union[list, None]
+    sns_configs: Union[list, None]
+    victorops_configs: Union[list, None]
+    webhook_configs: Union[list, None]
+    wechat_configs: Union[list, None]
 
 
 @dataclass

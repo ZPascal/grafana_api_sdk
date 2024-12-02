@@ -90,6 +90,7 @@ The class includes all necessary variables to establish a connection to the Graf
 - `ssl_context` _ssl.SSLContext_ - Specify the custom ssl context of the Grafana system
 - `num_pools` _int_ - Specify the number of the connection pool
 - `retries` _any_ - Specify the number of the retries. Please use False as parameter to disable the retries
+- `follow_redirects` _bool_ - Specify if redirections should be followed (default True)
 
 <a id="model.DatasourceQuery"></a>
 
@@ -421,12 +422,12 @@ The class includes all necessary variables to generate an Alertmanager config ob
 
 **Arguments**:
 
-- `global_config` _dict_ - Specify the global config of the Alertmanager
-- `inhibit_rules` _list_ - Specify the inhibit rules of the Alertmanager
-- `mute_time_intervals` _list_ - Specify the mute time intervals of the Alertmanager
+- `global_config` _Union[dict, None]_ - Specify the global config of the Alertmanager
+- `inhibit_rules` _Union[list, None]_ - Specify the inhibit rules of the Alertmanager
+- `mute_time_intervals` _Union[list, None]_ - Specify the mute time intervals of the Alertmanager
 - `receivers` _list_ - Specify the receiver's of the Alertmanager
 - `route` _dict_ - Specify the route of the Alertmanager
-- `templates` _list_ - Specify an Alertmanager template
+- `templates` _Union[list, None]_ - Specify an Alertmanager template
 
 <a id="model.AlertmanagerReceivers"></a>
 
@@ -442,15 +443,16 @@ The class includes all necessary variables to generate an Alertmanager receiver'
 **Arguments**:
 
 - `name` _str_ - Specify the name of the receiver
-- `email_configs` _list_ - Specify the email configuration of the receiver's
+- `email_configs` _Union[list, None]_ - Specify the email configuration of the receiver's
 - `grafana_managed_receiver_configs` _list_ - Specify the Grafana managed receiver configuration of the receiver's
-- `opsgenie_configs` _list_ - Specify the ops genie configuration of the receiver's
-- `pagerduty_configs` _dict_ - Specify the pager duty configuration of the receiver's
-- `pushover_configs` _list_ - Specify the push over configuration of the receiver's
-- `slack_configs` _list_ - Specify the Slack configuration of the receiver's
-- `victorops_configs` _list_ - Specify the victor ops configuration of the receiver's
-- `webhook_configs` _list_ - Specify the webhook configuration of the receiver's
-- `wechat_configs` _list_ - Specify the wechaty configuration of the receiver's
+- `opsgenie_configs` _Union[list, None]_ - Specify the ops genie configuration of the receiver's
+- `pagerduty_configs` _Union[list, None]_ - Specify the pager duty configuration of the receiver's
+- `pushover_configs` _Union[list, None]_ - Specify the push over configuration of the receiver's
+- `slack_configs` _Union[list, None]_ - Specify the Slack configuration of the receiver's
+- `sns_configs` _Union[list, None]_ - Specify the SNS configuration of the receiver's
+- `victorops_configs` _Union[list, None]_ - Specify the victor ops configuration of the receiver's
+- `webhook_configs` _Union[list, None]_ - Specify the webhook configuration of the receiver's
+- `wechat_configs` _Union[list, None]_ - Specify the wechaty configuration of the receiver's
 
 <a id="model.RulerRule"></a>
 

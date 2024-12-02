@@ -595,14 +595,14 @@ The method includes a functionality to get a ruler group specified by the namesp
 #### test\_rule
 
 ```python
-def test_rule(data_query: list) -> dict
+def test_rule(data_queries: list) -> dict
 ```
 
 The method includes a functionality to test a rule specified by a list of datasource rule query objects
 
 **Arguments**:
 
-- `data_query` _list_ - Specify a list of datasource rule query objects
+- `data_queries` _list_ - Specify a list of datasource rule query objects
   
 
 **Raises**:
@@ -622,7 +622,7 @@ The method includes a functionality to test a rule specified by a list of dataso
 ```python
 def test_datasource_uid_rule(expr: str,
                              condition: str,
-                             data_query: list,
+                             data_queries: list,
                              datasource_uid: str = "grafana") -> dict
 ```
 
@@ -632,7 +632,7 @@ The method includes a functionality to test a datasource uid rule specified by t
 
 - `expr` _str_ - Specify a list of datasource rule query objects
 - `condition` _str_ - Specify the condition
-- `data_query` _list_ - Specify a list of datasource rule query objects
+- `data_queries` _list_ - Specify a list of datasource rule query objects
 - `datasource_uid` _str_ - Specify the datasource uid or recipient of the alerts (default grafana)
   
 
@@ -651,15 +651,15 @@ The method includes a functionality to test a datasource uid rule specified by t
 #### test\_backtest\_rule
 
 ```python
-def test_backtest_rule(condition: str, data_query: list) -> dict
+def test_backtest_rule(condition: str, data_queries: list) -> dict
 ```
 
-The method includes a functionality to test a rule specified by the condition, a list of data queries
+The method includes a functionality to test a rule specified by the condition and a list of data queries
 
 **Arguments**:
 
 - `condition` _str_ - Specify the condition
-- `data_query` _list_ - Specify a list of datasource rule query objects
+- `data_queries` _list_ - Specify a list of datasource rule query objects
   
 
 **Raises**:
