@@ -446,12 +446,12 @@ class AlertmanagerConfig:
         templates (list): Specify an Alertmanager template
     """
 
-    global_config: dict
-    inhibit_rules: list
-    mute_time_intervals: list
+    global_config: Union[dict, None]
+    inhibit_rules: Union[list, None]
+    mute_time_intervals: Union[list, None]
     receivers: list
     route: dict
-    templates: list
+    templates: Union[list, None]
 
 
 @dataclass
