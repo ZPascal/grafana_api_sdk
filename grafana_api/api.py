@@ -343,6 +343,7 @@ class Api:
                 headers=headers,
                 transport=async_transport,
                 verify=self.grafana_api_model.ssl_context,
+                follow_redirects=self.grafana_api_model.follow_redirects,
             )
         else:
             return httpx.Client(
@@ -351,4 +352,5 @@ class Api:
                 headers=headers,
                 transport=transport,
                 verify=self.grafana_api_model.ssl_context,
+                follow_redirects=self.grafana_api_model.follow_redirects,
             )
