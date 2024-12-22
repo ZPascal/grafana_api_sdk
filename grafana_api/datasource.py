@@ -1059,3 +1059,82 @@ class DatasourceQueryResourceCaching:
                 "There is no uid or the right datasource_cache object defined."
             )
             raise ValueError
+
+
+class DatasourceLabelBasedAccessControl:
+    """The class includes all necessary methods to access the Grafana datasource label based access control for teams API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights. The functionality is a Grafana Cloud feature. Only cloud Loki data sources are supported
+
+    Args:
+        grafana_api_model (APIModel): Inject a Grafana API model object that includes all necessary values and information
+
+    Attributes:
+        grafana_api_model (APIModel): This is where we store the grafana_api_model
+    """
+
+    def __init__(self, grafana_api_model: APIModel):
+        self.grafana_api_model = grafana_api_model
+
+    def get_lbac_rules_for_datasource(self, uid: str) -> list:
+        """The method includes a functionality to get all datasource label based access control rules for team specified by the datasource uid
+
+        Args:
+            uid (str): Specify the uid of the datasource
+
+        Required Permissions:
+            Action: datasources:read
+            Scope: [datasources:*, datasources:uid:*, datasources:uid:<id>]
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (list): Returns all LBAC rules
+        """
+
+        if len(uid) != 0:
+            api_call: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/{uid}/lbac/teams",
+            )
+
+            if api_call is None:
+                logging.error(f"Check the error: {api_call}.")
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error("There is no uid defined.")
+            raise ValueError
+
+    def update_lbac_rules_for_datasource(self, uid: str) -> dict:
+        """The method includes a functionality to enable the datasource cache specified by the datasource uid
+
+        Args:
+            uid (str): Specify the uid of the datasource
+
+        Required Permissions:
+            Action: datasources:write, datasources.permissions:write
+            Scope: [datasources:*, datasources:uid:*, datasources:uid:<id>]
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (dict): Returns a datasource
+        """
+
+        if len(uid) != 0:
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/{uid}/lbac/teams",
+                RequestsMethods.POST,
+            )
+
+            if api_call == dict() or api_call.get("dataSourceID") is None:
+                logging.error(f"Check the error: {api_call}.")
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error("There is no uid defined.")
+            raise ValueError

@@ -30,6 +30,9 @@
     * [disable\_datasource\_cache](#datasource.DatasourceQueryResourceCaching.disable_datasource_cache)
     * [clean\_datasource\_cache](#datasource.DatasourceQueryResourceCaching.clean_datasource_cache)
     * [update\_datasource\_cache](#datasource.DatasourceQueryResourceCaching.update_datasource_cache)
+  * [DatasourceLabelBasedAccessControl](#datasource.DatasourceLabelBasedAccessControl)
+    * [get\_lbac\_rules\_for\_datasource](#datasource.DatasourceLabelBasedAccessControl.get_lbac_rules_for_datasource)
+    * [update\_lbac\_rules\_for\_datasource](#datasource.DatasourceLabelBasedAccessControl.update_lbac_rules_for_datasource)
 
 <a id="datasource"></a>
 
@@ -840,6 +843,83 @@ The method includes a functionality to update the datasource cache specified by 
   Required Permissions:
 - `Action` - datasources.caching:write
 - `Scope` - datasources:*
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+- `api_call` _dict_ - Returns a datasource
+
+<a id="datasource.DatasourceLabelBasedAccessControl"></a>
+
+## DatasourceLabelBasedAccessControl Objects
+
+```python
+class DatasourceLabelBasedAccessControl()
+```
+
+The class includes all necessary methods to access the Grafana datasource label based access control for teams API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights. The functionality is a Grafana Cloud feature. Only cloud Loki data sources are supported
+
+**Arguments**:
+
+- `grafana_api_model` _APIModel_ - Inject a Grafana API model object that includes all necessary values and information
+  
+
+**Attributes**:
+
+- `grafana_api_model` _APIModel_ - This is where we store the grafana_api_model
+
+<a id="datasource.DatasourceLabelBasedAccessControl.get_lbac_rules_for_datasource"></a>
+
+#### get\_lbac\_rules\_for\_datasource
+
+```python
+def get_lbac_rules_for_datasource(uid: str) -> list
+```
+
+The method includes a functionality to get all datasource label based access control rules for team specified by the datasource uid
+
+**Arguments**:
+
+- `uid` _str_ - Specify the uid of the datasource
+  
+  Required Permissions:
+- `Action` - datasources:read
+- `Scope` - [datasources:*, datasources:uid:*, datasources:uid:<id>]
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+- `api_call` _list_ - Returns all LBAC rules
+
+<a id="datasource.DatasourceLabelBasedAccessControl.update_lbac_rules_for_datasource"></a>
+
+#### update\_lbac\_rules\_for\_datasource
+
+```python
+def update_lbac_rules_for_datasource(uid: str) -> dict
+```
+
+The method includes a functionality to enable the datasource cache specified by the datasource uid
+
+**Arguments**:
+
+- `uid` _str_ - Specify the uid of the datasource
+  
+  Required Permissions:
+- `Action` - datasources:write, datasources.permissions:write
+- `Scope` - [datasources:*, datasources:uid:*, datasources:uid:<id>]
   
 
 **Raises**:
