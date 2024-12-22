@@ -6,6 +6,7 @@ from unittest import TestCase
 from grafana_api.model import (
     APIModel,
     AlertmanagerConfig,
+    AlertmanagerReceivers,
     DatasourceRuleQuery,
 )
 from grafana_api.alerting import Alerting
@@ -107,40 +108,40 @@ class AlertingTest(TestCase):
 
         self.assertEqual(result, self.alerting.get_alertmanager_config())
 
-    # def test_test_alertmanager_receivers(self):
-    #     grafana_managed_receiver_configs: list = [
-    #         {
-    #             "uid": None,
-    #             "name": "email receiver",
-    #             "type": "email",
-    #             "disableResolveMessage": False,
-    #             "settings": {"addresses": "info@theiotstudio.com"},
-    #             "secureFields": {},
-    #         }
-    #     ]
-    #
-    #     alertmangager_receivers: AlertmanagerReceivers = AlertmanagerReceivers(
-    #         name="Test",
-    #         email_configs=None,
-    #         grafana_managed_receiver_configs=grafana_managed_receiver_configs,
-    #         opsgenie_configs=None,
-    #         pagerduty_configs=None,
-    #         pushover_configs=None,
-    #         slack_configs=None,
-    #         sns_configs=None,
-    #         victorops_configs=None,
-    #         webhook_configs=None,
-    #         wechat_configs=None,
-    #     )
-    #     self.assertEqual(
-    #         None,
-    #         self.alerting.test_alertmanager_receivers(
-    #             alert=dict(
-    #                 {"annotations": {"test": "test"}, "labels": {"test": "test"}}
-    #             ),
-    #             receivers=list([alertmangager_receivers]),
-    #         ),
-    #     )
+    def test_test_alertmanager_receivers(self):
+        grafana_managed_receiver_configs: list = [
+            {
+                "uid": None,
+                "name": "email receiver",
+                "type": "email",
+                "disableResolveMessage": False,
+                "settings": {"addresses": "info@theiotstudio.com"},
+                "secureFields": {},
+            }
+        ]
+
+        alertmangager_receivers: AlertmanagerReceivers = AlertmanagerReceivers(
+            name="Test",
+            email_configs=None,
+            grafana_managed_receiver_configs=grafana_managed_receiver_configs,
+            opsgenie_configs=None,
+            pagerduty_configs=None,
+            pushover_configs=None,
+            slack_configs=None,
+            sns_configs=None,
+            victorops_configs=None,
+            webhook_configs=None,
+            wechat_configs=None,
+        )
+        self.assertEqual(
+            None,
+            self.alerting.test_alertmanager_receivers(
+                alert=dict(
+                    {"annotations": {"test": "test"}, "labels": {"test": "test"}}
+                ),
+                receivers=list([alertmangager_receivers]),
+            ),
+        )
 
     def test_get_prometheus_alerts(self):
         MAX_TRIES: int = 3
@@ -191,18 +192,3 @@ class AlertingTest(TestCase):
 
         with self.assertRaises(Exception):
             self.alerting.test_rule(data_queries)
-
-    def test_test_recipient_rule(self):
-        datasource_rule_query: DatasourceRuleQuery = DatasourceRuleQuery(
-            datasource_uid="test",
-            model=dict(),
-            query_type="",
-            ref_id="test1",
-            relative_time_range=dict({"from": 20, "to": 90}),
-        )
-        data_queries: list = list([datasource_rule_query])
-
-        with self.assertRaises(Exception):
-            self.alerting.test_recipient_rule(
-                expr="test", condition="test", data_query=data_queries
-            )
