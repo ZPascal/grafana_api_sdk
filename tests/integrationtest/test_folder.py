@@ -121,6 +121,7 @@ class FolderTest(TestCase):
                     "teamAvatarUrl": "",
                     "teamEmail": "",
                     "teamId": 0,
+                    "teamUid": "",
                     "title": "Github Integrationtest",
                     "uid": "6U_QdWJnz",
                     "updated": "2024-06-25T19:52:40+02:00",
@@ -129,6 +130,7 @@ class FolderTest(TestCase):
                     "userEmail": "",
                     "userId": 0,
                     "userLogin": "",
+                    "userUid": "",
                 }
             ],
             self.folder.get_folder_permissions("6U_QdWJnz"),
