@@ -1024,11 +1024,14 @@ class DatasourceQueryResourceCachingTestCase(TestCase):
         with self.assertRaises(Exception):
             datasource.update_datasource_cache("test", datasource_cache)
 
+
 class DatasourceLabelBasedAccessControlTestCase(TestCase):
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_lbac_rules_for_datasource(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
-        datasource: DatasourceLabelBasedAccessControl = DatasourceLabelBasedAccessControl(grafana_api_model=model)
+        datasource: DatasourceLabelBasedAccessControl = (
+            DatasourceLabelBasedAccessControl(grafana_api_model=model)
+        )
 
         call_the_api_mock.return_value = list([{"id": 1}])
 
@@ -1037,7 +1040,9 @@ class DatasourceLabelBasedAccessControlTestCase(TestCase):
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_lbac_rules_for_datasource_no_uid(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
-        datasource: DatasourceLabelBasedAccessControl = DatasourceLabelBasedAccessControl(grafana_api_model=model)
+        datasource: DatasourceLabelBasedAccessControl = (
+            DatasourceLabelBasedAccessControl(grafana_api_model=model)
+        )
 
         call_the_api_mock.return_value = None
 
@@ -1047,7 +1052,9 @@ class DatasourceLabelBasedAccessControlTestCase(TestCase):
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_lbac_rules_for_datasource_no_valid_rules(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
-        datasource: DatasourceLabelBasedAccessControl = DatasourceLabelBasedAccessControl(grafana_api_model=model)
+        datasource: DatasourceLabelBasedAccessControl = (
+            DatasourceLabelBasedAccessControl(grafana_api_model=model)
+        )
 
         call_the_api_mock.return_value = None
 
@@ -1057,16 +1064,22 @@ class DatasourceLabelBasedAccessControlTestCase(TestCase):
     @patch("grafana_api.api.Api.call_the_api")
     def test_update_lbac_rules_for_datasource(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
-        datasource: DatasourceLabelBasedAccessControl = DatasourceLabelBasedAccessControl(grafana_api_model=model)
+        datasource: DatasourceLabelBasedAccessControl = (
+            DatasourceLabelBasedAccessControl(grafana_api_model=model)
+        )
 
         call_the_api_mock.return_value = dict({"dataSourceID": 1})
 
-        self.assertEqual({"dataSourceID": 1}, datasource.update_lbac_rules_for_datasource("test"))
+        self.assertEqual(
+            {"dataSourceID": 1}, datasource.update_lbac_rules_for_datasource("test")
+        )
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_update_lbac_rules_for_datasource_no_uid(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
-        datasource: DatasourceLabelBasedAccessControl = DatasourceLabelBasedAccessControl(grafana_api_model=model)
+        datasource: DatasourceLabelBasedAccessControl = (
+            DatasourceLabelBasedAccessControl(grafana_api_model=model)
+        )
 
         call_the_api_mock.return_value = None
 
@@ -1074,12 +1087,15 @@ class DatasourceLabelBasedAccessControlTestCase(TestCase):
             datasource.update_lbac_rules_for_datasource("")
 
     @patch("grafana_api.api.Api.call_the_api")
-    def test_update_lbac_rules_for_datasource_no_update_possible(self, call_the_api_mock):
+    def test_update_lbac_rules_for_datasource_no_update_possible(
+        self, call_the_api_mock
+    ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
-        datasource: DatasourceLabelBasedAccessControl = DatasourceLabelBasedAccessControl(grafana_api_model=model)
+        datasource: DatasourceLabelBasedAccessControl = (
+            DatasourceLabelBasedAccessControl(grafana_api_model=model)
+        )
 
         call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
             datasource.update_lbac_rules_for_datasource("test")
-
