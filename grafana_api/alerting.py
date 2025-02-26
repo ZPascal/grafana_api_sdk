@@ -965,9 +965,7 @@ class Alerting:
             else:
                 return api_call
         else:
-            logging.error(
-                "There is no condition or data_queries defined."
-            )
+            logging.error("There is no condition or data_queries defined.")
             raise ValueError
 
     def delete_ngalert_organization_configuration(self):

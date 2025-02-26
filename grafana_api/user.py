@@ -71,7 +71,7 @@ class User:
         results_per_page: int = 1000,
         page: int = 1,
         query: str = None,
-        sort: str = None
+        sort: str = None,
     ) -> dict:
         """The method includes a functionality to get all Grafana system users specified by the optional results_per_page, page, query, sort and general paging functionality
 
