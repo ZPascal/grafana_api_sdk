@@ -65,8 +65,15 @@ class ServiceAccountTest(TestCase):
         self.assertEqual(
             2, len(self.service_account.search_service_account().get("serviceAccounts"))
         )
-        self.service_account.create_service_account_token_by_id(service_account.get("id"), "Test", "Viewer")
-        self.assertEqual(1, self.service_account.search_service_account().get("serviceAccounts")[0].get("tokens"))
+        self.service_account.create_service_account_token_by_id(
+            service_account.get("id"), "Test", "Viewer"
+        )
+        self.assertEqual(
+            1,
+            self.service_account.search_service_account()
+            .get("serviceAccounts")[0]
+            .get("tokens"),
+        )
 
         self.service_account.delete_service_account(service_account.get("id"))
         self.assertEqual(

@@ -8,7 +8,7 @@ long_description = long_description.replace(coverage_string, "")
 
 setuptools.setup(
     name="grafana-api-sdk",
-    version="0.7.2",
+    version="0.8.0",
     author="Pascal Zimmermann",
     author_email="info@theiotstudio.com",
     description="A Grafana API SDK",
