@@ -26,7 +26,7 @@ jobs:
         run: pip install pdm && pdm install -d
 
       - name: Execute the unittests
-        run: python3 -m unittest discover tests/unittests
+        run: PYTHONPATH=$PWD/src python3 -m unittest discover tests/unittests
 
   pr-lint:
     runs-on: ubuntu-latest
@@ -76,7 +76,7 @@ jobs:
         run: pip install pdm && pdm install -d && pdm add pytest-cov coverage-badge
 
       - name: Generate the coverage report
-        run: export PYTHONPATH=$PWD && pytest --junitxml=pytest.xml --cov=. tests/unittests | tee pytest-coverage.txt
+        run: PYTHONPATH=$PWD/src pytest --junitxml=pytest.xml --cov=. tests/unittests | tee pytest-coverage.txt
 
       - name: Execute the coverage checks
         uses: MishaKav/pytest-coverage-comment@v1.1.53
