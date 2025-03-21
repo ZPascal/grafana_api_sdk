@@ -28,7 +28,7 @@ jobs:
           cache: 'pip'
 
       - name: Install the requirements
-        run: pip install -r requirements.txt
+        run: pip install pdm && pdm install
 
       - name: Execute the integrationtests (http1.1)
         run: python3 -m unittest discover tests/integrationtest

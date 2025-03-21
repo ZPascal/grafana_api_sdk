@@ -24,22 +24,13 @@ jobs:
           cache: 'pip'
 
       - name: Install the requirements
-        run: pip install -r requirements.txt && pip install setuptools~=65.5.1 mkdocs mkdocs-material
+        run: pip install pdm && pdm install && pdm add setuptools~=65.5.1 mkdocs mkdocs-material build
 
-      - name: Install pypa/build
-        run: >-
-          python -m
-          pip install
-          build
-          --user
+      - name: Prepare the PyPi documentation
+        run: python3 .github/workflows/scripts/adjust-the-readme-file.py
 
       - name: Build a binary wheel and a source tarball
-        run: >-
-          python -m
-          build
-          --sdist
-          --wheel
-          --outdir dist/
+        run: python -m build --sdist --wheel --outdir dist/
 
       - name: Setup the GitHub user
         run: |
