@@ -1,6 +1,6 @@
 loaders:
   - type: python
-    search_path: [grafana_api]
+    search_path: [src/grafana_api]
 processors:
   - type: filter
   - type: smart

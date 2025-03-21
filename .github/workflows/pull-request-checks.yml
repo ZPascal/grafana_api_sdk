@@ -23,10 +23,10 @@ jobs:
           cache: 'pip'
 
       - name: Install the requirements
-        run: pip install -r requirements.txt
+        run: pip install pdm && pdm install --no-self -d
 
       - name: Execute the unittests
-        run: python3 -m unittest discover tests/unittests
+        run: PYTHONPATH=$PWD/src .venv/bin/python3 -m unittest discover tests/unittests
 
   pr-lint:
     runs-on: ubuntu-latest
@@ -73,10 +73,10 @@ jobs:
           cache: 'pip'
 
       - name: Install the requirements
-        run: pip install -r requirements.txt && pip install pytest-cov coverage-badge
+        run: pip install pdm && pdm install --no-self -d && pdm add pytest-cov coverage-badge
 
       - name: Generate the coverage report
-        run: export PYTHONPATH=$PWD && pytest --junitxml=pytest.xml --cov=. tests/unittests | tee pytest-coverage.txt
+        run: PYTHONPATH=$PWD/src .venv/bin/pytest --junitxml=pytest.xml --cov=. tests/unittests | tee pytest-coverage.txt
 
       - name: Execute the coverage checks
         uses: MishaKav/pytest-coverage-comment@v1.1.53
@@ -88,7 +88,7 @@ jobs:
           create-new-comment: true
 
       - name: Generate coverage badge
-        run: coverage-badge -f -o docs/coverage.svg
+        run: .venv/bin/coverage-badge -f -o docs/coverage.svg
 
       - name: Check changed files
         uses: tj-actions/verify-changed-files@v20
@@ -133,10 +133,10 @@ jobs:
           cache: 'pip'
 
       - name: Install the requirements
-        run: pip install pydoc-markdown==4.6.3 mkdocs mkdocs-material
+        run: pip install pdm && pdm add pydoc-markdown==4.6.3 pyyaml==5.3.1 mkdocs mkdocs-material
 
       - name: Generate documentation
-        run: pydoc-markdown --render-toc && rm -rf docs/content && mv build/docs/* docs
+        run: .venv/bin/pydoc-markdown --render-toc && rm -rf docs/content && mv build/docs/* docs
 
       - name: Check changed files
         uses: tj-actions/verify-changed-files@v20

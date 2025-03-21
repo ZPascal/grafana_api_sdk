@@ -373,7 +373,7 @@ In general, my focus on this project is to implement and deliver old and new fea
 
 Please be aware to not install the `grafana-api` and `grafana-api-sdk` packages in parallel and the same environment. This result in name clashes, and it's not possible to use the Grafana API SDK.
 
-`pip install grafana-api-sdk`
+`pdm install grafana-api-sdk` or `pip install grafana-api-sdk`
 
 ## Example
 
@@ -434,7 +434,11 @@ model: APIModel = APIModel(host="test", token="test", ssl_context=ssl_ctx)
 If you want to template your JSON document based on a predefined folder structure you can check out one of my other [project](https://github.com/ZPascal/grafana_dashboard_templater) and integrate the functionality inside your code.
 
 ## Contribution
-If you would like to contribute something, have an improvement request, or want to make a change inside the code, please open a pull request.
+If you would like to contribute something, have an improvement request, or want to make a change inside the code, please open a pull request. 
+If you want to make a contribution and open a pull request, please write or adapt the necessary unit tests beforehand. 
+You can install the necessary development requirements for the unit tests by running `pdm install -d` or `pip install pytest-httpx pytest`.
+
+#TODO Document the unit test execution 
 
 ## Support
 If you need support, or you encounter a bug, please don't hesitate to open an issue.
