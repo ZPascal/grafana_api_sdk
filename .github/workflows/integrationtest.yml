@@ -31,7 +31,7 @@ jobs:
         run: pip install pdm && pdm install -g
 
       - name: Execute the integrationtests (http1.1)
-        run: PYTHONPATH=$PWD/src python3 -m unittest discover tests/integrationtest
+        run: python3 -m unittest discover tests/integrationtest
         env:
           GRAFANA_HOST: ${{ secrets.GRAFANA_HOST }}
           GRAFANA_TOKEN: ${{ secrets.GRAFANA_TOKEN }}
@@ -45,7 +45,7 @@ jobs:
         run: sleep 20
 
       - name: Execute the integrationtests (http2)
-        run: PYTHONPATH=$PWD/src python3 -m unittest discover tests/integrationtest
+        run: python3 -m unittest discover tests/integrationtest
         env:
           GRAFANA_HOST: ${{ secrets.GRAFANA_HOST }}
           GRAFANA_TOKEN: ${{ secrets.GRAFANA_TOKEN }}

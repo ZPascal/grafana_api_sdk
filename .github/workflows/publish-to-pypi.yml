@@ -24,7 +24,7 @@ jobs:
           cache: 'pip'
 
       - name: Install the requirements
-        run: pip install pdm && pdm install -g && pdm add -g setuptools~=65.5.1 mkdocs mkdocs-material build
+        run: pip install pdm && pdm install -g --no-self && pdm add -g setuptools~=65.5.1 mkdocs mkdocs-material build
 
       - name: Prepare the PyPi documentation
         run: python3 .github/workflows/scripts/adjust-the-readme-file.py
