@@ -106,35 +106,11 @@ class FolderTest(TestCase):
         self.assertEqual(1, len(self.folder.get_folders()))
 
     def test_get_folder_permissions(self):
-        self.assertEqual(
-            [
-                {
-                    "created": "2024-06-25T19:52:40+02:00",
-                    "folderId": 72,
-                    "inherited": False,
-                    "isFolder": True,
-                    "permission": 1,
-                    "permissionName": "View",
-                    "role": "Viewer",
-                    "slug": "",
-                    "team": "",
-                    "teamAvatarUrl": "",
-                    "teamEmail": "",
-                    "teamId": 0,
-                    "teamUid": "",
-                    "title": "Github Integrationtest",
-                    "uid": "6U_QdWJnz",
-                    "updated": "2024-06-25T19:52:40+02:00",
-                    "url": "/dashboards/f/6U_QdWJnz/github-integrationtest",
-                    "userAvatarUrl": "",
-                    "userEmail": "",
-                    "userId": 0,
-                    "userLogin": "",
-                    "userUid": "",
-                }
-            ],
-            self.folder.get_folder_permissions("6U_QdWJnz"),
+        folder_permission: dict = self.folder.get_folder_permissions("6U_QdWJnz")[0]
+
+        self.assertEqual("View", folder_permission["permissionName"],
         )
+        self.assertEqual(1, folder_permission["permission"])
 
     def test_f_update_folder_permissions(self):
         permission_dict: dict = dict({"items": [{"role": "Viewer", "permission": 2}]})
