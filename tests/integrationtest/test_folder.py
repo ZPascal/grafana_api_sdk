@@ -133,6 +133,11 @@ class FolderTest(TestCase):
             72, self.folder.get_folder_id_by_dashboard_path("Github Integrationtest")
         )
 
+    def test_get_folder_id_by_dashboard_path_general_folder(self):
+        self.assertEqual(
+            0, self.folder.get_folder_id_by_dashboard_path("General")
+        )
+
     def test_get_all_folder_ids_and_names(self):
         self.assertEqual(
             list([{"id": 72, "title": "Github Integrationtest"}]),
