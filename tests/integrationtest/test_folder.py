@@ -106,10 +106,10 @@ class FolderTest(TestCase):
         self.assertEqual(1, len(self.folder.get_folders()))
 
     def test_get_folder_permissions(self):
-        self.assertEqual(
-            1,
-            self.folder.get_folder_permissions("6U_QdWJnz")[0]["permission"],
-        )
+        folder_permission: dict = self.folder.get_folder_permissions("6U_QdWJnz")[0]
+
+        self.assertEqual("View", folder_permission["permissionName"])
+        self.assertEqual(1, folder_permission["permission"])
 
     def test_f_update_folder_permissions(self):
         permission_dict: dict = dict({"items": [{"role": "Viewer", "permission": 2}]})
