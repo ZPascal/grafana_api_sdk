@@ -79,7 +79,7 @@ jobs:
         run: export PYTHONPATH=$PWD && pytest --junitxml=pytest.xml --cov=. tests/unittests | tee pytest-coverage.txt
 
       - name: Execute the coverage checks
-        uses: MishaKav/pytest-coverage-comment@v1.1.53
+        uses: MishaKav/pytest-coverage-comment@v1.1.54
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           pytest-coverage-path: ./pytest-coverage.txt
