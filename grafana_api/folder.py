@@ -373,7 +373,7 @@ class Folder:
             return 0
 
         if len(dashboard_path) != 0:
-            folders: list = self.get_all_folder_ids_and_names()
+            folders: list = self.get_all_folder_ids_uids_and_names()
             folder_id: int = 0
 
             for f in folders:
@@ -391,22 +391,60 @@ class Folder:
             logging.error("There is no dashboard_path defined.")
             raise ValueError
 
-    def get_all_folder_ids_and_names(self) -> list:
-        """The method extract all folder id and names inside the complete organisation
+    def get_folder_uid_by_dashboard_path(self, dashboard_path: str) -> str | None:
+        """The method includes a functionality to extract the folder uid specified inside model dashboard path
+
+        Args:
+            dashboard_path (str): Specify the dashboard path
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
 
         Returns:
-            folders (list): Returns a list of dicts with folder ids and the corresponding names
+            folder_uid (str): Returns the folder uid
+        """
+
+        # TODO Check the general folder uid
+
+        if dashboard_path.lower() == "general":
+            return None
+
+        if len(dashboard_path) != 0:
+            folders: list = self.get_all_folder_ids_uids_and_names()
+            folder_uid: str | None = None
+
+            for f in folders:
+                if dashboard_path == f.get("title"):
+                    folder_uid = f.get("uid")
+
+            if folder_uid is None:
+                logging.error(
+                    f"There's no folder_uid for the dashboard named {dashboard_path} available."
+                )
+                raise Exception
+
+            return folder_uid
+        else:
+            logging.error("There is no dashboard_path defined.")
+            raise ValueError
+
+    def get_all_folder_ids_uids_and_names(self) -> list:
+        """The method extract all folder id, uid and names inside the complete organisation
+
+        Returns:
+            folders (list): Returns a list of dicts with folder ids, uids and the corresponding names
         """
 
         folders_raw: list = Api(self.grafana_api_model).call_the_api(
-            f"{APIEndpoints.SEARCH.value}?folderIds=0"
+            f"{APIEndpoints.SEARCH.value}?folderUIDs"
         )
         folders_raw_len: int = len(folders_raw)
         folders: list = list()
 
         for i in range(0, folders_raw_len):
             folders.append(
-                {"title": folders_raw[i].get("title"), "id": folders_raw[i].get("id")}
+                {"title": folders_raw[i].get("title"), "id": folders_raw[i].get("id"), "uid": folders_raw[i].get("uid")}
             )
 
         return folders
