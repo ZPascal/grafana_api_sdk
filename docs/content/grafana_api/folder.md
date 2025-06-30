@@ -12,7 +12,8 @@
     * [get\_folder\_permissions](#folder.Folder.get_folder_permissions)
     * [update\_folder\_permissions](#folder.Folder.update_folder_permissions)
     * [get\_folder\_id\_by\_dashboard\_path](#folder.Folder.get_folder_id_by_dashboard_path)
-    * [get\_all\_folder\_ids\_and\_names](#folder.Folder.get_all_folder_ids_and_names)
+    * [get\_folder\_uid\_by\_dashboard\_path](#folder.Folder.get_folder_uid_by_dashboard_path)
+    * [get\_all\_folder\_ids\_uids\_and\_names](#folder.Folder.get_all_folder_ids_uids_and_names)
 
 <a id="folder"></a>
 
@@ -327,17 +328,42 @@ The method includes a functionality to extract the folder id specified inside mo
 
 - `folder_id` _int_ - Returns the folder id
 
-<a id="folder.Folder.get_all_folder_ids_and_names"></a>
+<a id="folder.Folder.get_folder_uid_by_dashboard_path"></a>
 
-#### get\_all\_folder\_ids\_and\_names
+#### get\_folder\_uid\_by\_dashboard\_path
 
 ```python
-def get_all_folder_ids_and_names() -> list
+def get_folder_uid_by_dashboard_path(dashboard_path: str) -> str | None
 ```
 
-The method extract all folder id and names inside the complete organisation
+The method includes a functionality to extract the folder uid specified inside model dashboard path
+
+**Arguments**:
+
+- `dashboard_path` _str_ - Specify the dashboard path
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
 
 **Returns**:
 
-- `folders` _list_ - Returns a list of dicts with folder ids and the corresponding names
+- `folder_uid` _str_ - Returns the folder uid
+
+<a id="folder.Folder.get_all_folder_ids_uids_and_names"></a>
+
+#### get\_all\_folder\_ids\_uids\_and\_names
+
+```python
+def get_all_folder_ids_uids_and_names() -> list
+```
+
+The method extract all folder id, uid and names inside the complete organisation
+
+**Returns**:
+
+- `folders` _list_ - Returns a list of dicts with folder ids, uids and the corresponding names
 
