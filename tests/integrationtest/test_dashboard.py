@@ -76,6 +76,11 @@ class DashboardTest(TestCase):
             overwrite=True,
         )
 
+
+        # print(self.dashboard.get_dashboard_uid_and_id_by_name_and_folder(
+        #         dashboard_path="General",
+        #         dashboard_name=os.environ["GRAFANA_DASHBOARD_NAME"],
+        #     ))
         self.assertEqual(
             "test1",
             self.dashboard.get_dashboard_uid_and_id_by_name_and_folder(
