@@ -43,16 +43,17 @@ class Dashboard:
         """
 
         if len(dashboard_path) != 0 and dashboard_json != dict() and len(message) != 0:
-            folder_id: int = Folder(
+            folder_uid: str = Folder(
                 self.grafana_api_model
-            ).get_folder_id_by_dashboard_path(dashboard_path)
+            ).get_folder_uid_by_dashboard_path(dashboard_path)
 
             dashboard_json_complete: dict = {
                 "dashboard": dashboard_json,
-                "folderId": folder_id,
                 "message": message,
                 "overwrite": overwrite,
             }
+            if folder_uid is not None:
+                dashboard_json_complete["folderUid"] = folder_uid
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DASHBOARDS.value}/db",
@@ -197,12 +198,16 @@ class Dashboard:
         """
 
         if len(dashboard_name) != 0 and len(dashboard_path) != 0:
-            folder_id: int = Folder(
+            folder_uid: str = Folder(
                 self.grafana_api_model
-            ).get_folder_id_by_dashboard_path(dashboard_path)
+            ).get_folder_uid_by_dashboard_path(dashboard_path)
+
+            folder_query_parameter: str = f"folderUIDs={folder_uid}"
+            if folder_uid is None:
+                folder_query_parameter = ""
 
             search_query: str = (
-                f"{APIEndpoints.SEARCH.value}?folderIds={folder_id}&query={dashboard_name}"
+                f"{APIEndpoints.SEARCH.value}?{folder_query_parameter}{'&' if folder_query_parameter else ''}query={dashboard_name}"
             )
             dashboard_meta: list = Api(self.grafana_api_model).call_the_api(
                 search_query
@@ -551,7 +556,7 @@ class Dashboard:
         Returns:
             api_call (str): Returns the difference of the two specified dashboards
         """
-        possible_diff_types: list = list(["basic", "json"])
+        possible_diff_types: list = ["basic", "json"]
 
         if diff_type.lower() in possible_diff_types:
             if (

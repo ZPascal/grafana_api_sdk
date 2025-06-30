@@ -216,12 +216,13 @@ class Datasource:
             logging.error("There is no data_source defined.")
             raise ValueError
 
-    def update_datasource(self, datasource_id: int, data_source: dict):
-        """The method includes a functionality to update a datasource specified by the datasource as dict and the datasource id
+    def update_datasource(self, data_source: dict, datasource_id: int = 0, datasource_uid: str | None = None):
+        """The method includes a functionality to update a datasource specified by the datasource as dict and the datasource id/ datasource uid
 
         Args:
-            datasource_id (int): Specify the id of the datasource
             data_source (dict): Specify the datasource as dict
+            datasource_id (int): Specify the id of the datasource (default 0)
+            datasource_uid (str): Specify the uid of the datasource (default None)
 
         Required Permissions:
             Action: datasources:write
@@ -235,9 +236,13 @@ class Datasource:
             None
         """
 
-        if datasource_id != 0 and data_source != dict():
+        if data_source != dict() and (datasource_id != 0 or datasource_uid is not None):
+            if datasource_uid is not None:
+                endpoint = f"{APIEndpoints.DATASOURCES.value}/uid/{datasource_uid}"
+            else:
+                endpoint = f"{APIEndpoints.DATASOURCES.value}/{datasource_id}"
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.DATASOURCES.value}/{datasource_id}",
+                endpoint,
                 RequestsMethods.PUT,
                 json.dumps(data_source),
             )
@@ -248,7 +253,7 @@ class Datasource:
             else:
                 logging.info("You successfully updated a datasource.")
         else:
-            logging.error("There is no datasource_id or data_source defined.")
+            logging.error("There is no datasource_id, dashboard_uid or data_source defined.")
             raise ValueError
 
     def delete_datasource_by_id(self, datasource_id: int):
@@ -269,9 +274,11 @@ class Datasource:
             None
         """
 
-        if datasource_id != 0:
+        if datasource_id != 0 :
+            endpoint = f"{APIEndpoints.DATASOURCES.value}/{datasource_id}"
+
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.DATASOURCES.value}/{datasource_id}",
+                endpoint,
                 RequestsMethods.DELETE,
             )
 
@@ -280,6 +287,7 @@ class Datasource:
                 raise Exception
             else:
                 logging.info("You successfully deleted a datasource.")
+                return
         else:
             logging.error("There is no datasource_id defined.")
             raise ValueError
@@ -349,6 +357,8 @@ class Datasource:
         else:
             logging.error("There is no name defined.")
             raise ValueError
+
+    # TODO Query datasource by uid
 
     def query_datasource_by_id(
         self, time: str, to: str, datasource_queries: list

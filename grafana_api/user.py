@@ -465,11 +465,12 @@ class CurrentUser:
         else:
             return api_call
 
-    def star_a_dashboard(self, dashboard_id: int):
+    def star_a_dashboard(self, dashboard_id: int = 0, dashboard_uid: str | None = None):
         """The method includes a functionality to star a dashboard for the current user
 
         Args:
-            dashboard_id (int): Specify the dashboard id
+            dashboard_id (int): Specify the dashboard id (default 0)
+            dashboard_uid (str): Specify the dashboard uid (default None)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -479,9 +480,14 @@ class CurrentUser:
             None
         """
 
-        if dashboard_id != 0:
+        if dashboard_uid is not None or dashboard_id != 0:
+            if dashboard_uid is not None:
+                endpoint = f"{APIEndpoints.USER.value}/stars/dashboard/uid/{dashboard_uid}"
+            else:
+                endpoint = f"{APIEndpoints.USER.value}/stars/dashboard/{dashboard_id}"
+
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.USER.value}/stars/dashboard/{dashboard_id}",
+                endpoint,
                 RequestsMethods.POST,
                 json.dumps(dict()),
             )
@@ -492,14 +498,18 @@ class CurrentUser:
             else:
                 logging.info("You successfully starred the corresponding dashboard.")
         else:
-            logging.error("There is no org_id defined.")
+            logging.error("There is no dashboard_id or dashboard_uid defined.")
             raise ValueError
 
-    def unstar_a_dashboard(self, dashboard_id: int):
-        """The method includes a functionality to unstar a dashboard for the current user
+    def unstar_a_dashboard(self, dashboard_id: int = 0, dashboard_uid: str | None = None):
+        """The method includes a functionality to unstar a dashboard for the current user.
+        Prefers the UID-based endpoint (Grafana 10+) when dashboard_uid is provided,
+        otherwise falls back to the legacy ID-based endpoint for backward compatibility.
+        At least one of dashboard_id (non-zero) or dashboard_uid must be supplied.
 
         Args:
-            dashboard_id (int): Specify the dashboard id
+            dashboard_id (int): Specify the dashboard id (default 0)
+            dashboard_uid (str): Specify the dashboard id (default None)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -509,9 +519,14 @@ class CurrentUser:
             None
         """
 
-        if dashboard_id != 0:
+        if dashboard_uid is not None or dashboard_id != 0:
+            if dashboard_uid is not None:
+                endpoint = f"{APIEndpoints.USER.value}/stars/dashboard/uid/{dashboard_uid}"
+            else:
+                endpoint = f"{APIEndpoints.USER.value}/stars/dashboard/{dashboard_id}"
+
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.USER.value}/stars/dashboard/{dashboard_id}",
+                endpoint,
                 RequestsMethods.DELETE,
             )
 
@@ -521,7 +536,7 @@ class CurrentUser:
             else:
                 logging.info("You successfully unstarred the corresponding dashboard.")
         else:
-            logging.error("There is no org_id defined.")
+            logging.error("There is no dashboard_id or dashboard_uid defined.")
             raise ValueError
 
     def get_auth_tokens(self) -> list:

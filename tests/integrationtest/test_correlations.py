@@ -17,7 +17,7 @@ class CorrelationsTest(TestCase):
     correlations: Correlations = Correlations(model)
 
     def test_a_create_data_source(self):
-        data_source: dict = self.data_source.get_datasource_by_id(5)
+        data_source: dict = self.data_source.get_datasource_by_uid("5yBH2Yxnk")
         data_source["id"] = None
         data_source["uid"] = None
         data_source["name"] = "TestData DB 1"

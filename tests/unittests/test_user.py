@@ -463,6 +463,15 @@ class CurrentUserTestCase(TestCase):
         self.assertEqual(None, current_user.star_a_dashboard(1))
 
     @patch("grafana_api.api.Api.call_the_api")
+    def test_star_a_dashboard_uid_only(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        current_user: CurrentUser = CurrentUser(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict({"message": "Dashboard starred!"})
+
+        self.assertEqual(None, current_user.star_a_dashboard(dashboard_uid="test-uid"))
+
+    @patch("grafana_api.api.Api.call_the_api")
     def test_star_a_dashboard_no_dashboard_id(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         current_user: CurrentUser = CurrentUser(grafana_api_model=model)
@@ -490,6 +499,15 @@ class CurrentUserTestCase(TestCase):
         call_the_api_mock.return_value = dict({"message": "Dashboard unstarred"})
 
         self.assertEqual(None, current_user.unstar_a_dashboard(1))
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_unstar_a_dashboard_uid_only(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        current_user: CurrentUser = CurrentUser(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict({"message": "Dashboard unstarred"})
+
+        self.assertEqual(None, current_user.unstar_a_dashboard(dashboard_uid="test-uid"))
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_unstar_a_dashboard_no_dashboard_id(self, call_the_api_mock):

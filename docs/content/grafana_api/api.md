@@ -96,7 +96,7 @@ The method includes a functionality to create the corresponding HTTP client
 
 **Arguments**:
 
-- `headers` _dict_ - Specify the optional inserted headers (Default None)
+- `headers` _dict_ - Specify the optional inserted headers (default None)
   
 
 **Returns**:

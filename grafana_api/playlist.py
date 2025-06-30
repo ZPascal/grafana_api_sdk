@@ -105,6 +105,9 @@ class Playlist:
                 f"{APIEndpoints.PLAYLISTS.value}/{playlist_uid}/items",
             )
 
+            if isinstance(api_call, dict):
+                api_call = api_call.get("items", [])
+
             if api_call == list() or api_call[0].get("value") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception

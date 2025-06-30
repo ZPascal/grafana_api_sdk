@@ -272,11 +272,14 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {"message": "configuration deleted; the default is applied"}
-        )
+        call_the_api_mock.return_value = {
+            "message": "configuration deleted; the default is applied",
+            "status": 200,
+        }
 
-        self.assertEqual(None, alerting.delete_alertmanager_config())
+        result = alerting.delete_alertmanager_config()
+        self.assertIsNotNone(result)
+        self.assertEqual(200, result.get("status"))
 
     def test_delete_alertmanager_config_no_recipient(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -291,6 +294,29 @@ class AlertingTestCase(TestCase):
         alerting: Alerting = Alerting(grafana_api_model=model)
 
         call_the_api_mock.return_value = dict({"config": None})
+
+        with self.assertRaises(Exception):
+            alerting.delete_alertmanager_config()
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_delete_alertmanager_config_provisioned_client_error(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting: Alerting = Alerting(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {
+            "message": "provisioned and cannot be changed",
+            "status": 400,
+        }
+
+        result = alerting.delete_alertmanager_config()
+        self.assertEqual(400, result.get("status"))
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_delete_alertmanager_config_server_error(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting: Alerting = Alerting(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {"message": "server error", "status": 500}
 
         with self.assertRaises(Exception):
             alerting.delete_alertmanager_config()
@@ -332,18 +358,29 @@ class AlertingTestCase(TestCase):
             {"test": "test"}, ["test"], ["test"], ["test"], {"test": "test"}, ["test"]
         )
 
-        call_the_api_mock.return_value = dict(
-            {
-                "message": "policies were provisioned and cannot be changed through the UI"
-            }
+        call_the_api_mock.return_value = {
+            "message": "policies were provisioned and cannot be changed through the UI",
+            "status": 400,
+        }
+
+        result = alerting.create_or_update_alertmanager_config(
+            alertmanager_config, template_files={"test": "test"}
+        )
+        self.assertIsNotNone(result)
+        self.assertEqual(400, result.get("status"))
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_create_or_update_alertmanager_config_success(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting: Alerting = Alerting(grafana_api_model=model)
+        alertmanager_config: AlertmanagerConfig = AlertmanagerConfig(
+            {"test": "test"}, ["test"], ["test"], ["test"], {"test": "test"}, ["test"]
         )
 
-        self.assertEqual(
-            None,
-            alerting.create_or_update_alertmanager_config(
-                alertmanager_config, template_files={"test": "test"}
-            ),
-        )
+        call_the_api_mock.return_value = {"message": "ok", "status": 200}
+
+        result = alerting.create_or_update_alertmanager_config(alertmanager_config)
+        self.assertEqual(200, result.get("status"))
 
     def test_create_or_update_alertmanager_config_no_recipient(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -363,6 +400,19 @@ class AlertingTestCase(TestCase):
         )
 
         call_the_api_mock.return_value = dict({"alertmanager_config": None})
+
+        with self.assertRaises(Exception):
+            alerting.create_or_update_alertmanager_config(alertmanager_config)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_create_or_update_alertmanager_config_server_error(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting: Alerting = Alerting(grafana_api_model=model)
+        alertmanager_config: AlertmanagerConfig = AlertmanagerConfig(
+            {"test": "test"}, ["test"], ["test"], ["test"], {"test": "test"}, ["test"]
+        )
+
+        call_the_api_mock.return_value = {"message": "server error", "status": 500}
 
         with self.assertRaises(Exception):
             alerting.create_or_update_alertmanager_config(alertmanager_config)
@@ -450,6 +500,33 @@ class AlertingTestCase(TestCase):
             alerting.test_alertmanager_receivers(
                 {"test": "test"}, list([alertmanager_receivers])
             )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_test_alertmanager_receivers_unexpected_4xx_warning(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting: Alerting = Alerting(grafana_api_model=model)
+        alertmanager_receivers: AlertmanagerReceivers = AlertmanagerReceivers(
+            "test",
+            ["test"],
+            ["test"],
+            ["test"],
+            ["test"],
+            ["test"],
+            ["test"],
+            ["test"],
+            ["test"],
+            ["test"],
+            ["test"],
+        )
+
+        call_the_api_mock.return_value = {"status": 422, "message": "unprocessable"}
+
+        self.assertEqual(
+            None,
+            alerting.test_alertmanager_receivers(
+                {"test": "test"}, [alertmanager_receivers]
+            ),
+        )
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_prometheus_alerts(self, call_the_api_mock):

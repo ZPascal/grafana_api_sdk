@@ -170,7 +170,7 @@ class OtherHTTP:
         Args:
             http (Union[Client, AsyncClient]): Specify the used client
             url (str): Specify the url of the performed api call
-            basic_auth (BasicAuth): Specify the optional basic auth credentials (Default None)
+            basic_auth (BasicAuth): Specify the optional basic auth credentials (default None)
 
         Raises:
             Exception: Unspecified error by executing the API call

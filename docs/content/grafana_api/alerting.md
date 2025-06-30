@@ -267,7 +267,7 @@ The method includes a functionality to get the Alertmanager status specified by 
 #### delete\_alertmanager\_config
 
 ```python
-def delete_alertmanager_config(datasource_uid: str = "grafana")
+def delete_alertmanager_config(datasource_uid: str = "grafana") -> dict
 ```
 
 The method includes a functionality to delete the Alertmanager config specified by the datasource_uid
@@ -280,12 +280,14 @@ The method includes a functionality to delete the Alertmanager config specified 
 **Raises**:
 
 - `ValueError` - Missed specifying a necessary value
-- `Exception` - Unspecified error by executing the API call
+- `Exception` - Unspecified error by executing the API call (5xx responses)
   
 
 **Returns**:
 
-  None
+- `api_call` _dict_ - Returns the API response dict. On success (2xx) the config was deleted.
+  On 4xx (e.g. provisioned config) a warning is logged and the response is returned so
+  callers can detect that the deletion was silently rejected.
 
 <a id="alerting.Alerting.get_alertmanager_config"></a>
 
@@ -320,7 +322,7 @@ The method includes a functionality to get the Alertmanager config specified by 
 def create_or_update_alertmanager_config(
         alertmanager_config: AlertmanagerConfig,
         datasource_uid: str = "grafana",
-        template_files: dict = None)
+        template_files: dict = None) -> dict
 ```
 
 The method includes a functionality to create or update the Alertmanager config specified by the Alertmanager config object, datasource_uid and template_files
@@ -335,12 +337,14 @@ The method includes a functionality to create or update the Alertmanager config 
 **Raises**:
 
 - `ValueError` - Missed specifying a necessary value
-- `Exception` - Unspecified error by executing the API call
+- `Exception` - Unspecified error by executing the API call (5xx responses)
   
 
 **Returns**:
 
-  None
+- `api_call` _dict_ - Returns the API response dict. On success (2xx) the config was applied.
+  On 4xx (e.g. provisioned config that cannot be changed) a warning is logged and the
+  response is returned so callers can detect that the update was silently rejected.
 
 <a id="alerting.Alerting.test_alertmanager_receivers"></a>
 

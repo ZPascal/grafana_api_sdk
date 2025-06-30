@@ -121,6 +121,18 @@ class PlaylistTestCase(TestCase):
             playlist.get_playlist_items("test")
 
     @patch("grafana_api.api.Api.call_the_api")
+    def test_get_playlist_items_dict_response_with_items(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        playlist: Playlist = Playlist(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {"items": [{"uid": "test", "value": "test"}]}
+
+        self.assertEqual(
+            [{"uid": "test", "value": "test"}],
+            playlist.get_playlist_items("test"),
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
     def test_get_playlist_dashboards(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: Playlist = Playlist(grafana_api_model=model)

@@ -231,15 +231,18 @@ The method includes a functionality to create a datasource specified by the data
 #### update\_datasource
 
 ```python
-def update_datasource(datasource_id: int, data_source: dict)
+def update_datasource(data_source: dict,
+                      datasource_id: int = 0,
+                      datasource_uid: str | None = None)
 ```
 
-The method includes a functionality to update a datasource specified by the datasource as dict and the datasource id
+The method includes a functionality to update a datasource specified by the datasource as dict and the datasource id/ datasource uid
 
 **Arguments**:
 
-- `datasource_id` _int_ - Specify the id of the datasource
 - `data_source` _dict_ - Specify the datasource as dict
+- `datasource_id` _int_ - Specify the id of the datasource (default 0)
+- `datasource_uid` _str_ - Specify the uid of the datasource (default None)
   
   Required Permissions:
 - `Action` - datasources:write
