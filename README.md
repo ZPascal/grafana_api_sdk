@@ -137,6 +137,7 @@ In general, my focus on this project is to implement and deliver old and new fea
 - Update ethe interval fo the alert rule group
 - Delete alert rule
 - Get all contact points
+- Get contact point by name
 - Add contact point
 - Update contact point
 - Delete contact point
