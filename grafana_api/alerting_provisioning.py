@@ -244,6 +244,10 @@ class AlertingProvisioning:
             f"{APIEndpoints.ALERTING_PROVISIONING.value}/contact-points?name={name}"
         )
 
+        if not isinstance(api_call, list):
+            logging.error(f"Check the error: {api_call}.")
+            raise Exception
+
         return api_call
 
     def add_contact_point(
