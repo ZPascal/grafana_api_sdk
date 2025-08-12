@@ -226,6 +226,30 @@ class AlertingProvisioning:
         else:
             return api_call
 
+    def get_contact_point(self, name: str) -> list:
+        """Return contact points that exactly match the given name.
+
+        This method does not support partial matching — the `name` value must
+        match exactly.
+
+        Raises:
+            Exception: If an unspecified error occurs during the API call.
+
+        Returns:
+            list: A list of contact points whose `name` property exactly matches
+            the provided `name`.
+        """
+
+        api_call: list = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.ALERTING_PROVISIONING.value}/contact-points?name={name}"
+        )
+
+        if not isinstance(api_call, list):
+            logging.error(f"Check the error: {api_call}.")
+            raise Exception
+
+        return api_call
+
     def add_contact_point(
         self,
         embedded_contact_point: EmbeddedContactPoint,
