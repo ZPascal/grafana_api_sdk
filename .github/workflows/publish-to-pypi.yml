@@ -24,22 +24,13 @@ jobs:
           cache: 'pip'
 
       - name: Install the requirements
-        run: pip install -r requirements.txt && pip install setuptools~=65.5.1 mkdocs mkdocs-material
+        run: pip install pdm && pdm install --no-self && pdm add setuptools~=65.5.1 mkdocs mkdocs-material build
 
-      - name: Install pypa/build
-        run: >-
-          python -m
-          pip install
-          build
-          --user
+      - name: Prepare the PyPi documentation
+        run: python3 .github/workflows/scripts/adjust-the-readme-file.py
 
       - name: Build a binary wheel and a source tarball
-        run: >-
-          python -m
-          build
-          --sdist
-          --wheel
-          --outdir dist/
+        run: .venv/bin/python3 -m build --sdist --wheel --outdir dist/
 
       - name: Setup the GitHub user
         run: |
@@ -47,7 +38,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
 
       - name: Update the GitHub pages documentation
-        run: cd docs && mkdocs gh-deploy --force && cd ..
+        run: cd docs && .venv/bin/mkdocs gh-deploy --force && cd ..
 
       - name: Publish distribution package to PyPI
         if: startsWith(github.ref, 'refs/tags')

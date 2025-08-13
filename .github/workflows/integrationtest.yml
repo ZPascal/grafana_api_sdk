@@ -28,10 +28,10 @@ jobs:
           cache: 'pip'
 
       - name: Install the requirements
-        run: pip install -r requirements.txt
+        run: pip install pdm && pdm install
 
       - name: Execute the integrationtests (http1.1)
-        run: python3 -m unittest discover tests/integrationtest
+        run: .venv/bin/python3 -m unittest discover tests/integrationtest
         env:
           GRAFANA_HOST: ${{ secrets.GRAFANA_HOST }}
           GRAFANA_TOKEN: ${{ secrets.GRAFANA_TOKEN }}
@@ -45,7 +45,7 @@ jobs:
         run: sleep 20
 
       - name: Execute the integrationtests (http2)
-        run: python3 -m unittest discover tests/integrationtest
+        run: .venv/bin/python3 -m unittest discover tests/integrationtest
         env:
           GRAFANA_HOST: ${{ secrets.GRAFANA_HOST }}
           GRAFANA_TOKEN: ${{ secrets.GRAFANA_TOKEN }}

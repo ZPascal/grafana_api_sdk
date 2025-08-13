@@ -1,0 +1,42 @@
+[project]
+name = "grafana-api-sdk"
+version = "0.9.0"
+description = "A Grafana API SDK"
+authors = [
+    {name = "Pascal Zimmermann", email = "info@theiotstudio.com"},
+]
+dependencies = [
+    "httpx",
+    "pytest>=8.3.5",
+]
+requires-python = ">=3.9"
+readme = "README.md"
+license = "Apache-2.0"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Libraries :: Grafana API SDK",
+]
+keywords = ["grafana", "api", "sdk"]
+
+[project.urls]
+Homepage = "https://github.com/ZPascal/grafana_api_sdk"
+Source = "https://github.com/ZPascal/grafana_api_sdk"
+"Bug Tracker" = "https://github.com/ZPascal/grafana_api_sdk/issues"
+Documentation = "https://zpascal.github.io/grafana_api_sdk/"
+
+[project.optional-dependencies]
+http2 = [
+    "httpx[http2]",
+]
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.pdm]
+distribution = true
+
+[dependency-groups]
+dev = ["pytest-httpx", "pytest"]
