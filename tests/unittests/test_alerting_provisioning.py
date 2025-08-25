@@ -223,11 +223,39 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = list([{"test": "test"}])
+        call_the_api_mock.return_value = list([{"test": "test"}, {"specific-contact-point": "specific contact point"}])
 
         self.assertEqual(
-            list([{"test": "test"}]),
+            list([{"test": "test"}, {"specific-contact-point": "specific contact point"}]),
             alerting_provisioning.get_all_contact_points(),
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_specific_contact_points(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = list([{"specific-contact-point": "specific contact point"}])
+
+        self.assertEqual(
+            list([{"specific-contact-point": "specific contact point"}]),
+            alerting_provisioning.get_contact_point("specific-contact-point"),
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_specific_contact_points_empty_on_partial_name_should_return_empty_list(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = list([])
+
+        self.assertEqual(
+            list([]),
+            alerting_provisioning.get_contact_point("contact-point-invalid-name"),
         )
 
     @patch("grafana_api.api.Api.call_the_api")
