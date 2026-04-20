@@ -349,12 +349,12 @@ class FolderTestCase(TestCase):
         with self.assertRaises(Exception):
             folder.update_folder_permissions("test", dict({"test": "test"}))
 
-    @patch("grafana_api.folder.Folder.get_all_folder_ids_and_names")
+    @patch("grafana_api.folder.Folder.get_all_folder_ids_uids_and_names")
     def test_get_folder_id_by_dashboard_path(self, all_folder_ids_and_names_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        all_folder_ids_and_names_mock.return_value = list([{"title": "test", "id": 12}])
+        all_folder_ids_and_names_mock.return_value = list([{"title": "test", "id": 12, "uid": "test-uid"}])
         self.assertEqual(
             12, folder.get_folder_id_by_dashboard_path(dashboard_path="test")
         )
@@ -374,7 +374,7 @@ class FolderTestCase(TestCase):
         with self.assertRaises(ValueError):
             folder.get_folder_id_by_dashboard_path(dashboard_path="")
 
-    @patch("grafana_api.folder.Folder.get_all_folder_ids_and_names")
+    @patch("grafana_api.folder.Folder.get_all_folder_ids_uids_and_names")
     def test_get_folder_id_by_dashboard_path_no_title_match(
         self, all_folder_ids_and_names_mock
     ):
@@ -382,7 +382,7 @@ class FolderTestCase(TestCase):
         folder: Folder = Folder(grafana_api_model=model)
 
         all_folder_ids_and_names_mock.return_value = list(
-            [{"title": None, "id": "xty13y"}]
+            [{"title": None, "id": "xty13y", "uid": "test-uid"}]
         )
         with self.assertRaises(Exception):
             folder.get_folder_id_by_dashboard_path(dashboard_path="test")
@@ -393,9 +393,9 @@ class FolderTestCase(TestCase):
         folder: Folder = Folder(grafana_api_model=model)
 
         call_the_api_mock.return_value = list(
-            [{"title": "test", "id": 12, "test": "test"}]
+            [{"title": "test", "id": 12, "uid": "test-uid"}]
         )
 
         self.assertEqual(
-            list([{"title": "test", "id": 12}]), folder.get_all_folder_ids_and_names()
+            list([{"title": "test", "id": 12, "uid": "test-uid"}]), folder.get_all_folder_ids_uids_and_names()
         )
