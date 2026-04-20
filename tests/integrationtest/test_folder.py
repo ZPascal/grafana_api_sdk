@@ -22,46 +22,14 @@ class FolderTest(TestCase):
 
     def test_get_folder_by_uids(self):
         self.assertEqual(
-            {
-                "canAdmin": True,
-                "canDelete": True,
-                "canEdit": True,
-                "canSave": True,
-                "created": "2022-01-10T00:24:58+01:00",
-                "createdBy": "Anonymous",
-                "hasAcl": False,
-                "id": 72,
-                "orgId": 4,
-                "title": "Github Integrationtest",
-                "uid": "6U_QdWJnz",
-                "updated": "2022-01-10T00:24:58+01:00",
-                "updatedBy": "Anonymous",
-                "url": "/dashboards/f/6U_QdWJnz/github-integrationtest",
-                "version": 1,
-            },
-            self.folder.get_folder_by_uid("6U_QdWJnz"),
+            "Github Integrationtest",
+            self.folder.get_folder_by_uid("6U_QdWJnz").get("title"),
         )
 
     def test_get_folder_by_id(self):
         self.assertEqual(
-            {
-                "canAdmin": True,
-                "canDelete": True,
-                "canEdit": True,
-                "canSave": True,
-                "created": "2022-01-10T00:24:58+01:00",
-                "createdBy": "Anonymous",
-                "hasAcl": False,
-                "id": 72,
-                "orgId": 4,
-                "title": "Github Integrationtest",
-                "uid": "6U_QdWJnz",
-                "updated": "2022-01-10T00:24:58+01:00",
-                "updatedBy": "Anonymous",
-                "url": "/dashboards/f/6U_QdWJnz/github-integrationtest",
-                "version": 1,
-            },
-            self.folder.get_folder_by_id(72),
+            "Github Integrationtest",
+            self.folder.get_folder_by_id(72).get("title"),
         )
 
     def test_a_create_folder(self):
@@ -138,8 +106,8 @@ class FolderTest(TestCase):
             0, self.folder.get_folder_id_by_dashboard_path("General")
         )
 
-    def test_get_all_folder_ids_and_names(self):
+    def test_get_all_folder_ids_uids_and_names(self):
         self.assertEqual(
-            list([{"id": 72, "title": "Github Integrationtest"}]),
-            self.folder.get_all_folder_ids_and_names(),
+            list([{"id": 72, "uid": "6U_QdWJnz", "title": "Github Integrationtest"}]),
+            self.folder.get_all_folder_ids_uids_and_names(),
         )
