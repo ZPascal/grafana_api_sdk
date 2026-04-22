@@ -755,22 +755,30 @@ class AlertingProvisioning:
             result (dict): Returns the alert route dictionary
         """
 
-        return dict(
-            {
-                "continue": route.continue_parameter,
-                "group_by": route.group_by_str,
-                "mute_time_intervals": route.mute_time_intervals,
-                "receiver": route.receiver,
-                "routes": self._create_alert_routes_list(route.routes),
-                "group_interval": route.group_interval,
-                "group_wait": route.group_wait,
-                "object_matchers": self._create_object_matcher_list(
-                    route.object_matchers
-                ),
-                "provenance": route.provenance,
-                "repeat_interval": route.repeat_interval,
-            }
-        )
+        route_dict: dict = {"receiver": route.receiver}
+
+        if route.continue_parameter is not None:
+            route_dict["continue"] = route.continue_parameter
+        if route.group_by_str is not None:
+            route_dict["group_by"] = route.group_by_str
+        if route.mute_time_intervals is not None:
+            route_dict["mute_time_intervals"] = route.mute_time_intervals
+        if route.routes is not None:
+            route_dict["routes"] = self._create_alert_routes_list(route.routes)
+        if route.group_interval is not None:
+            route_dict["group_interval"] = route.group_interval
+        if route.group_wait is not None:
+            route_dict["group_wait"] = route.group_wait
+        if route.object_matchers is not None:
+            route_dict["object_matchers"] = self._create_object_matcher_list(
+                route.object_matchers
+            )
+        if route.provenance is not None:
+            route_dict["provenance"] = route.provenance
+        if route.repeat_interval is not None:
+            route_dict["repeat_interval"] = route.repeat_interval
+
+        return route_dict
 
     def _create_alert_routes_list(self, routes: List[Route]) -> (list, None):
         """The method includes a functionality to create the alert route list
