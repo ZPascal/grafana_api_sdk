@@ -119,6 +119,12 @@ class AlertingProvisioningTest(TestCase):
             "test1", self.alerting_provisioning.get_all_contact_points()[1].get("name")
         )
 
+    def test_j_get_specific_contact_points(self):
+        self.assertEqual(
+            "email receiver",
+            self.alerting_provisioning.get_contact_point("email receiver")[0],
+        )
+
     def test_j_get_notification_policies(self):
         self.assertEqual(
             "grafana-default-email",
