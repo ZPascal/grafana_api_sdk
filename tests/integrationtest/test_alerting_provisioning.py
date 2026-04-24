@@ -127,9 +127,9 @@ class AlertingProvisioningTest(TestCase):
 
     def test_k_add_notification_policies(self):
         route: Route = Route(
+            "test1",
             False,
             ["grafana_folder", "alertname"],
-            "test1",
             "test",
             group_wait="5m",
             group_interval="30s",
@@ -229,9 +229,9 @@ class AlertingProvisioningTest(TestCase):
 
     def doCleanups(self):
         route: Route = Route(
+            "grafana-default-email",
             False,
             ["grafana_folder", "alertname"],
-            "grafana-default-email",
             "test",
             group_wait="5m",
             group_interval="30s",

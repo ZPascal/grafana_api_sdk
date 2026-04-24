@@ -25,11 +25,11 @@ class AlertingProvisioningTestCase(TestCase):
             "test", "test", {"test": "test"}
         )
         matcher: Matcher = Matcher("test", MatchType.MatchEqual, "test")
-        route_2: Route = Route(False, ["test"], "test", "test")
+        route_2: Route = Route("test", False, ["test"], "test")
         self.route: Route = Route(
+            "test",
             False,
             ["test"],
-            "test",
             "test",
             object_matchers=[matcher],
             routes=[route_2],
@@ -384,6 +384,21 @@ class AlertingProvisioningTestCase(TestCase):
 
         self.assertEqual(
             None, alerting_provisioning.add_notification_policies(self.route)
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_add_notification_policies_receiver_only(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = dict({"status": 201})
+
+        minimal_route: Route = Route("grafana-default-email")
+        self.assertEqual(
+            None,
+            alerting_provisioning.add_notification_policies(minimal_route),
         )
 
     def test_add_notification_policies_no_rule(self):
