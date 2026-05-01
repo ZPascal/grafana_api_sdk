@@ -13,9 +13,12 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"title": None, "id": 12}])
+        call_the_api_mock.side_effect = [
+            list([{"id": 12, "uid": "test-uid", "title": None}]),
+            list(),
+        ]
 
-        self.assertEqual(list([{"title": None, "id": 12}]), folder.get_folders())
+        self.assertEqual(list([{"id": 0, "uid": "", "title": "General"}, {"id": 12, "uid": "test-uid", "title": None}]), folder.get_folders())
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_folders_error_response(self, call_the_api_mock):
@@ -354,7 +357,7 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        all_folder_ids_uids_and_names_mock.return_value = [{"title": "test", "id": 12, "uid": "test-uid"}]
+        all_folder_ids_uids_and_names_mock.return_value = [{"id": 12, "uid": "test-uid", "title": "test"}]
         self.assertEqual(
             12, folder.get_folder_id_by_dashboard_path(dashboard_path="test")
         )
@@ -390,10 +393,16 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = [{"title": "test", "id": 12, "uid": "test-uid"}]
+        call_the_api_mock.side_effect = [
+            [{"id": 12, "uid": "test-uid", "title": "test"}],
+            []
+        ]
 
         self.assertEqual(
-            [{'id': 0, 'title': 'General', 'uid': ''}, {"title": "test", "id": 12, "uid": "test-uid"}], folder.get_all_folder_ids_uids_and_names()
+            [
+                {"id": 0, "uid": "", "title": "General"},
+                {"id": 12, "uid": "test-uid", "title": "test"}
+            ], folder.get_all_folder_ids_uids_and_names()
         )
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -401,10 +410,39 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.side_effect = [[], [{"title": "test", "id": 12, "uid": "test-uid"}]]
+        call_the_api_mock.side_effect = [
+            [],
+            [{"id": 12, "uid": "test-uid", "title": "test"}],
+            []
+        ]
 
         self.assertEqual(
-            [{'id': 0, 'title': 'General', 'uid': ''}, {"title": "test", "id": 12, "uid": "test-uid"}], folder.get_all_folder_ids_uids_and_names()
+            [
+                {"id": 0, "uid": "", "title": "General"},
+                {"id": 12, "uid": "test-uid", "title": "test"}
+            ], folder.get_all_folder_ids_uids_and_names()
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_all_folder_ids_uids_and_names_shared_dashboard(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        folder: Folder = Folder(grafana_api_model=model)
+
+        call_the_api_mock.side_effect = [
+            [
+                {"id": -1, "uid": "sharedwithme", "title": "Shared with me"},
+                {"id": 12, "uid": "test-uid", "title": "test"},
+            ],
+            [],
+            []
+        ]
+
+        self.assertEqual(
+            [
+                {"id": 0, "uid": "", "title": "General"},
+                {"id": -1, "uid": "sharedwithme", "title": "Shared with me"},
+                {"id": 12, "uid": "test-uid", "title": "test"}
+            ], folder.get_all_folder_ids_uids_and_names()
         )
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -423,7 +461,7 @@ class FolderTestCase(TestCase):
         folder: Folder = Folder(grafana_api_model=model)
 
         all_folder_ids_uids_and_names_mock.return_value = [
-            {"title": "test", "id": 12, "uid": "test-uid"}
+            {"id": 12, "uid": "test-uid", "title": "test"}
         ]
 
         self.assertEqual("test-uid", folder.get_folder_uid_by_dashboard_path("test"))
@@ -459,3 +497,134 @@ class FolderTestCase(TestCase):
 
         with self.assertRaises(Exception):
             folder.get_folder_uid_by_dashboard_path("test")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_folders_with_nested_folders(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        folder: Folder = Folder(grafana_api_model=model)
+
+        call_the_api_mock.side_effect = [
+            [{"id": 1, "uid": "root-uid", "title": "Root"}],
+        ]
+
+        result = folder.get_folders()
+
+        self.assertEqual(
+            [
+                {"id": 0, "uid": "", "title": "General"},
+                {"id": 1, "uid": "root-uid", "title": "Root"},
+            ],
+            result,
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_nested_folders(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        folder: Folder = Folder(grafana_api_model=model)
+
+        call_the_api_mock.side_effect = [
+            [],  # No children
+        ]
+        self.assertEqual([], folder._get_nested_folders("parent-uid"))
+
+        call_the_api_mock.reset_mock()
+        call_the_api_mock.side_effect = [
+            [{"id": 2, "uid": "child-1", "title": "Child 1"}],
+            [],
+        ]
+        self.assertEqual(
+            [{"id": 2, "uid": "child-1", "title": "Child 1"}],
+            folder._get_nested_folders("parent-uid"),
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_nested_folders_with_siblings(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        folder: Folder = Folder(grafana_api_model=model)
+
+        call_the_api_mock.side_effect = [
+            [
+                {"id": 2, "uid": "child-1", "title": "Child 1"},
+                {"id": 3, "uid": "child-2", "title": "Child 2"},
+            ],
+            [],
+            [],
+        ]
+        result = folder._get_nested_folders("parent-uid")
+        self.assertEqual(
+            [
+                {"id": 2, "uid": "child-1", "title": "Child 1"},
+                {"id": 3, "uid": "child-2", "title": "Child 2"},
+            ],
+            result,
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_nested_folders_recursive(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        folder: Folder = Folder(grafana_api_model=model)
+
+        call_the_api_mock.side_effect = [
+            [{"id": 2, "uid": "child-1", "title": "Child 1"}],
+            [{"id": 3, "uid": "grandchild-1", "title": "Grandchild 1"}],
+            [],
+        ]
+        result = folder._get_nested_folders("parent-uid")
+        self.assertEqual(
+            [
+                {"id": 2, "uid": "child-1", "title": "Child 1"},
+                {"id": 3, "uid": "grandchild-1", "title": "Grandchild 1"},
+            ],
+            result,
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_nested_folders_complex(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        folder: Folder = Folder(grafana_api_model=model)
+
+        call_the_api_mock.side_effect = [
+            [
+                {"id": 2, "uid": "child-1", "title": "Child 1"},
+                {"id": 3, "uid": "child-2", "title": "Child 2"},
+            ],
+            [{"id": 4, "uid": "grandchild-1", "title": "Grandchild 1"}],
+            [],
+            [
+                {"id": 5, "uid": "grandchild-2", "title": "Grandchild 2"},
+                {"id": 6, "uid": "grandchild-3", "title": "Grandchild 3"},
+            ],
+            [],
+            [],
+        ]
+        result = folder._get_nested_folders("parent-uid")
+        self.assertEqual(
+            [
+                {"id": 2, "uid": "child-1", "title": "Child 1"},
+                {"id": 3, "uid": "child-2", "title": "Child 2"},
+                {"id": 4, "uid": "grandchild-1", "title": "Grandchild 1"},
+                {"id": 5, "uid": "grandchild-2", "title": "Grandchild 2"},
+                {"id": 6, "uid": "grandchild-3", "title": "Grandchild 3"},
+            ],
+            result,
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_folders_nested_folders_enabled(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        folder: Folder = Folder(grafana_api_model=model)
+
+        call_the_api_mock.side_effect = [
+            [{"id": 1, "uid": "root", "title": "Root"}],
+            [{"id": 2, "uid": "child", "title": "Child"}],
+            [],
+        ]
+        result = folder.get_folders(nested_folders=True)
+        self.assertEqual(
+            [
+                {"id": 0, "uid": "", "title": "General"},
+                {"id": 1, "uid": "root", "title": "Root"},
+                {"id": 2, "uid": "child", "title": "Child"},
+            ],
+            result,
+        )

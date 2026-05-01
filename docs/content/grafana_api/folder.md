@@ -43,7 +43,7 @@ The class includes all necessary methods to access the Grafana folder API endpoi
 #### get\_folders
 
 ```python
-def get_folders() -> list
+def get_folders(limit: int = 1000, nested_folders: bool = False) -> list
 ```
 
 The method includes a functionality to extract all folders inside the organization
@@ -52,6 +52,12 @@ Required Permissions:
 Action: folders:read
 Scope: folders:*
 
+**Arguments**:
+
+- `limit` _int_ - Specify the limit of folders that should be extracted (default 1000)
+- `nested_folders` _bool_ - Specify if nested folders should be extracted (default False)
+  
+
 **Raises**:
 
 - `Exception` - Unspecified error by executing the API call
@@ -59,7 +65,7 @@ Scope: folders:*
 
 **Returns**:
 
-- `api_call` _list_ - Returns all folders
+- `api_call` _list_ - Returns all folders including nested ones
 
 <a id="folder.Folder.get_folder_by_uid"></a>
 
@@ -358,14 +364,16 @@ The method includes a functionality to extract the folder uid specified inside m
 #### get\_all\_folder\_ids\_uids\_and\_names
 
 ```python
-def get_all_folder_ids_uids_and_names(limit: int = 1000) -> list
+def get_all_folder_ids_uids_and_names(limit: int = 1000,
+                                      nested_folders: bool = True) -> list
 ```
 
-The method extract all folder id, uid and names inside the complete organization
+The method extract all folder id, uid and names inside the complete organization. In addition, nested folders are also extracted by default
 
 **Arguments**:
 
 - `limit` _int_ - Specify the limit of folders that should be extracted (default 1000)
+- `nested_folders` _bool_ - Specify if nested folders should be extracted (default True)
   
 
 **Returns**:
