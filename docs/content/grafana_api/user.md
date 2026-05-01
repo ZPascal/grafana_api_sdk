@@ -1,26 +1,3 @@
-# Table of Contents
-
-* [user](#user)
-  * [User](#user.User)
-    * [search\_users](#user.User.search_users)
-    * [search\_users\_with\_paging](#user.User.search_users_with_paging)
-    * [get\_user\_by\_id](#user.User.get_user_by_id)
-    * [get\_user\_by\_username\_or\_email](#user.User.get_user_by_username_or_email)
-    * [update\_user](#user.User.update_user)
-    * [get\_user\_organizations](#user.User.get_user_organizations)
-    * [get\_user\_teams](#user.User.get_user_teams)
-    * [switch\_specific\_user\_context](#user.User.switch_specific_user_context)
-  * [CurrentUser](#user.CurrentUser)
-    * [get\_user](#user.CurrentUser.get_user)
-    * [update\_password](#user.CurrentUser.update_password)
-    * [switch\_current\_user\_context](#user.CurrentUser.switch_current_user_context)
-    * [get\_user\_organizations](#user.CurrentUser.get_user_organizations)
-    * [get\_user\_teams](#user.CurrentUser.get_user_teams)
-    * [star\_a\_dashboard](#user.CurrentUser.star_a_dashboard)
-    * [unstar\_a\_dashboard](#user.CurrentUser.unstar_a_dashboard)
-    * [get\_auth\_tokens](#user.CurrentUser.get_auth_tokens)
-    * [revoke\_auth\_token](#user.CurrentUser.revoke_auth_token)
-
 <a id="user"></a>
 
 # user

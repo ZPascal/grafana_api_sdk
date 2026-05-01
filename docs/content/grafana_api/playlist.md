@@ -1,15 +1,3 @@
-# Table of Contents
-
-* [playlist](#playlist)
-  * [Playlist](#playlist.Playlist)
-    * [search\_playlist](#playlist.Playlist.search_playlist)
-    * [get\_playlist](#playlist.Playlist.get_playlist)
-    * [get\_playlist\_items](#playlist.Playlist.get_playlist_items)
-    * [get\_playlist\_dashboards](#playlist.Playlist.get_playlist_dashboards)
-    * [create\_playlist](#playlist.Playlist.create_playlist)
-    * [update\_playlist](#playlist.Playlist.update_playlist)
-    * [delete\_playlist](#playlist.Playlist.delete_playlist)
-
 <a id="playlist"></a>
 
 # playlist

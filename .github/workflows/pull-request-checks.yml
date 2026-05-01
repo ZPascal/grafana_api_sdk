@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.10' ]
+        python-version: [ "3.8", "3.9", "3.10", "3.11", "3.12", "3.13", "3.14" ]
 
     steps:
       - uses: actions/checkout@v7
@@ -20,20 +20,22 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
-          cache: 'pip'
 
-      - name: Install the requirements
-        run: pip install -r requirements.txt
+      - name: Install uv
+        uses: astral-sh/setup-uv@v2
+
+      - name: Install the project with dev dependencies
+        run: uv sync --extra dev
 
       - name: Execute the unittests
-        run: python3 -m unittest discover tests/unittests
+        run: uv run pytest tests/unittests
 
   pr-lint:
     runs-on: ubuntu-latest
     permissions: write-all
     strategy:
       matrix:
-        python-version: [ '3.10' ]
+        python-version: [ "3.12" ]
 
     steps:
       - uses: actions/checkout@v7
@@ -43,21 +45,22 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
-          cache: 'pip'
 
-      - name: Execute the linting checks
-        uses: reviewdog/action-flake8@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          flake8_args: --config=.flake8
-          fail_on_error: true
+      - name: Install uv
+        uses: astral-sh/setup-uv@v2
+
+      - name: Install ruff
+        run: uv sync --extra dev
+
+      - name: Execute the linting checks with ruff
+        run: uv run ruff check .
 
   pr-coverage:
     runs-on: ubuntu-latest
     permissions: write-all
     strategy:
       matrix:
-        python-version: [ '3.10' ]
+        python-version: [ "3.12" ]
 
     steps:
       - uses: actions/checkout@v7
@@ -70,10 +73,12 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
-          cache: 'pip'
 
-      - name: Install the requirements
-        run: pip install -r requirements.txt && pip install pytest-cov coverage-badge
+      - name: Install uv
+        uses: astral-sh/setup-uv@v2
+
+      - name: Install the project and coverage tools
+        run: uv sync --extra dev
 
       - name: Generate the coverage report
         run: export PYTHONPATH=$PWD && pytest --junitxml=pytest.xml --cov=. tests/unittests | tee pytest-coverage.txt
@@ -88,7 +93,7 @@ jobs:
           create-new-comment: true
 
       - name: Generate coverage badge
-        run: coverage-badge -f -o docs/coverage.svg
+        run: uv run coverage-badge -f -o docs/coverage.svg
 
       - name: Check changed files
         uses: tj-actions/verify-changed-files@v20
@@ -117,7 +122,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.9' ]
+        python-version: [ "3.12" ]
 
     steps:
       - uses: actions/checkout@v7
@@ -130,13 +135,15 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
-          cache: 'pip'
 
-      - name: Install the requirements
-        run: pip install pydoc-markdown==4.6.3 mkdocs mkdocs-material
+      - name: Install uv
+        uses: astral-sh/setup-uv@v2
+
+      - name: Install documentation tools
+        run: uv sync --extra docs
 
       - name: Generate documentation
-        run: pydoc-markdown --render-toc && rm -rf docs/content && mv build/docs/* docs
+        run: uv run pydoc-markdown --build --site-dir build/docs && rm -rf docs/content && mv build/docs/* docs
 
       - name: Check changed files
         uses: tj-actions/verify-changed-files@v20

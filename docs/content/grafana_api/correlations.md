@@ -1,14 +1,3 @@
-# Table of Contents
-
-* [correlations](#correlations)
-  * [Correlations](#correlations.Correlations)
-    * [get\_correlation](#correlations.Correlations.get_correlation)
-    * [get\_all\_correlations\_by\_datasource\_uid](#correlations.Correlations.get_all_correlations_by_datasource_uid)
-    * [get\_all\_correlations](#correlations.Correlations.get_all_correlations)
-    * [create\_correlations](#correlations.Correlations.create_correlations)
-    * [delete\_correlations](#correlations.Correlations.delete_correlations)
-    * [update\_correlations](#correlations.Correlations.update_correlations)
-
 <a id="correlations"></a>
 
 # correlations

@@ -1,21 +1,3 @@
-# Table of Contents
-
-* [service\_account](#service_account)
-  * [ServiceAccount](#service_account.ServiceAccount)
-    * [search\_service\_account](#service_account.ServiceAccount.search_service_account)
-    * [get\_service\_account\_by\_id](#service_account.ServiceAccount.get_service_account_by_id)
-    * [create\_service\_account](#service_account.ServiceAccount.create_service_account)
-    * [update\_service\_account](#service_account.ServiceAccount.update_service_account)
-    * [delete\_service\_account](#service_account.ServiceAccount.delete_service_account)
-    * [get\_service\_account\_tokens\_by\_id](#service_account.ServiceAccount.get_service_account_tokens_by_id)
-    * [create\_service\_account\_token\_by\_id](#service_account.ServiceAccount.create_service_account_token_by_id)
-    * [delete\_service\_account\_token\_by\_id](#service_account.ServiceAccount.delete_service_account_token_by_id)
-    * [migrate\_api\_keys\_to\_service\_accounts](#service_account.ServiceAccount.migrate_api_keys_to_service_accounts)
-    * [migrate\_api\_key\_to\_service\_account](#service_account.ServiceAccount.migrate_api_key_to_service_account)
-    * [get\_service\_account\_migration\_status](#service_account.ServiceAccount.get_service_account_migration_status)
-    * [hide\_the\_api\_keys\_tab](#service_account.ServiceAccount.hide_the_api_keys_tab)
-    * [revert\_service\_account\_token\_to\_api\_key](#service_account.ServiceAccount.revert_service_account_token_to_api_key)
-
 <a id="service_account"></a>
 
 # service\_account

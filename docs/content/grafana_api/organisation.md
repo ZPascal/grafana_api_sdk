@@ -1,26 +1,3 @@
-# Table of Contents
-
-* [organisation](#organisation)
-  * [Organisation](#organisation.Organisation)
-    * [get\_current\_organization](#organisation.Organisation.get_current_organization)
-    * [get\_all\_users\_by\_the\_current\_organization](#organisation.Organisation.get_all_users_by_the_current_organization)
-    * [get\_all\_users\_by\_the\_current\_organization\_lookup](#organisation.Organisation.get_all_users_by_the_current_organization_lookup)
-    * [update\_organization\_user\_role\_by\_user\_id](#organisation.Organisation.update_organization_user_role_by_user_id)
-    * [delete\_organization\_user\_by\_user\_id](#organisation.Organisation.delete_organization_user_by_user_id)
-    * [update\_current\_organization](#organisation.Organisation.update_current_organization)
-    * [add\_new\_user\_to\_current\_organization](#organisation.Organisation.add_new_user_to_current_organization)
-  * [OrganisationAdmin](#organisation.OrganisationAdmin)
-    * [get\_organization\_by\_id](#organisation.OrganisationAdmin.get_organization_by_id)
-    * [get\_organization\_by\_name](#organisation.OrganisationAdmin.get_organization_by_name)
-    * [get\_organizations](#organisation.OrganisationAdmin.get_organizations)
-    * [create\_organization](#organisation.OrganisationAdmin.create_organization)
-    * [update\_organization](#organisation.OrganisationAdmin.update_organization)
-    * [delete\_organization](#organisation.OrganisationAdmin.delete_organization)
-    * [get\_organization\_users](#organisation.OrganisationAdmin.get_organization_users)
-    * [add\_organization\_user](#organisation.OrganisationAdmin.add_organization_user)
-    * [update\_organization\_user](#organisation.OrganisationAdmin.update_organization_user)
-    * [delete\_organization\_user](#organisation.OrganisationAdmin.delete_organization_user)
-
 <a id="organisation"></a>
 
 # organisation
