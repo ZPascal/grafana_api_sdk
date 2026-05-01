@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=65.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "grafana-api-sdk"
+version = "0.9.0"
+description = "A Grafana API SDK"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "Apache-2.0 License" }
+authors = [
+    { name = "Pascal Zimmermann", email = "info@theiotstudio.com" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved",
+    "Operating System :: OS Independent",
+]
+dependencies = ["httpx"]
+
+[project.optional-dependencies]
+http2 = ["httpx[http2]"]
+docs = ["pyyaml>=6.0.3", "pydoc-markdown", "mkdocs", "mkdocs-material"]
+dev = ["build", "setuptools>=65.0.0", "wheel", "ruff>=0.5.0", "pytest", "pytest-httpx", "pytest-cov", "coverage-badge", "httpx[http2]"]
+
+[project.urls]
+Source = "https://github.com/ZPascal/grafana_api_sdk"
+"Bug Tracker" = "https://github.com/ZPascal/grafana_api_sdk/issues"
+Documentation = "https://zpascal.github.io/grafana_api_sdk/"
+
+[tool.setuptools]
+packages = ["grafana_api"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py38"
+
+[tool.ruff.lint]
+select = ["B", "C", "D", "E", "F", "W", "T4", "B902", "B950"]
+ignore = ["E203", "E266", "E501", "W503"]
+exclude = [".venv", "venv", ".git"]
+
+[tool.ruff.lint.pylint]
+max-args = 10
+
+[tool.ruff.lint.mccabe]
+max-complexity = 20
+
+[tool.coverage.run]
+branch = true
+omit = []
+source = ["."]
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true
+skip_covered = false
+exclude_lines = [
+    "pragma: no cover",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+]
+

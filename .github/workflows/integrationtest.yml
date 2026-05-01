@@ -15,7 +15,7 @@ jobs:
     permissions: read-all
     strategy:
       matrix:
-        python-version: [ '3.10' ]
+        python-version: [ "3.12" ]
 
     steps:
       - uses: actions/checkout@v7
@@ -25,10 +25,12 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
-          cache: 'pip'
 
-      - name: Install the requirements
-        run: pip install -r requirements.txt
+      - name: Install uv
+        uses: astral-sh/setup-uv@v2
+
+      - name: Install the project with dev dependencies
+        run: uv sync --extra dev
 
       - name: Execute the integrationtests (http1.1)
         run: python3 -m unittest discover tests/integrationtest
