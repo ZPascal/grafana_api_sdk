@@ -399,7 +399,7 @@ class Folder:
         """
 
         folders_raw: list = Api(self.grafana_api_model).call_the_api(
-            f"{APIEndpoints.SEARCH.value}?folderIds=0"
+            f"{APIEndpoints.SEARCH.value}?folderIds=null"
         )
         folders_raw_len: int = len(folders_raw)
         folders: list = list()
