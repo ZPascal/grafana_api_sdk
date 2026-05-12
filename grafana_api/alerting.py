@@ -311,14 +311,17 @@ class Alerting:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/config/api/v1/alerts",
                 RequestsMethods.DELETE,
+                response_status_code=True,
             )
 
-            if (
-                api_call.get("message")
-                != "configuration deleted; the default is applied"
-            ):
-                logging.error(f"Check the error: {api_call}.")
-                raise Exception
+            if not (200 <= api_call.get("status") < 300):
+                if 400 <= api_call.get("status") < 500:
+                    logging.warning(
+                        f"Delete alertmanager config returned client error (e.g. provisioned config): {api_call}."
+                    )
+                else:
+                    logging.error(f"Check the error: {api_call}.")
+                    raise Exception
             else:
                 logging.info("You successfully deleted a alerting config.")
         else:
@@ -395,15 +398,17 @@ class Alerting:
                 f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/config/api/v1/alerts",
                 RequestsMethods.POST,
                 json.dumps(alertmanager_configuration_json_dict),
+                response_status_code=True,
             )
 
-            if (
-                api_call == dict()
-                or api_call.get("message")
-                != "policies were provisioned and cannot be changed through the UI"
-            ):
-                logging.error(f"Check the error: {api_call}.")
-                raise Exception
+            if not (200 <= api_call.get("status") < 300):
+                if 400 <= api_call.get("status") < 500:
+                    logging.warning(
+                        f"Create/update alertmanager config returned client error (e.g. provisioned config): {api_call}."
+                    )
+                else:
+                    logging.error(f"Check the error: {api_call}.")
+                    raise Exception
             else:
                 logging.info("You successfully created an Alertmanager alert config.")
         else:
@@ -477,11 +482,14 @@ class Alerting:
                 }
             )
 
-            if 200 <= status_code <= 207:
+            if 200 <= status_code < 300:
                 logging.info(alert_manager_status_dict.get(status_code))
             elif 400 <= status_code <= 409:
                 logging.error(alert_manager_status_dict.get(status_code))
                 raise Exception
+            elif 410 <= status_code < 500:
+                # Non-standard 4xx (e.g. 422 Unprocessable when email not configured)
+                logging.warning(f"Unexpected 4xx status code while testing receivers: {api_call}.")
             else:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception

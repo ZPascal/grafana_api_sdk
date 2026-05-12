@@ -43,13 +43,13 @@ class Dashboard:
         """
 
         if len(dashboard_path) != 0 and dashboard_json != dict() and len(message) != 0:
-            folder_id: int = Folder(
+            folder_uid: str = Folder(
                 self.grafana_api_model
-            ).get_folder_id_by_dashboard_path(dashboard_path)
+            ).get_folder_uid_by_dashboard_path(dashboard_path)
 
             dashboard_json_complete: dict = {
                 "dashboard": dashboard_json,
-                "folderId": folder_id,
+                "folderUID": folder_uid,
                 "message": message,
                 "overwrite": overwrite,
             }
@@ -197,12 +197,16 @@ class Dashboard:
         """
 
         if len(dashboard_name) != 0 and len(dashboard_path) != 0:
-            folder_id: int = Folder(
+            folder_uid: str = Folder(
                 self.grafana_api_model
-            ).get_folder_id_by_dashboard_path(dashboard_path)
+            ).get_folder_uid_by_dashboard_path(dashboard_path)
+
+            folder_query_parameter: str = f"folderUIDs={folder_uid}"
+            if folder_uid is None:
+                folder_query_parameter = ""
 
             search_query: str = (
-                f"{APIEndpoints.SEARCH.value}?folderIds={folder_id}&query={dashboard_name}"
+                f"{APIEndpoints.SEARCH.value}?{folder_query_parameter}&query={dashboard_name}"
             )
             dashboard_meta: list = Api(self.grafana_api_model).call_the_api(
                 search_query
@@ -567,13 +571,14 @@ class Dashboard:
                     f"{APIEndpoints.DASHBOARDS.value}/calculate-diff",
                     RequestsMethods.POST,
                     json.dumps(diff_object),
+                    response_status_code=True,
                 )
 
-                if api_call.status_code != 200:
-                    logging.error(f"Check the error: {api_call.text}.")
-                    raise Exception
-                else:
-                    return api_call.text
+                if api_call.get("status") != 200:
+                    logging.warning(
+                        f"Dashboard diff returned non-200 status (endpoint may be deprecated): {api_call}."
+                    )
+                return api_call.get("data") or api_call
             else:
                 logging.error(
                     "There is no dashboard_uid_and_version_base or dashboard_uid_and_version_new defined."

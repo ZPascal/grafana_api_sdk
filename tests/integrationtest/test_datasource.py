@@ -32,6 +32,7 @@ class DataSourceTest(TestCase):
     def test_get_datasource_by_name(self):
         data_source: dict = self.data_source.get_datasource_by_name("TestData DB")
 
+        print(data_source)
         self.assertEqual(5, data_source["id"])
 
     def test_get_datasource_id_by_name(self):
