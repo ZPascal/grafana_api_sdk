@@ -273,7 +273,7 @@ class AlertingTestCase(TestCase):
         alerting: Alerting = Alerting(grafana_api_model=model)
 
         call_the_api_mock.return_value = dict(
-            {"message": "configuration deleted; the default is applied"}
+            {"message": "configuration deleted; the default is applied", "status": 200}
         )
 
         self.assertEqual(None, alerting.delete_alertmanager_config())
@@ -334,7 +334,8 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = dict(
             {
-                "message": "policies were provisioned and cannot be changed through the UI"
+                "message": "policies were provisioned and cannot be changed through the UI",
+                "status": 400,
             }
         )
 

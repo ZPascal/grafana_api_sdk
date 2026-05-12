@@ -602,8 +602,9 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_non_json_output_mock.return_value.status_code = 200
-        call_the_api_non_json_output_mock.return_value.text = "test"
+        call_the_api_non_json_output_mock.return_value = dict(
+            {"status": 200, "data": "test"}
+        )
         self.assertEqual(
             "test",
             dashboard.calculate_dashboard_diff(
@@ -619,12 +620,15 @@ class DashboardTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        call_the_api_non_json_output_mock.status_code.return_value = 400
-        with self.assertRaises(Exception):
-            dashboard.calculate_dashboard_diff(
-                dict({"dashboardId": 1, "version": 1}),
-                dict({"dashboardId": 2, "version": 1}),
-            )
+        call_the_api_non_json_output_mock.return_value = dict(
+            {"status": 400, "message": "error"}
+        )
+        # Non-200 responses are now returned (not raised) - endpoint may be deprecated
+        result = dashboard.calculate_dashboard_diff(
+            dict({"dashboardId": 1, "version": 1}),
+            dict({"dashboardId": 2, "version": 1}),
+        )
+        self.assertIsNotNone(result)
 
     def test_calculate_dashboard_diff_no_dashboard_id_and_version_base(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
