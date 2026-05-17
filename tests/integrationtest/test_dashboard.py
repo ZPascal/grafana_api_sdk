@@ -117,7 +117,7 @@ class DashboardTest(TestCase):
             message="Create a new test dashboard a",
             dashboard_json=json_dashboard_a.get("dashboard"),
             dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
-            overwrite=False,
+            overwrite=True,
         )
 
         with open(
@@ -129,7 +129,7 @@ class DashboardTest(TestCase):
             message="Create a new test dashboard b",
             dashboard_json=json_dashboard_b.get("dashboard"),
             dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
-            overwrite=False,
+            overwrite=True,
         )
 
         dashboard_a: dict = self.dashboard.get_dashboard_uid_and_id_by_name_and_folder(
@@ -172,7 +172,7 @@ class DashboardTest(TestCase):
             message="Create a new test dashboard a",
             dashboard_json=json_dashboard_a.get("dashboard"),
             dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
-            overwrite=False,
+            overwrite=True,
         )
 
         with open(
@@ -184,7 +184,7 @@ class DashboardTest(TestCase):
             message="Create a new test dashboard b",
             dashboard_json=json_dashboard_b.get("dashboard"),
             dashboard_path=os.environ["GRAFANA_DASHBOARD_PATH"],
-            overwrite=False,
+            overwrite=True,
         )
 
         dashboard_a: dict = self.dashboard.get_dashboard_uid_and_id_by_name_and_folder(

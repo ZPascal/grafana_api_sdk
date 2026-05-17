@@ -418,14 +418,18 @@ The method includes a functionality to get the current user teams
 #### star\_a\_dashboard
 
 ```python
-def star_a_dashboard(dashboard_id: int)
+def star_a_dashboard(dashboard_id: int = 0, dashboard_uid: str = None)
 ```
 
-The method includes a functionality to star a dashboard for the current user
+The method includes a functionality to star a dashboard for the current user.
+Prefers the UID-based endpoint (Grafana 10+) when dashboard_uid is provided,
+otherwise falls back to the legacy ID-based endpoint for backward compatibility.
+At least one of dashboard_id (non-zero) or dashboard_uid must be supplied.
 
 **Arguments**:
 
-- `dashboard_id` _int_ - Specify the dashboard id
+- `dashboard_id` _int_ - Specify the dashboard id (default 0)
+- `dashboard_uid` _str_ - Optionally specify the dashboard uid to use the newer UID-based endpoint (default None)
   
 
 **Raises**:
@@ -443,14 +447,18 @@ The method includes a functionality to star a dashboard for the current user
 #### unstar\_a\_dashboard
 
 ```python
-def unstar_a_dashboard(dashboard_id: int)
+def unstar_a_dashboard(dashboard_id: int = 0, dashboard_uid: str = None)
 ```
 
-The method includes a functionality to unstar a dashboard for the current user
+The method includes a functionality to unstar a dashboard for the current user.
+Prefers the UID-based endpoint (Grafana 10+) when dashboard_uid is provided,
+otherwise falls back to the legacy ID-based endpoint for backward compatibility.
+At least one of dashboard_id (non-zero) or dashboard_uid must be supplied.
 
 **Arguments**:
 
-- `dashboard_id` _int_ - Specify the dashboard id
+- `dashboard_id` _int_ - Specify the dashboard id (default 0)
+- `dashboard_uid` _str_ - Optionally specify the dashboard uid to use the newer UID-based endpoint (default None)
   
 
 **Raises**:

@@ -52,7 +52,9 @@ class Datasource:
             return api_call
 
     def get_datasource_by_id(self, datasource_id: int) -> dict:
-        """The method includes a functionality to get the datasource specified by the datasource id
+        """The method includes a functionality to get the datasource specified by the datasource id.
+        Tries the direct ID-based endpoint first and falls back to scanning all datasources if the
+        endpoint is deprecated or the datasource is not found by id directly.
 
         Args:
             datasource_id (int): Specify the id of the datasource
@@ -75,11 +77,26 @@ class Datasource:
                 RequestsMethods.GET,
             )
 
-            if api_call == dict() or api_call.get("id") is None:
-                logging.error(f"Check the error: {api_call}.")
-                raise Exception
-            else:
+            if api_call != dict() and api_call.get("id") is not None:
                 return api_call
+
+            # Fallback: scan all datasources and match by id
+            logging.warning(
+                f"Direct ID lookup for datasource {datasource_id} failed, falling back to list scan."
+            )
+            try:
+                all_datasources: list = Api(self.grafana_api_model).call_the_api(
+                    APIEndpoints.DATASOURCES.value,
+                    RequestsMethods.GET,
+                )
+                for ds in all_datasources:
+                    if ds.get("id") == datasource_id:
+                        return ds
+            except Exception:
+                pass
+
+            logging.error(f"Check the error: {api_call}.")
+            raise Exception
         else:
             logging.error("There is no datasource_id defined.")
             raise ValueError
@@ -217,7 +234,9 @@ class Datasource:
             raise ValueError
 
     def update_datasource(self, datasource_id: int, data_source: dict):
-        """The method includes a functionality to update a datasource specified by the datasource as dict and the datasource id
+        """The method includes a functionality to update a datasource specified by the datasource as dict and the datasource id.
+        Tries the direct ID-based endpoint first and falls back to a UID-based update if the
+        ID endpoint is deprecated or unavailable.
 
         Args:
             datasource_id (int): Specify the id of the datasource
@@ -242,17 +261,39 @@ class Datasource:
                 json.dumps(data_source),
             )
 
-            if api_call.get("message") != "Datasource updated":
-                logging.error(f"Check the error: {api_call}.")
-                raise Exception
-            else:
+            if api_call.get("message") == "Datasource updated":
                 logging.info("You successfully updated a datasource.")
+                return
+
+            # Fallback: look up UID and use UID-based update endpoint
+            logging.warning(
+                f"ID-based update for datasource {datasource_id} failed, falling back to UID-based update."
+            )
+            try:
+                ds: dict = self.get_datasource_by_id(datasource_id)
+                uid: str = ds.get("uid", "")
+                if uid:
+                    fallback_call: dict = Api(self.grafana_api_model).call_the_api(
+                        f"{APIEndpoints.DATASOURCES.value}/uid/{uid}",
+                        RequestsMethods.PUT,
+                        json.dumps(data_source),
+                    )
+                    if fallback_call.get("message") == "Datasource updated":
+                        logging.info("You successfully updated a datasource.")
+                        return
+            except Exception:
+                pass
+
+            logging.error(f"Check the error: {api_call}.")
+            raise Exception
         else:
             logging.error("There is no datasource_id or data_source defined.")
             raise ValueError
 
     def delete_datasource_by_id(self, datasource_id: int):
-        """The method includes a functionality to delete a datasource specified by the datasource id
+        """The method includes a functionality to delete a datasource specified by the datasource id.
+        Tries the direct ID-based endpoint first and falls back to a UID-based delete if the
+        ID endpoint is deprecated or unavailable.
 
         Args:
             datasource_id (int): Specify the id of the datasource
@@ -275,11 +316,25 @@ class Datasource:
                 RequestsMethods.DELETE,
             )
 
-            if api_call.get("message") != "Data source deleted":
-                logging.error(f"Check the error: {api_call}.")
-                raise Exception
-            else:
+            if api_call.get("message") == "Data source deleted":
                 logging.info("You successfully deleted a datasource.")
+                return
+
+            # Fallback: look up UID and use UID-based delete endpoint
+            logging.warning(
+                f"ID-based delete for datasource {datasource_id} failed, falling back to UID-based delete."
+            )
+            try:
+                ds: dict = self.get_datasource_by_id(datasource_id)
+                uid: str = ds.get("uid", "")
+                if uid:
+                    self.delete_datasource_by_uid(uid)
+                    return
+            except Exception:
+                pass
+
+            logging.error(f"Check the error: {api_call}.")
+            raise Exception
         else:
             logging.error("There is no datasource_id defined.")
             raise ValueError

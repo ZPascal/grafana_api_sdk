@@ -459,7 +459,7 @@ The method includes a functionality to restore a specified version of a dashboar
 ```python
 def calculate_dashboard_diff(dashboard_id_and_version_base: dict,
                              dashboard_id_and_version_new: dict,
-                             diff_type: str = "json") -> str
+                             diff_type: str = "json") -> str | dict
 ```
 
 The method includes a functionality to calculate the diff of specified versions of a dashboard based on the specified dashboard uid and the selected version of the base dashboard and the new dashboard and the diff type (basic or json)
@@ -474,12 +474,13 @@ The method includes a functionality to calculate the diff of specified versions 
 **Raises**:
 
 - `ValueError` - Missed specifying a necessary value
-- `Exception` - Unspecified error by executing the API call
   
 
 **Returns**:
 
-- `api_call` _str_ - Returns the difference of the two specified dashboards
+- `api_call` _str | dict_ - Returns the diff string on success (200), or the full response
+  dict on non-200 (e.g. when the endpoint is deprecated or unavailable). Callers
+  should check whether the return value is a str before using it as a diff.
 
 <a id="dashboard.Dashboard.get_public_dashboards"></a>
 
