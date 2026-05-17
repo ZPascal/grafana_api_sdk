@@ -37,7 +37,7 @@ class PlaylistTest(TestCase):
             title="Github Integrationtest/Test 1",
         )
         playlist_object: PlaylistObject = PlaylistObject(
-            "Test1", "5m", list([playlist_item])
+            "Test1", "5m", [playlist_item]
         )
         result = cls.playlist.create_playlist(playlist_object)
         cls.base_uid = result.get("uid")
@@ -72,7 +72,7 @@ class PlaylistTest(TestCase):
             title="Github Integrationtest/Test 1",
         )
         playlist_object: PlaylistObject = PlaylistObject(
-            "Test1", "5m", list([playlist_item])
+            "Test1", "5m", [playlist_item]
         )
         result = self.playlist.create_playlist(playlist_object)
         self.__class__.created_uid = result.get("uid")
@@ -87,7 +87,7 @@ class PlaylistTest(TestCase):
             title="Github Integrationtest/Test 1",
         )
         playlist_object: PlaylistObject = PlaylistObject(
-            "Test2", "5m", list([playlist_item])
+            "Test2", "5m", [playlist_item]
         )
 
         self.playlist.update_playlist(

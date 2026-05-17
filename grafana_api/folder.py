@@ -437,14 +437,18 @@ class Folder:
         """
 
         folders_raw: list = Api(self.grafana_api_model).call_the_api(
-            f"{APIEndpoints.SEARCH.value}?folderUIDs"
+            APIEndpoints.FOLDERS.value
         )
-        folders_raw_len: int = len(folders_raw)
-        folders: list = list()
 
-        for i in range(0, folders_raw_len):
+        if not isinstance(folders_raw, list):
+            logging.error(f"Check the error: {folders_raw}.")
+            raise Exception
+
+        folders: list = []
+
+        for folder in folders_raw:
             folders.append(
-                {"title": folders_raw[i].get("title"), "id": folders_raw[i].get("id"), "uid": folders_raw[i].get("uid")}
+                {"title": folder.get("title"), "id": folder.get("id"), "uid": folder.get("uid")}
             )
 
         return folders

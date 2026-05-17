@@ -49,10 +49,11 @@ class Dashboard:
 
             dashboard_json_complete: dict = {
                 "dashboard": dashboard_json,
-                "folderUID": folder_uid,
                 "message": message,
                 "overwrite": overwrite,
             }
+            if folder_uid is not None:
+                dashboard_json_complete["folderUid"] = folder_uid
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DASHBOARDS.value}/db",
@@ -206,7 +207,7 @@ class Dashboard:
                 folder_query_parameter = ""
 
             search_query: str = (
-                f"{APIEndpoints.SEARCH.value}?{folder_query_parameter}&query={dashboard_name}"
+                f"{APIEndpoints.SEARCH.value}?{folder_query_parameter}{'&' if folder_query_parameter else ''}query={dashboard_name}"
             )
             dashboard_meta: list = Api(self.grafana_api_model).call_the_api(
                 search_query
@@ -540,7 +541,7 @@ class Dashboard:
         dashboard_id_and_version_base: dict,
         dashboard_id_and_version_new: dict,
         diff_type: str = "json",
-    ) -> str:
+    ) -> str | dict:
         """The method includes a functionality to calculate the diff of specified versions of a dashboard based on the specified dashboard uid and the selected version of the base dashboard and the new dashboard and the diff type (basic or json)
 
         Args:
@@ -550,12 +551,13 @@ class Dashboard:
 
         Raises:
             ValueError: Missed specifying a necessary value
-            Exception: Unspecified error by executing the API call
 
         Returns:
-            api_call (str): Returns the difference of the two specified dashboards
+            api_call (str | dict): Returns the diff string on success (200), or the full response
+                dict on non-200 (e.g. when the endpoint is deprecated or unavailable). Callers
+                should check whether the return value is a str before using it as a diff.
         """
-        possible_diff_types: list = list(["basic", "json"])
+        possible_diff_types: list = ["basic", "json"]
 
         if diff_type.lower() in possible_diff_types:
             if (

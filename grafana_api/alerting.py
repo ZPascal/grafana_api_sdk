@@ -293,7 +293,7 @@ class Alerting:
             logging.error("There is no datasource_uid defined.")
             raise ValueError
 
-    def delete_alertmanager_config(self, datasource_uid: str = "grafana"):
+    def delete_alertmanager_config(self, datasource_uid: str = "grafana") -> dict:
         """The method includes a functionality to delete the Alertmanager config specified by the datasource_uid
 
         Args:
@@ -301,10 +301,12 @@ class Alerting:
 
         Raises:
             ValueError: Missed specifying a necessary value
-            Exception: Unspecified error by executing the API call
+            Exception: Unspecified error by executing the API call (5xx responses)
 
         Returns:
-            None
+            api_call (dict): Returns the API response dict. On success (2xx) the config was deleted.
+                On 4xx (e.g. provisioned config) a warning is logged and the response is returned so
+                callers can detect that the deletion was silently rejected.
         """
 
         if len(datasource_uid) != 0:
@@ -324,6 +326,8 @@ class Alerting:
                     raise Exception
             else:
                 logging.info("You successfully deleted a alerting config.")
+
+            return api_call
         else:
             logging.error("There is no datasource_uid defined.")
             raise ValueError
@@ -361,7 +365,7 @@ class Alerting:
         alertmanager_config: AlertmanagerConfig,
         datasource_uid: str = "grafana",
         template_files: dict = None,
-    ):
+    ) -> dict:
         """The method includes a functionality to create or update the Alertmanager config specified by the Alertmanager config object, datasource_uid and template_files
 
         Args:
@@ -371,10 +375,12 @@ class Alerting:
 
         Raises:
             ValueError: Missed specifying a necessary value
-            Exception: Unspecified error by executing the API call
+            Exception: Unspecified error by executing the API call (5xx responses)
 
         Returns:
-            None
+            api_call (dict): Returns the API response dict. On success (2xx) the config was applied.
+                On 4xx (e.g. provisioned config that cannot be changed) a warning is logged and the
+                response is returned so callers can detect that the update was silently rejected.
         """
 
         if len(datasource_uid) != 0 and alertmanager_config is not None:
@@ -411,6 +417,8 @@ class Alerting:
                     raise Exception
             else:
                 logging.info("You successfully created an Alertmanager alert config.")
+
+            return api_call
         else:
             logging.error("There is no datasource_uid or alertmanager_config defined.")
             raise ValueError

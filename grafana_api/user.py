@@ -465,13 +465,14 @@ class CurrentUser:
         else:
             return api_call
 
-    def star_a_dashboard(self, dashboard_id: int, dashboard_uid: str = None):
+    def star_a_dashboard(self, dashboard_id: int = 0, dashboard_uid: str = None):
         """The method includes a functionality to star a dashboard for the current user.
         Prefers the UID-based endpoint (Grafana 10+) when dashboard_uid is provided,
         otherwise falls back to the legacy ID-based endpoint for backward compatibility.
+        At least one of dashboard_id (non-zero) or dashboard_uid must be supplied.
 
         Args:
-            dashboard_id (int): Specify the dashboard id
+            dashboard_id (int): Specify the dashboard id (default 0)
             dashboard_uid (str): Optionally specify the dashboard uid to use the newer UID-based endpoint (default None)
 
         Raises:
@@ -482,7 +483,7 @@ class CurrentUser:
             None
         """
 
-        if dashboard_id != 0:
+        if dashboard_uid or dashboard_id != 0:
             if dashboard_uid:
                 api_call: dict = Api(self.grafana_api_model).call_the_api(
                     f"{APIEndpoints.USER.value}/stars/dashboard/uid/{dashboard_uid}",
@@ -505,13 +506,14 @@ class CurrentUser:
             logging.error("There is no dashboard_id defined.")
             raise ValueError
 
-    def unstar_a_dashboard(self, dashboard_id: int, dashboard_uid: str = None):
+    def unstar_a_dashboard(self, dashboard_id: int = 0, dashboard_uid: str = None):
         """The method includes a functionality to unstar a dashboard for the current user.
         Prefers the UID-based endpoint (Grafana 10+) when dashboard_uid is provided,
         otherwise falls back to the legacy ID-based endpoint for backward compatibility.
+        At least one of dashboard_id (non-zero) or dashboard_uid must be supplied.
 
         Args:
-            dashboard_id (int): Specify the dashboard id
+            dashboard_id (int): Specify the dashboard id (default 0)
             dashboard_uid (str): Optionally specify the dashboard uid to use the newer UID-based endpoint (default None)
 
         Raises:
@@ -522,7 +524,7 @@ class CurrentUser:
             None
         """
 
-        if dashboard_id != 0:
+        if dashboard_uid or dashboard_id != 0:
             if dashboard_uid:
                 api_call: dict = Api(self.grafana_api_model).call_the_api(
                     f"{APIEndpoints.USER.value}/stars/dashboard/uid/{dashboard_uid}",
