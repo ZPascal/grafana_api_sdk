@@ -85,7 +85,7 @@ class AlertingProvisioning:
                 disable_provenance_header=disable_provenance,
             )
 
-            if 200 <= api_call.get("status") >= 300:
+            if not (200 <= api_call.get("status") < 300):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -121,7 +121,7 @@ class AlertingProvisioning:
                 disable_provenance_header=disable_provenance,
             )
 
-            if 200 <= api_call.get("status") >= 300:
+            if not (200 <= api_call.get("status") < 300):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -162,7 +162,7 @@ class AlertingProvisioning:
                 disable_provenance_header=disable_provenance,
             )
 
-            if 200 <= api_call.get("status") >= 300:
+            if not (200 <= api_call.get("status") < 300):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -197,7 +197,7 @@ class AlertingProvisioning:
                 disable_provenance_header=disable_provenance,
             )
 
-            if 200 <= api_call.get("status") >= 300:
+            if not (200 <= api_call.get("status") < 300):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -263,7 +263,7 @@ class AlertingProvisioning:
                 disable_provenance_header=disable_provenance,
             )
 
-            if 200 <= api_call.get("status") >= 300:
+            if not (200 <= api_call.get("status") < 300):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -311,7 +311,7 @@ class AlertingProvisioning:
                 disable_provenance_header=disable_provenance,
             )
 
-            if 200 <= api_call.get("status") >= 300:
+            if not (200 <= api_call.get("status") < 300):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -341,7 +341,7 @@ class AlertingProvisioning:
                 response_status_code=True,
             )
 
-            if 200 <= api_call.get("status") >= 300:
+            if not (200 <= api_call.get("status") < 300):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -365,7 +365,7 @@ class AlertingProvisioning:
             response_status_code=True,
         )
 
-        if 200 <= api_call.get("status") >= 300:
+        if not (200 <= api_call.get("status") < 300):
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
@@ -395,7 +395,7 @@ class AlertingProvisioning:
                 disable_provenance_header=disable_provenance,
             )
 
-            if 200 <= api_call.get("status") >= 300:
+            if not (200 <= api_call.get("status") < 300):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -478,7 +478,7 @@ class AlertingProvisioning:
                 disable_provenance_header=disable_provenance,
             )
 
-            if 200 <= api_call.get("status") >= 300:
+            if not (200 <= api_call.get("status") < 300):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -517,7 +517,7 @@ class AlertingProvisioning:
                 disable_provenance_header=disable_provenance,
             )
 
-            if 200 <= api_call.get("status") >= 300:
+            if not (200 <= api_call.get("status") < 300):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -547,7 +547,7 @@ class AlertingProvisioning:
                 response_status_code=True,
             )
 
-            if 200 <= api_call.get("status") >= 300:
+            if not (200 <= api_call.get("status") < 300):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -596,7 +596,7 @@ class AlertingProvisioning:
                 response_status_code=True,
             )
 
-            if 200 <= api_call.get("status") >= 300:
+            if not (200 <= api_call.get("status") < 300):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -632,7 +632,7 @@ class AlertingProvisioning:
                 disable_provenance_header=disable_provenance,
             )
 
-            if 200 <= api_call.get("status") >= 300:
+            if not (200 <= api_call.get("status") < 300):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -662,7 +662,7 @@ class AlertingProvisioning:
                 response_status_code=True,
             )
 
-            if 200 <= api_call.get("status") >= 300:
+            if not (200 <= api_call.get("status") < 300):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:

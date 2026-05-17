@@ -28,6 +28,13 @@ class AlertingProvisioningTest(TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
+        # Clean up potentially orphaned resources from previous runs
+        for name in ["test1", "test", "test2"]:
+            try:
+                cls.alerting_provisioning.delete_mute_timing(name)
+            except Exception:
+                pass
+
         time_interval: TimeInterval = TimeInterval(
             ["1"], ["1:3"], weekdays=["monday"], years=["2023:2035"]
         )

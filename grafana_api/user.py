@@ -465,11 +465,15 @@ class CurrentUser:
         else:
             return api_call
 
-    def star_a_dashboard(self, dashboard_id: int):
-        """The method includes a functionality to star a dashboard for the current user
+    def star_a_dashboard(self, dashboard_id: int = 0, dashboard_uid: str = None):
+        """The method includes a functionality to star a dashboard for the current user.
+        Prefers the UID-based endpoint (Grafana 10+) when dashboard_uid is provided,
+        otherwise falls back to the legacy ID-based endpoint for backward compatibility.
+        At least one of dashboard_id (non-zero) or dashboard_uid must be supplied.
 
         Args:
-            dashboard_id (int): Specify the dashboard id
+            dashboard_id (int): Specify the dashboard id (default 0)
+            dashboard_uid (str): Optionally specify the dashboard uid to use the newer UID-based endpoint (default None)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -479,27 +483,38 @@ class CurrentUser:
             None
         """
 
-        if dashboard_id != 0:
-            api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.USER.value}/stars/dashboard/{dashboard_id}",
-                RequestsMethods.POST,
-                json.dumps(dict()),
-            )
+        if dashboard_uid or dashboard_id != 0:
+            if dashboard_uid:
+                api_call: dict = Api(self.grafana_api_model).call_the_api(
+                    f"{APIEndpoints.USER.value}/stars/dashboard/uid/{dashboard_uid}",
+                    RequestsMethods.POST,
+                    json.dumps(dict()),
+                )
+            else:
+                api_call: dict = Api(self.grafana_api_model).call_the_api(
+                    f"{APIEndpoints.USER.value}/stars/dashboard/{dashboard_id}",
+                    RequestsMethods.POST,
+                    json.dumps(dict()),
+                )
 
-            if api_call.get("message") != "Dashboard starred!":
+            if api_call.get("message") not in ("Dashboard starred!", "") and api_call != dict():
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
                 logging.info("You successfully starred the corresponding dashboard.")
         else:
-            logging.error("There is no org_id defined.")
+            logging.error("There is no dashboard_id defined.")
             raise ValueError
 
-    def unstar_a_dashboard(self, dashboard_id: int):
-        """The method includes a functionality to unstar a dashboard for the current user
+    def unstar_a_dashboard(self, dashboard_id: int = 0, dashboard_uid: str = None):
+        """The method includes a functionality to unstar a dashboard for the current user.
+        Prefers the UID-based endpoint (Grafana 10+) when dashboard_uid is provided,
+        otherwise falls back to the legacy ID-based endpoint for backward compatibility.
+        At least one of dashboard_id (non-zero) or dashboard_uid must be supplied.
 
         Args:
-            dashboard_id (int): Specify the dashboard id
+            dashboard_id (int): Specify the dashboard id (default 0)
+            dashboard_uid (str): Optionally specify the dashboard uid to use the newer UID-based endpoint (default None)
 
         Raises:
             ValueError: Missed specifying a necessary value
@@ -509,19 +524,25 @@ class CurrentUser:
             None
         """
 
-        if dashboard_id != 0:
-            api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.USER.value}/stars/dashboard/{dashboard_id}",
-                RequestsMethods.DELETE,
-            )
+        if dashboard_uid or dashboard_id != 0:
+            if dashboard_uid:
+                api_call: dict = Api(self.grafana_api_model).call_the_api(
+                    f"{APIEndpoints.USER.value}/stars/dashboard/uid/{dashboard_uid}",
+                    RequestsMethods.DELETE,
+                )
+            else:
+                api_call: dict = Api(self.grafana_api_model).call_the_api(
+                    f"{APIEndpoints.USER.value}/stars/dashboard/{dashboard_id}",
+                    RequestsMethods.DELETE,
+                )
 
-            if api_call.get("message") != "Dashboard unstarred":
+            if api_call.get("message") not in ("Dashboard unstarred", "") and api_call != dict():
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
                 logging.info("You successfully unstarred the corresponding dashboard.")
         else:
-            logging.error("There is no org_id defined.")
+            logging.error("There is no dashboard_id defined.")
             raise ValueError
 
     def get_auth_tokens(self) -> list:

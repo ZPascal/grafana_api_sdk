@@ -90,7 +90,9 @@ Scope: datasources:*
 def get_datasource_by_id(datasource_id: int) -> dict
 ```
 
-The method includes a functionality to get the datasource specified by the datasource id
+The method includes a functionality to get the datasource specified by the datasource id.
+Tries the direct ID-based endpoint first and falls back to scanning all datasources if the
+endpoint is deprecated or the datasource is not found by id directly.
 
 **Arguments**:
 
@@ -234,7 +236,9 @@ The method includes a functionality to create a datasource specified by the data
 def update_datasource(datasource_id: int, data_source: dict)
 ```
 
-The method includes a functionality to update a datasource specified by the datasource as dict and the datasource id
+The method includes a functionality to update a datasource specified by the datasource as dict and the datasource id.
+Tries the direct ID-based endpoint first and falls back to a UID-based update if the
+ID endpoint is deprecated or unavailable.
 
 **Arguments**:
 
@@ -264,7 +268,9 @@ The method includes a functionality to update a datasource specified by the data
 def delete_datasource_by_id(datasource_id: int)
 ```
 
-The method includes a functionality to delete a datasource specified by the datasource id
+The method includes a functionality to delete a datasource specified by the datasource id.
+Tries the direct ID-based endpoint first and falls back to a UID-based delete if the
+ID endpoint is deprecated or unavailable.
 
 **Arguments**:
 

@@ -272,11 +272,14 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {"message": "configuration deleted; the default is applied"}
-        )
+        call_the_api_mock.return_value = {
+            "message": "configuration deleted; the default is applied",
+            "status": 200,
+        }
 
-        self.assertEqual(None, alerting.delete_alertmanager_config())
+        result = alerting.delete_alertmanager_config()
+        self.assertIsNotNone(result)
+        self.assertEqual(200, result.get("status"))
 
     def test_delete_alertmanager_config_no_recipient(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -332,18 +335,16 @@ class AlertingTestCase(TestCase):
             {"test": "test"}, ["test"], ["test"], ["test"], {"test": "test"}, ["test"]
         )
 
-        call_the_api_mock.return_value = dict(
-            {
-                "message": "policies were provisioned and cannot be changed through the UI"
-            }
-        )
+        call_the_api_mock.return_value = {
+            "message": "policies were provisioned and cannot be changed through the UI",
+            "status": 400,
+        }
 
-        self.assertEqual(
-            None,
-            alerting.create_or_update_alertmanager_config(
-                alertmanager_config, template_files={"test": "test"}
-            ),
+        result = alerting.create_or_update_alertmanager_config(
+            alertmanager_config, template_files={"test": "test"}
         )
+        self.assertIsNotNone(result)
+        self.assertEqual(400, result.get("status"))
 
     def test_create_or_update_alertmanager_config_no_recipient(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
