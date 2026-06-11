@@ -199,7 +199,7 @@ class DatasourceTestCase(TestCase):
         datasource: Datasource = Datasource(grafana_api_model=model)
 
         with self.assertRaises(ValueError):
-            datasource.update_datasource( dict(), datasource_id=1)
+            datasource.update_datasource(dict(), datasource_id=1)
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_update_datasource_update_not_possible(self, call_the_api_mock):

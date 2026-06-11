@@ -1,7 +1,6 @@
 import logging
 import json
 
-import deprecated
 import httpx
 
 from .api import Api
