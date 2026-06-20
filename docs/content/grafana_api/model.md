@@ -105,8 +105,9 @@ The class includes all necessary variables to specify a query for the datasource
 
 **Arguments**:
 
-- `datasource_id` _int_ - Specify the id of the data source
 - `raw_sql` _str_ - Specify the raw SQL string to search inside the Grafana system
+- `datasource_id` _int_ - Specify the id of the data source (default 0)
+- `datasource_uid` _str_ - Specify the uid of the data source (default "")
 - `ref_id` _str_ - Specify a reference id of the search command (default A)
 - `interval_ms` _int_ - Specify the time interval in milliseconds of output format (default 1000)
 - `max_data_points` _int_ - Specify maximum amount of data points that dashboard panel can render (default 100)

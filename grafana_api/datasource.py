@@ -358,15 +358,13 @@ class Datasource:
             logging.error("There is no name defined.")
             raise ValueError
 
-    # TODO Query datasource by uid
-
     def query_datasource_by_id(
         self, time: str, to: str, datasource_queries: list
     ) -> dict:
         """The method includes a functionality to execute a queries inside the datasource itself specified by the datasource id
 
         Args:
-            from (str): Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time units. For example, now-1h
+            time (str): Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time units. For example, now-1h
             to (str): Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time units. For example, now-1h
             datasource_queries (list): Specify a list of execution queries based on the DatasourceQuery class
 
@@ -382,17 +380,74 @@ class Datasource:
             datasource_queries_json_list: list = list()
 
             for datasource_query in datasource_queries:
-                datasource_query_json_dict: dict = dict(
-                    {
-                        "refId": datasource_query.ref_id,
-                        "intervalMs": datasource_query.interval_ms,
-                        "maxDataPoints": datasource_query.max_data_points,
-                        "datasourceId": datasource_query.datasource_id,
-                        "rawSql": datasource_query.raw_sql,
-                        "format": datasource_query.output_format,
-                    }
-                )
-                datasource_queries_json_list.append(datasource_query_json_dict)
+                if datasource_query.datasource_id != 0:
+                    datasource_query_json_dict: dict = dict(
+                        {
+                            "refId": datasource_query.ref_id,
+                            "intervalMs": datasource_query.interval_ms,
+                            "maxDataPoints": datasource_query.max_data_points,
+                            "datasourceId": datasource_query.datasource_id,
+                            "rawSql": datasource_query.raw_sql,
+                            "format": datasource_query.output_format,
+                        }
+                    )
+                    datasource_queries_json_list.append(datasource_query_json_dict)
+                else:
+                    logging.error("There is no datasource_id defined.")
+                    raise ValueError
+
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                APIEndpoints.DATASOURCE_LEGACY_QUERY.value,
+                RequestsMethods.POST,
+                json.dumps(datasource_queries_json_list),
+            )
+
+            if api_call == dict() or api_call.get("results") == dict():
+                logging.error(f"Check the error: {api_call}.")
+                raise Exception
+            else:
+                return api_call.get("results")
+        else:
+            logging.error("There is no time, to or datasource_queries defined.")
+            raise ValueError
+
+    def query_datasource_by_uid(
+        self, time: str, to: str, datasource_queries: list
+    ) -> dict:
+        """The method includes a functionality to execute a queries inside the datasource itself specified by the datasource uid
+
+        Args:
+            time (str): Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time units. For example, now-1h
+            to (str): Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time units. For example, now-1h
+            datasource_queries (list): Specify a list of execution queries based on the DatasourceQuery class
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (dict): Returns the result of the specified query
+        """
+
+        if len(time) != 0 and len(to) != 0 and datasource_queries != list():
+            datasource_queries_json_list: list = list()
+
+            for datasource_query in datasource_queries:
+                if len(datasource_query.datasource_uid) != 0:
+                    datasource_query_json_dict: dict = dict(
+                        {
+                            "refId": datasource_query.ref_id,
+                            "intervalMs": datasource_query.interval_ms,
+                            "maxDataPoints": datasource_query.max_data_points,
+                            "datasourceUid": datasource_query.datasource_uid,
+                            "rawSql": datasource_query.raw_sql,
+                            "format": datasource_query.output_format,
+                        }
+                    )
+                    datasource_queries_json_list.append(datasource_query_json_dict)
+                else:
+                    logging.error("There is no datasource_uid defined.")
+                    raise ValueError
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 APIEndpoints.DATASOURCE_QUERY.value,

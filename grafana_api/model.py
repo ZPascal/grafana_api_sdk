@@ -28,7 +28,8 @@ class APIEndpoints(Enum):
     ALERTS_NGALERT: str = f"{api_prefix}/{version_1}/ngalert"
     ALERTING_PROVISIONING: str = f"{api_prefix}/{version_1}/provisioning"
     DATASOURCES: str = f"{api_prefix}/datasources"
-    DATASOURCE_QUERY: str = f"{api_prefix}/tsdb/query"
+    DATASOURCE_LEGACY_QUERY: str = f"{api_prefix}/tsdb/query"
+    DATASOURCE_QUERY: str = f"{api_prefix}/ds/query"
     DATASOURCE_PERMISSIONS: str = f"{api_prefix}/access-control/datasources"
     SHORT_URLS: str = f"{api_prefix}/short-urls"
     ORGANISATION: str = f"{api_prefix}/org"
@@ -107,16 +108,18 @@ class DatasourceQuery:
     """The class includes all necessary variables to specify a query for the datasource search endpoint
 
     Args:
-        datasource_id (int): Specify the id of the data source
         raw_sql (str): Specify the raw SQL string to search inside the Grafana system
+        datasource_id (int): Specify the id of the data source (default 0)
+        datasource_uid (str): Specify the uid of the data source (default "")
         ref_id (str): Specify a reference id of the search command (default A)
         interval_ms (int): Specify the time interval in milliseconds of output format (default 1000)
         max_data_points (int): Specify maximum amount of data points that dashboard panel can render (default 100)
         output_format (str): Specify the output format of the query (default time_series)
     """
 
-    datasource_id: int
     raw_sql: str
+    datasource_id: int = 0
+    datasource_uid: str = ""
     ref_id: str = "A"
     interval_ms: int = 1000
     max_data_points: int = 100
