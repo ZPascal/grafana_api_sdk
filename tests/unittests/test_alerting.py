@@ -299,7 +299,9 @@ class AlertingTestCase(TestCase):
             alerting.delete_alertmanager_config()
 
     @patch("grafana_api.api.Api.call_the_api")
-    def test_delete_alertmanager_config_provisioned_client_error(self, call_the_api_mock):
+    def test_delete_alertmanager_config_provisioned_client_error(
+        self, call_the_api_mock
+    ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
@@ -308,8 +310,8 @@ class AlertingTestCase(TestCase):
             "status": 400,
         }
 
-        result = alerting.delete_alertmanager_config()
-        self.assertEqual(400, result.get("status"))
+        with self.assertRaises(SystemError):
+            alerting.delete_alertmanager_config()
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_delete_alertmanager_config_server_error(self, call_the_api_mock):
@@ -359,15 +361,35 @@ class AlertingTestCase(TestCase):
         )
 
         call_the_api_mock.return_value = {
-            "message": "policies were provisioned and cannot be changed through the UI",
-            "status": 400,
+            "message": "policies were updated",
+            "status": 200,
         }
 
         result = alerting.create_or_update_alertmanager_config(
             alertmanager_config, template_files={"test": "test"}
         )
         self.assertIsNotNone(result)
-        self.assertEqual(400, result.get("status"))
+        self.assertEqual(200, result.get("status"))
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_create_or_update_alertmanager_config_policy_update_rejected(
+        self, call_the_api_mock
+    ):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting: Alerting = Alerting(grafana_api_model=model)
+        alertmanager_config: AlertmanagerConfig = AlertmanagerConfig(
+            {"test": "test"}, ["test"], ["test"], ["test"], {"test": "test"}, ["test"]
+        )
+
+        call_the_api_mock.return_value = {
+            "message": "policies were provisioned and cannot be changed through the UI",
+            "status": 400,
+        }
+
+        with self.assertRaises(SystemError):
+            alerting.create_or_update_alertmanager_config(
+                alertmanager_config, template_files={"test": "test"}
+            )
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_create_or_update_alertmanager_config_success(self, call_the_api_mock):
@@ -502,7 +524,9 @@ class AlertingTestCase(TestCase):
             )
 
     @patch("grafana_api.api.Api.call_the_api")
-    def test_test_alertmanager_receivers_unexpected_4xx_warning(self, call_the_api_mock):
+    def test_test_alertmanager_receivers_unexpected_4xx_warning(
+        self, call_the_api_mock
+    ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
         alertmanager_receivers: AlertmanagerReceivers = AlertmanagerReceivers(
@@ -521,12 +545,10 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 422, "message": "unprocessable"}
 
-        self.assertEqual(
-            None,
+        with self.assertRaises(SystemError):
             alerting.test_alertmanager_receivers(
                 {"test": "test"}, [alertmanager_receivers]
-            ),
-        )
+            )
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_prometheus_alerts(self, call_the_api_mock):

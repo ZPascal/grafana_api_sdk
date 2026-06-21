@@ -301,12 +301,11 @@ class Alerting:
 
         Raises:
             ValueError: Missed specifying a necessary value
+            SystemError: Specified error by executing the API call (4xx responses)
             Exception: Unspecified error by executing the API call (5xx responses)
 
         Returns:
             api_call (dict): Returns the API response dict. On success (2xx) the config was deleted.
-                On 4xx (e.g. provisioned config) a warning is logged and the response is returned so
-                callers can detect that the deletion was silently rejected.
         """
 
         if len(datasource_uid) != 0:
@@ -320,9 +319,10 @@ class Alerting:
 
             if not (200 <= status_code < 300):
                 if 400 <= status_code < 500:
-                    logging.warning(
+                    logging.error(
                         f"Delete alertmanager config returned client error (e.g. provisioned config): {api_call}."
                     )
+                    raise SystemError
                 else:
                     logging.error(f"Check the error: {api_call}.")
                     raise Exception
@@ -377,12 +377,11 @@ class Alerting:
 
         Raises:
             ValueError: Missed specifying a necessary value
+            SystemError: Specified error by executing the API call (4xx responses)
             Exception: Unspecified error by executing the API call (5xx responses)
 
         Returns:
             api_call (dict): Returns the API response dict. On success (2xx) the config was applied.
-                On 4xx (e.g. provisioned config that cannot be changed) a warning is logged and the
-                response is returned so callers can detect that the update was silently rejected.
         """
 
         if len(datasource_uid) != 0 and alertmanager_config is not None:
@@ -413,9 +412,10 @@ class Alerting:
 
             if not (200 <= status_code < 300):
                 if 400 <= status_code < 500:
-                    logging.warning(
+                    logging.error(
                         f"Create/update alertmanager config returned client error (e.g. provisioned config): {api_call}."
                     )
+                    raise SystemError
                 else:
                     logging.error(f"Check the error: {api_call}.")
                     raise Exception
@@ -439,6 +439,7 @@ class Alerting:
 
         Raises:
             ValueError: Missed specifying a necessary value
+            SystemError: Specified error by executing the API call (41x responses)
             Exception: Unspecified error by executing the API call
 
         Returns:
@@ -500,8 +501,8 @@ class Alerting:
                 logging.error(alert_manager_status_dict.get(status_code))
                 raise Exception
             elif 410 <= status_code < 500:
-                # Non-standard 4xx (e.g. 422 Unprocessable when email not configured)
-                logging.warning(f"Unexpected 4xx status code while testing receivers: {api_call}.")
+                logging.error(f"Unexpected 4xx status code while testing receivers: {api_call}.")
+                raise SystemError
             else:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
