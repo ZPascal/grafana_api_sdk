@@ -293,7 +293,7 @@ class Alerting:
             logging.error("There is no datasource_uid defined.")
             raise ValueError
 
-    def delete_alertmanager_config(self, datasource_uid: str = "grafana") -> dict:
+    def delete_alertmanager_config(self, datasource_uid: str = "grafana"):
         """The method includes a functionality to delete the Alertmanager config specified by the datasource_uid
 
         Args:
@@ -305,7 +305,7 @@ class Alerting:
             Exception: Unspecified error by executing the API call (5xx responses)
 
         Returns:
-            api_call (dict): Returns the API response dict. On success (2xx) the config was deleted.
+            None
         """
 
         if len(datasource_uid) != 0:
@@ -328,8 +328,6 @@ class Alerting:
                     raise Exception
             else:
                 logging.info("You successfully deleted a alerting config.")
-
-            return api_call
         else:
             logging.error("There is no datasource_uid defined.")
             raise ValueError
@@ -367,7 +365,7 @@ class Alerting:
         alertmanager_config: AlertmanagerConfig,
         datasource_uid: str = "grafana",
         template_files: dict = None,
-    ) -> dict:
+    ):
         """The method includes a functionality to create or update the Alertmanager config specified by the Alertmanager config object, datasource_uid and template_files
 
         Args:
@@ -381,7 +379,7 @@ class Alerting:
             Exception: Unspecified error by executing the API call (5xx responses)
 
         Returns:
-            api_call (dict): Returns the API response dict. On success (2xx) the config was applied.
+            None
         """
 
         if len(datasource_uid) != 0 and alertmanager_config is not None:
@@ -421,8 +419,6 @@ class Alerting:
                     raise Exception
             else:
                 logging.info("You successfully created an Alertmanager alert config.")
-
-            return api_call
         else:
             logging.error("There is no datasource_uid or alertmanager_config defined.")
             raise ValueError

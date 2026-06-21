@@ -277,9 +277,7 @@ class AlertingTestCase(TestCase):
             "status": 200,
         }
 
-        result = alerting.delete_alertmanager_config()
-        self.assertIsNotNone(result)
-        self.assertEqual(200, result.get("status"))
+        self.assertIsNone(alerting.delete_alertmanager_config())
 
     def test_delete_alertmanager_config_no_recipient(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -365,11 +363,9 @@ class AlertingTestCase(TestCase):
             "status": 200,
         }
 
-        result = alerting.create_or_update_alertmanager_config(
+        self.assertIsNone(alerting.create_or_update_alertmanager_config(
             alertmanager_config, template_files={"test": "test"}
-        )
-        self.assertIsNotNone(result)
-        self.assertEqual(200, result.get("status"))
+        ))
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_create_or_update_alertmanager_config_policy_update_rejected(
@@ -401,8 +397,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "ok", "status": 200}
 
-        result = alerting.create_or_update_alertmanager_config(alertmanager_config)
-        self.assertEqual(200, result.get("status"))
+        self.assertIsNone(alerting.create_or_update_alertmanager_config(alertmanager_config))
 
     def test_create_or_update_alertmanager_config_no_recipient(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
