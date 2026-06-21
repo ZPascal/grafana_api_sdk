@@ -280,14 +280,13 @@ The method includes a functionality to delete the Alertmanager config specified 
 **Raises**:
 
 - `ValueError` - Missed specifying a necessary value
+- `SystemError` - Specified error by executing the API call (4xx responses)
 - `Exception` - Unspecified error by executing the API call (5xx responses)
   
 
 **Returns**:
 
 - `api_call` _dict_ - Returns the API response dict. On success (2xx) the config was deleted.
-  On 4xx (e.g. provisioned config) a warning is logged and the response is returned so
-  callers can detect that the deletion was silently rejected.
 
 <a id="alerting.Alerting.get_alertmanager_config"></a>
 
@@ -337,14 +336,13 @@ The method includes a functionality to create or update the Alertmanager config 
 **Raises**:
 
 - `ValueError` - Missed specifying a necessary value
+- `SystemError` - Specified error by executing the API call (4xx responses)
 - `Exception` - Unspecified error by executing the API call (5xx responses)
   
 
 **Returns**:
 
 - `api_call` _dict_ - Returns the API response dict. On success (2xx) the config was applied.
-  On 4xx (e.g. provisioned config that cannot be changed) a warning is logged and the
-  response is returned so callers can detect that the update was silently rejected.
 
 <a id="alerting.Alerting.test_alertmanager_receivers"></a>
 
@@ -368,6 +366,7 @@ The method includes a functionality to test the Alertmanager receivers specified
 **Raises**:
 
 - `ValueError` - Missed specifying a necessary value
+- `SystemError` - Specified error by executing the API call (41x responses)
 - `Exception` - Unspecified error by executing the API call
   
 
