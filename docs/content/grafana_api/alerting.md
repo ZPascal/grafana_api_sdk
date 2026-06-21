@@ -267,7 +267,7 @@ The method includes a functionality to get the Alertmanager status specified by 
 #### delete\_alertmanager\_config
 
 ```python
-def delete_alertmanager_config(datasource_uid: str = "grafana") -> dict
+def delete_alertmanager_config(datasource_uid: str = "grafana")
 ```
 
 The method includes a functionality to delete the Alertmanager config specified by the datasource_uid
@@ -286,7 +286,7 @@ The method includes a functionality to delete the Alertmanager config specified 
 
 **Returns**:
 
-- `api_call` _dict_ - Returns the API response dict. On success (2xx) the config was deleted.
+  None
 
 <a id="alerting.Alerting.get_alertmanager_config"></a>
 
@@ -321,7 +321,7 @@ The method includes a functionality to get the Alertmanager config specified by 
 def create_or_update_alertmanager_config(
         alertmanager_config: AlertmanagerConfig,
         datasource_uid: str = "grafana",
-        template_files: dict = None) -> dict
+        template_files: dict = None)
 ```
 
 The method includes a functionality to create or update the Alertmanager config specified by the Alertmanager config object, datasource_uid and template_files
@@ -342,7 +342,7 @@ The method includes a functionality to create or update the Alertmanager config 
 
 **Returns**:
 
-- `api_call` _dict_ - Returns the API response dict. On success (2xx) the config was applied.
+  None
 
 <a id="alerting.Alerting.test_alertmanager_receivers"></a>
 
