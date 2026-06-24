@@ -280,7 +280,8 @@ The method includes a functionality to delete the Alertmanager config specified 
 **Raises**:
 
 - `ValueError` - Missed specifying a necessary value
-- `Exception` - Unspecified error by executing the API call
+- `SystemError` - Specified error by executing the API call (4xx responses)
+- `Exception` - Unspecified error by executing the API call (5xx responses)
   
 
 **Returns**:
@@ -335,7 +336,8 @@ The method includes a functionality to create or update the Alertmanager config 
 **Raises**:
 
 - `ValueError` - Missed specifying a necessary value
-- `Exception` - Unspecified error by executing the API call
+- `SystemError` - Specified error by executing the API call (4xx responses)
+- `Exception` - Unspecified error by executing the API call (5xx responses)
   
 
 **Returns**:
@@ -364,6 +366,7 @@ The method includes a functionality to test the Alertmanager receivers specified
 **Raises**:
 
 - `ValueError` - Missed specifying a necessary value
+- `SystemError` - Specified error by executing the API call (41x responses)
 - `Exception` - Unspecified error by executing the API call
   
 

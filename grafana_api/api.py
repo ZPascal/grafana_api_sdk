@@ -317,7 +317,7 @@ class Api:
         """The method includes a functionality to create the corresponding HTTP client
 
         Args:
-            headers (dict): Specify the optional inserted headers (Default None)
+            headers (dict): Specify the optional inserted headers (default None)
 
         Returns:
             client (Union[httpx.Client, httpx.AsyncClient]): Returns the corresponding client

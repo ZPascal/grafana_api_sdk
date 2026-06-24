@@ -63,6 +63,16 @@ class DatasourceTestCase(TestCase):
             datasource.get_datasource_by_id(1)
 
     @patch("grafana_api.api.Api.call_the_api")
+    def test_get_datasource_by_id_fallback_scan_exception(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.side_effect = [{}, Exception("test")]
+
+        with self.assertRaises(Exception):
+            datasource.get_datasource_by_id(1)
+
+    @patch("grafana_api.api.Api.call_the_api")
     def test_get_datasource_by_uid(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
@@ -167,20 +177,29 @@ class DatasourceTestCase(TestCase):
             datasource.create_datasource(dict({"test": "test"}))
 
     @patch("grafana_api.api.Api.call_the_api")
-    def test_update_datasource(self, call_the_api_mock):
+    def test_update_datasource_use_id(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
         call_the_api_mock.return_value = dict({"message": "Datasource updated"})
 
-        self.assertEqual(None, datasource.update_datasource(1, dict({"test": "test"})))
+        self.assertEqual(None, datasource.update_datasource(dict({"test": "test"}), datasource_id=1))
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_update_datasource_use_uid(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict({"message": "Datasource updated"})
+
+        self.assertEqual(None, datasource.update_datasource(dict({"test": "test"}), datasource_uid="test"))
 
     def test_update_datasource_no_data_source(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
         with self.assertRaises(ValueError):
-            datasource.update_datasource(1, dict())
+            datasource.update_datasource(dict(), datasource_id=1)
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_update_datasource_update_not_possible(self, call_the_api_mock):
@@ -190,7 +209,35 @@ class DatasourceTestCase(TestCase):
         call_the_api_mock.return_value = dict()
 
         with self.assertRaises(Exception):
-            datasource.update_datasource(1, dict({"test": "test"}))
+            datasource.update_datasource(dict({"test": "test"}), datasource_id=1)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.datasource.Datasource.get_datasource_by_id")
+    def test_update_datasource_fallback_id_empty(
+        self, get_datasource_by_id_mock, call_the_api_mock
+    ):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {}
+        get_datasource_by_id_mock.return_value = {"uid": ""}
+
+        with self.assertRaises(Exception):
+            datasource.update_datasource(dict({"test": "test"}), datasource_id=1)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.datasource.Datasource.get_datasource_by_id")
+    def test_update_datasource_fallback_by_id_not_updated(
+        self, get_datasource_by_id_mock, call_the_api_mock
+    ):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.side_effect = [{}, {"message": "not updated"}]
+        get_datasource_by_id_mock.return_value = {"uid": "uid-1"}
+
+        with self.assertRaises(Exception):
+            datasource.update_datasource({"test": "test"}, datasource_id=1)
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_delete_datasource_by_id(self, call_the_api_mock):
@@ -214,6 +261,32 @@ class DatasourceTestCase(TestCase):
         datasource: Datasource = Datasource(grafana_api_model=model)
 
         call_the_api_mock.return_value = dict()
+
+        with self.assertRaises(Exception):
+            datasource.delete_datasource_by_id(1)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_delete_datasource_by_id_fallback_by_uid(
+        self,
+        call_the_api_mock,
+    ):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict({"message": "Data source deleted"})
+
+        self.assertIsNone(datasource.delete_datasource_by_id(1))
+
+    @patch("grafana_api.datasource.Datasource.get_datasource_by_id")
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_delete_datasource_by_id_fallback_uid_empty(
+        self, call_the_api_mock, get_datasource_by_id_mock
+    ):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {}
+        get_datasource_by_id_mock.return_value = {"uid": ""}
 
         with self.assertRaises(Exception):
             datasource.delete_datasource_by_id(1)
@@ -277,7 +350,7 @@ class DatasourceTestCase(TestCase):
 
         call_the_api_mock.return_value = dict({"results": dict({"test": "test"})})
 
-        datasource_query: DatasourceQuery = DatasourceQuery(1, "test")
+        datasource_query: DatasourceQuery = DatasourceQuery("test", datasource_id=1)
         datasource_queries: list = list()
         datasource_queries.append(datasource_query)
 
@@ -294,11 +367,25 @@ class DatasourceTestCase(TestCase):
             datasource.query_datasource_by_id("", "", MagicMock())
 
     @patch("grafana_api.api.Api.call_the_api")
+    def test_query_datasource_by_id_no_value_datasource_id(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict({"results": dict({"test": "test"})})
+
+        datasource_query: DatasourceQuery = DatasourceQuery("test", datasource_id=0)
+        datasource_queries: list = list()
+        datasource_queries.append(datasource_query)
+
+        with self.assertRaises(ValueError):
+            datasource.query_datasource_by_id("1234", "1234", datasource_queries)
+
+    @patch("grafana_api.api.Api.call_the_api")
     def test_query_datasource_by_id_no_query_result(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        datasource_query: DatasourceQuery = DatasourceQuery(1, "test")
+        datasource_query: DatasourceQuery = DatasourceQuery("test", datasource_id=1)
         datasource_queries: list = list()
         datasource_queries.append(datasource_query)
 
@@ -307,6 +394,56 @@ class DatasourceTestCase(TestCase):
         with self.assertRaises(Exception):
             datasource.query_datasource_by_id("1234", "1234", datasource_queries)
 
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_query_datasource_by_uid(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict({"results": dict({"test": "test"})})
+
+        datasource_query: DatasourceQuery = DatasourceQuery("test", datasource_uid="test")
+        datasource_queries: list = list()
+        datasource_queries.append(datasource_query)
+
+        self.assertEqual(
+            dict({"test": "test"}),
+            datasource.query_datasource_by_uid("1234", "1234", datasource_queries),
+        )
+
+    def test_query_datasource_by_uid_no_time(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        with self.assertRaises(ValueError):
+            datasource.query_datasource_by_uid("", "", MagicMock())
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_query_datasource_by_uid_no_value_datasource_uid(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = dict({"results": dict({"test": "test"})})
+
+        datasource_query: DatasourceQuery = DatasourceQuery("test")
+        datasource_queries: list = list()
+        datasource_queries.append(datasource_query)
+
+        with self.assertRaises(ValueError):
+            datasource.query_datasource_by_uid("1234", "1234", datasource_queries)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_query_datasource_by_uid_no_query_result(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        datasource_query: DatasourceQuery = DatasourceQuery("test", datasource_uid="test")
+        datasource_queries: list = list()
+        datasource_queries.append(datasource_query)
+
+        call_the_api_mock.return_value = dict()
+
+        with self.assertRaises(Exception):
+            datasource.query_datasource_by_uid("1234", "1234", datasource_queries)
 
 class DatasourcePermissionsTestCase(TestCase):
     @patch("grafana_api.api.Api.call_the_api")
@@ -485,7 +622,7 @@ class DatasourcePermissionsTestCase(TestCase):
             ),
         )
 
-    def test_update_datasource_team_access_by_uid_no_datasource_uid(self):
+    def test_update_datasource_team_access_by_uid_no_datasource_id(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource_permissions: DatasourcePermissions = DatasourcePermissions(
             grafana_api_model=model

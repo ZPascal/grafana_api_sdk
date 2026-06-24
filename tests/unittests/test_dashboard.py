@@ -1,3 +1,4 @@
+import json
 from unittest import TestCase
 from unittest.mock import MagicMock, patch
 
@@ -7,14 +8,14 @@ from grafana_api.dashboard import Dashboard
 
 class DashboardTestCase(TestCase):
     @patch("grafana_api.api.Api.call_the_api")
-    @patch("grafana_api.folder.Folder.get_folder_id_by_dashboard_path")
+    @patch("grafana_api.folder.Folder.get_folder_uid_by_dashboard_path")
     def test_create_or_update_dashboard(
-        self, folder_id_by_dashboard_path_mock, call_the_api_mock
+        self, folder_uid_by_dashboard_path_mock, call_the_api_mock
     ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        folder_id_by_dashboard_path_mock.return_value = 1
+        folder_uid_by_dashboard_path_mock.return_value = "test-uid"
         call_the_api_mock.return_value = dict({"status": "success"})
 
         self.assertEqual(
@@ -36,14 +37,14 @@ class DashboardTestCase(TestCase):
             )
 
     @patch("grafana_api.api.Api.call_the_api")
-    @patch("grafana_api.folder.Folder.get_folder_id_by_dashboard_path")
+    @patch("grafana_api.folder.Folder.get_folder_uid_by_dashboard_path")
     def test_create_or_update_dashboard_update_not_possible(
-        self, folder_id_by_dashboard_path_mock, call_the_api_mock
+        self, folder_uid_by_dashboard_path_mock, call_the_api_mock
     ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        folder_id_by_dashboard_path_mock.return_value = 1
+        folder_uid_by_dashboard_path_mock.return_value = "test-uid"
         call_the_api_mock.return_value = dict({"status": "error"})
 
         with self.assertRaises(Exception):
@@ -52,6 +53,26 @@ class DashboardTestCase(TestCase):
                 dashboard_json=dict({"test": "test"}),
                 message="test",
             )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.folder.Folder.get_folder_uid_by_dashboard_path")
+    def test_create_or_update_dashboard_general_folder_omits_folder_uid(
+        self, folder_uid_by_dashboard_path_mock, call_the_api_mock
+    ):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        dashboard: Dashboard = Dashboard(grafana_api_model=model)
+
+        folder_uid_by_dashboard_path_mock.return_value = None
+        call_the_api_mock.return_value = {"status": "success"}
+
+        dashboard.create_or_update_dashboard(
+            dashboard_path="General",
+            dashboard_json={"test": "test"},
+            message="test",
+        )
+
+        payload = json.loads(call_the_api_mock.call_args[0][2])
+        self.assertNotIn("folderUid", payload)
 
     @patch("grafana_api.api.Api.call_the_api")
     @patch(
@@ -143,14 +164,14 @@ class DashboardTestCase(TestCase):
             )
 
     @patch("grafana_api.api.Api.call_the_api")
-    @patch("grafana_api.folder.Folder.get_folder_id_by_dashboard_path")
+    @patch("grafana_api.folder.Folder.get_folder_uid_by_dashboard_path")
     def test_get_dashboard_uid_and_id_by_name_and_folder(
-        self, folder_id_by_dashboard_path_mock, call_the_api_mock
+        self, folder_uid_by_dashboard_path_mock, call_the_api_mock
     ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        folder_id_by_dashboard_path_mock.return_value = 1
+        folder_uid_by_dashboard_path_mock.return_value = "test-uid"
         call_the_api_mock.return_value = list(
             [{"uid": "test", "title": "test", "id": 10}]
         )
@@ -163,14 +184,14 @@ class DashboardTestCase(TestCase):
         )
 
     @patch("grafana_api.api.Api.call_the_api")
-    @patch("grafana_api.folder.Folder.get_folder_id_by_dashboard_path")
+    @patch("grafana_api.folder.Folder.get_folder_uid_by_dashboard_path")
     def test_get_dashboard_uid_and_id_by_name_and_folder_no_id_inside_dashboard_meta_object(
-        self, folder_id_by_dashboard_path_mock, call_the_api_mock
+        self, folder_uid_by_dashboard_path_mock, call_the_api_mock
     ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        folder_id_by_dashboard_path_mock.return_value = 1
+        folder_uid_by_dashboard_path_mock.return_value = "test-uid"
         call_the_api_mock.return_value = list([{"uid": "test", "title": "test"}])
 
         with self.assertRaises(ValueError):
@@ -179,14 +200,14 @@ class DashboardTestCase(TestCase):
             )
 
     @patch("grafana_api.api.Api.call_the_api")
-    @patch("grafana_api.folder.Folder.get_folder_id_by_dashboard_path")
+    @patch("grafana_api.folder.Folder.get_folder_uid_by_dashboard_path")
     def test_get_dashboard_uid_and_id_by_name_and_folder_no_title_inside_dashboard_meta_object(
-        self, folder_id_by_dashboard_path_mock, call_the_api_mock
+        self, folder_uid_by_dashboard_path_mock, call_the_api_mock
     ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        folder_id_by_dashboard_path_mock.return_value = 1
+        folder_uid_by_dashboard_path_mock.return_value = "test-uid"
         call_the_api_mock.return_value = list([{"uid": "test", "id": 1}])
 
         with self.assertRaises(ValueError):
@@ -195,14 +216,14 @@ class DashboardTestCase(TestCase):
             )
 
     @patch("grafana_api.api.Api.call_the_api")
-    @patch("grafana_api.folder.Folder.get_folder_id_by_dashboard_path")
+    @patch("grafana_api.folder.Folder.get_folder_uid_by_dashboard_path")
     def test_get_dashboard_uid_and_id_by_name_and_folder_no_matched_title_inside_dashboard_meta_object(
-        self, folder_id_by_dashboard_path_mock, call_the_api_mock
+        self, folder_uid_by_dashboard_path_mock, call_the_api_mock
     ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        folder_id_by_dashboard_path_mock.return_value = 1
+        folder_uid_by_dashboard_path_mock.return_value = "test-uid"
         call_the_api_mock.return_value = list(
             [{"uid": "test", "title": "test123", "id": 1}]
         )
@@ -215,14 +236,14 @@ class DashboardTestCase(TestCase):
         )
 
     @patch("grafana_api.api.Api.call_the_api")
-    @patch("grafana_api.folder.Folder.get_folder_id_by_dashboard_path")
+    @patch("grafana_api.folder.Folder.get_folder_uid_by_dashboard_path")
     def test_get_dashboard_uid_and_id_by_name_and_folder_empty_result(
-        self, folder_id_by_dashboard_path_mock, call_the_api_mock
+        self, folder_uid_by_dashboard_path_mock, call_the_api_mock
     ):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
-        folder_id_by_dashboard_path_mock.return_value = 1
+        folder_uid_by_dashboard_path_mock.return_value = "test-uid"
         call_the_api_mock.return_value = list()
 
         self.assertEqual(
@@ -230,6 +251,28 @@ class DashboardTestCase(TestCase):
             dashboard.get_dashboard_uid_and_id_by_name_and_folder(
                 dashboard_name="test", dashboard_path="test"
             ),
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    @patch("grafana_api.folder.Folder.get_folder_uid_by_dashboard_path")
+    def test_get_dashboard_uid_and_id_by_name_and_folder_general_folder_query(
+        self, folder_uid_by_dashboard_path_mock, call_the_api_mock
+    ):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        dashboard: Dashboard = Dashboard(grafana_api_model=model)
+
+        folder_uid_by_dashboard_path_mock.return_value = None
+        call_the_api_mock.return_value = []
+
+        self.assertEqual(
+            None,
+            dashboard.get_dashboard_uid_and_id_by_name_and_folder(
+                dashboard_name="test", dashboard_path="General"
+            ),
+        )
+        self.assertEqual(
+            "/api/search?query=test",
+            call_the_api_mock.call_args[0][0],
         )
 
     def test_get_dashboard_uid_and_id_by_name_and_folder_no_dashboard_name_defined(
@@ -607,8 +650,8 @@ class DashboardTestCase(TestCase):
         self.assertEqual(
             "test",
             dashboard.calculate_dashboard_diff(
-                dict({"dashboardId": 1, "version": 1}),
-                dict({"dashboardId": 2, "version": 1}),
+                {"dashboardId": 1, "version": 1},
+                {"dashboardId": 2, "version": 1},
             ),
         )
 

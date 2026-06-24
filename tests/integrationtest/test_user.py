@@ -26,11 +26,15 @@ class CurrentUserTest(TestCase):
         self.assertEqual(2583, self.current_user.get_user_teams()[0].get("id"))
 
     def test_star_a_dashboard(self):
+        dashboard_info: dict = self.dashboard.get_dashboard_by_uid("tests")
         self.current_user.star_a_dashboard(
-            self.dashboard.get_dashboard_by_uid("tests").get("dashboard").get("id")
+            dashboard_info.get("dashboard").get("id"),
+            dashboard_uid="tests",
         )
 
     def test_unstar_a_dashboard(self):
+        dashboard_info: dict = self.dashboard.get_dashboard_by_uid("tests")
         self.current_user.unstar_a_dashboard(
-            self.dashboard.get_dashboard_by_uid("tests").get("dashboard").get("id")
+            dashboard_info.get("dashboard").get("id"),
+            dashboard_uid="tests",
         )

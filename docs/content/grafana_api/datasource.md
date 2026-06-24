@@ -13,6 +13,7 @@
     * [delete\_datasource\_by\_uid](#datasource.Datasource.delete_datasource_by_uid)
     * [delete\_datasource\_by\_name](#datasource.Datasource.delete_datasource_by_name)
     * [query\_datasource\_by\_id](#datasource.Datasource.query_datasource_by_id)
+    * [query\_datasource\_by\_uid](#datasource.Datasource.query_datasource_by_uid)
   * [DatasourcePermissions](#datasource.DatasourcePermissions)
     * [get\_datasource\_permissions\_by\_uid](#datasource.DatasourcePermissions.get_datasource_permissions_by_uid)
     * [update\_datasource\_user\_access\_by\_uid](#datasource.DatasourcePermissions.update_datasource_user_access_by_uid)
@@ -231,15 +232,18 @@ The method includes a functionality to create a datasource specified by the data
 #### update\_datasource
 
 ```python
-def update_datasource(datasource_id: int, data_source: dict)
+def update_datasource(data_source: dict,
+                      datasource_id: int = 0,
+                      datasource_uid: str | None = None)
 ```
 
-The method includes a functionality to update a datasource specified by the datasource as dict and the datasource id
+The method includes a functionality to update a datasource specified by the datasource as dict and the datasource id/ datasource uid
 
 **Arguments**:
 
-- `datasource_id` _int_ - Specify the id of the datasource
 - `data_source` _dict_ - Specify the datasource as dict
+- `datasource_id` _int_ - Specify the id of the datasource (default 0)
+- `datasource_uid` _str_ - Specify the uid of the datasource (default None)
   
   Required Permissions:
 - `Action` - datasources:write
@@ -356,7 +360,35 @@ The method includes a functionality to execute a queries inside the datasource i
 
 **Arguments**:
 
-- `from` _str_ - Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time units. For example, now-1h
+- `time` _str_ - Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time units. For example, now-1h
+- `to` _str_ - Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time units. For example, now-1h
+- `datasource_queries` _list_ - Specify a list of execution queries based on the DatasourceQuery class
+  
+
+**Raises**:
+
+- `ValueError` - Missed specifying a necessary value
+- `Exception` - Unspecified error by executing the API call
+  
+
+**Returns**:
+
+- `api_call` _dict_ - Returns the result of the specified query
+
+<a id="datasource.Datasource.query_datasource_by_uid"></a>
+
+#### query\_datasource\_by\_uid
+
+```python
+def query_datasource_by_uid(time: str, to: str,
+                            datasource_queries: list) -> dict
+```
+
+The method includes a functionality to execute a queries inside the datasource itself specified by the datasource uid
+
+**Arguments**:
+
+- `time` _str_ - Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time units. For example, now-1h
 - `to` _str_ - Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time units. For example, now-1h
 - `datasource_queries` _list_ - Specify a list of execution queries based on the DatasourceQuery class
   
