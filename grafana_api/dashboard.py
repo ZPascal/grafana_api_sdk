@@ -206,8 +206,10 @@ class Dashboard:
             if folder_uid is None:
                 folder_query_parameter = ""
 
+
+
             search_query: str = (
-                f"{APIEndpoints.SEARCH.value}?{folder_query_parameter}{'&' if folder_query_parameter else ''}query={dashboard_name}"
+                f"{APIEndpoints.SEARCH.value}?{Api.prepare_api_string(folder_query_parameter)}query={dashboard_name}"
             )
             dashboard_meta: list = Api(self.grafana_api_model).call_the_api(
                 search_query
