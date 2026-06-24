@@ -755,8 +755,9 @@ class AlertingProvisioning:
             result (dict): Returns the alert route dictionary
         """
 
-        return dict(
-            {
+        return {
+            k: v
+            for k, v in {
                 "continue": route.continue_parameter,
                 "group_by": route.group_by_str,
                 "mute_time_intervals": route.mute_time_intervals,
@@ -769,8 +770,9 @@ class AlertingProvisioning:
                 ),
                 "provenance": route.provenance,
                 "repeat_interval": route.repeat_interval,
-            }
-        )
+            }.items()
+            if v is not None
+        }
 
     def _create_alert_routes_list(self, routes: List[Route]) -> (list, None):
         """The method includes a functionality to create the alert route list

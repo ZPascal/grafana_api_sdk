@@ -328,10 +328,10 @@ The class includes all necessary variables to generate an alert rule route that 
 
 **Arguments**:
 
-- `continue_parameter` _bool_ - Specify the continue parameter
-- `group_by_str` _List[str]_ - Specify the list of group by strings
 - `receiver` _str_ - Specify the receiver
-- `provenance` _str_ - Specify the provenance
+- `continue_parameter` _bool_ - Specify the continue parameter (default None)
+- `group_by_str` _List[str]_ - Specify the list of group by strings (default None)
+- `provenance` _str_ - Specify the provenance (default None)
 - `object_matchers` _List[Matcher]_ - Specify the list of object matchers (default None)
 - `group_interval` _str_ - Specify the group time interval (default None)
 - `group_wait` _str_ - Specify the group wait time (default None)
