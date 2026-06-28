@@ -20,7 +20,7 @@ class Folder:
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
-    def get_folders(self, limit: int = 1000, nested_folders: bool= False) -> list:
+    def get_folders(self, limit: int = 1000, nested_folders: bool = False) -> list:
         """The method includes a functionality to extract all folders inside the organization
 
         Required Permissions:

@@ -113,7 +113,7 @@ class FolderTest(TestCase):
     def test_get_all_folder_ids_uids_and_names(self):
         self.assertEqual(
             [
-                {"id": 0,"uid": "", "title": "General"},
+                {"id": 0, "uid": "", "title": "General"},
                 {"id": 72, "uid": "6U_QdWJnz", "title": "Github Integrationtest"}
             ],
             self.folder.get_all_folder_ids_uids_and_names(),
