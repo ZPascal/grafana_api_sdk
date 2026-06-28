@@ -20,29 +20,68 @@ class Folder:
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
-    def get_folders(self) -> list:
+    def get_folders(self, limit: int = 1000, nested_folders: bool = False) -> list:
         """The method includes a functionality to extract all folders inside the organization
 
         Required Permissions:
             Action: folders:read
             Scope: folders:*
 
+        Args:
+            limit (int): Specify the limit of folders that should be extracted (default 1000)
+            nested_folders (bool): Specify if nested folders should be extracted (default False)
+
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
-            api_call (list): Returns all folders
+            api_call (list): Returns all folders including nested ones
         """
 
-        api_call: list = Api(self.grafana_api_model).call_the_api(
-            APIEndpoints.FOLDERS.value
+        folders_raw: list = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.SEARCH.value}?folderIds=0"
         )
 
-        if api_call == list() or api_call[0].get("id") is None:
-            logging.error(f"Please, check the error: {api_call}.")
+        if len(folders_raw) == 0:
+            folders_raw: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.FOLDERS.value}?limit={limit}"
+            )
+
+        if folders_raw == list() or folders_raw[0].get("id") is None:
+            logging.error(f"Please, check the error: {folders_raw}.")
             raise Exception
-        else:
-            return api_call
+
+        folders: list = [{"id": 0, "uid": "", "title": "General"}]
+        for folder in folders_raw:
+            folders.append({"id": folder.get("id"), "uid": folder.get("uid"), "title": folder.get("title")})
+
+            if nested_folders:
+                folders.extend(self._get_nested_folders(folder.get("uid")))
+
+        return folders
+
+    def _get_nested_folders(self, parent_uid: str) -> list:
+        """Recursively retrieve nested folders for a given parent folder
+
+        Args:
+            parent_uid (str): The uid of the parent folder
+
+        Returns:
+            all_nested (list): All nested folders under the parent, recursively
+        """
+
+        nested_folders: list = Api(self.grafana_api_model).call_the_api(
+            f"{APIEndpoints.FOLDERS.value}?parentUid={parent_uid}"
+        )
+
+        if nested_folders == list():
+            return []
+
+        all_nested: list = list(nested_folders)
+        for folder in nested_folders:
+            all_nested.extend(self._get_nested_folders(folder.get("uid")))
+
+        return all_nested
 
     def get_folder_by_uid(self, uid: str) -> dict:
         """The method includes a functionality to extract all folder information specified by the uid of the folder
@@ -424,30 +463,15 @@ class Folder:
             logging.error("There is no dashboard_path defined.")
             raise ValueError
 
-    def get_all_folder_ids_uids_and_names(self, limit: int = 1000) -> list:
-        """The method extract all folder id, uid and names inside the complete organization
+    def get_all_folder_ids_uids_and_names(self, limit: int = 1000, nested_folders: bool = True) -> list:
+        """The method extract all folder id, uid and names inside the complete organization. In addition, nested folders are also extracted by default
 
         Args:
             limit (int): Specify the limit of folders that should be extracted (default 1000)
+            nested_folders (bool): Specify if nested folders should be extracted (default True)
 
         Returns:
             folders (list): Returns a list of dicts with folder ids, uids and the corresponding names
         """
 
-        folders_raw: list = Api(self.grafana_api_model).call_the_api(
-            f"{APIEndpoints.FOLDERS.value}?limit={limit}"
-        )
-
-        if len(folders_raw) == 0:
-            folders_raw: list = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.SEARCH.value}?folderIds=0"
-            )
-
-        folders: list = [{"title": "General", "id": 0, "uid": ""}]
-
-        for folder in folders_raw:
-            folders.append(
-                {"title": folder.get("title"), "id": folder.get("id"), "uid": folder.get("uid")}
-            )
-
-        return folders
+        return self.get_folders(limit, nested_folders)

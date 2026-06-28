@@ -16,7 +16,10 @@ class FolderTest(TestCase):
 
     def test_get_folders(self):
         self.assertEqual(
-            [{"id": 72, "uid": "6U_QdWJnz", "title": "Github Integrationtest"}],
+            [
+                {'id': 0, 'title': 'General', 'uid': ''},
+                {"id": 72, "uid": "6U_QdWJnz", "title": "Github Integrationtest"}
+            ],
             self.folder.get_folders(),
         )
 
@@ -35,7 +38,7 @@ class FolderTest(TestCase):
     def test_a_create_folder(self):
         self.folder.create_folder("test1")
 
-        self.assertEqual("test1", self.folder.get_folders()[1].get("title"))
+        self.assertEqual("test1", self.folder.get_folders()[2].get("title"))
 
     def test_b_subfolder(self):
         parent_uid = self.folder.get_folders()[1].get("uid")
@@ -45,13 +48,14 @@ class FolderTest(TestCase):
         self.assertEqual(
             "test2", self.folder.get_folder_by_uid(subfolder["uid"]).get("title")
         )
+        self.folder.delete_folder(subfolder["uid"])
 
     def test_c_update_folder(self):
         self.folder.update_folder(
-            "test2", self.folder.get_folders()[1].get("uid"), version=1
+            "test2", self.folder.get_folders()[2].get("uid"), version=1
         )
 
-        self.assertEqual("test2", self.folder.get_folders()[1].get("title"))
+        self.assertEqual("test2", self.folder.get_folders()[2].get("title"))
 
     def test_d_move_folder(self):
         parent_uid = self.folder.get_folders()[1].get("uid")
@@ -69,9 +73,9 @@ class FolderTest(TestCase):
         self.folder.delete_folder(moved_folder["parents"][0]["uid"])
 
     def test_e_delete_folder(self):
-        self.folder.delete_folder(self.folder.get_folders()[1].get("uid"))
+        self.folder.delete_folder(self.folder.get_folders()[2].get("uid"))
 
-        self.assertEqual(1, len(self.folder.get_folders()))
+        self.assertEqual(2, len(self.folder.get_folders()))
 
     def test_get_folder_permissions(self):
         self.assertEqual(
@@ -108,6 +112,9 @@ class FolderTest(TestCase):
 
     def test_get_all_folder_ids_uids_and_names(self):
         self.assertEqual(
-            [{'id': 0, 'title': 'General', 'uid': ''}, {"id": 72, "uid": "6U_QdWJnz", "title": "Github Integrationtest"}],
+            [
+                {"id": 0, "uid": "", "title": "General"},
+                {"id": 72, "uid": "6U_QdWJnz", "title": "Github Integrationtest"}
+            ],
             self.folder.get_all_folder_ids_uids_and_names(),
         )

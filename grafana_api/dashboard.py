@@ -206,8 +206,6 @@ class Dashboard:
             if folder_uid is None:
                 folder_query_parameter = ""
 
-
-
             search_query: str = (
                 f"{APIEndpoints.SEARCH.value}?{Api.prepare_api_string(folder_query_parameter)}query={dashboard_name}"
             )
