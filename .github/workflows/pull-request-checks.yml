@@ -28,7 +28,7 @@ jobs:
         run: uv sync --extra dev
 
       - name: Execute the unittests
-        run: python3 -m unittest discover tests/unittests
+        run: uv run pytest tests/unittests
 
   pr-lint:
     runs-on: ubuntu-latest
@@ -53,7 +53,7 @@ jobs:
         run: uv sync --extra dev
 
       - name: Execute the linting checks with ruff
-        run: ruff check .
+        run: uv run ruff check .
 
   pr-coverage:
     runs-on: ubuntu-latest
@@ -93,7 +93,7 @@ jobs:
           create-new-comment: true
 
       - name: Generate coverage badge
-        run: coverage-badge -f -o docs/coverage.svg
+        run: uv run coverage-badge -f -o docs/coverage.svg
 
       - name: Check changed files
         uses: tj-actions/verify-changed-files@v20

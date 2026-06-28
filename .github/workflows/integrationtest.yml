@@ -33,7 +33,7 @@ jobs:
         run: uv sync --extra dev
 
       - name: Execute the integrationtests (http1.1)
-        run: python3 -m unittest discover tests/integrationtest
+        run: uv run pytest tests/integrationtest
         env:
           GRAFANA_HOST: ${{ secrets.GRAFANA_HOST }}
           GRAFANA_TOKEN: ${{ secrets.GRAFANA_TOKEN }}
@@ -47,7 +47,7 @@ jobs:
         run: sleep 20
 
       - name: Execute the integrationtests (http2)
-        run: python3 -m unittest discover tests/integrationtest
+        run: uv run pytest tests/integrationtest
         env:
           GRAFANA_HOST: ${{ secrets.GRAFANA_HOST }}
           GRAFANA_TOKEN: ${{ secrets.GRAFANA_TOKEN }}
