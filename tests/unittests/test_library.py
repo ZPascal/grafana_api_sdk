@@ -39,7 +39,7 @@ class LibraryTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             library.get_all_library_elements()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -70,7 +70,7 @@ class LibraryTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             library.get_library_element_by_uid("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -101,7 +101,7 @@ class LibraryTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             library.get_library_element_by_name("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -132,7 +132,7 @@ class LibraryTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             library.get_library_element_connections("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -178,7 +178,7 @@ class LibraryTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             library.create_library_element(1, {"test": "test"})
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -226,7 +226,7 @@ class LibraryTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             library.update_library_element(
                 "test", 1, "test", "test", {"test": "test"}, 1
             )
@@ -257,5 +257,5 @@ class LibraryTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             library.delete_library_element("test")

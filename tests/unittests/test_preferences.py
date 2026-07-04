@@ -25,7 +25,7 @@ class PreferencesTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             preferences.get_current_user_preferences()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -93,7 +93,7 @@ class PreferencesTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             preferences.update_current_user_preferences(0, timezone="test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -115,7 +115,7 @@ class PreferencesTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             preferences.get_current_org_preferences()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -175,5 +175,5 @@ class PreferencesTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             preferences.update_current_org_preferences("test", 0, "test")

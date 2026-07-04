@@ -40,7 +40,7 @@ class UserTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             user.search_users()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -91,7 +91,7 @@ class UserTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             user.search_users_with_paging()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -126,7 +126,7 @@ class UserTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             user.get_user_by_id(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -163,7 +163,7 @@ class UserTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             user.get_user_by_username_or_email("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -204,7 +204,7 @@ class UserTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             user.update_user(1, user_object)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -239,7 +239,7 @@ class UserTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             user.get_user_organizations(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -285,7 +285,7 @@ class UserTestCase(TestCase):
 
         call_the_api_mock.return_value = [{"id": None}]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             user.get_user_teams(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -320,7 +320,7 @@ class UserTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             user.switch_specific_user_context(1, 1)
 
 
@@ -341,7 +341,7 @@ class CurrentUserTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             current_user.get_user()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -370,7 +370,7 @@ class CurrentUserTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             current_user.update_password("test", "test", "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -399,7 +399,7 @@ class CurrentUserTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             current_user.switch_current_user_context(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -418,7 +418,7 @@ class CurrentUserTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             current_user.get_user_organizations()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -446,7 +446,7 @@ class CurrentUserTestCase(TestCase):
 
         call_the_api_mock.return_value = [{"id": None}]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             current_user.get_user_teams()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -484,7 +484,7 @@ class CurrentUserTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             current_user.star_a_dashboard(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -522,7 +522,7 @@ class CurrentUserTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             current_user.unstar_a_dashboard(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -541,7 +541,7 @@ class CurrentUserTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             current_user.get_auth_tokens()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -570,5 +570,5 @@ class CurrentUserTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             current_user.revoke_auth_token(1)

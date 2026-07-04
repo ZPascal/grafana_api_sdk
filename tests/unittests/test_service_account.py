@@ -33,7 +33,7 @@ class ServiceAccountTestCase(TestCase):
     def test_search_service_account_no_valid_result(self, call_the_api_mock):
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.service_account.search_service_account()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -56,7 +56,7 @@ class ServiceAccountTestCase(TestCase):
     def test_create_service_account_no_valid_result(self, call_the_api_mock):
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.service_account.create_service_account("test", "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -79,7 +79,7 @@ class ServiceAccountTestCase(TestCase):
     def test_get_service_account_by_id_no_valid_result(self, call_the_api_mock):
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.service_account.get_service_account_by_id(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -102,7 +102,7 @@ class ServiceAccountTestCase(TestCase):
     def test_update_service_account_no_valid_result(self, call_the_api_mock):
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.service_account.update_service_account(1, "test", "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -116,7 +116,7 @@ class ServiceAccountTestCase(TestCase):
     def test_delete_service_account_no_valid_result(self, call_the_api_mock):
         call_the_api_mock.return_value = {"status": 400}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.service_account.delete_service_account(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -148,7 +148,7 @@ class ServiceAccountTestCase(TestCase):
     def test_get_service_account_tokens_by_id_no_valid_result(self, call_the_api_mock):
         call_the_api_mock.return_value = [{"id": None}]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.service_account.get_service_account_tokens_by_id(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -173,7 +173,7 @@ class ServiceAccountTestCase(TestCase):
     ):
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.service_account.create_service_account_token_by_id(1, "test", "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -198,7 +198,7 @@ class ServiceAccountTestCase(TestCase):
     ):
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.service_account.delete_service_account_token_by_id(1, 1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -216,7 +216,7 @@ class ServiceAccountTestCase(TestCase):
     ):
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.service_account.migrate_api_keys_to_service_accounts()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -241,7 +241,7 @@ class ServiceAccountTestCase(TestCase):
     ):
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.service_account.migrate_api_key_to_service_account(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -259,7 +259,7 @@ class ServiceAccountTestCase(TestCase):
     ):
         call_the_api_mock.return_value = {"migrated": None}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.service_account.get_service_account_migration_status()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -275,7 +275,7 @@ class ServiceAccountTestCase(TestCase):
     def test_hide_the_api_keys_tab_internal_error(self, call_the_api_mock):
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.service_account.hide_the_api_keys_tab()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -300,5 +300,5 @@ class ServiceAccountTestCase(TestCase):
     ):
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.service_account.revert_service_account_token_to_api_key(1, 1)

@@ -668,7 +668,7 @@ class Dashboard:
             raise ValueError
 
     def create_public_dashboard(
-        self, dashboard_uid: str, public_dashboard: PublicDashboard = PublicDashboard()
+        self, dashboard_uid: str, public_dashboard: PublicDashboard | None = None
     ) -> dict:
         """The method includes a functionality to create a public available dashboard.
 
@@ -688,6 +688,8 @@ class Dashboard:
             api_call (dict): Returns the corresponding public available dashboard
 
         """
+        if public_dashboard is None:
+            public_dashboard = PublicDashboard()
         if (
             dashboard_uid is not None
             and len(dashboard_uid) != 0

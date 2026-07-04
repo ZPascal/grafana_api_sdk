@@ -26,7 +26,7 @@ class AlertingNotificationsTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.get_all_notification_channels()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -49,7 +49,7 @@ class AlertingNotificationsTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.get_all_notification_channels_lookup()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -79,7 +79,7 @@ class AlertingNotificationsTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.get_notification_channel_by_uid("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -109,7 +109,7 @@ class AlertingNotificationsTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.get_notification_channel_by_id(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -140,7 +140,7 @@ class AlertingNotificationsTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.create_notification_channel({"test": "test"})
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -171,7 +171,7 @@ class AlertingNotificationsTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.update_notification_channel_by_uid("test", {"test": "test"})
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -202,7 +202,7 @@ class AlertingNotificationsTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.update_notification_channel_by_id(1, {"test": "test"})
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -230,7 +230,7 @@ class AlertingNotificationsTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.delete_notification_channel_by_uid("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -258,7 +258,7 @@ class AlertingNotificationsTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.delete_notification_channel_by_id(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -288,5 +288,5 @@ class AlertingNotificationsTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.test_notification_channel({"test": "test"})

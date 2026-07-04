@@ -52,7 +52,7 @@ class SnapshotTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             snapshot.create_new_snapshot({"test": "test"})
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -71,7 +71,7 @@ class SnapshotTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             snapshot.get_snapshots()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -102,7 +102,7 @@ class SnapshotTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             snapshot.get_snapshot_by_key("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -133,7 +133,7 @@ class SnapshotTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             snapshot.delete_snapshot_by_key("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -166,5 +166,5 @@ class SnapshotTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             snapshot.delete_snapshot_by_delete_key("test")

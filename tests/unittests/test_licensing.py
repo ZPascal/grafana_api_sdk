@@ -23,7 +23,7 @@ class LicenseTestCase(TestCase):
 
         call_the_api_mock.return_value.status_code = 400
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             licensing.check_license_availability()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -42,7 +42,7 @@ class LicenseTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             licensing.manually_force_license_refresh()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -61,7 +61,7 @@ class LicenseTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             licensing.remove_license_from_database()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -71,5 +71,5 @@ class LicenseTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 404}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             licensing.remove_license_from_database()

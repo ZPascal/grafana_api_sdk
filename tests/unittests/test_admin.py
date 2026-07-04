@@ -32,7 +32,7 @@ class AdminTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             admin.get_settings()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -98,7 +98,7 @@ class AdminTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             admin.update_settings({"test": "test"})
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -124,7 +124,7 @@ class AdminTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             admin.get_stats()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -150,7 +150,7 @@ class AdminTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             admin.get_preview_report()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -214,7 +214,7 @@ class AdminTestCase(TestCase):
             name="test", email="test", login="test", password="test", org_id=1
         )
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             admin.create_global_user(user)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -252,7 +252,7 @@ class AdminTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             admin.update_user_password(10, "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -290,7 +290,7 @@ class AdminTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             admin.update_user_permissions(10, True)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -328,7 +328,7 @@ class AdminTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             admin.delete_global_user(10)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -354,7 +354,7 @@ class AdminTestCase(TestCase):
 
         call_the_api_mock.return_value = {"state": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             admin.pause_all_alerts()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -380,7 +380,7 @@ class AdminTestCase(TestCase):
 
         call_the_api_mock.return_value = {"state": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             admin.unpause_all_alerts()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -418,7 +418,7 @@ class AdminTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             admin.get_user_auth_token(10)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -456,7 +456,7 @@ class AdminTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             admin.revoke_user_auth_token(10, 10)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -494,7 +494,7 @@ class AdminTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             admin.logout_user(10)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -522,7 +522,7 @@ class AdminTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             admin.reload_dashboards_provisioning_configuration()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -550,7 +550,7 @@ class AdminTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             admin.reload_datasources_provisioning_configuration()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -578,7 +578,7 @@ class AdminTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             admin.reload_plugins_provisioning_configuration()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -606,7 +606,7 @@ class AdminTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             admin.reload_notifications_provisioning_configuration()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -634,7 +634,7 @@ class AdminTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             admin.reload_access_controls_provisioning_configuration()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -660,7 +660,7 @@ class AdminTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             admin.reload_ldap_configuration()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -692,5 +692,5 @@ class AdminTestCase(TestCase):
 
         call_the_api_mock.return_value = mock
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             admin.rotate_data_encryption_keys()

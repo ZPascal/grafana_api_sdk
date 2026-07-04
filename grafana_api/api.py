@@ -250,18 +250,14 @@ class Api:
 
         """
         if Api._check_if_valid_json(response.text):
-            if (
-                len(json.loads(response.text)) != 0
-                and type(json.loads(response.text)) == dict
-            ):
-                if (
-                    "message" in json.loads(response.text).keys()
-                    and json.loads(response.text)["message"] in ERROR_MESSAGES
-                ):
-                    logging.error(json.loads(response.text)["message"])
-                    raise ConnectError(str(json.loads(response.text)["message"]))
-
             json_response: Union[dict, list] = json.loads(response.text)
+            if len(json_response) != 0 and isinstance(json_response, dict):
+                if (
+                    "message" in json_response.keys()
+                    and json_response["message"] in ERROR_MESSAGES
+                ):
+                    logging.error(json_response["message"])
+                    raise ConnectError(str(json_response["message"]))
 
             if isinstance(json_response, dict) and response_status_code:
                 json_response.update({"status": response.status_code})

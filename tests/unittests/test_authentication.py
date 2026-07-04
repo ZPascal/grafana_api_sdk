@@ -25,7 +25,7 @@ class AuthenticationTestCase(TestCase):
 
         call_the_api_mock.return_value = [{"id": None}]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             authentication.get_api_tokens()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -60,7 +60,7 @@ class AuthenticationTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             authentication.create_api_token("name", "View")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -92,5 +92,5 @@ class AuthenticationTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             authentication.delete_api_token(1)

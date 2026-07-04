@@ -40,7 +40,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.get_alertmanager_alerts()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -70,7 +70,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.create_or_update_alertmanager_alerts([alert])
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -99,7 +99,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.get_alertmanager_group_alerts()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -127,7 +127,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"id": None}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.delete_alertmanager_silence_by_id("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -158,7 +158,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"id": None}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.get_alertmanager_silence_by_id("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -184,7 +184,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = [{"id": None}]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.get_alertmanager_silences()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -238,7 +238,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"id": None}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.create_or_update_alertmanager_silence(silence)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -264,7 +264,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"config": None}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.get_alertmanager_status()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -293,7 +293,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"config": None}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.delete_alertmanager_config()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -318,7 +318,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "server error", "status": 500}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.delete_alertmanager_config()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -347,7 +347,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"config": None}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.get_alertmanager_config()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -418,7 +418,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"alertmanager_config": None}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.create_or_update_alertmanager_config(alertmanager_config)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -431,7 +431,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "server error", "status": 500}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.create_or_update_alertmanager_config(alertmanager_config)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -488,7 +488,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 600, "test": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.test_alertmanager_receivers(
                 {"test": "test"}, [alertmanager_receivers]
             )
@@ -513,7 +513,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 404, "test": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.test_alertmanager_receivers(
                 {"test": "test"}, [alertmanager_receivers]
             )
@@ -568,7 +568,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"data": None}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.get_prometheus_alerts()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -594,7 +594,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"data": None}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.get_prometheus_rules("grafana")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -620,7 +620,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.get_ruler_rules()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -646,7 +646,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"test": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.delete_ruler_namespace("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -675,7 +675,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.get_ruler_groups_by_namespace("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -714,7 +714,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"test": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.create_or_update_ruler_group_by_namespace(
                 "test", "test", [ruler_rule]
             )
@@ -742,7 +742,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"test": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.delete_ruler_group("test", "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -770,7 +770,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.get_ruler_group("test", "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -804,7 +804,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.test_rule([datasource_rule_query])
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -861,7 +861,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.test_backtest_rule("test", [datasource_rule_query])
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -874,7 +874,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.test_datasource_uid_rule("test", "test", [datasource_rule_query])
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -895,7 +895,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.delete_ngalert_organization_configuration()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -919,7 +919,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 404, "test": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.get_ngalert_organization_configuration()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -931,7 +931,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 600, "test": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.get_ngalert_organization_configuration()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -966,7 +966,7 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.create_or_update_ngalert_organization_configuration(["test"])
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -989,5 +989,5 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.get_ngalert_alertmanagers_by_organization()

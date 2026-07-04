@@ -47,7 +47,7 @@ class DashboardTestCase(TestCase):
         folder_uid_by_dashboard_path_mock.return_value = "test-uid"
         call_the_api_mock.return_value = {"status": "error"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             dashboard.create_or_update_dashboard(
                 dashboard_path="test",
                 dashboard_json={"test": "test"},
@@ -154,7 +154,7 @@ class DashboardTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "error"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             dashboard.delete_dashboard_by_name_and_path(
                 dashboard_name="test", dashboard_path="test"
             )
@@ -296,7 +296,7 @@ class DashboardTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             dashboard.get_dashboard_by_uid(uid="test")
 
     def test_get_dashboard_by_uid_no_uid(self):
@@ -322,7 +322,7 @@ class DashboardTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             dashboard.get_dashboard_home()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -343,7 +343,7 @@ class DashboardTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             dashboard.get_dashboard_tags()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -365,7 +365,7 @@ class DashboardTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             dashboard.get_dashboard_permissions(1)
 
     def test_get_dashboard_permissions_no_id(self):
@@ -394,7 +394,7 @@ class DashboardTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             dashboard.get_dashboard_permissions_by_uid("test")
 
     def test_get_dashboard_permissions_by_uid_no_uid(self):
@@ -422,7 +422,7 @@ class DashboardTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Error"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             dashboard.update_dashboard_permissions(1, {"test": "test"})
 
     def test_update_dashboard_permissions_no_uid(self):
@@ -453,7 +453,7 @@ class DashboardTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Error"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             dashboard.update_dashboard_permissions_by_uid("test", {"test": "test"})
 
     def test_update_dashboard_permissions_by_uid_no_uid(self):
@@ -479,7 +479,7 @@ class DashboardTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             dashboard.get_dashboard_versions(1)
 
     def test_get_dashboard_versions_no_uid(self):
@@ -507,7 +507,7 @@ class DashboardTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             dashboard.get_dashboard_versions_by_uid("test")
 
     def test_get_dashboard_versions_by_uid_no_uid(self):
@@ -533,7 +533,7 @@ class DashboardTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             dashboard.get_dashboard_version(1, MagicMock())
 
     def test_get_dashboard_version_no_uid(self):
@@ -561,7 +561,7 @@ class DashboardTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             dashboard.get_dashboard_version_by_uid("test", MagicMock())
 
     def test_get_dashboard_version_by_uid_no_uid(self):
@@ -589,7 +589,7 @@ class DashboardTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": "error"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             dashboard.restore_dashboard_version(1, {"version": 1})
 
     def test_restore_dashboard_version_no_id(self):
@@ -618,7 +618,7 @@ class DashboardTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": "error"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             dashboard.restore_dashboard_version_by_uid("test", {"version": 1})
 
     def test_restore_dashboard_version_by_uid_no_uid(self):
@@ -651,7 +651,7 @@ class DashboardTestCase(TestCase):
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         call_the_api_non_json_output_mock.status_code.return_value = 400
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             dashboard.calculate_dashboard_diff(
                 {"dashboardId": 1, "version": 1},
                 {"dashboardId": 2, "version": 1},
@@ -721,7 +721,7 @@ class DashboardTestCase(TestCase):
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         call_the_api_mock.return_value = {}
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             dashboard.get_public_dashboards()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -750,7 +750,7 @@ class DashboardTestCase(TestCase):
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         call_the_api_mock.return_value = {}
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             dashboard.get_public_dashboard_by_uid("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -779,7 +779,7 @@ class DashboardTestCase(TestCase):
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         call_the_api_mock.return_value = {"status": 400}
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             dashboard.create_public_dashboard("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -829,7 +829,7 @@ class DashboardTestCase(TestCase):
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         call_the_api_mock.return_value = {"status": 400}
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             dashboard.update_public_dashboard("test", "test", True)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -866,7 +866,7 @@ class DashboardTestCase(TestCase):
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
         call_the_api_mock.return_value = {"status": 401}
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             dashboard.delete_public_dashboard("test", "test")
 
     @patch("grafana_api.api.Api.call_the_api")

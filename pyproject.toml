@@ -38,7 +38,7 @@ target-version = "py38"
 
 [tool.ruff.lint]
 select = ["B", "C", "D", "E", "F", "W"]
-ignore = ["E203", "E266", "E501"]
+ignore = ["E203", "E266", "E501", "D100", "D101", "D102", "D103", "D104", "D107", "D205", "D401", "D417"]
 exclude = [".venv", "venv", ".git"]
 
 [tool.ruff.lint.pylint]

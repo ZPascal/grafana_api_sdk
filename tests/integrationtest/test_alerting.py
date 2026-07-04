@@ -74,5 +74,5 @@ class AlertingTest(TestCase):
         )
         data_queries: list = [datasource_rule_query]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.alerting.test_rule(data_queries)

@@ -33,7 +33,7 @@ class DatasourceTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.get_all_datasources()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -59,7 +59,7 @@ class DatasourceTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.get_datasource_by_id(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -69,7 +69,7 @@ class DatasourceTestCase(TestCase):
 
         call_the_api_mock.side_effect = [{}, Exception("test")]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.get_datasource_by_id(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -95,7 +95,7 @@ class DatasourceTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.get_datasource_by_uid("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -121,7 +121,7 @@ class DatasourceTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.get_datasource_by_name("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -147,7 +147,7 @@ class DatasourceTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.get_datasource_id_by_name("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -173,7 +173,7 @@ class DatasourceTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.create_datasource({"test": "test"})
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -208,7 +208,7 @@ class DatasourceTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.update_datasource({"test": "test"}, datasource_id=1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -222,7 +222,7 @@ class DatasourceTestCase(TestCase):
         call_the_api_mock.return_value = {}
         get_datasource_by_id_mock.return_value = {"uid": ""}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.update_datasource({"test": "test"}, datasource_id=1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -236,7 +236,7 @@ class DatasourceTestCase(TestCase):
         call_the_api_mock.side_effect = [{}, {"message": "not updated"}]
         get_datasource_by_id_mock.return_value = {"uid": "uid-1"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.update_datasource({"test": "test"}, datasource_id=1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -262,7 +262,7 @@ class DatasourceTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.delete_datasource_by_id(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -288,7 +288,7 @@ class DatasourceTestCase(TestCase):
         call_the_api_mock.return_value = {}
         get_datasource_by_id_mock.return_value = {"uid": ""}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.delete_datasource_by_id(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -314,7 +314,7 @@ class DatasourceTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.delete_datasource_by_uid("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -340,7 +340,7 @@ class DatasourceTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.delete_datasource_by_name("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -391,7 +391,7 @@ class DatasourceTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.query_datasource_by_id("1234", "1234", datasource_queries)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -442,7 +442,7 @@ class DatasourceTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.query_datasource_by_uid("1234", "1234", datasource_queries)
 
 class DatasourcePermissionsTestCase(TestCase):
@@ -478,7 +478,7 @@ class DatasourcePermissionsTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 401}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_permissions.get_datasource_permissions_by_uid("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -490,7 +490,7 @@ class DatasourcePermissionsTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 600}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_permissions.get_datasource_permissions_by_uid("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -547,7 +547,7 @@ class DatasourcePermissionsTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 400}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_permissions.update_datasource_user_access_by_uid(
                 "test", 1, DatasourcePermission("edit")
             )
@@ -561,7 +561,7 @@ class DatasourcePermissionsTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 401}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_permissions.update_datasource_user_access_by_uid(
                 "test", 1, DatasourcePermission("edit")
             )
@@ -577,7 +577,7 @@ class DatasourcePermissionsTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 600}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_permissions.update_datasource_user_access_by_uid(
                 "test", 1, DatasourcePermission("edit")
             )
@@ -636,7 +636,7 @@ class DatasourcePermissionsTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 400}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_permissions.update_datasource_team_access_by_uid(
                 "test", 1, DatasourcePermission("Edit")
             )
@@ -650,7 +650,7 @@ class DatasourcePermissionsTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 401}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_permissions.update_datasource_team_access_by_uid(
                 "test", 1, DatasourcePermission("Edit")
             )
@@ -666,7 +666,7 @@ class DatasourcePermissionsTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 600}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_permissions.update_datasource_team_access_by_uid(
                 "test", 1, DatasourcePermission("Edit")
             )
@@ -725,7 +725,7 @@ class DatasourcePermissionsTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 400}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_permissions.update_datasource_basic_role_access_by_uid(
                 "test", "test", DatasourcePermission("edit")
             )
@@ -741,7 +741,7 @@ class DatasourcePermissionsTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 401}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_permissions.update_datasource_basic_role_access_by_uid(
                 "test", "test", DatasourcePermission("edit")
             )
@@ -757,7 +757,7 @@ class DatasourcePermissionsTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 600}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_permissions.update_datasource_basic_role_access_by_uid(
                 "test", "test", DatasourcePermission("query")
             )
@@ -795,7 +795,7 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_legacy_permissions.enable_datasource_permissions(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -831,7 +831,7 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_legacy_permissions.disable_datasource_permissions(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -868,7 +868,7 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_legacy_permissions.get_datasource_permissions(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -907,7 +907,7 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_legacy_permissions.add_datasource_permissions(
                 1, {"test": "test"}
             )
@@ -943,7 +943,7 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_legacy_permissions.delete_datasource_permissions(1, 1)
 
 
@@ -980,7 +980,7 @@ class DatasourceQueryResourceCachingTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.get_datasource_cache("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -1017,7 +1017,7 @@ class DatasourceQueryResourceCachingTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.enable_datasource_cache("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -1054,7 +1054,7 @@ class DatasourceQueryResourceCachingTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.disable_datasource_cache("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -1089,7 +1089,7 @@ class DatasourceQueryResourceCachingTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.clean_datasource_cache("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -1138,7 +1138,7 @@ class DatasourceQueryResourceCachingTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.update_datasource_cache("test", datasource_cache)
 
 
@@ -1175,7 +1175,7 @@ class DatasourceLabelBasedAccessControlTestCase(TestCase):
 
         call_the_api_mock.return_value = None
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.get_lbac_rules_for_datasource("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -1214,5 +1214,5 @@ class DatasourceLabelBasedAccessControlTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.update_lbac_rules_for_datasource("test")

@@ -27,7 +27,7 @@ class FolderTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.get_folders()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -58,7 +58,7 @@ class FolderTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.get_folder_by_uid("xty13y")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -87,7 +87,7 @@ class FolderTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.get_folder_by_id(10)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -140,7 +140,7 @@ class FolderTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.create_folder("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -196,7 +196,7 @@ class FolderTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.update_folder("test", "test", 10)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -237,7 +237,7 @@ class FolderTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.move_folder("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -275,7 +275,7 @@ class FolderTestCase(TestCase):
 
         call_the_api_mock.return_value = httpx.Response(404)
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.delete_folder("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -285,7 +285,7 @@ class FolderTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.delete_folder("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -315,7 +315,7 @@ class FolderTestCase(TestCase):
 
         call_the_api_mock.return_value = [{"test": "test"}]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.get_folder_permissions("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -345,7 +345,7 @@ class FolderTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.update_folder_permissions("test", {"test": "test"})
 
     @patch("grafana_api.folder.Folder.get_all_folder_ids_uids_and_names")
@@ -381,7 +381,7 @@ class FolderTestCase(TestCase):
         folder: Folder = Folder(grafana_api_model=model)
 
         all_folder_ids_uids_and_names_mock.return_value = [{"title": None, "id": "xty13y", "uid": "test-uid"}]
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.get_folder_id_by_dashboard_path(dashboard_path="test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -448,7 +448,7 @@ class FolderTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "error"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.get_all_folder_ids_uids_and_names()
 
     @patch("grafana_api.folder.Folder.get_all_folder_ids_uids_and_names")
@@ -491,7 +491,7 @@ class FolderTestCase(TestCase):
             {"title": "different", "id": 12, "uid": "test-uid"}
         ]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.get_folder_uid_by_dashboard_path("test")
 
     @patch("grafana_api.api.Api.call_the_api")

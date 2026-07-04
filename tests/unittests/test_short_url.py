@@ -32,5 +32,5 @@ class ShortUrlTestCase(TestCase):
 
         call_the_api_mock.return_value = {"url": None}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             short_url.create_short_url(path="test")

@@ -22,7 +22,7 @@ class PlaylistTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             playlist.search_playlist()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -32,7 +32,7 @@ class PlaylistTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             playlist.search_playlist(query="Test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -42,7 +42,7 @@ class PlaylistTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             playlist.search_playlist(limit=1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -52,7 +52,7 @@ class PlaylistTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             playlist.search_playlist(query="Test", limit=1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -83,7 +83,7 @@ class PlaylistTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             playlist.get_playlist("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -117,7 +117,7 @@ class PlaylistTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             playlist.get_playlist_items("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -163,7 +163,7 @@ class PlaylistTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             playlist.get_playlist_dashboards("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -208,7 +208,7 @@ class PlaylistTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             playlist.create_playlist(playlist_object)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -253,7 +253,7 @@ class PlaylistTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             playlist.update_playlist("test", playlist_object)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -284,5 +284,5 @@ class PlaylistTestCase(TestCase):
 
         call_the_api_mock.return_value.status_code = 400
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             playlist.delete_playlist("test")

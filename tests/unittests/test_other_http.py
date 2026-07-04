@@ -27,7 +27,7 @@ class OtherHTTPTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             other_http.get_frontend_settings()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -50,7 +50,7 @@ class OtherHTTPTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             other_http.renew_login_session_based_on_remember_cookie()
 
     @patch("httpx.Client")
@@ -71,7 +71,7 @@ class OtherHTTPTestCase(TestCase):
 
         httpx_client_mock.return_value.request.return_value.text = "{}"
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             other_http.get_health_status()
 
     @patch("httpx.Client")
@@ -109,7 +109,7 @@ class OtherHTTPTestCase(TestCase):
 
         httpx_client_mock.return_value.request.return_value.text = ""
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             other_http.get_metrics()
 
     @patch("httpx.Client")
@@ -147,7 +147,7 @@ class OtherHTTPTestCase(TestCase):
 
         httpx_client_mock.return_value.request.return_value.text = ""
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             other_http.get_plugin_metrics("test")
 
 

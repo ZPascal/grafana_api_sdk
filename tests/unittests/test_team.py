@@ -40,7 +40,7 @@ class TeamTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.search_team()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -75,7 +75,7 @@ class TeamTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.get_team_by_id(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -112,7 +112,7 @@ class TeamTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.add_team(team_object)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -147,7 +147,7 @@ class TeamTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.update_team(1, "test", "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -182,7 +182,7 @@ class TeamTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.delete_team_by_id(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -217,7 +217,7 @@ class TeamTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.get_team_members(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -252,7 +252,7 @@ class TeamTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.add_team_member(1, 1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -287,7 +287,7 @@ class TeamTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.delete_team_member(1, 1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -325,7 +325,7 @@ class TeamTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.get_team_preferences(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -390,7 +390,7 @@ class TeamTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.update_team_preferences(1, home_dashboard_uid="test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -423,7 +423,7 @@ class TeamTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.get_external_groups(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -456,7 +456,7 @@ class TeamTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 401}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.add_external_group(1, "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -500,7 +500,7 @@ class TeamTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 401}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.remove_external_group(1, "test")
 
     @patch("grafana_api.api.Api.call_the_api")

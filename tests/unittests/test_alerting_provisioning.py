@@ -67,7 +67,7 @@ class AlertingProvisioningTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting_provisioning.get_alert_rule("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -102,7 +102,7 @@ class AlertingProvisioningTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 400}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting_provisioning.add_alert_rule(self.alert_rule)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -137,7 +137,7 @@ class AlertingProvisioningTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 400}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting_provisioning.update_alert_rule("test", self.alert_rule)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -176,7 +176,7 @@ class AlertingProvisioningTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 400}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting_provisioning.update_the_interval_of_a_alert_rule_group(
                 "test", "test", 1
             )
@@ -213,7 +213,7 @@ class AlertingProvisioningTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 400}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting_provisioning.delete_alert_rule("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -239,7 +239,7 @@ class AlertingProvisioningTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting_provisioning.get_all_contact_points()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -273,7 +273,7 @@ class AlertingProvisioningTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 400}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting_provisioning.add_contact_point(self.embedded_contact_point)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -310,7 +310,7 @@ class AlertingProvisioningTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 400}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting_provisioning.update_contact_point(
                 "test", self.embedded_contact_point
             )
@@ -344,7 +344,7 @@ class AlertingProvisioningTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 400}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting_provisioning.delete_contact_point("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -370,7 +370,7 @@ class AlertingProvisioningTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 400}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting_provisioning.get_notification_policies()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -404,7 +404,7 @@ class AlertingProvisioningTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 400}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting_provisioning.add_notification_policies(self.route)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -429,7 +429,7 @@ class AlertingProvisioningTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting_provisioning.get_all_mute_timings()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -463,7 +463,7 @@ class AlertingProvisioningTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting_provisioning.get_mute_timing("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -503,7 +503,7 @@ class AlertingProvisioningTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 400}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting_provisioning.add_mute_timing(mute_time_interval)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -539,7 +539,7 @@ class AlertingProvisioningTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 400}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting_provisioning.update_mute_timing("test", mute_time_interval)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -571,7 +571,7 @@ class AlertingProvisioningTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 400}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting_provisioning.delete_mute_timing("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -596,7 +596,7 @@ class AlertingProvisioningTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting_provisioning.get_all_message_templates()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -631,7 +631,7 @@ class AlertingProvisioningTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 400}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting_provisioning.get_message_template("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -666,7 +666,7 @@ class AlertingProvisioningTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 400}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting_provisioning.create_or_update_message_template("test", "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -698,7 +698,7 @@ class AlertingProvisioningTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 400}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting_provisioning.delete_message_template("test")
 
     def test_create_time_range_list(self):

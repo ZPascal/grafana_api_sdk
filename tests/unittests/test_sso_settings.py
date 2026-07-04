@@ -57,7 +57,7 @@ class SSOSettingsTestCase(TestCase):
                 }
             ]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             sso_settings.get_sso_settings()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -71,7 +71,7 @@ class SSOSettingsTestCase(TestCase):
                 }
             ]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             sso_settings.get_sso_settings()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -126,7 +126,7 @@ class SSOSettingsTestCase(TestCase):
                 "status": 400,
             }
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             sso_settings.get_sso_settings_by_provider("github")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -138,7 +138,7 @@ class SSOSettingsTestCase(TestCase):
                 "status": 500,
             }
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             sso_settings.get_sso_settings_by_provider("github")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -185,7 +185,7 @@ class SSOSettingsTestCase(TestCase):
             True,
             "user:email,read:org",
         )
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             sso_settings.update_sso_settings("github", sso_setting)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -204,7 +204,7 @@ class SSOSettingsTestCase(TestCase):
             True,
             "user:email,read:org",
         )
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             sso_settings.update_sso_settings("github", sso_setting)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -237,7 +237,7 @@ class SSOSettingsTestCase(TestCase):
                 "status": 400,
             }
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             sso_settings.delete_sso_settings("github")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -249,5 +249,5 @@ class SSOSettingsTestCase(TestCase):
                 "status": 500,
             }
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             sso_settings.delete_sso_settings("github")

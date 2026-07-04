@@ -14,11 +14,11 @@ class ApiTestCase(TestCase):
     api: Api = Api(grafana_api_model=model)
 
     def test_call_the_api_non_method(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.api.call_the_api(api_call=MagicMock(), method=None)
 
     def test_call_the_api_non_valid_method(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.api.call_the_api(api_call=MagicMock(), method=MagicMock())
 
     @patch("httpx.Client")
@@ -120,7 +120,7 @@ class ApiTestCase(TestCase):
         )
 
     def test_call_the_api_put_not_valid(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.api.call_the_api(api_call=MagicMock(), method=RequestsMethods.PUT)
 
     @patch("httpx.Client")
@@ -147,7 +147,7 @@ class ApiTestCase(TestCase):
             )
 
     def test_call_the_api_post_no_data(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.api.call_the_api(api_call=MagicMock(), method=RequestsMethods.POST)
 
     @patch("httpx.Client")
@@ -174,7 +174,7 @@ class ApiTestCase(TestCase):
             )
 
     def test_call_the_api_patch_no_data(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.api.call_the_api(api_call=MagicMock(), method=RequestsMethods.PATCH)
 
     @patch("httpx.Client")
@@ -191,7 +191,7 @@ class ApiTestCase(TestCase):
         )
 
     def test_call_the_api_delete_not_valid(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.api.call_the_api(api_call=MagicMock(), method=RequestsMethods.DELETE)
 
     def test_check_the_api_call_response(self):
@@ -293,7 +293,7 @@ def test_call_the_api_http2_no_valid_method():
     )
     api: Api = Api(model)
 
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017
         api.call_the_api(api_call=MagicMock(), method=MagicMock())
 
 
@@ -344,7 +344,7 @@ def test_call_the_api_http2_put_no_json_complete():
     )
     api: Api = Api(model)
 
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017
         api.call_the_api(
             method=RequestsMethods.PUT, api_call="/test", json_complete=None
         )
@@ -374,7 +374,7 @@ def test_call_the_api_http2_post_no_json_complete():
     )
     api: Api = Api(model)
 
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017
         api.call_the_api(
             method=RequestsMethods.POST, api_call="/test", json_complete=None
         )
@@ -404,7 +404,7 @@ def test_call_the_api_http2_patch_no_json_complete():
     )
     api: Api = Api(model)
 
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017
         api.call_the_api(
             method=RequestsMethods.PATCH, api_call="/test", json_complete=None
         )

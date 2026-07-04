@@ -25,7 +25,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 404}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.get_status()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -35,7 +35,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 501}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.get_status()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -57,7 +57,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = [{"status": 404}]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.get_all_roles()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -67,7 +67,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = [{"status": 501}]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.get_all_roles()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -99,7 +99,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 404}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.get_role(uid="test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -109,7 +109,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 501}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.get_role(uid="test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -202,7 +202,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 404}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.create_role(custom_role)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -221,7 +221,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 501}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.create_role(custom_role)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -314,7 +314,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 404}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.update_role("test", custom_role)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -333,7 +333,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 501}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.update_role("test", custom_role)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -355,7 +355,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 200, "message": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.delete_role("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -375,7 +375,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 404}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.delete_role("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -385,7 +385,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 501}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.delete_role("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -417,7 +417,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = [{"status": 404}]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.get_user_assigned_roles(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -427,7 +427,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = [{"status": 501}]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.get_user_assigned_roles(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -459,7 +459,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = [{"status": 404}]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.get_user_assigned_permissions(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -469,7 +469,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = [{"status": 501}]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.get_user_assigned_permissions(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -491,7 +491,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 200, "message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.add_user_role_assignment(1, "test", True)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -511,7 +511,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 404}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.add_user_role_assignment(1, "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -521,7 +521,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 501}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.add_user_role_assignment(1, "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -543,7 +543,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 200, "message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.remove_user_role_assignment(1, "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -563,7 +563,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 404}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.remove_user_role_assignment(1, "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -573,7 +573,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 501}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.remove_user_role_assignment(1, "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -595,7 +595,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 200, "message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.update_user_role_assignments(1, ["test", "test"])
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -615,7 +615,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 404}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.update_user_role_assignments(1, ["test", "test"])
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -625,7 +625,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 501}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.update_user_role_assignments(1, ["test", "test"])
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -659,7 +659,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = [{"status": 404}]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.get_service_account_assigned_roles(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -671,7 +671,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = [{"status": 501}]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.get_service_account_assigned_roles(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -707,7 +707,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = [{"status": 404}]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.get_service_account_assigned_permissions(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -719,7 +719,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = [{"status": 501}]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.get_service_account_assigned_permissions(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -743,7 +743,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 200, "message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.add_service_account_role_assignment(1, "test", True)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -765,7 +765,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 404}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.add_service_account_role_assignment(1, "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -777,7 +777,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 501}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.add_service_account_role_assignment(1, "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -801,7 +801,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 200, "message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.remove_service_account_role_assignment(1, "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -823,7 +823,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 404}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.remove_service_account_role_assignment(1, "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -835,7 +835,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 501}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.remove_service_account_role_assignment(1, "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -861,7 +861,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 200, "message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.update_service_account_role_assignments(1, ["test", "test"])
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -883,7 +883,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 404}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.update_service_account_role_assignments(1, ["test", "test"])
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -895,7 +895,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 501}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.update_service_account_role_assignments(1, ["test", "test"])
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -927,7 +927,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = [{"status": 404}]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.get_team_assigned_roles(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -937,7 +937,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = [{"status": 501}]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.get_team_assigned_roles(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -959,7 +959,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 200, "message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.add_team_role_assignment(1, "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -979,7 +979,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 404}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.add_team_role_assignment(1, "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -989,7 +989,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 501}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.add_team_role_assignment(1, "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -1011,7 +1011,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 200, "message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.remove_team_role_assignment(1, "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -1031,7 +1031,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 404}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.remove_team_role_assignment(1, "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -1041,7 +1041,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 501}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.remove_team_role_assignment(1, "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -1063,7 +1063,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 200, "message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.update_team_role_assignments(1, ["test", "test"])
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -1083,7 +1083,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 404}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.update_team_role_assignments(1, ["test", "test"])
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -1093,7 +1093,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 501}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.update_team_role_assignments(1, ["test", "test"])
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -1117,7 +1117,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 200, "message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.reset_basic_roles_to_their_default()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -1127,7 +1127,7 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 404}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.reset_basic_roles_to_their_default()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -1139,5 +1139,5 @@ class RBACTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 501}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             rbac.reset_basic_roles_to_their_default()

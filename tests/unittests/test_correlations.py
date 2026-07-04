@@ -32,7 +32,7 @@ class CorrelationsTestCase(TestCase):
 
         call_the_api_mock.return_value = {"description": None}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             correlations.get_correlation("test", "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -63,7 +63,7 @@ class CorrelationsTestCase(TestCase):
 
         call_the_api_mock.return_value = [{"description": None}]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             correlations.get_all_correlations_by_datasource_uid("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -97,7 +97,7 @@ class CorrelationsTestCase(TestCase):
 
         call_the_api_mock.return_value = [{"description": None}]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             correlations.get_all_correlations(),
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -107,7 +107,7 @@ class CorrelationsTestCase(TestCase):
 
         call_the_api_mock.return_value = {"correlations": [{"description": None}]}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             correlations.get_all_correlations(),
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -145,7 +145,7 @@ class CorrelationsTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": "error"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             correlations.create_correlations(correlation_object)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -171,7 +171,7 @@ class CorrelationsTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             correlations.delete_correlations("test", "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -200,5 +200,5 @@ class CorrelationsTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": None}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             correlations.update_correlations("test", "test", "test", "test")

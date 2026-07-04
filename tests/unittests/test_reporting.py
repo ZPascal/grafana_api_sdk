@@ -25,7 +25,7 @@ class ReportingTestCase(TestCase):
 
         call_the_api_mock.return_value = [{"status": 401}]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             reporting.get_reports()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -35,7 +35,7 @@ class ReportingTestCase(TestCase):
 
         call_the_api_mock.return_value = [{"status": 600}]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             reporting.get_reports()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -63,7 +63,7 @@ class ReportingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 404}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             reporting.get_report_by_id(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -73,7 +73,7 @@ class ReportingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 600}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             reporting.get_report_by_id(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -338,7 +338,7 @@ class ReportingTestCase(TestCase):
             [dashboard_schema],
         )
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             reporting.create_report(report)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -364,7 +364,7 @@ class ReportingTestCase(TestCase):
             [dashboard_schema],
         )
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             reporting.create_report(report)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -422,7 +422,7 @@ class ReportingTestCase(TestCase):
             [dashboard_schema],
         )
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             reporting.update_report(1, report)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -448,7 +448,7 @@ class ReportingTestCase(TestCase):
             [dashboard_schema],
         )
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             reporting.update_report(1, report)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -474,7 +474,7 @@ class ReportingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 400}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             reporting.delete_report(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -484,7 +484,7 @@ class ReportingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 600}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             reporting.delete_report(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -510,7 +510,7 @@ class ReportingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Test", "status": 404}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             reporting.send_report(1, use_emails_from_report=True)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -520,7 +520,7 @@ class ReportingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Test", "status": 600}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             reporting.send_report(1, use_emails_from_report=True)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -541,7 +541,7 @@ class ReportingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 401}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             reporting.get_report_branding_settings()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -551,7 +551,7 @@ class ReportingTestCase(TestCase):
 
         call_the_api_mock.return_value = {"status": 600}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             reporting.get_report_branding_settings()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -614,7 +614,7 @@ class ReportingTestCase(TestCase):
             "test", "test", "none"
         )
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             reporting.save_report_branding_settings(report_branding_settings)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -627,7 +627,7 @@ class ReportingTestCase(TestCase):
             "test", "test", "none"
         )
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             reporting.save_report_branding_settings(report_branding_settings)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -685,7 +685,7 @@ class ReportingTestCase(TestCase):
             [dashboard_schema],
         )
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             reporting.send_report_test_email(report)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -711,5 +711,5 @@ class ReportingTestCase(TestCase):
             [dashboard_schema],
         )
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             reporting.send_report_test_email(report)

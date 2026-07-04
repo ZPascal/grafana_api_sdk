@@ -34,7 +34,7 @@ class LegacyPlaylistTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             playlist.get_playlist(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -65,7 +65,7 @@ class LegacyPlaylistTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             playlist.get_playlist_items(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -96,7 +96,7 @@ class LegacyPlaylistTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             playlist.get_playlist_dashboards(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -139,7 +139,7 @@ class LegacyPlaylistTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             playlist.update_playlist(1, playlist_object)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -170,5 +170,5 @@ class LegacyPlaylistTestCase(TestCase):
 
         call_the_api_mock.return_value.status_code = 400
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             playlist.delete_playlist(1)

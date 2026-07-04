@@ -78,7 +78,7 @@ class AnnotationsTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             annotations.find_annotations()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -119,7 +119,7 @@ class AnnotationsTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             annotations.create_annotation(
                 AnnotationObject(
                     dashboard_uid=None,
@@ -164,7 +164,7 @@ class AnnotationsTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             annotations.create_graphite_annotation(
                 AnnotationGraphiteObject(
                     what="test", tags=["test", "test"], when=None, data=None
@@ -210,7 +210,7 @@ class AnnotationsTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             annotations.update_annotation(
                 1,
                 AnnotationObject(
@@ -252,7 +252,7 @@ class AnnotationsTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             annotations.delete_annotation(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -298,5 +298,5 @@ class AnnotationsTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             annotations.find_annotation_tags()

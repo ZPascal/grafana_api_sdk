@@ -41,7 +41,7 @@ class QueryHistoryTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             query_history.add_query_to_history("test", [query])
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -73,7 +73,7 @@ class QueryHistoryTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             query_history.search_query_history(["test"], "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -102,7 +102,7 @@ class QueryHistoryTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             query_history.delete_query_history("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -133,7 +133,7 @@ class QueryHistoryTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             query_history.update_query_history("test", "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -164,7 +164,7 @@ class QueryHistoryTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             query_history.star_query_history("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -195,5 +195,5 @@ class QueryHistoryTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             query_history.unstar_query_history("test")

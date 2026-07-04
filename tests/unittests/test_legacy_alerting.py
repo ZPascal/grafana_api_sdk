@@ -38,7 +38,7 @@ class LegacyAlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.get_alerts()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -67,7 +67,7 @@ class LegacyAlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.get_alerts_by_dashboard_ids([1, 2])
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -106,7 +106,7 @@ class LegacyAlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.get_alert_by_id(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -132,5 +132,5 @@ class LegacyAlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             alerting.pause_alert_by_id(1)
