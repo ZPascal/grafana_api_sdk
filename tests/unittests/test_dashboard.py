@@ -792,8 +792,6 @@ class DashboardTestCase(TestCase):
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_create_public_dashboard_with_none_default(self, call_the_api_mock):
-        from grafana_api.model import PublicDashboard
-
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
 
