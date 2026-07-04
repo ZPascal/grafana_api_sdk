@@ -81,7 +81,7 @@ jobs:
         run: uv sync --extra dev
 
       - name: Generate the coverage report
-        run: export PYTHONPATH=$PWD && pytest --junitxml=pytest.xml --cov=. tests/unittests | tee pytest-coverage.txt
+        run: export PYTHONPATH=$PWD && uv run pytest --junitxml=pytest.xml --cov=. tests/unittests | tee pytest-coverage.txt
 
       - name: Execute the coverage checks
         uses: MishaKav/pytest-coverage-comment@v1.8.0
