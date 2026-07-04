@@ -1,5 +1,6 @@
 import json
 import logging
+from typing import Optional
 
 from .model import APIModel, APIEndpoints, RequestsMethods, PublicDashboard
 from .folder import Folder
@@ -668,7 +669,7 @@ class Dashboard:
             raise ValueError
 
     def create_public_dashboard(
-        self, dashboard_uid: str, public_dashboard: PublicDashboard | None = None
+        self, dashboard_uid: str, public_dashboard: Optional[PublicDashboard] = None
     ) -> dict:
         """The method includes a functionality to create a public available dashboard.
 
