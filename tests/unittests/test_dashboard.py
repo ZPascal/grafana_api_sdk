@@ -791,6 +791,40 @@ class DashboardTestCase(TestCase):
         self.assertEqual(None, dashboard.create_public_dashboard("test"))
 
     @patch("grafana_api.api.Api.call_the_api")
+    def test_create_public_dashboard_with_none_default(self, call_the_api_mock):
+        from grafana_api.model import PublicDashboard
+
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        dashboard: Dashboard = Dashboard(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {"status": 200, "test": "test"}
+        self.assertEqual(
+            {"status": 200, "test": "test"},
+            dashboard.create_public_dashboard("test", None),
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_create_public_dashboard_with_explicit_object(self, call_the_api_mock):
+        from grafana_api.model import PublicDashboard
+
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        dashboard: Dashboard = Dashboard(grafana_api_model=model)
+        public_dashboard = PublicDashboard(
+            uid="test-uid",
+            access_token="test-token",
+            time_selection_enabled=True,
+            is_enabled=True,
+            annotations_enabled=True,
+            share="public",
+        )
+
+        call_the_api_mock.return_value = {"status": 200, "test": "test"}
+        self.assertEqual(
+            {"status": 200, "test": "test"},
+            dashboard.create_public_dashboard("test", public_dashboard),
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
     def test_update_public_dashboard(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         dashboard: Dashboard = Dashboard(grafana_api_model=model)
