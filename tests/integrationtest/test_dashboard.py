@@ -108,9 +108,7 @@ class DashboardTest(TestCase):
             )
 
     def test_h_public_dashboards(self):
-        public_dashboards: dict = dict(
-            {"page": 1, "perPage": 1000, "publicDashboards": [], "totalCount": 0}
-        )
+        public_dashboards: dict = {"page": 1, "perPage": 1000, "publicDashboards": [], "totalCount": 0}
         self.assertEqual(public_dashboards, self.dashboard.get_public_dashboards())
 
         public_dashboard_uid: str = self.dashboard.create_public_dashboard("tests").get(

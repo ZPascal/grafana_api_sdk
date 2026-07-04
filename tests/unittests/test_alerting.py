@@ -19,10 +19,10 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([dict({"receivers": "test"})])
+        call_the_api_mock.return_value = [{"receivers": "test"}]
 
         self.assertEqual(
-            list([dict({"receivers": "test"})]),
+            [{"receivers": "test"}],
             alerting.get_alertmanager_alerts(),
         )
 
@@ -38,7 +38,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([])
+        call_the_api_mock.return_value = []
 
         with self.assertRaises(Exception):
             alerting.get_alertmanager_alerts()
@@ -49,7 +49,7 @@ class AlertingTestCase(TestCase):
         alerting: Alerting = Alerting(grafana_api_model=model)
         alert: Alert = Alert("test", "test", {"test": "test"}, "test", {"test": "test"})
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         self.assertEqual(None, alerting.create_or_update_alertmanager_alerts([alert]))
 
@@ -68,7 +68,7 @@ class AlertingTestCase(TestCase):
         alerting: Alerting = Alerting(grafana_api_model=model)
         alert: Alert = Alert("test", "test", {"test": "test"}, "test", {"test": "test"})
 
-        call_the_api_mock.return_value = dict({"message": "test"})
+        call_the_api_mock.return_value = {"message": "test"}
 
         with self.assertRaises(Exception):
             alerting.create_or_update_alertmanager_alerts([alert])
@@ -78,10 +78,10 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"alerts": "test"}])
+        call_the_api_mock.return_value = [{"alerts": "test"}]
 
         self.assertEqual(
-            list([{"alerts": "test"}]),
+            [{"alerts": "test"}],
             alerting.get_alertmanager_group_alerts(),
         )
 
@@ -97,7 +97,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list()
+        call_the_api_mock.return_value = []
 
         with self.assertRaises(Exception):
             alerting.get_alertmanager_group_alerts()
@@ -107,7 +107,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "silence deleted"})
+        call_the_api_mock.return_value = {"message": "silence deleted"}
 
         self.assertEqual(None, alerting.delete_alertmanager_silence_by_id("test"))
 
@@ -125,7 +125,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"id": None})
+        call_the_api_mock.return_value = {"id": None}
 
         with self.assertRaises(Exception):
             alerting.delete_alertmanager_silence_by_id("test")
@@ -135,10 +135,10 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"id": "test"})
+        call_the_api_mock.return_value = {"id": "test"}
 
         self.assertEqual(
-            dict({"id": "test"}),
+            {"id": "test"},
             alerting.get_alertmanager_silence_by_id("test"),
         )
 
@@ -156,7 +156,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"id": None})
+        call_the_api_mock.return_value = {"id": None}
 
         with self.assertRaises(Exception):
             alerting.get_alertmanager_silence_by_id("test")
@@ -166,9 +166,9 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"id": "test"}])
+        call_the_api_mock.return_value = [{"id": "test"}]
 
-        self.assertEqual(list([{"id": "test"}]), alerting.get_alertmanager_silences())
+        self.assertEqual([{"id": "test"}], alerting.get_alertmanager_silences())
 
     def test_get_alertmanager_silences_no_recipient(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -182,7 +182,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"id": None}])
+        call_the_api_mock.return_value = [{"id": None}]
 
         with self.assertRaises(Exception):
             alerting.get_alertmanager_silences()
@@ -195,10 +195,10 @@ class AlertingTestCase(TestCase):
             "test", "test", "test", "test", "test", {"test": "test"}
         )
 
-        call_the_api_mock.return_value = dict({"id": "test"})
+        call_the_api_mock.return_value = {"id": "test"}
 
         self.assertEqual(
-            dict({"id": "test"}),
+            {"id": "test"},
             alerting.create_or_update_alertmanager_silence(silence),
         )
 
@@ -212,10 +212,10 @@ class AlertingTestCase(TestCase):
             "test", "test", "test", "test", "test", {"test": "test"}
         )
 
-        call_the_api_mock.return_value = dict({"silenceID": "test"})
+        call_the_api_mock.return_value = {"silenceID": "test"}
 
         self.assertEqual(
-            dict({"silenceID": "test"}),
+            {"silenceID": "test"},
             alerting.create_or_update_alertmanager_silence(silence),
         )
 
@@ -236,7 +236,7 @@ class AlertingTestCase(TestCase):
             "test", "test", "test", "test", "test", {"test": "test"}
         )
 
-        call_the_api_mock.return_value = dict({"id": None})
+        call_the_api_mock.return_value = {"id": None}
 
         with self.assertRaises(Exception):
             alerting.create_or_update_alertmanager_silence(silence)
@@ -246,9 +246,9 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"config": "test"})
+        call_the_api_mock.return_value = {"config": "test"}
 
-        self.assertEqual(dict({"config": "test"}), alerting.get_alertmanager_status())
+        self.assertEqual({"config": "test"}, alerting.get_alertmanager_status())
 
     def test_get_alertmanager_status_no_recipient(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -262,7 +262,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"config": None})
+        call_the_api_mock.return_value = {"config": None}
 
         with self.assertRaises(Exception):
             alerting.get_alertmanager_status()
@@ -291,7 +291,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"config": None})
+        call_the_api_mock.return_value = {"config": None}
 
         with self.assertRaises(Exception):
             alerting.delete_alertmanager_config()
@@ -326,10 +326,10 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"alertmanager_config": "test"})
+        call_the_api_mock.return_value = {"alertmanager_config": "test"}
 
         self.assertEqual(
-            dict({"alertmanager_config": "test"}),
+            {"alertmanager_config": "test"},
             alerting.get_alertmanager_config(),
         )
 
@@ -345,7 +345,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"config": None})
+        call_the_api_mock.return_value = {"config": None}
 
         with self.assertRaises(Exception):
             alerting.get_alertmanager_config()
@@ -416,7 +416,7 @@ class AlertingTestCase(TestCase):
             {"test": "test"}, ["test"], ["test"], ["test"], {"test": "test"}, ["test"]
         )
 
-        call_the_api_mock.return_value = dict({"alertmanager_config": None})
+        call_the_api_mock.return_value = {"alertmanager_config": None}
 
         with self.assertRaises(Exception):
             alerting.create_or_update_alertmanager_config(alertmanager_config)
@@ -452,12 +452,12 @@ class AlertingTestCase(TestCase):
             ["test"],
         )
 
-        call_the_api_mock.return_value = dict({"status": 200})
+        call_the_api_mock.return_value = {"status": 200}
 
         self.assertEqual(
             None,
             alerting.test_alertmanager_receivers(
-                {"test": "test"}, list([alertmanager_receivers])
+                {"test": "test"}, [alertmanager_receivers]
             ),
         )
 
@@ -466,7 +466,7 @@ class AlertingTestCase(TestCase):
         alerting: Alerting = Alerting(grafana_api_model=model)
 
         with self.assertRaises(ValueError):
-            alerting.test_alertmanager_receivers(dict(), None, "")
+            alerting.test_alertmanager_receivers({}, None, "")
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_test_alertmanager_receivers_test_not_possible(self, call_the_api_mock):
@@ -486,11 +486,11 @@ class AlertingTestCase(TestCase):
             ["test"],
         )
 
-        call_the_api_mock.return_value = dict({"status": 600, "test": "test"})
+        call_the_api_mock.return_value = {"status": 600, "test": "test"}
 
         with self.assertRaises(Exception):
             alerting.test_alertmanager_receivers(
-                {"test": "test"}, list([alertmanager_receivers])
+                {"test": "test"}, [alertmanager_receivers]
             )
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -511,11 +511,11 @@ class AlertingTestCase(TestCase):
             ["test"],
         )
 
-        call_the_api_mock.return_value = dict({"status": 404, "test": "test"})
+        call_the_api_mock.return_value = {"status": 404, "test": "test"}
 
         with self.assertRaises(Exception):
             alerting.test_alertmanager_receivers(
-                {"test": "test"}, list([alertmanager_receivers])
+                {"test": "test"}, [alertmanager_receivers]
             )
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -550,9 +550,9 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"data": "test"})
+        call_the_api_mock.return_value = {"data": "test"}
 
-        self.assertEqual(dict({"data": "test"}), alerting.get_prometheus_alerts())
+        self.assertEqual({"data": "test"}, alerting.get_prometheus_alerts())
 
     def test_get_prometheus_alerts_no_recipient(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -566,7 +566,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"data": None})
+        call_the_api_mock.return_value = {"data": None}
 
         with self.assertRaises(Exception):
             alerting.get_prometheus_alerts()
@@ -576,9 +576,9 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"data": "test"})
+        call_the_api_mock.return_value = {"data": "test"}
 
-        self.assertEqual(dict({"data": "test"}), alerting.get_prometheus_rules())
+        self.assertEqual({"data": "test"}, alerting.get_prometheus_rules())
 
     def test_get_prometheus_rules_no_recipient(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -592,7 +592,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"data": None})
+        call_the_api_mock.return_value = {"data": None}
 
         with self.assertRaises(Exception):
             alerting.get_prometheus_rules("grafana")
@@ -602,9 +602,9 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"data": "test"})
+        call_the_api_mock.return_value = {"data": "test"}
 
-        self.assertEqual(dict({"data": "test"}), alerting.get_ruler_rules())
+        self.assertEqual({"data": "test"}, alerting.get_ruler_rules())
 
     def test_get_ruler_rules_no_recipient(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
@@ -618,7 +618,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(Exception):
             alerting.get_ruler_rules()
@@ -628,7 +628,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         self.assertEqual(None, alerting.delete_ruler_namespace("test"))
 
@@ -644,7 +644,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"test": "test"})
+        call_the_api_mock.return_value = {"test": "test"}
 
         with self.assertRaises(Exception):
             alerting.delete_ruler_namespace("test")
@@ -654,10 +654,10 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"test": "test"})
+        call_the_api_mock.return_value = {"test": "test"}
 
         self.assertEqual(
-            dict({"test": "test"}),
+            {"test": "test"},
             alerting.get_ruler_groups_by_namespace("test"),
         )
 
@@ -673,7 +673,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(Exception):
             alerting.get_ruler_groups_by_namespace("test")
@@ -686,7 +686,7 @@ class AlertingTestCase(TestCase):
             "test", {"test": "test"}, "test", {"test": "test"}, {"test": "test"}, "test"
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         self.assertEqual(
             None,
@@ -712,7 +712,7 @@ class AlertingTestCase(TestCase):
             "test", {"test": "test"}, "test", {"test": "test"}, {"test": "test"}, "test"
         )
 
-        call_the_api_mock.return_value = dict({"test": "test"})
+        call_the_api_mock.return_value = {"test": "test"}
 
         with self.assertRaises(Exception):
             alerting.create_or_update_ruler_group_by_namespace(
@@ -724,7 +724,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         self.assertEqual(None, alerting.delete_ruler_group("test", "test"))
 
@@ -740,7 +740,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"test": "test"})
+        call_the_api_mock.return_value = {"test": "test"}
 
         with self.assertRaises(Exception):
             alerting.delete_ruler_group("test", "test")
@@ -750,10 +750,10 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"test": "test"})
+        call_the_api_mock.return_value = {"test": "test"}
 
         self.assertEqual(
-            dict({"test": "test"}), alerting.get_ruler_group("test", "test")
+            {"test": "test"}, alerting.get_ruler_group("test", "test")
         )
 
     def test_get_ruler_group_no_recipient(self):
@@ -768,7 +768,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(Exception):
             alerting.get_ruler_group("test", "test")
@@ -781,10 +781,10 @@ class AlertingTestCase(TestCase):
             "test", {"test": "test"}, "test", "test", {"test": "test"}
         )
 
-        call_the_api_mock.return_value = dict({"test": "test"})
+        call_the_api_mock.return_value = {"test": "test"}
 
         self.assertEqual(
-            dict({"test": "test"}), alerting.test_rule([datasource_rule_query])
+            {"test": "test"}, alerting.test_rule([datasource_rule_query])
         )
 
     def test_test_rule_no_data_query(self):
@@ -792,7 +792,7 @@ class AlertingTestCase(TestCase):
         alerting: Alerting = Alerting(grafana_api_model=model)
 
         with self.assertRaises(ValueError):
-            alerting.test_rule(list())
+            alerting.test_rule([])
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_test_rule_test_not_possible(self, call_the_api_mock):
@@ -802,7 +802,7 @@ class AlertingTestCase(TestCase):
             "test", {"test": "test"}, "test", "test", {"test": "test"}
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(Exception):
             alerting.test_rule([datasource_rule_query])
@@ -815,10 +815,10 @@ class AlertingTestCase(TestCase):
             "test", {"test": "test"}, "test", "test", {"test": "test"}
         )
 
-        call_the_api_mock.return_value = dict({"test": "test"})
+        call_the_api_mock.return_value = {"test": "test"}
 
         self.assertEqual(
-            dict({"test": "test"}),
+            {"test": "test"},
             alerting.test_datasource_uid_rule("test", "test", [datasource_rule_query]),
         )
 
@@ -827,7 +827,7 @@ class AlertingTestCase(TestCase):
         alerting: Alerting = Alerting(grafana_api_model=model)
 
         with self.assertRaises(ValueError):
-            alerting.test_datasource_uid_rule("", "", list(), "")
+            alerting.test_datasource_uid_rule("", "", [], "")
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_test_backtest_rule(self, call_the_api_mock):
@@ -837,10 +837,10 @@ class AlertingTestCase(TestCase):
             "test", {"test": "test"}, "datasourceUid", "test", {"test": "test"}
         )
 
-        call_the_api_mock.return_value = dict({"test": "test"})
+        call_the_api_mock.return_value = {"test": "test"}
 
         self.assertEqual(
-            dict({"test": "test"}),
+            {"test": "test"},
             alerting.test_backtest_rule("test", [datasource_rule_query]),
         )
 
@@ -849,7 +849,7 @@ class AlertingTestCase(TestCase):
         alerting: Alerting = Alerting(grafana_api_model=model)
 
         with self.assertRaises(ValueError):
-            alerting.test_backtest_rule("", list())
+            alerting.test_backtest_rule("", [])
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_test_backtest_rule_no_fields(self, call_the_api_mock):
@@ -859,7 +859,7 @@ class AlertingTestCase(TestCase):
             "test", {"test": "test"}, "datasourceUid", "test", {"test": "test"}
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(Exception):
             alerting.test_backtest_rule("test", [datasource_rule_query])
@@ -872,7 +872,7 @@ class AlertingTestCase(TestCase):
             "test", {"test": "test"}, "datasourceUid", "test", {"test": "test"}
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(Exception):
             alerting.test_datasource_uid_rule("test", "test", [datasource_rule_query])
@@ -882,7 +882,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         self.assertEqual(None, alerting.delete_ngalert_organization_configuration())
 
@@ -893,7 +893,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "test"})
+        call_the_api_mock.return_value = {"message": "test"}
 
         with self.assertRaises(Exception):
             alerting.delete_ngalert_organization_configuration()
@@ -903,10 +903,10 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 200, "test": "test"})
+        call_the_api_mock.return_value = {"status": 200, "test": "test"}
 
         self.assertEqual(
-            dict({"status": 200, "test": "test"}),
+            {"status": 200, "test": "test"},
             alerting.get_ngalert_organization_configuration(),
         )
 
@@ -917,7 +917,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 404, "test": "test"})
+        call_the_api_mock.return_value = {"status": 404, "test": "test"}
 
         with self.assertRaises(Exception):
             alerting.get_ngalert_organization_configuration()
@@ -929,7 +929,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 600, "test": "test"})
+        call_the_api_mock.return_value = {"status": 600, "test": "test"}
 
         with self.assertRaises(Exception):
             alerting.get_ngalert_organization_configuration()
@@ -941,7 +941,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         self.assertEqual(
             None,
@@ -955,7 +955,7 @@ class AlertingTestCase(TestCase):
         alerting: Alerting = Alerting(grafana_api_model=model)
 
         with self.assertRaises(ValueError):
-            alerting.create_or_update_ngalert_organization_configuration(list(), "")
+            alerting.create_or_update_ngalert_organization_configuration([], "")
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_create_or_update_ngalert_organization_configuration_no_configuration_available(
@@ -964,7 +964,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "test"})
+        call_the_api_mock.return_value = {"message": "test"}
 
         with self.assertRaises(Exception):
             alerting.create_or_update_ngalert_organization_configuration(["test"])
@@ -974,10 +974,10 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"test": "test"})
+        call_the_api_mock.return_value = {"test": "test"}
 
         self.assertEqual(
-            dict({"test": "test"}), alerting.get_ngalert_alertmanagers_by_organization()
+            {"test": "test"}, alerting.get_ngalert_alertmanagers_by_organization()
         )
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -987,7 +987,7 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(Exception):
             alerting.get_ngalert_alertmanagers_by_organization()

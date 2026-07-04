@@ -22,7 +22,7 @@ dependencies = ["httpx"]
 [project.optional-dependencies]
 http2 = ["httpx[http2]"]
 docs = ["pyyaml>=6.0.3", "pydoc-markdown", "mkdocs", "mkdocs-material"]
-dev = ["build", "setuptools>=65.0.0", "wheel", "ruff>=0.5.0", "pytest", "pytest-httpx", "pytest-cov", "coverage-badge", "httpx[http2]"]
+dev = ["build", "setuptools>=65.0.0,<73.0.0", "wheel", "ruff>=0.5.0", "pytest", "pytest-httpx", "pytest-cov", "coverage-badge", "httpx[http2]"]
 
 [project.urls]
 Source = "https://github.com/ZPascal/grafana_api_sdk"

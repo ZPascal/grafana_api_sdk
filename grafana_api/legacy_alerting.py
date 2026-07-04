@@ -7,13 +7,14 @@ from .api import Api
 
 
 class Alerting:
-    """The class includes all necessary methods to access the Grafana legacy alerting API endpoints
+    """The class includes all necessary methods to access the Grafana legacy alerting API endpoints.
 
     Args:
         grafana_api_model (APIModel): Inject a Grafana API model object that includes all necessary values and information
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
@@ -23,7 +24,7 @@ class Alerting:
         self,
         custom_querystring: str = None,
     ) -> list:
-        """The method includes a functionality to get the legacy alerts
+        """The method includes a functionality to get the legacy alerts.
 
         Args:
             custom_querystring (str): Specify the custom querystring (default None)
@@ -34,8 +35,8 @@ class Alerting:
 
         Returns:
             api_call (list): Returns a list of all alerts
-        """
 
+        """
         api_string: str = ""
 
         if custom_querystring is not None and len(custom_querystring) != 0:
@@ -49,7 +50,7 @@ class Alerting:
                 RequestsMethods.GET,
             )
 
-            if api_call == list() or api_call[0].get("id") is None:
+            if api_call == [] or api_call[0].get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -64,7 +65,7 @@ class Alerting:
         self,
         dashboard_ids: list,
     ) -> list:
-        """The method includes a functionality to get legacy alerts specified by the dashboard ids
+        """The method includes a functionality to get legacy alerts specified by the dashboard ids.
 
         Args:
             dashboard_ids (list): Specify the list of dashboard ids
@@ -75,9 +76,9 @@ class Alerting:
 
         Returns:
             api_call (list): Returns a list of alerts
-        """
 
-        if dashboard_ids != list():
+        """
+        if dashboard_ids != []:
             dashboard_ids_string: str = "?"
             for i in range(0, len(dashboard_ids)):
                 dashboard_ids_string = (
@@ -92,7 +93,7 @@ class Alerting:
                 RequestsMethods.GET,
             )
 
-            if api_call == list() or api_call[0].get("id") is None:
+            if api_call == [] or api_call[0].get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -102,7 +103,7 @@ class Alerting:
             raise ValueError
 
     def get_alert_by_id(self, id: int) -> dict:
-        """The method includes a functionality to get the legacy alert specified by the alert id
+        """The method includes a functionality to get the legacy alert specified by the alert id.
 
         Args:
             id (int): Specify the id of the legacy alert
@@ -113,11 +114,12 @@ class Alerting:
 
         Returns:
             api_call (dict): Returns an alert
+
         """
 
         def _to_camel_case(input_value: str) -> str:
             content = re.findall("[A-Z][^A-Z]*", input_value)
-            if content != list():
+            if content != []:
                 if len(content) != 1:
                     return content[0].lower() + "".join(content[1:])
                 else:
@@ -131,7 +133,7 @@ class Alerting:
             )
             api_call: dict = {_to_camel_case(k): v for k, v in api_call_raw.items()}
 
-            if api_call == dict() or api_call.get("id") is None:
+            if api_call == {} or api_call.get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -141,7 +143,7 @@ class Alerting:
             raise ValueError
 
     def pause_alert_by_id(self, id: int, paused: bool = True):
-        """The method includes a functionality to pause/ unpause a legacy alert specified by the alert id
+        """The method includes a functionality to pause/ unpause a legacy alert specified by the alert id.
 
         Args:
             id (int): Specify the id of the legacy alert
@@ -153,8 +155,8 @@ class Alerting:
 
         Returns:
             None
-        """
 
+        """
         if id != 0:
             json_complete: dict = {
                 "paused": paused,

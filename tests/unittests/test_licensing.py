@@ -31,16 +31,16 @@ class LicenseTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         licensing: Licensing = Licensing(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"jti": "2"})
+        call_the_api_mock.return_value = {"jti": "2"}
 
-        self.assertEqual(dict({"jti": "2"}), licensing.manually_force_license_refresh())
+        self.assertEqual({"jti": "2"}, licensing.manually_force_license_refresh())
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_manually_force_license_refresh_no_result(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         licensing: Licensing = Licensing(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(Exception):
             licensing.manually_force_license_refresh()
@@ -50,7 +50,7 @@ class LicenseTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         licensing: Licensing = Licensing(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 200})
+        call_the_api_mock.return_value = {"status": 200}
 
         self.assertEqual(None, licensing.remove_license_from_database())
 
@@ -59,7 +59,7 @@ class LicenseTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         licensing: Licensing = Licensing(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(Exception):
             licensing.remove_license_from_database()
@@ -69,7 +69,7 @@ class LicenseTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         licensing: Licensing = Licensing(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 404})
+        call_the_api_mock.return_value = {"status": 404}
 
         with self.assertRaises(Exception):
             licensing.remove_license_from_database()

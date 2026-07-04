@@ -11,10 +11,10 @@ class AuthenticationTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         authentication: Authentication = Authentication(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"id": "test"}])
+        call_the_api_mock.return_value = [{"id": "test"}]
 
         self.assertEqual(
-            list([{"id": "test"}]),
+            [{"id": "test"}],
             authentication.get_api_tokens(),
         )
 
@@ -23,7 +23,7 @@ class AuthenticationTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         authentication: Authentication = Authentication(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"id": None}])
+        call_the_api_mock.return_value = [{"id": None}]
 
         with self.assertRaises(Exception):
             authentication.get_api_tokens()
@@ -33,10 +33,10 @@ class AuthenticationTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         authentication: Authentication = Authentication(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"id": "test"})
+        call_the_api_mock.return_value = {"id": "test"}
 
         self.assertEqual(
-            dict({"id": "test"}),
+            {"id": "test"},
             authentication.create_api_token("name", "View"),
         )
 
@@ -46,7 +46,7 @@ class AuthenticationTestCase(TestCase):
         authentication: Authentication = Authentication(grafana_api_model=model)
 
         mock: Mock = Mock()
-        mock.json = Mock(return_value=dict())
+        mock.json = Mock(return_value={})
 
         call_the_api_mock.return_value = mock
 
@@ -58,7 +58,7 @@ class AuthenticationTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         authentication: Authentication = Authentication(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(Exception):
             authentication.create_api_token("name", "View")
@@ -68,7 +68,7 @@ class AuthenticationTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         authentication: Authentication = Authentication(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "API key deleted"})
+        call_the_api_mock.return_value = {"message": "API key deleted"}
 
         self.assertEqual(
             None,
@@ -80,7 +80,7 @@ class AuthenticationTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         authentication: Authentication = Authentication(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             authentication.delete_api_token(0)
@@ -90,7 +90,7 @@ class AuthenticationTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         authentication: Authentication = Authentication(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(Exception):
             authentication.delete_api_token(1)

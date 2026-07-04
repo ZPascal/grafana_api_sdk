@@ -42,10 +42,10 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"id": "test"})
+        call_the_api_mock.return_value = {"id": "test"}
 
         self.assertEqual(
-            dict({"id": "test"}),
+            {"id": "test"},
             alerting_provisioning.get_alert_rule("test"),
         )
 
@@ -65,7 +65,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(Exception):
             alerting_provisioning.get_alert_rule("test")
@@ -77,7 +77,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 200})
+        call_the_api_mock.return_value = {"status": 200}
 
         self.assertEqual(
             None,
@@ -100,7 +100,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 400})
+        call_the_api_mock.return_value = {"status": 400}
 
         with self.assertRaises(Exception):
             alerting_provisioning.add_alert_rule(self.alert_rule)
@@ -112,7 +112,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 200})
+        call_the_api_mock.return_value = {"status": 200}
 
         self.assertEqual(
             None,
@@ -135,7 +135,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 400})
+        call_the_api_mock.return_value = {"status": 400}
 
         with self.assertRaises(Exception):
             alerting_provisioning.update_alert_rule("test", self.alert_rule)
@@ -147,7 +147,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 201})
+        call_the_api_mock.return_value = {"status": 201}
 
         self.assertEqual(
             None,
@@ -174,7 +174,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 400})
+        call_the_api_mock.return_value = {"status": 400}
 
         with self.assertRaises(Exception):
             alerting_provisioning.update_the_interval_of_a_alert_rule_group(
@@ -188,7 +188,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 204})
+        call_the_api_mock.return_value = {"status": 204}
 
         self.assertEqual(
             None,
@@ -211,7 +211,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 400})
+        call_the_api_mock.return_value = {"status": 400}
 
         with self.assertRaises(Exception):
             alerting_provisioning.delete_alert_rule("test")
@@ -223,10 +223,10 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = list([{"test": "test"}])
+        call_the_api_mock.return_value = [{"test": "test"}]
 
         self.assertEqual(
-            list([{"test": "test"}]),
+            [{"test": "test"}],
             alerting_provisioning.get_all_contact_points(),
         )
 
@@ -237,7 +237,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = list()
+        call_the_api_mock.return_value = []
 
         with self.assertRaises(Exception):
             alerting_provisioning.get_all_contact_points()
@@ -249,7 +249,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 201})
+        call_the_api_mock.return_value = {"status": 201}
 
         self.assertEqual(
             None, alerting_provisioning.add_contact_point(self.embedded_contact_point)
@@ -271,7 +271,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 400})
+        call_the_api_mock.return_value = {"status": 400}
 
         with self.assertRaises(Exception):
             alerting_provisioning.add_contact_point(self.embedded_contact_point)
@@ -283,7 +283,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 201})
+        call_the_api_mock.return_value = {"status": 201}
 
         self.assertEqual(
             None,
@@ -308,7 +308,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 400})
+        call_the_api_mock.return_value = {"status": 400}
 
         with self.assertRaises(Exception):
             alerting_provisioning.update_contact_point(
@@ -322,7 +322,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 201})
+        call_the_api_mock.return_value = {"status": 201}
 
         self.assertEqual(None, alerting_provisioning.delete_contact_point("test"))
 
@@ -342,7 +342,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 400})
+        call_the_api_mock.return_value = {"status": 400}
 
         with self.assertRaises(Exception):
             alerting_provisioning.delete_contact_point("test")
@@ -354,10 +354,10 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 201, "test": "test"})
+        call_the_api_mock.return_value = {"status": 201, "test": "test"}
 
         self.assertEqual(
-            dict({"status": 201, "test": "test"}),
+            {"status": 201, "test": "test"},
             alerting_provisioning.get_notification_policies(),
         )
 
@@ -368,7 +368,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 400})
+        call_the_api_mock.return_value = {"status": 400}
 
         with self.assertRaises(Exception):
             alerting_provisioning.get_notification_policies()
@@ -380,7 +380,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 201})
+        call_the_api_mock.return_value = {"status": 201}
 
         self.assertEqual(
             None, alerting_provisioning.add_notification_policies(self.route)
@@ -402,7 +402,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 400})
+        call_the_api_mock.return_value = {"status": 400}
 
         with self.assertRaises(Exception):
             alerting_provisioning.add_notification_policies(self.route)
@@ -414,10 +414,10 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = list([{"test": "test"}])
+        call_the_api_mock.return_value = [{"test": "test"}]
 
         self.assertEqual(
-            list([{"test": "test"}]), alerting_provisioning.get_all_mute_timings()
+            [{"test": "test"}], alerting_provisioning.get_all_mute_timings()
         )
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -427,7 +427,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(Exception):
             alerting_provisioning.get_all_mute_timings()
@@ -439,10 +439,10 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"test": "test"})
+        call_the_api_mock.return_value = {"test": "test"}
 
         self.assertEqual(
-            dict({"test": "test"}), alerting_provisioning.get_mute_timing("test")
+            {"test": "test"}, alerting_provisioning.get_mute_timing("test")
         )
 
     def test_get_mute_timing_no_name(self):
@@ -461,7 +461,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(Exception):
             alerting_provisioning.get_mute_timing("test")
@@ -478,7 +478,7 @@ class AlertingProvisioningTestCase(TestCase):
         )
         mute_time_interval: MuteTimeInterval = MuteTimeInterval("test", [time_interval])
 
-        call_the_api_mock.return_value = dict({"status": 201})
+        call_the_api_mock.return_value = {"status": 201}
 
         self.assertEqual(
             None, alerting_provisioning.add_mute_timing(mute_time_interval)
@@ -501,7 +501,7 @@ class AlertingProvisioningTestCase(TestCase):
         )
         mute_time_interval: MuteTimeInterval = MuteTimeInterval("test")
 
-        call_the_api_mock.return_value = dict({"status": 400})
+        call_the_api_mock.return_value = {"status": 400}
 
         with self.assertRaises(Exception):
             alerting_provisioning.add_mute_timing(mute_time_interval)
@@ -514,7 +514,7 @@ class AlertingProvisioningTestCase(TestCase):
         )
         mute_time_interval: MuteTimeInterval = MuteTimeInterval("test", None)
 
-        call_the_api_mock.return_value = dict({"status": 201})
+        call_the_api_mock.return_value = {"status": 201}
 
         self.assertEqual(
             None, alerting_provisioning.update_mute_timing("test", mute_time_interval)
@@ -537,7 +537,7 @@ class AlertingProvisioningTestCase(TestCase):
         )
         mute_time_interval: MuteTimeInterval = MuteTimeInterval("test")
 
-        call_the_api_mock.return_value = dict({"status": 400})
+        call_the_api_mock.return_value = {"status": 400}
 
         with self.assertRaises(Exception):
             alerting_provisioning.update_mute_timing("test", mute_time_interval)
@@ -549,7 +549,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 201})
+        call_the_api_mock.return_value = {"status": 201}
 
         self.assertEqual(None, alerting_provisioning.delete_mute_timing("test"))
 
@@ -569,7 +569,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 400})
+        call_the_api_mock.return_value = {"status": 400}
 
         with self.assertRaises(Exception):
             alerting_provisioning.delete_mute_timing("test")
@@ -581,10 +581,10 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = list([{"test": "test"}])
+        call_the_api_mock.return_value = [{"test": "test"}]
 
         self.assertEqual(
-            list([{"test": "test"}]), alerting_provisioning.get_all_message_templates()
+            [{"test": "test"}], alerting_provisioning.get_all_message_templates()
         )
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -594,7 +594,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(Exception):
             alerting_provisioning.get_all_message_templates()
@@ -606,10 +606,10 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 201, "test": "test"})
+        call_the_api_mock.return_value = {"status": 201, "test": "test"}
 
         self.assertEqual(
-            dict({"status": 201, "test": "test"}),
+            {"status": 201, "test": "test"},
             alerting_provisioning.get_message_template("test"),
         )
 
@@ -629,7 +629,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 400})
+        call_the_api_mock.return_value = {"status": 400}
 
         with self.assertRaises(Exception):
             alerting_provisioning.get_message_template("test")
@@ -641,7 +641,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 201})
+        call_the_api_mock.return_value = {"status": 201}
 
         self.assertEqual(
             None,
@@ -664,7 +664,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 400})
+        call_the_api_mock.return_value = {"status": 400}
 
         with self.assertRaises(Exception):
             alerting_provisioning.create_or_update_message_template("test", "test")
@@ -676,7 +676,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 201})
+        call_the_api_mock.return_value = {"status": 201}
 
         self.assertEqual(None, alerting_provisioning.delete_message_template("test"))
 
@@ -696,7 +696,7 @@ class AlertingProvisioningTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 400})
+        call_the_api_mock.return_value = {"status": 400}
 
         with self.assertRaises(Exception):
             alerting_provisioning.delete_message_template("test")

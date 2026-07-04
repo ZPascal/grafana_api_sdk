@@ -11,7 +11,7 @@ class SearchTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         search: Search = Search(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list(["test"])
+        call_the_api_mock.return_value = ["test"]
 
         self.assertEqual(["test"], search.search(search_query="Test"))
 
@@ -20,7 +20,7 @@ class SearchTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         search: Search = Search(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list()
+        call_the_api_mock.return_value = []
 
         with self.assertRaises(Exception):
             search.search(search_query="test")

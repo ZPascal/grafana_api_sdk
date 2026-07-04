@@ -11,10 +11,10 @@ class SnapshotTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         snapshot: Snapshot = Snapshot(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"id": 1})
+        call_the_api_mock.return_value = {"id": 1}
 
         self.assertEqual(
-            {"id": 1}, snapshot.create_new_snapshot(dict({"test": "test"}))
+            {"id": 1}, snapshot.create_new_snapshot({"test": "test"})
         )
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -22,12 +22,12 @@ class SnapshotTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         snapshot: Snapshot = Snapshot(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"id": 1})
+        call_the_api_mock.return_value = {"id": 1}
 
         self.assertEqual(
             {"id": 1},
             snapshot.create_new_snapshot(
-                dict({"test": "test"}), external=True, delete_key="test", key="test"
+                {"test": "test"}, external=True, delete_key="test", key="test"
             ),
         )
 
@@ -36,40 +36,40 @@ class SnapshotTestCase(TestCase):
         snapshot: Snapshot = Snapshot(grafana_api_model=model)
 
         with self.assertRaises(ValueError):
-            snapshot.create_new_snapshot(dict())
+            snapshot.create_new_snapshot({})
 
     def test_create_new_snapshot__external_no_delete_key(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         snapshot: Snapshot = Snapshot(grafana_api_model=model)
 
         with self.assertRaises(ValueError):
-            snapshot.create_new_snapshot(dict({"test": "test"}), external=True)
+            snapshot.create_new_snapshot({"test": "test"}, external=True)
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_create_new_snapshot_no_snapshot_available(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         snapshot: Snapshot = Snapshot(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(Exception):
-            snapshot.create_new_snapshot(dict({"test": "test"}))
+            snapshot.create_new_snapshot({"test": "test"})
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_snapshots(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         snapshot: Snapshot = Snapshot(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"name": "Test"}])
+        call_the_api_mock.return_value = [{"name": "Test"}]
 
-        self.assertEqual(list([{"name": "Test"}]), snapshot.get_snapshots())
+        self.assertEqual([{"name": "Test"}], snapshot.get_snapshots())
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_snapshots_no_snapshots_available(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         snapshot: Snapshot = Snapshot(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([])
+        call_the_api_mock.return_value = []
 
         with self.assertRaises(Exception):
             snapshot.get_snapshots()
@@ -79,10 +79,10 @@ class SnapshotTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         snapshot: Snapshot = Snapshot(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"dashboard": {"id": 1}})
+        call_the_api_mock.return_value = {"dashboard": {"id": 1}}
 
         self.assertEqual(
-            dict({"dashboard": {"id": 1}}), snapshot.get_snapshot_by_key("test")
+            {"dashboard": {"id": 1}}, snapshot.get_snapshot_by_key("test")
         )
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -90,7 +90,7 @@ class SnapshotTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         snapshot: Snapshot = Snapshot(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"id": 1})
+        call_the_api_mock.return_value = {"id": 1}
 
         with self.assertRaises(ValueError):
             snapshot.get_snapshot_by_key("")
@@ -100,7 +100,7 @@ class SnapshotTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         snapshot: Snapshot = Snapshot(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(Exception):
             snapshot.get_snapshot_by_key("test")
@@ -110,11 +110,9 @@ class SnapshotTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         snapshot: Snapshot = Snapshot(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {
+        call_the_api_mock.return_value = {
                 "message": "Snapshot deleted. It might take an hour before it's cleared from any CDN caches."
             }
-        )
 
         self.assertEqual(None, snapshot.delete_snapshot_by_key("test"))
 
@@ -123,7 +121,7 @@ class SnapshotTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         snapshot: Snapshot = Snapshot(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "test"})
+        call_the_api_mock.return_value = {"message": "test"}
 
         with self.assertRaises(ValueError):
             snapshot.delete_snapshot_by_key("")
@@ -133,7 +131,7 @@ class SnapshotTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         snapshot: Snapshot = Snapshot(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "test"})
+        call_the_api_mock.return_value = {"message": "test"}
 
         with self.assertRaises(Exception):
             snapshot.delete_snapshot_by_key("test")
@@ -143,11 +141,9 @@ class SnapshotTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         snapshot: Snapshot = Snapshot(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {
+        call_the_api_mock.return_value = {
                 "message": "Snapshot deleted. It might take an hour before it's cleared from any CDN caches."
             }
-        )
 
         self.assertEqual(None, snapshot.delete_snapshot_by_delete_key("test"))
 
@@ -156,7 +152,7 @@ class SnapshotTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         snapshot: Snapshot = Snapshot(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "test"})
+        call_the_api_mock.return_value = {"message": "test"}
 
         with self.assertRaises(ValueError):
             snapshot.delete_snapshot_by_delete_key("")
@@ -168,7 +164,7 @@ class SnapshotTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         snapshot: Snapshot = Snapshot(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "test"})
+        call_the_api_mock.return_value = {"message": "test"}
 
         with self.assertRaises(Exception):
             snapshot.delete_snapshot_by_delete_key("test")

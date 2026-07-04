@@ -11,13 +11,14 @@ from .model import RequestsMethods, ERROR_MESSAGES, APIModel
 
 
 class Api:
-    """The class includes all necessary methods to make API calls to the Grafana API endpoints
+    """The class includes all necessary methods to make API calls to the Grafana API endpoints.
 
     Args:
         grafana_api_model (APIModel): Inject a Grafana API model object that includes all necessary values and information
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
@@ -32,7 +33,7 @@ class Api:
         disable_provenance_header: bool = False,
         response_status_code: bool = False,
     ) -> any:
-        """The method execute a defined API call against the Grafana endpoints
+        """The method execute a defined API call against the Grafana endpoints.
 
         Args:
             api_call (str): Specify the API call endpoint
@@ -47,11 +48,11 @@ class Api:
 
         Returns:
             api_call (any): Returns the value of the api call
-        """
 
+        """
         api_url: str = f"{self.grafana_api_model.host}{api_call}"
 
-        headers: dict = dict()
+        headers: dict = {}
         if self.grafana_api_model.headers is not None:
             headers: dict = self.grafana_api_model.headers
 
@@ -105,7 +106,7 @@ class Api:
         response_status_code: bool,
         json_complete: str,
     ) -> any:
-        """The method includes a functionality to execute a synchronous api call
+        """The method includes a functionality to execute a synchronous api call.
 
         Args:
             http (httpx.Client): Specify the used synchronous client
@@ -119,8 +120,8 @@ class Api:
 
         Returns:
             api_call (any): Returns the value of the api call
-        """
 
+        """
         try:
             if method.value == RequestsMethods.GET.value:
                 return self._check_the_api_call_response(
@@ -172,7 +173,7 @@ class Api:
         response_status_code: bool,
         json_complete: str,
     ):
-        """The method includes a functionality to execute an asynchronous api call
+        """The method includes a functionality to execute an asynchronous api call.
 
         Args:
             http (httpx.AsyncClient): Specify the used asynchronous client
@@ -186,8 +187,8 @@ class Api:
 
         Returns:
             api_call (any): Returns the value of the api call
-        """
 
+        """
         try:
             if method.value == RequestsMethods.GET.value:
                 return self._check_the_api_call_response(
@@ -235,7 +236,7 @@ class Api:
     def _check_the_api_call_response(
         response: any = None, response_status_code: bool = False
     ) -> any:
-        """The method includes a functionality to check the output of API call method for errors
+        """The method includes a functionality to check the output of API call method for errors.
 
         Args:
             response (any): Specify the inserted response
@@ -246,8 +247,8 @@ class Api:
 
         Returns:
             api_call (any): Returns the value of the api call
-        """
 
+        """
         if Api._check_if_valid_json(response.text):
             if (
                 len(json.loads(response.text)) != 0
@@ -269,21 +270,21 @@ class Api:
             return json_response
         else:
             if response_status_code:
-                return dict({"status": response.status_code, "data": response.text})
+                return {"status": response.status_code, "data": response.text}
             else:
                 return response
 
     @staticmethod
     def _check_if_valid_json(response: str) -> bool:
-        """The method includes a functionality to check if the response json is valid
+        """The method includes a functionality to check if the response json is valid.
 
         Args:
             response (str): Specify the inserted response json as string
 
         Returns:
             result (bool): Returns if the json is valid or not
-        """
 
+        """
         valid_json: bool = False
 
         if response.encode() not in [b'""\n', b"null"]:
@@ -297,15 +298,15 @@ class Api:
 
     @staticmethod
     def prepare_api_string(query_string: str) -> str:
-        """The method includes a functionality to prepare the api string for the queries
+        """The method includes a functionality to prepare the api string for the queries.
 
         Args:
             query_string (str): Specify the corresponding query string
 
         Returns:
             query_string (str): Returns the adjusted query string
-        """
 
+        """
         if len(query_string) >= 1:
             return f"{query_string}&"
         else:
@@ -314,15 +315,15 @@ class Api:
     def create_the_http_api_client(
         self, headers: dict = None
     ) -> Union[httpx.Client, httpx.AsyncClient]:
-        """The method includes a functionality to create the corresponding HTTP client
+        """The method includes a functionality to create the corresponding HTTP client.
 
         Args:
             headers (dict): Specify the optional inserted headers (default None)
 
         Returns:
             client (Union[httpx.Client, httpx.AsyncClient]): Returns the corresponding client
-        """
 
+        """
         transport: httpx.HTTPTransport = httpx.HTTPTransport(
             verify=self.grafana_api_model.ssl_context,
             retries=self.grafana_api_model.retries,

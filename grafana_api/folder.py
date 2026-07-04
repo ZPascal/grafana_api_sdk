@@ -8,20 +8,21 @@ from .model import APIModel, APIEndpoints, RequestsMethods
 
 
 class Folder:
-    """The class includes all necessary methods to access the Grafana folder API endpoints
+    """The class includes all necessary methods to access the Grafana folder API endpoints.
 
     Args:
         grafana_api_model (APIModel): Inject a Grafana API model object that includes all necessary values and information
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
     def get_folders(self, limit: int = 1000, nested_folders: bool = False) -> list:
-        """The method includes a functionality to extract all folders inside the organization
+        """The method includes a functionality to extract all folders inside the organization.
 
         Required Permissions:
             Action: folders:read
@@ -36,8 +37,8 @@ class Folder:
 
         Returns:
             api_call (list): Returns all folders including nested ones
-        """
 
+        """
         folders_raw: list = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.SEARCH.value}?folderIds=0"
         )
@@ -47,7 +48,7 @@ class Folder:
                 f"{APIEndpoints.FOLDERS.value}?limit={limit}"
             )
 
-        if folders_raw == list() or folders_raw[0].get("id") is None:
+        if folders_raw == [] or folders_raw[0].get("id") is None:
             logging.error(f"Please, check the error: {folders_raw}.")
             raise Exception
 
@@ -61,20 +62,20 @@ class Folder:
         return folders
 
     def _get_nested_folders(self, parent_uid: str) -> list:
-        """Recursively retrieve nested folders for a given parent folder
+        """Recursively retrieve nested folders for a given parent folder.
 
         Args:
             parent_uid (str): The uid of the parent folder
 
         Returns:
             all_nested (list): All nested folders under the parent, recursively
-        """
 
+        """
         nested_folders: list = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.FOLDERS.value}?parentUid={parent_uid}"
         )
 
-        if nested_folders == list():
+        if nested_folders == []:
             return []
 
         all_nested: list = list(nested_folders)
@@ -84,7 +85,7 @@ class Folder:
         return all_nested
 
     def get_folder_by_uid(self, uid: str) -> dict:
-        """The method includes a functionality to extract all folder information specified by the uid of the folder
+        """The method includes a functionality to extract all folder information specified by the uid of the folder.
 
         Args:
             uid (str): Specify the uid of the folder
@@ -99,14 +100,14 @@ class Folder:
 
         Returns:
             api_call (dict): Returns a folder
-        """
 
+        """
         if len(uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.FOLDERS.value}/{uid}"
             )
 
-            if api_call == dict() or api_call.get("id") is None:
+            if api_call == {} or api_call.get("id") is None:
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
@@ -116,7 +117,7 @@ class Folder:
             raise ValueError
 
     def get_folder_by_id(self, id: int) -> dict:
-        """The method includes a functionality to extract all folder information specified by the id of the folder
+        """The method includes a functionality to extract all folder information specified by the id of the folder.
 
         Args:
             id (int): Specify the id of the folder
@@ -131,14 +132,14 @@ class Folder:
 
         Returns:
             api_call (dict): Returns a folder
-        """
 
+        """
         if id != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.FOLDERS.value}/id/{id}",
             )
 
-            if api_call == dict() or api_call.get("id") is None:
+            if api_call == {} or api_call.get("id") is None:
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
@@ -150,7 +151,7 @@ class Folder:
     def create_folder(
         self, title: str, uid: str = None, parent_uid: str = None
     ) -> dict:
-        """The method includes a functionality to create a new folder inside the organization specified by the defined title and the optional uid
+        """The method includes a functionality to create a new folder inside the organization specified by the defined title and the optional uid.
 
         Args:
             title (str): Specify the title of the folder
@@ -167,10 +168,10 @@ class Folder:
 
         Returns:
             api_call (dict): Returns a newly created folder
-        """
 
+        """
         if len(title) != 0:
-            folder_information: dict = dict()
+            folder_information: dict = {}
             folder_information.update({"title": title})
 
             if uid is not None and len(uid) != 0:
@@ -185,7 +186,7 @@ class Folder:
                 json.dumps(folder_information),
             )
 
-            if api_call == dict() or api_call.get("id") is None:
+            if api_call == {} or api_call.get("id") is None:
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
@@ -197,7 +198,7 @@ class Folder:
     def update_folder(
         self, title: str, uid: str, version: int = 0, overwrite: bool = False
     ) -> dict:
-        """The method includes a functionality to update a folder information inside the organization specified by the uid, the title, the version of the folder or if folder information be overwritten
+        """The method includes a functionality to update a folder information inside the organization specified by the uid, the title, the version of the folder or if folder information be overwritten.
 
         Args:
             title (str): Specify the title of the folder
@@ -215,13 +216,13 @@ class Folder:
 
         Returns:
             api_call (dict): Returns an updated folder
-        """
 
+        """
         if overwrite is True:
             version = None
 
         if len(title) != 0 and version != 0 and len(uid) != 0:
-            folder_information: dict = dict()
+            folder_information: dict = {}
             folder_information.update({"title": title})
             folder_information.update({"overwrite": overwrite})
             folder_information.update({"uid": uid})
@@ -235,7 +236,7 @@ class Folder:
                 json.dumps(folder_information),
             )
 
-            if api_call == dict() or api_call.get("id") is None:
+            if api_call == {} or api_call.get("id") is None:
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
@@ -245,7 +246,7 @@ class Folder:
             raise ValueError
 
     def move_folder(self, uid: str, parent_uid: str = None):
-        """The method includes a functionality to move a folder inside the organization specified by the defined uid. This feature is only relevant if nested folders are enabled
+        """The method includes a functionality to move a folder inside the organization specified by the defined uid. This feature is only relevant if nested folders are enabled.
 
         Args:
             uid (str): Specify the uid of the folder
@@ -261,10 +262,10 @@ class Folder:
 
         Returns:
             api_call (dict): Returns the moved folder
-        """
 
+        """
         if len(uid) != 0:
-            folder_information: dict = dict()
+            folder_information: dict = {}
 
             if parent_uid is not None and len(parent_uid) != 0:
                 folder_information.update({"parentUid": parent_uid})
@@ -275,7 +276,7 @@ class Folder:
                 json.dumps(folder_information),
             )
 
-            if api_call == dict() or api_call.get("id") is None:
+            if api_call == {} or api_call.get("id") is None:
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
@@ -285,7 +286,7 @@ class Folder:
             raise ValueError
 
     def delete_folder(self, uid: str):
-        """The method includes a functionality to delete a folder inside the organization specified by the defined uid
+        """The method includes a functionality to delete a folder inside the organization specified by the defined uid.
 
         Args:
             uid (str): Specify the uid of the folder
@@ -300,8 +301,8 @@ class Folder:
 
         Returns:
             None
-        """
 
+        """
         if len(uid) != 0:
             api_call = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.FOLDERS.value}/{uid}",
@@ -324,7 +325,7 @@ class Folder:
             raise ValueError
 
     def get_folder_permissions(self, uid: str) -> list:
-        """The method includes a functionality to extract the folder permissions inside the organization specified by the defined uid
+        """The method includes a functionality to extract the folder permissions inside the organization specified by the defined uid.
 
         Args:
             uid (str): Specify the uid of the folder
@@ -339,15 +340,15 @@ class Folder:
 
         Returns:
             api_call (list): Returns a list of folder permissions
-        """
 
+        """
         if len(uid) != 0:
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.FOLDERS.value}/{uid}/permissions",
                 RequestsMethods.GET,
             )
 
-            if api_call == list() or api_call[0].get("folderId") is None:
+            if api_call == [] or api_call[0].get("folderId") is None:
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
@@ -357,7 +358,7 @@ class Folder:
             raise ValueError
 
     def update_folder_permissions(self, uid: str, permission_json: dict):
-        """The method includes a functionality to update the folder permissions based on the specified uid and the permission json document
+        """The method includes a functionality to update the folder permissions based on the specified uid and the permission json document.
 
         Args:
             uid (str): Specify the uid of the folder
@@ -373,8 +374,8 @@ class Folder:
 
         Returns:
             None
-        """
 
+        """
         if len(uid) != 0 and len(permission_json) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.FOLDERS.value}/{uid}/permissions",
@@ -395,7 +396,7 @@ class Folder:
             raise ValueError
 
     def get_folder_id_by_dashboard_path(self, dashboard_path: str) -> int:
-        """The method includes a functionality to extract the folder id specified inside model dashboard path
+        """The method includes a functionality to extract the folder id specified inside model dashboard path.
 
         Args:
             dashboard_path (str): Specify the dashboard path
@@ -406,8 +407,8 @@ class Folder:
 
         Returns:
             folder_id (int): Returns the folder id
-        """
 
+        """
         if dashboard_path.lower() == "general":
             return 0
 
@@ -431,7 +432,7 @@ class Folder:
             raise ValueError
 
     def get_folder_uid_by_dashboard_path(self, dashboard_path: str) -> str:
-        """The method includes a functionality to extract the folder uid specified inside model dashboard path
+        """The method includes a functionality to extract the folder uid specified inside model dashboard path.
 
         Args:
             dashboard_path (str): Specify the dashboard path
@@ -442,8 +443,8 @@ class Folder:
 
         Returns:
             folder_uid (str): Returns the folder uid
-        """
 
+        """
         if len(dashboard_path) != 0:
             folders: list = self.get_all_folder_ids_uids_and_names()
             folder_uid: str | None = None
@@ -464,7 +465,7 @@ class Folder:
             raise ValueError
 
     def get_all_folder_ids_uids_and_names(self, limit: int = 1000, nested_folders: bool = True) -> list:
-        """The method extract all folder id, uid and names inside the complete organization. In addition, nested folders are also extracted by default
+        """The method extract all folder id, uid and names inside the complete organization. In addition, nested folders are also extracted by default.
 
         Args:
             limit (int): Specify the limit of folders that should be extracted (default 1000)
@@ -472,6 +473,6 @@ class Folder:
 
         Returns:
             folders (list): Returns a list of dicts with folder ids, uids and the corresponding names
-        """
 
+        """
         return self.get_folders(limit, nested_folders)

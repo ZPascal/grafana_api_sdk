@@ -5,8 +5,6 @@ from unittest import TestCase
 
 from grafana_api.model import (
     APIModel,
-    AlertmanagerConfig,
-    AlertmanagerReceivers,
     DatasourceRuleQuery,
 )
 from grafana_api.alerting import Alerting
@@ -69,12 +67,12 @@ class AlertingTest(TestCase):
     def test_test_rule(self):
         datasource_rule_query: DatasourceRuleQuery = DatasourceRuleQuery(
             datasource_uid="test",
-            model=dict(),
+            model={},
             query_type="",
             ref_id="test1",
-            relative_time_range=dict({"from": 20, "to": 90}),
+            relative_time_range={"from": 20, "to": 90},
         )
-        data_queries: list = list([datasource_rule_query])
+        data_queries: list = [datasource_rule_query]
 
         with self.assertRaises(Exception):
             self.alerting.test_rule(data_queries)

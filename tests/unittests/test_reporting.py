@@ -12,10 +12,10 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"test": "test", "status": 200}])
+        call_the_api_mock.return_value = [{"test": "test", "status": 200}]
 
         self.assertEqual(
-            list([{"test": "test", "status": 200}]), reporting.get_reports()
+            [{"test": "test", "status": 200}], reporting.get_reports()
         )
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -23,7 +23,7 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"status": 401}])
+        call_the_api_mock.return_value = [{"status": 401}]
 
         with self.assertRaises(Exception):
             reporting.get_reports()
@@ -33,7 +33,7 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"status": 600}])
+        call_the_api_mock.return_value = [{"status": 600}]
 
         with self.assertRaises(Exception):
             reporting.get_reports()
@@ -43,10 +43,10 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"test": "test", "status": 200})
+        call_the_api_mock.return_value = {"test": "test", "status": 200}
 
         self.assertEqual(
-            dict({"test": "test", "status": 200}), reporting.get_report_by_id(1)
+            {"test": "test", "status": 200}, reporting.get_report_by_id(1)
         )
 
     def test_get_report_by_id_no_id(self):
@@ -61,7 +61,7 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 404})
+        call_the_api_mock.return_value = {"status": 404}
 
         with self.assertRaises(Exception):
             reporting.get_report_by_id(1)
@@ -71,7 +71,7 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 600})
+        call_the_api_mock.return_value = {"status": 600}
 
         with self.assertRaises(Exception):
             reporting.get_report_by_id(1)
@@ -81,11 +81,9 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {"id": 10, "status": 200, "message": "Report created"}
-        )
+        call_the_api_mock.return_value = {"id": 10, "status": 200, "message": "Report created"}
         dashboard_schema: DashboardSchema = DashboardSchema(
-            "test", "test", "test", dict({"test": "test"})
+            "test", "test", "test", {"test": "test"}
         )
         report: Report = Report(
             "test",
@@ -108,11 +106,9 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {"id": 10, "status": 200, "message": "Report created"}
-        )
+        call_the_api_mock.return_value = {"id": 10, "status": 200, "message": "Report created"}
         dashboard_schema: DashboardSchema = DashboardSchema(
-            "test", "test", "test", dict({"test": "test"})
+            "test", "test", "test", {"test": "test"}
         )
         report: Report = Report(
             "test",
@@ -138,11 +134,9 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {"id": 10, "status": 200, "message": "Report created"}
-        )
+        call_the_api_mock.return_value = {"id": 10, "status": 200, "message": "Report created"}
         dashboard_schema: DashboardSchema = DashboardSchema(
-            "test", "test", "test", dict({"test": "test"})
+            "test", "test", "test", {"test": "test"}
         )
         report: Report = Report(
             "test",
@@ -167,9 +161,7 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {"id": 10, "status": 200, "message": "Report created"}
-        )
+        call_the_api_mock.return_value = {"id": 10, "status": 200, "message": "Report created"}
         dashboard_schema: DashboardSchema = DashboardSchema("test", "test", "test")
         report: Report = Report(
             "test",
@@ -199,7 +191,7 @@ class ReportingTestCase(TestCase):
         reporting: Reporting = Reporting(grafana_api_model=model)
 
         dashboard_schema: DashboardSchema = DashboardSchema(
-            "test", "test", "test", dict({"test": "test"})
+            "test", "test", "test", {"test": "test"}
         )
         report: Report = Report(
             "test",
@@ -225,7 +217,7 @@ class ReportingTestCase(TestCase):
         reporting: Reporting = Reporting(grafana_api_model=model)
 
         dashboard_schema: DashboardSchema = DashboardSchema(
-            "test", "test", "test", dict({"test": "test"})
+            "test", "test", "test", {"test": "test"}
         )
         report: Report = Report(
             "test",
@@ -250,7 +242,7 @@ class ReportingTestCase(TestCase):
         reporting: Reporting = Reporting(grafana_api_model=model)
 
         dashboard_schema: DashboardSchema = DashboardSchema(
-            "", "test", "test", dict({"test": "test"})
+            "", "test", "test", {"test": "test"}
         )
         report: Report = Report(
             "test",
@@ -276,7 +268,7 @@ class ReportingTestCase(TestCase):
         reporting: Reporting = Reporting(grafana_api_model=model)
 
         dashboard_schema: DashboardSchema = DashboardSchema(
-            "test", "", "test", dict({"test": "test"})
+            "test", "", "test", {"test": "test"}
         )
         report: Report = Report(
             "test",
@@ -302,7 +294,7 @@ class ReportingTestCase(TestCase):
         reporting: Reporting = Reporting(grafana_api_model=model)
 
         dashboard_schema: DashboardSchema = DashboardSchema(
-            "test", "test", "test", dict()
+            "test", "test", "test", {}
         )
         report: Report = Report(
             "test",
@@ -328,9 +320,9 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 400})
+        call_the_api_mock.return_value = {"status": 400}
         dashboard_schema: DashboardSchema = DashboardSchema(
-            "test", "test", "test", dict({"test": "test"})
+            "test", "test", "test", {"test": "test"}
         )
         report: Report = Report(
             "test",
@@ -354,9 +346,9 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 600})
+        call_the_api_mock.return_value = {"status": 600}
         dashboard_schema: DashboardSchema = DashboardSchema(
-            "test", "test", "test", dict({"test": "test"})
+            "test", "test", "test", {"test": "test"}
         )
         report: Report = Report(
             "test",
@@ -380,11 +372,9 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {"status": 200, "message": "Report updated"}
-        )
+        call_the_api_mock.return_value = {"status": 200, "message": "Report updated"}
         dashboard_schema: DashboardSchema = DashboardSchema(
-            "test", "test", "test", dict({"test": "test"})
+            "test", "test", "test", {"test": "test"}
         )
         report: Report = Report(
             "test",
@@ -414,9 +404,9 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 400})
+        call_the_api_mock.return_value = {"status": 400}
         dashboard_schema: DashboardSchema = DashboardSchema(
-            "test", "test", "test", dict({"test": "test"})
+            "test", "test", "test", {"test": "test"}
         )
         report: Report = Report(
             "test",
@@ -440,9 +430,9 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 600})
+        call_the_api_mock.return_value = {"status": 600}
         dashboard_schema: DashboardSchema = DashboardSchema(
-            "test", "test", "test", dict({"test": "test"})
+            "test", "test", "test", {"test": "test"}
         )
         report: Report = Report(
             "test",
@@ -466,9 +456,7 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {"status": 200, "message": "Report config was removed"}
-        )
+        call_the_api_mock.return_value = {"status": 200, "message": "Report config was removed"}
 
         self.assertEqual(None, reporting.delete_report(1))
 
@@ -484,7 +472,7 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 400})
+        call_the_api_mock.return_value = {"status": 400}
 
         with self.assertRaises(Exception):
             reporting.delete_report(1)
@@ -494,7 +482,7 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 600})
+        call_the_api_mock.return_value = {"status": 600}
 
         with self.assertRaises(Exception):
             reporting.delete_report(1)
@@ -504,9 +492,7 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {"message": "Report was sent", "status": 200}
-        )
+        call_the_api_mock.return_value = {"message": "Report was sent", "status": 200}
 
         self.assertEqual(None, reporting.send_report(1, emails="test,test"))
 
@@ -522,7 +508,7 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Test", "status": 404})
+        call_the_api_mock.return_value = {"message": "Test", "status": 404}
 
         with self.assertRaises(Exception):
             reporting.send_report(1, use_emails_from_report=True)
@@ -532,7 +518,7 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Test", "status": 600})
+        call_the_api_mock.return_value = {"message": "Test", "status": 600}
 
         with self.assertRaises(Exception):
             reporting.send_report(1, use_emails_from_report=True)
@@ -542,10 +528,10 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 200, "id": 1})
+        call_the_api_mock.return_value = {"status": 200, "id": 1}
 
         self.assertEqual(
-            dict({"status": 200, "id": 1}), reporting.get_report_branding_settings()
+            {"status": 200, "id": 1}, reporting.get_report_branding_settings()
         )
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -553,7 +539,7 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 401})
+        call_the_api_mock.return_value = {"status": 401}
 
         with self.assertRaises(Exception):
             reporting.get_report_branding_settings()
@@ -563,7 +549,7 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 600})
+        call_the_api_mock.return_value = {"status": 600}
 
         with self.assertRaises(Exception):
             reporting.get_report_branding_settings()
@@ -573,9 +559,7 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {"status": 200, "message": "Report settings saved"}
-        )
+        call_the_api_mock.return_value = {"status": 200, "message": "Report settings saved"}
         report_branding_settings: ReportBrandingSettings = ReportBrandingSettings(
             "test", "test", "none"
         )
@@ -589,9 +573,7 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {"status": 200, "message": "Report settings saved"}
-        )
+        call_the_api_mock.return_value = {"status": 200, "message": "Report settings saved"}
         report_branding_settings: ReportBrandingSettings = ReportBrandingSettings(
             "test", "test", "sent-by", "test", "test"
         )
@@ -614,7 +596,7 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
         report_branding_settings: ReportBrandingSettings = ReportBrandingSettings(
             "test", "test", "sent-by", "", "test"
         )
@@ -627,7 +609,7 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 401})
+        call_the_api_mock.return_value = {"status": 401}
         report_branding_settings: ReportBrandingSettings = ReportBrandingSettings(
             "test", "test", "none"
         )
@@ -640,7 +622,7 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 600})
+        call_the_api_mock.return_value = {"status": 600}
         report_branding_settings: ReportBrandingSettings = ReportBrandingSettings(
             "test", "test", "none"
         )
@@ -653,11 +635,9 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {"status": 200, "message": "Test email sent"}
-        )
+        call_the_api_mock.return_value = {"status": 200, "message": "Test email sent"}
         dashboard_schema: DashboardSchema = DashboardSchema(
-            "test", "test", "test", dict({"test": "test"})
+            "test", "test", "test", {"test": "test"}
         )
         report: Report = Report(
             "test",
@@ -687,9 +667,9 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 401})
+        call_the_api_mock.return_value = {"status": 401}
         dashboard_schema: DashboardSchema = DashboardSchema(
-            "test", "test", "test", dict({"test": "test"})
+            "test", "test", "test", {"test": "test"}
         )
         report: Report = Report(
             "test",
@@ -713,9 +693,9 @@ class ReportingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         reporting: Reporting = Reporting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 600})
+        call_the_api_mock.return_value = {"status": 600}
         dashboard_schema: DashboardSchema = DashboardSchema(
-            "test", "test", "test", dict({"test": "test"})
+            "test", "test", "test", {"test": "test"}
         )
         report: Report = Report(
             "test",

@@ -41,7 +41,7 @@ class ApiTestCase(TestCase):
             host="https://test.test.de",
             username="test",
             password="test",
-            headers=dict({"X-Custom-Header": "custom_value"}),
+            headers={"X-Custom-Header": "custom_value"},
         )
         api: Api = Api(grafana_api_model=model)
 
@@ -56,14 +56,12 @@ class ApiTestCase(TestCase):
 
         httpx_client_mock.assert_called()
         self.assertEqual(
-            dict(
-                {
+            {
                     "X-Custom-Header": "custom_value",
                     "Authorization": "Basic dGVzdDp0ZXN0",
                     "Content-Type": "application/json",
                     "Accept": "application/json",
-                }
-            ),
+                },
             httpx_client_mock.call_args[1]["headers"],
         )
 
@@ -201,7 +199,7 @@ class ApiTestCase(TestCase):
         mock.text = '{"test": "test"}'
 
         self.assertEqual(
-            dict({"test": "test"}),
+            {"test": "test"},
             self.api._check_the_api_call_response(response=mock),
         )
 
@@ -210,7 +208,7 @@ class ApiTestCase(TestCase):
         mock.text = '{"message": "test"}'
 
         self.assertEqual(
-            dict({"message": "test"}),
+            {"message": "test"},
             self.api._check_the_api_call_response(response=mock),
         )
 
@@ -249,7 +247,7 @@ class ApiTestCase(TestCase):
         mock.status_code = 200
 
         self.assertEqual(
-            dict({"status": 200, "data": ""}),
+            {"status": 200, "data": ""},
             self.api._check_the_api_call_response(
                 response=mock, response_status_code=True
             ),
@@ -261,7 +259,7 @@ class ApiTestCase(TestCase):
         mock.status_code = 200
 
         self.assertEqual(
-            dict({"status": 200, "test": "test"}),
+            {"status": 200, "test": "test"},
             self.api._check_the_api_call_response(
                 response=mock, response_status_code=True
             ),
@@ -273,7 +271,7 @@ class ApiTestCase(TestCase):
         mock.status_code = 200
 
         self.assertEqual(
-            list([{"status": 200, "test": "test"}, {"test": "test"}]),
+            [{"status": 200, "test": "test"}, {"test": "test"}],
             self.api._check_the_api_call_response(
                 response=mock, response_status_code=True
             ),
