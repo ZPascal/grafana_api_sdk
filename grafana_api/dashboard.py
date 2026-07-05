@@ -1,5 +1,6 @@
 import json
 import logging
+from typing import Optional
 
 from .model import APIModel, APIEndpoints, RequestsMethods, PublicDashboard
 from .folder import Folder
@@ -7,13 +8,14 @@ from .api import Api
 
 
 class Dashboard:
-    """The class includes all necessary methods to access the Grafana dashboard API endpoints
+    """The class includes all necessary methods to access the Grafana dashboard API endpoints.
 
     Args:
         grafana_api_model (APIModel): Inject a Grafana API model object that includes all necessary values and information
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
@@ -26,7 +28,7 @@ class Dashboard:
         message: str,
         overwrite: bool = False,
     ):
-        """The method includes a functionality to create the specified dashboard
+        """The method includes a functionality to create the specified dashboard.
 
         Args:
             dashboard_path (str): Specify the dashboard path in which the dashboard is to be placed
@@ -40,9 +42,9 @@ class Dashboard:
 
         Returns:
             None
-        """
 
-        if len(dashboard_path) != 0 and dashboard_json != dict() and len(message) != 0:
+        """
+        if len(dashboard_path) != 0 and dashboard_json != {} and len(message) != 0:
             folder_uid: str = Folder(
                 self.grafana_api_model
             ).get_folder_uid_by_dashboard_path(dashboard_path)
@@ -75,7 +77,7 @@ class Dashboard:
     def delete_dashboard_by_name_and_path(
         self, dashboard_name: str, dashboard_path: str
     ):
-        """The method includes a functionality to delete the specified dashboard inside the model
+        """The method includes a functionality to delete the specified dashboard inside the model.
 
         Args:
             dashboard_name (str): Specify the dashboard name of the deleted dashboard
@@ -87,8 +89,8 @@ class Dashboard:
 
         Returns:
             None
-        """
 
+        """
         if len(dashboard_name) != 0 and len(dashboard_path) != 0:
             dashboard_uid: dict = self.get_dashboard_uid_and_id_by_name_and_folder(
                 dashboard_name, dashboard_path
@@ -113,7 +115,7 @@ class Dashboard:
             raise ValueError
 
     def get_dashboard_by_uid(self, uid: str) -> dict:
-        """The method includes a functionality to get the dashboard from the specified uid
+        """The method includes a functionality to get the dashboard from the specified uid.
 
         Args:
             uid (str): Specify the uid of the dashboard
@@ -124,8 +126,8 @@ class Dashboard:
 
         Returns:
             api_call (dict): Returns the dashboard
-        """
 
+        """
         if len(uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DASHBOARDS.value}/uid/{uid}"
@@ -141,15 +143,15 @@ class Dashboard:
             raise ValueError
 
     def get_dashboard_home(self) -> dict:
-        """The method includes a functionality to get the home dashboard
+        """The method includes a functionality to get the home dashboard.
 
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
             api_call (dict): Returns the home dashboard
-        """
 
+        """
         api_call: dict = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.DASHBOARDS.value}/home"
         )
@@ -161,20 +163,20 @@ class Dashboard:
             return api_call
 
     def get_dashboard_tags(self) -> list:
-        """The method includes a functionality to get the all tags of all dashboards
+        """The method includes a functionality to get the all tags of all dashboards.
 
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
             api_call (list): Returns all dashboard tags
-        """
 
+        """
         api_call: list = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.DASHBOARDS.value}/tags"
         )
 
-        if api_call == list() or api_call[0].get("term") is None:
+        if api_call == [] or api_call[0].get("term") is None:
             logging.error(f"Please, check the error: {api_call}.")
             raise Exception
         else:
@@ -183,7 +185,7 @@ class Dashboard:
     def get_dashboard_uid_and_id_by_name_and_folder(
         self, dashboard_name: str, dashboard_path: str
     ) -> dict:
-        """The method includes a functionality to extract the dashboard uid specified inside the model
+        """The method includes a functionality to extract the dashboard uid specified inside the model.
 
         Args:
             dashboard_name (str): Specify the dashboard name of the dashboard
@@ -195,8 +197,8 @@ class Dashboard:
 
         Returns:
             api_call (dict): Returns the dashboard uid and the id
-        """
 
+        """
         if len(dashboard_name) != 0 and len(dashboard_path) != 0:
             folder_uid: str = Folder(
                 self.grafana_api_model
@@ -220,12 +222,10 @@ class Dashboard:
                             dashboard_meta_object.get("uid") is not None
                             and dashboard_meta_object.get("id") is not None
                         ):
-                            return dict(
-                                {
+                            return {
                                     "uid": dashboard_meta_object.get("uid"),
                                     "id": dashboard_meta_object.get("id"),
                                 }
-                            )
                         else:
                             logging.error("There is no uid or id defined.")
                             raise ValueError
@@ -237,7 +237,7 @@ class Dashboard:
             raise ValueError
 
     def get_dashboard_permissions(self, id: int) -> list:
-        """The method includes a functionality to extract the dashboard permissions based on the specified id
+        """The method includes a functionality to extract the dashboard permissions based on the specified id.
 
         Args:
             id (int): Specify the id of the dashboard
@@ -248,14 +248,14 @@ class Dashboard:
 
         Returns:
             api_call (list): Returns the dashboard permissions of a dashboard as list
-        """
 
+        """
         if id != 0:
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DASHBOARDS.value}/id/{id}/permissions"
             )
 
-            if api_call == list() or api_call[0].get("role") is None:
+            if api_call == [] or api_call[0].get("role") is None:
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
@@ -265,7 +265,7 @@ class Dashboard:
             raise ValueError
 
     def get_dashboard_permissions_by_uid(self, uid: str) -> list:
-        """The method includes a functionality to extract the dashboard permissions based on the specified uid
+        """The method includes a functionality to extract the dashboard permissions based on the specified uid.
 
         Args:
             uid (str): Specify the uid of the dashboard
@@ -276,14 +276,14 @@ class Dashboard:
 
         Returns:
             api_call (list): Returns the dashboard permissions of a dashboard as list
-        """
 
+        """
         if len(uid) != 0:
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DASHBOARDS.value}/uid/{uid}/permissions"
             )
 
-            if api_call == list() or api_call[0].get("role") is None:
+            if api_call == [] or api_call[0].get("role") is None:
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
@@ -293,7 +293,7 @@ class Dashboard:
             raise ValueError
 
     def update_dashboard_permissions(self, id: int, permission_json: dict):
-        """The method includes a functionality to update the dashboard permissions based on the specified id and the permission json document
+        """The method includes a functionality to update the dashboard permissions based on the specified id and the permission json document.
 
         Args:
             id (int): Specify the id of the dashboard
@@ -305,8 +305,8 @@ class Dashboard:
 
         Returns:
             None
-        """
 
+        """
         if id != 0 and len(permission_json) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DASHBOARDS.value}/id/{id}/permissions",
@@ -324,7 +324,7 @@ class Dashboard:
             raise ValueError
 
     def update_dashboard_permissions_by_uid(self, uid: str, permission_json: dict):
-        """The method includes a functionality to update the dashboard permissions based on the specified uid and the permission json document
+        """The method includes a functionality to update the dashboard permissions based on the specified uid and the permission json document.
 
         Args:
             uid (str): Specify the uid of the dashboard
@@ -336,8 +336,8 @@ class Dashboard:
 
         Returns:
             None
-        """
 
+        """
         if len(uid) != 0 and len(permission_json) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DASHBOARDS.value}/uid/{uid}/permissions",
@@ -355,7 +355,7 @@ class Dashboard:
             raise ValueError
 
     def get_dashboard_versions(self, id: int) -> list:
-        """The method includes a functionality to extract the versions of a dashboard based on the specified id
+        """The method includes a functionality to extract the versions of a dashboard based on the specified id.
 
         Args:
             id (int): Specify the id of the dashboard
@@ -366,14 +366,14 @@ class Dashboard:
 
         Returns:
             api_call (list): Returns all dashboard versions of a dashboard as list
-        """
 
+        """
         if id != 0:
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DASHBOARDS.value}/id/{id}/versions",
             )
 
-            if api_call == list() or api_call[0].get("id") is None:
+            if api_call == [] or api_call[0].get("id") is None:
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
@@ -383,7 +383,7 @@ class Dashboard:
             raise ValueError
 
     def get_dashboard_versions_by_uid(self, uid: str) -> list:
-        """The method includes a functionality to extract the versions of a dashboard based on the specified uid
+        """The method includes a functionality to extract the versions of a dashboard based on the specified uid.
 
         Args:
             uid (str): Specify the id of the dashboard
@@ -394,14 +394,14 @@ class Dashboard:
 
         Returns:
             api_call (list): Returns all dashboard versions of a dashboard as list
-        """
 
+        """
         if len(uid) != 0:
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DASHBOARDS.value}/uid/{uid}/versions",
             )
 
-            if api_call == list() or api_call[0].get("uid") is None:
+            if api_call == [] or api_call[0].get("uid") is None:
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
@@ -411,7 +411,7 @@ class Dashboard:
             raise ValueError
 
     def get_dashboard_version(self, id: int, version_id: int) -> dict:
-        """The method includes a functionality to extract a specified version of a dashboard based on the specified dashboard id and a version_id of the dashboard
+        """The method includes a functionality to extract a specified version of a dashboard based on the specified dashboard id and a version_id of the dashboard.
 
         Args:
             id (int): Specify the id of the dashboard
@@ -423,14 +423,14 @@ class Dashboard:
 
         Returns:
             api_call (list): Returns a dashboard version of a dashboard as dict
-        """
 
+        """
         if id != 0 and version_id != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DASHBOARDS.value}/id/{id}/versions/{version_id}",
             )
 
-            if api_call == dict() or api_call.get("id") is None:
+            if api_call == {} or api_call.get("id") is None:
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
@@ -440,7 +440,7 @@ class Dashboard:
             raise ValueError
 
     def get_dashboard_version_by_uid(self, uid: str, version_id: int) -> dict:
-        """The method includes a functionality to extract a specified version of a dashboard based on the specified dashboard uid and a version_id of the dashboard
+        """The method includes a functionality to extract a specified version of a dashboard based on the specified dashboard uid and a version_id of the dashboard.
 
         Args:
             uid (str): Specify the uid of the dashboard
@@ -452,14 +452,14 @@ class Dashboard:
 
         Returns:
             api_call (list): Returns a dashboard version of a dashboard as dict
-        """
 
+        """
         if len(uid) != 0 and version_id != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DASHBOARDS.value}/uid/{uid}/versions/{version_id}",
             )
 
-            if api_call == dict() or api_call.get("uid") is None:
+            if api_call == {} or api_call.get("uid") is None:
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
@@ -469,7 +469,7 @@ class Dashboard:
             raise ValueError
 
     def restore_dashboard_version(self, id: int, version: dict):
-        """The method includes a functionality to restore a specified version of a dashboard based on the specified dashboard id and a version as dict of the dashboard
+        """The method includes a functionality to restore a specified version of a dashboard based on the specified dashboard id and a version as dict of the dashboard.
 
         Args:
             id (int): Specify the id of the dashboard
@@ -481,9 +481,9 @@ class Dashboard:
 
         Returns:
             None
-        """
 
-        if id != 0 and version != dict():
+        """
+        if id != 0 and version != {}:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DASHBOARDS.value}/id/{id}/restore",
                 RequestsMethods.POST,
@@ -503,7 +503,7 @@ class Dashboard:
             raise ValueError
 
     def restore_dashboard_version_by_uid(self, uid: str, version: dict):
-        """The method includes a functionality to restore a specified version of a dashboard based on the specified dashboard uid and a version as dict of the dashboard
+        """The method includes a functionality to restore a specified version of a dashboard based on the specified dashboard uid and a version as dict of the dashboard.
 
         Args:
             uid (str): Specify the uid of the dashboard
@@ -515,9 +515,9 @@ class Dashboard:
 
         Returns:
             None
-        """
 
-        if len(uid) != 0 and version != dict():
+        """
+        if len(uid) != 0 and version != {}:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DASHBOARDS.value}/uid/{uid}/restore",
                 RequestsMethods.POST,
@@ -542,7 +542,7 @@ class Dashboard:
         dashboard_id_and_version_new: dict,
         diff_type: str = "json",
     ) -> str:
-        """The method includes a functionality to calculate the diff of specified versions of a dashboard based on the specified dashboard uid and the selected version of the base dashboard and the new dashboard and the diff type (basic or json)
+        """The method includes a functionality to calculate the diff of specified versions of a dashboard based on the specified dashboard uid and the selected version of the base dashboard and the new dashboard and the diff type (basic or json).
 
         Args:
             dashboard_id_and_version_base (dict): Specify the version and id of the base dashboard
@@ -555,15 +555,16 @@ class Dashboard:
 
         Returns:
             api_call (str): Returns the difference of the two specified dashboards
+
         """
         possible_diff_types: list = ["basic", "json"]
 
         if diff_type.lower() in possible_diff_types:
             if (
-                dashboard_id_and_version_base != dict()
+                dashboard_id_and_version_base != {}
                 and dashboard_id_and_version_new != 0
             ):
-                diff_object: dict = dict()
+                diff_object: dict = {}
                 diff_object.update({"base": dashboard_id_and_version_base})
                 diff_object.update({"new": dashboard_id_and_version_new})
                 diff_object.update({"diffType": diff_type.lower()})
@@ -591,7 +592,7 @@ class Dashboard:
             raise ValueError
 
     def get_public_dashboards(self, per_page: int = None, page: int = None) -> dict:
-        """The method includes a functionality to get all public available dashboards
+        """The method includes a functionality to get all public available dashboards.
 
         Required Permissions:
             Action: dashboards:read
@@ -606,8 +607,8 @@ class Dashboard:
 
         Returns:
             api_call (dict): Returns all public available dashboards
-        """
 
+        """
         optional_parts: str = "?"
 
         if per_page is not None:
@@ -626,7 +627,7 @@ class Dashboard:
             f"{APIEndpoints.DASHBOARDS.value}/public-dashboards{optional_parts}",
         )
 
-        if isinstance(api_call, dict) is False or api_call == dict():
+        if isinstance(api_call, dict) is False or api_call == {}:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
@@ -636,7 +637,7 @@ class Dashboard:
         self,
         dashboard_uid: str,
     ) -> dict:
-        """The method includes a functionality to get a public available dashboard specified by dashboard_uid
+        """The method includes a functionality to get a public available dashboard specified by dashboard_uid.
 
         Required Permissions:
             Action: dashboards:read
@@ -651,14 +652,14 @@ class Dashboard:
 
         Returns:
             api_call (dict): Returns the corresponding public available dashboard
-        """
 
+        """
         if dashboard_uid is not None and len(dashboard_uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DASHBOARDS.value}/uid/{dashboard_uid}/public-dashboards",
             )
 
-            if isinstance(api_call, dict) is False or api_call == dict():
+            if isinstance(api_call, dict) is False or api_call == {}:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -668,9 +669,9 @@ class Dashboard:
             raise ValueError
 
     def create_public_dashboard(
-        self, dashboard_uid: str, public_dashboard: PublicDashboard = PublicDashboard()
+        self, dashboard_uid: str, public_dashboard: Optional[PublicDashboard] = None
     ) -> dict:
-        """The method includes a functionality to create a public available dashboard
+        """The method includes a functionality to create a public available dashboard.
 
         Required Permissions:
             Action: dashboards.public:write
@@ -686,15 +687,16 @@ class Dashboard:
 
         Returns:
             api_call (dict): Returns the corresponding public available dashboard
-        """
 
+        """
+        if public_dashboard is None:
+            public_dashboard = PublicDashboard()
         if (
             dashboard_uid is not None
             and len(dashboard_uid) != 0
             and public_dashboard is not None
         ):
-            public_dashboard_result: dict = dict(
-                {
+            public_dashboard_result: dict = {
                     "uid": public_dashboard.uid,
                     "accessToken": public_dashboard.access_token,
                     "timeSelectionEnabled": public_dashboard.time_selection_enabled,
@@ -702,7 +704,6 @@ class Dashboard:
                     "annotationsEnabled": public_dashboard.annotations_enabled,
                     "share": public_dashboard.share,
                 }
-            )
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DASHBOARDS.value}/uid/{dashboard_uid}/public-dashboards",
@@ -712,17 +713,15 @@ class Dashboard:
             )
 
             status_code: int = api_call.get("status")
-            public_dashboard_status_dict: dict = dict(
-                {
+            public_dashboard_status_dict: dict = {
                     400: "Dashboard is already public.",
                     401: "Unauthorized.",
                     403: "Access denied.",
                     404: "Dashboard not found.",
                 }
-            )
 
             if status_code == 200 and (
-                isinstance(api_call, dict) is True or api_call != dict()
+                isinstance(api_call, dict) is True or api_call != {}
             ):
                 return api_call
             elif 400 <= status_code <= 404:
@@ -741,7 +740,7 @@ class Dashboard:
         annotations_enabled: bool = None,
         share: str = None,
     ) -> dict:
-        """The method includes a functionality to update a public available dashboard
+        """The method includes a functionality to update a public available dashboard.
 
         Required Permissions:
             Action: dashboards.public:write
@@ -761,15 +760,15 @@ class Dashboard:
 
         Returns:
             api_call (dict): Returns the corresponding public available dashboard
-        """
 
+        """
         if (
             dashboard_uid is not None
             and len(dashboard_uid) != 0
             and public_dashboard_uid is not None
             and len(public_dashboard_uid) != 0
         ):
-            public_dashboard_result: dict = dict()
+            public_dashboard_result: dict = {}
 
             if time_selection_enabled is not None:
                 public_dashboard_result.update(
@@ -787,7 +786,7 @@ class Dashboard:
             if share is not None:
                 public_dashboard_result.update({"share": share})
 
-            if public_dashboard_result == dict():
+            if public_dashboard_result == {}:
                 logging.error(
                     "There is no values for the update of the public dashboard defined."
                 )
@@ -801,17 +800,15 @@ class Dashboard:
             )
 
             status_code: int = api_call.get("status")
-            public_dashboard_status_dict: dict = dict(
-                {
+            public_dashboard_status_dict: dict = {
                     400: "Dashboard is already public.",
                     401: "Unauthorized.",
                     403: "Access denied.",
                     404: "Public dashboard not found.",
                 }
-            )
 
             if status_code == 200 and (
-                isinstance(api_call, dict) is True or api_call != dict()
+                isinstance(api_call, dict) is True or api_call != {}
             ):
                 return api_call
             elif 400 <= status_code <= 404:
@@ -826,7 +823,7 @@ class Dashboard:
         dashboard_uid: str,
         public_dashboard_uid: str,
     ):
-        """The method includes a functionality to delete a public available dashboard
+        """The method includes a functionality to delete a public available dashboard.
 
         Required Permissions:
             Action: dashboards.public:write
@@ -842,8 +839,8 @@ class Dashboard:
 
         Returns:
             None
-        """
 
+        """
         if (
             dashboard_uid is not None
             and len(dashboard_uid) != 0
@@ -857,12 +854,10 @@ class Dashboard:
             )
 
             status_code: int = api_call.get("status")
-            public_dashboard_status_dict: dict = dict(
-                {
+            public_dashboard_status_dict: dict = {
                     401: "Unauthorized.",
                     403: "Access denied.",
                 }
-            )
 
             if status_code == 200:
                 logging.info("You successfully deleted the public dashboard.")

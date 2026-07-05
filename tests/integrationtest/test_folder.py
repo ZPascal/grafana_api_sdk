@@ -84,7 +84,7 @@ class FolderTest(TestCase):
         )
 
     def test_f_update_folder_permissions(self):
-        permission_dict: dict = dict({"items": [{"role": "Viewer", "permission": 2}]})
+        permission_dict: dict = {"items": [{"role": "Viewer", "permission": 2}]}
 
         self.folder.update_folder_permissions("6U_QdWJnz", permission_dict)
 
@@ -92,7 +92,7 @@ class FolderTest(TestCase):
             2, self.folder.get_folder_permissions("6U_QdWJnz")[0].get("permission")
         )
 
-        permission_dict: dict = dict({"items": [{"role": "Viewer", "permission": 1}]})
+        permission_dict: dict = {"items": [{"role": "Viewer", "permission": 1}]}
 
         self.folder.update_folder_permissions("6U_QdWJnz", permission_dict)
 

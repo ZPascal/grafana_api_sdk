@@ -1,28 +1,3 @@
-# Table of Contents
-
-* [alerting\_provisioning](#alerting_provisioning)
-  * [AlertingProvisioning](#alerting_provisioning.AlertingProvisioning)
-    * [get\_alert\_rule](#alerting_provisioning.AlertingProvisioning.get_alert_rule)
-    * [add\_alert\_rule](#alerting_provisioning.AlertingProvisioning.add_alert_rule)
-    * [update\_alert\_rule](#alerting_provisioning.AlertingProvisioning.update_alert_rule)
-    * [update\_the\_interval\_of\_a\_alert\_rule\_group](#alerting_provisioning.AlertingProvisioning.update_the_interval_of_a_alert_rule_group)
-    * [delete\_alert\_rule](#alerting_provisioning.AlertingProvisioning.delete_alert_rule)
-    * [get\_all\_contact\_points](#alerting_provisioning.AlertingProvisioning.get_all_contact_points)
-    * [add\_contact\_point](#alerting_provisioning.AlertingProvisioning.add_contact_point)
-    * [update\_contact\_point](#alerting_provisioning.AlertingProvisioning.update_contact_point)
-    * [delete\_contact\_point](#alerting_provisioning.AlertingProvisioning.delete_contact_point)
-    * [get\_notification\_policies](#alerting_provisioning.AlertingProvisioning.get_notification_policies)
-    * [add\_notification\_policies](#alerting_provisioning.AlertingProvisioning.add_notification_policies)
-    * [get\_all\_mute\_timings](#alerting_provisioning.AlertingProvisioning.get_all_mute_timings)
-    * [get\_mute\_timing](#alerting_provisioning.AlertingProvisioning.get_mute_timing)
-    * [add\_mute\_timing](#alerting_provisioning.AlertingProvisioning.add_mute_timing)
-    * [update\_mute\_timing](#alerting_provisioning.AlertingProvisioning.update_mute_timing)
-    * [delete\_mute\_timing](#alerting_provisioning.AlertingProvisioning.delete_mute_timing)
-    * [get\_all\_message\_templates](#alerting_provisioning.AlertingProvisioning.get_all_message_templates)
-    * [get\_message\_template](#alerting_provisioning.AlertingProvisioning.get_message_template)
-    * [create\_or\_update\_message\_template](#alerting_provisioning.AlertingProvisioning.create_or_update_message_template)
-    * [delete\_message\_template](#alerting_provisioning.AlertingProvisioning.delete_message_template)
-
 <a id="alerting_provisioning"></a>
 
 # alerting\_provisioning

@@ -1,13 +1,3 @@
-# Table of Contents
-
-* [snapshot](#snapshot)
-  * [Snapshot](#snapshot.Snapshot)
-    * [create\_new\_snapshot](#snapshot.Snapshot.create_new_snapshot)
-    * [get\_snapshots](#snapshot.Snapshot.get_snapshots)
-    * [get\_snapshot\_by\_key](#snapshot.Snapshot.get_snapshot_by_key)
-    * [delete\_snapshot\_by\_key](#snapshot.Snapshot.delete_snapshot_by_key)
-    * [delete\_snapshot\_by\_delete\_key](#snapshot.Snapshot.delete_snapshot_by_delete_key)
-
 <a id="snapshot"></a>
 
 # snapshot

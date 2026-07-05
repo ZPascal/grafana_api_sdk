@@ -1,12 +1,3 @@
-# Table of Contents
-
-* [preferences](#preferences)
-  * [Preferences](#preferences.Preferences)
-    * [get\_current\_user\_preferences](#preferences.Preferences.get_current_user_preferences)
-    * [update\_current\_user\_preferences](#preferences.Preferences.update_current_user_preferences)
-    * [get\_current\_org\_preferences](#preferences.Preferences.get_current_org_preferences)
-    * [update\_current\_org\_preferences](#preferences.Preferences.update_current_org_preferences)
-
 <a id="preferences"></a>
 
 # preferences

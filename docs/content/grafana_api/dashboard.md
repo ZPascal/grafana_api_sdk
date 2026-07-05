@@ -1,30 +1,3 @@
-# Table of Contents
-
-* [dashboard](#dashboard)
-  * [Dashboard](#dashboard.Dashboard)
-    * [create\_or\_update\_dashboard](#dashboard.Dashboard.create_or_update_dashboard)
-    * [delete\_dashboard\_by\_name\_and\_path](#dashboard.Dashboard.delete_dashboard_by_name_and_path)
-    * [get\_dashboard\_by\_uid](#dashboard.Dashboard.get_dashboard_by_uid)
-    * [get\_dashboard\_home](#dashboard.Dashboard.get_dashboard_home)
-    * [get\_dashboard\_tags](#dashboard.Dashboard.get_dashboard_tags)
-    * [get\_dashboard\_uid\_and\_id\_by\_name\_and\_folder](#dashboard.Dashboard.get_dashboard_uid_and_id_by_name_and_folder)
-    * [get\_dashboard\_permissions](#dashboard.Dashboard.get_dashboard_permissions)
-    * [get\_dashboard\_permissions\_by\_uid](#dashboard.Dashboard.get_dashboard_permissions_by_uid)
-    * [update\_dashboard\_permissions](#dashboard.Dashboard.update_dashboard_permissions)
-    * [update\_dashboard\_permissions\_by\_uid](#dashboard.Dashboard.update_dashboard_permissions_by_uid)
-    * [get\_dashboard\_versions](#dashboard.Dashboard.get_dashboard_versions)
-    * [get\_dashboard\_versions\_by\_uid](#dashboard.Dashboard.get_dashboard_versions_by_uid)
-    * [get\_dashboard\_version](#dashboard.Dashboard.get_dashboard_version)
-    * [get\_dashboard\_version\_by\_uid](#dashboard.Dashboard.get_dashboard_version_by_uid)
-    * [restore\_dashboard\_version](#dashboard.Dashboard.restore_dashboard_version)
-    * [restore\_dashboard\_version\_by\_uid](#dashboard.Dashboard.restore_dashboard_version_by_uid)
-    * [calculate\_dashboard\_diff](#dashboard.Dashboard.calculate_dashboard_diff)
-    * [get\_public\_dashboards](#dashboard.Dashboard.get_public_dashboards)
-    * [get\_public\_dashboard\_by\_uid](#dashboard.Dashboard.get_public_dashboard_by_uid)
-    * [create\_public\_dashboard](#dashboard.Dashboard.create_public_dashboard)
-    * [update\_public\_dashboard](#dashboard.Dashboard.update_public_dashboard)
-    * [delete\_public\_dashboard](#dashboard.Dashboard.delete_public_dashboard)
-
 <a id="dashboard"></a>
 
 # dashboard

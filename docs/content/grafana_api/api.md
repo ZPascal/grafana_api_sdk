@@ -1,11 +1,3 @@
-# Table of Contents
-
-* [api](#api)
-  * [Api](#api.Api)
-    * [call\_the\_api](#api.Api.call_the_api)
-    * [prepare\_api\_string](#api.Api.prepare_api_string)
-    * [create\_the\_http\_api\_client](#api.Api.create_the_http_api_client)
-
 <a id="api"></a>
 
 # api

@@ -1,14 +1,3 @@
-# Table of Contents
-
-* [query\_history](#query_history)
-  * [QueryHistory](#query_history.QueryHistory)
-    * [add\_query\_to\_history](#query_history.QueryHistory.add_query_to_history)
-    * [search\_query\_history](#query_history.QueryHistory.search_query_history)
-    * [delete\_query\_history](#query_history.QueryHistory.delete_query_history)
-    * [update\_query\_history](#query_history.QueryHistory.update_query_history)
-    * [star\_query\_history](#query_history.QueryHistory.star_query_history)
-    * [unstar\_query\_history](#query_history.QueryHistory.unstar_query_history)
-
 <a id="query_history"></a>
 
 # query\_history

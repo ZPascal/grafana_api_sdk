@@ -1,35 +1,3 @@
-# Table of Contents
-
-* [alerting](#alerting)
-  * [Alerting](#alerting.Alerting)
-    * [get\_alertmanager\_alerts](#alerting.Alerting.get_alertmanager_alerts)
-    * [create\_or\_update\_alertmanager\_alerts](#alerting.Alerting.create_or_update_alertmanager_alerts)
-    * [get\_alertmanager\_group\_alerts](#alerting.Alerting.get_alertmanager_group_alerts)
-    * [delete\_alertmanager\_silence\_by\_id](#alerting.Alerting.delete_alertmanager_silence_by_id)
-    * [get\_alertmanager\_silence\_by\_id](#alerting.Alerting.get_alertmanager_silence_by_id)
-    * [get\_alertmanager\_silences](#alerting.Alerting.get_alertmanager_silences)
-    * [create\_or\_update\_alertmanager\_silence](#alerting.Alerting.create_or_update_alertmanager_silence)
-    * [get\_alertmanager\_status](#alerting.Alerting.get_alertmanager_status)
-    * [delete\_alertmanager\_config](#alerting.Alerting.delete_alertmanager_config)
-    * [get\_alertmanager\_config](#alerting.Alerting.get_alertmanager_config)
-    * [create\_or\_update\_alertmanager\_config](#alerting.Alerting.create_or_update_alertmanager_config)
-    * [test\_alertmanager\_receivers](#alerting.Alerting.test_alertmanager_receivers)
-    * [get\_prometheus\_alerts](#alerting.Alerting.get_prometheus_alerts)
-    * [get\_prometheus\_rules](#alerting.Alerting.get_prometheus_rules)
-    * [get\_ruler\_rules](#alerting.Alerting.get_ruler_rules)
-    * [delete\_ruler\_namespace](#alerting.Alerting.delete_ruler_namespace)
-    * [get\_ruler\_groups\_by\_namespace](#alerting.Alerting.get_ruler_groups_by_namespace)
-    * [create\_or\_update\_ruler\_group\_by\_namespace](#alerting.Alerting.create_or_update_ruler_group_by_namespace)
-    * [delete\_ruler\_group](#alerting.Alerting.delete_ruler_group)
-    * [get\_ruler\_group](#alerting.Alerting.get_ruler_group)
-    * [test\_rule](#alerting.Alerting.test_rule)
-    * [test\_datasource\_uid\_rule](#alerting.Alerting.test_datasource_uid_rule)
-    * [test\_backtest\_rule](#alerting.Alerting.test_backtest_rule)
-    * [delete\_ngalert\_organization\_configuration](#alerting.Alerting.delete_ngalert_organization_configuration)
-    * [get\_ngalert\_organization\_configuration](#alerting.Alerting.get_ngalert_organization_configuration)
-    * [create\_or\_update\_ngalert\_organization\_configuration](#alerting.Alerting.create_or_update_ngalert_organization_configuration)
-    * [get\_ngalert\_alertmanagers\_by\_organization](#alerting.Alerting.get_ngalert_alertmanagers_by_organization)
-
 <a id="alerting"></a>
 
 # alerting

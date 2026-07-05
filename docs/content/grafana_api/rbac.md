@@ -1,29 +1,3 @@
-# Table of Contents
-
-* [rbac](#rbac)
-  * [RBAC](#rbac.RBAC)
-    * [get\_status](#rbac.RBAC.get_status)
-    * [get\_all\_roles](#rbac.RBAC.get_all_roles)
-    * [get\_role](#rbac.RBAC.get_role)
-    * [create\_role](#rbac.RBAC.create_role)
-    * [update\_role](#rbac.RBAC.update_role)
-    * [delete\_role](#rbac.RBAC.delete_role)
-    * [get\_user\_assigned\_roles](#rbac.RBAC.get_user_assigned_roles)
-    * [get\_user\_assigned\_permissions](#rbac.RBAC.get_user_assigned_permissions)
-    * [add\_user\_role\_assignment](#rbac.RBAC.add_user_role_assignment)
-    * [remove\_user\_role\_assignment](#rbac.RBAC.remove_user_role_assignment)
-    * [update\_user\_role\_assignments](#rbac.RBAC.update_user_role_assignments)
-    * [get\_service\_account\_assigned\_roles](#rbac.RBAC.get_service_account_assigned_roles)
-    * [get\_service\_account\_assigned\_permissions](#rbac.RBAC.get_service_account_assigned_permissions)
-    * [add\_service\_account\_role\_assignment](#rbac.RBAC.add_service_account_role_assignment)
-    * [remove\_service\_account\_role\_assignment](#rbac.RBAC.remove_service_account_role_assignment)
-    * [update\_service\_account\_role\_assignments](#rbac.RBAC.update_service_account_role_assignments)
-    * [get\_team\_assigned\_roles](#rbac.RBAC.get_team_assigned_roles)
-    * [add\_team\_role\_assignment](#rbac.RBAC.add_team_role_assignment)
-    * [remove\_team\_role\_assignment](#rbac.RBAC.remove_team_role_assignment)
-    * [update\_team\_role\_assignments](#rbac.RBAC.update_team_role_assignments)
-    * [reset\_basic\_roles\_to\_their\_default](#rbac.RBAC.reset_basic_roles_to_their_default)
-
 <a id="rbac"></a>
 
 # rbac
@@ -137,20 +111,18 @@ def create_role(role_definition: CustomRole) -> dict
 
 The method includes a functionality create a new custom role and maps given permissions to that role. Note that roles with the same prefix as Fixed roles can’t be created
 
-Args:
-    role_definition (CustomRole): Specify the corresponding role definition
+**Arguments**:
 
-Required Permissions:
-    Action: roles:write
-    Scope: permissions:type:delegate
+- `role_definition` (`CustomRole`): Specify the corresponding role definition
 
-Raises:
-    ValueError: Missed specifying a necessary value
-    Exception: Unspecified error by executing the API call
+**Raises**:
 
-Returns:
-    api_call (dict): Return the newly created role
+- `ValueError`: Missed specifying a necessary value
+- `Exception`: Unspecified error by executing the API call
 
+**Returns**:
+
+api_call (dict): Return the newly created role
 
 <a id="rbac.RBAC.update_role"></a>
 
@@ -162,21 +134,19 @@ def update_role(uid: str, role_definition: CustomRole) -> dict
 
 The method includes a functionality to update the role with the given uid, and its permissions. The operation is idempotent and all permissions of the role will be replaced based on the request content. You need to increment the version of the role with each update, otherwise the request will fail
 
-Args:
-    uid (str): Specify the corresponding uid of the custom role
-    role_definition (CustomRole): Specify the corresponding role definition
+**Arguments**:
 
-Required Permissions:
-    Action: roles:write
-    Scope: permissions:type:delegate
+- `uid` (`str`): Specify the corresponding uid of the custom role
+- `role_definition` (`CustomRole`): Specify the corresponding role definition
 
-Raises:
-    ValueError: Missed specifying a necessary value
-    Exception: Unspecified error by executing the API call
+**Raises**:
 
-Returns:
-    api_call (dict): Return the updated role
+- `ValueError`: Missed specifying a necessary value
+- `Exception`: Unspecified error by executing the API call
 
+**Returns**:
+
+api_call (dict): Return the updated role
 
 <a id="rbac.RBAC.delete_role"></a>
 
@@ -188,22 +158,20 @@ def delete_role(uid: str, force: bool = False, global_role: bool = False)
 
 The method includes a functionality to delete a role with the given uid
 
-Args:
-    uid (str): Specify the corresponding uid of the custom role
-    force (bool): Specify the corresponding if the role will be deleted with all it’s assignments or not (default False)
-    global_role (bool): Specify the corresponding if the role is global or not. If set to false, the default org id of the authenticated user will be used from the request (default False)
+**Arguments**:
 
-Required Permissions:
-    Action: roles:delete
-    Scope: permissions:type:delegate
+- `uid` (`str`): Specify the corresponding uid of the custom role
+- `force` (`bool`): Specify the corresponding if the role will be deleted with all it’s assignments or not (default False)
+- `global_role` (`bool`): Specify the corresponding if the role is global or not. If set to false, the default org id of the authenticated user will be used from the request (default False)
 
-Raises:
-    ValueError: Missed specifying a necessary value
-    Exception: Unspecified error by executing the API call
+**Raises**:
 
-Returns:
-    None
+- `ValueError`: Missed specifying a necessary value
+- `Exception`: Unspecified error by executing the API call
 
+**Returns**:
+
+None
 
 <a id="rbac.RBAC.get_user_assigned_roles"></a>
 
@@ -277,22 +245,20 @@ def add_user_role_assignment(user_id: int,
 
 The method includes a functionality to assign a role to a specific user
 
-Args:
-    user_id (int): Specify the corresponding user_id of the user
-    role_uid (str): Specify the corresponding uid of the role
-    global_assignment (bool): Specify the corresponding if the assignment is global or not. If set to false, the default org id of the authenticated user will be used from the request (default False)
+**Arguments**:
 
-Required Permissions:
-    Action: users.roles:add
-    Scope: permissions:type:delegate
+- `user_id` (`int`): Specify the corresponding user_id of the user
+- `role_uid` (`str`): Specify the corresponding uid of the role
+- `global_assignment` (`bool`): Specify the corresponding if the assignment is global or not. If set to false, the default org id of the authenticated user will be used from the request (default False)
 
-Raises:
-    ValueError: Missed specifying a necessary value
-    Exception: Unspecified error by executing the API call
+**Raises**:
 
-Returns:
-    None
+- `ValueError`: Missed specifying a necessary value
+- `Exception`: Unspecified error by executing the API call
 
+**Returns**:
+
+None
 
 <a id="rbac.RBAC.remove_user_role_assignment"></a>
 
@@ -304,21 +270,19 @@ def remove_user_role_assignment(user_id: int, role_uid: str)
 
 The method includes a functionality to revoke a role to a specific user
 
-Args:
-    user_id (int): Specify the corresponding user_id of the user
-    role_uid (str): Specify the corresponding uid of the role
+**Arguments**:
 
-Required Permissions:
-    Action: users.roles:remove
-    Scope: permissions:type:delegate
+- `user_id` (`int`): Specify the corresponding user_id of the user
+- `role_uid` (`str`): Specify the corresponding uid of the role
 
-Raises:
-    ValueError: Missed specifying a necessary value
-    Exception: Unspecified error by executing the API call
+**Raises**:
 
-Returns:
-    None
+- `ValueError`: Missed specifying a necessary value
+- `Exception`: Unspecified error by executing the API call
 
+**Returns**:
+
+None
 
 <a id="rbac.RBAC.update_user_role_assignments"></a>
 
@@ -333,23 +297,21 @@ def update_user_role_assignments(user_id: int,
 
 The method includes a functionality to update the user role assignments to match the provided set of uid's. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user
 
-Args:
-    user_id (int): Specify the corresponding user_id of the user
-    role_uids (list): Specify the corresponding uids of the role
-    include_hidden_roles (bool): Specify if the output contains the hidden roles or not (default False)
-    global_assignment (bool): Specify the corresponding if the assignment is global or not. If set to false, the default org id of the authenticated user will be used from the request (default False)
+**Arguments**:
 
-Required Permissions:
-    Action: users.roles:add, users.roles:remove
-    Scope: permissions:type:delegate
+- `user_id` (`int`): Specify the corresponding user_id of the user
+- `role_uids` (`list`): Specify the corresponding uids of the role
+- `include_hidden_roles` (`bool`): Specify if the output contains the hidden roles or not (default False)
+- `global_assignment` (`bool`): Specify the corresponding if the assignment is global or not. If set to false, the default org id of the authenticated user will be used from the request (default False)
 
-Raises:
-    ValueError: Missed specifying a necessary value
-    Exception: Unspecified error by executing the API call
+**Raises**:
 
-Returns:
-    None
+- `ValueError`: Missed specifying a necessary value
+- `Exception`: Unspecified error by executing the API call
 
+**Returns**:
+
+None
 
 <a id="rbac.RBAC.get_service_account_assigned_roles"></a>
 
@@ -424,22 +386,20 @@ def add_service_account_role_assignment(service_account_id: int,
 
 The method includes a functionality to assign a role to a specific service account
 
-Args:
-    service_account_id (int): Specify the corresponding service_account_id of the service account
-    role_uid (str): Specify the corresponding uid of the role
-    global_assignment (bool): Specify the corresponding if the assignment is global or not. If set to false, the default org id of the authenticated user will be used from the request (default False)
+**Arguments**:
 
-Required Permissions:
-    Action: users.roles:add
-    Scope: permissions:type:delegate
+- `service_account_id` (`int`): Specify the corresponding service_account_id of the service account
+- `role_uid` (`str`): Specify the corresponding uid of the role
+- `global_assignment` (`bool`): Specify the corresponding if the assignment is global or not. If set to false, the default org id of the authenticated user will be used from the request (default False)
 
-Raises:
-    ValueError: Missed specifying a necessary value
-    Exception: Unspecified error by executing the API call
+**Raises**:
 
-Returns:
-    None
+- `ValueError`: Missed specifying a necessary value
+- `Exception`: Unspecified error by executing the API call
 
+**Returns**:
+
+None
 
 <a id="rbac.RBAC.remove_service_account_role_assignment"></a>
 
@@ -452,21 +412,19 @@ def remove_service_account_role_assignment(service_account_id: int,
 
 The method includes a functionality to revoke a role to a specific service account
 
-Args:
-    service_account_id (int): Specify the corresponding service_account_id of the service account
-    role_uid (str): Specify the corresponding uid of the role
+**Arguments**:
 
-Required Permissions:
-    Action: users.roles:remove
-    Scope: permissions:type:delegate
+- `service_account_id` (`int`): Specify the corresponding service_account_id of the service account
+- `role_uid` (`str`): Specify the corresponding uid of the role
 
-Raises:
-    ValueError: Missed specifying a necessary value
-    Exception: Unspecified error by executing the API call
+**Raises**:
 
-Returns:
-    None
+- `ValueError`: Missed specifying a necessary value
+- `Exception`: Unspecified error by executing the API call
 
+**Returns**:
+
+None
 
 <a id="rbac.RBAC.update_service_account_role_assignments"></a>
 
@@ -481,23 +439,21 @@ def update_service_account_role_assignments(service_account_id: int,
 
 The method includes a functionality to update the service account role assignments to match the provided set of uid's. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user
 
-Args:
-    service_account_id (int): Specify the corresponding service_account_id of the service account
-    role_uids (list): Specify the corresponding uids of the role
-    include_hidden_roles (bool): Specify if the output contains the hidden roles or not (default False)
-    global_assignment (bool): Specify the corresponding if the assignment is global or not. If set to false, the default org id of the authenticated user will be used from the request (default False)
+**Arguments**:
 
-Required Permissions:
-    Action: users.roles:add, users.roles:remove
-    Scope: permissions:type:delegate
+- `service_account_id` (`int`): Specify the corresponding service_account_id of the service account
+- `role_uids` (`list`): Specify the corresponding uids of the role
+- `include_hidden_roles` (`bool`): Specify if the output contains the hidden roles or not (default False)
+- `global_assignment` (`bool`): Specify the corresponding if the assignment is global or not. If set to false, the default org id of the authenticated user will be used from the request (default False)
 
-Raises:
-    ValueError: Missed specifying a necessary value
-    Exception: Unspecified error by executing the API call
+**Raises**:
 
-Returns:
-    None
+- `ValueError`: Missed specifying a necessary value
+- `Exception`: Unspecified error by executing the API call
 
+**Returns**:
+
+None
 
 <a id="rbac.RBAC.get_team_assigned_roles"></a>
 
@@ -540,21 +496,19 @@ def add_team_role_assignment(team_id: int, role_uid: str)
 
 The method includes a functionality to assign a role to a specific team
 
-Args:
-    team_id (int): Specify the corresponding team_id of the team
-    role_uid (str): Specify the corresponding uid of the role
+**Arguments**:
 
-Required Permissions:
-    Action: teams.roles:add
-    Scope: permissions:type:delegate
+- `team_id` (`int`): Specify the corresponding team_id of the team
+- `role_uid` (`str`): Specify the corresponding uid of the role
 
-Raises:
-    ValueError: Missed specifying a necessary value
-    Exception: Unspecified error by executing the API call
+**Raises**:
 
-Returns:
-    None
+- `ValueError`: Missed specifying a necessary value
+- `Exception`: Unspecified error by executing the API call
 
+**Returns**:
+
+None
 
 <a id="rbac.RBAC.remove_team_role_assignment"></a>
 
@@ -566,21 +520,19 @@ def remove_team_role_assignment(team_id: int, role_uid: str)
 
 The method includes a functionality to revoke a role to a specific team
 
-Args:
-    team_id (int): Specify the corresponding team_id of the team
-    role_uid (str): Specify the corresponding uid of the role
+**Arguments**:
 
-Required Permissions:
-    Action: teams.roles:remove
-    Scope: permissions:type:delegate
+- `team_id` (`int`): Specify the corresponding team_id of the team
+- `role_uid` (`str`): Specify the corresponding uid of the role
 
-Raises:
-    ValueError: Missed specifying a necessary value
-    Exception: Unspecified error by executing the API call
+**Raises**:
 
-Returns:
-    None
+- `ValueError`: Missed specifying a necessary value
+- `Exception`: Unspecified error by executing the API call
 
+**Returns**:
+
+None
 
 <a id="rbac.RBAC.update_team_role_assignments"></a>
 
@@ -594,22 +546,20 @@ def update_team_role_assignments(team_id: int,
 
 The method includes a functionality to update the service account role assignments to match the provided set of uid's. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user
 
-Args:
-    team_id (int): Specify the corresponding team_id of the team
-    role_uids (list): Specify the corresponding uids of the role
-    include_hidden_roles (bool): Specify if the output contains the hidden roles or not (default False)
+**Arguments**:
 
-Required Permissions:
-    Action: teams.roles:add, teams.roles:remove
-    Scope: permissions:type:delegate
+- `team_id` (`int`): Specify the corresponding team_id of the team
+- `role_uids` (`list`): Specify the corresponding uids of the role
+- `include_hidden_roles` (`bool`): Specify if the output contains the hidden roles or not (default False)
 
-Raises:
-    ValueError: Missed specifying a necessary value
-    Exception: Unspecified error by executing the API call
+**Raises**:
 
-Returns:
-    None
+- `ValueError`: Missed specifying a necessary value
+- `Exception`: Unspecified error by executing the API call
 
+**Returns**:
+
+None
 
 <a id="rbac.RBAC.reset_basic_roles_to_their_default"></a>
 
@@ -625,10 +575,11 @@ Required Permissions:
     Action: roles:write
     Scope: permissions:type:escalate
 
-Raises:
-    Exception: Unspecified error by executing the API call
+**Raises**:
 
-Returns:
-    None
+- `Exception`: Unspecified error by executing the API call
 
+**Returns**:
+
+None
 

@@ -1,18 +1,3 @@
-# Table of Contents
-
-* [alerting\_notifications](#alerting_notifications)
-  * [AlertingNotifications](#alerting_notifications.AlertingNotifications)
-    * [get\_all\_notification\_channels](#alerting_notifications.AlertingNotifications.get_all_notification_channels)
-    * [get\_all\_notification\_channels\_lookup](#alerting_notifications.AlertingNotifications.get_all_notification_channels_lookup)
-    * [get\_notification\_channel\_by\_uid](#alerting_notifications.AlertingNotifications.get_notification_channel_by_uid)
-    * [get\_notification\_channel\_by\_id](#alerting_notifications.AlertingNotifications.get_notification_channel_by_id)
-    * [create\_notification\_channel](#alerting_notifications.AlertingNotifications.create_notification_channel)
-    * [update\_notification\_channel\_by\_uid](#alerting_notifications.AlertingNotifications.update_notification_channel_by_uid)
-    * [update\_notification\_channel\_by\_id](#alerting_notifications.AlertingNotifications.update_notification_channel_by_id)
-    * [delete\_notification\_channel\_by\_uid](#alerting_notifications.AlertingNotifications.delete_notification_channel_by_uid)
-    * [delete\_notification\_channel\_by\_id](#alerting_notifications.AlertingNotifications.delete_notification_channel_by_id)
-    * [test\_notification\_channel](#alerting_notifications.AlertingNotifications.test_notification_channel)
-
 <a id="alerting_notifications"></a>
 
 # alerting\_notifications

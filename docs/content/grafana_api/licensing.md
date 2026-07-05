@@ -1,11 +1,3 @@
-# Table of Contents
-
-* [licensing](#licensing)
-  * [Licensing](#licensing.Licensing)
-    * [check\_license\_availability](#licensing.Licensing.check_license_availability)
-    * [manually\_force\_license\_refresh](#licensing.Licensing.manually_force_license_refresh)
-    * [remove\_license\_from\_database](#licensing.Licensing.remove_license_from_database)
-
 <a id="licensing"></a>
 
 # licensing

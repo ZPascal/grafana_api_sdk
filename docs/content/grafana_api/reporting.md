@@ -1,17 +1,3 @@
-# Table of Contents
-
-* [reporting](#reporting)
-  * [Reporting](#reporting.Reporting)
-    * [get\_reports](#reporting.Reporting.get_reports)
-    * [get\_report\_by\_id](#reporting.Reporting.get_report_by_id)
-    * [create\_report](#reporting.Reporting.create_report)
-    * [update\_report](#reporting.Reporting.update_report)
-    * [delete\_report](#reporting.Reporting.delete_report)
-    * [send\_report](#reporting.Reporting.send_report)
-    * [get\_report\_branding\_settings](#reporting.Reporting.get_report_branding_settings)
-    * [save\_report\_branding\_settings](#reporting.Reporting.save_report_branding_settings)
-    * [send\_report\_test\_email](#reporting.Reporting.send_report_test_email)
-
 <a id="reporting"></a>
 
 # reporting
