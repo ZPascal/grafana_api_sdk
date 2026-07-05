@@ -143,7 +143,7 @@ jobs:
         run: uv sync --extra docs
 
       - name: Generate documentation
-        run: uv run pydoc-markdown --build --site-dir build/docs && rm -rf docs/content && mv build/docs/* docs
+        run: uv run pydoc-markdown --build --site-dir build/docs && rm -rf docs/build docs/content docs/mkdocs.yml && mv build/docs/* docs
 
       - name: Check changed files
         uses: tj-actions/verify-changed-files@v20
