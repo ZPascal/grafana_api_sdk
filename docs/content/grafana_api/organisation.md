@@ -10,7 +10,7 @@
 class Organisation()
 ```
 
-The class includes all necessary methods to access the Grafana organisation API endpoint
+The class includes all necessary methods to access the Grafana organisation API endpoint.
 
 **Arguments**:
 
@@ -29,7 +29,7 @@ The class includes all necessary methods to access the Grafana organisation API 
 def get_current_organization() -> dict
 ```
 
-The method includes a functionality to get the current organization
+The method includes a functionality to get the current organization.
 
 Required Permissions:
 Action: orgs:read
@@ -52,7 +52,7 @@ Scope: N/A
 def get_all_users_by_the_current_organization() -> list
 ```
 
-The method includes a functionality to get all users from the current organization
+The method includes a functionality to get all users from the current organization.
 
 Required Permissions:
 Action: org.users:read
@@ -75,7 +75,7 @@ Scope: users:*
 def get_all_users_by_the_current_organization_lookup() -> list
 ```
 
-The method includes a functionality to get the lookup information of all users from the current organization
+The method includes a functionality to get the lookup information of all users from the current organization.
 
 Required Permissions:
 Action: org.users:read
@@ -98,7 +98,7 @@ Scope: users:*
 def update_organization_user_role_by_user_id(user_id: int, role: str)
 ```
 
-The method includes a functionality to update the current organization user by the user id
+The method includes a functionality to update the current organization user by the user id.
 
 **Arguments**:
 
@@ -128,7 +128,7 @@ The method includes a functionality to update the current organization user by t
 def delete_organization_user_by_user_id(user_id: int)
 ```
 
-The method includes a functionality to delete the current organization user by the user id
+The method includes a functionality to delete the current organization user by the user id.
 
 **Arguments**:
 
@@ -157,7 +157,7 @@ The method includes a functionality to delete the current organization user by t
 def update_current_organization(name: str)
 ```
 
-The method includes a functionality to update the current organization
+The method includes a functionality to update the current organization.
 
 **Arguments**:
 
@@ -167,7 +167,9 @@ The method includes a functionality to update the current organization
 - `Action` - orgs:write
 - `Scope` - N/A
   
-  Raises
+
+**Raises**:
+
 - `ValueError` - Missed specifying a necessary value
 - `Exception` - Unspecified error by executing the API call
   
@@ -185,7 +187,7 @@ def add_new_user_to_current_organization(login_or_email: str,
                                          role: str) -> int
 ```
 
-The method includes a functionality to add a new user to the current organization
+The method includes a functionality to add a new user to the current organization.
 
 **Arguments**:
 
@@ -215,7 +217,7 @@ The method includes a functionality to add a new user to the current organizatio
 class OrganisationAdmin()
 ```
 
-The class includes all necessary methods to access the Grafana organisation Admin API endpoint. Be aware that all functionalities inside the class only working with basic authentication (username and password)
+The class includes all necessary methods to access the Grafana organisation Admin API endpoint. Be aware that all functionalities inside the class only working with basic authentication (username and password).
 
 **Arguments**:
 
@@ -234,7 +236,7 @@ The class includes all necessary methods to access the Grafana organisation Admi
 def get_organization_by_id(org_id: int) -> dict
 ```
 
-The method includes a functionality to get an organization by the id
+The method includes a functionality to get an organization by the id.
 
 **Arguments**:
 
@@ -263,7 +265,7 @@ The method includes a functionality to get an organization by the id
 def get_organization_by_name(name: str) -> dict
 ```
 
-The method includes a functionality to get an organization by the name
+The method includes a functionality to get an organization by the name.
 
 **Arguments**:
 
@@ -293,7 +295,7 @@ The method includes a functionality to get an organization by the name
 def get_organizations() -> list
 ```
 
-The method includes a functionality to get all organizations
+The method includes a functionality to get all organizations.
 
 Required Permissions:
 Action: orgs:read
@@ -317,7 +319,7 @@ Note: Needs to be assigned globally.
 def create_organization(name: str) -> int
 ```
 
-The method includes a functionality to create an organization
+The method includes a functionality to create an organization.
 
 **Arguments**:
 
@@ -347,7 +349,7 @@ The method includes a functionality to create an organization
 def update_organization(org_id: int, name: str)
 ```
 
-The method includes a functionality to update an organization
+The method includes a functionality to update an organization.
 
 **Arguments**:
 
@@ -377,7 +379,7 @@ The method includes a functionality to update an organization
 def delete_organization(org_id: int)
 ```
 
-The method includes a functionality to delete an organization
+The method includes a functionality to delete an organization.
 
 **Arguments**:
 
@@ -406,7 +408,7 @@ The method includes a functionality to delete an organization
 def get_organization_users(org_id: int) -> list
 ```
 
-The method includes a functionality to get all organization users specified by the organization id
+The method includes a functionality to get all organization users specified by the organization id.
 
 **Arguments**:
 
@@ -435,7 +437,7 @@ The method includes a functionality to get all organization users specified by t
 def add_organization_user(org_id: int, login_or_email: str, role: str) -> int
 ```
 
-The method includes a functionality to add a user to an organization
+The method includes a functionality to add a user to an organization.
 
 **Arguments**:
 
@@ -466,7 +468,7 @@ The method includes a functionality to add a user to an organization
 def update_organization_user(org_id: int, user_id: int, role: str)
 ```
 
-The method includes a functionality to update organization user specified by the organization id, the user_id and the role
+The method includes a functionality to update organization user specified by the organization id, the user_id and the role.
 
 **Arguments**:
 
@@ -497,7 +499,7 @@ The method includes a functionality to update organization user specified by the
 def delete_organization_user(org_id: int, user_id: int)
 ```
 
-The method includes a functionality to remove an organization users specified by the organization id and the user id
+The method includes a functionality to remove an organization users specified by the organization id and the user id.
 
 **Arguments**:
 

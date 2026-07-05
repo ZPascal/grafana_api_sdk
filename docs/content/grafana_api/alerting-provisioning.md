@@ -10,7 +10,7 @@
 class AlertingProvisioning()
 ```
 
-The class includes all necessary methods to access the Grafana alerting provisioning API endpoints
+The class includes all necessary methods to access the Grafana alerting provisioning API endpoints.
 
 **Arguments**:
 
@@ -29,7 +29,7 @@ The class includes all necessary methods to access the Grafana alerting provisio
 def get_alert_rule(uid: str) -> dict
 ```
 
-The method includes a functionality to get the alert rule specified by the uid
+The method includes a functionality to get the alert rule specified by the uid.
 
 **Arguments**:
 
@@ -54,7 +54,7 @@ The method includes a functionality to get the alert rule specified by the uid
 def add_alert_rule(alert_rule: AlertRule, disable_provenance: bool = False)
 ```
 
-The method includes a functionality to create a new alert rule
+The method includes a functionality to create a new alert rule.
 
 **Arguments**:
 
@@ -82,7 +82,7 @@ def update_alert_rule(uid: str,
                       disable_provenance: bool = False)
 ```
 
-The method includes a functionality to update an existing alert rule
+The method includes a functionality to update an existing alert rule.
 
 **Arguments**:
 
@@ -113,7 +113,7 @@ def update_the_interval_of_a_alert_rule_group(
         disable_provenance: bool = False)
 ```
 
-The method includes a functionality to update the interval of a alert rule group
+The method includes a functionality to update the interval of a alert rule group.
 
 **Arguments**:
 
@@ -141,7 +141,7 @@ The method includes a functionality to update the interval of a alert rule group
 def delete_alert_rule(uid: str, disable_provenance: bool = False)
 ```
 
-The method includes a functionality to delete an alert rule
+The method includes a functionality to delete an alert rule.
 
 **Arguments**:
 
@@ -166,7 +166,7 @@ The method includes a functionality to delete an alert rule
 def get_all_contact_points() -> list
 ```
 
-The method includes a functionality to get all contact points
+The method includes a functionality to get all contact points.
 
 **Raises**:
 
@@ -186,7 +186,7 @@ def add_contact_point(embedded_contact_point: EmbeddedContactPoint,
                       disable_provenance: bool = False)
 ```
 
-The method includes a functionality to create a contact point
+The method includes a functionality to create a contact point.
 
 **Arguments**:
 
@@ -214,7 +214,7 @@ def update_contact_point(uid: str,
                          disable_provenance: bool = False)
 ```
 
-The method includes a functionality to update a contact point
+The method includes a functionality to update a contact point.
 
 **Arguments**:
 
@@ -241,7 +241,7 @@ The method includes a functionality to update a contact point
 def delete_contact_point(uid: str)
 ```
 
-The method includes a functionality to delete a contact point
+The method includes a functionality to delete a contact point.
 
 **Arguments**:
 
@@ -266,7 +266,7 @@ The method includes a functionality to delete a contact point
 def get_notification_policies() -> dict
 ```
 
-The method includes a functionality to get the notification policy tree
+The method includes a functionality to get the notification policy tree.
 
 **Raises**:
 
@@ -285,7 +285,7 @@ The method includes a functionality to get the notification policy tree
 def add_notification_policies(route: Route, disable_provenance: bool = False)
 ```
 
-The method includes a functionality to set the notification policy tree
+The method includes a functionality to set the notification policy tree.
 
 **Arguments**:
 
@@ -311,7 +311,7 @@ The method includes a functionality to set the notification policy tree
 def get_all_mute_timings() -> list
 ```
 
-The method includes a functionality to get all mute timings
+The method includes a functionality to get all mute timings.
 
 **Raises**:
 
@@ -330,7 +330,7 @@ The method includes a functionality to get all mute timings
 def get_mute_timing(name: str) -> dict
 ```
 
-The method includes a functionality to get a mute timings specified by the name
+The method includes a functionality to get a mute timings specified by the name.
 
 **Arguments**:
 
@@ -356,7 +356,7 @@ def add_mute_timing(mute_time_interval: MuteTimeInterval,
                     disable_provenance: bool = False)
 ```
 
-The method includes a functionality to create a mute timing
+The method includes a functionality to create a mute timing.
 
 **Arguments**:
 
@@ -384,7 +384,7 @@ def update_mute_timing(name: str,
                        disable_provenance: bool = False)
 ```
 
-The method includes a functionality to update an existing mute timing
+The method includes a functionality to update an existing mute timing.
 
 **Arguments**:
 
@@ -411,7 +411,7 @@ The method includes a functionality to update an existing mute timing
 def delete_mute_timing(name: str)
 ```
 
-The method includes a functionality to delete a mute timings specified by the name
+The method includes a functionality to delete a mute timings specified by the name.
 
 **Arguments**:
 
@@ -436,7 +436,7 @@ The method includes a functionality to delete a mute timings specified by the na
 def get_all_message_templates() -> list
 ```
 
-The method includes a functionality to get all message templates
+The method includes a functionality to get all message templates.
 
 **Raises**:
 
@@ -455,7 +455,7 @@ The method includes a functionality to get all message templates
 def get_message_template(name: str) -> dict
 ```
 
-The method includes a functionality to get a message template specified by the name
+The method includes a functionality to get a message template specified by the name.
 
 **Arguments**:
 
@@ -482,7 +482,7 @@ def create_or_update_message_template(name: str,
                                       disable_provenance: bool = False)
 ```
 
-The method includes a functionality to create or update a message template
+The method includes a functionality to create or update a message template.
 
 **Arguments**:
 
@@ -509,7 +509,7 @@ The method includes a functionality to create or update a message template
 def delete_message_template(name: str)
 ```
 
-The method includes a functionality to delete a message template
+The method includes a functionality to delete a message template.
 
 **Arguments**:
 

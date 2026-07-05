@@ -10,7 +10,7 @@
 class AlertingNotifications()
 ```
 
-The class includes all necessary methods to access the Grafana alerting notifications API endpoints
+The class includes all necessary methods to access the Grafana alerting notifications API endpoints.
 
 **Arguments**:
 
@@ -29,7 +29,7 @@ The class includes all necessary methods to access the Grafana alerting notifica
 def get_all_notification_channels() -> list
 ```
 
-The method includes a functionality to get all alerting notification channels
+The method includes a functionality to get all alerting notification channels.
 
 **Raises**:
 
@@ -48,7 +48,7 @@ The method includes a functionality to get all alerting notification channels
 def get_all_notification_channels_lookup() -> list
 ```
 
-The method includes a functionality to lookup and get reduced information of all alerting notification channels
+The method includes a functionality to lookup and get reduced information of all alerting notification channels.
 
 **Raises**:
 
@@ -67,7 +67,7 @@ The method includes a functionality to lookup and get reduced information of all
 def get_notification_channel_by_uid(uid: str) -> dict
 ```
 
-The method includes a functionality to get an alerting notification channel specified by the uid
+The method includes a functionality to get an alerting notification channel specified by the uid.
 
 **Arguments**:
 
@@ -92,7 +92,7 @@ The method includes a functionality to get an alerting notification channel spec
 def get_notification_channel_by_id(id: int) -> dict
 ```
 
-The method includes a functionality to get an alerting notification channel specified by the id
+The method includes a functionality to get an alerting notification channel specified by the id.
 
 **Arguments**:
 
@@ -117,7 +117,7 @@ The method includes a functionality to get an alerting notification channel spec
 def create_notification_channel(notification_channel: dict) -> dict
 ```
 
-The method includes a functionality to create an alerting notification channel specified by the notification channel dict
+The method includes a functionality to create an alerting notification channel specified by the notification channel dict.
 
 **Arguments**:
 
@@ -143,7 +143,7 @@ def update_notification_channel_by_uid(uid: str,
                                        notification_channel: dict) -> dict
 ```
 
-The method includes a functionality to update an alerting notification channel specified by the notification channel dict and the uid
+The method includes a functionality to update an alerting notification channel specified by the notification channel dict and the uid.
 
 **Arguments**:
 
@@ -170,7 +170,7 @@ def update_notification_channel_by_id(id: int,
                                       notification_channel: dict) -> dict
 ```
 
-The method includes a functionality to update an alerting notification channel specified by the notification channel dict and the id
+The method includes a functionality to update an alerting notification channel specified by the notification channel dict and the id.
 
 **Arguments**:
 
@@ -196,7 +196,7 @@ The method includes a functionality to update an alerting notification channel s
 def delete_notification_channel_by_uid(uid: str)
 ```
 
-The method includes a functionality to delete an alerting notification channel specified by the uid
+The method includes a functionality to delete an alerting notification channel specified by the uid.
 
 **Arguments**:
 
@@ -221,7 +221,7 @@ The method includes a functionality to delete an alerting notification channel s
 def delete_notification_channel_by_id(id: int)
 ```
 
-The method includes a functionality to delete an alerting notification channel specified by the id
+The method includes a functionality to delete an alerting notification channel specified by the id.
 
 **Arguments**:
 
@@ -246,7 +246,7 @@ The method includes a functionality to delete an alerting notification channel s
 def test_notification_channel(notification_channel: dict)
 ```
 
-The method includes a functionality to test an alerting notification channel specified by the notification_channel
+The method includes a functionality to test an alerting notification channel specified by the notification_channel.
 
 **Arguments**:
 

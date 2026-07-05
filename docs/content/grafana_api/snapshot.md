@@ -10,7 +10,7 @@
 class Snapshot()
 ```
 
-The class includes all necessary methods to access the Grafana snapshot API endpoints
+The class includes all necessary methods to access the Grafana snapshot API endpoints.
 
 **Arguments**:
 
@@ -34,7 +34,7 @@ def create_new_snapshot(dashboard_json: dict,
                         delete_key: str = None) -> dict
 ```
 
-The method includes a functionality to create the specified dashboard snapshot
+The method includes a functionality to create the specified dashboard snapshot.
 
 **Arguments**:
 
@@ -64,7 +64,7 @@ The method includes a functionality to create the specified dashboard snapshot
 def get_snapshots() -> list
 ```
 
-The method includes a functionality to list all dashboard snapshots
+The method includes a functionality to list all dashboard snapshots.
 
 **Raises**:
 
@@ -83,7 +83,7 @@ The method includes a functionality to list all dashboard snapshots
 def get_snapshot_by_key(key: str) -> dict
 ```
 
-The method includes a functionality to get a specific dashboard snapshot by the key
+The method includes a functionality to get a specific dashboard snapshot by the key.
 
 **Arguments**:
 
@@ -108,7 +108,7 @@ The method includes a functionality to get a specific dashboard snapshot by the 
 def delete_snapshot_by_key(key: str)
 ```
 
-The method includes a functionality to delete a specific dashboard snapshot by the key
+The method includes a functionality to delete a specific dashboard snapshot by the key.
 
 **Arguments**:
 
@@ -133,7 +133,7 @@ The method includes a functionality to delete a specific dashboard snapshot by t
 def delete_snapshot_by_delete_key(delete_key: str)
 ```
 
-The method includes a functionality to delete a specific dashboard snapshot by the delete_key
+The method includes a functionality to delete a specific dashboard snapshot by the delete_key.
 
 **Arguments**:
 

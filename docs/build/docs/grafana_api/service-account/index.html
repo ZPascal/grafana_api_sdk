@@ -1583,7 +1583,7 @@
 <h2 id="serviceaccount-objects">ServiceAccount Objects</h2>
 <pre><code class="language-python">class ServiceAccount()
 </code></pre>
-<p>The class includes all necessary methods to access the Grafana service account API endpoints. Be aware that the functionality inside the class only works with basic authentication (username and password) and that the authenticated user is a Grafana Admin</p>
+<p>The class includes all necessary methods to access the Grafana service account API endpoints. Be aware that the functionality inside the class only works with basic authentication (username and password) and that the authenticated user is a Grafana Admin.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>grafana_api_model</code> <em>APIModel</em> - Inject a Grafana API model object that includes all necessary values and information</li>
@@ -1598,7 +1598,7 @@
                            pages: int = 1,
                            query: str = None) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get the service accounts specified by the optional pagination functionality</p>
+<p>The method includes a functionality to get the service accounts specified by the optional pagination functionality.</p>
 <p>Required Permissions:
 Action: serviceaccounts:read
 Scope: global:serviceaccounts:*</p>
@@ -1620,7 +1620,7 @@ Scope: global:serviceaccounts:*</p>
 <h4 id="get_service_account_by_id">get_service_account_by_id</h4>
 <pre><code class="language-python">def get_service_account_by_id(id: int) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get a service account specified by the id</p>
+<p>The method includes a functionality to get a service account specified by the id.</p>
 <p>Required Permissions:
 Action: serviceaccounts:read
 Scope: serviceaccounts:*</p>
@@ -1641,7 +1641,7 @@ Scope: serviceaccounts:*</p>
 <h4 id="create_service_account">create_service_account</h4>
 <pre><code class="language-python">def create_service_account(name: str, role: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to create a service account</p>
+<p>The method includes a functionality to create a service account.</p>
 <p>Required Permissions:
 Action: serviceaccounts:write
 Scope: serviceaccounts:*</p>
@@ -1663,7 +1663,7 @@ Scope: serviceaccounts:*</p>
 <h4 id="update_service_account">update_service_account</h4>
 <pre><code class="language-python">def update_service_account(id: int, name: str, role: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to update a service account specified by the id, name and role</p>
+<p>The method includes a functionality to update a service account specified by the id, name and role.</p>
 <p>Required Permissions:
 Action: serviceaccounts:write
 Scope: serviceaccounts:*</p>
@@ -1686,7 +1686,7 @@ Scope: serviceaccounts:*</p>
 <h4 id="delete_service_account">delete_service_account</h4>
 <pre><code class="language-python">def delete_service_account(id: int)
 </code></pre>
-<p>The method includes a functionality to delete a service account specified by the id</p>
+<p>The method includes a functionality to delete a service account specified by the id.</p>
 <p>Required Permissions:
 Action: serviceaccounts:delete
 Scope: serviceaccounts:id:*</p>
@@ -1705,7 +1705,7 @@ Scope: serviceaccounts:id:*</p>
 <h4 id="get_service_account_tokens_by_id">get_service_account_tokens_by_id</h4>
 <pre><code class="language-python">def get_service_account_tokens_by_id(id: int) -&gt; list
 </code></pre>
-<p>The method includes a functionality to get a service account tokens specified by the id</p>
+<p>The method includes a functionality to get a service account tokens specified by the id.</p>
 <p>Required Permissions:
 Action: serviceaccounts:read
 Scope: serviceaccounts:*</p>
@@ -1726,7 +1726,7 @@ Scope: serviceaccounts:*</p>
 <h4 id="create_service_account_token_by_id">create_service_account_token_by_id</h4>
 <pre><code class="language-python">def create_service_account_token_by_id(id: int, name: str, role: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to create a service account token specified by the id</p>
+<p>The method includes a functionality to create a service account token specified by the id.</p>
 <p>Required Permissions:
 Action: serviceaccounts:write
 Scope: serviceaccounts:*</p>
@@ -1749,7 +1749,7 @@ Scope: serviceaccounts:*</p>
 <h4 id="delete_service_account_token_by_id">delete_service_account_token_by_id</h4>
 <pre><code class="language-python">def delete_service_account_token_by_id(id: int, token_id: int)
 </code></pre>
-<p>The method includes a functionality to delete a service account token specified by the id</p>
+<p>The method includes a functionality to delete a service account token specified by the id.</p>
 <p>Required Permissions:
 Action: serviceaccounts:write
 Scope: serviceaccounts:*</p>
@@ -1769,7 +1769,7 @@ Scope: serviceaccounts:*</p>
 <h4 id="migrate_api_keys_to_service_accounts">migrate_api_keys_to_service_accounts</h4>
 <pre><code class="language-python">def migrate_api_keys_to_service_accounts()
 </code></pre>
-<p>The method includes a functionality to migrate all api keys to service accounts</p>
+<p>The method includes a functionality to migrate all api keys to service accounts.</p>
 <p>Required Permissions:
 Action: serviceaccounts:write
 Scope: serviceaccounts:*</p>
@@ -1783,7 +1783,7 @@ Scope: serviceaccounts:*</p>
 <h4 id="migrate_api_key_to_service_account">migrate_api_key_to_service_account</h4>
 <pre><code class="language-python">def migrate_api_key_to_service_account(key_id: int)
 </code></pre>
-<p>The method includes a functionality to migrate an api key to a service account specified by the key id</p>
+<p>The method includes a functionality to migrate an api key to a service account specified by the key id.</p>
 <p>Required Permissions:
 Action: serviceaccounts:write
 Scope: serviceaccounts:*</p>
@@ -1802,7 +1802,7 @@ Scope: serviceaccounts:*</p>
 <h4 id="get_service_account_migration_status">get_service_account_migration_status</h4>
 <pre><code class="language-python">def get_service_account_migration_status() -&gt; bool
 </code></pre>
-<p>The method includes a functionality to get the corresponding api key migration status</p>
+<p>The method includes a functionality to get the corresponding api key migration status.</p>
 <p>Required Permissions:
 Action: serviceaccounts:read
 Scope: serviceaccounts:*</p>
@@ -1818,7 +1818,7 @@ Scope: serviceaccounts:*</p>
 <h4 id="hide_the_api_keys_tab">hide_the_api_keys_tab</h4>
 <pre><code class="language-python">def hide_the_api_keys_tab()
 </code></pre>
-<p>The method includes a functionality to hide the api keys tab inside the UI</p>
+<p>The method includes a functionality to hide the api keys tab inside the UI.</p>
 <p>Required Permissions:
 Action: serviceaccounts:write
 Scope: serviceaccounts:*</p>
@@ -1832,7 +1832,7 @@ Scope: serviceaccounts:*</p>
 <h4 id="revert_service_account_token_to_api_key">revert_service_account_token_to_api_key</h4>
 <pre><code class="language-python">def revert_service_account_token_to_api_key(id: int, key_id: int)
 </code></pre>
-<p>The method includes a functionality to revert a service account and transform it to the legacy api token specified by the service account id and the key id</p>
+<p>The method includes a functionality to revert a service account and transform it to the legacy api token specified by the service account id and the key id.</p>
 <p>Required Permissions:
 Action: serviceaccounts:delete
 Scope: serviceaccounts:id:*</p>

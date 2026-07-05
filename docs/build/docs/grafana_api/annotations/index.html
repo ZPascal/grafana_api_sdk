@@ -1429,7 +1429,7 @@
 <h2 id="annotations-objects">Annotations Objects</h2>
 <pre><code class="language-python">class Annotations()
 </code></pre>
-<p>The class includes all necessary methods to access the Grafana annotations API endpoints. Annotations can be organization annotations that can be shown on any dashboard by configuring an annotation data source filtered by tags. They can also be tied to a panel on a dashboard and are then only shown on that panel</p>
+<p>The class includes all necessary methods to access the Grafana annotations API endpoints. Annotations can be organization annotations that can be shown on any dashboard by configuring an annotation data source filtered by tags. They can also be tied to a panel on a dashboard and are then only shown on that panel.</p>
 <p>HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
@@ -1443,7 +1443,7 @@
 <h4 id="find_annotations">find_annotations</h4>
 <pre><code class="language-python">def find_annotations(annotation: FindAnnotationObject = None) -&gt; list
 </code></pre>
-<p>The method includes a functionality to find the corresponding annotations</p>
+<p>The method includes a functionality to find the corresponding annotations.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>annotation</code> <em>FindAnnotationObject</em> - Specify the find annotation object</li>
@@ -1460,7 +1460,7 @@
 <h4 id="create_annotation">create_annotation</h4>
 <pre><code class="language-python">def create_annotation(annotation: AnnotationObject) -&gt; int
 </code></pre>
-<p>The method includes a functionality to create the corresponding annotation</p>
+<p>The method includes a functionality to create the corresponding annotation.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>annotation</code> (<code>AnnotationObject</code>): Specify the annotation object</li>
@@ -1476,7 +1476,7 @@
 <h4 id="create_graphite_annotation">create_graphite_annotation</h4>
 <pre><code class="language-python">def create_graphite_annotation(annotation: AnnotationGraphiteObject) -&gt; int
 </code></pre>
-<p>The method includes a functionality to create the corresponding graphite annotation</p>
+<p>The method includes a functionality to create the corresponding graphite annotation.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>annotation</code> (<code>AnnotationGraphiteObject</code>): Specify the annotation object</li>
@@ -1492,7 +1492,7 @@
 <h4 id="update_annotation">update_annotation</h4>
 <pre><code class="language-python">def update_annotation(id: int, annotation: AnnotationObject)
 </code></pre>
-<p>The method includes a functionality to update the corresponding annotation specified by the annotation id</p>
+<p>The method includes a functionality to update the corresponding annotation specified by the annotation id.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>id</code> (<code>int</code>): Specify the annotation object id</li>
@@ -1509,7 +1509,7 @@
 <h4 id="delete_annotation">delete_annotation</h4>
 <pre><code class="language-python">def delete_annotation(id: int)
 </code></pre>
-<p>The method includes a functionality to delete the corresponding annotation specified by the annotation id</p>
+<p>The method includes a functionality to delete the corresponding annotation specified by the annotation id.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>id</code> (<code>int</code>): Specify the annotation object id</li>
@@ -1525,7 +1525,7 @@
 <h4 id="find_annotation_tags">find_annotation_tags</h4>
 <pre><code class="language-python">def find_annotation_tags(tag: str = None, limit: int = 100)
 </code></pre>
-<p>The method includes a functionality to find the annotation tags</p>
+<p>The method includes a functionality to find the annotation tags.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>tag</code> <em>str</em> - Specify the optional annotation tag</li>

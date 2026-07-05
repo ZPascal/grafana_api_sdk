@@ -10,7 +10,7 @@
 class QueryHistory()
 ```
 
-The class includes all necessary methods to access the Grafana query history API endpoints. Be aware that it requires that the user is logged in and that query history feature is enabled in the config file
+The class includes all necessary methods to access the Grafana query history API endpoints. Be aware that it requires that the user is logged in and that query history feature is enabled in the config file.
 
 **Arguments**:
 
@@ -29,7 +29,7 @@ The class includes all necessary methods to access the Grafana query history API
 def add_query_to_history(datasource_uid: str, queries: list) -> dict
 ```
 
-The method includes a functionality to add queries to query history
+The method includes a functionality to add queries to query history.
 
 **Arguments**:
 
@@ -60,7 +60,7 @@ def search_query_history(datasource_uids: list,
                          results_per_page: int = 100) -> dict
 ```
 
-The method includes a functionality to search a query inside the query history
+The method includes a functionality to search a query inside the query history.
 
 **Arguments**:
 
@@ -90,7 +90,7 @@ The method includes a functionality to search a query inside the query history
 def delete_query_history(uid: str)
 ```
 
-The method includes a functionality to delete a query inside the query history
+The method includes a functionality to delete a query inside the query history.
 
 **Arguments**:
 
@@ -115,7 +115,7 @@ The method includes a functionality to delete a query inside the query history
 def update_query_history(uid: str, comment: str) -> dict
 ```
 
-The method includes a functionality to update a query inside the query history
+The method includes a functionality to update a query inside the query history.
 
 **Arguments**:
 
@@ -141,7 +141,7 @@ The method includes a functionality to update a query inside the query history
 def star_query_history(uid: str) -> dict
 ```
 
-The method includes a functionality to star a query inside the query history
+The method includes a functionality to star a query inside the query history.
 
 **Arguments**:
 
@@ -166,7 +166,7 @@ The method includes a functionality to star a query inside the query history
 def unstar_query_history(uid: str) -> dict
 ```
 
-The method includes a functionality to unstar a query inside the query history
+The method includes a functionality to unstar a query inside the query history.
 
 **Arguments**:
 

@@ -1781,7 +1781,7 @@
 <h2 id="dashboard-objects">Dashboard Objects</h2>
 <pre><code class="language-python">class Dashboard()
 </code></pre>
-<p>The class includes all necessary methods to access the Grafana dashboard API endpoints</p>
+<p>The class includes all necessary methods to access the Grafana dashboard API endpoints.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>grafana_api_model</code> <em>APIModel</em> - Inject a Grafana API model object that includes all necessary values and information</li>
@@ -1797,7 +1797,7 @@
                                message: str,
                                overwrite: bool = False)
 </code></pre>
-<p>The method includes a functionality to create the specified dashboard</p>
+<p>The method includes a functionality to create the specified dashboard.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>dashboard_path</code> <em>str</em> - Specify the dashboard path in which the dashboard is to be placed</li>
@@ -1817,7 +1817,7 @@
 <pre><code class="language-python">def delete_dashboard_by_name_and_path(dashboard_name: str,
                                       dashboard_path: str)
 </code></pre>
-<p>The method includes a functionality to delete the specified dashboard inside the model</p>
+<p>The method includes a functionality to delete the specified dashboard inside the model.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>dashboard_name</code> <em>str</em> - Specify the dashboard name of the deleted dashboard</li>
@@ -1834,7 +1834,7 @@
 <h4 id="get_dashboard_by_uid">get_dashboard_by_uid</h4>
 <pre><code class="language-python">def get_dashboard_by_uid(uid: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get the dashboard from the specified uid</p>
+<p>The method includes a functionality to get the dashboard from the specified uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the dashboard</li>
@@ -1852,7 +1852,7 @@
 <h4 id="get_dashboard_home">get_dashboard_home</h4>
 <pre><code class="language-python">def get_dashboard_home() -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get the home dashboard</p>
+<p>The method includes a functionality to get the home dashboard.</p>
 <p><strong>Raises</strong>:</p>
 <ul>
 <li><code>Exception</code> - Unspecified error by executing the API call</li>
@@ -1865,7 +1865,7 @@
 <h4 id="get_dashboard_tags">get_dashboard_tags</h4>
 <pre><code class="language-python">def get_dashboard_tags() -&gt; list
 </code></pre>
-<p>The method includes a functionality to get the all tags of all dashboards</p>
+<p>The method includes a functionality to get the all tags of all dashboards.</p>
 <p><strong>Raises</strong>:</p>
 <ul>
 <li><code>Exception</code> - Unspecified error by executing the API call</li>
@@ -1879,7 +1879,7 @@
 <pre><code class="language-python">def get_dashboard_uid_and_id_by_name_and_folder(dashboard_name: str,
                                                 dashboard_path: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to extract the dashboard uid specified inside the model</p>
+<p>The method includes a functionality to extract the dashboard uid specified inside the model.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>dashboard_name</code> <em>str</em> - Specify the dashboard name of the dashboard</li>
@@ -1898,7 +1898,7 @@
 <h4 id="get_dashboard_permissions">get_dashboard_permissions</h4>
 <pre><code class="language-python">def get_dashboard_permissions(id: int) -&gt; list
 </code></pre>
-<p>The method includes a functionality to extract the dashboard permissions based on the specified id</p>
+<p>The method includes a functionality to extract the dashboard permissions based on the specified id.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>id</code> <em>int</em> - Specify the id of the dashboard</li>
@@ -1916,7 +1916,7 @@
 <h4 id="get_dashboard_permissions_by_uid">get_dashboard_permissions_by_uid</h4>
 <pre><code class="language-python">def get_dashboard_permissions_by_uid(uid: str) -&gt; list
 </code></pre>
-<p>The method includes a functionality to extract the dashboard permissions based on the specified uid</p>
+<p>The method includes a functionality to extract the dashboard permissions based on the specified uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the dashboard</li>
@@ -1934,7 +1934,7 @@
 <h4 id="update_dashboard_permissions">update_dashboard_permissions</h4>
 <pre><code class="language-python">def update_dashboard_permissions(id: int, permission_json: dict)
 </code></pre>
-<p>The method includes a functionality to update the dashboard permissions based on the specified id and the permission json document</p>
+<p>The method includes a functionality to update the dashboard permissions based on the specified id and the permission json document.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>id</code> <em>int</em> - Specify the id of the dashboard</li>
@@ -1951,7 +1951,7 @@
 <h4 id="update_dashboard_permissions_by_uid">update_dashboard_permissions_by_uid</h4>
 <pre><code class="language-python">def update_dashboard_permissions_by_uid(uid: str, permission_json: dict)
 </code></pre>
-<p>The method includes a functionality to update the dashboard permissions based on the specified uid and the permission json document</p>
+<p>The method includes a functionality to update the dashboard permissions based on the specified uid and the permission json document.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the dashboard</li>
@@ -1968,7 +1968,7 @@
 <h4 id="get_dashboard_versions">get_dashboard_versions</h4>
 <pre><code class="language-python">def get_dashboard_versions(id: int) -&gt; list
 </code></pre>
-<p>The method includes a functionality to extract the versions of a dashboard based on the specified id</p>
+<p>The method includes a functionality to extract the versions of a dashboard based on the specified id.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>id</code> <em>int</em> - Specify the id of the dashboard</li>
@@ -1986,7 +1986,7 @@
 <h4 id="get_dashboard_versions_by_uid">get_dashboard_versions_by_uid</h4>
 <pre><code class="language-python">def get_dashboard_versions_by_uid(uid: str) -&gt; list
 </code></pre>
-<p>The method includes a functionality to extract the versions of a dashboard based on the specified uid</p>
+<p>The method includes a functionality to extract the versions of a dashboard based on the specified uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the id of the dashboard</li>
@@ -2004,7 +2004,7 @@
 <h4 id="get_dashboard_version">get_dashboard_version</h4>
 <pre><code class="language-python">def get_dashboard_version(id: int, version_id: int) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to extract a specified version of a dashboard based on the specified dashboard id and a version_id of the dashboard</p>
+<p>The method includes a functionality to extract a specified version of a dashboard based on the specified dashboard id and a version_id of the dashboard.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>id</code> <em>int</em> - Specify the id of the dashboard</li>
@@ -2023,7 +2023,7 @@
 <h4 id="get_dashboard_version_by_uid">get_dashboard_version_by_uid</h4>
 <pre><code class="language-python">def get_dashboard_version_by_uid(uid: str, version_id: int) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to extract a specified version of a dashboard based on the specified dashboard uid and a version_id of the dashboard</p>
+<p>The method includes a functionality to extract a specified version of a dashboard based on the specified dashboard uid and a version_id of the dashboard.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the dashboard</li>
@@ -2042,7 +2042,7 @@
 <h4 id="restore_dashboard_version">restore_dashboard_version</h4>
 <pre><code class="language-python">def restore_dashboard_version(id: int, version: dict)
 </code></pre>
-<p>The method includes a functionality to restore a specified version of a dashboard based on the specified dashboard id and a version as dict of the dashboard</p>
+<p>The method includes a functionality to restore a specified version of a dashboard based on the specified dashboard id and a version as dict of the dashboard.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>id</code> <em>int</em> - Specify the id of the dashboard</li>
@@ -2059,7 +2059,7 @@
 <h4 id="restore_dashboard_version_by_uid">restore_dashboard_version_by_uid</h4>
 <pre><code class="language-python">def restore_dashboard_version_by_uid(uid: str, version: dict)
 </code></pre>
-<p>The method includes a functionality to restore a specified version of a dashboard based on the specified dashboard uid and a version as dict of the dashboard</p>
+<p>The method includes a functionality to restore a specified version of a dashboard based on the specified dashboard uid and a version as dict of the dashboard.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the dashboard</li>
@@ -2078,7 +2078,7 @@
                              dashboard_id_and_version_new: dict,
                              diff_type: str = &quot;json&quot;) -&gt; str
 </code></pre>
-<p>The method includes a functionality to calculate the diff of specified versions of a dashboard based on the specified dashboard uid and the selected version of the base dashboard and the new dashboard and the diff type (basic or json)</p>
+<p>The method includes a functionality to calculate the diff of specified versions of a dashboard based on the specified dashboard uid and the selected version of the base dashboard and the new dashboard and the diff type (basic or json).</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>dashboard_id_and_version_base</code> <em>dict</em> - Specify the version and id of the base dashboard</li>
@@ -2098,7 +2098,7 @@
 <h4 id="get_public_dashboards">get_public_dashboards</h4>
 <pre><code class="language-python">def get_public_dashboards(per_page: int = None, page: int = None) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get all public available dashboards</p>
+<p>The method includes a functionality to get all public available dashboards.</p>
 <p>Required Permissions:
 Action: dashboards:read
 Scope: dashboards:uid:<dashboard UID></p>
@@ -2119,7 +2119,7 @@ Scope: dashboards:uid:<dashboard UID></p>
 <h4 id="get_public_dashboard_by_uid">get_public_dashboard_by_uid</h4>
 <pre><code class="language-python">def get_public_dashboard_by_uid(dashboard_uid: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get a public available dashboard specified by dashboard_uid</p>
+<p>The method includes a functionality to get a public available dashboard specified by dashboard_uid.</p>
 <p>Required Permissions:
 Action: dashboards:read
 Scope: dashboards:uid:<dashboard UID></p>
@@ -2139,10 +2139,10 @@ Scope: dashboards:uid:<dashboard UID></p>
 <p><a id="dashboard.Dashboard.create_public_dashboard"></a></p>
 <h4 id="create_public_dashboard">create_public_dashboard</h4>
 <pre><code class="language-python">def create_public_dashboard(
-    dashboard_uid: str, public_dashboard: PublicDashboard = PublicDashboard()
-) -&gt; dict
+        dashboard_uid: str,
+        public_dashboard: Optional[PublicDashboard] = None) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to create a public available dashboard</p>
+<p>The method includes a functionality to create a public available dashboard.</p>
 <p>Required Permissions:
 Action: dashboards.public:write
 Scope: dashboards:uid:<dashboard UID></p>
@@ -2169,7 +2169,7 @@ Scope: dashboards:uid:<dashboard UID></p>
                             annotations_enabled: bool = None,
                             share: str = None) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to update a public available dashboard</p>
+<p>The method includes a functionality to update a public available dashboard.</p>
 <p>Required Permissions:
 Action: dashboards.public:write
 Scope: dashboards:uid:<dashboard UID></p>
@@ -2195,7 +2195,7 @@ Scope: dashboards:uid:<dashboard UID></p>
 <h4 id="delete_public_dashboard">delete_public_dashboard</h4>
 <pre><code class="language-python">def delete_public_dashboard(dashboard_uid: str, public_dashboard_uid: str)
 </code></pre>
-<p>The method includes a functionality to delete a public available dashboard</p>
+<p>The method includes a functionality to delete a public available dashboard.</p>
 <p>Required Permissions:
 Action: dashboards.public:write
 Scope: dashboards:uid:<dashboard UID></p>

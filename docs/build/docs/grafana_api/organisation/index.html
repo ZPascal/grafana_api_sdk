@@ -1705,7 +1705,7 @@
 <h2 id="organisation-objects">Organisation Objects</h2>
 <pre><code class="language-python">class Organisation()
 </code></pre>
-<p>The class includes all necessary methods to access the Grafana organisation API endpoint</p>
+<p>The class includes all necessary methods to access the Grafana organisation API endpoint.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>grafana_api_model</code> <em>APIModel</em> - Inject a Grafana API model object that includes all necessary values and information</li>
@@ -1718,7 +1718,7 @@
 <h4 id="get_current_organization">get_current_organization</h4>
 <pre><code class="language-python">def get_current_organization() -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get the current organization</p>
+<p>The method includes a functionality to get the current organization.</p>
 <p>Required Permissions:
 Action: orgs:read
 Scope: N/A</p>
@@ -1734,7 +1734,7 @@ Scope: N/A</p>
 <h4 id="get_all_users_by_the_current_organization">get_all_users_by_the_current_organization</h4>
 <pre><code class="language-python">def get_all_users_by_the_current_organization() -&gt; list
 </code></pre>
-<p>The method includes a functionality to get all users from the current organization</p>
+<p>The method includes a functionality to get all users from the current organization.</p>
 <p>Required Permissions:
 Action: org.users:read
 Scope: users:*</p>
@@ -1750,7 +1750,7 @@ Scope: users:*</p>
 <h4 id="get_all_users_by_the_current_organization_lookup">get_all_users_by_the_current_organization_lookup</h4>
 <pre><code class="language-python">def get_all_users_by_the_current_organization_lookup() -&gt; list
 </code></pre>
-<p>The method includes a functionality to get the lookup information of all users from the current organization</p>
+<p>The method includes a functionality to get the lookup information of all users from the current organization.</p>
 <p>Required Permissions:
 Action: org.users:read
 Scope: users:*</p>
@@ -1766,7 +1766,7 @@ Scope: users:*</p>
 <h4 id="update_organization_user_role_by_user_id">update_organization_user_role_by_user_id</h4>
 <pre><code class="language-python">def update_organization_user_role_by_user_id(user_id: int, role: str)
 </code></pre>
-<p>The method includes a functionality to update the current organization user by the user id</p>
+<p>The method includes a functionality to update the current organization user by the user id.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>user_id</code> <em>int</em> - Specify the id of the user</li>
@@ -1786,7 +1786,7 @@ Scope: users:*</p>
 <h4 id="delete_organization_user_by_user_id">delete_organization_user_by_user_id</h4>
 <pre><code class="language-python">def delete_organization_user_by_user_id(user_id: int)
 </code></pre>
-<p>The method includes a functionality to delete the current organization user by the user id</p>
+<p>The method includes a functionality to delete the current organization user by the user id.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>user_id</code> <em>int</em> - Specify the id of the user</li>
@@ -1805,7 +1805,7 @@ Scope: users:*</p>
 <h4 id="update_current_organization">update_current_organization</h4>
 <pre><code class="language-python">def update_current_organization(name: str)
 </code></pre>
-<p>The method includes a functionality to update the current organization</p>
+<p>The method includes a functionality to update the current organization.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>name</code> <em>str</em> - Specify the new name of the current organization</li>
@@ -1813,9 +1813,11 @@ Scope: users:*</p>
 <p>Required Permissions:
 - <code>Action</code> - orgs:write
 - <code>Scope</code> - N/A</p>
-<p>Raises
-- <code>ValueError</code> - Missed specifying a necessary value
-- <code>Exception</code> - Unspecified error by executing the API call</p>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>ValueError</code> - Missed specifying a necessary value</li>
+<li><code>Exception</code> - Unspecified error by executing the API call</li>
+</ul>
 <p><strong>Returns</strong>:</p>
 <p>None</p>
 <p><a id="organisation.Organisation.add_new_user_to_current_organization"></a></p>
@@ -1823,7 +1825,7 @@ Scope: users:*</p>
 <pre><code class="language-python">def add_new_user_to_current_organization(login_or_email: str,
                                          role: str) -&gt; int
 </code></pre>
-<p>The method includes a functionality to add a new user to the current organization</p>
+<p>The method includes a functionality to add a new user to the current organization.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>login_or_email</code> <em>str</em> - Specify the added user</li>
@@ -1845,7 +1847,7 @@ Scope: users:*</p>
 <h2 id="organisationadmin-objects">OrganisationAdmin Objects</h2>
 <pre><code class="language-python">class OrganisationAdmin()
 </code></pre>
-<p>The class includes all necessary methods to access the Grafana organisation Admin API endpoint. Be aware that all functionalities inside the class only working with basic authentication (username and password)</p>
+<p>The class includes all necessary methods to access the Grafana organisation Admin API endpoint. Be aware that all functionalities inside the class only working with basic authentication (username and password).</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>grafana_api_model</code> <em>APIModel</em> - Inject a Grafana API model object that includes all necessary values and information</li>
@@ -1858,7 +1860,7 @@ Scope: users:*</p>
 <h4 id="get_organization_by_id">get_organization_by_id</h4>
 <pre><code class="language-python">def get_organization_by_id(org_id: int) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get an organization by the id</p>
+<p>The method includes a functionality to get an organization by the id.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>org_id</code> <em>int</em> - Specify the organization id</li>
@@ -1879,7 +1881,7 @@ Scope: users:*</p>
 <h4 id="get_organization_by_name">get_organization_by_name</h4>
 <pre><code class="language-python">def get_organization_by_name(name: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get an organization by the name</p>
+<p>The method includes a functionality to get an organization by the name.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>name</code> <em>str</em> - Specify the organization name</li>
@@ -1901,7 +1903,7 @@ Scope: users:*</p>
 <h4 id="get_organizations">get_organizations</h4>
 <pre><code class="language-python">def get_organizations() -&gt; list
 </code></pre>
-<p>The method includes a functionality to get all organizations</p>
+<p>The method includes a functionality to get all organizations.</p>
 <p>Required Permissions:
 Action: orgs:read
 Scope: N/A
@@ -1918,7 +1920,7 @@ Note: Needs to be assigned globally.</p>
 <h4 id="create_organization">create_organization</h4>
 <pre><code class="language-python">def create_organization(name: str) -&gt; int
 </code></pre>
-<p>The method includes a functionality to create an organization</p>
+<p>The method includes a functionality to create an organization.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>name</code> <em>str</em> - Specify the organization name</li>
@@ -1940,7 +1942,7 @@ Note: Needs to be assigned globally.</p>
 <h4 id="update_organization">update_organization</h4>
 <pre><code class="language-python">def update_organization(org_id: int, name: str)
 </code></pre>
-<p>The method includes a functionality to update an organization</p>
+<p>The method includes a functionality to update an organization.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>org_id</code> <em>int</em> - Specify the organization id</li>
@@ -1960,7 +1962,7 @@ Note: Needs to be assigned globally.</p>
 <h4 id="delete_organization">delete_organization</h4>
 <pre><code class="language-python">def delete_organization(org_id: int)
 </code></pre>
-<p>The method includes a functionality to delete an organization</p>
+<p>The method includes a functionality to delete an organization.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>org_id</code> <em>int</em> - Specify the organization id</li>
@@ -1979,7 +1981,7 @@ Note: Needs to be assigned globally.</p>
 <h4 id="get_organization_users">get_organization_users</h4>
 <pre><code class="language-python">def get_organization_users(org_id: int) -&gt; list
 </code></pre>
-<p>The method includes a functionality to get all organization users specified by the organization id</p>
+<p>The method includes a functionality to get all organization users specified by the organization id.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>org_id</code> <em>int</em> - Specify the organization id</li>
@@ -2000,7 +2002,7 @@ Note: Needs to be assigned globally.</p>
 <h4 id="add_organization_user">add_organization_user</h4>
 <pre><code class="language-python">def add_organization_user(org_id: int, login_or_email: str, role: str) -&gt; int
 </code></pre>
-<p>The method includes a functionality to add a user to an organization</p>
+<p>The method includes a functionality to add a user to an organization.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>org_id</code> <em>int</em> - Specify the organization id</li>
@@ -2023,7 +2025,7 @@ Note: Needs to be assigned globally.</p>
 <h4 id="update_organization_user">update_organization_user</h4>
 <pre><code class="language-python">def update_organization_user(org_id: int, user_id: int, role: str)
 </code></pre>
-<p>The method includes a functionality to update organization user specified by the organization id, the user_id and the role</p>
+<p>The method includes a functionality to update organization user specified by the organization id, the user_id and the role.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>org_id</code> <em>int</em> - Specify the organization id</li>
@@ -2044,7 +2046,7 @@ Note: Needs to be assigned globally.</p>
 <h4 id="delete_organization_user">delete_organization_user</h4>
 <pre><code class="language-python">def delete_organization_user(org_id: int, user_id: int)
 </code></pre>
-<p>The method includes a functionality to remove an organization users specified by the organization id and the user id</p>
+<p>The method includes a functionality to remove an organization users specified by the organization id and the user id.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>org_id</code> <em>int</em> - Specify the organization id</li>

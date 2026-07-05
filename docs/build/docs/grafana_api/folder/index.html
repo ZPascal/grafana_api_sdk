@@ -1561,7 +1561,7 @@
 <h2 id="folder-objects">Folder Objects</h2>
 <pre><code class="language-python">class Folder()
 </code></pre>
-<p>The class includes all necessary methods to access the Grafana folder API endpoints</p>
+<p>The class includes all necessary methods to access the Grafana folder API endpoints.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>grafana_api_model</code> <em>APIModel</em> - Inject a Grafana API model object that includes all necessary values and information</li>
@@ -1574,7 +1574,7 @@
 <h4 id="get_folders">get_folders</h4>
 <pre><code class="language-python">def get_folders(limit: int = 1000, nested_folders: bool = False) -&gt; list
 </code></pre>
-<p>The method includes a functionality to extract all folders inside the organization</p>
+<p>The method includes a functionality to extract all folders inside the organization.</p>
 <p>Required Permissions:
 Action: folders:read
 Scope: folders:*</p>
@@ -1595,7 +1595,7 @@ Scope: folders:*</p>
 <h4 id="get_folder_by_uid">get_folder_by_uid</h4>
 <pre><code class="language-python">def get_folder_by_uid(uid: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to extract all folder information specified by the uid of the folder</p>
+<p>The method includes a functionality to extract all folder information specified by the uid of the folder.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the folder</li>
@@ -1616,7 +1616,7 @@ Scope: folders:*</p>
 <h4 id="get_folder_by_id">get_folder_by_id</h4>
 <pre><code class="language-python">def get_folder_by_id(id: int) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to extract all folder information specified by the id of the folder</p>
+<p>The method includes a functionality to extract all folder information specified by the id of the folder.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>id</code> <em>int</em> - Specify the id of the folder</li>
@@ -1637,7 +1637,7 @@ Scope: folders:*</p>
 <h4 id="create_folder">create_folder</h4>
 <pre><code class="language-python">def create_folder(title: str, uid: str = None, parent_uid: str = None) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to create a new folder inside the organization specified by the defined title and the optional uid</p>
+<p>The method includes a functionality to create a new folder inside the organization specified by the defined title and the optional uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>title</code> <em>str</em> - Specify the title of the folder</li>
@@ -1663,7 +1663,7 @@ Scope: folders:*</p>
                   version: int = 0,
                   overwrite: bool = False) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to update a folder information inside the organization specified by the uid, the title, the version of the folder or if folder information be overwritten</p>
+<p>The method includes a functionality to update a folder information inside the organization specified by the uid, the title, the version of the folder or if folder information be overwritten.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>title</code> <em>str</em> - Specify the title of the folder</li>
@@ -1687,7 +1687,7 @@ Scope: folders:*</p>
 <h4 id="move_folder">move_folder</h4>
 <pre><code class="language-python">def move_folder(uid: str, parent_uid: str = None)
 </code></pre>
-<p>The method includes a functionality to move a folder inside the organization specified by the defined uid. This feature is only relevant if nested folders are enabled</p>
+<p>The method includes a functionality to move a folder inside the organization specified by the defined uid. This feature is only relevant if nested folders are enabled.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the folder</li>
@@ -1709,7 +1709,7 @@ Scope: folders:*</p>
 <h4 id="delete_folder">delete_folder</h4>
 <pre><code class="language-python">def delete_folder(uid: str)
 </code></pre>
-<p>The method includes a functionality to delete a folder inside the organization specified by the defined uid</p>
+<p>The method includes a functionality to delete a folder inside the organization specified by the defined uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the folder</li>
@@ -1728,7 +1728,7 @@ Scope: folders:*</p>
 <h4 id="get_folder_permissions">get_folder_permissions</h4>
 <pre><code class="language-python">def get_folder_permissions(uid: str) -&gt; list
 </code></pre>
-<p>The method includes a functionality to extract the folder permissions inside the organization specified by the defined uid</p>
+<p>The method includes a functionality to extract the folder permissions inside the organization specified by the defined uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the folder</li>
@@ -1749,7 +1749,7 @@ Scope: folders:*</p>
 <h4 id="update_folder_permissions">update_folder_permissions</h4>
 <pre><code class="language-python">def update_folder_permissions(uid: str, permission_json: dict)
 </code></pre>
-<p>The method includes a functionality to update the folder permissions based on the specified uid and the permission json document</p>
+<p>The method includes a functionality to update the folder permissions based on the specified uid and the permission json document.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the folder</li>
@@ -1769,7 +1769,7 @@ Scope: folders:*</p>
 <h4 id="get_folder_id_by_dashboard_path">get_folder_id_by_dashboard_path</h4>
 <pre><code class="language-python">def get_folder_id_by_dashboard_path(dashboard_path: str) -&gt; int
 </code></pre>
-<p>The method includes a functionality to extract the folder id specified inside model dashboard path</p>
+<p>The method includes a functionality to extract the folder id specified inside model dashboard path.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>dashboard_path</code> <em>str</em> - Specify the dashboard path</li>
@@ -1787,7 +1787,7 @@ Scope: folders:*</p>
 <h4 id="get_folder_uid_by_dashboard_path">get_folder_uid_by_dashboard_path</h4>
 <pre><code class="language-python">def get_folder_uid_by_dashboard_path(dashboard_path: str) -&gt; str
 </code></pre>
-<p>The method includes a functionality to extract the folder uid specified inside model dashboard path</p>
+<p>The method includes a functionality to extract the folder uid specified inside model dashboard path.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>dashboard_path</code> <em>str</em> - Specify the dashboard path</li>
@@ -1806,7 +1806,7 @@ Scope: folders:*</p>
 <pre><code class="language-python">def get_all_folder_ids_uids_and_names(limit: int = 1000,
                                       nested_folders: bool = True) -&gt; list
 </code></pre>
-<p>The method extract all folder id, uid and names inside the complete organization. In addition, nested folders are also extracted by default</p>
+<p>The method extract all folder id, uid and names inside the complete organization. In addition, nested folders are also extracted by default.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>limit</code> <em>int</em> - Specify the limit of folders that should be extracted (default 1000)</li>

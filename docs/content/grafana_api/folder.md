@@ -10,7 +10,7 @@
 class Folder()
 ```
 
-The class includes all necessary methods to access the Grafana folder API endpoints
+The class includes all necessary methods to access the Grafana folder API endpoints.
 
 **Arguments**:
 
@@ -29,7 +29,7 @@ The class includes all necessary methods to access the Grafana folder API endpoi
 def get_folders(limit: int = 1000, nested_folders: bool = False) -> list
 ```
 
-The method includes a functionality to extract all folders inside the organization
+The method includes a functionality to extract all folders inside the organization.
 
 Required Permissions:
 Action: folders:read
@@ -58,7 +58,7 @@ Scope: folders:*
 def get_folder_by_uid(uid: str) -> dict
 ```
 
-The method includes a functionality to extract all folder information specified by the uid of the folder
+The method includes a functionality to extract all folder information specified by the uid of the folder.
 
 **Arguments**:
 
@@ -87,7 +87,7 @@ The method includes a functionality to extract all folder information specified 
 def get_folder_by_id(id: int) -> dict
 ```
 
-The method includes a functionality to extract all folder information specified by the id of the folder
+The method includes a functionality to extract all folder information specified by the id of the folder.
 
 **Arguments**:
 
@@ -116,7 +116,7 @@ The method includes a functionality to extract all folder information specified 
 def create_folder(title: str, uid: str = None, parent_uid: str = None) -> dict
 ```
 
-The method includes a functionality to create a new folder inside the organization specified by the defined title and the optional uid
+The method includes a functionality to create a new folder inside the organization specified by the defined title and the optional uid.
 
 **Arguments**:
 
@@ -150,7 +150,7 @@ def update_folder(title: str,
                   overwrite: bool = False) -> dict
 ```
 
-The method includes a functionality to update a folder information inside the organization specified by the uid, the title, the version of the folder or if folder information be overwritten
+The method includes a functionality to update a folder information inside the organization specified by the uid, the title, the version of the folder or if folder information be overwritten.
 
 **Arguments**:
 
@@ -182,7 +182,7 @@ The method includes a functionality to update a folder information inside the or
 def move_folder(uid: str, parent_uid: str = None)
 ```
 
-The method includes a functionality to move a folder inside the organization specified by the defined uid. This feature is only relevant if nested folders are enabled
+The method includes a functionality to move a folder inside the organization specified by the defined uid. This feature is only relevant if nested folders are enabled.
 
 **Arguments**:
 
@@ -212,7 +212,7 @@ The method includes a functionality to move a folder inside the organization spe
 def delete_folder(uid: str)
 ```
 
-The method includes a functionality to delete a folder inside the organization specified by the defined uid
+The method includes a functionality to delete a folder inside the organization specified by the defined uid.
 
 **Arguments**:
 
@@ -241,7 +241,7 @@ The method includes a functionality to delete a folder inside the organization s
 def get_folder_permissions(uid: str) -> list
 ```
 
-The method includes a functionality to extract the folder permissions inside the organization specified by the defined uid
+The method includes a functionality to extract the folder permissions inside the organization specified by the defined uid.
 
 **Arguments**:
 
@@ -270,7 +270,7 @@ The method includes a functionality to extract the folder permissions inside the
 def update_folder_permissions(uid: str, permission_json: dict)
 ```
 
-The method includes a functionality to update the folder permissions based on the specified uid and the permission json document
+The method includes a functionality to update the folder permissions based on the specified uid and the permission json document.
 
 **Arguments**:
 
@@ -300,7 +300,7 @@ The method includes a functionality to update the folder permissions based on th
 def get_folder_id_by_dashboard_path(dashboard_path: str) -> int
 ```
 
-The method includes a functionality to extract the folder id specified inside model dashboard path
+The method includes a functionality to extract the folder id specified inside model dashboard path.
 
 **Arguments**:
 
@@ -325,7 +325,7 @@ The method includes a functionality to extract the folder id specified inside mo
 def get_folder_uid_by_dashboard_path(dashboard_path: str) -> str
 ```
 
-The method includes a functionality to extract the folder uid specified inside model dashboard path
+The method includes a functionality to extract the folder uid specified inside model dashboard path.
 
 **Arguments**:
 
@@ -351,7 +351,7 @@ def get_all_folder_ids_uids_and_names(limit: int = 1000,
                                       nested_folders: bool = True) -> list
 ```
 
-The method extract all folder id, uid and names inside the complete organization. In addition, nested folders are also extracted by default
+The method extract all folder id, uid and names inside the complete organization. In addition, nested folders are also extracted by default.
 
 **Arguments**:
 

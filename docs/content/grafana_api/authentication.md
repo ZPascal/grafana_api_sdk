@@ -29,7 +29,7 @@ The class includes all necessary methods to access the Grafana authentication AP
 def get_api_tokens(org_id_header: int = None) -> list
 ```
 
-The method includes a functionality to get the corresponding api tokens of the organisation
+The method includes a functionality to get the corresponding api tokens of the organisation.
 
 **Arguments**:
 
@@ -56,7 +56,7 @@ def create_api_token(name: str,
                      org_id_header: int = None) -> dict
 ```
 
-The method includes a functionality to create a corresponding api tokens of the organisation specified by the name and role
+The method includes a functionality to create a corresponding api tokens of the organisation specified by the name and role.
 
 **Arguments**:
 
@@ -84,7 +84,7 @@ The method includes a functionality to create a corresponding api tokens of the 
 def delete_api_token(token_id: int, org_id_header: int = None)
 ```
 
-The method includes a functionality to delete a corresponding api token specified by the token id
+The method includes a functionality to delete a corresponding api token specified by the token id.
 
 **Arguments**:
 

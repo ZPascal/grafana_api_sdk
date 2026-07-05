@@ -1385,7 +1385,7 @@
 <h2 id="ssosettings-objects">SSOSettings Objects</h2>
 <pre><code class="language-python">class SSOSettings()
 </code></pre>
-<p>The class includes all necessary methods to access the Grafana sso settings API endpoints</p>
+<p>The class includes all necessary methods to access the Grafana sso settings API endpoints.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>grafana_api_model</code> <em>APIModel</em> - Inject a Grafana API model object that includes all necessary values and information</li>
@@ -1398,7 +1398,7 @@
 <h4 id="get_sso_settings">get_sso_settings</h4>
 <pre><code class="language-python">def get_sso_settings() -&gt; list
 </code></pre>
-<p>The method includes a functionality to get the SSO settings for all providers</p>
+<p>The method includes a functionality to get the SSO settings for all providers.</p>
 <p>Required Permissions:
 Action: settings:read
 Scope: settings:auth.{provider}:*</p>
@@ -1414,7 +1414,7 @@ Scope: settings:auth.{provider}:*</p>
 <h4 id="get_sso_settings_by_provider">get_sso_settings_by_provider</h4>
 <pre><code class="language-python">def get_sso_settings_by_provider(provider: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get the SSO settings for the specified provider</p>
+<p>The method includes a functionality to get the SSO settings for the specified provider.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>provider</code> <em>str</em> - Specify the provider</li>
@@ -1435,7 +1435,7 @@ Scope: settings:auth.{provider}:*</p>
 <h4 id="update_sso_settings">update_sso_settings</h4>
 <pre><code class="language-python">def update_sso_settings(provider: str, sso_setting: SSOSetting)
 </code></pre>
-<p>The method includes a functionality to update the SSO settings specified by the provider</p>
+<p>The method includes a functionality to update the SSO settings specified by the provider.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>provider</code> <em>str</em> - Specify the provider</li>
@@ -1455,7 +1455,7 @@ Scope: settings:auth.{provider}:*</p>
 <h4 id="delete_sso_settings">delete_sso_settings</h4>
 <pre><code class="language-python">def delete_sso_settings(provider: str)
 </code></pre>
-<p>The method includes a functionality to delete the SSO settings specified by the provider</p>
+<p>The method includes a functionality to delete the SSO settings specified by the provider.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>provider</code> <em>str</em> - Specify the provider</li>

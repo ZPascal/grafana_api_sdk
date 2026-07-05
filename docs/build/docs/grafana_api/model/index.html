@@ -2165,18 +2165,18 @@
 <h2 id="apiendpoints-objects">APIEndpoints Objects</h2>
 <pre><code class="language-python">class APIEndpoints(Enum)
 </code></pre>
-<p>The class includes all necessary API endpoint strings to connect the Grafana API</p>
+<p>The class includes all necessary API endpoint strings to connect the Grafana API.</p>
 <p><a id="model.RequestsMethods"></a></p>
 <h2 id="requestsmethods-objects">RequestsMethods Objects</h2>
 <pre><code class="language-python">class RequestsMethods(Enum)
 </code></pre>
-<p>The class includes all necessary method values to establish an HTTP/ HTTPS connection to the Grafana API endpoints</p>
+<p>The class includes all necessary method values to establish an HTTP/ HTTPS connection to the Grafana API endpoints.</p>
 <p><a id="model.APIModel"></a></p>
 <h2 id="apimodel-objects">APIModel Objects</h2>
 <pre><code class="language-python">@dataclass
 class APIModel()
 </code></pre>
-<p>The class includes all necessary variables to establish a connection to the Grafana API endpoints</p>
+<p>The class includes all necessary variables to establish a connection to the Grafana API endpoints.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>host</code> <em>str</em> - Specify the host of the Grafana system</li>
@@ -2196,7 +2196,7 @@ class APIModel()
 <pre><code class="language-python">@dataclass
 class DatasourceQuery()
 </code></pre>
-<p>The class includes all necessary variables to specify a query for the datasource search endpoint</p>
+<p>The class includes all necessary variables to specify a query for the datasource search endpoint.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>raw_sql</code> <em>str</em> - Specify the raw SQL string to search inside the Grafana system</li>
@@ -2212,7 +2212,7 @@ class DatasourceQuery()
 <pre><code class="language-python">@dataclass
 class DatasourceRuleQuery()
 </code></pre>
-<p>The class includes all necessary variables to specify a query for the datasource rule search endpoint</p>
+<p>The class includes all necessary variables to specify a query for the datasource rule search endpoint.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>datasource_uid</code> <em>str</em> - Specify the uid of the data source</li>
@@ -2226,7 +2226,7 @@ class DatasourceRuleQuery()
 <pre><code class="language-python">@dataclass
 class DatasourcePermission()
 </code></pre>
-<p>The class includes the necessary variables to generate a datasource permission object that is necessary to communicate with the Grafana datasource permissions endpoint</p>
+<p>The class includes the necessary variables to generate a datasource permission object that is necessary to communicate with the Grafana datasource permissions endpoint.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>permission</code> <em>Union[str, None]</em> - Specify the datasource permission. Can be query, edit, admin or None. To remove a permission, set the permission value to None</li>
@@ -2244,7 +2244,7 @@ class DatasourcePermission()
 <pre><code class="language-python">@dataclass
 class Alert()
 </code></pre>
-<p>The class includes all necessary variables to generate an alert object that is necessary to communicate with the Grafana alert endpoint</p>
+<p>The class includes all necessary variables to generate an alert object that is necessary to communicate with the Grafana alert endpoint.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>starts_at</code> <em>str</em> - Specify the start date of the alert</li>
@@ -2267,14 +2267,14 @@ class AlertRuleQueryModelCondition()
 <li><code>query_params</code> <em>list</em> - Specify the query parameters</li>
 <li><code>reducer_params</code> <em>list</em> - Specify the reducer parameters</li>
 <li><code>reducer_type</code> <em>str</em> - Specify the reducer type</li>
-<li><code>type</code> <em>str</em> - Specify the type</li>
+<li><code>type</code> <em>str</em> - Specify the type.</li>
 </ul>
 <p><a id="model.AlertRuleQueryModel"></a></p>
 <h2 id="alertrulequerymodel-objects">AlertRuleQueryModel Objects</h2>
 <pre><code class="language-python">@dataclass
 class AlertRuleQueryModel()
 </code></pre>
-<p>The class includes all necessary variables to generate an alert rule query model object that is necessary to communicate with the Grafana alert provisioning endpoint</p>
+<p>The class includes all necessary variables to generate an alert rule query model object that is necessary to communicate with the Grafana alert provisioning endpoint.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>conditions</code> <em>list</em> - Specify the conditions list based on the AlertRuleQueryModelCondition objects</li>
@@ -2291,7 +2291,7 @@ class AlertRuleQueryModel()
 <pre><code class="language-python">@dataclass
 class AlertQuery()
 </code></pre>
-<p>The class includes all necessary variables to generate an alert query object that is necessary to communicate with the Grafana alert provisioning endpoint</p>
+<p>The class includes all necessary variables to generate an alert query object that is necessary to communicate with the Grafana alert provisioning endpoint.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>datasource_uid</code> <em>str</em> - Specify the datasource uid</li>
@@ -2306,7 +2306,7 @@ class AlertQuery()
 <pre><code class="language-python">@dataclass
 class AlertRule()
 </code></pre>
-<p>The class includes all necessary variables to generate an alert rule object that is necessary to communicate with the Grafana alert provisioning endpoint</p>
+<p>The class includes all necessary variables to generate an alert rule object that is necessary to communicate with the Grafana alert provisioning endpoint.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>condition</code> <em>str</em> - Specify the condition</li>
@@ -2330,7 +2330,7 @@ class AlertRule()
 <pre><code class="language-python">@dataclass
 class EmbeddedContactPoint()
 </code></pre>
-<p>The class includes all necessary variables to generate an embedded contact point object that is necessary to communicate with the Grafana alert provisioning endpoint</p>
+<p>The class includes all necessary variables to generate an embedded contact point object that is necessary to communicate with the Grafana alert provisioning endpoint.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>name</code> <em>str</em> - Specify the name of the embedded contact point</li>
@@ -2344,13 +2344,13 @@ class EmbeddedContactPoint()
 <h2 id="matchtype-objects">MatchType Objects</h2>
 <pre><code class="language-python">class MatchType(Enum)
 </code></pre>
-<p>The class includes all necessary values to set the corresponding match type</p>
+<p>The class includes all necessary values to set the corresponding match type.</p>
 <p><a id="model.Matcher"></a></p>
 <h2 id="matcher-objects">Matcher Objects</h2>
 <pre><code class="language-python">@dataclass
 class Matcher()
 </code></pre>
-<p>The class includes all necessary variables to generate an alert rule route matcher object that is necessary to communicate with the Grafana alert provisioning endpoint</p>
+<p>The class includes all necessary variables to generate an alert rule route matcher object that is necessary to communicate with the Grafana alert provisioning endpoint.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>name</code> <em>str</em> - Specify the name of the matcher</li>
@@ -2362,7 +2362,7 @@ class Matcher()
 <pre><code class="language-python">@dataclass
 class Route()
 </code></pre>
-<p>The class includes all necessary variables to generate an alert rule route that is necessary to communicate with the Grafana alert provisioning endpoint</p>
+<p>The class includes all necessary variables to generate an alert rule route that is necessary to communicate with the Grafana alert provisioning endpoint.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>continue_parameter</code> <em>bool</em> - Specify the continue parameter</li>
@@ -2381,7 +2381,7 @@ class Route()
 <pre><code class="language-python">@dataclass
 class TimeRange()
 </code></pre>
-<p>The class includes all necessary variables to generate a time range object that is necessary to communicate with the Grafana alert provisioning endpoint</p>
+<p>The class includes all necessary variables to generate a time range object that is necessary to communicate with the Grafana alert provisioning endpoint.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>start_time</code> <em>str</em> - Specify the start time e.g. 14:00</li>
@@ -2392,7 +2392,7 @@ class TimeRange()
 <pre><code class="language-python">@dataclass
 class TimeInterval()
 </code></pre>
-<p>The class includes all necessary variables to generate a time interval object that is necessary to communicate with the Grafana alert provisioning endpoint</p>
+<p>The class includes all necessary variables to generate a time interval object that is necessary to communicate with the Grafana alert provisioning endpoint.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>days_of_month</code> <em>List[str]</em> - Specify the days of month list (default None)</li>
@@ -2406,7 +2406,7 @@ class TimeInterval()
 <pre><code class="language-python">@dataclass
 class MuteTimeInterval()
 </code></pre>
-<p>The class includes all necessary variables to generate a mute time interval object that is necessary to communicate with the Grafana alert provisioning endpoint</p>
+<p>The class includes all necessary variables to generate a mute time interval object that is necessary to communicate with the Grafana alert provisioning endpoint.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>name</code> <em>str</em> - Specify the name of the mute time interval.</li>
@@ -2417,7 +2417,7 @@ class MuteTimeInterval()
 <pre><code class="language-python">@dataclass
 class Silence()
 </code></pre>
-<p>The class includes all necessary variables to generate a silence object that is necessary to communicate with the Grafana silence endpoint</p>
+<p>The class includes all necessary variables to generate a silence object that is necessary to communicate with the Grafana silence endpoint.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>starts_at</code> <em>str</em> - Specify the start date of the silence</li>
@@ -2432,7 +2432,7 @@ class Silence()
 <pre><code class="language-python">@dataclass
 class AlertmanagerConfig()
 </code></pre>
-<p>The class includes all necessary variables to generate an Alertmanager config object that is necessary to communicate and set up the Grafana Alertmanager endpoint</p>
+<p>The class includes all necessary variables to generate an Alertmanager config object that is necessary to communicate and set up the Grafana Alertmanager endpoint.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>global_config</code> <em>Union[dict, None]</em> - Specify the global config of the Alertmanager</li>
@@ -2447,7 +2447,7 @@ class AlertmanagerConfig()
 <pre><code class="language-python">@dataclass
 class AlertmanagerReceivers()
 </code></pre>
-<p>The class includes all necessary variables to generate an Alertmanager receiver's object that is necessary to communicate and set up the Grafana Alertmanager receivers endpoint</p>
+<p>The class includes all necessary variables to generate an Alertmanager receiver's object that is necessary to communicate and set up the Grafana Alertmanager receivers endpoint.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>name</code> <em>str</em> - Specify the name of the receiver</li>
@@ -2467,7 +2467,7 @@ class AlertmanagerReceivers()
 <pre><code class="language-python">@dataclass
 class RulerRule()
 </code></pre>
-<p>The class includes all necessary variables to generate a Ruler rule object that is necessary to communicate and set up a Grafana Ruler rule</p>
+<p>The class includes all necessary variables to generate a Ruler rule object that is necessary to communicate and set up a Grafana Ruler rule.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>alert</code> <em>str</em> - Specify the name of the rule</li>
@@ -2483,7 +2483,7 @@ class RulerRule()
 <pre><code class="language-python">@dataclass
 class UserObject()
 </code></pre>
-<p>The class includes all necessary variables to generate a User object that is necessary to update a Grafana User</p>
+<p>The class includes all necessary variables to generate a User object that is necessary to update a Grafana User.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>email</code> <em>str</em> - Specify the name of the rule</li>
@@ -2496,7 +2496,7 @@ class UserObject()
 <pre><code class="language-python">@dataclass
 class PlaylistObject()
 </code></pre>
-<p>The class includes all necessary variables to generate a playlist object</p>
+<p>The class includes all necessary variables to generate a playlist object.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>name</code> <em>str</em> - Specify the name of the playlist</li>
@@ -2508,7 +2508,7 @@ class PlaylistObject()
 <pre><code class="language-python">@dataclass
 class PlaylistItemObject()
 </code></pre>
-<p>The class includes all necessary variables to generate a playlist item object that is necessary to update a playlist</p>
+<p>The class includes all necessary variables to generate a playlist item object that is necessary to update a playlist.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>type</code> <em>str</em> - Specify the type of the playlist item</li>
@@ -2521,7 +2521,7 @@ class PlaylistItemObject()
 <pre><code class="language-python">@dataclass
 class TeamObject()
 </code></pre>
-<p>The class includes all necessary variables to generate a team object that is necessary to create a team</p>
+<p>The class includes all necessary variables to generate a team object that is necessary to create a team.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>name</code> <em>str</em> - Specify the name of the team</li>
@@ -2533,7 +2533,7 @@ class TeamObject()
 <pre><code class="language-python">@dataclass
 class QueryDatasourceObject()
 </code></pre>
-<p>The class includes all necessary variables to generate a query datasource object that is necessary to create a query history object</p>
+<p>The class includes all necessary variables to generate a query datasource object that is necessary to create a query history object.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>type</code> <em>str</em> - Specify the type of the datasource query</li>
@@ -2544,7 +2544,7 @@ class QueryDatasourceObject()
 <pre><code class="language-python">@dataclass
 class QueryObject()
 </code></pre>
-<p>The class includes all necessary variables to generate a query object that is necessary to create a query history</p>
+<p>The class includes all necessary variables to generate a query object that is necessary to create a query history.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>ref_id</code> <em>str</em> - Specify the ref_id of the query history</li>
@@ -2557,7 +2557,7 @@ class QueryObject()
 <pre><code class="language-python">@dataclass
 class CorrelationObject()
 </code></pre>
-<p>The class includes all necessary variables to generate a find annotation object</p>
+<p>The class includes all necessary variables to generate a find annotation object.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>source_datasource_uid</code> <em>str</em> - Specify the source datasource uid (default None)</li>
@@ -2573,7 +2573,7 @@ class CorrelationObject()
 <pre><code class="language-python">@dataclass
 class FindAnnotationObject()
 </code></pre>
-<p>The class includes all necessary variables to generate a find annotation object</p>
+<p>The class includes all necessary variables to generate a find annotation object.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>from_value</code> <em>int</em> - Specify the optional from value (default None)</li>
@@ -2591,7 +2591,7 @@ class FindAnnotationObject()
 <pre><code class="language-python">@dataclass
 class AnnotationObject()
 </code></pre>
-<p>The class includes all necessary variables to generate an annotation object</p>
+<p>The class includes all necessary variables to generate an annotation object.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>time</code> <em>int</em> - Specify the time as number in milliseconds</li>
@@ -2606,7 +2606,7 @@ class AnnotationObject()
 <pre><code class="language-python">@dataclass
 class AnnotationGraphiteObject()
 </code></pre>
-<p>The class includes all necessary variables to generate a Graphite annotation object</p>
+<p>The class includes all necessary variables to generate a Graphite annotation object.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>what</code> <em>str</em> - Specify the event of the annotation</li>
@@ -2619,7 +2619,7 @@ class AnnotationGraphiteObject()
 <pre><code class="language-python">@dataclass
 class GlobalUser()
 </code></pre>
-<p>The class includes all necessary variables to generate a global user object</p>
+<p>The class includes all necessary variables to generate a global user object.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>name</code> <em>str</em> - Specify the name of the user</li>
@@ -2633,7 +2633,7 @@ class GlobalUser()
 <pre><code class="language-python">@dataclass
 class RolePermission()
 </code></pre>
-<p>The class includes all necessary variables to generate a role permission object</p>
+<p>The class includes all necessary variables to generate a role permission object.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>action</code> <em>str</em> - Specify the custom role action definition</li>
@@ -2644,7 +2644,7 @@ class RolePermission()
 <pre><code class="language-python">@dataclass
 class CustomRole()
 </code></pre>
-<p>The class includes all necessary variables to generate a custom role object</p>
+<p>The class includes all necessary variables to generate a custom role object.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>name</code> <em>str</em> - Specify the name of the role</li>
@@ -2662,7 +2662,7 @@ class CustomRole()
 <pre><code class="language-python">@dataclass
 class DatasourceCache()
 </code></pre>
-<p>The class includes all necessary variables to generate a datasource cache object</p>
+<p>The class includes all necessary variables to generate a datasource cache object.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>datasource_id</code> <em>int</em> - Specify the datasource id</li>
@@ -2677,7 +2677,7 @@ class DatasourceCache()
 <pre><code class="language-python">@dataclass
 class PublicDashboard()
 </code></pre>
-<p>The class includes all necessary variables to generate a public dashboard object</p>
+<p>The class includes all necessary variables to generate a public dashboard object.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the optional unique identifier when creating a public dashboard. If it’s none, it will generate a new uid (default None)</li>
@@ -2692,7 +2692,7 @@ class PublicDashboard()
 <pre><code class="language-python">@dataclass
 class SSOSetting()
 </code></pre>
-<p>The class includes all necessary variables to generate an SSO setting object</p>
+<p>The class includes all necessary variables to generate an SSO setting object.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>api_url</code> <em>str</em> - Specify the SSO api url</li>
@@ -2706,7 +2706,7 @@ class SSOSetting()
 <pre><code class="language-python">@dataclass
 class DashboardSchema()
 </code></pre>
-<p>The class includes all necessary variables to generate a dashboard schema object that is used for the reporting functionality</p>
+<p>The class includes all necessary variables to generate a dashboard schema object that is used for the reporting functionality.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>dashboard_uid</code> <em>str</em> - Specify the dashboard uid</li>
@@ -2719,7 +2719,7 @@ class DashboardSchema()
 <pre><code class="language-python">@dataclass
 class Report()
 </code></pre>
-<p>The class includes all necessary variables to generate a report object</p>
+<p>The class includes all necessary variables to generate a report object.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>name</code> <em>str</em> - Specify the name of the report that is used as an email subject</li>
@@ -2744,7 +2744,7 @@ class Report()
 <pre><code class="language-python">@dataclass
 class ReportBrandingSettings()
 </code></pre>
-<p>The class includes all necessary variables to generate a report branding settings object</p>
+<p>The class includes all necessary variables to generate a report branding settings object.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>report_logo_url</code> <em>str</em> - Specify the url of an image used as a logo on every page of the report</li>

@@ -1429,7 +1429,7 @@
 <h2 id="queryhistory-objects">QueryHistory Objects</h2>
 <pre><code class="language-python">class QueryHistory()
 </code></pre>
-<p>The class includes all necessary methods to access the Grafana query history API endpoints. Be aware that it requires that the user is logged in and that query history feature is enabled in the config file</p>
+<p>The class includes all necessary methods to access the Grafana query history API endpoints. Be aware that it requires that the user is logged in and that query history feature is enabled in the config file.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>grafana_api_model</code> <em>APIModel</em> - Inject a Grafana API model object that includes all necessary values and information</li>
@@ -1442,7 +1442,7 @@
 <h4 id="add_query_to_history">add_query_to_history</h4>
 <pre><code class="language-python">def add_query_to_history(datasource_uid: str, queries: list) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to add queries to query history</p>
+<p>The method includes a functionality to add queries to query history.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>datasource_uid</code> <em>str</em> - Specify the datasource uid</li>
@@ -1466,7 +1466,7 @@
                          pages: int = 1,
                          results_per_page: int = 100) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to search a query inside the query history</p>
+<p>The method includes a functionality to search a query inside the query history.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>datasource_uids</code> <em>list</em> - Specify the datasource uid</li>
@@ -1489,7 +1489,7 @@
 <h4 id="delete_query_history">delete_query_history</h4>
 <pre><code class="language-python">def delete_query_history(uid: str)
 </code></pre>
-<p>The method includes a functionality to delete a query inside the query history</p>
+<p>The method includes a functionality to delete a query inside the query history.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the query</li>
@@ -1505,7 +1505,7 @@
 <h4 id="update_query_history">update_query_history</h4>
 <pre><code class="language-python">def update_query_history(uid: str, comment: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to update a query inside the query history</p>
+<p>The method includes a functionality to update a query inside the query history.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the query</li>
@@ -1524,7 +1524,7 @@
 <h4 id="star_query_history">star_query_history</h4>
 <pre><code class="language-python">def star_query_history(uid: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to star a query inside the query history</p>
+<p>The method includes a functionality to star a query inside the query history.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the query</li>
@@ -1542,7 +1542,7 @@
 <h4 id="unstar_query_history">unstar_query_history</h4>
 <pre><code class="language-python">def unstar_query_history(uid: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to unstar a query inside the query history</p>
+<p>The method includes a functionality to unstar a query inside the query history.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the query</li>

@@ -1891,7 +1891,7 @@
 <h2 id="alerting-objects">Alerting Objects</h2>
 <pre><code class="language-python">class Alerting()
 </code></pre>
-<p>The class includes all necessary methods to access the Grafana alerting API endpoints</p>
+<p>The class includes all necessary methods to access the Grafana alerting API endpoints.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>grafana_api_model</code> <em>APIModel</em> - Inject a Grafana API model object that includes all necessary values and information</li>
@@ -1904,7 +1904,7 @@
 <h4 id="get_alertmanager_alerts">get_alertmanager_alerts</h4>
 <pre><code class="language-python">def get_alertmanager_alerts(datasource_uid: str = &quot;grafana&quot;) -&gt; list
 </code></pre>
-<p>The method includes a functionality to get the Alertmanager alerts specified by the datasource_uid</p>
+<p>The method includes a functionality to get the Alertmanager alerts specified by the datasource_uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>datasource_uid</code> <em>str</em> - Specify the datasource uid or recipient of the alerts (default grafana)</li>
@@ -1923,7 +1923,7 @@
 <pre><code class="language-python">def create_or_update_alertmanager_alerts(alerts: list,
                                          datasource_uid: str = &quot;grafana&quot;)
 </code></pre>
-<p>The method includes a functionality to create or update the Alertmanager alerts specified by the datasource_uid and the alerts list</p>
+<p>The method includes a functionality to create or update the Alertmanager alerts specified by the datasource_uid and the alerts list.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>alerts</code> <em>list</em> - Specify a list of the alert objects</li>
@@ -1940,7 +1940,7 @@
 <h4 id="get_alertmanager_group_alerts">get_alertmanager_group_alerts</h4>
 <pre><code class="language-python">def get_alertmanager_group_alerts(datasource_uid: str = &quot;grafana&quot;) -&gt; list
 </code></pre>
-<p>The method includes a functionality to get the Alertmanager group alerts specified by the datasource_uid</p>
+<p>The method includes a functionality to get the Alertmanager group alerts specified by the datasource_uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>datasource_uid</code> <em>str</em> - Specify the datasource uid or recipient of the alerts (default grafana)</li>
@@ -1959,7 +1959,7 @@
 <pre><code class="language-python">def delete_alertmanager_silence_by_id(silence_id: str,
                                       datasource_uid: str = &quot;grafana&quot;)
 </code></pre>
-<p>The method includes a functionality to delete the Alertmanager silence specified by the silence id and the datasource_uid</p>
+<p>The method includes a functionality to delete the Alertmanager silence specified by the silence id and the datasource_uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>silence_id</code> <em>str</em> - Specify the silence id of the alerts</li>
@@ -1977,7 +1977,7 @@
 <pre><code class="language-python">def get_alertmanager_silence_by_id(silence_id: str,
                                    datasource_uid: str = &quot;grafana&quot;) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get the Alertmanager silence specified by the silence id and the datasource_uid</p>
+<p>The method includes a functionality to get the Alertmanager silence specified by the silence id and the datasource_uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>silence_id</code> <em>str</em> - Specify the silence id of the alerts</li>
@@ -1996,7 +1996,7 @@
 <h4 id="get_alertmanager_silences">get_alertmanager_silences</h4>
 <pre><code class="language-python">def get_alertmanager_silences(datasource_uid: str = &quot;grafana&quot;) -&gt; list
 </code></pre>
-<p>The method includes a functionality to get all Alertmanager silences specified by the datasource_uid</p>
+<p>The method includes a functionality to get all Alertmanager silences specified by the datasource_uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>datasource_uid</code> <em>str</em> - Specify the datasource uid or recipient of the alerts (default grafana)</li>
@@ -2016,7 +2016,7 @@
                                           datasource_uid: str = &quot;grafana&quot;
                                           ) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to create or update the Alertmanager silence specified by the silence object and the datasource_uid</p>
+<p>The method includes a functionality to create or update the Alertmanager silence specified by the silence object and the datasource_uid.</p>
 <p><strong>Arguments</strong>:</p>
 <p>silence -&gt; Specify the silence object
 - <code>datasource_uid</code> <em>str</em> - Specify the datasource uid or recipient of the alerts (default grafana)</p>
@@ -2033,7 +2033,7 @@
 <h4 id="get_alertmanager_status">get_alertmanager_status</h4>
 <pre><code class="language-python">def get_alertmanager_status(datasource_uid: str = &quot;grafana&quot;) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get the Alertmanager status specified by the datasource_uid</p>
+<p>The method includes a functionality to get the Alertmanager status specified by the datasource_uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>datasource_uid</code> <em>str</em> - Specify the datasource uid or recipient of the alerts (default grafana)</li>
@@ -2051,7 +2051,7 @@
 <h4 id="delete_alertmanager_config">delete_alertmanager_config</h4>
 <pre><code class="language-python">def delete_alertmanager_config(datasource_uid: str = &quot;grafana&quot;)
 </code></pre>
-<p>The method includes a functionality to delete the Alertmanager config specified by the datasource_uid</p>
+<p>The method includes a functionality to delete the Alertmanager config specified by the datasource_uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>datasource_uid</code> <em>str</em> - Specify the datasource uid or recipient of the alerts (default grafana)</li>
@@ -2068,7 +2068,7 @@
 <h4 id="get_alertmanager_config">get_alertmanager_config</h4>
 <pre><code class="language-python">def get_alertmanager_config(datasource_uid: str = &quot;grafana&quot;) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get the Alertmanager config specified by the datasource_uid</p>
+<p>The method includes a functionality to get the Alertmanager config specified by the datasource_uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>datasource_uid</code> <em>str</em> - Specify the datasource uid or recipient of the alerts (default grafana)</li>
@@ -2089,7 +2089,7 @@
         datasource_uid: str = &quot;grafana&quot;,
         template_files: dict = None)
 </code></pre>
-<p>The method includes a functionality to create or update the Alertmanager config specified by the Alertmanager config object, datasource_uid and template_files</p>
+<p>The method includes a functionality to create or update the Alertmanager config specified by the Alertmanager config object, datasource_uid and template_files.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>alertmanager_config</code> <em>AlertmanagerConfig</em> - Specify the Alertmanager config object</li>
@@ -2110,7 +2110,7 @@
                                 receivers: list,
                                 datasource_uid: str = &quot;grafana&quot;)
 </code></pre>
-<p>The method includes a functionality to test the Alertmanager receivers specified by the alert dict, receivers object and the datasource_uid</p>
+<p>The method includes a functionality to test the Alertmanager receivers specified by the alert dict, receivers object and the datasource_uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>alert</code> <em>dict</em> - Specify the alert dict</li>
@@ -2129,7 +2129,7 @@
 <h4 id="get_prometheus_alerts">get_prometheus_alerts</h4>
 <pre><code class="language-python">def get_prometheus_alerts(datasource_uid: str = &quot;grafana&quot;) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get all prometheus alerts specified by the datasource_uid</p>
+<p>The method includes a functionality to get all prometheus alerts specified by the datasource_uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>datasource_uid</code> <em>str</em> - Specify the datasource uid or recipient of the alerts (default grafana)</li>
@@ -2147,7 +2147,7 @@
 <h4 id="get_prometheus_rules">get_prometheus_rules</h4>
 <pre><code class="language-python">def get_prometheus_rules(datasource_uid: str = &quot;grafana&quot;) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get all prometheus rules specified by the datasource_uid</p>
+<p>The method includes a functionality to get all prometheus rules specified by the datasource_uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>datasource_uid</code> <em>str</em> - Specify the datasource uid or recipient of the alerts (default grafana)</li>
@@ -2165,7 +2165,7 @@
 <h4 id="get_ruler_rules">get_ruler_rules</h4>
 <pre><code class="language-python">def get_ruler_rules(datasource_uid: str = &quot;grafana&quot;) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get all ruler rules specified by the datasource_uid</p>
+<p>The method includes a functionality to get all ruler rules specified by the datasource_uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>datasource_uid</code> <em>str</em> - Specify the datasource uid or recipient of the alerts (default grafana)</li>
@@ -2183,7 +2183,7 @@
 <h4 id="delete_ruler_namespace">delete_ruler_namespace</h4>
 <pre><code class="language-python">def delete_ruler_namespace(namespace: str, datasource_uid: str = &quot;grafana&quot;)
 </code></pre>
-<p>The method includes a functionality to delete a ruler namespace specified by the namespace name and the datasource_uid</p>
+<p>The method includes a functionality to delete a ruler namespace specified by the namespace name and the datasource_uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>namespace</code> <em>str</em> - Specify the namespace name</li>
@@ -2201,7 +2201,7 @@
 <pre><code class="language-python">def get_ruler_groups_by_namespace(namespace: str,
                                   datasource_uid: str = &quot;grafana&quot;) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get all ruler groups specified by the namespace name and the datasource_uid</p>
+<p>The method includes a functionality to get all ruler groups specified by the namespace name and the datasource_uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>namespace</code> <em>str</em> - Specify the namespace name</li>
@@ -2224,7 +2224,7 @@
                                               datasource_uid: str = &quot;grafana&quot;,
                                               interval: int = 0)
 </code></pre>
-<p>The method includes a functionality to create or update a ruler group specified by the namespace name, a ruler group name, a ruler rule object list, the datasource_uid and an interval</p>
+<p>The method includes a functionality to create or update a ruler group specified by the namespace name, a ruler group name, a ruler rule object list, the datasource_uid and an interval.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>namespace</code> <em>str</em> - Specify the namespace name</li>
@@ -2246,7 +2246,7 @@
                        group_name: str,
                        datasource_uid: str = &quot;grafana&quot;)
 </code></pre>
-<p>The method includes a functionality to delete a ruler group specified by the namespace name, a ruler group name and the datasource_uid</p>
+<p>The method includes a functionality to delete a ruler group specified by the namespace name, a ruler group name and the datasource_uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>namespace</code> <em>str</em> - Specify the namespace name</li>
@@ -2266,7 +2266,7 @@
                     group_name: str,
                     datasource_uid: str = &quot;grafana&quot;) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get a ruler group specified by the namespace name, a ruler group name and the datasource_uid</p>
+<p>The method includes a functionality to get a ruler group specified by the namespace name, a ruler group name and the datasource_uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>namespace</code> <em>str</em> - Specify the namespace name</li>
@@ -2286,7 +2286,7 @@
 <h4 id="test_rule">test_rule</h4>
 <pre><code class="language-python">def test_rule(data_queries: list) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to test a rule specified by a list of datasource rule query objects</p>
+<p>The method includes a functionality to test a rule specified by a list of datasource rule query objects.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>data_queries</code> <em>list</em> - Specify a list of datasource rule query objects</li>
@@ -2307,7 +2307,7 @@
                              data_queries: list,
                              datasource_uid: str = &quot;grafana&quot;) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to test a datasource uid rule specified by the expr, the condition, a list of data queries and the datasource_uid</p>
+<p>The method includes a functionality to test a datasource uid rule specified by the expr, the condition, a list of data queries and the datasource_uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>expr</code> <em>str</em> - Specify a list of datasource rule query objects</li>
@@ -2328,7 +2328,7 @@
 <h4 id="test_backtest_rule">test_backtest_rule</h4>
 <pre><code class="language-python">def test_backtest_rule(condition: str, data_queries: list) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to test a rule specified by the condition and a list of data queries</p>
+<p>The method includes a functionality to test a rule specified by the condition and a list of data queries.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>condition</code> <em>str</em> - Specify the condition</li>
@@ -2347,7 +2347,7 @@
 <h4 id="delete_ngalert_organization_configuration">delete_ngalert_organization_configuration</h4>
 <pre><code class="language-python">def delete_ngalert_organization_configuration()
 </code></pre>
-<p>The method includes a functionality to delete the NGAlert organization admin configuration</p>
+<p>The method includes a functionality to delete the NGAlert organization admin configuration.</p>
 <p><strong>Raises</strong>:</p>
 <ul>
 <li><code>Exception</code> - Unspecified error by executing the API call</li>
@@ -2358,7 +2358,7 @@
 <h4 id="get_ngalert_organization_configuration">get_ngalert_organization_configuration</h4>
 <pre><code class="language-python">def get_ngalert_organization_configuration() -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get the NGAlert organization admin configuration</p>
+<p>The method includes a functionality to get the NGAlert organization admin configuration.</p>
 <p><strong>Raises</strong>:</p>
 <ul>
 <li><code>Exception</code> - Unspecified error by executing the API call</li>
@@ -2372,7 +2372,7 @@
 <pre><code class="language-python">def create_or_update_ngalert_organization_configuration(
         alert_managers: list, alertmanagers_choice: str = &quot;all&quot;)
 </code></pre>
-<p>The method includes a functionality to create or update the NGAlert organization admin configuration</p>
+<p>The method includes a functionality to create or update the NGAlert organization admin configuration.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>alert_managers</code> <em>list</em> - Specify the list of alert manager names</li>
@@ -2389,7 +2389,7 @@
 <h4 id="get_ngalert_alertmanagers_by_organization">get_ngalert_alertmanagers_by_organization</h4>
 <pre><code class="language-python">def get_ngalert_alertmanagers_by_organization() -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get the discovered and dropped Alertmanagers of the user's organization and based on the specified configuration</p>
+<p>The method includes a functionality to get the discovered and dropped Alertmanagers of the user's organization and based on the specified configuration.</p>
 <p><strong>Raises</strong>:</p>
 <ul>
 <li><code>Exception</code> - Unspecified error by executing the API call</li>

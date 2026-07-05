@@ -1719,7 +1719,7 @@
                  page: int = 1,
                  sort: str = None) -&gt; list
 </code></pre>
-<p>The method includes a functionality to get all Grafana system users specified by the optional results_per_page, page and sort option</p>
+<p>The method includes a functionality to get all Grafana system users specified by the optional results_per_page, page and sort option.</p>
 <p>Required Permissions:
 Action: users:read
 Scope: global.users:*</p>
@@ -1744,7 +1744,7 @@ Scope: global.users:*</p>
                              query: str = None,
                              sort: str = None) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get all Grafana system users specified by the optional results_per_page, page, query, sort and general paging functionality</p>
+<p>The method includes a functionality to get all Grafana system users specified by the optional results_per_page, page, query, sort and general paging functionality.</p>
 <p>Required Permissions:
 Action: users:read
 Scope: global.users:*</p>
@@ -1767,7 +1767,7 @@ Scope: global.users:*</p>
 <h4 id="get_user_by_id">get_user_by_id</h4>
 <pre><code class="language-python">def get_user_by_id(id: int) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get a specific user by the id</p>
+<p>The method includes a functionality to get a specific user by the id.</p>
 <p>Required Permissions:
 Action: users:read
 Scope: users:*</p>
@@ -1788,7 +1788,7 @@ Scope: users:*</p>
 <h4 id="get_user_by_username_or_email">get_user_by_username_or_email</h4>
 <pre><code class="language-python">def get_user_by_username_or_email(username_or_email: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get a specific user by the username_or_email</p>
+<p>The method includes a functionality to get a specific user by the username_or_email.</p>
 <p>Required Permissions:
 Action: users:read
 Scope: global.users:*</p>
@@ -1809,7 +1809,7 @@ Scope: global.users:*</p>
 <h4 id="update_user">update_user</h4>
 <pre><code class="language-python">def update_user(id: int, user: UserObject)
 </code></pre>
-<p>The method includes a functionality to update the specified user</p>
+<p>The method includes a functionality to update the specified user.</p>
 <p>Required Permissions:
 Action: users:write
 Scope: users:*</p>
@@ -1829,7 +1829,7 @@ Scope: users:*</p>
 <h4 id="get_user_organizations">get_user_organizations</h4>
 <pre><code class="language-python">def get_user_organizations(id: int) -&gt; list
 </code></pre>
-<p>The method includes a functionality to get the specified user organizations</p>
+<p>The method includes a functionality to get the specified user organizations.</p>
 <p>Required Permissions:
 Action: users:read
 Scope: users:*</p>
@@ -1850,7 +1850,7 @@ Scope: users:*</p>
 <h4 id="get_user_teams">get_user_teams</h4>
 <pre><code class="language-python">def get_user_teams(id: int) -&gt; list
 </code></pre>
-<p>The method includes a functionality to get the specified user teams</p>
+<p>The method includes a functionality to get the specified user teams.</p>
 <p>Required Permissions:
 Action: users.teams:read
 Scope: users:*</p>
@@ -1871,7 +1871,7 @@ Scope: users:*</p>
 <h4 id="switch_specific_user_context">switch_specific_user_context</h4>
 <pre><code class="language-python">def switch_specific_user_context(user_id: int, org_id: int)
 </code></pre>
-<p>The method includes a functionality to switch the user context to the given organization</p>
+<p>The method includes a functionality to switch the user context to the given organization.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>user_id</code> <em>int</em> - Specify the user_id</li>
@@ -1888,7 +1888,7 @@ Scope: users:*</p>
 <h2 id="currentuser-objects">CurrentUser Objects</h2>
 <pre><code class="language-python">class CurrentUser()
 </code></pre>
-<p>The class includes all necessary methods to access the Grafana current user API endpoints. Be aware that all functionalities inside the class maybe only working with basic authentication (username and password)</p>
+<p>The class includes all necessary methods to access the Grafana current user API endpoints. Be aware that all functionalities inside the class maybe only working with basic authentication (username and password).</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>grafana_api_model</code> <em>APIModel</em> - Inject a Grafana API model object that includes all necessary values and information</li>
@@ -1901,7 +1901,7 @@ Scope: users:*</p>
 <h4 id="get_user">get_user</h4>
 <pre><code class="language-python">def get_user() -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get the current user</p>
+<p>The method includes a functionality to get the current user.</p>
 <p><strong>Raises</strong>:</p>
 <ul>
 <li><code>Exception</code> - Unspecified error by executing the API call</li>
@@ -1915,7 +1915,7 @@ Scope: users:*</p>
 <pre><code class="language-python">def update_password(old_password: str, new_password: str,
                     confirm_new_password: str)
 </code></pre>
-<p>The method includes a functionality to update the current user password</p>
+<p>The method includes a functionality to update the current user password.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>old_password</code> <em>str</em> - Specify the old_password</li>
@@ -1933,7 +1933,7 @@ Scope: users:*</p>
 <h4 id="switch_current_user_context">switch_current_user_context</h4>
 <pre><code class="language-python">def switch_current_user_context(org_id: int)
 </code></pre>
-<p>The method includes a functionality to switch the current user context to the given organization</p>
+<p>The method includes a functionality to switch the current user context to the given organization.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>org_id</code> <em>int</em> - Specify the organization id</li>
@@ -1949,7 +1949,7 @@ Scope: users:*</p>
 <h4 id="get_user_organizations_1">get_user_organizations</h4>
 <pre><code class="language-python">def get_user_organizations() -&gt; list
 </code></pre>
-<p>The method includes a functionality to get the current user organizations</p>
+<p>The method includes a functionality to get the current user organizations.</p>
 <p><strong>Raises</strong>:</p>
 <ul>
 <li><code>Exception</code> - Unspecified error by executing the API call</li>
@@ -1962,7 +1962,7 @@ Scope: users:*</p>
 <h4 id="get_user_teams_1">get_user_teams</h4>
 <pre><code class="language-python">def get_user_teams() -&gt; list
 </code></pre>
-<p>The method includes a functionality to get the current user teams</p>
+<p>The method includes a functionality to get the current user teams.</p>
 <p><strong>Raises</strong>:</p>
 <ul>
 <li><code>Exception</code> - Unspecified error by executing the API call</li>
@@ -1973,9 +1973,10 @@ Scope: users:*</p>
 </ul>
 <p><a id="user.CurrentUser.star_a_dashboard"></a></p>
 <h4 id="star_a_dashboard">star_a_dashboard</h4>
-<pre><code class="language-python">def star_a_dashboard(dashboard_id: int = 0, dashboard_uid: str | None = None)
+<pre><code class="language-python">def star_a_dashboard(dashboard_id: int = 0,
+                     dashboard_uid: Optional[str] = None)
 </code></pre>
-<p>The method includes a functionality to star a dashboard for the current user</p>
+<p>The method includes a functionality to star a dashboard for the current user.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>dashboard_id</code> <em>int</em> - Specify the dashboard id (default 0)</li>
@@ -1991,7 +1992,7 @@ Scope: users:*</p>
 <p><a id="user.CurrentUser.unstar_a_dashboard"></a></p>
 <h4 id="unstar_a_dashboard">unstar_a_dashboard</h4>
 <pre><code class="language-python">def unstar_a_dashboard(dashboard_id: int = 0,
-                       dashboard_uid: str | None = None)
+                       dashboard_uid: Optional[str] = None)
 </code></pre>
 <p>The method includes a functionality to unstar a dashboard for the current user.
 Prefers the UID-based endpoint (Grafana 10+) when dashboard_uid is provided,
@@ -2013,7 +2014,7 @@ At least one of dashboard_id (non-zero) or dashboard_uid must be supplied.</p>
 <h4 id="get_auth_tokens">get_auth_tokens</h4>
 <pre><code class="language-python">def get_auth_tokens() -&gt; list
 </code></pre>
-<p>The method includes a functionality to get the auth tokens for the current user</p>
+<p>The method includes a functionality to get the auth tokens for the current user.</p>
 <p><strong>Raises</strong>:</p>
 <ul>
 <li><code>Exception</code> - Unspecified error by executing the API call</li>
@@ -2026,7 +2027,7 @@ At least one of dashboard_id (non-zero) or dashboard_uid must be supplied.</p>
 <h4 id="revoke_auth_token">revoke_auth_token</h4>
 <pre><code class="language-python">def revoke_auth_token(auth_token_id: int)
 </code></pre>
-<p>The method includes a functionality to revoke a specified auth token of the current user</p>
+<p>The method includes a functionality to revoke a specified auth token of the current user.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>auth_token_id</code> <em>int</em> - Specify the auth_token_id</li>

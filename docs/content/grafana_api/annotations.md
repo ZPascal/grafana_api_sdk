@@ -10,7 +10,7 @@
 class Annotations()
 ```
 
-The class includes all necessary methods to access the Grafana annotations API endpoints. Annotations can be organization annotations that can be shown on any dashboard by configuring an annotation data source filtered by tags. They can also be tied to a panel on a dashboard and are then only shown on that panel
+The class includes all necessary methods to access the Grafana annotations API endpoints. Annotations can be organization annotations that can be shown on any dashboard by configuring an annotation data source filtered by tags. They can also be tied to a panel on a dashboard and are then only shown on that panel.
 
 HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
 
@@ -31,7 +31,7 @@ HINT: Note Grafana Enterprise API need required permissions if fine-grained acce
 def find_annotations(annotation: FindAnnotationObject = None) -> list
 ```
 
-The method includes a functionality to find the corresponding annotations
+The method includes a functionality to find the corresponding annotations.
 
 **Arguments**:
 
@@ -55,7 +55,7 @@ The method includes a functionality to find the corresponding annotations
 def create_annotation(annotation: AnnotationObject) -> int
 ```
 
-The method includes a functionality to create the corresponding annotation
+The method includes a functionality to create the corresponding annotation.
 
 **Arguments**:
 
@@ -78,7 +78,7 @@ api_call (int): Returns the annotation id
 def create_graphite_annotation(annotation: AnnotationGraphiteObject) -> int
 ```
 
-The method includes a functionality to create the corresponding graphite annotation
+The method includes a functionality to create the corresponding graphite annotation.
 
 **Arguments**:
 
@@ -101,7 +101,7 @@ api_call (int): Returns the annotation id
 def update_annotation(id: int, annotation: AnnotationObject)
 ```
 
-The method includes a functionality to update the corresponding annotation specified by the annotation id
+The method includes a functionality to update the corresponding annotation specified by the annotation id.
 
 **Arguments**:
 
@@ -125,7 +125,7 @@ None
 def delete_annotation(id: int)
 ```
 
-The method includes a functionality to delete the corresponding annotation specified by the annotation id
+The method includes a functionality to delete the corresponding annotation specified by the annotation id.
 
 **Arguments**:
 
@@ -148,7 +148,7 @@ None
 def find_annotation_tags(tag: str = None, limit: int = 100)
 ```
 
-The method includes a functionality to find the annotation tags
+The method includes a functionality to find the annotation tags.
 
 **Arguments**:
 

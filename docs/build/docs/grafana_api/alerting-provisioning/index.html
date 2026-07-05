@@ -1737,7 +1737,7 @@
 <h2 id="alertingprovisioning-objects">AlertingProvisioning Objects</h2>
 <pre><code class="language-python">class AlertingProvisioning()
 </code></pre>
-<p>The class includes all necessary methods to access the Grafana alerting provisioning API endpoints</p>
+<p>The class includes all necessary methods to access the Grafana alerting provisioning API endpoints.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>grafana_api_model</code> <em>APIModel</em> - Inject a Grafana API model object that includes all necessary values and information</li>
@@ -1750,7 +1750,7 @@
 <h4 id="get_alert_rule">get_alert_rule</h4>
 <pre><code class="language-python">def get_alert_rule(uid: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get the alert rule specified by the uid</p>
+<p>The method includes a functionality to get the alert rule specified by the uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the alert rule uid</li>
@@ -1768,7 +1768,7 @@
 <h4 id="add_alert_rule">add_alert_rule</h4>
 <pre><code class="language-python">def add_alert_rule(alert_rule: AlertRule, disable_provenance: bool = False)
 </code></pre>
-<p>The method includes a functionality to create a new alert rule</p>
+<p>The method includes a functionality to create a new alert rule.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>alert_rule</code> <em>AlertRule</em> - Specify the alert rule</li>
@@ -1787,7 +1787,7 @@
                       alert_rule: AlertRule,
                       disable_provenance: bool = False)
 </code></pre>
-<p>The method includes a functionality to update an existing alert rule</p>
+<p>The method includes a functionality to update an existing alert rule.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the alert rule uid</li>
@@ -1809,7 +1809,7 @@
         alert_rule_group_interval: int,
         disable_provenance: bool = False)
 </code></pre>
-<p>The method includes a functionality to update the interval of a alert rule group</p>
+<p>The method includes a functionality to update the interval of a alert rule group.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>folder_uid</code> <em>str</em> - Specify the folder uid</li>
@@ -1828,7 +1828,7 @@
 <h4 id="delete_alert_rule">delete_alert_rule</h4>
 <pre><code class="language-python">def delete_alert_rule(uid: str, disable_provenance: bool = False)
 </code></pre>
-<p>The method includes a functionality to delete an alert rule</p>
+<p>The method includes a functionality to delete an alert rule.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the alert rule uid</li>
@@ -1845,7 +1845,7 @@
 <h4 id="get_all_contact_points">get_all_contact_points</h4>
 <pre><code class="language-python">def get_all_contact_points() -&gt; list
 </code></pre>
-<p>The method includes a functionality to get all contact points</p>
+<p>The method includes a functionality to get all contact points.</p>
 <p><strong>Raises</strong>:</p>
 <ul>
 <li><code>Exception</code> - Unspecified error by executing the API call</li>
@@ -1859,7 +1859,7 @@
 <pre><code class="language-python">def add_contact_point(embedded_contact_point: EmbeddedContactPoint,
                       disable_provenance: bool = False)
 </code></pre>
-<p>The method includes a functionality to create a contact point</p>
+<p>The method includes a functionality to create a contact point.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>embedded_contact_point</code> <em>EmbeddedContactPoint</em> - Specify the embedded contact point</li>
@@ -1878,7 +1878,7 @@
                          embedded_contact_point: EmbeddedContactPoint,
                          disable_provenance: bool = False)
 </code></pre>
-<p>The method includes a functionality to update a contact point</p>
+<p>The method includes a functionality to update a contact point.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the contact point</li>
@@ -1896,7 +1896,7 @@
 <h4 id="delete_contact_point">delete_contact_point</h4>
 <pre><code class="language-python">def delete_contact_point(uid: str)
 </code></pre>
-<p>The method includes a functionality to delete a contact point</p>
+<p>The method includes a functionality to delete a contact point.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the contact point</li>
@@ -1912,7 +1912,7 @@
 <h4 id="get_notification_policies">get_notification_policies</h4>
 <pre><code class="language-python">def get_notification_policies() -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get the notification policy tree</p>
+<p>The method includes a functionality to get the notification policy tree.</p>
 <p><strong>Raises</strong>:</p>
 <ul>
 <li><code>Exception</code> - Unspecified error by executing the API call</li>
@@ -1925,7 +1925,7 @@
 <h4 id="add_notification_policies">add_notification_policies</h4>
 <pre><code class="language-python">def add_notification_policies(route: Route, disable_provenance: bool = False)
 </code></pre>
-<p>The method includes a functionality to set the notification policy tree</p>
+<p>The method includes a functionality to set the notification policy tree.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>route</code> <em>Route</em> - Specify the alert rule routes</li>
@@ -1942,7 +1942,7 @@
 <h4 id="get_all_mute_timings">get_all_mute_timings</h4>
 <pre><code class="language-python">def get_all_mute_timings() -&gt; list
 </code></pre>
-<p>The method includes a functionality to get all mute timings</p>
+<p>The method includes a functionality to get all mute timings.</p>
 <p><strong>Raises</strong>:</p>
 <ul>
 <li><code>Exception</code> - Unspecified error by executing the API call</li>
@@ -1955,7 +1955,7 @@
 <h4 id="get_mute_timing">get_mute_timing</h4>
 <pre><code class="language-python">def get_mute_timing(name: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get a mute timings specified by the name</p>
+<p>The method includes a functionality to get a mute timings specified by the name.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>name</code> <em>str</em> - Specify the mute timing name</li>
@@ -1974,7 +1974,7 @@
 <pre><code class="language-python">def add_mute_timing(mute_time_interval: MuteTimeInterval,
                     disable_provenance: bool = False)
 </code></pre>
-<p>The method includes a functionality to create a mute timing</p>
+<p>The method includes a functionality to create a mute timing.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>mute_time_interval</code> <em>MuteTimeInterval</em> - Specify the mute time interval</li>
@@ -1993,7 +1993,7 @@
                        mute_time_interval: MuteTimeInterval,
                        disable_provenance: bool = False)
 </code></pre>
-<p>The method includes a functionality to update an existing mute timing</p>
+<p>The method includes a functionality to update an existing mute timing.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>name</code> <em>str</em> - Specify the mute timing name</li>
@@ -2011,7 +2011,7 @@
 <h4 id="delete_mute_timing">delete_mute_timing</h4>
 <pre><code class="language-python">def delete_mute_timing(name: str)
 </code></pre>
-<p>The method includes a functionality to delete a mute timings specified by the name</p>
+<p>The method includes a functionality to delete a mute timings specified by the name.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>name</code> <em>str</em> - Specify the mute timing name</li>
@@ -2027,7 +2027,7 @@
 <h4 id="get_all_message_templates">get_all_message_templates</h4>
 <pre><code class="language-python">def get_all_message_templates() -&gt; list
 </code></pre>
-<p>The method includes a functionality to get all message templates</p>
+<p>The method includes a functionality to get all message templates.</p>
 <p><strong>Raises</strong>:</p>
 <ul>
 <li><code>Exception</code> - Unspecified error by executing the API call</li>
@@ -2040,7 +2040,7 @@
 <h4 id="get_message_template">get_message_template</h4>
 <pre><code class="language-python">def get_message_template(name: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get a message template specified by the name</p>
+<p>The method includes a functionality to get a message template specified by the name.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>name</code> <em>str</em> - Specify the message template name</li>
@@ -2060,7 +2060,7 @@
                                       message_template: str,
                                       disable_provenance: bool = False)
 </code></pre>
-<p>The method includes a functionality to create or update a message template</p>
+<p>The method includes a functionality to create or update a message template.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>name</code> <em>str</em> - Specify the message template name</li>
@@ -2078,7 +2078,7 @@
 <h4 id="delete_message_template">delete_message_template</h4>
 <pre><code class="language-python">def delete_message_template(name: str)
 </code></pre>
-<p>The method includes a functionality to delete a message template</p>
+<p>The method includes a functionality to delete a message template.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>name</code> <em>str</em> - Specify the message template name</li>

@@ -10,7 +10,7 @@
 class Playlist()
 ```
 
-The class includes all necessary methods to access the Grafana playlist API endpoints
+The class includes all necessary methods to access the Grafana playlist API endpoints.
 
 **Arguments**:
 
@@ -29,7 +29,7 @@ The class includes all necessary methods to access the Grafana playlist API endp
 def search_playlist(query: str = None, limit: int = None) -> list
 ```
 
-The method includes a functionality to get the organization playlist's specified by the optional pagination functionality
+The method includes a functionality to get the organization playlist's specified by the optional pagination functionality.
 
 **Arguments**:
 
@@ -54,7 +54,7 @@ The method includes a functionality to get the organization playlist's specified
 def get_playlist(playlist_uid: str) -> dict
 ```
 
-The method includes a functionality to get the playlist specified by the playlist_uid
+The method includes a functionality to get the playlist specified by the playlist_uid.
 
 **Arguments**:
 
@@ -79,7 +79,7 @@ The method includes a functionality to get the playlist specified by the playlis
 def get_playlist_items(playlist_uid: str) -> list
 ```
 
-The method includes a functionality to get the playlist items specified by the playlist_uid
+The method includes a functionality to get the playlist items specified by the playlist_uid.
 
 **Arguments**:
 
@@ -104,7 +104,7 @@ The method includes a functionality to get the playlist items specified by the p
 def get_playlist_dashboards(playlist_uid: str) -> list
 ```
 
-The method includes a functionality to get the playlist dashboards specified by the playlist_uid
+The method includes a functionality to get the playlist dashboards specified by the playlist_uid.
 
 **Arguments**:
 
@@ -129,7 +129,7 @@ The method includes a functionality to get the playlist dashboards specified by 
 def create_playlist(playlist: PlaylistObject) -> dict
 ```
 
-The method includes a functionality to create a playlist specified by the playlist object
+The method includes a functionality to create a playlist specified by the playlist object.
 
 **Arguments**:
 
@@ -154,7 +154,7 @@ The method includes a functionality to create a playlist specified by the playli
 def update_playlist(playlist_uid: str, playlist: PlaylistObject) -> dict
 ```
 
-The method includes a functionality to update a playlist specified by the playlist object and playlist_uid
+The method includes a functionality to update a playlist specified by the playlist object and playlist_uid.
 
 **Arguments**:
 
@@ -180,7 +180,7 @@ The method includes a functionality to update a playlist specified by the playli
 def delete_playlist(playlist_uid: str)
 ```
 
-The method includes a functionality to delete a playlist specified by the playlist_uid
+The method includes a functionality to delete a playlist specified by the playlist_uid.
 
 **Arguments**:
 
