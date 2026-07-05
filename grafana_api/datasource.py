@@ -1,5 +1,6 @@
 import json
 import logging
+from typing import Optional
 
 from .model import (
     APIModel,
@@ -217,7 +218,7 @@ class Datasource:
             logging.error("There is no data_source defined.")
             raise ValueError
 
-    def update_datasource(self, data_source: dict, datasource_id: int = 0, datasource_uid: str | None = None):
+    def update_datasource(self, data_source: dict, datasource_id: int = 0, datasource_uid: Optional[str] = None):
         """The method includes a functionality to update a datasource specified by the datasource as dict and the datasource id/ datasource uid.
 
         Args:

@@ -1,5 +1,6 @@
 import json
 import logging
+from typing import Optional
 
 from .model import (
     APIModel,
@@ -463,7 +464,7 @@ class CurrentUser:
         else:
             return api_call
 
-    def star_a_dashboard(self, dashboard_id: int = 0, dashboard_uid: str | None = None):
+    def star_a_dashboard(self, dashboard_id: int = 0, dashboard_uid: Optional[str] = None):
         """The method includes a functionality to star a dashboard for the current user.
 
         Args:
@@ -499,7 +500,7 @@ class CurrentUser:
             logging.error("There is no dashboard_id or dashboard_uid defined.")
             raise ValueError
 
-    def unstar_a_dashboard(self, dashboard_id: int = 0, dashboard_uid: str | None = None):
+    def unstar_a_dashboard(self, dashboard_id: int = 0, dashboard_uid: Optional[str] = None):
         """The method includes a functionality to unstar a dashboard for the current user.
         Prefers the UID-based endpoint (Grafana 10+) when dashboard_uid is provided,
         otherwise falls back to the legacy ID-based endpoint for backward compatibility.

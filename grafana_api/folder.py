@@ -1,5 +1,6 @@
-import logging
 import json
+import logging
+from typing import Optional
 
 import httpx
 
@@ -447,7 +448,7 @@ class Folder:
         """
         if len(dashboard_path) != 0:
             folders: list = self.get_all_folder_ids_uids_and_names()
-            folder_uid: str | None = None
+            folder_uid: Optional[str] = None
 
             for f in folders:
                 if dashboard_path == f.get("title"):
