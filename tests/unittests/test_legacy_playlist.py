@@ -11,9 +11,9 @@ class LegacyPlaylistTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"id": 1})
+        call_the_api_mock.return_value = {"id": 1}
 
-        self.assertEqual(dict({"id": 1}), playlist.get_playlist(1))
+        self.assertEqual({"id": 1}, playlist.get_playlist(1))
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_playlist_no_playlist_id(self, call_the_api_mock):
@@ -22,7 +22,7 @@ class LegacyPlaylistTestCase(TestCase):
         )
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             playlist.get_playlist(0)
@@ -32,9 +32,9 @@ class LegacyPlaylistTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             playlist.get_playlist(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -42,9 +42,9 @@ class LegacyPlaylistTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"id": 1}])
+        call_the_api_mock.return_value = [{"id": 1}]
 
-        self.assertEqual(list([{"id": 1}]), playlist.get_playlist_items(1))
+        self.assertEqual([{"id": 1}], playlist.get_playlist_items(1))
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_playlist_items_no_playlist_id(self, call_the_api_mock):
@@ -53,7 +53,7 @@ class LegacyPlaylistTestCase(TestCase):
         )
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list()
+        call_the_api_mock.return_value = []
 
         with self.assertRaises(ValueError):
             playlist.get_playlist_items(0)
@@ -63,9 +63,9 @@ class LegacyPlaylistTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list()
+        call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             playlist.get_playlist_items(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -73,9 +73,9 @@ class LegacyPlaylistTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"id": 1}])
+        call_the_api_mock.return_value = [{"id": 1}]
 
-        self.assertEqual(list([{"id": 1}]), playlist.get_playlist_dashboards(1))
+        self.assertEqual([{"id": 1}], playlist.get_playlist_dashboards(1))
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_playlist_dashboards_no_playlist_id(self, call_the_api_mock):
@@ -84,7 +84,7 @@ class LegacyPlaylistTestCase(TestCase):
         )
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list()
+        call_the_api_mock.return_value = []
 
         with self.assertRaises(ValueError):
             playlist.get_playlist_dashboards(0)
@@ -94,9 +94,9 @@ class LegacyPlaylistTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list()
+        call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             playlist.get_playlist_dashboards(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -107,12 +107,12 @@ class LegacyPlaylistTestCase(TestCase):
             type="test", value="test", order=1, title="test"
         )
         playlist_object: PlaylistObject = PlaylistObject(
-            "test", "5m", list([playlist_items])
+            "test", "5m", [playlist_items]
         )
 
-        call_the_api_mock.return_value = dict({"id": 1})
+        call_the_api_mock.return_value = {"id": 1}
 
-        self.assertEqual(dict({"id": 1}), playlist.update_playlist(1, playlist_object))
+        self.assertEqual({"id": 1}, playlist.update_playlist(1, playlist_object))
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_update_playlist_no_playlist_object(self, call_the_api_mock):
@@ -121,7 +121,7 @@ class LegacyPlaylistTestCase(TestCase):
         )
         playlist: LegacyPlaylist = LegacyPlaylist(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             playlist.update_playlist(1, None)
@@ -134,12 +134,12 @@ class LegacyPlaylistTestCase(TestCase):
             type="test", value="test", order=1, title="test"
         )
         playlist_object: PlaylistObject = PlaylistObject(
-            "test", "5m", list([playlist_items])
+            "test", "5m", [playlist_items]
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             playlist.update_playlist(1, playlist_object)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -170,5 +170,5 @@ class LegacyPlaylistTestCase(TestCase):
 
         call_the_api_mock.return_value.status_code = 400
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             playlist.delete_playlist(1)

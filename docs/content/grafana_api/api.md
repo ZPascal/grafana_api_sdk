@@ -1,11 +1,3 @@
-# Table of Contents
-
-* [api](#api)
-  * [Api](#api.Api)
-    * [call\_the\_api](#api.Api.call_the_api)
-    * [prepare\_api\_string](#api.Api.prepare_api_string)
-    * [create\_the\_http\_api\_client](#api.Api.create_the_http_api_client)
-
 <a id="api"></a>
 
 # api
@@ -18,7 +10,7 @@
 class Api()
 ```
 
-The class includes all necessary methods to make API calls to the Grafana API endpoints
+The class includes all necessary methods to make API calls to the Grafana API endpoints.
 
 **Arguments**:
 
@@ -42,7 +34,7 @@ def call_the_api(api_call: str,
                  response_status_code: bool = False) -> any
 ```
 
-The method execute a defined API call against the Grafana endpoints
+The method execute a defined API call against the Grafana endpoints.
 
 **Arguments**:
 
@@ -72,7 +64,7 @@ The method execute a defined API call against the Grafana endpoints
 def prepare_api_string(query_string: str) -> str
 ```
 
-The method includes a functionality to prepare the api string for the queries
+The method includes a functionality to prepare the api string for the queries.
 
 **Arguments**:
 
@@ -92,7 +84,7 @@ def create_the_http_api_client(
         headers: dict = None) -> Union[httpx.Client, httpx.AsyncClient]
 ```
 
-The method includes a functionality to create the corresponding HTTP client
+The method includes a functionality to create the corresponding HTTP client.
 
 **Arguments**:
 

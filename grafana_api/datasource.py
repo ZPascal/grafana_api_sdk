@@ -1,5 +1,6 @@
 import json
 import logging
+from typing import Optional
 
 from .model import (
     APIModel,
@@ -12,7 +13,7 @@ from .api import Api
 
 
 class Datasource:
-    """The class includes all necessary methods to access the Grafana datasource API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights
+    """The class includes all necessary methods to access the Grafana datasource API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights.
 
     HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
 
@@ -21,13 +22,14 @@ class Datasource:
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
     def get_all_datasources(self) -> list:
-        """The method includes a functionality to get all datasources
+        """The method includes a functionality to get all datasources.
 
         Required Permissions:
             Action: datasources:read
@@ -38,21 +40,21 @@ class Datasource:
 
         Returns:
             api_call (list): Returns the list of all datasources
-        """
 
+        """
         api_call: list = Api(self.grafana_api_model).call_the_api(
             APIEndpoints.DATASOURCES.value,
             RequestsMethods.GET,
         )
 
-        if api_call == list() or api_call[0].get("id") is None:
+        if api_call == [] or api_call[0].get("id") is None:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
             return api_call
 
     def get_datasource_by_id(self, datasource_id: int) -> dict:
-        """The method includes a functionality to get the datasource specified by the datasource id
+        """The method includes a functionality to get the datasource specified by the datasource id.
 
         Args:
             datasource_id (int): Specify the id of the datasource
@@ -67,15 +69,15 @@ class Datasource:
 
         Returns:
             api_call (dict): Returns a datasource
-        """
 
+        """
         if datasource_id != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/{datasource_id}",
                 RequestsMethods.GET,
             )
 
-            if api_call == dict() or api_call.get("id") is None:
+            if api_call == {} or api_call.get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -85,7 +87,7 @@ class Datasource:
             raise ValueError
 
     def get_datasource_by_uid(self, uid: str) -> dict:
-        """The method includes a functionality to get the datasource specified by the datasource uid
+        """The method includes a functionality to get the datasource specified by the datasource uid.
 
         Args:
             uid (str): Specify the uid of the datasource
@@ -100,15 +102,15 @@ class Datasource:
 
         Returns:
             api_call (dict): Returns a datasource
-        """
 
+        """
         if len(uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/uid/{uid}",
                 RequestsMethods.GET,
             )
 
-            if api_call == dict() or api_call.get("id") is None:
+            if api_call == {} or api_call.get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -118,7 +120,7 @@ class Datasource:
             raise ValueError
 
     def get_datasource_by_name(self, name: str) -> dict:
-        """The method includes a functionality to get the datasource specified by the datasource name
+        """The method includes a functionality to get the datasource specified by the datasource name.
 
         Args:
             name (str): Specify the name of the datasource
@@ -133,15 +135,15 @@ class Datasource:
 
         Returns:
             api_call (dict): Returns a datasource
-        """
 
+        """
         if len(name) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/name/{name}",
                 RequestsMethods.GET,
             )
 
-            if api_call == dict() or api_call.get("id") is None:
+            if api_call == {} or api_call.get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -151,7 +153,7 @@ class Datasource:
             raise ValueError
 
     def get_datasource_id_by_name(self, name: str) -> int:
-        """The method includes a functionality to get the datasource id specified by the datasource name
+        """The method includes a functionality to get the datasource id specified by the datasource name.
 
         Args:
             name (str): Specify the name of the datasource
@@ -166,15 +168,15 @@ class Datasource:
 
         Returns:
             api_call (int): Returns a datasource id
-        """
 
+        """
         if len(name) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/id/{name}",
                 RequestsMethods.GET,
             )
 
-            if api_call == dict() or api_call.get("id") is None:
+            if api_call == {} or api_call.get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -184,7 +186,7 @@ class Datasource:
             raise ValueError
 
     def create_datasource(self, data_source: dict):
-        """The method includes a functionality to create a datasource specified by the datasource as dict
+        """The method includes a functionality to create a datasource specified by the datasource as dict.
 
         Args:
             data_source (dict): Specify the datasource as dict
@@ -198,9 +200,9 @@ class Datasource:
 
         Returns:
             None
-        """
 
-        if data_source != dict():
+        """
+        if data_source != {}:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 APIEndpoints.DATASOURCES.value,
                 RequestsMethods.POST,
@@ -216,8 +218,8 @@ class Datasource:
             logging.error("There is no data_source defined.")
             raise ValueError
 
-    def update_datasource(self, data_source: dict, datasource_id: int = 0, datasource_uid: str | None = None):
-        """The method includes a functionality to update a datasource specified by the datasource as dict and the datasource id/ datasource uid
+    def update_datasource(self, data_source: dict, datasource_id: int = 0, datasource_uid: Optional[str] = None):
+        """The method includes a functionality to update a datasource specified by the datasource as dict and the datasource id/ datasource uid.
 
         Args:
             data_source (dict): Specify the datasource as dict
@@ -234,9 +236,9 @@ class Datasource:
 
         Returns:
             None
-        """
 
-        if data_source != dict() and (datasource_id != 0 or datasource_uid is not None):
+        """
+        if data_source != {} and (datasource_id != 0 or datasource_uid is not None):
             if datasource_uid is not None:
                 endpoint = f"{APIEndpoints.DATASOURCES.value}/uid/{datasource_uid}"
             else:
@@ -257,7 +259,7 @@ class Datasource:
             raise ValueError
 
     def delete_datasource_by_id(self, datasource_id: int):
-        """The method includes a functionality to delete a datasource specified by the datasource id
+        """The method includes a functionality to delete a datasource specified by the datasource id.
 
         Args:
             datasource_id (int): Specify the id of the datasource
@@ -272,8 +274,8 @@ class Datasource:
 
         Returns:
             None
-        """
 
+        """
         if datasource_id != 0 :
             endpoint = f"{APIEndpoints.DATASOURCES.value}/{datasource_id}"
 
@@ -293,7 +295,7 @@ class Datasource:
             raise ValueError
 
     def delete_datasource_by_uid(self, uid: str):
-        """The method includes a functionality to delete a datasource specified by the datasource uid
+        """The method includes a functionality to delete a datasource specified by the datasource uid.
 
         Args:
             uid (str): Specify the uid of the datasource
@@ -308,8 +310,8 @@ class Datasource:
 
         Returns:
             None
-        """
 
+        """
         if len(uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/uid/{uid}",
@@ -326,7 +328,7 @@ class Datasource:
             raise ValueError
 
     def delete_datasource_by_name(self, name: str):
-        """The method includes a functionality to delete a datasource specified by the datasource name
+        """The method includes a functionality to delete a datasource specified by the datasource name.
 
         Args:
             name (str): Specify the name of the datasource
@@ -341,8 +343,8 @@ class Datasource:
 
         Returns:
             None
-        """
 
+        """
         if len(name) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/name/{name}",
@@ -361,7 +363,7 @@ class Datasource:
     def query_datasource_by_id(
         self, time: str, to: str, datasource_queries: list
     ) -> dict:
-        """The method includes a functionality to execute a queries inside the datasource itself specified by the datasource id
+        """The method includes a functionality to execute a queries inside the datasource itself specified by the datasource id.
 
         Args:
             time (str): Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time units. For example, now-1h
@@ -374,15 +376,14 @@ class Datasource:
 
         Returns:
             api_call (dict): Returns the result of the specified query
-        """
 
-        if len(time) != 0 and len(to) != 0 and datasource_queries != list():
-            datasource_queries_json_list: list = list()
+        """
+        if len(time) != 0 and len(to) != 0 and datasource_queries != []:
+            datasource_queries_json_list: list = []
 
             for datasource_query in datasource_queries:
                 if datasource_query.datasource_id != 0:
-                    datasource_query_json_dict: dict = dict(
-                        {
+                    datasource_query_json_dict: dict = {
                             "refId": datasource_query.ref_id,
                             "intervalMs": datasource_query.interval_ms,
                             "maxDataPoints": datasource_query.max_data_points,
@@ -390,7 +391,6 @@ class Datasource:
                             "rawSql": datasource_query.raw_sql,
                             "format": datasource_query.output_format,
                         }
-                    )
                     datasource_queries_json_list.append(datasource_query_json_dict)
                 else:
                     logging.error("There is no datasource_id defined.")
@@ -402,7 +402,7 @@ class Datasource:
                 json.dumps(datasource_queries_json_list),
             )
 
-            if api_call == dict() or api_call.get("results") == dict():
+            if api_call == {} or api_call.get("results") == {}:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -414,7 +414,7 @@ class Datasource:
     def query_datasource_by_uid(
         self, time: str, to: str, datasource_queries: list
     ) -> dict:
-        """The method includes a functionality to execute a queries inside the datasource itself specified by the datasource uid
+        """The method includes a functionality to execute a queries inside the datasource itself specified by the datasource uid.
 
         Args:
             time (str): Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time units. For example, now-1h
@@ -427,15 +427,14 @@ class Datasource:
 
         Returns:
             api_call (dict): Returns the result of the specified query
-        """
 
-        if len(time) != 0 and len(to) != 0 and datasource_queries != list():
-            datasource_queries_json_list: list = list()
+        """
+        if len(time) != 0 and len(to) != 0 and datasource_queries != []:
+            datasource_queries_json_list: list = []
 
             for datasource_query in datasource_queries:
                 if len(datasource_query.datasource_uid) != 0:
-                    datasource_query_json_dict: dict = dict(
-                        {
+                    datasource_query_json_dict: dict = {
                             "refId": datasource_query.ref_id,
                             "intervalMs": datasource_query.interval_ms,
                             "maxDataPoints": datasource_query.max_data_points,
@@ -443,7 +442,6 @@ class Datasource:
                             "rawSql": datasource_query.raw_sql,
                             "format": datasource_query.output_format,
                         }
-                    )
                     datasource_queries_json_list.append(datasource_query_json_dict)
                 else:
                     logging.error("There is no datasource_uid defined.")
@@ -455,7 +453,7 @@ class Datasource:
                 json.dumps(datasource_queries_json_list),
             )
 
-            if api_call == dict() or api_call.get("results") == dict():
+            if api_call == {} or api_call.get("results") == {}:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -466,7 +464,7 @@ class Datasource:
 
 
 class DatasourcePermissions:
-    """The class includes all necessary methods to access the Grafana datasource permissions API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights
+    """The class includes all necessary methods to access the Grafana datasource permissions API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights.
 
     HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
 
@@ -475,13 +473,14 @@ class DatasourcePermissions:
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
     def get_datasource_permissions_by_uid(self, uid: str) -> list:
-        """The method includes a functionality to get the datasource permissions specified by the datasource uid. The functionality is a Grafana ENTERPRISE feature
+        """The method includes a functionality to get the datasource permissions specified by the datasource uid. The functionality is a Grafana ENTERPRISE feature.
 
         Args:
             uid (str): Specify the uid of the datasource
@@ -496,8 +495,8 @@ class DatasourcePermissions:
 
         Returns:
             api_call (list): Returns the datasource permissions
-        """
 
+        """
         if len(uid) != 0:
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCE_PERMISSIONS.value}/{uid}",
@@ -509,13 +508,11 @@ class DatasourcePermissions:
                 else api_call.get("status")
             )
 
-            datasource_permissions_status_dict: dict = dict(
-                {
+            datasource_permissions_status_dict: dict = {
                     401: "Unauthorized.",
                     403: "Access Denied.",
                     500: "Internal error.",
                 }
-            )
 
             if status_code == 200:
                 return api_call
@@ -532,7 +529,7 @@ class DatasourcePermissions:
     def update_datasource_user_access_by_uid(
         self, uid: str, id: int, datasource_user_permission: DatasourcePermission
     ):
-        """The method includes a functionality to update the datasource permission specified by the datasource uid and the user id. The functionality is a Grafana ENTERPRISE feature
+        """The method includes a functionality to update the datasource permission specified by the datasource uid and the user id. The functionality is a Grafana ENTERPRISE feature.
 
         Args:
             uid (str): Specify the uid of the datasource
@@ -549,8 +546,8 @@ class DatasourcePermissions:
 
         Returns:
             None
-        """
 
+        """
         if (
             len(uid) != 0
             and id != 0
@@ -565,13 +562,11 @@ class DatasourcePermissions:
 
             status_code: int = api_call.get("status")
 
-            datasource_permissions_status_dict: dict = dict(
-                {
+            datasource_permissions_status_dict: dict = {
                     400: "Permission cannot be added, see response body for details.",
                     401: "Unauthorized.",
                     403: "Access Denied.",
                 }
-            )
 
             if status_code == 200 and api_call.get("message") == "Permission updated":
                 logging.info("You successfully updated the datasource user permission.")
@@ -597,7 +592,7 @@ class DatasourcePermissions:
     def update_datasource_team_access_by_uid(
         self, uid: str, id: int, datasource_team_permission: DatasourcePermission
     ):
-        """The method includes a functionality to update the datasource permission specified by the datasource uid and the team id. The functionality is a Grafana ENTERPRISE feature
+        """The method includes a functionality to update the datasource permission specified by the datasource uid and the team id. The functionality is a Grafana ENTERPRISE feature.
 
         Args:
             uid (str): Specify the uid of the datasource
@@ -614,8 +609,8 @@ class DatasourcePermissions:
 
         Returns:
             None
-        """
 
+        """
         if (
             len(uid) != 0
             and id != 0
@@ -630,13 +625,11 @@ class DatasourcePermissions:
 
             status_code: int = api_call.get("status")
 
-            datasource_permissions_status_dict: dict = dict(
-                {
+            datasource_permissions_status_dict: dict = {
                     400: "Permission cannot be added, see response body for details.",
                     401: "Unauthorized.",
                     403: "Access Denied.",
                 }
-            )
 
             if status_code == 200 and api_call.get("message") == "Permission updated":
                 logging.info("You successfully updated the datasource team permission.")
@@ -665,7 +658,7 @@ class DatasourcePermissions:
         build_in_role_name: str,
         datasource_team_permission: DatasourcePermission,
     ):
-        """The method includes a functionality to update the datasource permission specified by the datasource uid and the build in role name. The functionality is a Grafana ENTERPRISE feature
+        """The method includes a functionality to update the datasource permission specified by the datasource uid and the build in role name. The functionality is a Grafana ENTERPRISE feature.
 
         Args:
             uid (str): Specify the uid of the datasource
@@ -682,8 +675,8 @@ class DatasourcePermissions:
 
         Returns:
             None
-        """
 
+        """
         if (
             len(uid) != 0
             and len(build_in_role_name) != 0
@@ -698,13 +691,11 @@ class DatasourcePermissions:
 
             status_code: int = api_call.get("status")
 
-            datasource_permissions_status_dict: dict = dict(
-                {
+            datasource_permissions_status_dict: dict = {
                     400: "Permission cannot be added, see response body for details.",
                     401: "Unauthorized.",
                     403: "Access Denied.",
                 }
-            )
 
             if status_code == 200 and api_call.get("message") == "Permission updated":
                 logging.info(
@@ -733,7 +724,7 @@ class DatasourcePermissions:
 
 
 class DatasourceLegacyPermissions:
-    """The class includes all necessary methods to access the Grafana legacy datasource permissions API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights
+    """The class includes all necessary methods to access the Grafana legacy datasource permissions API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights.
 
     HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
 
@@ -742,13 +733,14 @@ class DatasourceLegacyPermissions:
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
     def enable_datasource_permissions(self, datasource_id: int):
-        """The method includes a functionality to enable datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature
+        """The method includes a functionality to enable datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature.
 
         Args:
             datasource_id (int): Specify the id of the datasource
@@ -763,8 +755,8 @@ class DatasourceLegacyPermissions:
 
         Returns:
             None
-        """
 
+        """
         if datasource_id != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/enable-permissions",
@@ -782,7 +774,7 @@ class DatasourceLegacyPermissions:
             raise ValueError
 
     def disable_datasource_permissions(self, datasource_id: int):
-        """The method includes a functionality to disable datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature
+        """The method includes a functionality to disable datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature.
 
         Args:
             datasource_id (int): Specify the id of the datasource
@@ -797,8 +789,8 @@ class DatasourceLegacyPermissions:
 
         Returns:
             None
-        """
 
+        """
         if datasource_id != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/disable-permissions",
@@ -816,7 +808,7 @@ class DatasourceLegacyPermissions:
             raise ValueError
 
     def get_datasource_permissions(self, datasource_id: int) -> dict:
-        """The method includes a functionality to get the datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature
+        """The method includes a functionality to get the datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature.
 
         Args:
             datasource_id (int): Specify the id of the datasource
@@ -831,15 +823,15 @@ class DatasourceLegacyPermissions:
 
         Returns:
             api_call (dict): Returns the datasource permissions
-        """
 
+        """
         if datasource_id != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions",
                 RequestsMethods.GET,
             )
 
-            if api_call == dict() or api_call.get("datasourceId") is None:
+            if api_call == {} or api_call.get("datasourceId") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -851,7 +843,7 @@ class DatasourceLegacyPermissions:
     def add_datasource_permissions(
         self, datasource_id: int, datasource_permission: dict
     ):
-        """The method includes a functionality to add datasource permission specified by the datasource id and the datasource permission dict. The functionality is a Grafana ENTERPRISE feature
+        """The method includes a functionality to add datasource permission specified by the datasource id and the datasource permission dict. The functionality is a Grafana ENTERPRISE feature.
 
         Args:
             datasource_id (int): Specify the id of the datasource
@@ -867,9 +859,9 @@ class DatasourceLegacyPermissions:
 
         Returns:
             None
-        """
 
-        if datasource_id != 0 and datasource_permission != dict():
+        """
+        if datasource_id != 0 and datasource_permission != {}:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions",
                 RequestsMethods.POST,
@@ -886,7 +878,7 @@ class DatasourceLegacyPermissions:
             raise ValueError
 
     def delete_datasource_permissions(self, datasource_id: int, permission_id: int):
-        """The method includes a functionality to delete datasource permission specified by the datasource id and the permission id. The functionality is a Grafana ENTERPRISE feature
+        """The method includes a functionality to delete datasource permission specified by the datasource id and the permission id. The functionality is a Grafana ENTERPRISE feature.
 
         Args:
             datasource_id (int): Specify the id of the datasource
@@ -902,8 +894,8 @@ class DatasourceLegacyPermissions:
 
         Returns:
             None
-        """
 
+        """
         if datasource_id != 0 and permission_id != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/{datasource_id}/permissions/{permission_id}",
@@ -921,7 +913,7 @@ class DatasourceLegacyPermissions:
 
 
 class DatasourceQueryResourceCaching:
-    """The class includes all necessary methods to access the Grafana datasource query and resource caching API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights. The functionality is a Grafana ENTERPRISE feature
+    """The class includes all necessary methods to access the Grafana datasource query and resource caching API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights. The functionality is a Grafana ENTERPRISE feature.
 
     HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
 
@@ -930,13 +922,14 @@ class DatasourceQueryResourceCaching:
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
     def get_datasource_cache(self, uid: str) -> dict:
-        """The method includes a functionality to get the datasource cache config specified by the datasource uid
+        """The method includes a functionality to get the datasource cache config specified by the datasource uid.
 
         Args:
             uid (str): Specify the uid of the datasource
@@ -951,14 +944,14 @@ class DatasourceQueryResourceCaching:
 
         Returns:
             api_call (dict): Returns a datasource
-        """
 
+        """
         if len(uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/{uid}/cache",
             )
 
-            if api_call == dict() or api_call.get("dataSourceID") is None:
+            if api_call == {} or api_call.get("dataSourceID") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -968,7 +961,7 @@ class DatasourceQueryResourceCaching:
             raise ValueError
 
     def enable_datasource_cache(self, uid: str) -> dict:
-        """The method includes a functionality to enable the datasource cache specified by the datasource uid
+        """The method includes a functionality to enable the datasource cache specified by the datasource uid.
 
         Args:
             uid (str): Specify the uid of the datasource
@@ -983,15 +976,15 @@ class DatasourceQueryResourceCaching:
 
         Returns:
             api_call (dict): Returns a datasource
-        """
 
+        """
         if len(uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/{uid}/cache/enable",
                 RequestsMethods.POST,
             )
 
-            if api_call == dict() or api_call.get("dataSourceID") is None:
+            if api_call == {} or api_call.get("dataSourceID") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -1001,7 +994,7 @@ class DatasourceQueryResourceCaching:
             raise ValueError
 
     def disable_datasource_cache(self, uid: str) -> dict:
-        """The method includes a functionality to disable the datasource cache specified by the datasource uid
+        """The method includes a functionality to disable the datasource cache specified by the datasource uid.
 
         Args:
             uid (str): Specify the uid of the datasource
@@ -1016,15 +1009,15 @@ class DatasourceQueryResourceCaching:
 
         Returns:
             api_call (dict): Returns a datasource
-        """
 
+        """
         if len(uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/{uid}/cache/disable",
                 RequestsMethods.POST,
             )
 
-            if api_call == dict() or api_call.get("dataSourceID") is None:
+            if api_call == {} or api_call.get("dataSourceID") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -1034,7 +1027,7 @@ class DatasourceQueryResourceCaching:
             raise ValueError
 
     def clean_datasource_cache(self, uid: str) -> dict:
-        """The method includes a functionality to clean the datasource cache of all data sources with caching enabled. The uid of the datasource will only be used to return the configuration for that data source
+        """The method includes a functionality to clean the datasource cache of all data sources with caching enabled. The uid of the datasource will only be used to return the configuration for that data source.
 
         Args:
             uid (str): Specify the uid of the datasource
@@ -1049,15 +1042,15 @@ class DatasourceQueryResourceCaching:
 
         Returns:
             api_call (dict): Returns a datasource
-        """
 
+        """
         if len(uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/{uid}/cache/clean",
                 RequestsMethods.POST,
             )
 
-            if api_call == dict() or api_call.get("dataSourceID") is None:
+            if api_call == {} or api_call.get("dataSourceID") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -1069,7 +1062,7 @@ class DatasourceQueryResourceCaching:
     def update_datasource_cache(
         self, uid: str, datasource_cache: DatasourceCache
     ) -> dict:
-        """The method includes a functionality to update the datasource cache specified by the datasource uid
+        """The method includes a functionality to update the datasource cache specified by the datasource uid.
 
         Args:
             uid (str): Specify the uid of the datasource
@@ -1085,8 +1078,8 @@ class DatasourceQueryResourceCaching:
 
         Returns:
             api_call (dict): Returns a datasource
-        """
 
+        """
         if (
             len(uid) != 0
             and datasource_cache is not None
@@ -1097,8 +1090,7 @@ class DatasourceQueryResourceCaching:
             and datasource_cache.ttl_queries_ms != 0
             and datasource_cache.ttl_resources_ms != 0
         ):
-            datasource_cache_object: dict = dict(
-                {
+            datasource_cache_object: dict = {
                     "dataSourceID": datasource_cache.datasource_id,
                     "dataSourceUID": datasource_cache.datasource_uid,
                     "enabled": datasource_cache.enabled,
@@ -1106,7 +1098,6 @@ class DatasourceQueryResourceCaching:
                     "ttlQueriesMs": datasource_cache.ttl_queries_ms,
                     "ttlResourcesMs": datasource_cache.ttl_resources_ms,
                 }
-            )
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/{uid}/cache",
@@ -1114,7 +1105,7 @@ class DatasourceQueryResourceCaching:
                 json.dumps(datasource_cache_object),
             )
 
-            if api_call == dict() or api_call.get("dataSourceID") is None:
+            if api_call == {} or api_call.get("dataSourceID") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -1127,20 +1118,21 @@ class DatasourceQueryResourceCaching:
 
 
 class DatasourceLabelBasedAccessControl:
-    """The class includes all necessary methods to access the Grafana datasource label based access control for teams API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights. The functionality is a Grafana Cloud feature. Only cloud Loki data sources are supported
+    """The class includes all necessary methods to access the Grafana datasource label based access control for teams API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights. The functionality is a Grafana Cloud feature. Only cloud Loki data sources are supported.
 
     Args:
         grafana_api_model (APIModel): Inject a Grafana API model object that includes all necessary values and information
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
     def get_lbac_rules_for_datasource(self, uid: str) -> list:
-        """The method includes a functionality to get all datasource label based access control rules for team specified by the datasource uid
+        """The method includes a functionality to get all datasource label based access control rules for team specified by the datasource uid.
 
         Args:
             uid (str): Specify the uid of the datasource
@@ -1155,8 +1147,8 @@ class DatasourceLabelBasedAccessControl:
 
         Returns:
             api_call (list): Returns all LBAC rules
-        """
 
+        """
         if len(uid) != 0:
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/{uid}/lbac/teams",
@@ -1172,7 +1164,7 @@ class DatasourceLabelBasedAccessControl:
             raise ValueError
 
     def update_lbac_rules_for_datasource(self, uid: str) -> dict:
-        """The method includes a functionality to enable the datasource cache specified by the datasource uid
+        """The method includes a functionality to enable the datasource cache specified by the datasource uid.
 
         Args:
             uid (str): Specify the uid of the datasource
@@ -1187,15 +1179,15 @@ class DatasourceLabelBasedAccessControl:
 
         Returns:
             api_call (dict): Returns a datasource
-        """
 
+        """
         if len(uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/{uid}/lbac/teams",
                 RequestsMethods.POST,
             )
 
-            if api_call == dict() or api_call.get("dataSourceID") is None:
+            if api_call == {} or api_call.get("dataSourceID") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:

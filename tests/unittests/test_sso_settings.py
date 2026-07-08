@@ -11,8 +11,7 @@ class SSOSettingsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         sso_settings: SSOSettings = SSOSettings(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list(
-            [
+        call_the_api_mock.return_value = [
                 {
                     "id": "1",
                     "provider": "github",
@@ -27,11 +26,9 @@ class SSOSettingsTestCase(TestCase):
                     "status": 200,
                 }
             ]
-        )
 
         self.assertEqual(
-            list(
-                [
+            [
                     {
                         "id": "1",
                         "provider": "github",
@@ -45,8 +42,7 @@ class SSOSettingsTestCase(TestCase):
                         "source": "system",
                         "status": 200,
                     }
-                ]
-            ),
+                ],
             sso_settings.get_sso_settings(),
         )
 
@@ -55,15 +51,13 @@ class SSOSettingsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         sso_settings: SSOSettings = SSOSettings(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list(
-            [
+        call_the_api_mock.return_value = [
                 {
                     "status": 400,
                 }
             ]
-        )
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             sso_settings.get_sso_settings()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -71,15 +65,13 @@ class SSOSettingsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         sso_settings: SSOSettings = SSOSettings(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list(
-            [
+        call_the_api_mock.return_value = [
                 {
                     "status": 500,
                 }
             ]
-        )
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             sso_settings.get_sso_settings()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -87,8 +79,7 @@ class SSOSettingsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         sso_settings: SSOSettings = SSOSettings(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {
+        call_the_api_mock.return_value = {
                 "id": "1",
                 "provider": "github",
                 "settings": {
@@ -101,11 +92,9 @@ class SSOSettingsTestCase(TestCase):
                 "source": "system",
                 "status": 200,
             }
-        )
 
         self.assertEqual(
-            dict(
-                {
+            {
                     "id": "1",
                     "provider": "github",
                     "settings": {
@@ -117,8 +106,7 @@ class SSOSettingsTestCase(TestCase):
                     },
                     "source": "system",
                     "status": 200,
-                }
-            ),
+                },
             sso_settings.get_sso_settings_by_provider("github"),
         )
 
@@ -134,13 +122,11 @@ class SSOSettingsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         sso_settings: SSOSettings = SSOSettings(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {
+        call_the_api_mock.return_value = {
                 "status": 400,
             }
-        )
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             sso_settings.get_sso_settings_by_provider("github")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -148,13 +134,11 @@ class SSOSettingsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         sso_settings: SSOSettings = SSOSettings(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {
+        call_the_api_mock.return_value = {
                 "status": 500,
             }
-        )
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             sso_settings.get_sso_settings_by_provider("github")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -162,11 +146,9 @@ class SSOSettingsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         sso_settings: SSOSettings = SSOSettings(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {
+        call_the_api_mock.return_value = {
                 "status": 204,
             }
-        )
 
         sso_setting: SSOSetting = SSOSetting(
             "https://api.github.com/user",
@@ -192,11 +174,9 @@ class SSOSettingsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         sso_settings: SSOSettings = SSOSettings(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {
+        call_the_api_mock.return_value = {
                 "status": 400,
             }
-        )
 
         sso_setting: SSOSetting = SSOSetting(
             "https://api.github.com/user",
@@ -205,7 +185,7 @@ class SSOSettingsTestCase(TestCase):
             True,
             "user:email,read:org",
         )
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             sso_settings.update_sso_settings("github", sso_setting)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -213,11 +193,9 @@ class SSOSettingsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         sso_settings: SSOSettings = SSOSettings(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {
+        call_the_api_mock.return_value = {
                 "status": 500,
             }
-        )
 
         sso_setting: SSOSetting = SSOSetting(
             "https://api.github.com/user",
@@ -226,7 +204,7 @@ class SSOSettingsTestCase(TestCase):
             True,
             "user:email,read:org",
         )
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             sso_settings.update_sso_settings("github", sso_setting)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -234,11 +212,9 @@ class SSOSettingsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         sso_settings: SSOSettings = SSOSettings(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {
+        call_the_api_mock.return_value = {
                 "status": 204,
             }
-        )
 
         self.assertEqual(
             None,
@@ -257,13 +233,11 @@ class SSOSettingsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         sso_settings: SSOSettings = SSOSettings(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {
+        call_the_api_mock.return_value = {
                 "status": 400,
             }
-        )
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             sso_settings.delete_sso_settings("github")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -271,11 +245,9 @@ class SSOSettingsTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         sso_settings: SSOSettings = SSOSettings(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {
+        call_the_api_mock.return_value = {
                 "status": 500,
             }
-        )
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             sso_settings.delete_sso_settings("github")

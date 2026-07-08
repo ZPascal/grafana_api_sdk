@@ -1,12 +1,3 @@
-# Table of Contents
-
-* [sso\_settings](#sso_settings)
-  * [SSOSettings](#sso_settings.SSOSettings)
-    * [get\_sso\_settings](#sso_settings.SSOSettings.get_sso_settings)
-    * [get\_sso\_settings\_by\_provider](#sso_settings.SSOSettings.get_sso_settings_by_provider)
-    * [update\_sso\_settings](#sso_settings.SSOSettings.update_sso_settings)
-    * [delete\_sso\_settings](#sso_settings.SSOSettings.delete_sso_settings)
-
 <a id="sso_settings"></a>
 
 # sso\_settings
@@ -19,7 +10,7 @@
 class SSOSettings()
 ```
 
-The class includes all necessary methods to access the Grafana sso settings API endpoints
+The class includes all necessary methods to access the Grafana sso settings API endpoints.
 
 **Arguments**:
 
@@ -38,7 +29,7 @@ The class includes all necessary methods to access the Grafana sso settings API 
 def get_sso_settings() -> list
 ```
 
-The method includes a functionality to get the SSO settings for all providers
+The method includes a functionality to get the SSO settings for all providers.
 
 Required Permissions:
 Action: settings:read
@@ -61,7 +52,7 @@ Scope: settings:auth.{provider}:*
 def get_sso_settings_by_provider(provider: str) -> dict
 ```
 
-The method includes a functionality to get the SSO settings for the specified provider
+The method includes a functionality to get the SSO settings for the specified provider.
 
 **Arguments**:
 
@@ -90,7 +81,7 @@ The method includes a functionality to get the SSO settings for the specified pr
 def update_sso_settings(provider: str, sso_setting: SSOSetting)
 ```
 
-The method includes a functionality to update the SSO settings specified by the provider
+The method includes a functionality to update the SSO settings specified by the provider.
 
 **Arguments**:
 
@@ -120,7 +111,7 @@ The method includes a functionality to update the SSO settings specified by the 
 def delete_sso_settings(provider: str)
 ```
 
-The method includes a functionality to delete the SSO settings specified by the provider
+The method includes a functionality to delete the SSO settings specified by the provider.
 
 **Arguments**:
 

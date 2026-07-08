@@ -1,5 +1,6 @@
 import json
 import logging
+from typing import Optional
 
 from .model import (
     APIModel,
@@ -20,6 +21,7 @@ class User:
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
@@ -31,7 +33,7 @@ class User:
         page: int = 1,
         sort: str = None,
     ) -> list:
-        """The method includes a functionality to get all Grafana system users specified by the optional results_per_page, page and sort option
+        """The method includes a functionality to get all Grafana system users specified by the optional results_per_page, page and sort option.
 
         Required Permissions:
             Action: users:read
@@ -47,8 +49,8 @@ class User:
 
         Returns:
             api_call (list): Returns the list of Grafana users
-        """
 
+        """
         api_request_url: str = (
             f"{APIEndpoints.USERS.value}?perpage={results_per_page}&page={page}"
         )
@@ -60,7 +62,7 @@ class User:
             api_request_url,
         )
 
-        if api_call == list() or api_call[0].get("id") is None:
+        if api_call == [] or api_call[0].get("id") is None:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
@@ -73,7 +75,7 @@ class User:
         query: str = None,
         sort: str = None,
     ) -> dict:
-        """The method includes a functionality to get all Grafana system users specified by the optional results_per_page, page, query, sort and general paging functionality
+        """The method includes a functionality to get all Grafana system users specified by the optional results_per_page, page, query, sort and general paging functionality.
 
         Required Permissions:
             Action: users:read
@@ -90,8 +92,8 @@ class User:
 
         Returns:
             api_call (dict): Returns the Grafana users
-        """
 
+        """
         api_request_url: str = (
             f"{APIEndpoints.USERS.value}/search?perpage={results_per_page}&page={page}"
         )
@@ -106,14 +108,14 @@ class User:
             api_request_url,
         )
 
-        if api_call == dict() or api_call.get("users") is None:
+        if api_call == {} or api_call.get("users") is None:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
             return api_call
 
     def get_user_by_id(self, id: int) -> dict:
-        """The method includes a functionality to get a specific user by the id
+        """The method includes a functionality to get a specific user by the id.
 
         Required Permissions:
             Action: users:read
@@ -128,14 +130,14 @@ class User:
 
         Returns:
             api_call (dict): Returns the user information
-        """
 
+        """
         if id != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.USERS.value}/{id}",
             )
 
-            if api_call == dict() or api_call.get("id") is None:
+            if api_call == {} or api_call.get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -145,7 +147,7 @@ class User:
             raise ValueError
 
     def get_user_by_username_or_email(self, username_or_email: str) -> dict:
-        """The method includes a functionality to get a specific user by the username_or_email
+        """The method includes a functionality to get a specific user by the username_or_email.
 
         Required Permissions:
             Action: users:read
@@ -160,14 +162,14 @@ class User:
 
         Returns:
             api_call (dict): Returns the user information
-        """
 
+        """
         if len(username_or_email) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.USERS.value}/lookup?loginOrEmail={username_or_email}",
             )
 
-            if api_call == dict() or api_call.get("id") is None:
+            if api_call == {} or api_call.get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -177,7 +179,7 @@ class User:
             raise ValueError
 
     def update_user(self, id: int, user: UserObject):
-        """The method includes a functionality to update the specified user
+        """The method includes a functionality to update the specified user.
 
         Required Permissions:
             Action: users:write
@@ -193,21 +195,19 @@ class User:
 
         Returns:
             None
-        """
 
+        """
         if id != 0 and user is not None:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.USERS.value}/{id}",
                 RequestsMethods.PUT,
                 json.dumps(
-                    dict(
-                        {
+                    {
                             "email": user.email,
                             "name": user.name,
                             "login": user.login,
                             "theme": user.theme,
                         }
-                    )
                 ),
             )
 
@@ -221,7 +221,7 @@ class User:
             raise ValueError
 
     def get_user_organizations(self, id: int) -> list:
-        """The method includes a functionality to get the specified user organizations
+        """The method includes a functionality to get the specified user organizations.
 
         Required Permissions:
             Action: users:read
@@ -236,14 +236,14 @@ class User:
 
         Returns:
             api_call (list): Returns a list of the user bound organizations
-        """
 
+        """
         if id != 0:
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.USERS.value}/{id}/orgs",
             )
 
-            if api_call == list() or api_call[0].get("orgId") is None:
+            if api_call == [] or api_call[0].get("orgId") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -253,7 +253,7 @@ class User:
             raise ValueError
 
     def get_user_teams(self, id: int) -> list:
-        """The method includes a functionality to get the specified user teams
+        """The method includes a functionality to get the specified user teams.
 
         Required Permissions:
             Action: users.teams:read
@@ -268,14 +268,14 @@ class User:
 
         Returns:
             api_call (list): Returns a list of the user bound teams
-        """
 
+        """
         if id != 0:
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.USERS.value}/{id}/teams",
             )
 
-            if api_call != list() and api_call[0].get("id") is None:
+            if api_call != [] and api_call[0].get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -285,7 +285,7 @@ class User:
             raise ValueError
 
     def switch_specific_user_context(self, user_id: int, org_id: int):
-        """The method includes a functionality to switch the user context to the given organization
+        """The method includes a functionality to switch the user context to the given organization.
 
         Args:
             user_id (int): Specify the user_id
@@ -297,13 +297,13 @@ class User:
 
         Returns:
             None
-        """
 
+        """
         if user_id != 0 and org_id != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.USERS.value}/{user_id}/using/{org_id}",
                 RequestsMethods.POST,
-                json.dumps(dict()),
+                json.dumps({}),
             )
 
             if api_call.get("message") != "Active organization changed":
@@ -317,33 +317,34 @@ class User:
 
 
 class CurrentUser:
-    """The class includes all necessary methods to access the Grafana current user API endpoints. Be aware that all functionalities inside the class maybe only working with basic authentication (username and password)
+    """The class includes all necessary methods to access the Grafana current user API endpoints. Be aware that all functionalities inside the class maybe only working with basic authentication (username and password).
 
     Args:
         grafana_api_model (APIModel): Inject a Grafana API model object that includes all necessary values and information
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
     def get_user(self) -> dict:
-        """The method includes a functionality to get the current user
+        """The method includes a functionality to get the current user.
 
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
             api_call (dict): Returns the user information
-        """
 
+        """
         api_call: dict = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.USER.value}",
         )
 
-        if api_call == dict() or api_call.get("id") is None:
+        if api_call == {} or api_call.get("id") is None:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
@@ -352,7 +353,7 @@ class CurrentUser:
     def update_password(
         self, old_password: str, new_password: str, confirm_new_password: str
     ):
-        """The method includes a functionality to update the current user password
+        """The method includes a functionality to update the current user password.
 
         Args:
             old_password (str): Specify the old_password
@@ -365,8 +366,8 @@ class CurrentUser:
 
         Returns:
             None
-        """
 
+        """
         if (
             len(old_password) != 0
             and len(new_password) != 0
@@ -376,13 +377,11 @@ class CurrentUser:
                 f"{APIEndpoints.USER.value}/password",
                 RequestsMethods.PUT,
                 json.dumps(
-                    dict(
-                        {
+                    {
                             "oldPassword": old_password,
                             "newPassword": new_password,
                             "confirmNew": confirm_new_password,
                         }
-                    )
                 ),
             )
 
@@ -396,7 +395,7 @@ class CurrentUser:
             raise ValueError
 
     def switch_current_user_context(self, org_id: int):
-        """The method includes a functionality to switch the current user context to the given organization
+        """The method includes a functionality to switch the current user context to the given organization.
 
         Args:
             org_id (int): Specify the organization id
@@ -407,13 +406,13 @@ class CurrentUser:
 
         Returns:
             None
-        """
 
+        """
         if org_id != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.USER.value}/using/{org_id}",
                 RequestsMethods.POST,
-                json.dumps(dict()),
+                json.dumps({}),
             )
 
             if api_call.get("message") != "Active organization changed":
@@ -426,47 +425,47 @@ class CurrentUser:
             raise ValueError
 
     def get_user_organizations(self) -> list:
-        """The method includes a functionality to get the current user organizations
+        """The method includes a functionality to get the current user organizations.
 
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
             api_call (list): Returns a list of organizations
-        """
 
+        """
         api_call: list = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.USER.value}/orgs",
         )
 
-        if api_call == list() or api_call[0].get("orgId") is None:
+        if api_call == [] or api_call[0].get("orgId") is None:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
             return api_call
 
     def get_user_teams(self) -> list:
-        """The method includes a functionality to get the current user teams
+        """The method includes a functionality to get the current user teams.
 
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
             api_call (list): Returns a list of teams
-        """
 
+        """
         api_call: list = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.USER.value}/teams",
         )
 
-        if api_call != list() and api_call[0].get("id") is None:
+        if api_call != [] and api_call[0].get("id") is None:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
             return api_call
 
-    def star_a_dashboard(self, dashboard_id: int = 0, dashboard_uid: str | None = None):
-        """The method includes a functionality to star a dashboard for the current user
+    def star_a_dashboard(self, dashboard_id: int = 0, dashboard_uid: Optional[str] = None):
+        """The method includes a functionality to star a dashboard for the current user.
 
         Args:
             dashboard_id (int): Specify the dashboard id (default 0)
@@ -478,8 +477,8 @@ class CurrentUser:
 
         Returns:
             None
-        """
 
+        """
         if dashboard_uid is not None or dashboard_id != 0:
             if dashboard_uid is not None:
                 endpoint = f"{APIEndpoints.USER.value}/stars/dashboard/uid/{dashboard_uid}"
@@ -489,7 +488,7 @@ class CurrentUser:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 endpoint,
                 RequestsMethods.POST,
-                json.dumps(dict()),
+                json.dumps({}),
             )
 
             if api_call.get("message") != "Dashboard starred!":
@@ -501,7 +500,7 @@ class CurrentUser:
             logging.error("There is no dashboard_id or dashboard_uid defined.")
             raise ValueError
 
-    def unstar_a_dashboard(self, dashboard_id: int = 0, dashboard_uid: str | None = None):
+    def unstar_a_dashboard(self, dashboard_id: int = 0, dashboard_uid: Optional[str] = None):
         """The method includes a functionality to unstar a dashboard for the current user.
         Prefers the UID-based endpoint (Grafana 10+) when dashboard_uid is provided,
         otherwise falls back to the legacy ID-based endpoint for backward compatibility.
@@ -517,8 +516,8 @@ class CurrentUser:
 
         Returns:
             None
-        """
 
+        """
         if dashboard_uid is not None or dashboard_id != 0:
             if dashboard_uid is not None:
                 endpoint = f"{APIEndpoints.USER.value}/stars/dashboard/uid/{dashboard_uid}"
@@ -540,27 +539,27 @@ class CurrentUser:
             raise ValueError
 
     def get_auth_tokens(self) -> list:
-        """The method includes a functionality to get the auth tokens for the current user
+        """The method includes a functionality to get the auth tokens for the current user.
 
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
             api_call (list): Returns a list of auth tokens of the current user
-        """
 
+        """
         api_call: list = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.USER.value}/auth-tokens",
         )
 
-        if api_call == list() or api_call[0].get("id") is None:
+        if api_call == [] or api_call[0].get("id") is None:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
             return api_call
 
     def revoke_auth_token(self, auth_token_id: int):
-        """The method includes a functionality to revoke a specified auth token of the current user
+        """The method includes a functionality to revoke a specified auth token of the current user.
 
         Args:
             auth_token_id (int): Specify the auth_token_id
@@ -571,13 +570,13 @@ class CurrentUser:
 
         Returns:
             None
-        """
 
+        """
         if auth_token_id != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.USER.value}/revoke-auth-token",
                 RequestsMethods.POST,
-                json.dumps(dict({"authTokenId": auth_token_id})),
+                json.dumps({"authTokenId": auth_token_id}),
             )
 
             if api_call.get("message") != "User auth token revoked":

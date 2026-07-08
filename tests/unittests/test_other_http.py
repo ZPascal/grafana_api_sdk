@@ -14,10 +14,10 @@ class OtherHTTPTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         other_http: OtherHTTP = OtherHTTP(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"allowOrgCreate": True})
+        call_the_api_mock.return_value = {"allowOrgCreate": True}
 
         self.assertEqual(
-            dict({"allowOrgCreate": True}), other_http.get_frontend_settings()
+            {"allowOrgCreate": True}, other_http.get_frontend_settings()
         )
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -25,9 +25,9 @@ class OtherHTTPTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         other_http: OtherHTTP = OtherHTTP(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             other_http.get_frontend_settings()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -35,7 +35,7 @@ class OtherHTTPTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         other_http: OtherHTTP = OtherHTTP(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Logged in"})
+        call_the_api_mock.return_value = {"message": "Logged in"}
 
         self.assertEqual(
             None, other_http.renew_login_session_based_on_remember_cookie()
@@ -48,9 +48,9 @@ class OtherHTTPTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         other_http: OtherHTTP = OtherHTTP(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             other_http.renew_login_session_based_on_remember_cookie()
 
     @patch("httpx.Client")
@@ -62,7 +62,7 @@ class OtherHTTPTestCase(TestCase):
             '{"commit": "087143285"}'
         )
 
-        self.assertEqual(dict({"commit": "087143285"}), other_http.get_health_status())
+        self.assertEqual({"commit": "087143285"}, other_http.get_health_status())
 
     @patch("httpx.Client")
     def test_get_health_status_no_valid_result(self, httpx_client_mock):
@@ -71,7 +71,7 @@ class OtherHTTPTestCase(TestCase):
 
         httpx_client_mock.return_value.request.return_value.text = "{}"
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             other_http.get_health_status()
 
     @patch("httpx.Client")
@@ -109,7 +109,7 @@ class OtherHTTPTestCase(TestCase):
 
         httpx_client_mock.return_value.request.return_value.text = ""
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             other_http.get_metrics()
 
     @patch("httpx.Client")
@@ -147,7 +147,7 @@ class OtherHTTPTestCase(TestCase):
 
         httpx_client_mock.return_value.request.return_value.text = ""
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             other_http.get_plugin_metrics("test")
 
 

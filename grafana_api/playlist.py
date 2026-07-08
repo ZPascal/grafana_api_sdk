@@ -11,22 +11,23 @@ from .api import Api
 
 
 class Playlist:
-    """The class includes all necessary methods to access the Grafana playlist API endpoints
+    """The class includes all necessary methods to access the Grafana playlist API endpoints.
 
     Args:
         grafana_api_model (APIModel): Inject a Grafana API model object that includes all necessary values and information
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
     def search_playlist(self, query: str = None, limit: int = None) -> list:
-        """The method includes a functionality to get the organization playlist's specified by the optional pagination functionality
+        """The method includes a functionality to get the organization playlist's specified by the optional pagination functionality.
 
-         Args:
+        Args:
             query (str): Specify the query to limit response to playlist having a name like this value(default None)
             limit (int): Specify the limit as integer of the response (default None)
 
@@ -35,8 +36,8 @@ class Playlist:
 
         Returns:
             api_call (list): Returns the organization playlist's
-        """
 
+        """
         api_request_url: str = APIEndpoints.PLAYLISTS.value
 
         if query is not None:
@@ -52,16 +53,16 @@ class Playlist:
             api_request_url,
         )
 
-        if api_call == list() or api_call[0].get("uid") is None:
+        if api_call == [] or api_call[0].get("uid") is None:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
             return api_call
 
     def get_playlist(self, playlist_uid: str) -> dict:
-        """The method includes a functionality to get the playlist specified by the playlist_uid
+        """The method includes a functionality to get the playlist specified by the playlist_uid.
 
-         Args:
+        Args:
             playlist_uid (str): Specify the playlist_uid
 
         Raises:
@@ -70,14 +71,14 @@ class Playlist:
 
         Returns:
             api_call (dict): Returns the corresponding playlist
-        """
 
+        """
         if len(playlist_uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.PLAYLISTS.value}/{playlist_uid}",
             )
 
-            if api_call == dict() or api_call.get("uid") is None:
+            if api_call == {} or api_call.get("uid") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -87,9 +88,9 @@ class Playlist:
             raise ValueError
 
     def get_playlist_items(self, playlist_uid: str) -> list:
-        """The method includes a functionality to get the playlist items specified by the playlist_uid
+        """The method includes a functionality to get the playlist items specified by the playlist_uid.
 
-         Args:
+        Args:
             playlist_uid (str): Specify the playlist_uid
 
         Raises:
@@ -98,8 +99,8 @@ class Playlist:
 
         Returns:
             api_call (dict): Returns the corresponding playlist items
-        """
 
+        """
         if len(playlist_uid) != 0:
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.PLAYLISTS.value}/{playlist_uid}/items",
@@ -108,7 +109,7 @@ class Playlist:
             if isinstance(api_call, dict):
                 api_call = api_call.get("items", [])
 
-            if api_call == list() or api_call[0].get("value") is None:
+            if api_call == [] or api_call[0].get("value") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -118,9 +119,9 @@ class Playlist:
             raise ValueError
 
     def get_playlist_dashboards(self, playlist_uid: str) -> list:
-        """The method includes a functionality to get the playlist dashboards specified by the playlist_uid
+        """The method includes a functionality to get the playlist dashboards specified by the playlist_uid.
 
-         Args:
+        Args:
             playlist_uid (str): Specify the playlist_uid
 
         Raises:
@@ -129,14 +130,14 @@ class Playlist:
 
         Returns:
             api_call (dict): Returns the corresponding playlist dashboards
-        """
 
+        """
         if len(playlist_uid) != 0:
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.PLAYLISTS.value}/{playlist_uid}/dashboards",
             )
 
-            if api_call == list() or api_call[0].get("title") is None:
+            if api_call == [] or api_call[0].get("title") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -146,9 +147,9 @@ class Playlist:
             raise ValueError
 
     def create_playlist(self, playlist: PlaylistObject) -> dict:
-        """The method includes a functionality to create a playlist specified by the playlist object
+        """The method includes a functionality to create a playlist specified by the playlist object.
 
-         Args:
+        Args:
             playlist (PlaylistObject): Specify the playlist object
 
         Raises:
@@ -157,10 +158,10 @@ class Playlist:
 
         Returns:
             api_call (dict): Returns the corresponding playlist
-        """
 
+        """
         if playlist is not None:
-            items: list = list()
+            items: list = []
 
             for item in playlist.items:
                 items.append(
@@ -176,17 +177,15 @@ class Playlist:
                 f"{APIEndpoints.PLAYLISTS.value}",
                 RequestsMethods.POST,
                 json.dumps(
-                    dict(
-                        {
+                    {
                             "name": playlist.name,
                             "interval": playlist.interval,
                             "items": items,
                         }
-                    )
                 ),
             )
 
-            if api_call == dict() or api_call.get("uid") is None:
+            if api_call == {} or api_call.get("uid") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -196,9 +195,9 @@ class Playlist:
             raise ValueError
 
     def update_playlist(self, playlist_uid: str, playlist: PlaylistObject) -> dict:
-        """The method includes a functionality to update a playlist specified by the playlist object and playlist_uid
+        """The method includes a functionality to update a playlist specified by the playlist object and playlist_uid.
 
-         Args:
+        Args:
             playlist_uid (str): Specify the playlist_uid
             playlist (PlaylistObject): Specify the playlist object
 
@@ -208,10 +207,10 @@ class Playlist:
 
         Returns:
             api_call (dict): Returns the corresponding playlist
-        """
 
+        """
         if len(playlist_uid) != 0 and playlist is not None:
-            items: list = list()
+            items: list = []
 
             for item in playlist.items:
                 items.append(
@@ -227,17 +226,15 @@ class Playlist:
                 f"{APIEndpoints.PLAYLISTS.value}/{playlist_uid}",
                 RequestsMethods.PUT,
                 json.dumps(
-                    dict(
-                        {
+                    {
                             "name": playlist.name,
                             "interval": playlist.interval,
                             "items": items,
                         }
-                    )
                 ),
             )
 
-            if api_call == dict() or api_call.get("uid") is None:
+            if api_call == {} or api_call.get("uid") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -247,9 +244,9 @@ class Playlist:
             raise ValueError
 
     def delete_playlist(self, playlist_uid: str):
-        """The method includes a functionality to delete a playlist specified by the playlist_uid
+        """The method includes a functionality to delete a playlist specified by the playlist_uid.
 
-         Args:
+        Args:
             playlist_uid (str): Specify the playlist_uid
 
         Raises:
@@ -258,8 +255,8 @@ class Playlist:
 
         Returns:
             None
-        """
 
+        """
         if len(playlist_uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.PLAYLISTS.value}/{playlist_uid}",

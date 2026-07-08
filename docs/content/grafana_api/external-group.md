@@ -1,11 +1,3 @@
-# Table of Contents
-
-* [external\_group](#external_group)
-  * [ExternalGroup](#external_group.ExternalGroup)
-    * [get\_external\_groups](#external_group.ExternalGroup.get_external_groups)
-    * [add\_external\_group](#external_group.ExternalGroup.add_external_group)
-    * [remove\_external\_group](#external_group.ExternalGroup.remove_external_group)
-
 <a id="external_group"></a>
 
 # external\_group
@@ -37,7 +29,7 @@ The class includes all necessary methods to access the Grafana external group AP
 def get_external_groups(team_id: int) -> list
 ```
 
-The method includes a functionality to get the corresponding external groups specified by the team id
+The method includes a functionality to get the corresponding external groups specified by the team id.
 
 **Arguments**:
 
@@ -66,7 +58,7 @@ The method includes a functionality to get the corresponding external groups spe
 def add_external_group(team_id: int, group_id: str)
 ```
 
-The method includes a functionality to add the corresponding external groups specified by the team id and group id
+The method includes a functionality to add the corresponding external groups specified by the team id and group id.
 
 **Arguments**:
 
@@ -96,7 +88,7 @@ The method includes a functionality to add the corresponding external groups spe
 def remove_external_group(team_id: int, group_id: str)
 ```
 
-The method includes a functionality to remove the corresponding external groups specified by the team id and group id
+The method includes a functionality to remove the corresponding external groups specified by the team id and group id.
 
 **Arguments**:
 

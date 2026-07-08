@@ -1,15 +1,3 @@
-# Table of Contents
-
-* [library](#library)
-  * [Library](#library.Library)
-    * [get\_all\_library\_elements](#library.Library.get_all_library_elements)
-    * [get\_library\_element\_by\_uid](#library.Library.get_library_element_by_uid)
-    * [get\_library\_element\_by\_name](#library.Library.get_library_element_by_name)
-    * [get\_library\_element\_connections](#library.Library.get_library_element_connections)
-    * [create\_library\_element](#library.Library.create_library_element)
-    * [update\_library\_element](#library.Library.update_library_element)
-    * [delete\_library\_element](#library.Library.delete_library_element)
-
 <a id="library"></a>
 
 # library
@@ -22,7 +10,7 @@
 class Library()
 ```
 
-The class includes all necessary methods to access the Grafana library API endpoints
+The class includes all necessary methods to access the Grafana library API endpoints.
 
 **Arguments**:
 
@@ -49,7 +37,7 @@ def get_all_library_elements(
         folder_filter_ids: str = None) -> dict
 ```
 
-The method includes a functionality to get a list of all library elements the authenticated user has permission to view. Use the perPage query parameter to control the maximum number of library elements returned, The default limit is 100. You can also use the page query parameter to fetch library elements from any page other than the first one
+The method includes a functionality to get a list of all library elements the authenticated user has permission to view. Use the perPage query parameter to control the maximum number of library elements returned, The default limit is 100. You can also use the page query parameter to fetch library elements from any page other than the first one.
 
 **Arguments**:
 
@@ -80,7 +68,7 @@ The method includes a functionality to get a list of all library elements the au
 def get_library_element_by_uid(uid: str) -> dict
 ```
 
-The method includes a functionality to get a library element with the given uid
+The method includes a functionality to get a library element with the given uid.
 
 **Arguments**:
 
@@ -105,7 +93,7 @@ The method includes a functionality to get a library element with the given uid
 def get_library_element_by_name(name: str) -> dict
 ```
 
-The method includes a functionality to get a library element with the given name
+The method includes a functionality to get a library element with the given name.
 
 **Arguments**:
 
@@ -130,7 +118,7 @@ The method includes a functionality to get a library element with the given name
 def get_library_element_connections(uid: str) -> dict
 ```
 
-The method includes a functionality to get a list of connections for a library element based on the specified uid
+The method includes a functionality to get a list of connections for a library element based on the specified uid.
 
 **Arguments**:
 
@@ -160,7 +148,7 @@ def create_library_element(folder_id: int,
                            uid: str = None) -> dict
 ```
 
-The method includes a functionality to create a library element based on the specified folder id and model
+The method includes a functionality to create a library element based on the specified folder id and model.
 
 **Arguments**:
 
@@ -196,7 +184,7 @@ def update_library_element(uid: str,
                            kind: int = 1) -> dict
 ```
 
-The method includes a functionality to update a library element
+The method includes a functionality to update a library element.
 
 **Arguments**:
 
@@ -227,7 +215,7 @@ The method includes a functionality to update a library element
 def delete_library_element(uid: str)
 ```
 
-The method includes a functionality to delete a library element specified by the uid
+The method includes a functionality to delete a library element specified by the uid.
 
 **Arguments**:
 

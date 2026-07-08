@@ -1,13 +1,3 @@
-# Table of Contents
-
-* [legacy\_playlist](#legacy_playlist)
-  * [LegacyPlaylist](#legacy_playlist.LegacyPlaylist)
-    * [get\_playlist](#legacy_playlist.LegacyPlaylist.get_playlist)
-    * [get\_playlist\_items](#legacy_playlist.LegacyPlaylist.get_playlist_items)
-    * [get\_playlist\_dashboards](#legacy_playlist.LegacyPlaylist.get_playlist_dashboards)
-    * [update\_playlist](#legacy_playlist.LegacyPlaylist.update_playlist)
-    * [delete\_playlist](#legacy_playlist.LegacyPlaylist.delete_playlist)
-
 <a id="legacy_playlist"></a>
 
 # legacy\_playlist
@@ -20,7 +10,7 @@
 class LegacyPlaylist()
 ```
 
-The class includes all necessary methods to access the Grafana legacy playlist API endpoints.  Be aware that the functionality is a Grafana <= v9 feature
+The class includes all necessary methods to access the Grafana legacy playlist API endpoints.  Be aware that the functionality is a Grafana <= v9 feature.
 
 **Arguments**:
 
@@ -39,7 +29,7 @@ The class includes all necessary methods to access the Grafana legacy playlist A
 def get_playlist(playlist_id: int) -> dict
 ```
 
-The method includes a functionality to get the playlist specified by the playlist_id
+The method includes a functionality to get the playlist specified by the playlist_id.
 
 **Arguments**:
 
@@ -64,7 +54,7 @@ The method includes a functionality to get the playlist specified by the playlis
 def get_playlist_items(playlist_id: int) -> list
 ```
 
-The method includes a functionality to get the playlist items specified by the playlist_id
+The method includes a functionality to get the playlist items specified by the playlist_id.
 
 **Arguments**:
 
@@ -89,7 +79,7 @@ The method includes a functionality to get the playlist items specified by the p
 def get_playlist_dashboards(playlist_id: int) -> list
 ```
 
-The method includes a functionality to get the playlist dashboards specified by the playlist_id
+The method includes a functionality to get the playlist dashboards specified by the playlist_id.
 
 **Arguments**:
 
@@ -114,7 +104,7 @@ The method includes a functionality to get the playlist dashboards specified by 
 def update_playlist(playlist_id: int, playlist: PlaylistObject) -> dict
 ```
 
-The method includes a functionality to update a playlist specified by the playlist object and playlist_id
+The method includes a functionality to update a playlist specified by the playlist object and playlist_id.
 
 **Arguments**:
 
@@ -140,7 +130,7 @@ The method includes a functionality to update a playlist specified by the playli
 def delete_playlist(playlist_id: int)
 ```
 
-The method includes a functionality to delete a playlist specified by the playlist_id
+The method includes a functionality to delete a playlist specified by the playlist_id.
 
 **Arguments**:
 

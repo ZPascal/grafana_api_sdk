@@ -1,9 +1,3 @@
-# Table of Contents
-
-* [search](#search)
-  * [Search](#search.Search)
-    * [search](#search.Search.search)
-
 <a id="search"></a>
 
 # search
@@ -16,7 +10,7 @@
 class Search()
 ```
 
-The class includes all necessary methods to access the Grafana search API endpoints
+The class includes all necessary methods to access the Grafana search API endpoints.
 
 **Arguments**:
 
@@ -35,7 +29,7 @@ The class includes all necessary methods to access the Grafana search API endpoi
 def search(search_query: str) -> list
 ```
 
-The method includes a functionality to execute a custom query
+The method includes a functionality to execute a custom query.
 
 **Arguments**:
 

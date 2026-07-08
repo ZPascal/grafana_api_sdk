@@ -94,7 +94,7 @@ class AlertingProvisioningTest(TestCase):
     def test_e_delete_alert_rule(self):
         self.assertIsNone(self.alerting_provisioning.delete_alert_rule("Z9GoLXx7y"))
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.alerting_provisioning.get_alert_rule("Z9GoLXx7y")
 
     def test_g_get_all_contact_points(self):

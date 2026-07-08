@@ -11,7 +11,7 @@ ERROR_MESSAGES: list = ["invalid API key", "Invalid API key", "Expired API key"]
 
 
 class APIEndpoints(Enum):
-    """The class includes all necessary API endpoint strings to connect the Grafana API"""
+    """The class includes all necessary API endpoint strings to connect the Grafana API."""
 
     api_prefix: str = "/api"
     version_1: str = "v1"
@@ -58,7 +58,7 @@ class APIEndpoints(Enum):
 
 
 class RequestsMethods(Enum):
-    """The class includes all necessary method values to establish an HTTP/ HTTPS connection to the Grafana API endpoints"""
+    """The class includes all necessary method values to establish an HTTP/ HTTPS connection to the Grafana API endpoints."""
 
     GET: str = "GET"
     PUT: str = "PUT"
@@ -74,7 +74,7 @@ class SortDirection(Enum):
 
 @dataclass
 class APIModel:
-    """The class includes all necessary variables to establish a connection to the Grafana API endpoints
+    """The class includes all necessary variables to establish a connection to the Grafana API endpoints.
 
     Args:
         host (str): Specify the host of the Grafana system
@@ -88,6 +88,7 @@ class APIModel:
         num_pools (int): Specify the number of the connection pool
         retries (any): Specify the number of the retries. Please use False as parameter to disable the retries
         follow_redirects (bool): Specify if redirections should be followed (default True)
+
     """
 
     host: str
@@ -105,7 +106,7 @@ class APIModel:
 
 @dataclass
 class DatasourceQuery:
-    """The class includes all necessary variables to specify a query for the datasource search endpoint
+    """The class includes all necessary variables to specify a query for the datasource search endpoint.
 
     Args:
         raw_sql (str): Specify the raw SQL string to search inside the Grafana system
@@ -115,6 +116,7 @@ class DatasourceQuery:
         interval_ms (int): Specify the time interval in milliseconds of output format (default 1000)
         max_data_points (int): Specify maximum amount of data points that dashboard panel can render (default 100)
         output_format (str): Specify the output format of the query (default time_series)
+
     """
 
     raw_sql: str
@@ -128,7 +130,7 @@ class DatasourceQuery:
 
 @dataclass
 class DatasourceRuleQuery:
-    """The class includes all necessary variables to specify a query for the datasource rule search endpoint
+    """The class includes all necessary variables to specify a query for the datasource rule search endpoint.
 
     Args:
         datasource_uid (str): Specify the uid of the data source
@@ -136,6 +138,7 @@ class DatasourceRuleQuery:
         query_type (str): Specify the query time of the search command
         ref_id (str): Specify a reference id of the search command
         relative_time_range (dict): Specify the related time range of the search command
+
     """
 
     datasource_uid: str
@@ -147,7 +150,7 @@ class DatasourceRuleQuery:
 
 @dataclass
 class DatasourcePermission:
-    """The class includes the necessary variables to generate a datasource permission object that is necessary to communicate with the Grafana datasource permissions endpoint
+    """The class includes the necessary variables to generate a datasource permission object that is necessary to communicate with the Grafana datasource permissions endpoint.
 
     Args:
         permission (Union[str, None]): Specify the datasource permission. Can be query, edit, admin or None. To remove a permission, set the permission value to None
@@ -157,6 +160,7 @@ class DatasourcePermission:
 
     Returns:
         permission (str): Returns the datasource permission
+
     """
 
     def __init__(self, permission: Union[str, None]):
@@ -174,7 +178,7 @@ class DatasourcePermission:
 
 @dataclass
 class Alert:
-    """The class includes all necessary variables to generate an alert object that is necessary to communicate with the Grafana alert endpoint
+    """The class includes all necessary variables to generate an alert object that is necessary to communicate with the Grafana alert endpoint.
 
     Args:
         starts_at (str): Specify the start date of the alert
@@ -182,6 +186,7 @@ class Alert:
         annotations (dict): Specify the annotations of the alert
         generator_url (str):  Specify the url of the generator endpoint
         labels (dict): Specify labels of the alert
+
     """
 
     starts_at: str
@@ -201,7 +206,7 @@ class AlertRuleQueryModelCondition:
         query_params (list): Specify the query parameters
         reducer_params (list): Specify the reducer parameters
         reducer_type (str): Specify the reducer type
-        type (str): Specify the type
+        type (str): Specify the type.
     """
 
     evaluator_params: list
@@ -215,7 +220,7 @@ class AlertRuleQueryModelCondition:
 
 @dataclass
 class AlertRuleQueryModel:
-    """The class includes all necessary variables to generate an alert rule query model object that is necessary to communicate with the Grafana alert provisioning endpoint
+    """The class includes all necessary variables to generate an alert rule query model object that is necessary to communicate with the Grafana alert provisioning endpoint.
 
     Args:
         conditions (list): Specify the conditions list based on the AlertRuleQueryModelCondition objects
@@ -226,6 +231,7 @@ class AlertRuleQueryModel:
         max_data_points (int): Specify the max data points
         ref_id (str): Specify the unique identifier of the alert rule query model
         type (str): Specify the corresponding type
+
     """
 
     conditions: List[AlertRuleQueryModelCondition]
@@ -240,7 +246,7 @@ class AlertRuleQueryModel:
 
 @dataclass
 class AlertQuery:
-    """The class includes all necessary variables to generate an alert query object that is necessary to communicate with the Grafana alert provisioning endpoint
+    """The class includes all necessary variables to generate an alert query object that is necessary to communicate with the Grafana alert provisioning endpoint.
 
     Args:
         datasource_uid (str): Specify the datasource uid
@@ -249,6 +255,7 @@ class AlertQuery:
         ref_id (str): Specify the unique identifier of the alert query
         relative_time_range_from (int): Specify the relative from time range
         relative_time_range_to (int): Specify the relative to time range
+
     """
 
     datasource_uid: str
@@ -261,7 +268,7 @@ class AlertQuery:
 
 @dataclass
 class AlertRule:
-    """The class includes all necessary variables to generate an alert rule object that is necessary to communicate with the Grafana alert provisioning endpoint
+    """The class includes all necessary variables to generate an alert rule object that is necessary to communicate with the Grafana alert provisioning endpoint.
 
     Args:
         condition (str): Specify the condition
@@ -279,6 +286,7 @@ class AlertRule:
         provenance (str): Specify the provenance (default None)
         id (int): Specify the alert rule id (default 0)
         labels (dict): Specify the labels as dictionary (default None)
+
     """
 
     condition: str
@@ -300,7 +308,7 @@ class AlertRule:
 
 @dataclass
 class EmbeddedContactPoint:
-    """The class includes all necessary variables to generate an embedded contact point object that is necessary to communicate with the Grafana alert provisioning endpoint
+    """The class includes all necessary variables to generate an embedded contact point object that is necessary to communicate with the Grafana alert provisioning endpoint.
 
     Args:
         name (str): Specify the name of the embedded contact point
@@ -309,6 +317,7 @@ class EmbeddedContactPoint:
         disable_resolve_message (bool): Specify if the resolve message should be disabled (default None)
         provenance (str): Specify the provenance (default None)
         uid (str): Specify the uid of the embedded contact point (default None)
+
     """
 
     name: str
@@ -320,7 +329,7 @@ class EmbeddedContactPoint:
 
 
 class MatchType(Enum):
-    """The class includes all necessary values to set the corresponding match type"""
+    """The class includes all necessary values to set the corresponding match type."""
 
     MatchEqual: int = 0
     MatchNotEqual: int = 1
@@ -330,12 +339,13 @@ class MatchType(Enum):
 
 @dataclass
 class Matcher:
-    """The class includes all necessary variables to generate an alert rule route matcher object that is necessary to communicate with the Grafana alert provisioning endpoint
+    """The class includes all necessary variables to generate an alert rule route matcher object that is necessary to communicate with the Grafana alert provisioning endpoint.
 
     Args:
         name (str): Specify the name of the matcher
         type (MatchType): Specify the type of the matcher
         value (str): Specify the value of the matcher
+
     """
 
     name: str
@@ -345,7 +355,7 @@ class Matcher:
 
 @dataclass
 class Route:
-    """The class includes all necessary variables to generate an alert rule route that is necessary to communicate with the Grafana alert provisioning endpoint
+    """The class includes all necessary variables to generate an alert rule route that is necessary to communicate with the Grafana alert provisioning endpoint.
 
     Args:
         continue_parameter (bool): Specify the continue parameter
@@ -358,6 +368,7 @@ class Route:
         repeat_interval (str): Specify the repeat interval (default None)
         routes (List[Route]): Specify the list of routes (default None)
         mute_time_intervals (List[str]): Specify the mute time interval as list (default None)
+
     """
 
     continue_parameter: bool
@@ -374,11 +385,12 @@ class Route:
 
 @dataclass
 class TimeRange:
-    """The class includes all necessary variables to generate a time range object that is necessary to communicate with the Grafana alert provisioning endpoint
+    """The class includes all necessary variables to generate a time range object that is necessary to communicate with the Grafana alert provisioning endpoint.
 
     Args:
         start_time (str): Specify the start time e.g. 14:00
         start_time (str): Specify the end time e.g. 15:00
+
     """
 
     start_time: str
@@ -387,7 +399,7 @@ class TimeRange:
 
 @dataclass
 class TimeInterval:
-    """The class includes all necessary variables to generate a time interval object that is necessary to communicate with the Grafana alert provisioning endpoint
+    """The class includes all necessary variables to generate a time interval object that is necessary to communicate with the Grafana alert provisioning endpoint.
 
     Args:
         days_of_month (List[str]): Specify the days of month list (default None)
@@ -395,6 +407,7 @@ class TimeInterval:
         times (TimeRange):  Specify the times list (default None)
         weekdays (List[str]):  Specify the weekdays list (default None)
         years (List[str]):  Specify the year range list (default None)
+
     """
 
     days_of_month: List[str] = None
@@ -406,11 +419,12 @@ class TimeInterval:
 
 @dataclass
 class MuteTimeInterval:
-    """The class includes all necessary variables to generate a mute time interval object that is necessary to communicate with the Grafana alert provisioning endpoint
+    """The class includes all necessary variables to generate a mute time interval object that is necessary to communicate with the Grafana alert provisioning endpoint.
 
     Args:
         name (str): Specify the name of the mute time interval.
         time_intervals (List[TimeInterval]): Specify the list of time interval objects
+
     """
 
     name: str = None
@@ -419,7 +433,7 @@ class MuteTimeInterval:
 
 @dataclass
 class Silence:
-    """The class includes all necessary variables to generate a silence object that is necessary to communicate with the Grafana silence endpoint
+    """The class includes all necessary variables to generate a silence object that is necessary to communicate with the Grafana silence endpoint.
 
     Args:
         starts_at (str): Specify the start date of the silence
@@ -428,6 +442,7 @@ class Silence:
         comment (str):  Specify a custom comment for the silence
         id (str): Specify an id for the silence
         matchers (dict): Specify matchers for the silence
+
     """
 
     starts_at: str
@@ -440,7 +455,7 @@ class Silence:
 
 @dataclass
 class AlertmanagerConfig:
-    """The class includes all necessary variables to generate an Alertmanager config object that is necessary to communicate and set up the Grafana Alertmanager endpoint
+    """The class includes all necessary variables to generate an Alertmanager config object that is necessary to communicate and set up the Grafana Alertmanager endpoint.
 
     Args:
         global_config (Union[dict, None]): Specify the global config of the Alertmanager
@@ -449,6 +464,7 @@ class AlertmanagerConfig:
         receivers (list):  Specify the receiver's of the Alertmanager
         route (dict): Specify the route of the Alertmanager
         templates (Union[list, None]): Specify an Alertmanager template
+
     """
 
     global_config: Union[dict, None]
@@ -461,7 +477,7 @@ class AlertmanagerConfig:
 
 @dataclass
 class AlertmanagerReceivers:
-    """The class includes all necessary variables to generate an Alertmanager receiver's object that is necessary to communicate and set up the Grafana Alertmanager receivers endpoint
+    """The class includes all necessary variables to generate an Alertmanager receiver's object that is necessary to communicate and set up the Grafana Alertmanager receivers endpoint.
 
     Args:
         name (str): Specify the name of the receiver
@@ -475,6 +491,7 @@ class AlertmanagerReceivers:
         victorops_configs (Union[list, None]): Specify the victor ops configuration of the receiver's
         webhook_configs (Union[list, None]): Specify the webhook configuration of the receiver's
         wechat_configs (Union[list, None]): Specify the wechaty configuration of the receiver's
+
     """
 
     name: str
@@ -492,7 +509,7 @@ class AlertmanagerReceivers:
 
 @dataclass
 class RulerRule:
-    """The class includes all necessary variables to generate a Ruler rule object that is necessary to communicate and set up a Grafana Ruler rule
+    """The class includes all necessary variables to generate a Ruler rule object that is necessary to communicate and set up a Grafana Ruler rule.
 
     Args:
         alert (str): Specify the name of the rule
@@ -502,6 +519,7 @@ class RulerRule:
         labels (dict): Specify labels of the rule
         record (str): Specify recode value of the rule
         for_id (int): Specify the id of the rule if you update an existing rule (default 0)
+
     """
 
     alert: str
@@ -515,13 +533,14 @@ class RulerRule:
 
 @dataclass
 class UserObject:
-    """The class includes all necessary variables to generate a User object that is necessary to update a Grafana User
+    """The class includes all necessary variables to generate a User object that is necessary to update a Grafana User.
 
     Args:
         email (str): Specify the name of the rule
         name (str): Specify the annotations of the rule
         login (str): Specify the expression of the rule
         theme (str):  Specify the Grafana alert of the rule
+
     """
 
     email: str
@@ -532,12 +551,13 @@ class UserObject:
 
 @dataclass
 class PlaylistObject:
-    """The class includes all necessary variables to generate a playlist object
+    """The class includes all necessary variables to generate a playlist object.
 
     Args:
         name (str): Specify the name of the playlist
         interval (str): Specify the interval of the playlist
         items (list): Specify a list of PlaylistItemObjects
+
     """
 
     name: str
@@ -547,13 +567,14 @@ class PlaylistObject:
 
 @dataclass
 class PlaylistItemObject:
-    """The class includes all necessary variables to generate a playlist item object that is necessary to update a playlist
+    """The class includes all necessary variables to generate a playlist item object that is necessary to update a playlist.
 
     Args:
         type (str): Specify the type of the playlist item
         value (str): Specify the value of the playlist item
         order (int): Specify the order of the playlist item
         title (str): Specify the title of the playlist item
+
     """
 
     type: str
@@ -564,12 +585,13 @@ class PlaylistItemObject:
 
 @dataclass
 class TeamObject:
-    """The class includes all necessary variables to generate a team object that is necessary to create a team
+    """The class includes all necessary variables to generate a team object that is necessary to create a team.
 
     Args:
         name (str): Specify the name of the team
         email (str): Specify the email of the team
         org_id (int): Specify the org_id of the team
+
     """
 
     name: str
@@ -579,11 +601,12 @@ class TeamObject:
 
 @dataclass
 class QueryDatasourceObject:
-    """The class includes all necessary variables to generate a query datasource object that is necessary to create a query history object
+    """The class includes all necessary variables to generate a query datasource object that is necessary to create a query history object.
 
     Args:
         type (str): Specify the type of the datasource query
         uid (str): Specify the uid of the datasource query
+
     """
 
     type: str
@@ -592,13 +615,14 @@ class QueryDatasourceObject:
 
 @dataclass
 class QueryObject:
-    """The class includes all necessary variables to generate a query object that is necessary to create a query history
+    """The class includes all necessary variables to generate a query object that is necessary to create a query history.
 
     Args:
         ref_id (str): Specify the ref_id of the query history
         key (str): Specify the key of the query history
         scenario_id (str): Specify the scenario_id of the query history
         datasource (QueryDatasourceObject): Specify the datasource of the type QueryDatasourceObject
+
     """
 
     ref_id: str
@@ -609,7 +633,7 @@ class QueryObject:
 
 @dataclass
 class CorrelationObject:
-    """The class includes all necessary variables to generate a find annotation object
+    """The class includes all necessary variables to generate a find annotation object.
 
     Args:
         source_datasource_uid (str): Specify the source datasource uid (default None)
@@ -619,6 +643,7 @@ class CorrelationObject:
         config_type (str): Specify the config type (default None)
         config_field (str): Specify the config field (default None)
         config_target (str): Specify the config target (default None)
+
     """
 
     source_datasource_uid: str = None
@@ -632,7 +657,7 @@ class CorrelationObject:
 
 @dataclass
 class FindAnnotationObject:
-    """The class includes all necessary variables to generate a find annotation object
+    """The class includes all necessary variables to generate a find annotation object.
 
     Args:
         from_value (int): Specify the optional from value (default None)
@@ -644,6 +669,7 @@ class FindAnnotationObject:
         user_id (int): Specify the optional user id (default None)
         type (str): Specify the optional type e.g. alert or annotation (default None)
         tags (list): Specify the optional tags (default None)
+
     """
 
     from_value: int = None
@@ -659,7 +685,7 @@ class FindAnnotationObject:
 
 @dataclass
 class AnnotationObject:
-    """The class includes all necessary variables to generate an annotation object
+    """The class includes all necessary variables to generate an annotation object.
 
     Args:
         time (int): Specify the time as number in milliseconds
@@ -668,6 +694,7 @@ class AnnotationObject:
         text (str): Specify the annotation description message
         dashboard_uid (str): Specify the optional dashboard_uid (default None)
         panel_id (int): Specify the optional panel_id (default None)
+
     """
 
     time: int
@@ -680,13 +707,14 @@ class AnnotationObject:
 
 @dataclass
 class AnnotationGraphiteObject:
-    """The class includes all necessary variables to generate a Graphite annotation object
+    """The class includes all necessary variables to generate a Graphite annotation object.
 
     Args:
         what (str): Specify the event of the annotation
         tags (list): Specify the organization annotation tags from a data source that are not connected specifically to a dashboard or panel
         when (int): Specify the optional time as number in milliseconds
         data (str): Specify the optional annotation description message
+
     """
 
     what: str
@@ -697,7 +725,7 @@ class AnnotationGraphiteObject:
 
 @dataclass
 class GlobalUser:
-    """The class includes all necessary variables to generate a global user object
+    """The class includes all necessary variables to generate a global user object.
 
     Args:
         name (str): Specify the name of the user
@@ -705,6 +733,7 @@ class GlobalUser:
         login (str): Specify the login type of the user
         password (str): Specify the password of the user
         org_id (int): Specify the optional org id of the user (default None)
+
     """
 
     name: str
@@ -716,11 +745,12 @@ class GlobalUser:
 
 @dataclass
 class RolePermission:
-    """The class includes all necessary variables to generate a role permission object
+    """The class includes all necessary variables to generate a role permission object.
 
     Args:
         action (str): Specify the custom role action definition
         scope (str): Specify the scope definition. If not present, no scope will be mapped to the permission (default None)
+
     """
 
     action: str
@@ -729,7 +759,7 @@ class RolePermission:
 
 @dataclass
 class CustomRole:
-    """The class includes all necessary variables to generate a custom role object
+    """The class includes all necessary variables to generate a custom role object.
 
     Args:
         name (str): Specify the name of the role
@@ -741,6 +771,7 @@ class CustomRole:
         group (str): Specify the optional org group of the role (default None)
         hidden (bool): Specify whether the role is hidden or not.  If set to True, then the role does not show in the role picker. It will not be listed by API endpoints unless explicitly specified (default False)
         permissions (list): Specify the optional permissions of the role as a list of the RolePermission objects (default None)
+
     """
 
     name: str
@@ -756,7 +787,7 @@ class CustomRole:
 
 @dataclass
 class DatasourceCache:
-    """The class includes all necessary variables to generate a datasource cache object
+    """The class includes all necessary variables to generate a datasource cache object.
 
     Args:
         datasource_id (int): Specify the datasource id
@@ -765,6 +796,7 @@ class DatasourceCache:
         use_default_ttl (bool): Specify if the configured default TTL (Time-To-Live) should be used for both query and resource caching, instead of the user-specified values
         ttl_queries_ms (int): Specify the TTL to use for query caching, in milliseconds
         ttl_resources_ms (int): Specify the TTL to use for resource caching, in milliseconds
+
     """
 
     datasource_id: int
@@ -777,7 +809,7 @@ class DatasourceCache:
 
 @dataclass
 class PublicDashboard:
-    """The class includes all necessary variables to generate a public dashboard object
+    """The class includes all necessary variables to generate a public dashboard object.
 
     Args:
         uid (str): Specify the optional unique identifier when creating a public dashboard. If it’s none, it will generate a new uid (default None)
@@ -786,6 +818,7 @@ class PublicDashboard:
         is_enabled (bool): Specify the optional enablement of the public dashboard (default False)
         annotations_enabled (bool): Specify the optional enablement of the annotations inside the public dashboard (default False)
         share (str): Specify the optional share mode of the public dashboard (default public)
+
     """
 
     uid: str = None
@@ -798,7 +831,7 @@ class PublicDashboard:
 
 @dataclass
 class SSOSetting:
-    """The class includes all necessary variables to generate an SSO setting object
+    """The class includes all necessary variables to generate an SSO setting object.
 
     Args:
         api_url (str): Specify the SSO api url
@@ -806,6 +839,7 @@ class SSOSetting:
         client_secret (str): Specify the SSO client secret
         enabled (bool): Specify if the SSO provider is enabled or not
         scopes (str): Specify the SSO scopes
+
     """
 
     api_url: str
@@ -817,13 +851,14 @@ class SSOSetting:
 
 @dataclass
 class DashboardSchema:
-    """The class includes all necessary variables to generate a dashboard schema object that is used for the reporting functionality
+    """The class includes all necessary variables to generate a dashboard schema object that is used for the reporting functionality.
 
     Args:
         dashboard_uid (str): Specify the dashboard uid
         time_range_from (str): Specify the dashboard time range from
         time_range_to (str): Specify the dashboard time range to
         report_variables (dict): Specify the key-value pairs containing the template variables for this report, in dict format. If the value is None, the template variables from the reports dashboard will be used (default None)
+
     """
 
     dashboard_uid: str
@@ -834,7 +869,7 @@ class DashboardSchema:
 
 @dataclass
 class Report:
-    """The class includes all necessary variables to generate a report object
+    """The class includes all necessary variables to generate a report object.
 
     Args:
         name (str): Specify the name of the report that is used as an email subject
@@ -853,6 +888,7 @@ class Report:
         interval_amount (int): Specify the interval amount of the custom type (default 0)
         workdays_only (bool): Specify if the report only on Monday-Friday should be sent. Applicable to hourly and daily types of schedule (default None)
         formats (List[str]): Specify what kind of attachment to generate for the report. Available report formats are csv, pdf and image. The type csv attaches a CSV file for each table panel and the type image embeds an image of a dashboard into the emails body (default List["pdf"])
+
     """
 
     name: str
@@ -875,7 +911,7 @@ class Report:
 
 @dataclass
 class ReportBrandingSettings:
-    """The class includes all necessary variables to generate a report branding settings object
+    """The class includes all necessary variables to generate a report branding settings object.
 
     Args:
         report_logo_url (str): Specify the url of an image used as a logo on every page of the report
@@ -883,6 +919,7 @@ class ReportBrandingSettings:
         email_footer_mode (str): Specify the email footer mode. Can be sent-by or none. The value sent-by adds a 'Sent by email footer text' footer link to the email. Requires specifying values in the email_footer_text and email_footer_link fields. The value none suppresses adding a 'Sent by' footer link to the email
         email_footer_text (str): Specify the text of a URL added to the email 'Sent by' footer (default None)
         email_footer_link (str): Specify the url address value added to the email 'Sent by' footer (default None)
+
     """
 
     report_logo_url: str
