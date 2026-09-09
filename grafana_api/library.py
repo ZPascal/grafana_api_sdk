@@ -6,13 +6,14 @@ from .api import Api
 
 
 class Library:
-    """The class includes all necessary methods to access the Grafana library API endpoints
+    """The class includes all necessary methods to access the Grafana library API endpoints.
 
     Args:
         grafana_api_model (APIModel): Inject a Grafana API model object that includes all necessary values and information
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
@@ -29,9 +30,9 @@ class Library:
         exclude_uid: str = None,
         folder_filter_ids: str = None,
     ) -> dict:
-        """The method includes a functionality to get a list of all library elements the authenticated user has permission to view. Use the perPage query parameter to control the maximum number of library elements returned, The default limit is 100. You can also use the page query parameter to fetch library elements from any page other than the first one
+        """The method includes a functionality to get a list of all library elements the authenticated user has permission to view. Use the perPage query parameter to control the maximum number of library elements returned, The default limit is 100. You can also use the page query parameter to fetch library elements from any page other than the first one.
 
-         Args:
+        Args:
             results_per_page (int): Specify the results_per_page as integer (default 100)
             pages (int): Specify the pages as integer (default 1)
             search_string (str): Specify the search string (default None)
@@ -46,8 +47,8 @@ class Library:
 
         Returns:
             api_call (dict): Returns the library elements
-        """
 
+        """
         additional_parameters: str = ""
         if search_string is not None and len(search_string) != 0:
             additional_parameters += f"&searchString={search_string}"
@@ -66,16 +67,16 @@ class Library:
             f"&sortDirection={sort_direction}{additional_parameters}",
         )
 
-        if api_call == dict() or api_call.get("result") is None:
+        if api_call == {} or api_call.get("result") is None:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
             return api_call
 
     def get_library_element_by_uid(self, uid: str) -> dict:
-        """The method includes a functionality to get a library element with the given uid
+        """The method includes a functionality to get a library element with the given uid.
 
-         Args:
+        Args:
             uid (str): Specify the uid of the library element
 
         Raises:
@@ -84,14 +85,14 @@ class Library:
 
         Returns:
             api_call (dict): Returns the corresponding library element
-        """
 
+        """
         if len(uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.LIBRARY.value}/{uid}",
             )
 
-            if api_call == dict() or api_call.get("result") is None:
+            if api_call == {} or api_call.get("result") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -101,9 +102,9 @@ class Library:
             raise ValueError
 
     def get_library_element_by_name(self, name: str) -> dict:
-        """The method includes a functionality to get a library element with the given name
+        """The method includes a functionality to get a library element with the given name.
 
-         Args:
+        Args:
             name (str): Specify the name of the library element
 
         Raises:
@@ -112,14 +113,14 @@ class Library:
 
         Returns:
             api_call (dict): Returns the corresponding library element
-        """
 
+        """
         if len(name) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.LIBRARY.value}/name/{name}",
             )
 
-            if api_call == dict() or api_call.get("result") is None:
+            if api_call == {} or api_call.get("result") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -129,9 +130,9 @@ class Library:
             raise ValueError
 
     def get_library_element_connections(self, uid: str) -> dict:
-        """The method includes a functionality to get a list of connections for a library element based on the specified uid
+        """The method includes a functionality to get a list of connections for a library element based on the specified uid.
 
-         Args:
+        Args:
             uid (str): Specify the uid of the library element
 
         Raises:
@@ -140,14 +141,14 @@ class Library:
 
         Returns:
             api_call (dict): Returns the corresponding list of connections
-        """
 
+        """
         if len(uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.LIBRARY.value}/{uid}/connections",
             )
 
-            if api_call == dict() or api_call.get("result") is None:
+            if api_call == {} or api_call.get("result") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -165,9 +166,9 @@ class Library:
         name: str = None,
         uid: str = None,
     ) -> dict:
-        """The method includes a functionality to create a library element based on the specified folder id and model
+        """The method includes a functionality to create a library element based on the specified folder id and model.
 
-         Args:
+        Args:
              folder_id (int): Specify the folder where the library element is stored. It is deprecated since Grafana v9
              model (dict): Specify the JSON model for the library element
              kind (int): Specify the kind of element to search for. Use 1 for library panels or 2 for library variables (default 1)
@@ -181,18 +182,16 @@ class Library:
 
         Returns:
             api_call (dict): Returns the newly created library element
-        """
 
+        """
         if (
             folder_id != 0
             and model is not None
-            and model != dict()
+            and model != {}
             and kind is not None
             and kind != 0
         ):
-            request_parameters: dict = dict(
-                {"folderId": folder_id, "model": model, "kind": kind}
-            )
+            request_parameters: dict = {"folderId": folder_id, "model": model, "kind": kind}
 
             if folder_uid is not None and len(folder_uid) != 0:
                 request_parameters.update({"folderUid": folder_uid})
@@ -209,7 +208,7 @@ class Library:
                 json.dumps(request_parameters),
             )
 
-            if api_call == dict() or api_call.get("result") is None:
+            if api_call == {} or api_call.get("result") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -228,9 +227,9 @@ class Library:
         version: int,
         kind: int = 1,
     ) -> dict:
-        """The method includes a functionality to update a library element
+        """The method includes a functionality to update a library element.
 
-         Args:
+        Args:
              uid (str): Specify the uid of the library element
              folder_id (int): Specify the folder where the library element is stored. It is deprecated since Grafana v9
              folder_uid (str): Specify the uid of the folder where the library element is stored. Specify an empty string when it is general folder
@@ -245,21 +244,20 @@ class Library:
 
         Returns:
             api_call (dict): Returns the updated library element
-        """
 
+        """
         if (
             len(uid) != 0
             and folder_id != 0
             and len(folder_uid) != 0
             and len(name) != 0
             and model is not None
-            and model != dict()
+            and model != {}
             and version != 0
             and kind is not None
             and kind != 0
         ):
-            request_parameters: dict = dict(
-                {
+            request_parameters: dict = {
                     "uid": uid,
                     "folderId": folder_id,
                     "folderUid": folder_uid,
@@ -268,7 +266,6 @@ class Library:
                     "version": version,
                     "kind": kind,
                 }
-            )
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.LIBRARY.value}/{uid}",
@@ -276,7 +273,7 @@ class Library:
                 json.dumps(request_parameters),
             )
 
-            if api_call == dict() or api_call.get("result") is None:
+            if api_call == {} or api_call.get("result") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -288,9 +285,9 @@ class Library:
             raise ValueError
 
     def delete_library_element(self, uid: str):
-        """The method includes a functionality to delete a library element specified by the uid
+        """The method includes a functionality to delete a library element specified by the uid.
 
-         Args:
+        Args:
              uid (str): Specify the uid of the library element
 
         Raises:
@@ -299,8 +296,8 @@ class Library:
 
         Returns:
             None
-        """
 
+        """
         if len(uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.LIBRARY.value}/{uid}",

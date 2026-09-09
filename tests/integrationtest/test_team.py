@@ -55,7 +55,7 @@ class TeamTest(TestCase):
             )
         )
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.assertIsNotNone(
                 self.team.search_team(query="Test2").get("teams")[0].get("id")
             )
@@ -75,7 +75,7 @@ class TeamTest(TestCase):
 
         self.team.delete_team_member(team_id, 8)
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.team.get_team_members(team_id)
 
         self.team.delete_team_by_id(team_id)

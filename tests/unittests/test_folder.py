@@ -14,20 +14,20 @@ class FolderTestCase(TestCase):
         folder: Folder = Folder(grafana_api_model=model)
 
         call_the_api_mock.side_effect = [
-            list([{"id": 12, "uid": "test-uid", "title": None}]),
-            list(),
+            [{"id": 12, "uid": "test-uid", "title": None}],
+            [],
         ]
 
-        self.assertEqual(list([{"id": 0, "uid": "", "title": "General"}, {"id": 12, "uid": "test-uid", "title": None}]), folder.get_folders())
+        self.assertEqual([{"id": 0, "uid": "", "title": "General"}, {"id": 12, "uid": "test-uid", "title": None}], folder.get_folders())
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_folders_error_response(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list()
+        call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.get_folders()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -35,10 +35,10 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"title": None, "id": 12})
+        call_the_api_mock.return_value = {"title": None, "id": 12}
 
         self.assertEqual(
-            dict({"title": None, "id": 12}), folder.get_folder_by_uid("xty13y")
+            {"title": None, "id": 12}, folder.get_folder_by_uid("xty13y")
         )
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -46,7 +46,7 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             folder.get_folder_by_uid("")
@@ -56,9 +56,9 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.get_folder_by_uid("xty13y")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -66,16 +66,16 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"title": None, "id": 12})
+        call_the_api_mock.return_value = {"title": None, "id": 12}
 
-        self.assertEqual(dict({"title": None, "id": 12}), folder.get_folder_by_id(12))
+        self.assertEqual({"title": None, "id": 12}, folder.get_folder_by_id(12))
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_folder_by_id_no_id(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             folder.get_folder_by_id(0)
@@ -85,9 +85,9 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.get_folder_by_id(10)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -95,19 +95,19 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"title": None, "id": 12})
+        call_the_api_mock.return_value = {"title": None, "id": 12}
 
-        self.assertEqual(dict({"title": None, "id": 12}), folder.create_folder("test"))
+        self.assertEqual({"title": None, "id": 12}, folder.create_folder("test"))
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_create_folder_specified_uid(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"title": None, "id": 12, "uid": "test"})
+        call_the_api_mock.return_value = {"title": None, "id": 12, "uid": "test"}
 
         self.assertEqual(
-            dict({"title": None, "id": 12, "uid": "test"}),
+            {"title": None, "id": 12, "uid": "test"},
             folder.create_folder("test", "test"),
         )
 
@@ -116,12 +116,10 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {"title": None, "id": 12, "parent_uid": "test"}
-        )
+        call_the_api_mock.return_value = {"title": None, "id": 12, "parent_uid": "test"}
 
         self.assertEqual(
-            dict({"title": None, "id": 12, "parent_uid": "test"}),
+            {"title": None, "id": 12, "parent_uid": "test"},
             folder.create_folder("test", parent_uid="test"),
         )
 
@@ -130,7 +128,7 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             folder.create_folder(MagicMock())
@@ -140,9 +138,9 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.create_folder("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -150,10 +148,10 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"title": "test1", "id": 12})
+        call_the_api_mock.return_value = {"title": "test1", "id": 12}
 
         self.assertEqual(
-            dict({"title": "test1", "id": 12}),
+            {"title": "test1", "id": 12},
             folder.update_folder("test", "test1", 10),
         )
 
@@ -162,10 +160,10 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"title": "test", "id": 12})
+        call_the_api_mock.return_value = {"title": "test", "id": 12}
 
         self.assertEqual(
-            dict({"title": "test", "id": 12}),
+            {"title": "test", "id": 12},
             folder.update_folder("test", uid="test", overwrite=True),
         )
 
@@ -174,10 +172,10 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"title": "test", "id": 12})
+        call_the_api_mock.return_value = {"title": "test", "id": 12}
 
         self.assertEqual(
-            dict({"title": "test", "id": 12}),
+            {"title": "test", "id": 12},
             folder.update_folder("test", "test", overwrite=True),
         )
 
@@ -186,7 +184,7 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             folder.update_folder(MagicMock(), MagicMock())
@@ -196,9 +194,9 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.update_folder("test", "test", 10)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -206,10 +204,10 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"title": "test1", "id": 12})
+        call_the_api_mock.return_value = {"title": "test1", "id": 12}
 
         self.assertEqual(
-            dict({"title": "test1", "id": 12}),
+            {"title": "test1", "id": 12},
             folder.move_folder("test"),
         )
 
@@ -225,10 +223,10 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"title": "test", "id": 12})
+        call_the_api_mock.return_value = {"title": "test", "id": 12}
 
         self.assertEqual(
-            dict({"title": "test", "id": 12}),
+            {"title": "test", "id": 12},
             folder.move_folder("test", "test"),
         )
 
@@ -237,9 +235,9 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({})
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.move_folder("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -256,7 +254,7 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Folder deleted"})
+        call_the_api_mock.return_value = {"message": "Folder deleted"}
 
         self.assertEqual(None, folder.delete_folder("test"))
 
@@ -277,7 +275,7 @@ class FolderTestCase(TestCase):
 
         call_the_api_mock.return_value = httpx.Response(404)
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.delete_folder("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -285,9 +283,9 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "test"})
+        call_the_api_mock.return_value = {"message": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.delete_folder("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -295,10 +293,10 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"folderId": "test"}])
+        call_the_api_mock.return_value = [{"folderId": "test"}]
 
         self.assertEqual(
-            list([{"folderId": "test"}]), folder.get_folder_permissions("test")
+            [{"folderId": "test"}], folder.get_folder_permissions("test")
         )
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -306,7 +304,7 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list()
+        call_the_api_mock.return_value = []
         with self.assertRaises(ValueError):
             folder.get_folder_permissions("")
 
@@ -315,9 +313,9 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"test": "test"}])
+        call_the_api_mock.return_value = [{"test": "test"}]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.get_folder_permissions("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -325,12 +323,10 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {"message": "Dashboard permissions updated"}
-        )
+        call_the_api_mock.return_value = {"message": "Dashboard permissions updated"}
 
         self.assertEqual(
-            None, folder.update_folder_permissions("test", dict({"test": "test"}))
+            None, folder.update_folder_permissions("test", {"test": "test"})
         )
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -338,19 +334,19 @@ class FolderTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
         with self.assertRaises(ValueError):
-            folder.update_folder_permissions("", dict())
+            folder.update_folder_permissions("", {})
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_update_folder_permissions_error_response(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "test"})
+        call_the_api_mock.return_value = {"message": "test"}
 
-        with self.assertRaises(Exception):
-            folder.update_folder_permissions("test", dict({"test": "test"}))
+        with self.assertRaises(Exception):  # noqa: B017
+            folder.update_folder_permissions("test", {"test": "test"})
 
     @patch("grafana_api.folder.Folder.get_all_folder_ids_uids_and_names")
     def test_get_folder_id_by_dashboard_path(self, all_folder_ids_uids_and_names_mock):
@@ -385,7 +381,7 @@ class FolderTestCase(TestCase):
         folder: Folder = Folder(grafana_api_model=model)
 
         all_folder_ids_uids_and_names_mock.return_value = [{"title": None, "id": "xty13y", "uid": "test-uid"}]
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.get_folder_id_by_dashboard_path(dashboard_path="test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -452,7 +448,7 @@ class FolderTestCase(TestCase):
 
         call_the_api_mock.return_value = {"message": "error"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.get_all_folder_ids_uids_and_names()
 
     @patch("grafana_api.folder.Folder.get_all_folder_ids_uids_and_names")
@@ -495,7 +491,7 @@ class FolderTestCase(TestCase):
             {"title": "different", "id": 12, "uid": "test-uid"}
         ]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             folder.get_folder_uid_by_dashboard_path("test")
 
     @patch("grafana_api.api.Api.call_the_api")

@@ -13,20 +13,21 @@ from .api import Api
 
 
 class Alerting:
-    """The class includes all necessary methods to access the Grafana alerting API endpoints
+    """The class includes all necessary methods to access the Grafana alerting API endpoints.
 
     Args:
         grafana_api_model (APIModel): Inject a Grafana API model object that includes all necessary values and information
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
     def get_alertmanager_alerts(self, datasource_uid: str = "grafana") -> list:
-        """The method includes a functionality to get the Alertmanager alerts specified by the datasource_uid
+        """The method includes a functionality to get the Alertmanager alerts specified by the datasource_uid.
 
         Args:
             datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
@@ -37,14 +38,14 @@ class Alerting:
 
         Returns:
             api_call (list): Returns the list of Alertmanager alerts
-        """
 
+        """
         if len(datasource_uid) != 0:
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/api/v2/alerts",
             )
 
-            if api_call == list() or api_call[0].get("receivers") is None:
+            if api_call == [] or api_call[0].get("receivers") is None:
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
@@ -56,7 +57,7 @@ class Alerting:
     def create_or_update_alertmanager_alerts(
         self, alerts: list, datasource_uid: str = "grafana"
     ):
-        """The method includes a functionality to create or update the Alertmanager alerts specified by the datasource_uid and the alerts list
+        """The method includes a functionality to create or update the Alertmanager alerts specified by the datasource_uid and the alerts list.
 
         Args:
             alerts (list): Specify a list of the alert objects
@@ -68,21 +69,19 @@ class Alerting:
 
         Returns:
             None
-        """
 
-        if len(datasource_uid) != 0 and alerts != list():
-            alerts_json_list: list = list()
+        """
+        if len(datasource_uid) != 0 and alerts != []:
+            alerts_json_list: list = []
 
             for alert in alerts:
-                alert_json_dict: dict = dict(
-                    {
+                alert_json_dict: dict = {
                         "startsAt": alert.starts_at,
                         "endsAt": alert.ends_at,
                         "generatorURL": alert.generator_url,
                         "labels": alert.labels,
                         "annotations": alert.annotations,
                     }
-                )
                 alerts_json_list.append(alert_json_dict)
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
@@ -91,7 +90,7 @@ class Alerting:
                 json.dumps(alerts_json_list),
             )
 
-            if api_call != dict():
+            if api_call != {}:
                 logging.error(f"Please, check the error: {api_call.get('message')}.")
                 raise Exception
             else:
@@ -101,7 +100,7 @@ class Alerting:
             raise ValueError
 
     def get_alertmanager_group_alerts(self, datasource_uid: str = "grafana") -> list:
-        """The method includes a functionality to get the Alertmanager group alerts specified by the datasource_uid
+        """The method includes a functionality to get the Alertmanager group alerts specified by the datasource_uid.
 
         Args:
             datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
@@ -112,14 +111,14 @@ class Alerting:
 
         Returns:
             api_call (list): Returns the list of Alertmanager group alerts
-        """
 
+        """
         if len(datasource_uid) != 0:
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/api/v2/alerts/groups",
             )
 
-            if api_call == list() or api_call[0].get("alerts") is None:
+            if api_call == [] or api_call[0].get("alerts") is None:
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
@@ -131,7 +130,7 @@ class Alerting:
     def delete_alertmanager_silence_by_id(
         self, silence_id: str, datasource_uid: str = "grafana"
     ):
-        """The method includes a functionality to delete the Alertmanager silence specified by the silence id and the datasource_uid
+        """The method includes a functionality to delete the Alertmanager silence specified by the silence id and the datasource_uid.
 
         Args:
             silence_id (str): Specify the silence id of the alerts
@@ -143,15 +142,15 @@ class Alerting:
 
         Returns:
             None
-        """
 
+        """
         if len(datasource_uid) != 0 and len(silence_id) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/api/v2/silence/{silence_id}",
                 RequestsMethods.DELETE,
             )
 
-            if api_call == dict() or api_call.get("message") != "silence deleted":
+            if api_call == {} or api_call.get("message") != "silence deleted":
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
@@ -163,7 +162,7 @@ class Alerting:
     def get_alertmanager_silence_by_id(
         self, silence_id: str, datasource_uid: str = "grafana"
     ) -> dict:
-        """The method includes a functionality to get the Alertmanager silence specified by the silence id and the datasource_uid
+        """The method includes a functionality to get the Alertmanager silence specified by the silence id and the datasource_uid.
 
         Args:
             silence_id (str): Specify the silence id of the alerts
@@ -175,14 +174,14 @@ class Alerting:
 
         Returns:
             api_call (dict): Returns the dict of Alertmanager silence alert
-        """
 
+        """
         if len(datasource_uid) != 0 and len(silence_id) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/api/v2/silence/{silence_id}",
             )
 
-            if api_call == dict() or api_call.get("id") is None:
+            if api_call == {} or api_call.get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -192,7 +191,7 @@ class Alerting:
             raise ValueError
 
     def get_alertmanager_silences(self, datasource_uid: str = "grafana") -> list:
-        """The method includes a functionality to get all Alertmanager silences specified by the datasource_uid
+        """The method includes a functionality to get all Alertmanager silences specified by the datasource_uid.
 
         Args:
             datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
@@ -203,14 +202,14 @@ class Alerting:
 
         Returns:
             api_call (list): Returns the list of Alertmanager silence alerts
-        """
 
+        """
         if len(datasource_uid) != 0:
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/api/v2/silences",
             )
 
-            if api_call == list() or api_call[0].get("id") is None:
+            if api_call == [] or api_call[0].get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -222,7 +221,7 @@ class Alerting:
     def create_or_update_alertmanager_silence(
         self, silence: Silence, datasource_uid: str = "grafana"
     ) -> dict:
-        """The method includes a functionality to create or update the Alertmanager silence specified by the silence object and the datasource_uid
+        """The method includes a functionality to create or update the Alertmanager silence specified by the silence object and the datasource_uid.
 
         Args:
             silence -> Specify the silence object
@@ -234,11 +233,10 @@ class Alerting:
 
         Returns:
             api_call (dict): Returns the dict of newly created silence alert
-        """
 
+        """
         if len(datasource_uid) != 0 or silence is not None:
-            silence_json_dict: dict = dict(
-                {
+            silence_json_dict: dict = {
                     "comment": silence.comment,
                     "createdBy": silence.created_by,
                     "endsAt": silence.ends_at,
@@ -246,7 +244,6 @@ class Alerting:
                     "matchers": silence.matchers,
                     "startsAt": silence.starts_at,
                 }
-            )
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/api/v2/silences",
@@ -254,7 +251,7 @@ class Alerting:
                 json.dumps(silence_json_dict),
             )
 
-            if api_call == dict() or (
+            if api_call == {} or (
                 api_call.get("id") is None and api_call.get("silenceID") is None
             ):
                 logging.error(f"Check the error: {api_call}.")
@@ -266,7 +263,7 @@ class Alerting:
             raise ValueError
 
     def get_alertmanager_status(self, datasource_uid: str = "grafana") -> dict:
-        """The method includes a functionality to get the Alertmanager status specified by the datasource_uid
+        """The method includes a functionality to get the Alertmanager status specified by the datasource_uid.
 
         Args:
             datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
@@ -277,14 +274,14 @@ class Alerting:
 
         Returns:
             api_call (dict): Returns the dict of the Alertmanager status
-        """
 
+        """
         if len(datasource_uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/api/v2/status",
             )
 
-            if api_call == dict() or api_call.get("config") is None:
+            if api_call == {} or api_call.get("config") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -294,7 +291,7 @@ class Alerting:
             raise ValueError
 
     def delete_alertmanager_config(self, datasource_uid: str = "grafana"):
-        """The method includes a functionality to delete the Alertmanager config specified by the datasource_uid
+        """The method includes a functionality to delete the Alertmanager config specified by the datasource_uid.
 
         Args:
             datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
@@ -306,8 +303,8 @@ class Alerting:
 
         Returns:
             None
-        """
 
+        """
         if len(datasource_uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/config/api/v1/alerts",
@@ -333,7 +330,7 @@ class Alerting:
             raise ValueError
 
     def get_alertmanager_config(self, datasource_uid: str = "grafana") -> dict:
-        """The method includes a functionality to get the Alertmanager config specified by the datasource_uid
+        """The method includes a functionality to get the Alertmanager config specified by the datasource_uid.
 
         Args:
             datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
@@ -344,14 +341,14 @@ class Alerting:
 
         Returns:
             api_call (dict): Returns the dict of the Alertmanager config
-        """
 
+        """
         if len(datasource_uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/config/api/v1/alerts",
             )
 
-            if api_call == dict() or api_call.get("alertmanager_config") is None:
+            if api_call == {} or api_call.get("alertmanager_config") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -366,7 +363,7 @@ class Alerting:
         datasource_uid: str = "grafana",
         template_files: dict = None,
     ):
-        """The method includes a functionality to create or update the Alertmanager config specified by the Alertmanager config object, datasource_uid and template_files
+        """The method includes a functionality to create or update the Alertmanager config specified by the Alertmanager config object, datasource_uid and template_files.
 
         Args:
             alertmanager_config (AlertmanagerConfig): Specify the Alertmanager config object
@@ -380,13 +377,12 @@ class Alerting:
 
         Returns:
             None
+
         """
-
         if len(datasource_uid) != 0 and alertmanager_config is not None:
-            alertmanager_configuration_json_dict: dict = dict()
+            alertmanager_configuration_json_dict: dict = {}
 
-            alertmanager_configuration_json_dict["alertmanager_config"] = dict(
-                {
+            alertmanager_configuration_json_dict["alertmanager_config"] = {
                     "global": alertmanager_config.global_config,
                     "inhibit_rules": alertmanager_config.inhibit_rules,
                     "mute_time_intervals": alertmanager_config.mute_time_intervals,
@@ -394,7 +390,6 @@ class Alerting:
                     "route": alertmanager_config.route,
                     "templates": alertmanager_config.templates,
                 }
-            )
 
             if template_files is not None:
                 alertmanager_configuration_json_dict["template_files"] = template_files
@@ -426,7 +421,7 @@ class Alerting:
     def test_alertmanager_receivers(
         self, alert: dict, receivers: list, datasource_uid: str = "grafana"
     ):
-        """The method includes a functionality to test the Alertmanager receivers specified by the alert dict, receivers object and the datasource_uid
+        """The method includes a functionality to test the Alertmanager receivers specified by the alert dict, receivers object and the datasource_uid.
 
         Args:
             alert (dict): Specify the alert dict
@@ -440,18 +435,17 @@ class Alerting:
 
         Returns:
             None
-        """
 
-        if len(datasource_uid) != 0 and alert != dict() and receivers is not None:
-            alertmanager_receivers_json_dict: dict = dict()
-            receivers_list: list = list()
+        """
+        if len(datasource_uid) != 0 and alert != {} and receivers is not None:
+            alertmanager_receivers_json_dict: dict = {}
+            receivers_list: list = []
 
             alertmanager_receivers_json_dict["alert"] = alert
 
             for receiver in receivers:
                 receivers_list.append(
-                    dict(
-                        {
+                    {
                             "name": receiver.name,
                             "email_configs": receiver.email_configs,
                             "grafana_managed_receiver_configs": receiver.grafana_managed_receiver_configs,
@@ -464,7 +458,6 @@ class Alerting:
                             "webhook_configs": receiver.webhook_configs,
                             "wechat_configs": receiver.wechat_configs,
                         }
-                    )
                 )
 
             alertmanager_receivers_json_dict["receivers"] = receivers_list
@@ -479,8 +472,7 @@ class Alerting:
             status_code: int = api_call.get("status")
             api_call_dict: dict = api_call
 
-            alert_manager_status_dict: dict = dict(
-                {
+            alert_manager_status_dict: dict = {
                     200: "You successfully tested Grafana managed receivers.",
                     207: "You successfully tested Grafana managed receivers (Multi Status).",
                     400: f"Validation error. Check the error: {api_call_dict.get('message')}.",
@@ -489,7 +481,6 @@ class Alerting:
                     408: f"Failure. Check the error: {api_call_dict.get('message')}.",
                     409: "Alert manager not ready. Please, check the alert manager configuration.",
                 }
-            )
 
             if 200 <= status_code < 300:
                 logging.info(alert_manager_status_dict.get(status_code))
@@ -507,7 +498,7 @@ class Alerting:
             raise ValueError
 
     def get_prometheus_alerts(self, datasource_uid: str = "grafana") -> dict:
-        """The method includes a functionality to get all prometheus alerts specified by the datasource_uid
+        """The method includes a functionality to get all prometheus alerts specified by the datasource_uid.
 
         Args:
             datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
@@ -518,14 +509,14 @@ class Alerting:
 
         Returns:
             api_call (dict): Returns the dict of the prometheus alerts
-        """
 
+        """
         if len(datasource_uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_PROMETHEUS.value}/{datasource_uid}/api/v1/alerts",
             )
 
-            if api_call == dict() or api_call.get("data") is None:
+            if api_call == {} or api_call.get("data") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -535,7 +526,7 @@ class Alerting:
             raise ValueError
 
     def get_prometheus_rules(self, datasource_uid: str = "grafana") -> dict:
-        """The method includes a functionality to get all prometheus rules specified by the datasource_uid
+        """The method includes a functionality to get all prometheus rules specified by the datasource_uid.
 
         Args:
             datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
@@ -546,14 +537,14 @@ class Alerting:
 
         Returns:
             api_call (dict): Returns the dict of the prometheus rules
-        """
 
+        """
         if len(datasource_uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_PROMETHEUS.value}/{datasource_uid}/api/v1/rules",
             )
 
-            if api_call == dict() or api_call.get("data") is None:
+            if api_call == {} or api_call.get("data") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -563,7 +554,7 @@ class Alerting:
             raise ValueError
 
     def get_ruler_rules(self, datasource_uid: str = "grafana") -> dict:
-        """The method includes a functionality to get all ruler rules specified by the datasource_uid
+        """The method includes a functionality to get all ruler rules specified by the datasource_uid.
 
         Args:
             datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
@@ -574,14 +565,14 @@ class Alerting:
 
         Returns:
             api_call (dict): Returns the dict of the ruler rules
-        """
 
+        """
         if len(datasource_uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_RULER.value}/{datasource_uid}/api/v1/rules",
             )
 
-            if api_call == dict():
+            if api_call == {}:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -591,7 +582,7 @@ class Alerting:
             raise ValueError
 
     def delete_ruler_namespace(self, namespace: str, datasource_uid: str = "grafana"):
-        """The method includes a functionality to delete a ruler namespace specified by the namespace name and the datasource_uid
+        """The method includes a functionality to delete a ruler namespace specified by the namespace name and the datasource_uid.
 
         Args:
             namespace (str): Specify the namespace name
@@ -603,15 +594,15 @@ class Alerting:
 
         Returns:
             None
-        """
 
+        """
         if len(datasource_uid) != 0 and len(namespace) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_RULER.value}/{datasource_uid}/api/v1/rules/{namespace}",
                 RequestsMethods.DELETE,
             )
 
-            if api_call != dict():
+            if api_call != {}:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -623,7 +614,7 @@ class Alerting:
     def get_ruler_groups_by_namespace(
         self, namespace: str, datasource_uid: str = "grafana"
     ) -> dict:
-        """The method includes a functionality to get all ruler groups specified by the namespace name and the datasource_uid
+        """The method includes a functionality to get all ruler groups specified by the namespace name and the datasource_uid.
 
         Args:
             namespace (str): Specify the namespace name
@@ -635,14 +626,14 @@ class Alerting:
 
         Returns:
             api_call (dict): Returns the dict of the ruler groups
-        """
 
+        """
         if len(datasource_uid) != 0 and len(namespace) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_RULER.value}/{datasource_uid}/api/v1/rules/{namespace}",
             )
 
-            if api_call == dict():
+            if api_call == {}:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -659,7 +650,7 @@ class Alerting:
         datasource_uid: str = "grafana",
         interval: int = 0,
     ):
-        """The method includes a functionality to create or update a ruler group specified by the namespace name, a ruler group name, a ruler rule object list, the datasource_uid and an interval
+        """The method includes a functionality to create or update a ruler group specified by the namespace name, a ruler group name, a ruler rule object list, the datasource_uid and an interval.
 
         Args:
             namespace (str): Specify the namespace name
@@ -674,19 +665,18 @@ class Alerting:
 
         Returns:
             None
-        """
 
+        """
         if (
             len(datasource_uid) != 0
             and len(namespace) != 0
             and len(group_name) != 0
-            and rules != list()
+            and rules != []
         ):
-            rules_json_list: list = list()
+            rules_json_list: list = []
 
             for rule in rules:
-                rule_json_dict: dict = dict(
-                    {
+                rule_json_dict: dict = {
                         "alert": rule.alert,
                         "annotations": rule.annotations,
                         "expr": rule.expr,
@@ -695,7 +685,6 @@ class Alerting:
                         "labels": rule.labels,
                         "record": rule.record,
                     }
-                )
                 rules_json_list.append(rule_json_dict)
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
@@ -710,7 +699,7 @@ class Alerting:
                 ),
             )
 
-            if api_call != dict():
+            if api_call != {}:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -724,7 +713,7 @@ class Alerting:
     def delete_ruler_group(
         self, namespace: str, group_name: str, datasource_uid: str = "grafana"
     ):
-        """The method includes a functionality to delete a ruler group specified by the namespace name, a ruler group name and the datasource_uid
+        """The method includes a functionality to delete a ruler group specified by the namespace name, a ruler group name and the datasource_uid.
 
         Args:
             namespace (str): Specify the namespace name
@@ -737,15 +726,15 @@ class Alerting:
 
         Returns:
             None
-        """
 
+        """
         if len(datasource_uid) != 0 and len(namespace) != 0 and len(group_name) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_RULER.value}/{datasource_uid}/api/v1/rules/{namespace}/{group_name}",
                 RequestsMethods.DELETE,
             )
 
-            if api_call != dict():
+            if api_call != {}:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -759,7 +748,7 @@ class Alerting:
     def get_ruler_group(
         self, namespace: str, group_name: str, datasource_uid: str = "grafana"
     ) -> dict:
-        """The method includes a functionality to get a ruler group specified by the namespace name, a ruler group name and the datasource_uid
+        """The method includes a functionality to get a ruler group specified by the namespace name, a ruler group name and the datasource_uid.
 
         Args:
             namespace (str): Specify the namespace name
@@ -772,14 +761,14 @@ class Alerting:
 
         Returns:
             api_call (dict): Returns the dict of all ruler groups
-        """
 
+        """
         if len(datasource_uid) != 0 and len(namespace) != 0 and len(group_name) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_RULER.value}/{datasource_uid}/api/v1/rules/{namespace}/{group_name}",
             )
 
-            if api_call == dict():
+            if api_call == {}:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -791,7 +780,7 @@ class Alerting:
             raise ValueError
 
     def test_rule(self, data_queries: list) -> dict:
-        """The method includes a functionality to test a rule specified by a list of datasource rule query objects
+        """The method includes a functionality to test a rule specified by a list of datasource rule query objects.
 
         Args:
             data_queries (list): Specify a list of datasource rule query objects
@@ -802,11 +791,11 @@ class Alerting:
 
         Returns:
             api_call (str): Returns the result of the specified query
-        """
 
-        if data_queries != list():
-            datasource_rule_query_objects_json: list = list()
-            datasource_rule_query_object_json: dict = dict()
+        """
+        if data_queries != []:
+            datasource_rule_query_objects_json: list = []
+            datasource_rule_query_object_json: dict = {}
 
             for datasource_rule_query_object in data_queries:
                 datasource_rule_query_object_json["datasourceUid"] = (
@@ -839,7 +828,7 @@ class Alerting:
                 ),
             )
 
-            if api_call == dict() or api_call.get("message") is not None:
+            if api_call == {} or api_call.get("message") is not None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -855,7 +844,7 @@ class Alerting:
         data_queries: list,
         datasource_uid: str = "grafana",
     ) -> dict:
-        """The method includes a functionality to test a datasource uid rule specified by the expr, the condition, a list of data queries and the datasource_uid
+        """The method includes a functionality to test a datasource uid rule specified by the expr, the condition, a list of data queries and the datasource_uid.
 
         Args:
             expr (str): Specify a list of datasource rule query objects
@@ -869,16 +858,16 @@ class Alerting:
 
         Returns:
             api_call (dict): Returns the result of the specified datasource_uid rule
-        """
 
+        """
         if (
             len(datasource_uid) != 0
             and len(expr) != 0
             and len(condition) != 0
-            and data_queries != list()
+            and data_queries != []
         ):
-            datasource_rule_query_objects_json: list = list()
-            datasource_rule_query_object_json: dict = dict()
+            datasource_rule_query_objects_json: list = []
+            datasource_rule_query_object_json: dict = {}
 
             for datasource_rule_query_object in data_queries:
                 datasource_rule_query_object_json["datasourceUid"] = (
@@ -915,7 +904,7 @@ class Alerting:
                 ),
             )
 
-            if api_call == dict() or api_call.get("message") is not None:
+            if api_call == {} or api_call.get("message") is not None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -927,7 +916,7 @@ class Alerting:
             raise ValueError
 
     def test_backtest_rule(self, condition: str, data_queries: list) -> dict:
-        """The method includes a functionality to test a rule specified by the condition and a list of data queries
+        """The method includes a functionality to test a rule specified by the condition and a list of data queries.
 
         Args:
             condition (str): Specify the condition
@@ -939,11 +928,11 @@ class Alerting:
 
         Returns:
             api_call (dict): Returns the result of the specified rule
-        """
 
-        if len(condition) != 0 and data_queries != list():
-            datasource_rule_query_objects_json: list = list()
-            datasource_rule_query_object_json: dict = dict()
+        """
+        if len(condition) != 0 and data_queries != []:
+            datasource_rule_query_objects_json: list = []
+            datasource_rule_query_object_json: dict = {}
 
             for datasource_rule_query_object in data_queries:
                 datasource_rule_query_object_json["datasourceUid"] = (
@@ -976,7 +965,7 @@ class Alerting:
                 ),
             )
 
-            if api_call == dict() or api_call.get("message") is not None:
+            if api_call == {} or api_call.get("message") is not None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -986,21 +975,21 @@ class Alerting:
             raise ValueError
 
     def delete_ngalert_organization_configuration(self):
-        """The method includes a functionality to delete the NGAlert organization admin configuration
+        """The method includes a functionality to delete the NGAlert organization admin configuration.
 
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
             None
-        """
 
+        """
         api_call: dict = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.ALERTS_NGALERT.value}/admin_config",
             RequestsMethods.DELETE,
         )
 
-        if api_call != dict() and api_call.get("message") is not None:
+        if api_call != {} and api_call.get("message") is not None:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
@@ -1009,15 +998,15 @@ class Alerting:
             )
 
     def get_ngalert_organization_configuration(self) -> dict:
-        """The method includes a functionality to get the NGAlert organization admin configuration
+        """The method includes a functionality to get the NGAlert organization admin configuration.
 
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
             api_call (dict): Returns the NGAlert organization configuration
-        """
 
+        """
         api_call: any = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.ALERTS_NGALERT.value}/admin_config",
             response_status_code=True,
@@ -1025,12 +1014,10 @@ class Alerting:
 
         status_code: int = api_call.get("status")
 
-        alert_manager_status_dict: dict = dict(
-            {
+        alert_manager_status_dict: dict = {
                 404: "There's no configuration available.",
                 500: "Failure, an unexpected error occurred.",
             }
-        )
 
         if status_code == 200:
             return api_call
@@ -1044,7 +1031,7 @@ class Alerting:
     def create_or_update_ngalert_organization_configuration(
         self, alert_managers: list, alertmanagers_choice: str = "all"
     ):
-        """The method includes a functionality to create or update the NGAlert organization admin configuration
+        """The method includes a functionality to create or update the NGAlert organization admin configuration.
 
         Args:
             alert_managers (list): Specify the list of alert manager names
@@ -1056,9 +1043,9 @@ class Alerting:
 
         Returns:
             None
-        """
 
-        if alert_managers != list() and len(alertmanagers_choice) != 0:
+        """
+        if alert_managers != [] and len(alertmanagers_choice) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTS_NGALERT.value}/admin_config",
                 RequestsMethods.POST,
@@ -1070,7 +1057,7 @@ class Alerting:
                 ),
             )
 
-            if api_call != dict():
+            if api_call != {}:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -1082,20 +1069,20 @@ class Alerting:
             raise ValueError
 
     def get_ngalert_alertmanagers_by_organization(self) -> dict:
-        """The method includes a functionality to get the discovered and dropped Alertmanagers of the user's organization and based on the specified configuration
+        """The method includes a functionality to get the discovered and dropped Alertmanagers of the user's organization and based on the specified configuration.
 
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
             api_call (dict): Returns the NGAlert Alertmanagers
-        """
 
+        """
         api_call: dict = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.ALERTS_NGALERT.value}/Alertmanagers",
         )
 
-        if api_call == dict():
+        if api_call == {}:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:

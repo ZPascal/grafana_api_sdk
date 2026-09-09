@@ -1,0 +1,6 @@
+warning: `VIRTUAL_ENV=venv` does not match the project environment path `.venv` and will be ignored; use `--active` to target the active environment instead
+ERROR: usage: pytest [options] [file_or_dir] [file_or_dir] [...]
+pytest: error: unrecognized arguments: --cov=.
+  inifile: /home/zpascal/Projekte/Upstream/grafana_api_sdk/pyproject.toml
+  rootdir: /home/zpascal/Projekte/Upstream/grafana_api_sdk
+

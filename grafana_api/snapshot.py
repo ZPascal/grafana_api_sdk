@@ -10,13 +10,14 @@ from .api import Api
 
 
 class Snapshot:
-    """The class includes all necessary methods to access the Grafana snapshot API endpoints
+    """The class includes all necessary methods to access the Grafana snapshot API endpoints.
 
     Args:
         grafana_api_model (APIModel): Inject a Grafana API model object that includes all necessary values and information
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
@@ -31,7 +32,7 @@ class Snapshot:
         key: str = None,
         delete_key: str = None,
     ) -> dict:
-        """The method includes a functionality to create the specified dashboard snapshot
+        """The method includes a functionality to create the specified dashboard snapshot.
 
         Args:
             dashboard_json (dict): Specify the dashboard_json of the dashboard
@@ -47,9 +48,9 @@ class Snapshot:
 
         Returns:
             api_call (dict): Returns the snapshot information of the dashboard
-        """
 
-        if dashboard_json != dict():
+        """
+        if dashboard_json != {}:
             if external:
                 if (key is None or len(key) == 0) and (
                     delete_key is None or len(delete_key) == 0
@@ -75,7 +76,7 @@ class Snapshot:
                 json.dumps(snapshot_json),
             )
 
-            if api_call == dict() or (
+            if api_call == {} or (
                 api_call.get("id") is None and api_call.get("key") is None
             ):
                 logging.error(f"Check the error: {api_call}.")
@@ -87,27 +88,27 @@ class Snapshot:
             raise ValueError
 
     def get_snapshots(self) -> list:
-        """The method includes a functionality to list all dashboard snapshots
+        """The method includes a functionality to list all dashboard snapshots.
 
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
             api_call (list): Returns all dashboard snapshots
-        """
 
+        """
         api_call: list = Api(self.grafana_api_model).call_the_api(
             APIEndpoints.DASHBOARD_SNAPSHOTS.value,
         )
 
-        if api_call == list() or api_call[0].get("name") is None:
+        if api_call == [] or api_call[0].get("name") is None:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
             return api_call
 
     def get_snapshot_by_key(self, key: str) -> dict:
-        """The method includes a functionality to get a specific dashboard snapshot by the key
+        """The method includes a functionality to get a specific dashboard snapshot by the key.
 
         Args:
             key (str): Specify the key of the dashboard snapshot
@@ -118,14 +119,14 @@ class Snapshot:
 
         Returns:
             api_call (dict): Returns a specific dashboard snapshot
-        """
 
+        """
         if len(key) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.SNAPSHOTS.value}/{key}",
             )
 
-            if api_call == dict() or api_call.get("dashboard").get("id") is None:
+            if api_call == {} or api_call.get("dashboard").get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -135,7 +136,7 @@ class Snapshot:
             raise ValueError
 
     def delete_snapshot_by_key(self, key: str):
-        """The method includes a functionality to delete a specific dashboard snapshot by the key
+        """The method includes a functionality to delete a specific dashboard snapshot by the key.
 
         Args:
             key (str): Specify the key of the dashboard snapshot
@@ -146,8 +147,8 @@ class Snapshot:
 
         Returns:
             None
-        """
 
+        """
         if len(key) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.SNAPSHOTS.value}/{key}", RequestsMethods.DELETE
@@ -166,7 +167,7 @@ class Snapshot:
             raise ValueError
 
     def delete_snapshot_by_delete_key(self, delete_key: str):
-        """The method includes a functionality to delete a specific dashboard snapshot by the delete_key
+        """The method includes a functionality to delete a specific dashboard snapshot by the delete_key.
 
         Args:
             delete_key (str): Specify the delete_key of the dashboard snapshot
@@ -177,8 +178,8 @@ class Snapshot:
 
         Returns:
             None
-        """
 
+        """
         if len(delete_key) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.SNAPSHOTS.value}-delete/{delete_key}",

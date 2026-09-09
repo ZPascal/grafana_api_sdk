@@ -23,7 +23,7 @@ class QueryHistoryTest(TestCase):
     def test_search_query_history(self):
         self.assertEqual(
             0,
-            self.query_history.search_query_history(list(["5yBH2Yxnk"]), "logs")
+            self.query_history.search_query_history(["5yBH2Yxnk"], "logs")
             .get("result")
             .get("totalCount"),
         )
@@ -35,7 +35,7 @@ class QueryHistoryTest(TestCase):
         query: QueryObject = QueryObject("A", "test", "logs", query_datasource)
 
         self.query_history.add_query_to_history(
-            datasource_uid="5yBH2Yxnk", queries=list([query])
+            datasource_uid="5yBH2Yxnk", queries=[query]
         )
 
-        self.query_history.search_query_history(list(["5yBH2Yxnk"]), "logs")
+        self.query_history.search_query_history(["5yBH2Yxnk"], "logs")

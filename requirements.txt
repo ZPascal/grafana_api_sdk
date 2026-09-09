@@ -1,3 +1,0 @@
-httpx[http2]
-pytest
-pytest-httpx

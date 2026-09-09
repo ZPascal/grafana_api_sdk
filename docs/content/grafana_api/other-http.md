@@ -1,13 +1,3 @@
-# Table of Contents
-
-* [other\_http](#other_http)
-  * [OtherHTTP](#other_http.OtherHTTP)
-    * [get\_frontend\_settings](#other_http.OtherHTTP.get_frontend_settings)
-    * [renew\_login\_session\_based\_on\_remember\_cookie](#other_http.OtherHTTP.renew_login_session_based_on_remember_cookie)
-    * [get\_health\_status](#other_http.OtherHTTP.get_health_status)
-    * [get\_metrics](#other_http.OtherHTTP.get_metrics)
-    * [get\_plugin\_metrics](#other_http.OtherHTTP.get_plugin_metrics)
-
 <a id="other_http"></a>
 
 # other\_http
@@ -20,7 +10,7 @@
 class OtherHTTP()
 ```
 
-The class includes all necessary methods to access other Grafana API endpoints
+The class includes all necessary methods to access other Grafana API endpoints.
 
 **Arguments**:
 
@@ -39,7 +29,7 @@ The class includes all necessary methods to access other Grafana API endpoints
 def get_frontend_settings() -> dict
 ```
 
-The method includes a functionality to get the frontend settings
+The method includes a functionality to get the frontend settings.
 
 **Raises**:
 
@@ -58,7 +48,7 @@ The method includes a functionality to get the frontend settings
 def renew_login_session_based_on_remember_cookie()
 ```
 
-The method includes a functionality to renew the login session based on the remember cookie
+The method includes a functionality to renew the login session based on the remember cookie.
 
 **Raises**:
 
@@ -77,7 +67,7 @@ The method includes a functionality to renew the login session based on the reme
 def get_health_status() -> dict
 ```
 
-The method includes a functionality to get the health information
+The method includes a functionality to get the health information.
 
 **Raises**:
 
@@ -97,7 +87,7 @@ def get_metrics(basic_auth_username: str = None,
                 basic_auth_password: str = None) -> str
 ```
 
-The method includes a functionality to get the Grafana metrics information
+The method includes a functionality to get the Grafana metrics information.
 
 **Arguments**:
 
@@ -124,7 +114,7 @@ def get_plugin_metrics(plugin_id: str,
                        basic_auth_password: str = None) -> str
 ```
 
-The method includes a functionality to get the Grafana plugin metrics information
+The method includes a functionality to get the Grafana plugin metrics information.
 
 **Arguments**:
 

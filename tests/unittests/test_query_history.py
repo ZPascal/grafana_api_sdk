@@ -14,10 +14,10 @@ class QueryHistoryTestCase(TestCase):
         query_datasource: QueryDatasourceObject = QueryDatasourceObject("test", "test")
         query: QueryObject = QueryObject("test", "test", "test", query_datasource)
 
-        call_the_api_mock.return_value = dict({"result": "test"})
+        call_the_api_mock.return_value = {"result": "test"}
 
         self.assertEqual(
-            dict({"result": "test"}),
+            {"result": "test"},
             query_history.add_query_to_history("test", [query]),
         )
 
@@ -26,7 +26,7 @@ class QueryHistoryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         query_history: QueryHistory = QueryHistory(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             query_history.add_query_to_history("", [])
@@ -39,9 +39,9 @@ class QueryHistoryTestCase(TestCase):
         query_datasource: QueryDatasourceObject = QueryDatasourceObject("test", "test")
         query: QueryObject = QueryObject("test", "test", "test", query_datasource)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             query_history.add_query_to_history("test", [query])
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -49,10 +49,10 @@ class QueryHistoryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         query_history: QueryHistory = QueryHistory(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"result": "test"})
+        call_the_api_mock.return_value = {"result": "test"}
 
         self.assertEqual(
-            dict({"result": "test"}),
+            {"result": "test"},
             query_history.search_query_history(["test", "test"], "test"),
         )
 
@@ -61,7 +61,7 @@ class QueryHistoryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         query_history: QueryHistory = QueryHistory(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             query_history.search_query_history([], "")
@@ -71,9 +71,9 @@ class QueryHistoryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         query_history: QueryHistory = QueryHistory(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             query_history.search_query_history(["test"], "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -81,7 +81,7 @@ class QueryHistoryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         query_history: QueryHistory = QueryHistory(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Query deleted"})
+        call_the_api_mock.return_value = {"message": "Query deleted"}
 
         self.assertEqual(None, query_history.delete_query_history("test"))
 
@@ -90,7 +90,7 @@ class QueryHistoryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         query_history: QueryHistory = QueryHistory(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             query_history.delete_query_history("")
@@ -100,9 +100,9 @@ class QueryHistoryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         query_history: QueryHistory = QueryHistory(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "test"})
+        call_the_api_mock.return_value = {"message": "test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             query_history.delete_query_history("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -110,10 +110,10 @@ class QueryHistoryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         query_history: QueryHistory = QueryHistory(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"result": "test"})
+        call_the_api_mock.return_value = {"result": "test"}
 
         self.assertEqual(
-            dict({"result": "test"}), query_history.update_query_history("test", "test")
+            {"result": "test"}, query_history.update_query_history("test", "test")
         )
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -121,7 +121,7 @@ class QueryHistoryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         query_history: QueryHistory = QueryHistory(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             query_history.update_query_history("", "")
@@ -131,9 +131,9 @@ class QueryHistoryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         query_history: QueryHistory = QueryHistory(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             query_history.update_query_history("test", "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -141,10 +141,10 @@ class QueryHistoryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         query_history: QueryHistory = QueryHistory(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"result": "test"})
+        call_the_api_mock.return_value = {"result": "test"}
 
         self.assertEqual(
-            dict({"result": "test"}), query_history.star_query_history("test")
+            {"result": "test"}, query_history.star_query_history("test")
         )
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -152,7 +152,7 @@ class QueryHistoryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         query_history: QueryHistory = QueryHistory(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             query_history.star_query_history("")
@@ -162,9 +162,9 @@ class QueryHistoryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         query_history: QueryHistory = QueryHistory(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             query_history.star_query_history("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -172,10 +172,10 @@ class QueryHistoryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         query_history: QueryHistory = QueryHistory(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"result": "test"})
+        call_the_api_mock.return_value = {"result": "test"}
 
         self.assertEqual(
-            dict({"result": "test"}), query_history.unstar_query_history("test")
+            {"result": "test"}, query_history.unstar_query_history("test")
         )
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -183,7 +183,7 @@ class QueryHistoryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         query_history: QueryHistory = QueryHistory(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             query_history.unstar_query_history("")
@@ -193,7 +193,7 @@ class QueryHistoryTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         query_history: QueryHistory = QueryHistory(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             query_history.unstar_query_history("test")

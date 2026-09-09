@@ -12,20 +12,21 @@ from .api import Api
 
 
 class SSOSettings:
-    """The class includes all necessary methods to access the Grafana sso settings API endpoints
+    """The class includes all necessary methods to access the Grafana sso settings API endpoints.
 
     Args:
         grafana_api_model (APIModel): Inject a Grafana API model object that includes all necessary values and information
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
     def get_sso_settings(self) -> list:
-        """The method includes a functionality to get the SSO settings for all providers
+        """The method includes a functionality to get the SSO settings for all providers.
 
         Required Permissions:
             Action: settings:read
@@ -36,8 +37,8 @@ class SSOSettings:
 
         Returns:
             api_call (list): Returns the all SSO settings
-        """
 
+        """
         api_call: Union[list, dict] = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.SSO_SETTINGS.value}",
             response_status_code=True,
@@ -49,13 +50,11 @@ class SSOSettings:
             else api_call.get("status")
         )
 
-        sso_settings_status_dict: dict = dict(
-            {
+        sso_settings_status_dict: dict = {
                 400: "Bad request.",
                 401: "Unauthorized.",
                 403: "Access Denied.",
             }
-        )
 
         if status_code == 200:
             return api_call
@@ -67,7 +66,7 @@ class SSOSettings:
             raise Exception
 
     def get_sso_settings_by_provider(self, provider: str) -> dict:
-        """The method includes a functionality to get the SSO settings for the specified provider
+        """The method includes a functionality to get the SSO settings for the specified provider.
 
         Args:
             provider (str): Specify the provider
@@ -82,8 +81,8 @@ class SSOSettings:
 
         Returns:
             api_call (dict): Returns the corresponding provider SSO settings
-        """
 
+        """
         if len(provider) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.SSO_SETTINGS.value}/{provider}",
@@ -92,14 +91,12 @@ class SSOSettings:
 
             status_code: int = api_call.get("status")
 
-            sso_settings_status_dict: dict = dict(
-                {
+            sso_settings_status_dict: dict = {
                     400: "Bad request.",
                     401: "Unauthorized.",
                     403: "Access Denied.",
                     404: "SSO Settings not found.",
                 }
-            )
 
             if status_code == 200:
                 return api_call
@@ -114,9 +111,9 @@ class SSOSettings:
             raise ValueError
 
     def update_sso_settings(self, provider: str, sso_setting: SSOSetting):
-        """The method includes a functionality to update the SSO settings specified by the provider
+        """The method includes a functionality to update the SSO settings specified by the provider.
 
-         Args:
+        Args:
             provider (str): Specify the provider
             sso_setting (SSOSetting): Specify the SSO setting
 
@@ -130,8 +127,8 @@ class SSOSettings:
 
         Returns:
             None
-        """
 
+        """
         if (
             len(provider) != 0
             and sso_setting is not None
@@ -145,8 +142,7 @@ class SSOSettings:
                 f"{APIEndpoints.SSO_SETTINGS.value}/{provider}",
                 RequestsMethods.PUT,
                 json.dumps(
-                    dict(
-                        {
+                    {
                             "settings": {
                                 "apiUrl": sso_setting.api_url,
                                 "clientId": sso_setting.client_id,
@@ -155,20 +151,17 @@ class SSOSettings:
                                 "scopes": sso_setting.scopes,
                             }
                         }
-                    )
                 ),
                 response_status_code=True,
             )
 
             status_code: int = api_call.get("status")
 
-            sso_settings_status_dict: dict = dict(
-                {
+            sso_settings_status_dict: dict = {
                     400: "Bad request.",
                     401: "Unauthorized.",
                     403: "Access Denied.",
                 }
-            )
 
             if status_code == 204:
                 logging.info(
@@ -185,9 +178,9 @@ class SSOSettings:
             raise ValueError
 
     def delete_sso_settings(self, provider: str):
-        """The method includes a functionality to delete the SSO settings specified by the provider
+        """The method includes a functionality to delete the SSO settings specified by the provider.
 
-         Args:
+        Args:
             provider (str): Specify the provider
 
         Required Permissions:
@@ -200,8 +193,8 @@ class SSOSettings:
 
         Returns:
             None
-        """
 
+        """
         if len(provider) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.SSO_SETTINGS.value}/{provider}",
@@ -211,14 +204,12 @@ class SSOSettings:
 
             status_code: int = api_call.get("status")
 
-            sso_settings_status_dict: dict = dict(
-                {
+            sso_settings_status_dict: dict = {
                     400: "Bad request.",
                     401: "Unauthorized.",
                     403: "Access Denied.",
                     404: "SSO Settings not found.",
                 }
-            )
 
             if status_code == 204:
                 logging.info(

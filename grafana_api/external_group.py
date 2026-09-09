@@ -13,6 +13,7 @@ class ExternalGroup:
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
@@ -22,7 +23,7 @@ class ExternalGroup:
         self,
         team_id: int,
     ) -> list:
-        """The method includes a functionality to get the corresponding external groups specified by the team id
+        """The method includes a functionality to get the corresponding external groups specified by the team id.
 
         Args:
             team_id (int): Specify the team id
@@ -37,13 +38,14 @@ class ExternalGroup:
 
         Returns:
             api_call (list): Returns the external groups
+
         """
         if team_id != 0:
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.EXTERNAL_GROUPS.value}/{team_id}/groups",
             )
 
-            if api_call == list() or api_call[0].get("orgId") is None:
+            if api_call == [] or api_call[0].get("orgId") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -57,7 +59,7 @@ class ExternalGroup:
         team_id: int,
         group_id: str,
     ):
-        """The method includes a functionality to add the corresponding external groups specified by the team id and group id
+        """The method includes a functionality to add the corresponding external groups specified by the team id and group id.
 
         Args:
             team_id (int): Specify the team id
@@ -73,12 +75,13 @@ class ExternalGroup:
 
         Returns:
             api_call (list): Returns the external groups
+
         """
         if team_id != 0 and len(group_id) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.EXTERNAL_GROUPS.value}/{team_id}/groups",
                 RequestsMethods.POST,
-                json.dumps(dict({"groupId": group_id})),
+                json.dumps({"groupId": group_id}),
             )
 
             if api_call.get("message") != "Group added to Team":
@@ -95,7 +98,7 @@ class ExternalGroup:
         team_id: int,
         group_id: str,
     ):
-        """The method includes a functionality to remove the corresponding external groups specified by the team id and group id
+        """The method includes a functionality to remove the corresponding external groups specified by the team id and group id.
 
         Args:
             team_id (int): Specify the team id
@@ -111,6 +114,7 @@ class ExternalGroup:
 
         Returns:
             api_call (list): Returns the external groups
+
         """
         if team_id != 0 and len(group_id) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(

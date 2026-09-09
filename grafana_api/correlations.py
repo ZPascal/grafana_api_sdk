@@ -7,22 +7,23 @@ from .api import Api
 
 
 class Correlations:
-    """The class includes all necessary methods to access the Grafana correlations API endpoints
+    """The class includes all necessary methods to access the Grafana correlations API endpoints.
 
     Args:
         grafana_api_model (APIModel): Inject a Grafana API model object that includes all necessary values and information
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
     def get_correlation(self, datasource_uid: str, correlation_uid: str) -> dict:
-        """The method includes a functionality to get a specific correlation from a data source - the data source identified by source uid and the correlation uid
+        """The method includes a functionality to get a specific correlation from a data source - the data source identified by source uid and the correlation uid.
 
-         Args:
+        Args:
             datasource_uid (str): Specify the correlation data source uid
             correlation_uid (str): Specify the correlation uid
 
@@ -32,15 +33,15 @@ class Correlations:
 
         Returns:
             api_call (dict): Returns the corresponding correlation
-        """
 
+        """
         if len(datasource_uid) != 0 and len(correlation_uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/uid/{datasource_uid}/correlations/{correlation_uid}",
                 RequestsMethods.GET,
             )
 
-            if api_call == dict() or api_call.get("description") is None:
+            if api_call == {} or api_call.get("description") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -50,9 +51,9 @@ class Correlations:
             raise ValueError
 
     def get_all_correlations_by_datasource_uid(self, datasource_uid: str) -> list:
-        """The method includes a functionality to get all correlations from a data source - the data source identified by source uid
+        """The method includes a functionality to get all correlations from a data source - the data source identified by source uid.
 
-         Args:
+        Args:
             datasource_uid (str): Specify the correlation data source uid
 
         Raises:
@@ -61,15 +62,15 @@ class Correlations:
 
         Returns:
             api_call (list): Returns the corresponding correlations
-        """
 
+        """
         if len(datasource_uid) != 0:
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/uid/{datasource_uid}/correlations",
                 RequestsMethods.GET,
             )
 
-            if api_call == list() or api_call[0].get("description") is None:
+            if api_call == [] or api_call[0].get("description") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -79,27 +80,27 @@ class Correlations:
             raise ValueError
 
     def get_all_correlations(self) -> Union[list, dict]:
-        """The method includes a functionality to get all correlations
+        """The method includes a functionality to get all correlations.
 
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
             api_call (Union[list, dict]): Returns the corresponding correlations
-        """
 
+        """
         api_call: Union[list, dict] = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.DATASOURCES.value}/correlations", RequestsMethods.GET
         )
 
         if isinstance(api_call, dict) and (
-            api_call == dict()
+            api_call == {}
             or api_call.get("correlations")[0].get("description") is None
         ):
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         elif isinstance(api_call, list) and (
-            api_call == list() or api_call[0].get("description") is None
+            api_call == [] or api_call[0].get("description") is None
         ):
             logging.error(f"Check the error: {api_call}.")
             raise Exception
@@ -107,9 +108,9 @@ class Correlations:
             return api_call
 
     def create_correlations(self, correlation_object: CorrelationObject) -> dict:
-        """The method includes a functionality to create a correlation between two data sources - the source data source identified by source uid in the path, and the target data source which is specified in the body
+        """The method includes a functionality to create a correlation between two data sources - the source data source identified by source uid in the path, and the target data source which is specified in the body.
 
-         Args:
+        Args:
             correlation_object (CorrelationObject): Specify the correlation object
 
         Raises:
@@ -118,8 +119,8 @@ class Correlations:
 
         Returns:
             api_call (dict): Returns the newly created correlation
-        """
 
+        """
         if (
             len(correlation_object.source_datasource_uid) != 0
             and len(correlation_object.target_datasource_uid) != 0
@@ -132,8 +133,7 @@ class Correlations:
                 f"{APIEndpoints.DATASOURCES.value}/uid/{correlation_object.source_datasource_uid}/correlations",
                 RequestsMethods.POST,
                 json.dumps(
-                    dict(
-                        {
+                    {
                             "targetUID": correlation_object.target_datasource_uid,
                             "label": correlation_object.label,
                             "description": correlation_object.description,
@@ -144,11 +144,10 @@ class Correlations:
                                 "target": correlation_object.config_target,
                             },
                         }
-                    )
                 ),
             )
 
-            if api_call == dict() or api_call.get("message") is None:
+            if api_call == {} or api_call.get("message") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -160,9 +159,9 @@ class Correlations:
             raise ValueError
 
     def delete_correlations(self, source_datasource_uid: str, correlation_uid: str):
-        """The method includes a functionality to deletes a correlation
+        """The method includes a functionality to deletes a correlation.
 
-         Args:
+        Args:
             source_datasource_uid (str): Specify the source data source uid
             correlation_uid (str): Specify the correlation uid
 
@@ -172,8 +171,8 @@ class Correlations:
 
         Returns:
             None
-        """
 
+        """
         if len(source_datasource_uid) != 0 and len(correlation_uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/uid/{source_datasource_uid}/correlations/{correlation_uid}",
@@ -198,9 +197,9 @@ class Correlations:
         label: str,
         description: str,
     ) -> dict:
-        """The method includes a functionality to update a correlation
+        """The method includes a functionality to update a correlation.
 
-         Args:
+        Args:
             source_datasource_uid (str): Specify the source data source uid
             correlation_uid (str): Specify the correlation uid
             label (str): Specify a label for the correlation
@@ -212,8 +211,8 @@ class Correlations:
 
         Returns:
             api_call (dict): Returns the updated correlation
-        """
 
+        """
         if (
             len(source_datasource_uid) != 0
             and len(correlation_uid) != 0
@@ -223,10 +222,10 @@ class Correlations:
             api_call: any = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.DATASOURCES.value}/uid/{source_datasource_uid}/correlations/{correlation_uid}",
                 RequestsMethods.PATCH,
-                json.dumps(dict({"label": label, "description": description})),
+                json.dumps({"label": label, "description": description}),
             )
 
-            if api_call == dict() or api_call.get("message") is None:
+            if api_call == {} or api_call.get("message") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:

@@ -13,9 +13,9 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"totalCount": 1})
+        call_the_api_mock.return_value = {"totalCount": 1}
 
-        self.assertEqual(dict({"totalCount": 1}), team.search_team())
+        self.assertEqual({"totalCount": 1}, team.search_team())
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_search_team_query(self, call_the_api_mock):
@@ -24,10 +24,10 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"totalCount": 1})
+        call_the_api_mock.return_value = {"totalCount": 1}
 
         self.assertEqual(
-            dict({"totalCount": 1}),
+            {"totalCount": 1},
             team.search_team(query="Test"),
         )
 
@@ -38,9 +38,9 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.search_team()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -50,9 +50,9 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"id": 1})
+        call_the_api_mock.return_value = {"id": 1}
 
-        self.assertEqual(dict({"id": 1}), team.get_team_by_id(1))
+        self.assertEqual({"id": 1}, team.get_team_by_id(1))
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_team_by_id_no_id(self, call_the_api_mock):
@@ -61,7 +61,7 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             team.get_team_by_id(0)
@@ -73,9 +73,9 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.get_team_by_id(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -86,7 +86,7 @@ class TeamTestCase(TestCase):
         team: Team = Team(grafana_api_model=model)
         team_object: TeamObject = TeamObject(name="test", email="test", org_id=1)
 
-        call_the_api_mock.return_value = dict({"message": "Team created", "teamId": 1})
+        call_the_api_mock.return_value = {"message": "Team created", "teamId": 1}
 
         self.assertEqual(1, team.add_team(team_object))
 
@@ -97,7 +97,7 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             team.add_team(None)
@@ -110,9 +110,9 @@ class TeamTestCase(TestCase):
         team: Team = Team(grafana_api_model=model)
         team_object: TeamObject = TeamObject(name="test", email="test", org_id=1)
 
-        call_the_api_mock.return_value = dict({"message": "Test"})
+        call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.add_team(team_object)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -122,7 +122,7 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Team updated"})
+        call_the_api_mock.return_value = {"message": "Team updated"}
 
         self.assertEqual(None, team.update_team(1, "test", "test"))
 
@@ -133,7 +133,7 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             team.update_team(0, None, None)
@@ -145,9 +145,9 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Test"})
+        call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.update_team(1, "test", "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -157,7 +157,7 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Team deleted"})
+        call_the_api_mock.return_value = {"message": "Team deleted"}
 
         self.assertEqual(None, team.delete_team_by_id(1))
 
@@ -168,7 +168,7 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             team.delete_team_by_id(0)
@@ -180,9 +180,9 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Test"})
+        call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.delete_team_by_id(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -192,9 +192,9 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"userId": 1}])
+        call_the_api_mock.return_value = [{"userId": 1}]
 
-        self.assertEqual(list([{"userId": 1}]), team.get_team_members(1))
+        self.assertEqual([{"userId": 1}], team.get_team_members(1))
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_team_members_no_id(self, call_the_api_mock):
@@ -203,7 +203,7 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list()
+        call_the_api_mock.return_value = []
 
         with self.assertRaises(ValueError):
             team.get_team_members(0)
@@ -215,9 +215,9 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list()
+        call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.get_team_members(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -227,7 +227,7 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Member added to Team"})
+        call_the_api_mock.return_value = {"message": "Member added to Team"}
 
         self.assertEqual(None, team.add_team_member(1, 1))
 
@@ -238,7 +238,7 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             team.add_team_member(0, 0)
@@ -250,9 +250,9 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Test"})
+        call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.add_team_member(1, 1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -262,7 +262,7 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Team Member removed"})
+        call_the_api_mock.return_value = {"message": "Team Member removed"}
 
         self.assertEqual(None, team.delete_team_member(1, 1))
 
@@ -273,7 +273,7 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             team.delete_team_member(0, 0)
@@ -285,9 +285,9 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Test"})
+        call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.delete_team_member(1, 1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -297,12 +297,10 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {"theme": "light", "homeDashboardId": "Test", "timezone": "utc"}
-        )
+        call_the_api_mock.return_value = {"theme": "light", "homeDashboardId": "Test", "timezone": "utc"}
 
         self.assertEqual(
-            dict({"theme": "light", "homeDashboardId": "Test", "timezone": "utc"}),
+            {"theme": "light", "homeDashboardId": "Test", "timezone": "utc"},
             team.get_team_preferences(1),
         )
 
@@ -313,7 +311,7 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             team.get_team_preferences(0)
@@ -325,9 +323,9 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.get_team_preferences(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -337,7 +335,7 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Preferences updated"})
+        call_the_api_mock.return_value = {"message": "Preferences updated"}
 
         self.assertEqual(None, team.update_team_preferences(1, home_dashboard_id=1))
 
@@ -348,7 +346,7 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Preferences updated"})
+        call_the_api_mock.return_value = {"message": "Preferences updated"}
 
         self.assertEqual(
             None,
@@ -362,7 +360,7 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Preferences updated"})
+        call_the_api_mock.return_value = {"message": "Preferences updated"}
 
         self.assertEqual(
             None,
@@ -378,7 +376,7 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             team.update_team_preferences(0)
@@ -390,9 +388,9 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Test"})
+        call_the_api_mock.return_value = {"message": "Test"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.update_team_preferences(1, home_dashboard_uid="test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -402,9 +400,9 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list(["test"])
+        call_the_api_mock.return_value = ["test"]
 
-        self.assertEqual(list(["test"]), team.get_external_groups(1))
+        self.assertEqual(["test"], team.get_external_groups(1))
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_external_groups_no_team_id(self, call_the_api_mock):
@@ -423,9 +421,9 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.get_external_groups(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -435,9 +433,7 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {"status": 200, "message": "Group added to Team"}
-        )
+        call_the_api_mock.return_value = {"status": 200, "message": "Group added to Team"}
 
         self.assertEqual(None, team.add_external_group(1, "test"))
 
@@ -458,9 +454,9 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 401})
+        call_the_api_mock.return_value = {"status": 401}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.add_external_group(1, "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -470,7 +466,7 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 500})
+        call_the_api_mock.return_value = {"status": 500}
 
         self.assertEqual(None, team.add_external_group(1, "test"))
 
@@ -481,9 +477,7 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict(
-            {"status": 200, "message": "Team Group removed"}
-        )
+        call_the_api_mock.return_value = {"status": 200, "message": "Team Group removed"}
 
         self.assertEqual(None, team.remove_external_group(1, "test"))
 
@@ -504,9 +498,9 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 401})
+        call_the_api_mock.return_value = {"status": 401}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             team.remove_external_group(1, "test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -516,6 +510,6 @@ class TeamTestCase(TestCase):
         )
         team: Team = Team(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"status": 500})
+        call_the_api_mock.return_value = {"status": 500}
 
         self.assertEqual(None, team.remove_external_group(1, "test"))

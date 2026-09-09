@@ -33,7 +33,7 @@ class CorrelationsTest(TestCase):
             "Test correlations",
             "query",
             "message",
-            dict(),
+            {},
         )
         correlation_object: dict = self.correlations.create_correlations(
             correlation_object
@@ -53,7 +53,7 @@ class CorrelationsTest(TestCase):
         )
 
         self.assertEqual(
-            list([correlation_object.get("result")]),
+            [correlation_object.get("result")],
             self.correlations.get_all_correlations().get("correlations"),
         )
 

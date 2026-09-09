@@ -1,35 +1,3 @@
-# Table of Contents
-
-* [alerting](#alerting)
-  * [Alerting](#alerting.Alerting)
-    * [get\_alertmanager\_alerts](#alerting.Alerting.get_alertmanager_alerts)
-    * [create\_or\_update\_alertmanager\_alerts](#alerting.Alerting.create_or_update_alertmanager_alerts)
-    * [get\_alertmanager\_group\_alerts](#alerting.Alerting.get_alertmanager_group_alerts)
-    * [delete\_alertmanager\_silence\_by\_id](#alerting.Alerting.delete_alertmanager_silence_by_id)
-    * [get\_alertmanager\_silence\_by\_id](#alerting.Alerting.get_alertmanager_silence_by_id)
-    * [get\_alertmanager\_silences](#alerting.Alerting.get_alertmanager_silences)
-    * [create\_or\_update\_alertmanager\_silence](#alerting.Alerting.create_or_update_alertmanager_silence)
-    * [get\_alertmanager\_status](#alerting.Alerting.get_alertmanager_status)
-    * [delete\_alertmanager\_config](#alerting.Alerting.delete_alertmanager_config)
-    * [get\_alertmanager\_config](#alerting.Alerting.get_alertmanager_config)
-    * [create\_or\_update\_alertmanager\_config](#alerting.Alerting.create_or_update_alertmanager_config)
-    * [test\_alertmanager\_receivers](#alerting.Alerting.test_alertmanager_receivers)
-    * [get\_prometheus\_alerts](#alerting.Alerting.get_prometheus_alerts)
-    * [get\_prometheus\_rules](#alerting.Alerting.get_prometheus_rules)
-    * [get\_ruler\_rules](#alerting.Alerting.get_ruler_rules)
-    * [delete\_ruler\_namespace](#alerting.Alerting.delete_ruler_namespace)
-    * [get\_ruler\_groups\_by\_namespace](#alerting.Alerting.get_ruler_groups_by_namespace)
-    * [create\_or\_update\_ruler\_group\_by\_namespace](#alerting.Alerting.create_or_update_ruler_group_by_namespace)
-    * [delete\_ruler\_group](#alerting.Alerting.delete_ruler_group)
-    * [get\_ruler\_group](#alerting.Alerting.get_ruler_group)
-    * [test\_rule](#alerting.Alerting.test_rule)
-    * [test\_datasource\_uid\_rule](#alerting.Alerting.test_datasource_uid_rule)
-    * [test\_backtest\_rule](#alerting.Alerting.test_backtest_rule)
-    * [delete\_ngalert\_organization\_configuration](#alerting.Alerting.delete_ngalert_organization_configuration)
-    * [get\_ngalert\_organization\_configuration](#alerting.Alerting.get_ngalert_organization_configuration)
-    * [create\_or\_update\_ngalert\_organization\_configuration](#alerting.Alerting.create_or_update_ngalert_organization_configuration)
-    * [get\_ngalert\_alertmanagers\_by\_organization](#alerting.Alerting.get_ngalert_alertmanagers_by_organization)
-
 <a id="alerting"></a>
 
 # alerting
@@ -42,7 +10,7 @@
 class Alerting()
 ```
 
-The class includes all necessary methods to access the Grafana alerting API endpoints
+The class includes all necessary methods to access the Grafana alerting API endpoints.
 
 **Arguments**:
 
@@ -61,7 +29,7 @@ The class includes all necessary methods to access the Grafana alerting API endp
 def get_alertmanager_alerts(datasource_uid: str = "grafana") -> list
 ```
 
-The method includes a functionality to get the Alertmanager alerts specified by the datasource_uid
+The method includes a functionality to get the Alertmanager alerts specified by the datasource_uid.
 
 **Arguments**:
 
@@ -87,7 +55,7 @@ def create_or_update_alertmanager_alerts(alerts: list,
                                          datasource_uid: str = "grafana")
 ```
 
-The method includes a functionality to create or update the Alertmanager alerts specified by the datasource_uid and the alerts list
+The method includes a functionality to create or update the Alertmanager alerts specified by the datasource_uid and the alerts list.
 
 **Arguments**:
 
@@ -113,7 +81,7 @@ The method includes a functionality to create or update the Alertmanager alerts 
 def get_alertmanager_group_alerts(datasource_uid: str = "grafana") -> list
 ```
 
-The method includes a functionality to get the Alertmanager group alerts specified by the datasource_uid
+The method includes a functionality to get the Alertmanager group alerts specified by the datasource_uid.
 
 **Arguments**:
 
@@ -139,7 +107,7 @@ def delete_alertmanager_silence_by_id(silence_id: str,
                                       datasource_uid: str = "grafana")
 ```
 
-The method includes a functionality to delete the Alertmanager silence specified by the silence id and the datasource_uid
+The method includes a functionality to delete the Alertmanager silence specified by the silence id and the datasource_uid.
 
 **Arguments**:
 
@@ -166,7 +134,7 @@ def get_alertmanager_silence_by_id(silence_id: str,
                                    datasource_uid: str = "grafana") -> dict
 ```
 
-The method includes a functionality to get the Alertmanager silence specified by the silence id and the datasource_uid
+The method includes a functionality to get the Alertmanager silence specified by the silence id and the datasource_uid.
 
 **Arguments**:
 
@@ -192,7 +160,7 @@ The method includes a functionality to get the Alertmanager silence specified by
 def get_alertmanager_silences(datasource_uid: str = "grafana") -> list
 ```
 
-The method includes a functionality to get all Alertmanager silences specified by the datasource_uid
+The method includes a functionality to get all Alertmanager silences specified by the datasource_uid.
 
 **Arguments**:
 
@@ -219,7 +187,7 @@ def create_or_update_alertmanager_silence(silence: Silence,
                                           ) -> dict
 ```
 
-The method includes a functionality to create or update the Alertmanager silence specified by the silence object and the datasource_uid
+The method includes a functionality to create or update the Alertmanager silence specified by the silence object and the datasource_uid.
 
 **Arguments**:
 
@@ -245,7 +213,7 @@ The method includes a functionality to create or update the Alertmanager silence
 def get_alertmanager_status(datasource_uid: str = "grafana") -> dict
 ```
 
-The method includes a functionality to get the Alertmanager status specified by the datasource_uid
+The method includes a functionality to get the Alertmanager status specified by the datasource_uid.
 
 **Arguments**:
 
@@ -270,7 +238,7 @@ The method includes a functionality to get the Alertmanager status specified by 
 def delete_alertmanager_config(datasource_uid: str = "grafana")
 ```
 
-The method includes a functionality to delete the Alertmanager config specified by the datasource_uid
+The method includes a functionality to delete the Alertmanager config specified by the datasource_uid.
 
 **Arguments**:
 
@@ -296,7 +264,7 @@ The method includes a functionality to delete the Alertmanager config specified 
 def get_alertmanager_config(datasource_uid: str = "grafana") -> dict
 ```
 
-The method includes a functionality to get the Alertmanager config specified by the datasource_uid
+The method includes a functionality to get the Alertmanager config specified by the datasource_uid.
 
 **Arguments**:
 
@@ -324,7 +292,7 @@ def create_or_update_alertmanager_config(
         template_files: dict = None)
 ```
 
-The method includes a functionality to create or update the Alertmanager config specified by the Alertmanager config object, datasource_uid and template_files
+The method includes a functionality to create or update the Alertmanager config specified by the Alertmanager config object, datasource_uid and template_files.
 
 **Arguments**:
 
@@ -354,7 +322,7 @@ def test_alertmanager_receivers(alert: dict,
                                 datasource_uid: str = "grafana")
 ```
 
-The method includes a functionality to test the Alertmanager receivers specified by the alert dict, receivers object and the datasource_uid
+The method includes a functionality to test the Alertmanager receivers specified by the alert dict, receivers object and the datasource_uid.
 
 **Arguments**:
 
@@ -382,7 +350,7 @@ The method includes a functionality to test the Alertmanager receivers specified
 def get_prometheus_alerts(datasource_uid: str = "grafana") -> dict
 ```
 
-The method includes a functionality to get all prometheus alerts specified by the datasource_uid
+The method includes a functionality to get all prometheus alerts specified by the datasource_uid.
 
 **Arguments**:
 
@@ -407,7 +375,7 @@ The method includes a functionality to get all prometheus alerts specified by th
 def get_prometheus_rules(datasource_uid: str = "grafana") -> dict
 ```
 
-The method includes a functionality to get all prometheus rules specified by the datasource_uid
+The method includes a functionality to get all prometheus rules specified by the datasource_uid.
 
 **Arguments**:
 
@@ -432,7 +400,7 @@ The method includes a functionality to get all prometheus rules specified by the
 def get_ruler_rules(datasource_uid: str = "grafana") -> dict
 ```
 
-The method includes a functionality to get all ruler rules specified by the datasource_uid
+The method includes a functionality to get all ruler rules specified by the datasource_uid.
 
 **Arguments**:
 
@@ -457,7 +425,7 @@ The method includes a functionality to get all ruler rules specified by the data
 def delete_ruler_namespace(namespace: str, datasource_uid: str = "grafana")
 ```
 
-The method includes a functionality to delete a ruler namespace specified by the namespace name and the datasource_uid
+The method includes a functionality to delete a ruler namespace specified by the namespace name and the datasource_uid.
 
 **Arguments**:
 
@@ -484,7 +452,7 @@ def get_ruler_groups_by_namespace(namespace: str,
                                   datasource_uid: str = "grafana") -> dict
 ```
 
-The method includes a functionality to get all ruler groups specified by the namespace name and the datasource_uid
+The method includes a functionality to get all ruler groups specified by the namespace name and the datasource_uid.
 
 **Arguments**:
 
@@ -514,7 +482,7 @@ def create_or_update_ruler_group_by_namespace(namespace: str,
                                               interval: int = 0)
 ```
 
-The method includes a functionality to create or update a ruler group specified by the namespace name, a ruler group name, a ruler rule object list, the datasource_uid and an interval
+The method includes a functionality to create or update a ruler group specified by the namespace name, a ruler group name, a ruler rule object list, the datasource_uid and an interval.
 
 **Arguments**:
 
@@ -545,7 +513,7 @@ def delete_ruler_group(namespace: str,
                        datasource_uid: str = "grafana")
 ```
 
-The method includes a functionality to delete a ruler group specified by the namespace name, a ruler group name and the datasource_uid
+The method includes a functionality to delete a ruler group specified by the namespace name, a ruler group name and the datasource_uid.
 
 **Arguments**:
 
@@ -574,7 +542,7 @@ def get_ruler_group(namespace: str,
                     datasource_uid: str = "grafana") -> dict
 ```
 
-The method includes a functionality to get a ruler group specified by the namespace name, a ruler group name and the datasource_uid
+The method includes a functionality to get a ruler group specified by the namespace name, a ruler group name and the datasource_uid.
 
 **Arguments**:
 
@@ -601,7 +569,7 @@ The method includes a functionality to get a ruler group specified by the namesp
 def test_rule(data_queries: list) -> dict
 ```
 
-The method includes a functionality to test a rule specified by a list of datasource rule query objects
+The method includes a functionality to test a rule specified by a list of datasource rule query objects.
 
 **Arguments**:
 
@@ -629,7 +597,7 @@ def test_datasource_uid_rule(expr: str,
                              datasource_uid: str = "grafana") -> dict
 ```
 
-The method includes a functionality to test a datasource uid rule specified by the expr, the condition, a list of data queries and the datasource_uid
+The method includes a functionality to test a datasource uid rule specified by the expr, the condition, a list of data queries and the datasource_uid.
 
 **Arguments**:
 
@@ -657,7 +625,7 @@ The method includes a functionality to test a datasource uid rule specified by t
 def test_backtest_rule(condition: str, data_queries: list) -> dict
 ```
 
-The method includes a functionality to test a rule specified by the condition and a list of data queries
+The method includes a functionality to test a rule specified by the condition and a list of data queries.
 
 **Arguments**:
 
@@ -683,7 +651,7 @@ The method includes a functionality to test a rule specified by the condition an
 def delete_ngalert_organization_configuration()
 ```
 
-The method includes a functionality to delete the NGAlert organization admin configuration
+The method includes a functionality to delete the NGAlert organization admin configuration.
 
 **Raises**:
 
@@ -702,7 +670,7 @@ The method includes a functionality to delete the NGAlert organization admin con
 def get_ngalert_organization_configuration() -> dict
 ```
 
-The method includes a functionality to get the NGAlert organization admin configuration
+The method includes a functionality to get the NGAlert organization admin configuration.
 
 **Raises**:
 
@@ -722,7 +690,7 @@ def create_or_update_ngalert_organization_configuration(
         alert_managers: list, alertmanagers_choice: str = "all")
 ```
 
-The method includes a functionality to create or update the NGAlert organization admin configuration
+The method includes a functionality to create or update the NGAlert organization admin configuration.
 
 **Arguments**:
 
@@ -748,7 +716,7 @@ The method includes a functionality to create or update the NGAlert organization
 def get_ngalert_alertmanagers_by_organization() -> dict
 ```
 
-The method includes a functionality to get the discovered and dropped Alertmanagers of the user's organization and based on the specified configuration
+The method includes a functionality to get the discovered and dropped Alertmanagers of the user's organization and based on the specified configuration.
 
 **Raises**:
 

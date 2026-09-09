@@ -57,7 +57,7 @@ class ServiceAccountTest(TestCase):
             service_account.get("id"), service_account_token.get("id")
         )
         self.assertEqual(
-            list(),
+            [],
             self.service_account.get_service_account_tokens_by_id(
                 service_account.get("id")
             ),

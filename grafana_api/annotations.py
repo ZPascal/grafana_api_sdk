@@ -13,7 +13,7 @@ from .api import Api
 
 
 class Annotations:
-    """The class includes all necessary methods to access the Grafana annotations API endpoints. Annotations can be organization annotations that can be shown on any dashboard by configuring an annotation data source filtered by tags. They can also be tied to a panel on a dashboard and are then only shown on that panel
+    """The class includes all necessary methods to access the Grafana annotations API endpoints. Annotations can be organization annotations that can be shown on any dashboard by configuring an annotation data source filtered by tags. They can also be tied to a panel on a dashboard and are then only shown on that panel.
 
     HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
 
@@ -22,13 +22,14 @@ class Annotations:
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
     def find_annotations(self, annotation: FindAnnotationObject = None) -> list:
-        """The method includes a functionality to find the corresponding annotations
+        """The method includes a functionality to find the corresponding annotations.
 
         Args:
             annotation (FindAnnotationObject): Specify the find annotation object
@@ -38,8 +39,8 @@ class Annotations:
 
         Returns:
             api_call (list): Returns the result of the find annotations call
-        """
 
+        """
         custom_query: str = "?"
 
         if annotation is not None:
@@ -93,7 +94,7 @@ class Annotations:
             f"{APIEndpoints.ANNOTATIONS.value}{custom_query}",
         )
 
-        if api_call == list() or api_call[0].get("id") is None:
+        if api_call == [] or api_call[0].get("id") is None:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
@@ -103,7 +104,7 @@ class Annotations:
         self,
         annotation: AnnotationObject,
     ) -> int:
-        """The method includes a functionality to create the corresponding annotation
+        """The method includes a functionality to create the corresponding annotation.
 
         Args:
             annotation (AnnotationObject): Specify the annotation object
@@ -118,8 +119,8 @@ class Annotations:
 
         Returns:
             api_call (int): Returns the annotation id
-        """
 
+        """
         if (
             annotation is not None
             and annotation.time != 0
@@ -127,22 +128,20 @@ class Annotations:
             and len(annotation.text) != 0
             and len(annotation.tags) != 0
         ):
-            annotation_object: dict = dict(
-                {
+            annotation_object: dict = {
                     "time": annotation.time,
                     "timeEnd": annotation.time_end,
                     "tags": annotation.tags,
                     "text": annotation.text,
                 }
-            )
 
             if annotation.dashboard_uid is not None:
                 annotation_object.update(
-                    dict({"dashboardUID": annotation.dashboard_uid})
+                    {"dashboardUID": annotation.dashboard_uid}
                 )
 
             if annotation.panel_id is not None:
-                annotation_object.update(dict({"panelId": annotation.panel_id}))
+                annotation_object.update({"panelId": annotation.panel_id})
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 APIEndpoints.ANNOTATIONS.value,
@@ -163,7 +162,7 @@ class Annotations:
             raise ValueError
 
     def create_graphite_annotation(self, annotation: AnnotationGraphiteObject) -> int:
-        """The method includes a functionality to create the corresponding graphite annotation
+        """The method includes a functionality to create the corresponding graphite annotation.
 
         Args:
             annotation (AnnotationGraphiteObject): Specify the annotation object
@@ -178,22 +177,20 @@ class Annotations:
 
         Returns:
             api_call (int): Returns the annotation id
-        """
 
+        """
         if (
             annotation is not None
             and len(annotation.what) != 0
             and len(annotation.tags) != 0
         ):
-            annotation_object: dict = dict(
-                {"what": annotation.what, "tags": annotation.tags}
-            )
+            annotation_object: dict = {"what": annotation.what, "tags": annotation.tags}
 
             if annotation.when is not None:
-                annotation_object.update(dict({"when": annotation.when}))
+                annotation_object.update({"when": annotation.when})
 
             if annotation.data is not None:
-                annotation_object.update(dict({"data": annotation.data}))
+                annotation_object.update({"data": annotation.data})
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ANNOTATIONS.value}/graphite",
@@ -214,7 +211,7 @@ class Annotations:
             raise ValueError
 
     def update_annotation(self, id: int, annotation: AnnotationObject):
-        """The method includes a functionality to update the corresponding annotation specified by the annotation id
+        """The method includes a functionality to update the corresponding annotation specified by the annotation id.
 
         Args:
             id (int): Specify the annotation object id
@@ -230,22 +227,22 @@ class Annotations:
 
         Returns:
             None
-        """
 
+        """
         if id != 0 and annotation is not None:
-            annotation_object: dict = dict()
+            annotation_object: dict = {}
 
             if annotation.time is not None and annotation.time != 0:
-                annotation_object.update(dict({"time": annotation.time}))
+                annotation_object.update({"time": annotation.time})
 
             if annotation.time_end is not None and annotation.time_end != 0:
-                annotation_object.update(dict({"timeEnd": annotation.time_end}))
+                annotation_object.update({"timeEnd": annotation.time_end})
 
             if annotation.text is not None and len(annotation.text) != 0:
-                annotation_object.update(dict({"text": annotation.text}))
+                annotation_object.update({"text": annotation.text})
 
             if annotation.tags is not None and len(annotation.tags) != 0:
-                annotation_object.update(dict({"text": annotation.text}))
+                annotation_object.update({"text": annotation.text})
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ANNOTATIONS.value}/{id}",
@@ -266,7 +263,7 @@ class Annotations:
         self,
         id: int,
     ):
-        """The method includes a functionality to delete the corresponding annotation specified by the annotation id
+        """The method includes a functionality to delete the corresponding annotation specified by the annotation id.
 
         Args:
             id (int): Specify the annotation object id
@@ -281,8 +278,8 @@ class Annotations:
 
         Returns:
             None
-        """
 
+        """
         if id != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ANNOTATIONS.value}/{id}",
@@ -303,7 +300,7 @@ class Annotations:
         tag: str = None,
         limit: int = 100,
     ):
-        """The method includes a functionality to find the annotation tags
+        """The method includes a functionality to find the annotation tags.
 
         Args:
             tag (str): Specify the optional annotation tag
@@ -318,8 +315,8 @@ class Annotations:
 
         Returns:
             api_call (dict): Returns the result of the find annotation tags call
-        """
 
+        """
         filter_values: str = ""
 
         if tag is not None and len(tag) != 0:
@@ -338,7 +335,7 @@ class Annotations:
             f"{APIEndpoints.ANNOTATIONS.value}/tags{filter_values}",
         )
 
-        if api_call == dict() or api_call.get("result") is None:
+        if api_call == {} or api_call.get("result") is None:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:

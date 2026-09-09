@@ -11,46 +11,48 @@ from .api import Api
 
 
 class OtherHTTP:
-    """The class includes all necessary methods to access other Grafana API endpoints
+    """The class includes all necessary methods to access other Grafana API endpoints.
 
     Args:
         grafana_api_model (APIModel): Inject a Grafana API model object that includes all necessary values and information
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
     def get_frontend_settings(self) -> dict:
-        """The method includes a functionality to get the frontend settings
+        """The method includes a functionality to get the frontend settings.
 
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
             api_call (dict): Returns the corresponding frontend settings
-        """
 
+        """
         api_call: dict = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.FRONTEND.value}/settings"
         )
 
-        if api_call == dict():
+        if api_call == {}:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
             return api_call
 
     def renew_login_session_based_on_remember_cookie(self):
-        """The method includes a functionality to renew the login session based on the remember cookie
+        """The method includes a functionality to renew the login session based on the remember cookie.
 
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
             None
+
         """
         api_call: dict = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.LOGIN.value}/ping"
@@ -65,15 +67,15 @@ class OtherHTTP:
             )
 
     def get_health_status(self) -> dict:
-        """The method includes a functionality to get the health information
+        """The method includes a functionality to get the health information.
 
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
             api_call (dict): Returns the health information
-        """
 
+        """
         http = Api(self.grafana_api_model).create_the_http_api_client()
 
         http_result = self._basic_get_call_without_token_auth(
@@ -82,7 +84,7 @@ class OtherHTTP:
 
         api_call: dict = json.loads(http_result.text)
 
-        if api_call == dict() or api_call.get("commit") is None:
+        if api_call == {} or api_call.get("commit") is None:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
@@ -91,7 +93,7 @@ class OtherHTTP:
     def get_metrics(
         self, basic_auth_username: str = None, basic_auth_password: str = None
     ) -> str:
-        """The method includes a functionality to get the Grafana metrics information
+        """The method includes a functionality to get the Grafana metrics information.
 
         Args:
             basic_auth_username (str): Specify the optional basic auth username
@@ -102,8 +104,8 @@ class OtherHTTP:
 
         Returns:
             api_call (str): Returns the metrics information
-        """
 
+        """
         http = Api(self.grafana_api_model).create_the_http_api_client()
 
         basic_auth = None
@@ -126,7 +128,7 @@ class OtherHTTP:
         basic_auth_username: str = None,
         basic_auth_password: str = None,
     ) -> str:
-        """The method includes a functionality to get the Grafana plugin metrics information
+        """The method includes a functionality to get the Grafana plugin metrics information.
 
         Args:
             plugin_id (str): Specify the plugin id
@@ -139,8 +141,8 @@ class OtherHTTP:
 
         Returns:
             api_call (str): Returns the metrics information
-        """
 
+        """
         http = Api(self.grafana_api_model).create_the_http_api_client()
 
         basic_auth = None
@@ -165,7 +167,7 @@ class OtherHTTP:
     def _basic_get_call_without_token_auth(
         self, http: Union[Client, AsyncClient], url: str, basic_auth: BasicAuth = None
     ) -> Response:
-        """The method includes a functionality to perform a basic GET call to an endpoint with optional BasicAuth
+        """The method includes a functionality to perform a basic GET call to an endpoint with optional BasicAuth.
 
         Args:
             http (Union[Client, AsyncClient]): Specify the used client
@@ -177,8 +179,8 @@ class OtherHTTP:
 
         Returns:
             api_call (Response): Returns the corresponding result of the api call
-        """
 
+        """
         try:
             if self.grafana_api_model.http2_support:
 
