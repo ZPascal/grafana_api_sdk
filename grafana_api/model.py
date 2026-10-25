@@ -348,10 +348,10 @@ class Route:
     """The class includes all necessary variables to generate an alert rule route that is necessary to communicate with the Grafana alert provisioning endpoint
 
     Args:
-        continue_parameter (bool): Specify the continue parameter
-        group_by_str (List[str]): Specify the list of group by strings
         receiver (str): Specify the receiver
-        provenance (str): Specify the provenance
+        continue_parameter (bool): Specify the continue parameter (default None)
+        group_by_str (List[str]): Specify the list of group by strings (default None)
+        provenance (str): Specify the provenance (default None)
         object_matchers (List[Matcher]):  Specify the list of object matchers (default None)
         group_interval (str): Specify the group time interval (default None)
         group_wait (str): Specify the group wait time (default None)
@@ -360,10 +360,10 @@ class Route:
         mute_time_intervals (List[str]): Specify the mute time interval as list (default None)
     """
 
-    continue_parameter: bool
-    group_by_str: List[str]
     receiver: str
-    provenance: str
+    continue_parameter: bool = None
+    group_by_str: List[str] = None
+    provenance: str = None
     object_matchers: List[Matcher] = None
     group_interval: str = None
     group_wait: str = None
