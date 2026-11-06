@@ -52,34 +52,46 @@ class Folder:
             raise Exception
 
         folders: list = [{"id": 0, "uid": "", "title": "General"}]
+        seen_uids: set = {""}
         for folder in folders_raw:
+            seen_uids.add(folder.get("uid"))
             folders.append({"id": folder.get("id"), "uid": folder.get("uid"), "title": folder.get("title")})
 
-            if nested_folders:
-                folders.extend(self._get_nested_folders(folder.get("uid")))
+        if nested_folders:
+            for folder in folders_raw:
+                folders.extend(self._get_nested_folders(folder.get("uid"), seen_uids))
 
         return folders
 
-    def _get_nested_folders(self, parent_uid: str) -> list:
+    def _get_nested_folders(self, parent_uid: str, seen_uids: set | None = None) -> list:
         """Recursively retrieve nested folders for a given parent folder
+
+        Folders already in seen_uids are skipped, so servers that echo the parent
+        (or any ancestor) back in the parentUid response cannot cause endless recursion.
 
         Args:
             parent_uid (str): The uid of the parent folder
+            seen_uids (set): The uids that were already collected (optional)
 
         Returns:
             all_nested (list): All nested folders under the parent, recursively
         """
 
+        if seen_uids is None:
+            seen_uids = {parent_uid}
+
         nested_folders: list = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.FOLDERS.value}?parentUid={parent_uid}"
         )
 
-        if nested_folders == list():
-            return []
+        all_nested: list = []
+        for folder in nested_folders or []:
+            if folder.get("uid") not in seen_uids:
+                seen_uids.add(folder.get("uid"))
+                all_nested.append(folder)
 
-        all_nested: list = list(nested_folders)
-        for folder in nested_folders:
-            all_nested.extend(self._get_nested_folders(folder.get("uid")))
+        for folder in list(all_nested):
+            all_nested.extend(self._get_nested_folders(folder.get("uid"), seen_uids))
 
         return all_nested
 
@@ -443,6 +455,9 @@ class Folder:
         Returns:
             folder_uid (str): Returns the folder uid
         """
+
+        if dashboard_path.lower() == "general":
+            return ""
 
         if len(dashboard_path) != 0:
             folders: list = self.get_all_folder_ids_uids_and_names()
