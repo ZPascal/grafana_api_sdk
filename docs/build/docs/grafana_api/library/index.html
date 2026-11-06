@@ -1451,7 +1451,7 @@
 <h2 id="library-objects">Library Objects</h2>
 <pre><code class="language-python">class Library()
 </code></pre>
-<p>The class includes all necessary methods to access the Grafana library API endpoints</p>
+<p>The class includes all necessary methods to access the Grafana library API endpoints.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>grafana_api_model</code> <em>APIModel</em> - Inject a Grafana API model object that includes all necessary values and information</li>
@@ -1472,7 +1472,7 @@
         exclude_uid: str = None,
         folder_filter_ids: str = None) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get a list of all library elements the authenticated user has permission to view. Use the perPage query parameter to control the maximum number of library elements returned, The default limit is 100. You can also use the page query parameter to fetch library elements from any page other than the first one</p>
+<p>The method includes a functionality to get a list of all library elements the authenticated user has permission to view. Use the perPage query parameter to control the maximum number of library elements returned, The default limit is 100. You can also use the page query parameter to fetch library elements from any page other than the first one.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>results_per_page</code> <em>int</em> - Specify the results_per_page as integer (default 100)</li>
@@ -1496,7 +1496,7 @@
 <h4 id="get_library_element_by_uid">get_library_element_by_uid</h4>
 <pre><code class="language-python">def get_library_element_by_uid(uid: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get a library element with the given uid</p>
+<p>The method includes a functionality to get a library element with the given uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the library element</li>
@@ -1514,7 +1514,7 @@
 <h4 id="get_library_element_by_name">get_library_element_by_name</h4>
 <pre><code class="language-python">def get_library_element_by_name(name: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get a library element with the given name</p>
+<p>The method includes a functionality to get a library element with the given name.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>name</code> <em>str</em> - Specify the name of the library element</li>
@@ -1532,7 +1532,7 @@
 <h4 id="get_library_element_connections">get_library_element_connections</h4>
 <pre><code class="language-python">def get_library_element_connections(uid: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get a list of connections for a library element based on the specified uid</p>
+<p>The method includes a functionality to get a list of connections for a library element based on the specified uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the library element</li>
@@ -1555,7 +1555,7 @@
                            name: str = None,
                            uid: str = None) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to create a library element based on the specified folder id and model</p>
+<p>The method includes a functionality to create a library element based on the specified folder id and model.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>folder_id</code> <em>int</em> - Specify the folder where the library element is stored. It is deprecated since Grafana v9</li>
@@ -1584,7 +1584,7 @@
                            version: int,
                            kind: int = 1) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to update a library element</p>
+<p>The method includes a functionality to update a library element.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the library element</li>
@@ -1608,7 +1608,7 @@
 <h4 id="delete_library_element">delete_library_element</h4>
 <pre><code class="language-python">def delete_library_element(uid: str)
 </code></pre>
-<p>The method includes a functionality to delete a library element specified by the uid</p>
+<p>The method includes a functionality to delete a library element specified by the uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the library element</li>

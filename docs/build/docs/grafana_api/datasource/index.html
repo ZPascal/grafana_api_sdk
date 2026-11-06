@@ -2049,7 +2049,7 @@
 <h2 id="datasource-objects">Datasource Objects</h2>
 <pre><code class="language-python">class Datasource()
 </code></pre>
-<p>The class includes all necessary methods to access the Grafana datasource API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights</p>
+<p>The class includes all necessary methods to access the Grafana datasource API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights.</p>
 <p>HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
@@ -2063,7 +2063,7 @@
 <h4 id="get_all_datasources">get_all_datasources</h4>
 <pre><code class="language-python">def get_all_datasources() -&gt; list
 </code></pre>
-<p>The method includes a functionality to get all datasources</p>
+<p>The method includes a functionality to get all datasources.</p>
 <p>Required Permissions:
 Action: datasources:read
 Scope: datasources:*</p>
@@ -2079,7 +2079,7 @@ Scope: datasources:*</p>
 <h4 id="get_datasource_by_id">get_datasource_by_id</h4>
 <pre><code class="language-python">def get_datasource_by_id(datasource_id: int) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get the datasource specified by the datasource id</p>
+<p>The method includes a functionality to get the datasource specified by the datasource id.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>datasource_id</code> <em>int</em> - Specify the id of the datasource</li>
@@ -2100,7 +2100,7 @@ Scope: datasources:*</p>
 <h4 id="get_datasource_by_uid">get_datasource_by_uid</h4>
 <pre><code class="language-python">def get_datasource_by_uid(uid: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get the datasource specified by the datasource uid</p>
+<p>The method includes a functionality to get the datasource specified by the datasource uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the datasource</li>
@@ -2121,7 +2121,7 @@ Scope: datasources:*</p>
 <h4 id="get_datasource_by_name">get_datasource_by_name</h4>
 <pre><code class="language-python">def get_datasource_by_name(name: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get the datasource specified by the datasource name</p>
+<p>The method includes a functionality to get the datasource specified by the datasource name.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>name</code> <em>str</em> - Specify the name of the datasource</li>
@@ -2142,7 +2142,7 @@ Scope: datasources:*</p>
 <h4 id="get_datasource_id_by_name">get_datasource_id_by_name</h4>
 <pre><code class="language-python">def get_datasource_id_by_name(name: str) -&gt; int
 </code></pre>
-<p>The method includes a functionality to get the datasource id specified by the datasource name</p>
+<p>The method includes a functionality to get the datasource id specified by the datasource name.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>name</code> <em>str</em> - Specify the name of the datasource</li>
@@ -2163,7 +2163,7 @@ Scope: datasources:*</p>
 <h4 id="create_datasource">create_datasource</h4>
 <pre><code class="language-python">def create_datasource(data_source: dict)
 </code></pre>
-<p>The method includes a functionality to create a datasource specified by the datasource as dict</p>
+<p>The method includes a functionality to create a datasource specified by the datasource as dict.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>data_source</code> <em>dict</em> - Specify the datasource as dict</li>
@@ -2181,9 +2181,9 @@ Scope: datasources:*</p>
 <h4 id="update_datasource">update_datasource</h4>
 <pre><code class="language-python">def update_datasource(data_source: dict,
                       datasource_id: int = 0,
-                      datasource_uid: str | None = None)
+                      datasource_uid: Optional[str] = None)
 </code></pre>
-<p>The method includes a functionality to update a datasource specified by the datasource as dict and the datasource id/ datasource uid</p>
+<p>The method includes a functionality to update a datasource specified by the datasource as dict and the datasource id/ datasource uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>data_source</code> <em>dict</em> - Specify the datasource as dict</li>
@@ -2204,7 +2204,7 @@ Scope: datasources:*</p>
 <h4 id="delete_datasource_by_id">delete_datasource_by_id</h4>
 <pre><code class="language-python">def delete_datasource_by_id(datasource_id: int)
 </code></pre>
-<p>The method includes a functionality to delete a datasource specified by the datasource id</p>
+<p>The method includes a functionality to delete a datasource specified by the datasource id.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>datasource_id</code> <em>int</em> - Specify the id of the datasource</li>
@@ -2223,7 +2223,7 @@ Scope: datasources:*</p>
 <h4 id="delete_datasource_by_uid">delete_datasource_by_uid</h4>
 <pre><code class="language-python">def delete_datasource_by_uid(uid: str)
 </code></pre>
-<p>The method includes a functionality to delete a datasource specified by the datasource uid</p>
+<p>The method includes a functionality to delete a datasource specified by the datasource uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the datasource</li>
@@ -2242,7 +2242,7 @@ Scope: datasources:*</p>
 <h4 id="delete_datasource_by_name">delete_datasource_by_name</h4>
 <pre><code class="language-python">def delete_datasource_by_name(name: str)
 </code></pre>
-<p>The method includes a functionality to delete a datasource specified by the datasource name</p>
+<p>The method includes a functionality to delete a datasource specified by the datasource name.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>name</code> <em>str</em> - Specify the name of the datasource</li>
@@ -2262,7 +2262,7 @@ Scope: datasources:*</p>
 <pre><code class="language-python">def query_datasource_by_id(time: str, to: str,
                            datasource_queries: list) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to execute a queries inside the datasource itself specified by the datasource id</p>
+<p>The method includes a functionality to execute a queries inside the datasource itself specified by the datasource id.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>time</code> <em>str</em> - Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time units. For example, now-1h</li>
@@ -2283,7 +2283,7 @@ Scope: datasources:*</p>
 <pre><code class="language-python">def query_datasource_by_uid(time: str, to: str,
                             datasource_queries: list) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to execute a queries inside the datasource itself specified by the datasource uid</p>
+<p>The method includes a functionality to execute a queries inside the datasource itself specified by the datasource uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>time</code> <em>str</em> - Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time units. For example, now-1h</li>
@@ -2303,7 +2303,7 @@ Scope: datasources:*</p>
 <h2 id="datasourcepermissions-objects">DatasourcePermissions Objects</h2>
 <pre><code class="language-python">class DatasourcePermissions()
 </code></pre>
-<p>The class includes all necessary methods to access the Grafana datasource permissions API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights</p>
+<p>The class includes all necessary methods to access the Grafana datasource permissions API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights.</p>
 <p>HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
@@ -2317,7 +2317,7 @@ Scope: datasources:*</p>
 <h4 id="get_datasource_permissions_by_uid">get_datasource_permissions_by_uid</h4>
 <pre><code class="language-python">def get_datasource_permissions_by_uid(uid: str) -&gt; list
 </code></pre>
-<p>The method includes a functionality to get the datasource permissions specified by the datasource uid. The functionality is a Grafana ENTERPRISE feature</p>
+<p>The method includes a functionality to get the datasource permissions specified by the datasource uid. The functionality is a Grafana ENTERPRISE feature.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the datasource</li>
@@ -2339,7 +2339,7 @@ Scope: datasources:*</p>
 <pre><code class="language-python">def update_datasource_user_access_by_uid(
         uid: str, id: int, datasource_user_permission: DatasourcePermission)
 </code></pre>
-<p>The method includes a functionality to update the datasource permission specified by the datasource uid and the user id. The functionality is a Grafana ENTERPRISE feature</p>
+<p>The method includes a functionality to update the datasource permission specified by the datasource uid and the user id. The functionality is a Grafana ENTERPRISE feature.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the datasource</li>
@@ -2361,7 +2361,7 @@ Scope: datasources:*</p>
 <pre><code class="language-python">def update_datasource_team_access_by_uid(
         uid: str, id: int, datasource_team_permission: DatasourcePermission)
 </code></pre>
-<p>The method includes a functionality to update the datasource permission specified by the datasource uid and the team id. The functionality is a Grafana ENTERPRISE feature</p>
+<p>The method includes a functionality to update the datasource permission specified by the datasource uid and the team id. The functionality is a Grafana ENTERPRISE feature.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the datasource</li>
@@ -2384,7 +2384,7 @@ Scope: datasources:*</p>
         uid: str, build_in_role_name: str,
         datasource_team_permission: DatasourcePermission)
 </code></pre>
-<p>The method includes a functionality to update the datasource permission specified by the datasource uid and the build in role name. The functionality is a Grafana ENTERPRISE feature</p>
+<p>The method includes a functionality to update the datasource permission specified by the datasource uid and the build in role name. The functionality is a Grafana ENTERPRISE feature.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the datasource</li>
@@ -2405,7 +2405,7 @@ Scope: datasources:*</p>
 <h2 id="datasourcelegacypermissions-objects">DatasourceLegacyPermissions Objects</h2>
 <pre><code class="language-python">class DatasourceLegacyPermissions()
 </code></pre>
-<p>The class includes all necessary methods to access the Grafana legacy datasource permissions API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights</p>
+<p>The class includes all necessary methods to access the Grafana legacy datasource permissions API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights.</p>
 <p>HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
@@ -2419,7 +2419,7 @@ Scope: datasources:*</p>
 <h4 id="enable_datasource_permissions">enable_datasource_permissions</h4>
 <pre><code class="language-python">def enable_datasource_permissions(datasource_id: int)
 </code></pre>
-<p>The method includes a functionality to enable datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature</p>
+<p>The method includes a functionality to enable datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>datasource_id</code> <em>int</em> - Specify the id of the datasource</li>
@@ -2438,7 +2438,7 @@ Scope: datasources:*</p>
 <h4 id="disable_datasource_permissions">disable_datasource_permissions</h4>
 <pre><code class="language-python">def disable_datasource_permissions(datasource_id: int)
 </code></pre>
-<p>The method includes a functionality to disable datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature</p>
+<p>The method includes a functionality to disable datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>datasource_id</code> <em>int</em> - Specify the id of the datasource</li>
@@ -2457,7 +2457,7 @@ Scope: datasources:*</p>
 <h4 id="get_datasource_permissions">get_datasource_permissions</h4>
 <pre><code class="language-python">def get_datasource_permissions(datasource_id: int) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get the datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature</p>
+<p>The method includes a functionality to get the datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>datasource_id</code> <em>int</em> - Specify the id of the datasource</li>
@@ -2479,7 +2479,7 @@ Scope: datasources:*</p>
 <pre><code class="language-python">def add_datasource_permissions(datasource_id: int,
                                datasource_permission: dict)
 </code></pre>
-<p>The method includes a functionality to add datasource permission specified by the datasource id and the datasource permission dict. The functionality is a Grafana ENTERPRISE feature</p>
+<p>The method includes a functionality to add datasource permission specified by the datasource id and the datasource permission dict. The functionality is a Grafana ENTERPRISE feature.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>datasource_id</code> <em>int</em> - Specify the id of the datasource</li>
@@ -2499,7 +2499,7 @@ Scope: datasources:*</p>
 <h4 id="delete_datasource_permissions">delete_datasource_permissions</h4>
 <pre><code class="language-python">def delete_datasource_permissions(datasource_id: int, permission_id: int)
 </code></pre>
-<p>The method includes a functionality to delete datasource permission specified by the datasource id and the permission id. The functionality is a Grafana ENTERPRISE feature</p>
+<p>The method includes a functionality to delete datasource permission specified by the datasource id and the permission id. The functionality is a Grafana ENTERPRISE feature.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>datasource_id</code> <em>int</em> - Specify the id of the datasource</li>
@@ -2519,7 +2519,7 @@ Scope: datasources:*</p>
 <h2 id="datasourcequeryresourcecaching-objects">DatasourceQueryResourceCaching Objects</h2>
 <pre><code class="language-python">class DatasourceQueryResourceCaching()
 </code></pre>
-<p>The class includes all necessary methods to access the Grafana datasource query and resource caching API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights. The functionality is a Grafana ENTERPRISE feature</p>
+<p>The class includes all necessary methods to access the Grafana datasource query and resource caching API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights. The functionality is a Grafana ENTERPRISE feature.</p>
 <p>HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
@@ -2533,7 +2533,7 @@ Scope: datasources:*</p>
 <h4 id="get_datasource_cache">get_datasource_cache</h4>
 <pre><code class="language-python">def get_datasource_cache(uid: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get the datasource cache config specified by the datasource uid</p>
+<p>The method includes a functionality to get the datasource cache config specified by the datasource uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the datasource</li>
@@ -2554,7 +2554,7 @@ Scope: datasources:*</p>
 <h4 id="enable_datasource_cache">enable_datasource_cache</h4>
 <pre><code class="language-python">def enable_datasource_cache(uid: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to enable the datasource cache specified by the datasource uid</p>
+<p>The method includes a functionality to enable the datasource cache specified by the datasource uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the datasource</li>
@@ -2575,7 +2575,7 @@ Scope: datasources:*</p>
 <h4 id="disable_datasource_cache">disable_datasource_cache</h4>
 <pre><code class="language-python">def disable_datasource_cache(uid: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to disable the datasource cache specified by the datasource uid</p>
+<p>The method includes a functionality to disable the datasource cache specified by the datasource uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the datasource</li>
@@ -2596,7 +2596,7 @@ Scope: datasources:*</p>
 <h4 id="clean_datasource_cache">clean_datasource_cache</h4>
 <pre><code class="language-python">def clean_datasource_cache(uid: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to clean the datasource cache of all data sources with caching enabled. The uid of the datasource will only be used to return the configuration for that data source</p>
+<p>The method includes a functionality to clean the datasource cache of all data sources with caching enabled. The uid of the datasource will only be used to return the configuration for that data source.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the datasource</li>
@@ -2618,7 +2618,7 @@ Scope: datasources:*</p>
 <pre><code class="language-python">def update_datasource_cache(uid: str,
                             datasource_cache: DatasourceCache) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to update the datasource cache specified by the datasource uid</p>
+<p>The method includes a functionality to update the datasource cache specified by the datasource uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the datasource</li>
@@ -2640,7 +2640,7 @@ Scope: datasources:*</p>
 <h2 id="datasourcelabelbasedaccesscontrol-objects">DatasourceLabelBasedAccessControl Objects</h2>
 <pre><code class="language-python">class DatasourceLabelBasedAccessControl()
 </code></pre>
-<p>The class includes all necessary methods to access the Grafana datasource label based access control for teams API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights. The functionality is a Grafana Cloud feature. Only cloud Loki data sources are supported</p>
+<p>The class includes all necessary methods to access the Grafana datasource label based access control for teams API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights. The functionality is a Grafana Cloud feature. Only cloud Loki data sources are supported.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>grafana_api_model</code> <em>APIModel</em> - Inject a Grafana API model object that includes all necessary values and information</li>
@@ -2653,7 +2653,7 @@ Scope: datasources:*</p>
 <h4 id="get_lbac_rules_for_datasource">get_lbac_rules_for_datasource</h4>
 <pre><code class="language-python">def get_lbac_rules_for_datasource(uid: str) -&gt; list
 </code></pre>
-<p>The method includes a functionality to get all datasource label based access control rules for team specified by the datasource uid</p>
+<p>The method includes a functionality to get all datasource label based access control rules for team specified by the datasource uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the datasource</li>
@@ -2674,7 +2674,7 @@ Scope: datasources:*</p>
 <h4 id="update_lbac_rules_for_datasource">update_lbac_rules_for_datasource</h4>
 <pre><code class="language-python">def update_lbac_rules_for_datasource(uid: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to enable the datasource cache specified by the datasource uid</p>
+<p>The method includes a functionality to enable the datasource cache specified by the datasource uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the datasource</li>

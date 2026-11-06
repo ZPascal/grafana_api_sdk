@@ -1495,7 +1495,7 @@
 <h2 id="reporting-objects">Reporting Objects</h2>
 <pre><code class="language-python">class Reporting()
 </code></pre>
-<p>The class includes all necessary methods to access the Grafana reporting API endpoints. Be aware that the functionality is a Grafana ENTERPRISE v7.0+ feature</p>
+<p>The class includes all necessary methods to access the Grafana reporting API endpoints. Be aware that the functionality is a Grafana ENTERPRISE v7.0+ feature.</p>
 <p>HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
@@ -1509,7 +1509,7 @@
 <h4 id="get_reports">get_reports</h4>
 <pre><code class="language-python">def get_reports() -&gt; list
 </code></pre>
-<p>The method includes a functionality to get all reports</p>
+<p>The method includes a functionality to get all reports.</p>
 <p>Required Permissions:
 Action: reports:read
 Scope: [reports:<em>, reports:id:</em>]</p>
@@ -1525,7 +1525,7 @@ Scope: [reports:<em>, reports:id:</em>]</p>
 <h4 id="get_report_by_id">get_report_by_id</h4>
 <pre><code class="language-python">def get_report_by_id(id: int) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get a report specified by the report id</p>
+<p>The method includes a functionality to get a report specified by the report id.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>id</code> <em>int</em> - Specify the report id</li>
@@ -1546,7 +1546,7 @@ Scope: [reports:<em>, reports:id:</em>]</p>
 <h4 id="create_report">create_report</h4>
 <pre><code class="language-python">def create_report(report: Report) -&gt; int
 </code></pre>
-<p>The method includes a functionality to create a report</p>
+<p>The method includes a functionality to create a report.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>report</code> <em>Report</em> - Specify the report object</li>
@@ -1567,7 +1567,7 @@ Scope: [reports:<em>, reports:id:</em>]</p>
 <h4 id="update_report">update_report</h4>
 <pre><code class="language-python">def update_report(id: int, report: Report)
 </code></pre>
-<p>The method includes a functionality to update a report</p>
+<p>The method includes a functionality to update a report.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>id</code> <em>int</em> - Specify the report id</li>
@@ -1587,7 +1587,7 @@ Scope: [reports:<em>, reports:id:</em>]</p>
 <h4 id="delete_report">delete_report</h4>
 <pre><code class="language-python">def delete_report(id: int)
 </code></pre>
-<p>The method includes a functionality to delete a report specified by the report id</p>
+<p>The method includes a functionality to delete a report specified by the report id.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>id</code> <em>int</em> - Specify the report id</li>
@@ -1608,7 +1608,7 @@ Scope: [reports:<em>, reports:id:</em>]</p>
                 emails: str = None,
                 use_emails_from_report: bool = None)
 </code></pre>
-<p>The method includes a functionality to send a report to a specified email addresses</p>
+<p>The method includes a functionality to send a report to a specified email addresses.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>id</code> <em>int</em> - Specify the id of forwarded report. It is the same as in the URL when editing a report, not to be confused with the id of the dashboard.</li>
@@ -1629,7 +1629,7 @@ Scope: [reports:<em>, reports:id:</em>]</p>
 <h4 id="get_report_branding_settings">get_report_branding_settings</h4>
 <pre><code class="language-python">def get_report_branding_settings() -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get the report branding settings</p>
+<p>The method includes a functionality to get the report branding settings.</p>
 <p>Required Permissions:
 Action: reports.settings:read
 Scope: N/A</p>
@@ -1645,7 +1645,7 @@ Scope: N/A</p>
 <h4 id="save_report_branding_settings">save_report_branding_settings</h4>
 <pre><code class="language-python">def save_report_branding_settings(branding_settings: ReportBrandingSettings)
 </code></pre>
-<p>The method includes a functionality to save the report branding settings</p>
+<p>The method includes a functionality to save the report branding settings.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>branding_settings</code> <em>ReportBrandingSettings</em> - Specify the report branding settings object.</li>
@@ -1664,7 +1664,7 @@ Scope: N/A</p>
 <h4 id="send_report_test_email">send_report_test_email</h4>
 <pre><code class="language-python">def send_report_test_email(report: Report)
 </code></pre>
-<p>The method includes a functionality to send a test report email</p>
+<p>The method includes a functionality to send a test report email.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>report</code> <em>Report</em> - Specify the report object</li>

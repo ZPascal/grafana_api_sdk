@@ -1759,7 +1759,7 @@
 <h2 id="rbac-objects">RBAC Objects</h2>
 <pre><code class="language-python">class RBAC()
 </code></pre>
-<p>The class includes all necessary methods to access the Grafana RBAC API endpoints. Be aware that the functionality is a Grafana ENTERPRISE feature</p>
+<p>The class includes all necessary methods to access the Grafana RBAC API endpoints. Be aware that the functionality is a Grafana ENTERPRISE feature.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>grafana_api_model</code> <em>APIModel</em> - Inject a Grafana API model object that includes all necessary values and information</li>
@@ -1772,7 +1772,7 @@
 <h4 id="get_status">get_status</h4>
 <pre><code class="language-python">def get_status() -&gt; bool
 </code></pre>
-<p>The method includes a functionality to get the status if role-based access control is enabled or not</p>
+<p>The method includes a functionality to get the status if role-based access control is enabled or not.</p>
 <p>Required Permissions:
 Action: status:accesscontrol
 Scope: services:accesscontrol</p>
@@ -1788,7 +1788,7 @@ Scope: services:accesscontrol</p>
 <h4 id="get_all_roles">get_all_roles</h4>
 <pre><code class="language-python">def get_all_roles(include_hidden_roles: bool = False) -&gt; list
 </code></pre>
-<p>The method includes a functionality gets all existing roles. The response contains all global and organization local roles, for the organization which user is signed in</p>
+<p>The method includes a functionality gets all existing roles. The response contains all global and organization local roles, for the organization which user is signed in.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>include_hidden_roles</code> <em>bool</em> - Specify if the output contains the hidden roles or not (default False)</li>
@@ -1808,7 +1808,7 @@ Scope: services:accesscontrol</p>
 <h4 id="get_role">get_role</h4>
 <pre><code class="language-python">def get_role(uid: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality get a role specified by the uid</p>
+<p>The method includes a functionality get a role specified by the uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> <em>str</em> - Specify the uid of the role</li>
@@ -1829,7 +1829,7 @@ Scope: services:accesscontrol</p>
 <h4 id="create_role">create_role</h4>
 <pre><code class="language-python">def create_role(role_definition: CustomRole) -&gt; dict
 </code></pre>
-<p>The method includes a functionality create a new custom role and maps given permissions to that role. Note that roles with the same prefix as Fixed roles can’t be created</p>
+<p>The method includes a functionality create a new custom role and maps given permissions to that role. Note that roles with the same prefix as Fixed roles can’t be created.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>role_definition</code> (<code>CustomRole</code>): Specify the corresponding role definition</li>
@@ -1845,7 +1845,7 @@ Scope: services:accesscontrol</p>
 <h4 id="update_role">update_role</h4>
 <pre><code class="language-python">def update_role(uid: str, role_definition: CustomRole) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to update the role with the given uid, and its permissions. The operation is idempotent and all permissions of the role will be replaced based on the request content. You need to increment the version of the role with each update, otherwise the request will fail</p>
+<p>The method includes a functionality to update the role with the given uid, and its permissions. The operation is idempotent and all permissions of the role will be replaced based on the request content. You need to increment the version of the role with each update, otherwise the request will fail.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> (<code>str</code>): Specify the corresponding uid of the custom role</li>
@@ -1862,7 +1862,7 @@ Scope: services:accesscontrol</p>
 <h4 id="delete_role">delete_role</h4>
 <pre><code class="language-python">def delete_role(uid: str, force: bool = False, global_role: bool = False)
 </code></pre>
-<p>The method includes a functionality to delete a role with the given uid</p>
+<p>The method includes a functionality to delete a role with the given uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>uid</code> (<code>str</code>): Specify the corresponding uid of the custom role</li>
@@ -1881,7 +1881,7 @@ Scope: services:accesscontrol</p>
 <pre><code class="language-python">def get_user_assigned_roles(user_id: int,
                             include_hidden_roles: bool = False) -&gt; list
 </code></pre>
-<p>The method includes a functionality to get the roles that have been directly assigned to a given user specified by the user id. The list does not include basic roles (Viewer, Editor, Admin or Grafana Admin), and it does not include roles that have been inherited from a team</p>
+<p>The method includes a functionality to get the roles that have been directly assigned to a given user specified by the user id. The list does not include basic roles (Viewer, Editor, Admin or Grafana Admin), and it does not include roles that have been inherited from a team.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>user_id</code> <em>int</em> - Specify the corresponding user_id of the user</li>
@@ -1903,7 +1903,7 @@ Scope: services:accesscontrol</p>
 <h4 id="get_user_assigned_permissions">get_user_assigned_permissions</h4>
 <pre><code class="language-python">def get_user_assigned_permissions(user_id: int) -&gt; list
 </code></pre>
-<p>The method includes a functionality to get the permissions that have been directly assigned to a given user specified by the user id</p>
+<p>The method includes a functionality to get the permissions that have been directly assigned to a given user specified by the user id.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>user_id</code> <em>int</em> - Specify the corresponding user_id of the user</li>
@@ -1926,7 +1926,7 @@ Scope: services:accesscontrol</p>
                              role_uid: str,
                              global_assignment: bool = False)
 </code></pre>
-<p>The method includes a functionality to assign a role to a specific user</p>
+<p>The method includes a functionality to assign a role to a specific user.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>user_id</code> (<code>int</code>): Specify the corresponding user_id of the user</li>
@@ -1944,7 +1944,7 @@ Scope: services:accesscontrol</p>
 <h4 id="remove_user_role_assignment">remove_user_role_assignment</h4>
 <pre><code class="language-python">def remove_user_role_assignment(user_id: int, role_uid: str)
 </code></pre>
-<p>The method includes a functionality to revoke a role to a specific user</p>
+<p>The method includes a functionality to revoke a role to a specific user.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>user_id</code> (<code>int</code>): Specify the corresponding user_id of the user</li>
@@ -1964,7 +1964,7 @@ Scope: services:accesscontrol</p>
                                  include_hidden_roles: bool = False,
                                  global_assignment: bool = False)
 </code></pre>
-<p>The method includes a functionality to update the user role assignments to match the provided set of uid's. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user</p>
+<p>The method includes a functionality to update the user role assignments to match the provided set of uid's. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>user_id</code> (<code>int</code>): Specify the corresponding user_id of the user</li>
@@ -1985,7 +1985,7 @@ Scope: services:accesscontrol</p>
                                        include_hidden_roles: bool = False
                                        ) -&gt; list
 </code></pre>
-<p>The method includes a functionality to get the roles that have been directly assigned to a given service account. The list does not include basic roles (Viewer, Editor, Admin or Grafana Admin)</p>
+<p>The method includes a functionality to get the roles that have been directly assigned to a given service account. The list does not include basic roles (Viewer, Editor, Admin or Grafana Admin).</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>service_account_id</code> <em>int</em> - Specify the corresponding service_account_id of the service account</li>
@@ -2007,7 +2007,7 @@ Scope: services:accesscontrol</p>
 <h4 id="get_service_account_assigned_permissions">get_service_account_assigned_permissions</h4>
 <pre><code class="language-python">def get_service_account_assigned_permissions(service_account_id: int) -&gt; list
 </code></pre>
-<p>The method includes a functionality to get the permissions that a given service account has</p>
+<p>The method includes a functionality to get the permissions that a given service account has.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>service_account_id</code> <em>int</em> - Specify the corresponding service_account_id of the service account</li>
@@ -2030,7 +2030,7 @@ Scope: services:accesscontrol</p>
                                         role_uid: str,
                                         global_assignment: bool = False)
 </code></pre>
-<p>The method includes a functionality to assign a role to a specific service account</p>
+<p>The method includes a functionality to assign a role to a specific service account.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>service_account_id</code> (<code>int</code>): Specify the corresponding service_account_id of the service account</li>
@@ -2049,7 +2049,7 @@ Scope: services:accesscontrol</p>
 <pre><code class="language-python">def remove_service_account_role_assignment(service_account_id: int,
                                            role_uid: str)
 </code></pre>
-<p>The method includes a functionality to revoke a role to a specific service account</p>
+<p>The method includes a functionality to revoke a role to a specific service account.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>service_account_id</code> (<code>int</code>): Specify the corresponding service_account_id of the service account</li>
@@ -2069,7 +2069,7 @@ Scope: services:accesscontrol</p>
                                             include_hidden_roles: bool = False,
                                             global_assignment: bool = False)
 </code></pre>
-<p>The method includes a functionality to update the service account role assignments to match the provided set of uid's. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user</p>
+<p>The method includes a functionality to update the service account role assignments to match the provided set of uid's. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>service_account_id</code> (<code>int</code>): Specify the corresponding service_account_id of the service account</li>
@@ -2111,7 +2111,7 @@ Scope: services:accesscontrol</p>
 <h4 id="add_team_role_assignment">add_team_role_assignment</h4>
 <pre><code class="language-python">def add_team_role_assignment(team_id: int, role_uid: str)
 </code></pre>
-<p>The method includes a functionality to assign a role to a specific team</p>
+<p>The method includes a functionality to assign a role to a specific team.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>team_id</code> (<code>int</code>): Specify the corresponding team_id of the team</li>
@@ -2128,7 +2128,7 @@ Scope: services:accesscontrol</p>
 <h4 id="remove_team_role_assignment">remove_team_role_assignment</h4>
 <pre><code class="language-python">def remove_team_role_assignment(team_id: int, role_uid: str)
 </code></pre>
-<p>The method includes a functionality to revoke a role to a specific team</p>
+<p>The method includes a functionality to revoke a role to a specific team.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>team_id</code> (<code>int</code>): Specify the corresponding team_id of the team</li>
@@ -2147,7 +2147,7 @@ Scope: services:accesscontrol</p>
                                  role_uids: list,
                                  include_hidden_roles: bool = False)
 </code></pre>
-<p>The method includes a functionality to update the service account role assignments to match the provided set of uid's. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user</p>
+<p>The method includes a functionality to update the service account role assignments to match the provided set of uid's. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>team_id</code> (<code>int</code>): Specify the corresponding team_id of the team</li>
@@ -2165,7 +2165,7 @@ Scope: services:accesscontrol</p>
 <h4 id="reset_basic_roles_to_their_default">reset_basic_roles_to_their_default</h4>
 <pre><code class="language-python">def reset_basic_roles_to_their_default()
 </code></pre>
-<p>The method includes a functionality to reset basic roles permissions to their default</p>
+<p>The method includes a functionality to reset basic roles permissions to their default.</p>
 <p>Required Permissions:
     Action: roles:write
     Scope: permissions:type:escalate</p>

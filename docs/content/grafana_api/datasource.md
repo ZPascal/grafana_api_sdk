@@ -10,7 +10,7 @@
 class Datasource()
 ```
 
-The class includes all necessary methods to access the Grafana datasource API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights
+The class includes all necessary methods to access the Grafana datasource API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights.
 
 HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
 
@@ -31,7 +31,7 @@ HINT: Note Grafana Enterprise API need required permissions if fine-grained acce
 def get_all_datasources() -> list
 ```
 
-The method includes a functionality to get all datasources
+The method includes a functionality to get all datasources.
 
 Required Permissions:
 Action: datasources:read
@@ -54,7 +54,7 @@ Scope: datasources:*
 def get_datasource_by_id(datasource_id: int) -> dict
 ```
 
-The method includes a functionality to get the datasource specified by the datasource id
+The method includes a functionality to get the datasource specified by the datasource id.
 
 **Arguments**:
 
@@ -83,7 +83,7 @@ The method includes a functionality to get the datasource specified by the datas
 def get_datasource_by_uid(uid: str) -> dict
 ```
 
-The method includes a functionality to get the datasource specified by the datasource uid
+The method includes a functionality to get the datasource specified by the datasource uid.
 
 **Arguments**:
 
@@ -112,7 +112,7 @@ The method includes a functionality to get the datasource specified by the datas
 def get_datasource_by_name(name: str) -> dict
 ```
 
-The method includes a functionality to get the datasource specified by the datasource name
+The method includes a functionality to get the datasource specified by the datasource name.
 
 **Arguments**:
 
@@ -141,7 +141,7 @@ The method includes a functionality to get the datasource specified by the datas
 def get_datasource_id_by_name(name: str) -> int
 ```
 
-The method includes a functionality to get the datasource id specified by the datasource name
+The method includes a functionality to get the datasource id specified by the datasource name.
 
 **Arguments**:
 
@@ -170,7 +170,7 @@ The method includes a functionality to get the datasource id specified by the da
 def create_datasource(data_source: dict)
 ```
 
-The method includes a functionality to create a datasource specified by the datasource as dict
+The method includes a functionality to create a datasource specified by the datasource as dict.
 
 **Arguments**:
 
@@ -197,10 +197,10 @@ The method includes a functionality to create a datasource specified by the data
 ```python
 def update_datasource(data_source: dict,
                       datasource_id: int = 0,
-                      datasource_uid: str | None = None)
+                      datasource_uid: Optional[str] = None)
 ```
 
-The method includes a functionality to update a datasource specified by the datasource as dict and the datasource id/ datasource uid
+The method includes a functionality to update a datasource specified by the datasource as dict and the datasource id/ datasource uid.
 
 **Arguments**:
 
@@ -231,7 +231,7 @@ The method includes a functionality to update a datasource specified by the data
 def delete_datasource_by_id(datasource_id: int)
 ```
 
-The method includes a functionality to delete a datasource specified by the datasource id
+The method includes a functionality to delete a datasource specified by the datasource id.
 
 **Arguments**:
 
@@ -260,7 +260,7 @@ The method includes a functionality to delete a datasource specified by the data
 def delete_datasource_by_uid(uid: str)
 ```
 
-The method includes a functionality to delete a datasource specified by the datasource uid
+The method includes a functionality to delete a datasource specified by the datasource uid.
 
 **Arguments**:
 
@@ -289,7 +289,7 @@ The method includes a functionality to delete a datasource specified by the data
 def delete_datasource_by_name(name: str)
 ```
 
-The method includes a functionality to delete a datasource specified by the datasource name
+The method includes a functionality to delete a datasource specified by the datasource name.
 
 **Arguments**:
 
@@ -319,7 +319,7 @@ def query_datasource_by_id(time: str, to: str,
                            datasource_queries: list) -> dict
 ```
 
-The method includes a functionality to execute a queries inside the datasource itself specified by the datasource id
+The method includes a functionality to execute a queries inside the datasource itself specified by the datasource id.
 
 **Arguments**:
 
@@ -347,7 +347,7 @@ def query_datasource_by_uid(time: str, to: str,
                             datasource_queries: list) -> dict
 ```
 
-The method includes a functionality to execute a queries inside the datasource itself specified by the datasource uid
+The method includes a functionality to execute a queries inside the datasource itself specified by the datasource uid.
 
 **Arguments**:
 
@@ -374,7 +374,7 @@ The method includes a functionality to execute a queries inside the datasource i
 class DatasourcePermissions()
 ```
 
-The class includes all necessary methods to access the Grafana datasource permissions API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights
+The class includes all necessary methods to access the Grafana datasource permissions API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights.
 
 HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
 
@@ -395,7 +395,7 @@ HINT: Note Grafana Enterprise API need required permissions if fine-grained acce
 def get_datasource_permissions_by_uid(uid: str) -> list
 ```
 
-The method includes a functionality to get the datasource permissions specified by the datasource uid. The functionality is a Grafana ENTERPRISE feature
+The method includes a functionality to get the datasource permissions specified by the datasource uid. The functionality is a Grafana ENTERPRISE feature.
 
 **Arguments**:
 
@@ -425,7 +425,7 @@ def update_datasource_user_access_by_uid(
         uid: str, id: int, datasource_user_permission: DatasourcePermission)
 ```
 
-The method includes a functionality to update the datasource permission specified by the datasource uid and the user id. The functionality is a Grafana ENTERPRISE feature
+The method includes a functionality to update the datasource permission specified by the datasource uid and the user id. The functionality is a Grafana ENTERPRISE feature.
 
 **Arguments**:
 
@@ -457,7 +457,7 @@ def update_datasource_team_access_by_uid(
         uid: str, id: int, datasource_team_permission: DatasourcePermission)
 ```
 
-The method includes a functionality to update the datasource permission specified by the datasource uid and the team id. The functionality is a Grafana ENTERPRISE feature
+The method includes a functionality to update the datasource permission specified by the datasource uid and the team id. The functionality is a Grafana ENTERPRISE feature.
 
 **Arguments**:
 
@@ -490,7 +490,7 @@ def update_datasource_basic_role_access_by_uid(
         datasource_team_permission: DatasourcePermission)
 ```
 
-The method includes a functionality to update the datasource permission specified by the datasource uid and the build in role name. The functionality is a Grafana ENTERPRISE feature
+The method includes a functionality to update the datasource permission specified by the datasource uid and the build in role name. The functionality is a Grafana ENTERPRISE feature.
 
 **Arguments**:
 
@@ -521,7 +521,7 @@ The method includes a functionality to update the datasource permission specifie
 class DatasourceLegacyPermissions()
 ```
 
-The class includes all necessary methods to access the Grafana legacy datasource permissions API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights
+The class includes all necessary methods to access the Grafana legacy datasource permissions API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights.
 
 HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
 
@@ -542,7 +542,7 @@ HINT: Note Grafana Enterprise API need required permissions if fine-grained acce
 def enable_datasource_permissions(datasource_id: int)
 ```
 
-The method includes a functionality to enable datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature
+The method includes a functionality to enable datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature.
 
 **Arguments**:
 
@@ -571,7 +571,7 @@ The method includes a functionality to enable datasource permissions specified b
 def disable_datasource_permissions(datasource_id: int)
 ```
 
-The method includes a functionality to disable datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature
+The method includes a functionality to disable datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature.
 
 **Arguments**:
 
@@ -600,7 +600,7 @@ The method includes a functionality to disable datasource permissions specified 
 def get_datasource_permissions(datasource_id: int) -> dict
 ```
 
-The method includes a functionality to get the datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature
+The method includes a functionality to get the datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature.
 
 **Arguments**:
 
@@ -630,7 +630,7 @@ def add_datasource_permissions(datasource_id: int,
                                datasource_permission: dict)
 ```
 
-The method includes a functionality to add datasource permission specified by the datasource id and the datasource permission dict. The functionality is a Grafana ENTERPRISE feature
+The method includes a functionality to add datasource permission specified by the datasource id and the datasource permission dict. The functionality is a Grafana ENTERPRISE feature.
 
 **Arguments**:
 
@@ -660,7 +660,7 @@ The method includes a functionality to add datasource permission specified by th
 def delete_datasource_permissions(datasource_id: int, permission_id: int)
 ```
 
-The method includes a functionality to delete datasource permission specified by the datasource id and the permission id. The functionality is a Grafana ENTERPRISE feature
+The method includes a functionality to delete datasource permission specified by the datasource id and the permission id. The functionality is a Grafana ENTERPRISE feature.
 
 **Arguments**:
 
@@ -690,7 +690,7 @@ The method includes a functionality to delete datasource permission specified by
 class DatasourceQueryResourceCaching()
 ```
 
-The class includes all necessary methods to access the Grafana datasource query and resource caching API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights. The functionality is a Grafana ENTERPRISE feature
+The class includes all necessary methods to access the Grafana datasource query and resource caching API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights. The functionality is a Grafana ENTERPRISE feature.
 
 HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
 
@@ -711,7 +711,7 @@ HINT: Note Grafana Enterprise API need required permissions if fine-grained acce
 def get_datasource_cache(uid: str) -> dict
 ```
 
-The method includes a functionality to get the datasource cache config specified by the datasource uid
+The method includes a functionality to get the datasource cache config specified by the datasource uid.
 
 **Arguments**:
 
@@ -740,7 +740,7 @@ The method includes a functionality to get the datasource cache config specified
 def enable_datasource_cache(uid: str) -> dict
 ```
 
-The method includes a functionality to enable the datasource cache specified by the datasource uid
+The method includes a functionality to enable the datasource cache specified by the datasource uid.
 
 **Arguments**:
 
@@ -769,7 +769,7 @@ The method includes a functionality to enable the datasource cache specified by 
 def disable_datasource_cache(uid: str) -> dict
 ```
 
-The method includes a functionality to disable the datasource cache specified by the datasource uid
+The method includes a functionality to disable the datasource cache specified by the datasource uid.
 
 **Arguments**:
 
@@ -798,7 +798,7 @@ The method includes a functionality to disable the datasource cache specified by
 def clean_datasource_cache(uid: str) -> dict
 ```
 
-The method includes a functionality to clean the datasource cache of all data sources with caching enabled. The uid of the datasource will only be used to return the configuration for that data source
+The method includes a functionality to clean the datasource cache of all data sources with caching enabled. The uid of the datasource will only be used to return the configuration for that data source.
 
 **Arguments**:
 
@@ -828,7 +828,7 @@ def update_datasource_cache(uid: str,
                             datasource_cache: DatasourceCache) -> dict
 ```
 
-The method includes a functionality to update the datasource cache specified by the datasource uid
+The method includes a functionality to update the datasource cache specified by the datasource uid.
 
 **Arguments**:
 
@@ -858,7 +858,7 @@ The method includes a functionality to update the datasource cache specified by 
 class DatasourceLabelBasedAccessControl()
 ```
 
-The class includes all necessary methods to access the Grafana datasource label based access control for teams API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights. The functionality is a Grafana Cloud feature. Only cloud Loki data sources are supported
+The class includes all necessary methods to access the Grafana datasource label based access control for teams API endpoints. It's required that the API token got the corresponding datasource access rights. Please check the used methods docstring for the necessary access rights. The functionality is a Grafana Cloud feature. Only cloud Loki data sources are supported.
 
 **Arguments**:
 
@@ -877,7 +877,7 @@ The class includes all necessary methods to access the Grafana datasource label 
 def get_lbac_rules_for_datasource(uid: str) -> list
 ```
 
-The method includes a functionality to get all datasource label based access control rules for team specified by the datasource uid
+The method includes a functionality to get all datasource label based access control rules for team specified by the datasource uid.
 
 **Arguments**:
 
@@ -906,7 +906,7 @@ The method includes a functionality to get all datasource label based access con
 def update_lbac_rules_for_datasource(uid: str) -> dict
 ```
 
-The method includes a functionality to enable the datasource cache specified by the datasource uid
+The method includes a functionality to enable the datasource cache specified by the datasource uid.
 
 **Arguments**:
 

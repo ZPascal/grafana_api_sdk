@@ -10,7 +10,7 @@
 class RBAC()
 ```
 
-The class includes all necessary methods to access the Grafana RBAC API endpoints. Be aware that the functionality is a Grafana ENTERPRISE feature
+The class includes all necessary methods to access the Grafana RBAC API endpoints. Be aware that the functionality is a Grafana ENTERPRISE feature.
 
 **Arguments**:
 
@@ -29,7 +29,7 @@ The class includes all necessary methods to access the Grafana RBAC API endpoint
 def get_status() -> bool
 ```
 
-The method includes a functionality to get the status if role-based access control is enabled or not
+The method includes a functionality to get the status if role-based access control is enabled or not.
 
 Required Permissions:
 Action: status:accesscontrol
@@ -52,7 +52,7 @@ Scope: services:accesscontrol
 def get_all_roles(include_hidden_roles: bool = False) -> list
 ```
 
-The method includes a functionality gets all existing roles. The response contains all global and organization local roles, for the organization which user is signed in
+The method includes a functionality gets all existing roles. The response contains all global and organization local roles, for the organization which user is signed in.
 
 **Arguments**:
 
@@ -80,7 +80,7 @@ The method includes a functionality gets all existing roles. The response contai
 def get_role(uid: str) -> dict
 ```
 
-The method includes a functionality get a role specified by the uid
+The method includes a functionality get a role specified by the uid.
 
 **Arguments**:
 
@@ -109,7 +109,7 @@ The method includes a functionality get a role specified by the uid
 def create_role(role_definition: CustomRole) -> dict
 ```
 
-The method includes a functionality create a new custom role and maps given permissions to that role. Note that roles with the same prefix as Fixed roles can’t be created
+The method includes a functionality create a new custom role and maps given permissions to that role. Note that roles with the same prefix as Fixed roles can’t be created.
 
 **Arguments**:
 
@@ -132,7 +132,7 @@ api_call (dict): Return the newly created role
 def update_role(uid: str, role_definition: CustomRole) -> dict
 ```
 
-The method includes a functionality to update the role with the given uid, and its permissions. The operation is idempotent and all permissions of the role will be replaced based on the request content. You need to increment the version of the role with each update, otherwise the request will fail
+The method includes a functionality to update the role with the given uid, and its permissions. The operation is idempotent and all permissions of the role will be replaced based on the request content. You need to increment the version of the role with each update, otherwise the request will fail.
 
 **Arguments**:
 
@@ -156,7 +156,7 @@ api_call (dict): Return the updated role
 def delete_role(uid: str, force: bool = False, global_role: bool = False)
 ```
 
-The method includes a functionality to delete a role with the given uid
+The method includes a functionality to delete a role with the given uid.
 
 **Arguments**:
 
@@ -182,7 +182,7 @@ def get_user_assigned_roles(user_id: int,
                             include_hidden_roles: bool = False) -> list
 ```
 
-The method includes a functionality to get the roles that have been directly assigned to a given user specified by the user id. The list does not include basic roles (Viewer, Editor, Admin or Grafana Admin), and it does not include roles that have been inherited from a team
+The method includes a functionality to get the roles that have been directly assigned to a given user specified by the user id. The list does not include basic roles (Viewer, Editor, Admin or Grafana Admin), and it does not include roles that have been inherited from a team.
 
 **Arguments**:
 
@@ -212,7 +212,7 @@ The method includes a functionality to get the roles that have been directly ass
 def get_user_assigned_permissions(user_id: int) -> list
 ```
 
-The method includes a functionality to get the permissions that have been directly assigned to a given user specified by the user id
+The method includes a functionality to get the permissions that have been directly assigned to a given user specified by the user id.
 
 **Arguments**:
 
@@ -243,7 +243,7 @@ def add_user_role_assignment(user_id: int,
                              global_assignment: bool = False)
 ```
 
-The method includes a functionality to assign a role to a specific user
+The method includes a functionality to assign a role to a specific user.
 
 **Arguments**:
 
@@ -268,7 +268,7 @@ None
 def remove_user_role_assignment(user_id: int, role_uid: str)
 ```
 
-The method includes a functionality to revoke a role to a specific user
+The method includes a functionality to revoke a role to a specific user.
 
 **Arguments**:
 
@@ -295,7 +295,7 @@ def update_user_role_assignments(user_id: int,
                                  global_assignment: bool = False)
 ```
 
-The method includes a functionality to update the user role assignments to match the provided set of uid's. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user
+The method includes a functionality to update the user role assignments to match the provided set of uid's. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user.
 
 **Arguments**:
 
@@ -323,7 +323,7 @@ def get_service_account_assigned_roles(service_account_id: int,
                                        ) -> list
 ```
 
-The method includes a functionality to get the roles that have been directly assigned to a given service account. The list does not include basic roles (Viewer, Editor, Admin or Grafana Admin)
+The method includes a functionality to get the roles that have been directly assigned to a given service account. The list does not include basic roles (Viewer, Editor, Admin or Grafana Admin).
 
 **Arguments**:
 
@@ -353,7 +353,7 @@ The method includes a functionality to get the roles that have been directly ass
 def get_service_account_assigned_permissions(service_account_id: int) -> list
 ```
 
-The method includes a functionality to get the permissions that a given service account has
+The method includes a functionality to get the permissions that a given service account has.
 
 **Arguments**:
 
@@ -384,7 +384,7 @@ def add_service_account_role_assignment(service_account_id: int,
                                         global_assignment: bool = False)
 ```
 
-The method includes a functionality to assign a role to a specific service account
+The method includes a functionality to assign a role to a specific service account.
 
 **Arguments**:
 
@@ -410,7 +410,7 @@ def remove_service_account_role_assignment(service_account_id: int,
                                            role_uid: str)
 ```
 
-The method includes a functionality to revoke a role to a specific service account
+The method includes a functionality to revoke a role to a specific service account.
 
 **Arguments**:
 
@@ -437,7 +437,7 @@ def update_service_account_role_assignments(service_account_id: int,
                                             global_assignment: bool = False)
 ```
 
-The method includes a functionality to update the service account role assignments to match the provided set of uid's. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user
+The method includes a functionality to update the service account role assignments to match the provided set of uid's. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user.
 
 **Arguments**:
 
@@ -494,7 +494,7 @@ The method includes a functionality to get that have been directly assigned to a
 def add_team_role_assignment(team_id: int, role_uid: str)
 ```
 
-The method includes a functionality to assign a role to a specific team
+The method includes a functionality to assign a role to a specific team.
 
 **Arguments**:
 
@@ -518,7 +518,7 @@ None
 def remove_team_role_assignment(team_id: int, role_uid: str)
 ```
 
-The method includes a functionality to revoke a role to a specific team
+The method includes a functionality to revoke a role to a specific team.
 
 **Arguments**:
 
@@ -544,7 +544,7 @@ def update_team_role_assignments(team_id: int,
                                  include_hidden_roles: bool = False)
 ```
 
-The method includes a functionality to update the service account role assignments to match the provided set of uid's. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user
+The method includes a functionality to update the service account role assignments to match the provided set of uid's. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user.
 
 **Arguments**:
 
@@ -569,7 +569,7 @@ None
 def reset_basic_roles_to_their_default()
 ```
 
-The method includes a functionality to reset basic roles permissions to their default
+The method includes a functionality to reset basic roles permissions to their default.
 
 Required Permissions:
     Action: roles:write

@@ -1583,7 +1583,7 @@
 <h2 id="team-objects">Team Objects</h2>
 <pre><code class="language-python">class Team()
 </code></pre>
-<p>The class includes all necessary methods to access the Grafana team API endpoints. Be aware that all functionalities inside the class only working with the corresponding access rights, please check the following page for details: https://grafana.com/docs/grafana/latest/http_api/team/<code>team</code>-api &amp; https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/<code>team</code>-sync-api</p>
+<p>The class includes all necessary methods to access the Grafana team API endpoints. Be aware that all functionalities inside the class only working with the corresponding access rights, please check the following page for details: https://grafana.com/docs/grafana/latest/http_api/team/<code>team</code>-api &amp; https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/<code>team</code>-sync-api.</p>
 <p>HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
@@ -1599,7 +1599,7 @@
                 pages: int = 1,
                 query: str = None) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get the organization teams specified by the optional pagination functionality</p>
+<p>The method includes a functionality to get the organization teams specified by the optional pagination functionality.</p>
 <p>Required Permissions:
 Action: teams:read
 Scope: teams:*</p>
@@ -1621,7 +1621,7 @@ Scope: teams:*</p>
 <h4 id="get_team_by_id">get_team_by_id</h4>
 <pre><code class="language-python">def get_team_by_id(id: int) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get the organization team specified by the id</p>
+<p>The method includes a functionality to get the organization team specified by the id.</p>
 <p>Required Permissions:
 Action: teams:read
 Scope: teams:*</p>
@@ -1642,7 +1642,7 @@ Scope: teams:*</p>
 <h4 id="add_team">add_team</h4>
 <pre><code class="language-python">def add_team(team: TeamObject) -&gt; int
 </code></pre>
-<p>The method includes a functionality to add an organization team specified by the TeamObject</p>
+<p>The method includes a functionality to add an organization team specified by the TeamObject.</p>
 <p>Required Permissions:
 Action: teams:create
 Scope: N/A</p>
@@ -1663,7 +1663,7 @@ Scope: N/A</p>
 <h4 id="update_team">update_team</h4>
 <pre><code class="language-python">def update_team(id: int, name: str, email: str)
 </code></pre>
-<p>The method includes a functionality to update an organization team specified by the team_id, name and email</p>
+<p>The method includes a functionality to update an organization team specified by the team_id, name and email.</p>
 <p>Required Permissions:
 Action: teams:write
 Scope: teams:*</p>
@@ -1684,7 +1684,7 @@ Scope: teams:*</p>
 <h4 id="delete_team_by_id">delete_team_by_id</h4>
 <pre><code class="language-python">def delete_team_by_id(id: int)
 </code></pre>
-<p>The method includes a functionality to delete an organization team specified by the team_id</p>
+<p>The method includes a functionality to delete an organization team specified by the team_id.</p>
 <p>Required Permissions:
 Action: teams:delete
 Scope: teams:*</p>
@@ -1703,7 +1703,7 @@ Scope: teams:*</p>
 <h4 id="get_team_members">get_team_members</h4>
 <pre><code class="language-python">def get_team_members(id: int) -&gt; list
 </code></pre>
-<p>The method includes a functionality to get all organization team users specified by the team_id</p>
+<p>The method includes a functionality to get all organization team users specified by the team_id.</p>
 <p>Required Permissions:
 Action: teams.permissions:read
 Scope: teams:*</p>
@@ -1724,7 +1724,7 @@ Scope: teams:*</p>
 <h4 id="add_team_member">add_team_member</h4>
 <pre><code class="language-python">def add_team_member(id: int, user_id: int)
 </code></pre>
-<p>The method includes a functionality to add an organization team user specified by the team_id and the user_id</p>
+<p>The method includes a functionality to add an organization team user specified by the team_id and the user_id.</p>
 <p>Required Permissions:
 Action: teams.permissions:write
 Scope: teams:*</p>
@@ -1744,7 +1744,7 @@ Scope: teams:*</p>
 <h4 id="delete_team_member">delete_team_member</h4>
 <pre><code class="language-python">def delete_team_member(id: int, user_id: int)
 </code></pre>
-<p>The method includes a functionality to delete an organization team user specified by the team_id and the user_id</p>
+<p>The method includes a functionality to delete an organization team user specified by the team_id and the user_id.</p>
 <p>Required Permissions:
 Action: teams.permissions:write
 Scope: teams:*</p>
@@ -1764,7 +1764,7 @@ Scope: teams:*</p>
 <h4 id="get_team_preferences">get_team_preferences</h4>
 <pre><code class="language-python">def get_team_preferences(id: int) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get the organization team preferences specified by the team_id</p>
+<p>The method includes a functionality to get the organization team preferences specified by the team_id.</p>
 <p>Required Permissions:
 Action: teams:read
 Scope: teams:*</p>
@@ -1789,7 +1789,7 @@ Scope: teams:*</p>
                             home_dashboard_id: int = 0,
                             home_dashboard_uid: str = None)
 </code></pre>
-<p>The method includes a functionality to update the organization team preferences specified by the team_id, theme, timezone and home_dashboard_id or home_dashboard_uid</p>
+<p>The method includes a functionality to update the organization team preferences specified by the team_id, theme, timezone and home_dashboard_id or home_dashboard_uid.</p>
 <p>Required Permissions:
 Action: teams:write
 Scope: teams:*</p>
@@ -1812,7 +1812,7 @@ Scope: teams:*</p>
 <h4 id="get_external_groups">get_external_groups</h4>
 <pre><code class="language-python">def get_external_groups(id: int) -&gt; list
 </code></pre>
-<p>The method includes a functionality to get the team groups specified by the team_id. The functionality is a Grafana ENTERPRISE feature</p>
+<p>The method includes a functionality to get the team groups specified by the team_id. The functionality is a Grafana ENTERPRISE feature.</p>
 <p>Required Permissions:
 Action: teams.permissions:read
 Scope: teams:*</p>
@@ -1833,7 +1833,7 @@ Scope: teams:*</p>
 <h4 id="add_external_group">add_external_group</h4>
 <pre><code class="language-python">def add_external_group(id: int, team_group: str)
 </code></pre>
-<p>The method includes a functionality to add a group to the team specified by the team_id and the team_group. The functionality is a Grafana ENTERPRISE feature</p>
+<p>The method includes a functionality to add a group to the team specified by the team_id and the team_group. The functionality is a Grafana ENTERPRISE feature.</p>
 <p>Required Permissions:
 Action: teams.permissions:write
 Scope: teams:*</p>
@@ -1853,7 +1853,7 @@ Scope: teams:*</p>
 <h4 id="remove_external_group">remove_external_group</h4>
 <pre><code class="language-python">def remove_external_group(id: int, team_group: str)
 </code></pre>
-<p>The method includes a functionality to remove a group from a team specified by the team_id and the team_group. The functionality is a Grafana ENTERPRISE feature</p>
+<p>The method includes a functionality to remove a group from a team specified by the team_id and the team_group. The functionality is a Grafana ENTERPRISE feature.</p>
 <p>Required Permissions:
 Action: teams.permissions:write
 Scope: teams:*</p>

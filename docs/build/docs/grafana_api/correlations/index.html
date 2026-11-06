@@ -1429,7 +1429,7 @@
 <h2 id="correlations-objects">Correlations Objects</h2>
 <pre><code class="language-python">class Correlations()
 </code></pre>
-<p>The class includes all necessary methods to access the Grafana correlations API endpoints</p>
+<p>The class includes all necessary methods to access the Grafana correlations API endpoints.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>grafana_api_model</code> <em>APIModel</em> - Inject a Grafana API model object that includes all necessary values and information</li>
@@ -1442,7 +1442,7 @@
 <h4 id="get_correlation">get_correlation</h4>
 <pre><code class="language-python">def get_correlation(datasource_uid: str, correlation_uid: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to get a specific correlation from a data source - the data source identified by source uid and the correlation uid</p>
+<p>The method includes a functionality to get a specific correlation from a data source - the data source identified by source uid and the correlation uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>datasource_uid</code> <em>str</em> - Specify the correlation data source uid</li>
@@ -1461,7 +1461,7 @@
 <h4 id="get_all_correlations_by_datasource_uid">get_all_correlations_by_datasource_uid</h4>
 <pre><code class="language-python">def get_all_correlations_by_datasource_uid(datasource_uid: str) -&gt; list
 </code></pre>
-<p>The method includes a functionality to get all correlations from a data source - the data source identified by source uid</p>
+<p>The method includes a functionality to get all correlations from a data source - the data source identified by source uid.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>datasource_uid</code> <em>str</em> - Specify the correlation data source uid</li>
@@ -1479,7 +1479,7 @@
 <h4 id="get_all_correlations">get_all_correlations</h4>
 <pre><code class="language-python">def get_all_correlations() -&gt; Union[list, dict]
 </code></pre>
-<p>The method includes a functionality to get all correlations</p>
+<p>The method includes a functionality to get all correlations.</p>
 <p><strong>Raises</strong>:</p>
 <ul>
 <li><code>Exception</code> - Unspecified error by executing the API call</li>
@@ -1492,7 +1492,7 @@
 <h4 id="create_correlations">create_correlations</h4>
 <pre><code class="language-python">def create_correlations(correlation_object: CorrelationObject) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to create a correlation between two data sources - the source data source identified by source uid in the path, and the target data source which is specified in the body</p>
+<p>The method includes a functionality to create a correlation between two data sources - the source data source identified by source uid in the path, and the target data source which is specified in the body.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>correlation_object</code> <em>CorrelationObject</em> - Specify the correlation object</li>
@@ -1510,7 +1510,7 @@
 <h4 id="delete_correlations">delete_correlations</h4>
 <pre><code class="language-python">def delete_correlations(source_datasource_uid: str, correlation_uid: str)
 </code></pre>
-<p>The method includes a functionality to deletes a correlation</p>
+<p>The method includes a functionality to deletes a correlation.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>source_datasource_uid</code> <em>str</em> - Specify the source data source uid</li>
@@ -1528,7 +1528,7 @@
 <pre><code class="language-python">def update_correlations(source_datasource_uid: str, correlation_uid: str,
                         label: str, description: str) -&gt; dict
 </code></pre>
-<p>The method includes a functionality to update a correlation</p>
+<p>The method includes a functionality to update a correlation.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>source_datasource_uid</code> <em>str</em> - Specify the source data source uid</li>

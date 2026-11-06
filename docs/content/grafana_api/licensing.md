@@ -10,7 +10,7 @@
 class Licensing()
 ```
 
-The class includes all necessary methods to access the Grafana licensing API endpoints. Be aware that the functionality is a Grafana ENTERPRISE v7.4+ feature
+The class includes all necessary methods to access the Grafana licensing API endpoints. Be aware that the functionality is a Grafana ENTERPRISE v7.4+ feature.
 
 HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
 
@@ -31,7 +31,7 @@ HINT: Note Grafana Enterprise API need required permissions if fine-grained acce
 def check_license_availability()
 ```
 
-The method includes a functionality to checks if a valid license is available
+The method includes a functionality to checks if a valid license is available.
 
 Required Permissions:
 Action: licensing:read
@@ -54,7 +54,7 @@ Scope: N/A
 def manually_force_license_refresh()
 ```
 
-The method includes a functionality to manually ask license issuer for a new token
+The method includes a functionality to manually ask license issuer for a new token.
 
 Required Permissions:
 Action: licensing:update
@@ -77,7 +77,7 @@ Scope: N/A
 def remove_license_from_database()
 ```
 
-The method includes a functionality to removes the license stored in the Grafana database
+The method includes a functionality to removes the license stored in the Grafana database.
 
 Required Permissions:
 Action: licensing:delete

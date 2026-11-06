@@ -31,7 +31,7 @@ HINT: Note Grafana Enterprise API need required permissions if fine-grained acce
 def get_settings() -> dict
 ```
 
-The method includes a functionality to get the settings
+The method includes a functionality to get the settings.
 
 **Raises**:
 
@@ -50,7 +50,7 @@ The method includes a functionality to get the settings
 def update_settings(updates: dict = None, removals: dict = None)
 ```
 
-The method includes a functionality to update the settings. Be aware that the functionality is a Grafana v8.0+ feature and you can find detailed information about the dict values here: https://grafana.com/docs/grafana/latest/developers/http_api/admin/`update`-settings
+The method includes a functionality to update the settings. Be aware that the functionality is a Grafana v8.0+ feature and you can find detailed information about the dict values here: https://grafana.com/docs/grafana/latest/developers/http_api/admin/`update`-settings.
 
 **Arguments**:
 
@@ -75,7 +75,7 @@ The method includes a functionality to update the settings. Be aware that the fu
 def get_stats() -> dict
 ```
 
-The method includes a functionality to get the admin statistics
+The method includes a functionality to get the admin statistics.
 
 **Raises**:
 
@@ -94,7 +94,7 @@ The method includes a functionality to get the admin statistics
 def get_preview_report() -> dict
 ```
 
-The method includes a functionality to get a preview report
+The method includes a functionality to get a preview report.
 
 **Raises**:
 
@@ -113,7 +113,7 @@ The method includes a functionality to get a preview report
 def create_global_user(user: GlobalUser) -> int
 ```
 
-The method includes a functionality to create a global user
+The method includes a functionality to create a global user.
 
 **Arguments**:
 
@@ -138,7 +138,7 @@ The method includes a functionality to create a global user
 def update_user_password(id: int, password: str)
 ```
 
-The method includes a functionality to update the global user password
+The method includes a functionality to update the global user password.
 
 **Arguments**:
 
@@ -164,7 +164,7 @@ The method includes a functionality to update the global user password
 def update_user_permissions(id: int, is_grafana_admin: bool = None)
 ```
 
-The method includes a functionality to update the global user permissions
+The method includes a functionality to update the global user permissions.
 
 **Arguments**:
 
@@ -190,7 +190,7 @@ The method includes a functionality to update the global user permissions
 def delete_global_user(id: int)
 ```
 
-The method includes a functionality to delete a global user
+The method includes a functionality to delete a global user.
 
 **Arguments**:
 
@@ -215,7 +215,7 @@ The method includes a functionality to delete a global user
 def pause_all_alerts()
 ```
 
-The method includes a functionality to pause all alerts
+The method includes a functionality to pause all alerts.
 
 **Raises**:
 
@@ -235,7 +235,7 @@ The method includes a functionality to pause all alerts
 def unpause_all_alerts()
 ```
 
-The method includes a functionality to unpause all alerts
+The method includes a functionality to unpause all alerts.
 
 **Raises**:
 
@@ -255,7 +255,7 @@ The method includes a functionality to unpause all alerts
 def get_user_auth_token(id: int) -> list
 ```
 
-The method includes a functionality to get the corresponding user auth token
+The method includes a functionality to get the corresponding user auth token.
 
 **Arguments**:
 
@@ -280,7 +280,7 @@ The method includes a functionality to get the corresponding user auth token
 def revoke_user_auth_token(id: int, auth_token_id: int)
 ```
 
-The method includes a functionality to get the corresponding user auth token
+The method includes a functionality to get the corresponding user auth token.
 
 **Arguments**:
 
@@ -306,7 +306,7 @@ The method includes a functionality to get the corresponding user auth token
 def logout_user(id: int)
 ```
 
-The method includes a functionality to log out the corresponding user
+The method includes a functionality to log out the corresponding user.
 
 **Arguments**:
 
@@ -331,7 +331,7 @@ The method includes a functionality to log out the corresponding user
 def reload_dashboards_provisioning_configuration()
 ```
 
-The method includes a functionality to reload the dashboards provisioning configuration
+The method includes a functionality to reload the dashboards provisioning configuration.
 
 **Raises**:
 
@@ -350,7 +350,7 @@ The method includes a functionality to reload the dashboards provisioning config
 def reload_datasources_provisioning_configuration()
 ```
 
-The method includes a functionality to reload the datasources provisioning configuration
+The method includes a functionality to reload the datasources provisioning configuration.
 
 **Raises**:
 
@@ -369,7 +369,7 @@ The method includes a functionality to reload the datasources provisioning confi
 def reload_plugins_provisioning_configuration()
 ```
 
-The method includes a functionality to reload the plugins provisioning configuration
+The method includes a functionality to reload the plugins provisioning configuration.
 
 **Raises**:
 
@@ -388,7 +388,7 @@ The method includes a functionality to reload the plugins provisioning configura
 def reload_notifications_provisioning_configuration()
 ```
 
-The method includes a functionality to reload the notifications provisioning configuration
+The method includes a functionality to reload the notifications provisioning configuration.
 
 **Raises**:
 
@@ -407,7 +407,7 @@ The method includes a functionality to reload the notifications provisioning con
 def reload_access_controls_provisioning_configuration()
 ```
 
-The method includes a functionality to reload the access-controls provisioning configuration
+The method includes a functionality to reload the access-controls provisioning configuration.
 
 **Raises**:
 
@@ -426,7 +426,7 @@ The method includes a functionality to reload the access-controls provisioning c
 def reload_ldap_configuration()
 ```
 
-The method includes a functionality to reload the ldap configuration
+The method includes a functionality to reload the ldap configuration.
 
 **Raises**:
 
@@ -445,7 +445,7 @@ The method includes a functionality to reload the ldap configuration
 def rotate_data_encryption_keys()
 ```
 
-The method includes a functionality to rotate the data encryption keys
+The method includes a functionality to rotate the data encryption keys.
 
 **Raises**:
 

@@ -1363,7 +1363,7 @@
 <h2 id="api-objects">Api Objects</h2>
 <pre><code class="language-python">class Api()
 </code></pre>
-<p>The class includes all necessary methods to make API calls to the Grafana API endpoints</p>
+<p>The class includes all necessary methods to make API calls to the Grafana API endpoints.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>grafana_api_model</code> <em>APIModel</em> - Inject a Grafana API model object that includes all necessary values and information</li>
@@ -1381,7 +1381,7 @@
                  disable_provenance_header: bool = False,
                  response_status_code: bool = False) -&gt; any
 </code></pre>
-<p>The method execute a defined API call against the Grafana endpoints</p>
+<p>The method execute a defined API call against the Grafana endpoints.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>api_call</code> <em>str</em> - Specify the API call endpoint</li>
@@ -1404,7 +1404,7 @@
 <pre><code class="language-python">@staticmethod
 def prepare_api_string(query_string: str) -&gt; str
 </code></pre>
-<p>The method includes a functionality to prepare the api string for the queries</p>
+<p>The method includes a functionality to prepare the api string for the queries.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>query_string</code> <em>str</em> - Specify the corresponding query string</li>
@@ -1418,7 +1418,7 @@ def prepare_api_string(query_string: str) -&gt; str
 <pre><code class="language-python">def create_the_http_api_client(
         headers: dict = None) -&gt; Union[httpx.Client, httpx.AsyncClient]
 </code></pre>
-<p>The method includes a functionality to create the corresponding HTTP client</p>
+<p>The method includes a functionality to create the corresponding HTTP client.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>headers</code> <em>dict</em> - Specify the optional inserted headers (default None)</li>

@@ -10,7 +10,7 @@
 class Reporting()
 ```
 
-The class includes all necessary methods to access the Grafana reporting API endpoints. Be aware that the functionality is a Grafana ENTERPRISE v7.0+ feature
+The class includes all necessary methods to access the Grafana reporting API endpoints. Be aware that the functionality is a Grafana ENTERPRISE v7.0+ feature.
 
 HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
 
@@ -31,7 +31,7 @@ HINT: Note Grafana Enterprise API need required permissions if fine-grained acce
 def get_reports() -> list
 ```
 
-The method includes a functionality to get all reports
+The method includes a functionality to get all reports.
 
 Required Permissions:
 Action: reports:read
@@ -54,7 +54,7 @@ Scope: [reports:*, reports:id:*]
 def get_report_by_id(id: int) -> dict
 ```
 
-The method includes a functionality to get a report specified by the report id
+The method includes a functionality to get a report specified by the report id.
 
 **Arguments**:
 
@@ -83,7 +83,7 @@ The method includes a functionality to get a report specified by the report id
 def create_report(report: Report) -> int
 ```
 
-The method includes a functionality to create a report
+The method includes a functionality to create a report.
 
 **Arguments**:
 
@@ -112,7 +112,7 @@ The method includes a functionality to create a report
 def update_report(id: int, report: Report)
 ```
 
-The method includes a functionality to update a report
+The method includes a functionality to update a report.
 
 **Arguments**:
 
@@ -142,7 +142,7 @@ The method includes a functionality to update a report
 def delete_report(id: int)
 ```
 
-The method includes a functionality to delete a report specified by the report id
+The method includes a functionality to delete a report specified by the report id.
 
 **Arguments**:
 
@@ -173,7 +173,7 @@ def send_report(id: int,
                 use_emails_from_report: bool = None)
 ```
 
-The method includes a functionality to send a report to a specified email addresses
+The method includes a functionality to send a report to a specified email addresses.
 
 **Arguments**:
 
@@ -204,7 +204,7 @@ The method includes a functionality to send a report to a specified email addres
 def get_report_branding_settings() -> dict
 ```
 
-The method includes a functionality to get the report branding settings
+The method includes a functionality to get the report branding settings.
 
 Required Permissions:
 Action: reports.settings:read
@@ -227,7 +227,7 @@ Scope: N/A
 def save_report_branding_settings(branding_settings: ReportBrandingSettings)
 ```
 
-The method includes a functionality to save the report branding settings
+The method includes a functionality to save the report branding settings.
 
 **Arguments**:
 
@@ -256,7 +256,7 @@ The method includes a functionality to save the report branding settings
 def send_report_test_email(report: Report)
 ```
 
-The method includes a functionality to send a test report email
+The method includes a functionality to send a test report email.
 
 **Arguments**:
 

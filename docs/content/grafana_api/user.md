@@ -33,7 +33,7 @@ def search_users(results_per_page: int = 1000,
                  sort: str = None) -> list
 ```
 
-The method includes a functionality to get all Grafana system users specified by the optional results_per_page, page and sort option
+The method includes a functionality to get all Grafana system users specified by the optional results_per_page, page and sort option.
 
 Required Permissions:
 Action: users:read
@@ -66,7 +66,7 @@ def search_users_with_paging(results_per_page: int = 1000,
                              sort: str = None) -> dict
 ```
 
-The method includes a functionality to get all Grafana system users specified by the optional results_per_page, page, query, sort and general paging functionality
+The method includes a functionality to get all Grafana system users specified by the optional results_per_page, page, query, sort and general paging functionality.
 
 Required Permissions:
 Action: users:read
@@ -97,7 +97,7 @@ Scope: global.users:*
 def get_user_by_id(id: int) -> dict
 ```
 
-The method includes a functionality to get a specific user by the id
+The method includes a functionality to get a specific user by the id.
 
 Required Permissions:
 Action: users:read
@@ -126,7 +126,7 @@ Scope: users:*
 def get_user_by_username_or_email(username_or_email: str) -> dict
 ```
 
-The method includes a functionality to get a specific user by the username_or_email
+The method includes a functionality to get a specific user by the username_or_email.
 
 Required Permissions:
 Action: users:read
@@ -155,7 +155,7 @@ Scope: global.users:*
 def update_user(id: int, user: UserObject)
 ```
 
-The method includes a functionality to update the specified user
+The method includes a functionality to update the specified user.
 
 Required Permissions:
 Action: users:write
@@ -185,7 +185,7 @@ Scope: users:*
 def get_user_organizations(id: int) -> list
 ```
 
-The method includes a functionality to get the specified user organizations
+The method includes a functionality to get the specified user organizations.
 
 Required Permissions:
 Action: users:read
@@ -214,7 +214,7 @@ Scope: users:*
 def get_user_teams(id: int) -> list
 ```
 
-The method includes a functionality to get the specified user teams
+The method includes a functionality to get the specified user teams.
 
 Required Permissions:
 Action: users.teams:read
@@ -243,7 +243,7 @@ Scope: users:*
 def switch_specific_user_context(user_id: int, org_id: int)
 ```
 
-The method includes a functionality to switch the user context to the given organization
+The method includes a functionality to switch the user context to the given organization.
 
 **Arguments**:
 
@@ -269,7 +269,7 @@ The method includes a functionality to switch the user context to the given orga
 class CurrentUser()
 ```
 
-The class includes all necessary methods to access the Grafana current user API endpoints. Be aware that all functionalities inside the class maybe only working with basic authentication (username and password)
+The class includes all necessary methods to access the Grafana current user API endpoints. Be aware that all functionalities inside the class maybe only working with basic authentication (username and password).
 
 **Arguments**:
 
@@ -288,7 +288,7 @@ The class includes all necessary methods to access the Grafana current user API 
 def get_user() -> dict
 ```
 
-The method includes a functionality to get the current user
+The method includes a functionality to get the current user.
 
 **Raises**:
 
@@ -308,7 +308,7 @@ def update_password(old_password: str, new_password: str,
                     confirm_new_password: str)
 ```
 
-The method includes a functionality to update the current user password
+The method includes a functionality to update the current user password.
 
 **Arguments**:
 
@@ -335,7 +335,7 @@ The method includes a functionality to update the current user password
 def switch_current_user_context(org_id: int)
 ```
 
-The method includes a functionality to switch the current user context to the given organization
+The method includes a functionality to switch the current user context to the given organization.
 
 **Arguments**:
 
@@ -360,7 +360,7 @@ The method includes a functionality to switch the current user context to the gi
 def get_user_organizations() -> list
 ```
 
-The method includes a functionality to get the current user organizations
+The method includes a functionality to get the current user organizations.
 
 **Raises**:
 
@@ -379,7 +379,7 @@ The method includes a functionality to get the current user organizations
 def get_user_teams() -> list
 ```
 
-The method includes a functionality to get the current user teams
+The method includes a functionality to get the current user teams.
 
 **Raises**:
 
@@ -395,10 +395,11 @@ The method includes a functionality to get the current user teams
 #### star\_a\_dashboard
 
 ```python
-def star_a_dashboard(dashboard_id: int = 0, dashboard_uid: str | None = None)
+def star_a_dashboard(dashboard_id: int = 0,
+                     dashboard_uid: Optional[str] = None)
 ```
 
-The method includes a functionality to star a dashboard for the current user
+The method includes a functionality to star a dashboard for the current user.
 
 **Arguments**:
 
@@ -422,7 +423,7 @@ The method includes a functionality to star a dashboard for the current user
 
 ```python
 def unstar_a_dashboard(dashboard_id: int = 0,
-                       dashboard_uid: str | None = None)
+                       dashboard_uid: Optional[str] = None)
 ```
 
 The method includes a functionality to unstar a dashboard for the current user.
@@ -454,7 +455,7 @@ At least one of dashboard_id (non-zero) or dashboard_uid must be supplied.
 def get_auth_tokens() -> list
 ```
 
-The method includes a functionality to get the auth tokens for the current user
+The method includes a functionality to get the auth tokens for the current user.
 
 **Raises**:
 
@@ -473,7 +474,7 @@ The method includes a functionality to get the auth tokens for the current user
 def revoke_auth_token(auth_token_id: int)
 ```
 
-The method includes a functionality to revoke a specified auth token of the current user
+The method includes a functionality to revoke a specified auth token of the current user.
 
 **Arguments**:
 

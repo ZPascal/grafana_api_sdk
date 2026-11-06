@@ -10,7 +10,7 @@
 class Correlations()
 ```
 
-The class includes all necessary methods to access the Grafana correlations API endpoints
+The class includes all necessary methods to access the Grafana correlations API endpoints.
 
 **Arguments**:
 
@@ -29,7 +29,7 @@ The class includes all necessary methods to access the Grafana correlations API 
 def get_correlation(datasource_uid: str, correlation_uid: str) -> dict
 ```
 
-The method includes a functionality to get a specific correlation from a data source - the data source identified by source uid and the correlation uid
+The method includes a functionality to get a specific correlation from a data source - the data source identified by source uid and the correlation uid.
 
 **Arguments**:
 
@@ -55,7 +55,7 @@ The method includes a functionality to get a specific correlation from a data so
 def get_all_correlations_by_datasource_uid(datasource_uid: str) -> list
 ```
 
-The method includes a functionality to get all correlations from a data source - the data source identified by source uid
+The method includes a functionality to get all correlations from a data source - the data source identified by source uid.
 
 **Arguments**:
 
@@ -80,7 +80,7 @@ The method includes a functionality to get all correlations from a data source -
 def get_all_correlations() -> Union[list, dict]
 ```
 
-The method includes a functionality to get all correlations
+The method includes a functionality to get all correlations.
 
 **Raises**:
 
@@ -99,7 +99,7 @@ The method includes a functionality to get all correlations
 def create_correlations(correlation_object: CorrelationObject) -> dict
 ```
 
-The method includes a functionality to create a correlation between two data sources - the source data source identified by source uid in the path, and the target data source which is specified in the body
+The method includes a functionality to create a correlation between two data sources - the source data source identified by source uid in the path, and the target data source which is specified in the body.
 
 **Arguments**:
 
@@ -124,7 +124,7 @@ The method includes a functionality to create a correlation between two data sou
 def delete_correlations(source_datasource_uid: str, correlation_uid: str)
 ```
 
-The method includes a functionality to deletes a correlation
+The method includes a functionality to deletes a correlation.
 
 **Arguments**:
 
@@ -151,7 +151,7 @@ def update_correlations(source_datasource_uid: str, correlation_uid: str,
                         label: str, description: str) -> dict
 ```
 
-The method includes a functionality to update a correlation
+The method includes a functionality to update a correlation.
 
 **Arguments**:
 
