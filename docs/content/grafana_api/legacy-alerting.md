@@ -1,12 +1,3 @@
-# Table of Contents
-
-* [legacy\_alerting](#legacy_alerting)
-  * [Alerting](#legacy_alerting.Alerting)
-    * [get\_alerts](#legacy_alerting.Alerting.get_alerts)
-    * [get\_alerts\_by\_dashboard\_ids](#legacy_alerting.Alerting.get_alerts_by_dashboard_ids)
-    * [get\_alert\_by\_id](#legacy_alerting.Alerting.get_alert_by_id)
-    * [pause\_alert\_by\_id](#legacy_alerting.Alerting.pause_alert_by_id)
-
 <a id="legacy_alerting"></a>
 
 # legacy\_alerting

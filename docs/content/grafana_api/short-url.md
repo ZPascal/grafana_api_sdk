@@ -1,9 +1,3 @@
-# Table of Contents
-
-* [short\_url](#short_url)
-  * [ShortUrl](#short_url.ShortUrl)
-    * [create\_short\_url](#short_url.ShortUrl.create_short_url)
-
 <a id="short_url"></a>
 
 # short\_url

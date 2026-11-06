@@ -1,9 +1,3 @@
-# Table of Contents
-
-* [search](#search)
-  * [Search](#search.Search)
-    * [search](#search.Search.search)
-
 <a id="search"></a>
 
 # search

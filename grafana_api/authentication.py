@@ -13,6 +13,7 @@ class Authentication:
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
@@ -22,7 +23,7 @@ class Authentication:
         self,
         org_id_header: int = None,
     ) -> list:
-        """The method includes a functionality to get the corresponding api tokens of the organisation
+        """The method includes a functionality to get the corresponding api tokens of the organisation.
 
         Args:
             org_id_header (int): Specify the org id as header to execute call for that specific organisation
@@ -32,14 +33,14 @@ class Authentication:
 
         Returns:
             api_call (list): Returns the result of the API token call
-        """
 
+        """
         api_call: list = Api(self.grafana_api_model).call_the_api(
             APIEndpoints.AUTHENTICATION.value,
             org_id_header=org_id_header,
         )
 
-        if api_call != list() and api_call[0].get("id") is None:
+        if api_call != [] and api_call[0].get("id") is None:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
@@ -52,7 +53,7 @@ class Authentication:
         seconds_to_live: int = 0,
         org_id_header: int = None,
     ) -> dict:
-        """The method includes a functionality to create a corresponding api tokens of the organisation specified by the name and role
+        """The method includes a functionality to create a corresponding api tokens of the organisation specified by the name and role.
 
         Args:
             name (str): Specify the token name
@@ -66,25 +67,23 @@ class Authentication:
 
         Returns:
             api_call (dict): Returns the API token object
-        """
 
+        """
         if len(name) != 0 and len(role) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 APIEndpoints.AUTHENTICATION.value,
                 RequestsMethods.POST,
                 json.dumps(
-                    dict(
-                        {
+                    {
                             "name": name,
                             "role": role,
                             "secondsToLive": seconds_to_live,
                         }
-                    )
                 ),
                 org_id_header=org_id_header,
             )
 
-            if api_call == dict() or api_call.get("id") is None:
+            if api_call == {} or api_call.get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -98,7 +97,7 @@ class Authentication:
         token_id: int,
         org_id_header: int = None,
     ):
-        """The method includes a functionality to delete a corresponding api token specified by the token id
+        """The method includes a functionality to delete a corresponding api token specified by the token id.
 
         Args:
             token_id (int): Specify the token id
@@ -110,8 +109,8 @@ class Authentication:
 
         Returns:
             None
-        """
 
+        """
         if token_id != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.AUTHENTICATION.value}/{token_id}",

@@ -1,28 +1,3 @@
-# Table of Contents
-
-* [admin](#admin)
-  * [Admin](#admin.Admin)
-    * [get\_settings](#admin.Admin.get_settings)
-    * [update\_settings](#admin.Admin.update_settings)
-    * [get\_stats](#admin.Admin.get_stats)
-    * [get\_preview\_report](#admin.Admin.get_preview_report)
-    * [create\_global\_user](#admin.Admin.create_global_user)
-    * [update\_user\_password](#admin.Admin.update_user_password)
-    * [update\_user\_permissions](#admin.Admin.update_user_permissions)
-    * [delete\_global\_user](#admin.Admin.delete_global_user)
-    * [pause\_all\_alerts](#admin.Admin.pause_all_alerts)
-    * [unpause\_all\_alerts](#admin.Admin.unpause_all_alerts)
-    * [get\_user\_auth\_token](#admin.Admin.get_user_auth_token)
-    * [revoke\_user\_auth\_token](#admin.Admin.revoke_user_auth_token)
-    * [logout\_user](#admin.Admin.logout_user)
-    * [reload\_dashboards\_provisioning\_configuration](#admin.Admin.reload_dashboards_provisioning_configuration)
-    * [reload\_datasources\_provisioning\_configuration](#admin.Admin.reload_datasources_provisioning_configuration)
-    * [reload\_plugins\_provisioning\_configuration](#admin.Admin.reload_plugins_provisioning_configuration)
-    * [reload\_notifications\_provisioning\_configuration](#admin.Admin.reload_notifications_provisioning_configuration)
-    * [reload\_access\_controls\_provisioning\_configuration](#admin.Admin.reload_access_controls_provisioning_configuration)
-    * [reload\_ldap\_configuration](#admin.Admin.reload_ldap_configuration)
-    * [rotate\_data\_encryption\_keys](#admin.Admin.rotate_data_encryption_keys)
-
 <a id="admin"></a>
 
 # admin

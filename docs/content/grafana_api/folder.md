@@ -1,20 +1,3 @@
-# Table of Contents
-
-* [folder](#folder)
-  * [Folder](#folder.Folder)
-    * [get\_folders](#folder.Folder.get_folders)
-    * [get\_folder\_by\_uid](#folder.Folder.get_folder_by_uid)
-    * [get\_folder\_by\_id](#folder.Folder.get_folder_by_id)
-    * [create\_folder](#folder.Folder.create_folder)
-    * [update\_folder](#folder.Folder.update_folder)
-    * [move\_folder](#folder.Folder.move_folder)
-    * [delete\_folder](#folder.Folder.delete_folder)
-    * [get\_folder\_permissions](#folder.Folder.get_folder_permissions)
-    * [update\_folder\_permissions](#folder.Folder.update_folder_permissions)
-    * [get\_folder\_id\_by\_dashboard\_path](#folder.Folder.get_folder_id_by_dashboard_path)
-    * [get\_folder\_uid\_by\_dashboard\_path](#folder.Folder.get_folder_uid_by_dashboard_path)
-    * [get\_all\_folder\_ids\_uids\_and\_names](#folder.Folder.get_all_folder_ids_uids_and_names)
-
 <a id="folder"></a>
 
 # folder

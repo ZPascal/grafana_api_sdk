@@ -1,11 +1,3 @@
-# Table of Contents
-
-* [authentication](#authentication)
-  * [Authentication](#authentication.Authentication)
-    * [get\_api\_tokens](#authentication.Authentication.get_api_tokens)
-    * [create\_api\_token](#authentication.Authentication.create_api_token)
-    * [delete\_api\_token](#authentication.Authentication.delete_api_token)
-
 <a id="authentication"></a>
 
 # authentication

@@ -1,21 +1,3 @@
-# Table of Contents
-
-* [team](#team)
-  * [Team](#team.Team)
-    * [search\_team](#team.Team.search_team)
-    * [get\_team\_by\_id](#team.Team.get_team_by_id)
-    * [add\_team](#team.Team.add_team)
-    * [update\_team](#team.Team.update_team)
-    * [delete\_team\_by\_id](#team.Team.delete_team_by_id)
-    * [get\_team\_members](#team.Team.get_team_members)
-    * [add\_team\_member](#team.Team.add_team_member)
-    * [delete\_team\_member](#team.Team.delete_team_member)
-    * [get\_team\_preferences](#team.Team.get_team_preferences)
-    * [update\_team\_preferences](#team.Team.update_team_preferences)
-    * [get\_external\_groups](#team.Team.get_external_groups)
-    * [add\_external\_group](#team.Team.add_external_group)
-    * [remove\_external\_group](#team.Team.remove_external_group)
-
 <a id="team"></a>
 
 # team

@@ -1,11 +1,3 @@
-# Table of Contents
-
-* [external\_group](#external_group)
-  * [ExternalGroup](#external_group.ExternalGroup)
-    * [get\_external\_groups](#external_group.ExternalGroup.get_external_groups)
-    * [add\_external\_group](#external_group.ExternalGroup.add_external_group)
-    * [remove\_external\_group](#external_group.ExternalGroup.remove_external_group)
-
 <a id="external_group"></a>
 
 # external\_group

@@ -16,9 +16,7 @@ class LibraryTest(TestCase):
 
     def test_a_get_all_library_elements(self):
         self.assertEqual(
-            dict(
-                {"result": {"totalCount": 0, "elements": [], "page": 1, "perPage": 100}}
-            ),
+            {"result": {"totalCount": 0, "elements": [], "page": 1, "perPage": 100}},
             self.library.get_all_library_elements(),
         )
 
@@ -47,7 +45,7 @@ class LibraryTest(TestCase):
 
     def test_e_get_library_element_connections(self):
         self.assertEqual(
-            dict({"result": []}),
+            {"result": []},
             self.library.get_library_element_connections(
                 self.library.get_library_element_by_name("Test")
                 .get("result")[0]
@@ -61,8 +59,6 @@ class LibraryTest(TestCase):
         )
 
         self.assertEqual(
-            dict(
-                {"result": {"totalCount": 0, "elements": [], "page": 1, "perPage": 100}}
-            ),
+            {"result": {"totalCount": 0, "elements": [], "page": 1, "perPage": 100}},
             self.library.get_all_library_elements(),
         )

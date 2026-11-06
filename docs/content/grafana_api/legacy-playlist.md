@@ -1,13 +1,3 @@
-# Table of Contents
-
-* [legacy\_playlist](#legacy_playlist)
-  * [LegacyPlaylist](#legacy_playlist.LegacyPlaylist)
-    * [get\_playlist](#legacy_playlist.LegacyPlaylist.get_playlist)
-    * [get\_playlist\_items](#legacy_playlist.LegacyPlaylist.get_playlist_items)
-    * [get\_playlist\_dashboards](#legacy_playlist.LegacyPlaylist.get_playlist_dashboards)
-    * [update\_playlist](#legacy_playlist.LegacyPlaylist.update_playlist)
-    * [delete\_playlist](#legacy_playlist.LegacyPlaylist.delete_playlist)
-
 <a id="legacy_playlist"></a>
 
 # legacy\_playlist

@@ -44,5 +44,5 @@ class SnapshotTest(TestCase):
             delete_key="test",
         )
         self.snapshot.delete_snapshot_by_delete_key("test")
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.snapshot.get_snapshot_by_key(snapshot.get("key"))

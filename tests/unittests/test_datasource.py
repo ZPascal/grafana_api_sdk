@@ -22,7 +22,7 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list([{"id": 1}])
+        call_the_api_mock.return_value = [{"id": 1}]
 
         self.assertEqual([{"id": 1}], datasource.get_all_datasources())
 
@@ -31,9 +31,9 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = list()
+        call_the_api_mock.return_value = []
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.get_all_datasources()
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -41,7 +41,7 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"id": 1})
+        call_the_api_mock.return_value = {"id": 1}
 
         self.assertEqual({"id": 1}, datasource.get_datasource_by_id(1))
 
@@ -57,9 +57,9 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.get_datasource_by_id(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -69,7 +69,7 @@ class DatasourceTestCase(TestCase):
 
         call_the_api_mock.side_effect = [{}, Exception("test")]
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.get_datasource_by_id(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -77,7 +77,7 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"id": 1})
+        call_the_api_mock.return_value = {"id": 1}
 
         self.assertEqual({"id": 1}, datasource.get_datasource_by_uid("test"))
 
@@ -93,9 +93,9 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.get_datasource_by_uid("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -103,7 +103,7 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"id": 1})
+        call_the_api_mock.return_value = {"id": 1}
 
         self.assertEqual({"id": 1}, datasource.get_datasource_by_name("test"))
 
@@ -119,9 +119,9 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.get_datasource_by_name("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -129,7 +129,7 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"id": 1})
+        call_the_api_mock.return_value = {"id": 1}
 
         self.assertEqual(1, datasource.get_datasource_id_by_name("test"))
 
@@ -145,9 +145,9 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.get_datasource_id_by_name("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -155,61 +155,61 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Datasource added"})
+        call_the_api_mock.return_value = {"message": "Datasource added"}
 
-        self.assertEqual(None, datasource.create_datasource(dict({"test": "test"})))
+        self.assertEqual(None, datasource.create_datasource({"test": "test"}))
 
     def test_create_datasource_no_data_source(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
         with self.assertRaises(ValueError):
-            datasource.create_datasource(dict())
+            datasource.create_datasource({})
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_create_datasource_not_possible(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
-            datasource.create_datasource(dict({"test": "test"}))
+        with self.assertRaises(Exception):  # noqa: B017
+            datasource.create_datasource({"test": "test"})
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_update_datasource_use_id(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Datasource updated"})
+        call_the_api_mock.return_value = {"message": "Datasource updated"}
 
-        self.assertEqual(None, datasource.update_datasource(dict({"test": "test"}), datasource_id=1))
+        self.assertEqual(None, datasource.update_datasource({"test": "test"}, datasource_id=1))
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_update_datasource_use_uid(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Datasource updated"})
+        call_the_api_mock.return_value = {"message": "Datasource updated"}
 
-        self.assertEqual(None, datasource.update_datasource(dict({"test": "test"}), datasource_uid="test"))
+        self.assertEqual(None, datasource.update_datasource({"test": "test"}, datasource_uid="test"))
 
     def test_update_datasource_no_data_source(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
         with self.assertRaises(ValueError):
-            datasource.update_datasource(dict(), datasource_id=1)
+            datasource.update_datasource({}, datasource_id=1)
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_update_datasource_update_not_possible(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
-            datasource.update_datasource(dict({"test": "test"}), datasource_id=1)
+        with self.assertRaises(Exception):  # noqa: B017
+            datasource.update_datasource({"test": "test"}, datasource_id=1)
 
     @patch("grafana_api.api.Api.call_the_api")
     @patch("grafana_api.datasource.Datasource.get_datasource_by_id")
@@ -222,8 +222,8 @@ class DatasourceTestCase(TestCase):
         call_the_api_mock.return_value = {}
         get_datasource_by_id_mock.return_value = {"uid": ""}
 
-        with self.assertRaises(Exception):
-            datasource.update_datasource(dict({"test": "test"}), datasource_id=1)
+        with self.assertRaises(Exception):  # noqa: B017
+            datasource.update_datasource({"test": "test"}, datasource_id=1)
 
     @patch("grafana_api.api.Api.call_the_api")
     @patch("grafana_api.datasource.Datasource.get_datasource_by_id")
@@ -236,7 +236,7 @@ class DatasourceTestCase(TestCase):
         call_the_api_mock.side_effect = [{}, {"message": "not updated"}]
         get_datasource_by_id_mock.return_value = {"uid": "uid-1"}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.update_datasource({"test": "test"}, datasource_id=1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -244,7 +244,7 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Data source deleted"})
+        call_the_api_mock.return_value = {"message": "Data source deleted"}
 
         self.assertEqual(None, datasource.delete_datasource_by_id(1))
 
@@ -260,9 +260,9 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.delete_datasource_by_id(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -273,7 +273,7 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Data source deleted"})
+        call_the_api_mock.return_value = {"message": "Data source deleted"}
 
         self.assertIsNone(datasource.delete_datasource_by_id(1))
 
@@ -288,7 +288,7 @@ class DatasourceTestCase(TestCase):
         call_the_api_mock.return_value = {}
         get_datasource_by_id_mock.return_value = {"uid": ""}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.delete_datasource_by_id(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -296,7 +296,7 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Data source deleted"})
+        call_the_api_mock.return_value = {"message": "Data source deleted"}
 
         self.assertEqual(None, datasource.delete_datasource_by_uid("test"))
 
@@ -312,9 +312,9 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.delete_datasource_by_uid("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -322,7 +322,7 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"message": "Data source deleted"})
+        call_the_api_mock.return_value = {"message": "Data source deleted"}
 
         self.assertEqual(None, datasource.delete_datasource_by_name("test"))
 
@@ -338,9 +338,9 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.delete_datasource_by_name("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -348,14 +348,14 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"results": dict({"test": "test"})})
+        call_the_api_mock.return_value = {"results": {"test": "test"}}
 
         datasource_query: DatasourceQuery = DatasourceQuery("test", datasource_id=1)
-        datasource_queries: list = list()
+        datasource_queries: list = []
         datasource_queries.append(datasource_query)
 
         self.assertEqual(
-            dict({"test": "test"}),
+            {"test": "test"},
             datasource.query_datasource_by_id("1234", "1234", datasource_queries),
         )
 
@@ -371,10 +371,10 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"results": dict({"test": "test"})})
+        call_the_api_mock.return_value = {"results": {"test": "test"}}
 
         datasource_query: DatasourceQuery = DatasourceQuery("test", datasource_id=0)
-        datasource_queries: list = list()
+        datasource_queries: list = []
         datasource_queries.append(datasource_query)
 
         with self.assertRaises(ValueError):
@@ -386,12 +386,12 @@ class DatasourceTestCase(TestCase):
         datasource: Datasource = Datasource(grafana_api_model=model)
 
         datasource_query: DatasourceQuery = DatasourceQuery("test", datasource_id=1)
-        datasource_queries: list = list()
+        datasource_queries: list = []
         datasource_queries.append(datasource_query)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.query_datasource_by_id("1234", "1234", datasource_queries)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -399,14 +399,14 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"results": dict({"test": "test"})})
+        call_the_api_mock.return_value = {"results": {"test": "test"}}
 
         datasource_query: DatasourceQuery = DatasourceQuery("test", datasource_uid="test")
-        datasource_queries: list = list()
+        datasource_queries: list = []
         datasource_queries.append(datasource_query)
 
         self.assertEqual(
-            dict({"test": "test"}),
+            {"test": "test"},
             datasource.query_datasource_by_uid("1234", "1234", datasource_queries),
         )
 
@@ -422,10 +422,10 @@ class DatasourceTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         datasource: Datasource = Datasource(grafana_api_model=model)
 
-        call_the_api_mock.return_value = dict({"results": dict({"test": "test"})})
+        call_the_api_mock.return_value = {"results": {"test": "test"}}
 
         datasource_query: DatasourceQuery = DatasourceQuery("test")
-        datasource_queries: list = list()
+        datasource_queries: list = []
         datasource_queries.append(datasource_query)
 
         with self.assertRaises(ValueError):
@@ -437,12 +437,12 @@ class DatasourceTestCase(TestCase):
         datasource: Datasource = Datasource(grafana_api_model=model)
 
         datasource_query: DatasourceQuery = DatasourceQuery("test", datasource_uid="test")
-        datasource_queries: list = list()
+        datasource_queries: list = []
         datasource_queries.append(datasource_query)
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.query_datasource_by_uid("1234", "1234", datasource_queries)
 
 class DatasourcePermissionsTestCase(TestCase):
@@ -453,10 +453,10 @@ class DatasourcePermissionsTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 200, "test": "test"})
+        call_the_api_mock.return_value = {"status": 200, "test": "test"}
 
         self.assertEqual(
-            dict({"status": 200, "test": "test"}),
+            {"status": 200, "test": "test"},
             datasource_permissions.get_datasource_permissions_by_uid("test"),
         )
 
@@ -476,9 +476,9 @@ class DatasourcePermissionsTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 401})
+        call_the_api_mock.return_value = {"status": 401}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_permissions.get_datasource_permissions_by_uid("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -488,9 +488,9 @@ class DatasourcePermissionsTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 600})
+        call_the_api_mock.return_value = {"status": 600}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_permissions.get_datasource_permissions_by_uid("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -500,9 +500,7 @@ class DatasourcePermissionsTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict(
-            {"status": 200, "message": "Permission updated"}
-        )
+        call_the_api_mock.return_value = {"status": 200, "message": "Permission updated"}
 
         self.assertEqual(
             None,
@@ -518,9 +516,7 @@ class DatasourcePermissionsTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict(
-            {"status": 200, "message": "Permission removed"}
-        )
+        call_the_api_mock.return_value = {"status": 200, "message": "Permission removed"}
 
         self.assertEqual(
             None,
@@ -549,9 +545,9 @@ class DatasourcePermissionsTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 400})
+        call_the_api_mock.return_value = {"status": 400}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_permissions.update_datasource_user_access_by_uid(
                 "test", 1, DatasourcePermission("edit")
             )
@@ -563,9 +559,9 @@ class DatasourcePermissionsTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 401})
+        call_the_api_mock.return_value = {"status": 401}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_permissions.update_datasource_user_access_by_uid(
                 "test", 1, DatasourcePermission("edit")
             )
@@ -579,9 +575,9 @@ class DatasourcePermissionsTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 600})
+        call_the_api_mock.return_value = {"status": 600}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_permissions.update_datasource_user_access_by_uid(
                 "test", 1, DatasourcePermission("edit")
             )
@@ -593,9 +589,7 @@ class DatasourcePermissionsTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict(
-            {"status": 200, "message": "Permission updated"}
-        )
+        call_the_api_mock.return_value = {"status": 200, "message": "Permission updated"}
 
         self.assertEqual(
             None,
@@ -611,9 +605,7 @@ class DatasourcePermissionsTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict(
-            {"status": 200, "message": "Permission removed"}
-        )
+        call_the_api_mock.return_value = {"status": 200, "message": "Permission removed"}
 
         self.assertEqual(
             None,
@@ -642,9 +634,9 @@ class DatasourcePermissionsTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 400})
+        call_the_api_mock.return_value = {"status": 400}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_permissions.update_datasource_team_access_by_uid(
                 "test", 1, DatasourcePermission("Edit")
             )
@@ -656,9 +648,9 @@ class DatasourcePermissionsTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 401})
+        call_the_api_mock.return_value = {"status": 401}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_permissions.update_datasource_team_access_by_uid(
                 "test", 1, DatasourcePermission("Edit")
             )
@@ -672,9 +664,9 @@ class DatasourcePermissionsTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 600})
+        call_the_api_mock.return_value = {"status": 600}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_permissions.update_datasource_team_access_by_uid(
                 "test", 1, DatasourcePermission("Edit")
             )
@@ -686,9 +678,7 @@ class DatasourcePermissionsTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict(
-            {"status": 200, "message": "Permission updated"}
-        )
+        call_the_api_mock.return_value = {"status": 200, "message": "Permission updated"}
 
         self.assertEqual(
             None,
@@ -704,9 +694,7 @@ class DatasourcePermissionsTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict(
-            {"status": 200, "message": "Permission removed"}
-        )
+        call_the_api_mock.return_value = {"status": 200, "message": "Permission removed"}
 
         self.assertEqual(
             None,
@@ -735,9 +723,9 @@ class DatasourcePermissionsTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 400})
+        call_the_api_mock.return_value = {"status": 400}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_permissions.update_datasource_basic_role_access_by_uid(
                 "test", "test", DatasourcePermission("edit")
             )
@@ -751,9 +739,9 @@ class DatasourcePermissionsTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 401})
+        call_the_api_mock.return_value = {"status": 401}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_permissions.update_datasource_basic_role_access_by_uid(
                 "test", "test", DatasourcePermission("edit")
             )
@@ -767,9 +755,9 @@ class DatasourcePermissionsTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"status": 600})
+        call_the_api_mock.return_value = {"status": 600}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_permissions.update_datasource_basic_role_access_by_uid(
                 "test", "test", DatasourcePermission("query")
             )
@@ -783,9 +771,7 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
             DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
-        call_the_api_mock.return_value = dict(
-            {"message": "Datasource permissions enabled"}
-        )
+        call_the_api_mock.return_value = {"message": "Datasource permissions enabled"}
 
         self.assertEqual(
             None, datasource_legacy_permissions.enable_datasource_permissions(1)
@@ -807,9 +793,9 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
             DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_legacy_permissions.enable_datasource_permissions(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -819,9 +805,7 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
             DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
-        call_the_api_mock.return_value = dict(
-            {"message": "Datasource permissions disabled"}
-        )
+        call_the_api_mock.return_value = {"message": "Datasource permissions disabled"}
 
         self.assertEqual(
             None, datasource_legacy_permissions.disable_datasource_permissions(1)
@@ -845,9 +829,9 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
             DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_legacy_permissions.disable_datasource_permissions(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -857,10 +841,10 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
             DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
-        call_the_api_mock.return_value = dict({"datasourceId": "Test"})
+        call_the_api_mock.return_value = {"datasourceId": "Test"}
 
         self.assertEqual(
-            dict({"datasourceId": "Test"}),
+            {"datasourceId": "Test"},
             datasource_legacy_permissions.get_datasource_permissions(1),
         )
 
@@ -882,9 +866,9 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
             DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_legacy_permissions.get_datasource_permissions(1)
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -894,14 +878,12 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
             DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
-        call_the_api_mock.return_value = dict(
-            {"message": "Datasource permission added"}
-        )
+        call_the_api_mock.return_value = {"message": "Datasource permission added"}
 
         self.assertEqual(
             None,
             datasource_legacy_permissions.add_datasource_permissions(
-                1, dict({"test": "test"})
+                1, {"test": "test"}
             ),
         )
 
@@ -912,7 +894,7 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
         )
 
         with self.assertRaises(ValueError):
-            datasource_legacy_permissions.add_datasource_permissions(0, dict())
+            datasource_legacy_permissions.add_datasource_permissions(0, {})
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_add_datasource_permissions_permission_add_not_possible(
@@ -923,11 +905,11 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
             DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_legacy_permissions.add_datasource_permissions(
-                1, dict({"test": "test"})
+                1, {"test": "test"}
             )
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -937,9 +919,7 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
             DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
-        call_the_api_mock.return_value = dict(
-            {"message": "Datasource permission removed"}
-        )
+        call_the_api_mock.return_value = {"message": "Datasource permission removed"}
 
         self.assertEqual(
             None, datasource_legacy_permissions.delete_datasource_permissions(1, 1)
@@ -961,9 +941,9 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
             DatasourceLegacyPermissions(grafana_api_model=model)
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource_legacy_permissions.delete_datasource_permissions(1, 1)
 
 
@@ -975,7 +955,7 @@ class DatasourceQueryResourceCachingTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"dataSourceID": 1})
+        call_the_api_mock.return_value = {"dataSourceID": 1}
 
         self.assertEqual({"dataSourceID": 1}, datasource.get_datasource_cache("test"))
 
@@ -986,7 +966,7 @@ class DatasourceQueryResourceCachingTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             datasource.get_datasource_cache("")
@@ -998,9 +978,9 @@ class DatasourceQueryResourceCachingTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.get_datasource_cache("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -1010,7 +990,7 @@ class DatasourceQueryResourceCachingTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"dataSourceID": 1})
+        call_the_api_mock.return_value = {"dataSourceID": 1}
 
         self.assertEqual(
             {"dataSourceID": 1}, datasource.enable_datasource_cache("test")
@@ -1023,7 +1003,7 @@ class DatasourceQueryResourceCachingTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             datasource.enable_datasource_cache("")
@@ -1035,9 +1015,9 @@ class DatasourceQueryResourceCachingTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.enable_datasource_cache("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -1047,7 +1027,7 @@ class DatasourceQueryResourceCachingTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"dataSourceID": 1})
+        call_the_api_mock.return_value = {"dataSourceID": 1}
 
         self.assertEqual(
             {"dataSourceID": 1}, datasource.disable_datasource_cache("test")
@@ -1060,7 +1040,7 @@ class DatasourceQueryResourceCachingTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             datasource.disable_datasource_cache("")
@@ -1072,9 +1052,9 @@ class DatasourceQueryResourceCachingTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.disable_datasource_cache("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -1084,7 +1064,7 @@ class DatasourceQueryResourceCachingTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict({"dataSourceID": 1})
+        call_the_api_mock.return_value = {"dataSourceID": 1}
 
         self.assertEqual({"dataSourceID": 1}, datasource.clean_datasource_cache("test"))
 
@@ -1095,7 +1075,7 @@ class DatasourceQueryResourceCachingTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             datasource.clean_datasource_cache("")
@@ -1107,9 +1087,9 @@ class DatasourceQueryResourceCachingTestCase(TestCase):
             grafana_api_model=model
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.clean_datasource_cache("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -1122,7 +1102,7 @@ class DatasourceQueryResourceCachingTestCase(TestCase):
             1, "test1", True, False, 12, 14
         )
 
-        call_the_api_mock.return_value = dict({"dataSourceID": 2})
+        call_the_api_mock.return_value = {"dataSourceID": 2}
 
         self.assertEqual(
             {"dataSourceID": 2},
@@ -1141,7 +1121,7 @@ class DatasourceQueryResourceCachingTestCase(TestCase):
             0, "test1", True, False, 12, 14
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
         with self.assertRaises(ValueError):
             datasource.update_datasource_cache("test", datasource_cache)
@@ -1156,9 +1136,9 @@ class DatasourceQueryResourceCachingTestCase(TestCase):
             1, "test1", True, False, 12, 14
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.update_datasource_cache("test", datasource_cache)
 
 
@@ -1170,7 +1150,7 @@ class DatasourceLabelBasedAccessControlTestCase(TestCase):
             DatasourceLabelBasedAccessControl(grafana_api_model=model)
         )
 
-        call_the_api_mock.return_value = list([{"id": 1}])
+        call_the_api_mock.return_value = [{"id": 1}]
 
         self.assertEqual([{"id": 1}], datasource.get_lbac_rules_for_datasource("test"))
 
@@ -1195,7 +1175,7 @@ class DatasourceLabelBasedAccessControlTestCase(TestCase):
 
         call_the_api_mock.return_value = None
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.get_lbac_rules_for_datasource("test")
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -1205,7 +1185,7 @@ class DatasourceLabelBasedAccessControlTestCase(TestCase):
             DatasourceLabelBasedAccessControl(grafana_api_model=model)
         )
 
-        call_the_api_mock.return_value = dict({"dataSourceID": 1})
+        call_the_api_mock.return_value = {"dataSourceID": 1}
 
         self.assertEqual(
             {"dataSourceID": 1}, datasource.update_lbac_rules_for_datasource("test")
@@ -1232,7 +1212,7 @@ class DatasourceLabelBasedAccessControlTestCase(TestCase):
             DatasourceLabelBasedAccessControl(grafana_api_model=model)
         )
 
-        call_the_api_mock.return_value = dict()
+        call_the_api_mock.return_value = {}
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             datasource.update_lbac_rules_for_datasource("test")

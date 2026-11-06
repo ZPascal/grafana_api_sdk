@@ -1,15 +1,3 @@
-# Table of Contents
-
-* [library](#library)
-  * [Library](#library.Library)
-    * [get\_all\_library\_elements](#library.Library.get_all_library_elements)
-    * [get\_library\_element\_by\_uid](#library.Library.get_library_element_by_uid)
-    * [get\_library\_element\_by\_name](#library.Library.get_library_element_by_name)
-    * [get\_library\_element\_connections](#library.Library.get_library_element_connections)
-    * [create\_library\_element](#library.Library.create_library_element)
-    * [update\_library\_element](#library.Library.update_library_element)
-    * [delete\_library\_element](#library.Library.delete_library_element)
-
 <a id="library"></a>
 
 # library

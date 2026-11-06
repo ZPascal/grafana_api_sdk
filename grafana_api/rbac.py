@@ -6,20 +6,21 @@ from .api import Api
 
 
 class RBAC:
-    """The class includes all necessary methods to access the Grafana RBAC API endpoints. Be aware that the functionality is a Grafana ENTERPRISE feature
+    """The class includes all necessary methods to access the Grafana RBAC API endpoints. Be aware that the functionality is a Grafana ENTERPRISE feature.
 
     Args:
         grafana_api_model (APIModel): Inject a Grafana API model object that includes all necessary values and information
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
     def get_status(self) -> bool:
-        """The method includes a functionality to get the status if role-based access control is enabled or not
+        """The method includes a functionality to get the status if role-based access control is enabled or not.
 
         Required Permissions:
             Action: status:accesscontrol
@@ -30,21 +31,19 @@ class RBAC:
 
         Returns:
             api_call (bool): Return a flag indicating if the role-based access control is enabled or not
-        """
 
+        """
         api_call: dict = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.RBAC.value}/status", response_status_code=True
         )
 
         status_code: int = api_call.get("status")
 
-        alert_manager_status_dict: dict = dict(
-            {
+        alert_manager_status_dict: dict = {
                 403: "Access denied.",
                 404: "Not found, an indication that role-based access control is not available at all.",
                 500: "Unexpected error. Refer to body and/or server logs for more details.",
             }
-        )
 
         if status_code == 200:
             return bool(api_call.get("enabled"))
@@ -56,7 +55,7 @@ class RBAC:
             raise Exception
 
     def get_all_roles(self, include_hidden_roles: bool = False) -> list:
-        """The method includes a functionality gets all existing roles. The response contains all global and organization local roles, for the organization which user is signed in
+        """The method includes a functionality gets all existing roles. The response contains all global and organization local roles, for the organization which user is signed in.
 
         Args:
             include_hidden_roles (bool): Specify if the output contains the hidden roles or not (default False)
@@ -70,8 +69,8 @@ class RBAC:
 
         Returns:
             api_call (list): Return all global and organization local roles
-        """
 
+        """
         additional_parameters: str = ""
         if include_hidden_roles:
             additional_parameters = "?includeHidden=true"
@@ -83,12 +82,10 @@ class RBAC:
 
         status_code: int = api_call[0].get("status")
 
-        alert_manager_status_dict: dict = dict(
-            {
+        alert_manager_status_dict: dict = {
                 403: "Access denied.",
                 500: "Unexpected error. Refer to body and/or server logs for more details.",
             }
-        )
 
         if status_code == 200:
             return api_call
@@ -100,7 +97,7 @@ class RBAC:
             raise Exception
 
     def get_role(self, uid: str) -> dict:
-        """The method includes a functionality get a role specified by the uid
+        """The method includes a functionality get a role specified by the uid.
 
         Args:
             uid (str): Specify the uid of the role
@@ -115,8 +112,8 @@ class RBAC:
 
         Returns:
             api_call (dict): Return the corresponding role
-        """
 
+        """
         if len(uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/roles/{uid}", response_status_code=True
@@ -124,12 +121,10 @@ class RBAC:
 
             status_code: int = api_call.get("status")
 
-            alert_manager_status_dict: dict = dict(
-                {
+            alert_manager_status_dict: dict = {
                     403: "Access denied.",
                     500: "Unexpected error. Refer to body and/or server logs for more details.",
                 }
-            )
 
             if status_code == 200:
                 return api_call
@@ -144,7 +139,7 @@ class RBAC:
             raise ValueError
 
     def create_role(self, role_definition: CustomRole) -> dict:
-        """The method includes a functionality create a new custom role and maps given permissions to that role. Note that roles with the same prefix as Fixed roles can’t be created
+        """The method includes a functionality create a new custom role and maps given permissions to that role. Note that roles with the same prefix as Fixed roles can’t be created.
 
         Args:
             role_definition (CustomRole): Specify the corresponding role definition
@@ -159,36 +154,34 @@ class RBAC:
 
         Returns:
             api_call (dict): Return the newly created role
-        """
 
+        """
         if role_definition is not None and len(role_definition.name) != 0:
-            role_object: dict = dict(
-                {
+            role_object: dict = {
                     "name": role_definition.name,
                     "global": role_definition.global_role,
                     "hidden": role_definition.hidden,
                 }
-            )
 
             if role_definition.uid is not None:
-                role_object.update(dict({"uid": role_definition.uid}))
+                role_object.update({"uid": role_definition.uid})
 
             if role_definition.version is not None:
-                role_object.update(dict({"version": role_definition.version}))
+                role_object.update({"version": role_definition.version})
 
             if role_definition.description is not None:
-                role_object.update(dict({"description": role_definition.description}))
+                role_object.update({"description": role_definition.description})
 
             if role_definition.display_name is not None:
-                role_object.update(dict({"displayName": role_definition.display_name}))
+                role_object.update({"displayName": role_definition.display_name})
 
             if role_definition.group is not None:
-                role_object.update(dict({"group": role_definition.group}))
+                role_object.update({"group": role_definition.group})
 
             if role_definition.permissions is not None:
-                permission_list: list = list()
+                permission_list: list = []
                 for permission in role_definition.permissions:
-                    permission_object: dict = dict()
+                    permission_object: dict = {}
                     if permission.action is not None:
                         permission_object.update({"action": permission.action})
                     else:
@@ -199,7 +192,7 @@ class RBAC:
                         permission_object.update({"scope": permission.scope})
 
                     permission_list.append(permission_object)
-                role_object.update(dict({"permissions": permission_list}))
+                role_object.update({"permissions": permission_list})
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/roles",
@@ -210,13 +203,11 @@ class RBAC:
 
             status_code: int = api_call.get("status")
 
-            alert_manager_status_dict: dict = dict(
-                {
+            alert_manager_status_dict: dict = {
                     400: "Bad request (invalid json, missing content-type, missing or invalid fields, etc.).",
                     403: "Access denied.",
                     500: "Unexpected error. Refer to body and/or server logs for more details.",
                 }
-            )
 
             if status_code == 200:
                 return api_call
@@ -231,7 +222,7 @@ class RBAC:
             raise ValueError
 
     def update_role(self, uid: str, role_definition: CustomRole) -> dict:
-        """The method includes a functionality to update the role with the given uid, and its permissions. The operation is idempotent and all permissions of the role will be replaced based on the request content. You need to increment the version of the role with each update, otherwise the request will fail
+        """The method includes a functionality to update the role with the given uid, and its permissions. The operation is idempotent and all permissions of the role will be replaced based on the request content. You need to increment the version of the role with each update, otherwise the request will fail.
 
         Args:
             uid (str): Specify the corresponding uid of the custom role
@@ -247,36 +238,34 @@ class RBAC:
 
         Returns:
             api_call (dict): Return the updated role
-        """
 
+        """
         if (
             role_definition is not None
             and len(role_definition.name) != 0
             and role_definition.version != 0
             and len(uid) != 0
         ):
-            role_object: dict = dict(
-                {
+            role_object: dict = {
                     "name": role_definition.name,
                     "global": role_definition.global_role,
                     "hidden": role_definition.hidden,
                     "version": role_definition.version,
                 }
-            )
 
             if role_definition.description is not None:
-                role_object.update(dict({"description": role_definition.description}))
+                role_object.update({"description": role_definition.description})
 
             if role_definition.display_name is not None:
-                role_object.update(dict({"displayName": role_definition.display_name}))
+                role_object.update({"displayName": role_definition.display_name})
 
             if role_definition.group is not None:
-                role_object.update(dict({"group": role_definition.group}))
+                role_object.update({"group": role_definition.group})
 
             if role_definition.permissions is not None:
-                permission_list: list = list()
+                permission_list: list = []
                 for permission in role_definition.permissions:
-                    permission_object: dict = dict()
+                    permission_object: dict = {}
                     if permission.action is not None:
                         permission_object.update({"action": permission.action})
                     else:
@@ -287,7 +276,7 @@ class RBAC:
                         permission_object.update({"scope": permission.scope})
 
                     permission_list.append(permission_object)
-                role_object.update(dict({"permissions": permission_list}))
+                role_object.update({"permissions": permission_list})
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/roles/{uid}",
@@ -298,14 +287,12 @@ class RBAC:
 
             status_code: int = api_call.get("status")
 
-            alert_manager_status_dict: dict = dict(
-                {
+            alert_manager_status_dict: dict = {
                     400: "Bad request (invalid json, missing content-type, missing or invalid fields, etc.).",
                     403: "Access denied.",
                     404: "Role was not found to update.",
                     500: "Unexpected error. Refer to body and/or server logs for more details.",
                 }
-            )
 
             if status_code == 200:
                 return api_call
@@ -320,7 +307,7 @@ class RBAC:
             raise ValueError
 
     def delete_role(self, uid: str, force: bool = False, global_role: bool = False):
-        """The method includes a functionality to delete a role with the given uid
+        """The method includes a functionality to delete a role with the given uid.
 
         Args:
             uid (str): Specify the corresponding uid of the custom role
@@ -337,8 +324,8 @@ class RBAC:
 
         Returns:
             None
-        """
 
+        """
         if len(uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/roles/{uid}?force={force.__str__().lower()}&"
@@ -349,13 +336,11 @@ class RBAC:
 
             status_code: int = api_call.get("status")
 
-            alert_manager_status_dict: dict = dict(
-                {
+            alert_manager_status_dict: dict = {
                     400: "Bad request (invalid json, missing content-type, missing or invalid fields, etc.).",
                     403: "Access denied.",
                     500: "Unexpected error. Refer to body and/or server logs for more details.",
                 }
-            )
 
             if status_code == 200:
                 if "Role deleted" != api_call.get("message"):
@@ -376,7 +361,7 @@ class RBAC:
     def get_user_assigned_roles(
         self, user_id: int, include_hidden_roles: bool = False
     ) -> list:
-        """The method includes a functionality to get the roles that have been directly assigned to a given user specified by the user id. The list does not include basic roles (Viewer, Editor, Admin or Grafana Admin), and it does not include roles that have been inherited from a team
+        """The method includes a functionality to get the roles that have been directly assigned to a given user specified by the user id. The list does not include basic roles (Viewer, Editor, Admin or Grafana Admin), and it does not include roles that have been inherited from a team.
 
         Args:
             user_id (int): Specify the corresponding user_id of the user
@@ -392,8 +377,8 @@ class RBAC:
 
         Returns:
             api_call (list): Return the corresponding user roles
-        """
 
+        """
         if user_id != 0 and user_id is not None:
             additional_parameters: str = ""
             if include_hidden_roles:
@@ -406,12 +391,10 @@ class RBAC:
 
             status_code: int = api_call[0].get("status")
 
-            alert_manager_status_dict: dict = dict(
-                {
+            alert_manager_status_dict: dict = {
                     403: "Access denied.",
                     500: "Unexpected error. Refer to body and/or server logs for more details.",
                 }
-            )
 
             if status_code == 200:
                 return api_call
@@ -426,7 +409,7 @@ class RBAC:
             raise ValueError
 
     def get_user_assigned_permissions(self, user_id: int) -> list:
-        """The method includes a functionality to get the permissions that have been directly assigned to a given user specified by the user id
+        """The method includes a functionality to get the permissions that have been directly assigned to a given user specified by the user id.
 
         Args:
             user_id (int): Specify the corresponding user_id of the user
@@ -441,8 +424,8 @@ class RBAC:
 
         Returns:
             api_call (list): Return the corresponding user permissions
-        """
 
+        """
         if user_id != 0 and user_id is not None:
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/users/{user_id}/permissions",
@@ -451,12 +434,10 @@ class RBAC:
 
             status_code: int = api_call[0].get("status")
 
-            alert_manager_status_dict: dict = dict(
-                {
+            alert_manager_status_dict: dict = {
                     403: "Access denied.",
                     500: "Unexpected error. Refer to body and/or server logs for more details.",
                 }
-            )
 
             if status_code == 200:
                 return api_call
@@ -473,7 +454,7 @@ class RBAC:
     def add_user_role_assignment(
         self, user_id: int, role_uid: str, global_assignment: bool = False
     ):
-        """The method includes a functionality to assign a role to a specific user
+        """The method includes a functionality to assign a role to a specific user.
 
         Args:
             user_id (int): Specify the corresponding user_id of the user
@@ -490,8 +471,8 @@ class RBAC:
 
         Returns:
             None
-        """
 
+        """
         if user_id != 0 and user_id is not None and len(role_uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/users/{user_id}/roles",
@@ -502,13 +483,11 @@ class RBAC:
 
             status_code: int = api_call.get("status")
 
-            alert_manager_status_dict: dict = dict(
-                {
+            alert_manager_status_dict: dict = {
                     403: "Access denied.",
                     404: "Role not found.",
                     500: "Unexpected error. Refer to body and/or server logs for more details.",
                 }
-            )
 
             if status_code == 200:
                 if "Role added to the user." != api_call.get("message"):
@@ -527,7 +506,7 @@ class RBAC:
             raise ValueError
 
     def remove_user_role_assignment(self, user_id: int, role_uid: str):
-        """The method includes a functionality to revoke a role to a specific user
+        """The method includes a functionality to revoke a role to a specific user.
 
         Args:
             user_id (int): Specify the corresponding user_id of the user
@@ -543,8 +522,8 @@ class RBAC:
 
         Returns:
             None
-        """
 
+        """
         if user_id != 0 and user_id is not None and len(role_uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/users/{user_id}/roles/{role_uid}",
@@ -554,12 +533,10 @@ class RBAC:
 
             status_code: int = api_call.get("status")
 
-            alert_manager_status_dict: dict = dict(
-                {
+            alert_manager_status_dict: dict = {
                     403: "Access denied.",
                     500: "Unexpected error. Refer to body and/or server logs for more details.",
                 }
-            )
 
             if status_code == 200:
                 if "Role removed from user." != api_call.get("message"):
@@ -584,7 +561,7 @@ class RBAC:
         include_hidden_roles: bool = False,
         global_assignment: bool = False,
     ):
-        """The method includes a functionality to update the user role assignments to match the provided set of uid's. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user
+        """The method includes a functionality to update the user role assignments to match the provided set of uid's. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user.
 
         Args:
             user_id (int): Specify the corresponding user_id of the user
@@ -602,8 +579,8 @@ class RBAC:
 
         Returns:
             None
-        """
 
+        """
         if user_id != 0 and user_id is not None and len(role_uids) != 0:
             additional_parameters: str = ""
             if include_hidden_roles:
@@ -618,13 +595,11 @@ class RBAC:
 
             status_code: int = api_call.get("status")
 
-            alert_manager_status_dict: dict = dict(
-                {
+            alert_manager_status_dict: dict = {
                     403: "Access denied.",
                     404: "Role not found.",
                     500: "Unexpected error. Refer to body and/or server logs for more details.",
                 }
-            )
 
             if status_code == 200:
                 if "User roles have been updated." != api_call.get("message"):
@@ -645,7 +620,7 @@ class RBAC:
     def get_service_account_assigned_roles(
         self, service_account_id: int, include_hidden_roles: bool = False
     ) -> list:
-        """The method includes a functionality to get the roles that have been directly assigned to a given service account. The list does not include basic roles (Viewer, Editor, Admin or Grafana Admin)
+        """The method includes a functionality to get the roles that have been directly assigned to a given service account. The list does not include basic roles (Viewer, Editor, Admin or Grafana Admin).
 
         Args:
             service_account_id (int): Specify the corresponding service_account_id of the service account
@@ -661,8 +636,8 @@ class RBAC:
 
         Returns:
             api_call (list): Return the corresponding service account roles
-        """
 
+        """
         if service_account_id != 0 and service_account_id is not None:
             additional_parameters: str = ""
             if include_hidden_roles:
@@ -675,12 +650,10 @@ class RBAC:
 
             status_code: int = api_call[0].get("status")
 
-            alert_manager_status_dict: dict = dict(
-                {
+            alert_manager_status_dict: dict = {
                     403: "Access denied.",
                     500: "Unexpected error. Refer to body and/or server logs for more details.",
                 }
-            )
 
             if status_code == 200:
                 return api_call
@@ -695,7 +668,7 @@ class RBAC:
             raise ValueError
 
     def get_service_account_assigned_permissions(self, service_account_id: int) -> list:
-        """The method includes a functionality to get the permissions that a given service account has
+        """The method includes a functionality to get the permissions that a given service account has.
 
         Args:
             service_account_id (int): Specify the corresponding service_account_id of the service account
@@ -710,8 +683,8 @@ class RBAC:
 
         Returns:
             api_call (list): Return the corresponding service account permissions
-        """
 
+        """
         if service_account_id != 0 and service_account_id is not None:
             api_call: list = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/users/{service_account_id}/permissions",
@@ -720,12 +693,10 @@ class RBAC:
 
             status_code: int = api_call[0].get("status")
 
-            alert_manager_status_dict: dict = dict(
-                {
+            alert_manager_status_dict: dict = {
                     403: "Access denied.",
                     500: "Unexpected error. Refer to body and/or server logs for more details.",
                 }
-            )
 
             if status_code == 200:
                 return api_call
@@ -742,7 +713,7 @@ class RBAC:
     def add_service_account_role_assignment(
         self, service_account_id: int, role_uid: str, global_assignment: bool = False
     ):
-        """The method includes a functionality to assign a role to a specific service account
+        """The method includes a functionality to assign a role to a specific service account.
 
         Args:
             service_account_id (int): Specify the corresponding service_account_id of the service account
@@ -759,8 +730,8 @@ class RBAC:
 
         Returns:
             None
-        """
 
+        """
         if (
             service_account_id != 0
             and service_account_id is not None
@@ -774,13 +745,11 @@ class RBAC:
             )
 
             status_code: int = api_call.get("status")
-            alert_manager_status_dict: dict = dict(
-                {
+            alert_manager_status_dict: dict = {
                     403: "Access denied.",
                     404: "Role not found.",
                     500: "Unexpected error. Refer to body and/or server logs for more details.",
                 }
-            )
 
             if status_code == 200:
                 if "Role added to the user." != api_call.get("message"):
@@ -803,7 +772,7 @@ class RBAC:
     def remove_service_account_role_assignment(
         self, service_account_id: int, role_uid: str
     ):
-        """The method includes a functionality to revoke a role to a specific service account
+        """The method includes a functionality to revoke a role to a specific service account.
 
         Args:
             service_account_id (int): Specify the corresponding service_account_id of the service account
@@ -819,8 +788,8 @@ class RBAC:
 
         Returns:
             None
-        """
 
+        """
         if (
             service_account_id != 0
             and service_account_id is not None
@@ -834,12 +803,10 @@ class RBAC:
 
             status_code: int = api_call.get("status")
 
-            alert_manager_status_dict: dict = dict(
-                {
+            alert_manager_status_dict: dict = {
                     403: "Access denied.",
                     500: "Unexpected error. Refer to body and/or server logs for more details.",
                 }
-            )
 
             if status_code == 200:
                 if "Role removed from user." != api_call.get("message"):
@@ -866,7 +833,7 @@ class RBAC:
         include_hidden_roles: bool = False,
         global_assignment: bool = False,
     ):
-        """The method includes a functionality to update the service account role assignments to match the provided set of uid's. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user
+        """The method includes a functionality to update the service account role assignments to match the provided set of uid's. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user.
 
         Args:
             service_account_id (int): Specify the corresponding service_account_id of the service account
@@ -884,8 +851,8 @@ class RBAC:
 
         Returns:
             None
-        """
 
+        """
         if (
             service_account_id != 0
             and service_account_id is not None
@@ -904,13 +871,11 @@ class RBAC:
 
             status_code: int = api_call.get("status")
 
-            alert_manager_status_dict: dict = dict(
-                {
+            alert_manager_status_dict: dict = {
                     403: "Access denied.",
                     404: "Role not found.",
                     500: "Unexpected error. Refer to body and/or server logs for more details.",
                 }
-            )
 
             if status_code == 200:
                 if "User roles have been updated." != api_call.get("message"):
@@ -949,8 +914,8 @@ class RBAC:
 
         Returns:
             api_call (list): Return the corresponding team roles
-        """
 
+        """
         if team_id != 0 and team_id is not None:
             additional_parameters: str = ""
             if include_hidden_roles:
@@ -963,12 +928,10 @@ class RBAC:
 
             status_code: int = api_call[0].get("status")
 
-            alert_manager_status_dict: dict = dict(
-                {
+            alert_manager_status_dict: dict = {
                     403: "Access denied.",
                     500: "Unexpected error. Refer to body and/or server logs for more details.",
                 }
-            )
 
             if status_code == 200:
                 return api_call
@@ -983,7 +946,7 @@ class RBAC:
             raise ValueError
 
     def add_team_role_assignment(self, team_id: int, role_uid: str):
-        """The method includes a functionality to assign a role to a specific team
+        """The method includes a functionality to assign a role to a specific team.
 
         Args:
             team_id (int): Specify the corresponding team_id of the team
@@ -999,8 +962,8 @@ class RBAC:
 
         Returns:
             None
-        """
 
+        """
         if team_id != 0 and team_id is not None and len(role_uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/teams/{team_id}/roles",
@@ -1011,13 +974,11 @@ class RBAC:
 
             status_code: int = api_call.get("status")
 
-            alert_manager_status_dict: dict = dict(
-                {
+            alert_manager_status_dict: dict = {
                     403: "Access denied.",
                     404: "Role not found.",
                     500: "Unexpected error. Refer to body and/or server logs for more details.",
                 }
-            )
 
             if status_code == 200:
                 if "Role added to the team." != api_call.get("message"):
@@ -1036,7 +997,7 @@ class RBAC:
             raise ValueError
 
     def remove_team_role_assignment(self, team_id: int, role_uid: str):
-        """The method includes a functionality to revoke a role to a specific team
+        """The method includes a functionality to revoke a role to a specific team.
 
         Args:
             team_id (int): Specify the corresponding team_id of the team
@@ -1052,8 +1013,8 @@ class RBAC:
 
         Returns:
             None
-        """
 
+        """
         if team_id != 0 and team_id is not None and len(role_uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.RBAC.value}/teams/{team_id}/roles/{role_uid}",
@@ -1063,12 +1024,10 @@ class RBAC:
 
             status_code: int = api_call.get("status")
 
-            alert_manager_status_dict: dict = dict(
-                {
+            alert_manager_status_dict: dict = {
                     403: "Access denied.",
                     500: "Unexpected error. Refer to body and/or server logs for more details.",
                 }
-            )
 
             if status_code == 200:
                 if "Role removed from team." != api_call.get("message"):
@@ -1092,7 +1051,7 @@ class RBAC:
         role_uids: list,
         include_hidden_roles: bool = False,
     ):
-        """The method includes a functionality to update the service account role assignments to match the provided set of uid's. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user
+        """The method includes a functionality to update the service account role assignments to match the provided set of uid's. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user.
 
         Args:
             team_id (int): Specify the corresponding team_id of the team
@@ -1109,8 +1068,8 @@ class RBAC:
 
         Returns:
             None
-        """
 
+        """
         if team_id != 0 and team_id is not None and len(role_uids) != 0:
             additional_parameters: str = ""
             if include_hidden_roles:
@@ -1125,13 +1084,11 @@ class RBAC:
 
             status_code: int = api_call.get("status")
 
-            alert_manager_status_dict: dict = dict(
-                {
+            alert_manager_status_dict: dict = {
                     403: "Access denied.",
                     404: "Role not found.",
                     500: "Unexpected error. Refer to body and/or server logs for more details.",
                 }
-            )
 
             if status_code == 200:
                 if "Team roles have been updated." != api_call.get("message"):
@@ -1150,7 +1107,7 @@ class RBAC:
             raise ValueError
 
     def reset_basic_roles_to_their_default(self):
-        """The method includes a functionality to reset basic roles permissions to their default
+        """The method includes a functionality to reset basic roles permissions to their default.
 
         Required Permissions:
             Action: roles:write
@@ -1161,8 +1118,8 @@ class RBAC:
 
         Returns:
             None
-        """
 
+        """
         api_call: dict = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.RBAC.value}/roles/hard-reset",
             RequestsMethods.POST,
@@ -1172,11 +1129,9 @@ class RBAC:
 
         status_code: int = api_call.get("status")
 
-        alert_manager_status_dict: dict = dict(
-            {
+        alert_manager_status_dict: dict = {
                 500: "Failed to reset basic roles.",
             }
-        )
 
         if status_code == 200:
             if "Reset performed" != api_call.get("message"):
