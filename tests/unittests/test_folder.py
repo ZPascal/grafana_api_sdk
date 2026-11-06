@@ -538,6 +538,50 @@ class FolderTestCase(TestCase):
         )
 
     @patch("grafana_api.api.Api.call_the_api")
+    def test_get_nested_folders_parent_echoed_back(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        folder: Folder = Folder(grafana_api_model=model)
+
+        # The server returns the parent itself for every parentUid request
+        call_the_api_mock.return_value = [
+            {"id": 1, "uid": "parent-uid", "title": "Parent"}
+        ]
+
+        self.assertEqual([], folder._get_nested_folders("parent-uid"))
+        call_the_api_mock.assert_called_once()
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_nested_folders_skips_seen_uids(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        folder: Folder = Folder(grafana_api_model=model)
+
+        call_the_api_mock.side_effect = [
+            [
+                {"id": 1, "uid": "root", "title": "Root"},
+                {"id": 2, "uid": "child", "title": "Child"},
+            ],
+            [{"id": 2, "uid": "child", "title": "Child"}],
+        ]
+
+        self.assertEqual(
+            [{"id": 2, "uid": "child", "title": "Child"}],
+            folder._get_nested_folders("root", {"root"}),
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_folders_nested_parent_echoed_back(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        folder: Folder = Folder(grafana_api_model=model)
+
+        root: dict = {"id": 1, "uid": "root", "title": "Root"}
+        call_the_api_mock.side_effect = [[root], [root]]
+
+        self.assertEqual(
+            [{"id": 0, "uid": "", "title": "General"}, root],
+            folder.get_folders(nested_folders=True),
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
     def test_get_nested_folders_with_siblings(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         folder: Folder = Folder(grafana_api_model=model)
