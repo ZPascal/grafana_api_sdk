@@ -81,7 +81,7 @@ jobs:
         run: uv sync --extra dev
 
       - name: Generate the coverage report
-        run: export PYTHONPATH=$PWD && uv run pytest --junitxml=pytest.xml --cov=. tests/unittests | tee pytest-coverage.txt
+        run: export PYTHONPATH=$PWD && uv run pytest --junitxml=pytest.xml --cov=. --cov-report=xml:coverage.xml tests/unittests | tee pytest-coverage.txt
 
       - name: Execute the coverage checks
         uses: MishaKav/pytest-coverage-comment@v1.13.0
@@ -93,7 +93,7 @@ jobs:
           create-new-comment: true
 
       - name: Generate coverage badge
-        run: uv run coverage-badge -f -o docs/coverage.svg
+        run: uv run genbadge coverage -i coverage.xml -o docs/coverage.svg
 
       - name: Check changed files
         id: verify-changed-files
@@ -139,33 +139,11 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v2
 
-      - name: Install documentation tools
+      - name: Install the requirements
         run: uv sync --extra docs
 
-      - name: Generate documentation
-        run: uv run pydoc-markdown --build --site-dir build/docs && rm -rf docs/build docs/content docs/mkdocs.yml && mv build/docs/* docs
-
-      - name: Check changed files
-        id: verify-changed-files
-        uses: ZPascal/check-changed-files-action@v1
-        with:
-          checked_location: 'docs'
-          git_location: './'
-
-      - name: Commit files
-        if: steps.verify-changed-files.outputs.files_changed == 'true'
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add --force docs
-          git commit -m "docs: Add the documentation"
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        if: steps.verify-changed-files.outputs.files_changed == 'true'
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.head_ref }}
+      - name: Build documentation
+        run: uv run mkdocs build --config-file docs/mkdocs.yml
 
   pr-integrationtest:
     uses: ./.github/workflows/integrationtest.yml
