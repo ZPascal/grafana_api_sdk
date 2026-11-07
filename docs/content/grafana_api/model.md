@@ -1,48 +1,3 @@
-# Table of Contents
-
-* [model](#model)
-  * [APIEndpoints](#model.APIEndpoints)
-  * [RequestsMethods](#model.RequestsMethods)
-  * [APIModel](#model.APIModel)
-  * [DatasourceQuery](#model.DatasourceQuery)
-  * [DatasourceRuleQuery](#model.DatasourceRuleQuery)
-  * [DatasourcePermission](#model.DatasourcePermission)
-  * [Alert](#model.Alert)
-  * [AlertRuleQueryModelCondition](#model.AlertRuleQueryModelCondition)
-  * [AlertRuleQueryModel](#model.AlertRuleQueryModel)
-  * [AlertQuery](#model.AlertQuery)
-  * [AlertRule](#model.AlertRule)
-  * [EmbeddedContactPoint](#model.EmbeddedContactPoint)
-  * [MatchType](#model.MatchType)
-  * [Matcher](#model.Matcher)
-  * [Route](#model.Route)
-  * [TimeRange](#model.TimeRange)
-  * [TimeInterval](#model.TimeInterval)
-  * [MuteTimeInterval](#model.MuteTimeInterval)
-  * [Silence](#model.Silence)
-  * [AlertmanagerConfig](#model.AlertmanagerConfig)
-  * [AlertmanagerReceivers](#model.AlertmanagerReceivers)
-  * [RulerRule](#model.RulerRule)
-  * [UserObject](#model.UserObject)
-  * [PlaylistObject](#model.PlaylistObject)
-  * [PlaylistItemObject](#model.PlaylistItemObject)
-  * [TeamObject](#model.TeamObject)
-  * [QueryDatasourceObject](#model.QueryDatasourceObject)
-  * [QueryObject](#model.QueryObject)
-  * [CorrelationObject](#model.CorrelationObject)
-  * [FindAnnotationObject](#model.FindAnnotationObject)
-  * [AnnotationObject](#model.AnnotationObject)
-  * [AnnotationGraphiteObject](#model.AnnotationGraphiteObject)
-  * [GlobalUser](#model.GlobalUser)
-  * [RolePermission](#model.RolePermission)
-  * [CustomRole](#model.CustomRole)
-  * [DatasourceCache](#model.DatasourceCache)
-  * [PublicDashboard](#model.PublicDashboard)
-  * [SSOSetting](#model.SSOSetting)
-  * [DashboardSchema](#model.DashboardSchema)
-  * [Report](#model.Report)
-  * [ReportBrandingSettings](#model.ReportBrandingSettings)
-
 <a id="model"></a>
 
 # model
@@ -55,7 +10,7 @@
 class APIEndpoints(Enum)
 ```
 
-The class includes all necessary API endpoint strings to connect the Grafana API
+The class includes all necessary API endpoint strings to connect the Grafana API.
 
 <a id="model.RequestsMethods"></a>
 
@@ -65,7 +20,7 @@ The class includes all necessary API endpoint strings to connect the Grafana API
 class RequestsMethods(Enum)
 ```
 
-The class includes all necessary method values to establish an HTTP/ HTTPS connection to the Grafana API endpoints
+The class includes all necessary method values to establish an HTTP/ HTTPS connection to the Grafana API endpoints.
 
 <a id="model.APIModel"></a>
 
@@ -76,7 +31,7 @@ The class includes all necessary method values to establish an HTTP/ HTTPS conne
 class APIModel()
 ```
 
-The class includes all necessary variables to establish a connection to the Grafana API endpoints
+The class includes all necessary variables to establish a connection to the Grafana API endpoints.
 
 **Arguments**:
 
@@ -101,7 +56,7 @@ The class includes all necessary variables to establish a connection to the Graf
 class DatasourceQuery()
 ```
 
-The class includes all necessary variables to specify a query for the datasource search endpoint
+The class includes all necessary variables to specify a query for the datasource search endpoint.
 
 **Arguments**:
 
@@ -122,7 +77,7 @@ The class includes all necessary variables to specify a query for the datasource
 class DatasourceRuleQuery()
 ```
 
-The class includes all necessary variables to specify a query for the datasource rule search endpoint
+The class includes all necessary variables to specify a query for the datasource rule search endpoint.
 
 **Arguments**:
 
@@ -141,7 +96,7 @@ The class includes all necessary variables to specify a query for the datasource
 class DatasourcePermission()
 ```
 
-The class includes the necessary variables to generate a datasource permission object that is necessary to communicate with the Grafana datasource permissions endpoint
+The class includes the necessary variables to generate a datasource permission object that is necessary to communicate with the Grafana datasource permissions endpoint.
 
 **Arguments**:
 
@@ -166,7 +121,7 @@ The class includes the necessary variables to generate a datasource permission o
 class Alert()
 ```
 
-The class includes all necessary variables to generate an alert object that is necessary to communicate with the Grafana alert endpoint
+The class includes all necessary variables to generate an alert object that is necessary to communicate with the Grafana alert endpoint.
 
 **Arguments**:
 
@@ -195,7 +150,7 @@ The class includes all necessary variables to generate an alert rule query model
 - `query_params` _list_ - Specify the query parameters
 - `reducer_params` _list_ - Specify the reducer parameters
 - `reducer_type` _str_ - Specify the reducer type
-- `type` _str_ - Specify the type
+- `type` _str_ - Specify the type.
 
 <a id="model.AlertRuleQueryModel"></a>
 
@@ -206,7 +161,7 @@ The class includes all necessary variables to generate an alert rule query model
 class AlertRuleQueryModel()
 ```
 
-The class includes all necessary variables to generate an alert rule query model object that is necessary to communicate with the Grafana alert provisioning endpoint
+The class includes all necessary variables to generate an alert rule query model object that is necessary to communicate with the Grafana alert provisioning endpoint.
 
 **Arguments**:
 
@@ -228,7 +183,7 @@ The class includes all necessary variables to generate an alert rule query model
 class AlertQuery()
 ```
 
-The class includes all necessary variables to generate an alert query object that is necessary to communicate with the Grafana alert provisioning endpoint
+The class includes all necessary variables to generate an alert query object that is necessary to communicate with the Grafana alert provisioning endpoint.
 
 **Arguments**:
 
@@ -248,7 +203,7 @@ The class includes all necessary variables to generate an alert query object tha
 class AlertRule()
 ```
 
-The class includes all necessary variables to generate an alert rule object that is necessary to communicate with the Grafana alert provisioning endpoint
+The class includes all necessary variables to generate an alert rule object that is necessary to communicate with the Grafana alert provisioning endpoint.
 
 **Arguments**:
 
@@ -277,7 +232,7 @@ The class includes all necessary variables to generate an alert rule object that
 class EmbeddedContactPoint()
 ```
 
-The class includes all necessary variables to generate an embedded contact point object that is necessary to communicate with the Grafana alert provisioning endpoint
+The class includes all necessary variables to generate an embedded contact point object that is necessary to communicate with the Grafana alert provisioning endpoint.
 
 **Arguments**:
 
@@ -296,7 +251,7 @@ The class includes all necessary variables to generate an embedded contact point
 class MatchType(Enum)
 ```
 
-The class includes all necessary values to set the corresponding match type
+The class includes all necessary values to set the corresponding match type.
 
 <a id="model.Matcher"></a>
 
@@ -307,7 +262,7 @@ The class includes all necessary values to set the corresponding match type
 class Matcher()
 ```
 
-The class includes all necessary variables to generate an alert rule route matcher object that is necessary to communicate with the Grafana alert provisioning endpoint
+The class includes all necessary variables to generate an alert rule route matcher object that is necessary to communicate with the Grafana alert provisioning endpoint.
 
 **Arguments**:
 
@@ -324,7 +279,7 @@ The class includes all necessary variables to generate an alert rule route match
 class Route()
 ```
 
-The class includes all necessary variables to generate an alert rule route that is necessary to communicate with the Grafana alert provisioning endpoint
+The class includes all necessary variables to generate an alert rule route that is necessary to communicate with the Grafana alert provisioning endpoint.
 
 **Arguments**:
 
@@ -348,7 +303,7 @@ The class includes all necessary variables to generate an alert rule route that 
 class TimeRange()
 ```
 
-The class includes all necessary variables to generate a time range object that is necessary to communicate with the Grafana alert provisioning endpoint
+The class includes all necessary variables to generate a time range object that is necessary to communicate with the Grafana alert provisioning endpoint.
 
 **Arguments**:
 
@@ -364,7 +319,7 @@ The class includes all necessary variables to generate a time range object that 
 class TimeInterval()
 ```
 
-The class includes all necessary variables to generate a time interval object that is necessary to communicate with the Grafana alert provisioning endpoint
+The class includes all necessary variables to generate a time interval object that is necessary to communicate with the Grafana alert provisioning endpoint.
 
 **Arguments**:
 
@@ -383,7 +338,7 @@ The class includes all necessary variables to generate a time interval object th
 class MuteTimeInterval()
 ```
 
-The class includes all necessary variables to generate a mute time interval object that is necessary to communicate with the Grafana alert provisioning endpoint
+The class includes all necessary variables to generate a mute time interval object that is necessary to communicate with the Grafana alert provisioning endpoint.
 
 **Arguments**:
 
@@ -399,7 +354,7 @@ The class includes all necessary variables to generate a mute time interval obje
 class Silence()
 ```
 
-The class includes all necessary variables to generate a silence object that is necessary to communicate with the Grafana silence endpoint
+The class includes all necessary variables to generate a silence object that is necessary to communicate with the Grafana silence endpoint.
 
 **Arguments**:
 
@@ -419,7 +374,7 @@ The class includes all necessary variables to generate a silence object that is 
 class AlertmanagerConfig()
 ```
 
-The class includes all necessary variables to generate an Alertmanager config object that is necessary to communicate and set up the Grafana Alertmanager endpoint
+The class includes all necessary variables to generate an Alertmanager config object that is necessary to communicate and set up the Grafana Alertmanager endpoint.
 
 **Arguments**:
 
@@ -439,7 +394,7 @@ The class includes all necessary variables to generate an Alertmanager config ob
 class AlertmanagerReceivers()
 ```
 
-The class includes all necessary variables to generate an Alertmanager receiver's object that is necessary to communicate and set up the Grafana Alertmanager receivers endpoint
+The class includes all necessary variables to generate an Alertmanager receiver's object that is necessary to communicate and set up the Grafana Alertmanager receivers endpoint.
 
 **Arguments**:
 
@@ -464,7 +419,7 @@ The class includes all necessary variables to generate an Alertmanager receiver'
 class RulerRule()
 ```
 
-The class includes all necessary variables to generate a Ruler rule object that is necessary to communicate and set up a Grafana Ruler rule
+The class includes all necessary variables to generate a Ruler rule object that is necessary to communicate and set up a Grafana Ruler rule.
 
 **Arguments**:
 
@@ -485,7 +440,7 @@ The class includes all necessary variables to generate a Ruler rule object that 
 class UserObject()
 ```
 
-The class includes all necessary variables to generate a User object that is necessary to update a Grafana User
+The class includes all necessary variables to generate a User object that is necessary to update a Grafana User.
 
 **Arguments**:
 
@@ -503,7 +458,7 @@ The class includes all necessary variables to generate a User object that is nec
 class PlaylistObject()
 ```
 
-The class includes all necessary variables to generate a playlist object
+The class includes all necessary variables to generate a playlist object.
 
 **Arguments**:
 
@@ -520,7 +475,7 @@ The class includes all necessary variables to generate a playlist object
 class PlaylistItemObject()
 ```
 
-The class includes all necessary variables to generate a playlist item object that is necessary to update a playlist
+The class includes all necessary variables to generate a playlist item object that is necessary to update a playlist.
 
 **Arguments**:
 
@@ -538,7 +493,7 @@ The class includes all necessary variables to generate a playlist item object th
 class TeamObject()
 ```
 
-The class includes all necessary variables to generate a team object that is necessary to create a team
+The class includes all necessary variables to generate a team object that is necessary to create a team.
 
 **Arguments**:
 
@@ -555,7 +510,7 @@ The class includes all necessary variables to generate a team object that is nec
 class QueryDatasourceObject()
 ```
 
-The class includes all necessary variables to generate a query datasource object that is necessary to create a query history object
+The class includes all necessary variables to generate a query datasource object that is necessary to create a query history object.
 
 **Arguments**:
 
@@ -571,7 +526,7 @@ The class includes all necessary variables to generate a query datasource object
 class QueryObject()
 ```
 
-The class includes all necessary variables to generate a query object that is necessary to create a query history
+The class includes all necessary variables to generate a query object that is necessary to create a query history.
 
 **Arguments**:
 
@@ -589,7 +544,7 @@ The class includes all necessary variables to generate a query object that is ne
 class CorrelationObject()
 ```
 
-The class includes all necessary variables to generate a find annotation object
+The class includes all necessary variables to generate a find annotation object.
 
 **Arguments**:
 
@@ -610,7 +565,7 @@ The class includes all necessary variables to generate a find annotation object
 class FindAnnotationObject()
 ```
 
-The class includes all necessary variables to generate a find annotation object
+The class includes all necessary variables to generate a find annotation object.
 
 **Arguments**:
 
@@ -633,7 +588,7 @@ The class includes all necessary variables to generate a find annotation object
 class AnnotationObject()
 ```
 
-The class includes all necessary variables to generate an annotation object
+The class includes all necessary variables to generate an annotation object.
 
 **Arguments**:
 
@@ -653,7 +608,7 @@ The class includes all necessary variables to generate an annotation object
 class AnnotationGraphiteObject()
 ```
 
-The class includes all necessary variables to generate a Graphite annotation object
+The class includes all necessary variables to generate a Graphite annotation object.
 
 **Arguments**:
 
@@ -671,7 +626,7 @@ The class includes all necessary variables to generate a Graphite annotation obj
 class GlobalUser()
 ```
 
-The class includes all necessary variables to generate a global user object
+The class includes all necessary variables to generate a global user object.
 
 **Arguments**:
 
@@ -690,7 +645,7 @@ The class includes all necessary variables to generate a global user object
 class RolePermission()
 ```
 
-The class includes all necessary variables to generate a role permission object
+The class includes all necessary variables to generate a role permission object.
 
 **Arguments**:
 
@@ -706,7 +661,7 @@ The class includes all necessary variables to generate a role permission object
 class CustomRole()
 ```
 
-The class includes all necessary variables to generate a custom role object
+The class includes all necessary variables to generate a custom role object.
 
 **Arguments**:
 
@@ -729,7 +684,7 @@ The class includes all necessary variables to generate a custom role object
 class DatasourceCache()
 ```
 
-The class includes all necessary variables to generate a datasource cache object
+The class includes all necessary variables to generate a datasource cache object.
 
 **Arguments**:
 
@@ -749,7 +704,7 @@ The class includes all necessary variables to generate a datasource cache object
 class PublicDashboard()
 ```
 
-The class includes all necessary variables to generate a public dashboard object
+The class includes all necessary variables to generate a public dashboard object.
 
 **Arguments**:
 
@@ -769,7 +724,7 @@ The class includes all necessary variables to generate a public dashboard object
 class SSOSetting()
 ```
 
-The class includes all necessary variables to generate an SSO setting object
+The class includes all necessary variables to generate an SSO setting object.
 
 **Arguments**:
 
@@ -788,7 +743,7 @@ The class includes all necessary variables to generate an SSO setting object
 class DashboardSchema()
 ```
 
-The class includes all necessary variables to generate a dashboard schema object that is used for the reporting functionality
+The class includes all necessary variables to generate a dashboard schema object that is used for the reporting functionality.
 
 **Arguments**:
 
@@ -806,7 +761,7 @@ The class includes all necessary variables to generate a dashboard schema object
 class Report()
 ```
 
-The class includes all necessary variables to generate a report object
+The class includes all necessary variables to generate a report object.
 
 **Arguments**:
 
@@ -836,7 +791,7 @@ The class includes all necessary variables to generate a report object
 class ReportBrandingSettings()
 ```
 
-The class includes all necessary variables to generate a report branding settings object
+The class includes all necessary variables to generate a report branding settings object.
 
 **Arguments**:
 

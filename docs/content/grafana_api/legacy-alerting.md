@@ -1,12 +1,3 @@
-# Table of Contents
-
-* [legacy\_alerting](#legacy_alerting)
-  * [Alerting](#legacy_alerting.Alerting)
-    * [get\_alerts](#legacy_alerting.Alerting.get_alerts)
-    * [get\_alerts\_by\_dashboard\_ids](#legacy_alerting.Alerting.get_alerts_by_dashboard_ids)
-    * [get\_alert\_by\_id](#legacy_alerting.Alerting.get_alert_by_id)
-    * [pause\_alert\_by\_id](#legacy_alerting.Alerting.pause_alert_by_id)
-
 <a id="legacy_alerting"></a>
 
 # legacy\_alerting
@@ -19,7 +10,7 @@
 class Alerting()
 ```
 
-The class includes all necessary methods to access the Grafana legacy alerting API endpoints
+The class includes all necessary methods to access the Grafana legacy alerting API endpoints.
 
 **Arguments**:
 
@@ -38,7 +29,7 @@ The class includes all necessary methods to access the Grafana legacy alerting A
 def get_alerts(custom_querystring: str = None) -> list
 ```
 
-The method includes a functionality to get the legacy alerts
+The method includes a functionality to get the legacy alerts.
 
 **Arguments**:
 
@@ -63,7 +54,7 @@ The method includes a functionality to get the legacy alerts
 def get_alerts_by_dashboard_ids(dashboard_ids: list) -> list
 ```
 
-The method includes a functionality to get legacy alerts specified by the dashboard ids
+The method includes a functionality to get legacy alerts specified by the dashboard ids.
 
 **Arguments**:
 
@@ -88,7 +79,7 @@ The method includes a functionality to get legacy alerts specified by the dashbo
 def get_alert_by_id(id: int) -> dict
 ```
 
-The method includes a functionality to get the legacy alert specified by the alert id
+The method includes a functionality to get the legacy alert specified by the alert id.
 
 **Arguments**:
 
@@ -113,7 +104,7 @@ The method includes a functionality to get the legacy alert specified by the ale
 def pause_alert_by_id(id: int, paused: bool = True)
 ```
 
-The method includes a functionality to pause/ unpause a legacy alert specified by the alert id
+The method includes a functionality to pause/ unpause a legacy alert specified by the alert id.
 
 **Arguments**:
 

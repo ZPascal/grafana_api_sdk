@@ -1,14 +1,3 @@
-# Table of Contents
-
-* [annotations](#annotations)
-  * [Annotations](#annotations.Annotations)
-    * [find\_annotations](#annotations.Annotations.find_annotations)
-    * [create\_annotation](#annotations.Annotations.create_annotation)
-    * [create\_graphite\_annotation](#annotations.Annotations.create_graphite_annotation)
-    * [update\_annotation](#annotations.Annotations.update_annotation)
-    * [delete\_annotation](#annotations.Annotations.delete_annotation)
-    * [find\_annotation\_tags](#annotations.Annotations.find_annotation_tags)
-
 <a id="annotations"></a>
 
 # annotations
@@ -21,7 +10,7 @@
 class Annotations()
 ```
 
-The class includes all necessary methods to access the Grafana annotations API endpoints. Annotations can be organization annotations that can be shown on any dashboard by configuring an annotation data source filtered by tags. They can also be tied to a panel on a dashboard and are then only shown on that panel
+The class includes all necessary methods to access the Grafana annotations API endpoints. Annotations can be organization annotations that can be shown on any dashboard by configuring an annotation data source filtered by tags. They can also be tied to a panel on a dashboard and are then only shown on that panel.
 
 HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
 
@@ -42,7 +31,7 @@ HINT: Note Grafana Enterprise API need required permissions if fine-grained acce
 def find_annotations(annotation: FindAnnotationObject = None) -> list
 ```
 
-The method includes a functionality to find the corresponding annotations
+The method includes a functionality to find the corresponding annotations.
 
 **Arguments**:
 
@@ -66,22 +55,20 @@ The method includes a functionality to find the corresponding annotations
 def create_annotation(annotation: AnnotationObject) -> int
 ```
 
-The method includes a functionality to create the corresponding annotation
+The method includes a functionality to create the corresponding annotation.
 
-Args:
-    annotation (AnnotationObject): Specify the annotation object
+**Arguments**:
 
-Required Permissions:
-    Action: annotations:create
-    Scope: annotations:type:
+- `annotation` (`AnnotationObject`): Specify the annotation object
 
-Raises:
-    ValueError: Missed specifying a necessary value
-    Exception: Unspecified error by executing the API call
+**Raises**:
 
-Returns:
-    api_call (int): Returns the annotation id
+- `ValueError`: Missed specifying a necessary value
+- `Exception`: Unspecified error by executing the API call
 
+**Returns**:
+
+api_call (int): Returns the annotation id
 
 <a id="annotations.Annotations.create_graphite_annotation"></a>
 
@@ -91,22 +78,20 @@ Returns:
 def create_graphite_annotation(annotation: AnnotationGraphiteObject) -> int
 ```
 
-The method includes a functionality to create the corresponding graphite annotation
+The method includes a functionality to create the corresponding graphite annotation.
 
-Args:
-    annotation (AnnotationGraphiteObject): Specify the annotation object
+**Arguments**:
 
-Required Permissions:
-    Action: annotations:create
-    Scope: annotations:type:organization
+- `annotation` (`AnnotationGraphiteObject`): Specify the annotation object
 
-Raises:
-    ValueError: Missed specifying a necessary value
-    Exception: Unspecified error by executing the API call
+**Raises**:
 
-Returns:
-    api_call (int): Returns the annotation id
+- `ValueError`: Missed specifying a necessary value
+- `Exception`: Unspecified error by executing the API call
 
+**Returns**:
+
+api_call (int): Returns the annotation id
 
 <a id="annotations.Annotations.update_annotation"></a>
 
@@ -116,23 +101,21 @@ Returns:
 def update_annotation(id: int, annotation: AnnotationObject)
 ```
 
-The method includes a functionality to update the corresponding annotation specified by the annotation id
+The method includes a functionality to update the corresponding annotation specified by the annotation id.
 
-Args:
-    id (int): Specify the annotation object id
-    annotation (AnnotationObject): Specify the annotation object
+**Arguments**:
 
-Required Permissions:
-    Action: annotations:write
-    Scope: annotations:type:
+- `id` (`int`): Specify the annotation object id
+- `annotation` (`AnnotationObject`): Specify the annotation object
 
-Raises:
-    ValueError: Missed specifying a necessary value
-    Exception: Unspecified error by executing the API call
+**Raises**:
 
-Returns:
-    None
+- `ValueError`: Missed specifying a necessary value
+- `Exception`: Unspecified error by executing the API call
 
+**Returns**:
+
+None
 
 <a id="annotations.Annotations.delete_annotation"></a>
 
@@ -142,22 +125,20 @@ Returns:
 def delete_annotation(id: int)
 ```
 
-The method includes a functionality to delete the corresponding annotation specified by the annotation id
+The method includes a functionality to delete the corresponding annotation specified by the annotation id.
 
-Args:
-    id (int): Specify the annotation object id
+**Arguments**:
 
-Required Permissions:
-    Action: annotations:write
-    Scope: annotations:type:
+- `id` (`int`): Specify the annotation object id
 
-Raises:
-    ValueError: Missed specifying a necessary value
-    Exception: Unspecified error by executing the API call
+**Raises**:
 
-Returns:
-    None
+- `ValueError`: Missed specifying a necessary value
+- `Exception`: Unspecified error by executing the API call
 
+**Returns**:
+
+None
 
 <a id="annotations.Annotations.find_annotation_tags"></a>
 
@@ -167,7 +148,7 @@ Returns:
 def find_annotation_tags(tag: str = None, limit: int = 100)
 ```
 
-The method includes a functionality to find the annotation tags
+The method includes a functionality to find the annotation tags.
 
 **Arguments**:
 

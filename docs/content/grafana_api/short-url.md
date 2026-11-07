@@ -1,9 +1,3 @@
-# Table of Contents
-
-* [short\_url](#short_url)
-  * [ShortUrl](#short_url.ShortUrl)
-    * [create\_short\_url](#short_url.ShortUrl.create_short_url)
-
 <a id="short_url"></a>
 
 # short\_url
@@ -16,7 +10,7 @@
 class ShortUrl()
 ```
 
-The class includes all necessary methods to access the Grafana short url API endpoint
+The class includes all necessary methods to access the Grafana short url API endpoint.
 
 **Arguments**:
 
@@ -35,7 +29,7 @@ The class includes all necessary methods to access the Grafana short url API end
 def create_short_url(path: str)
 ```
 
-The method includes a functionality to create a short link for a specific dashboard
+The method includes a functionality to create a short link for a specific dashboard.
 
 **Arguments**:
 

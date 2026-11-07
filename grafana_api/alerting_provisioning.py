@@ -21,20 +21,21 @@ from .api import Api
 
 
 class AlertingProvisioning:
-    """The class includes all necessary methods to access the Grafana alerting provisioning API endpoints
+    """The class includes all necessary methods to access the Grafana alerting provisioning API endpoints.
 
     Args:
         grafana_api_model (APIModel): Inject a Grafana API model object that includes all necessary values and information
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
     def get_alert_rule(self, uid: str) -> dict:
-        """The method includes a functionality to get the alert rule specified by the uid
+        """The method includes a functionality to get the alert rule specified by the uid.
 
         Args:
             uid (str): Specify the alert rule uid
@@ -45,14 +46,14 @@ class AlertingProvisioning:
 
         Returns:
             api_call (dict): Returns the alert rule
-        """
 
+        """
         if len(uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTING_PROVISIONING.value}/alert-rules/{uid}",
             )
 
-            if api_call == dict() or api_call.get("id") is None:
+            if api_call == {} or api_call.get("id") is None:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -62,7 +63,7 @@ class AlertingProvisioning:
             raise ValueError
 
     def add_alert_rule(self, alert_rule: AlertRule, disable_provenance: bool = False):
-        """The method includes a functionality to create a new alert rule
+        """The method includes a functionality to create a new alert rule.
 
         Args:
             alert_rule (AlertRule): Specify the alert rule
@@ -74,8 +75,8 @@ class AlertingProvisioning:
 
         Returns:
             None
-        """
 
+        """
         if alert_rule is not None:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTING_PROVISIONING.value}/alert-rules",
@@ -97,7 +98,7 @@ class AlertingProvisioning:
     def update_alert_rule(
         self, uid: str, alert_rule: AlertRule, disable_provenance: bool = False
     ):
-        """The method includes a functionality to update an existing alert rule
+        """The method includes a functionality to update an existing alert rule.
 
         Args:
             uid (str): Specify the alert rule uid
@@ -110,8 +111,8 @@ class AlertingProvisioning:
 
         Returns:
             None
-        """
 
+        """
         if len(uid) != 0 and alert_rule is not None:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTING_PROVISIONING.value}/alert-rules/{uid}",
@@ -137,7 +138,7 @@ class AlertingProvisioning:
         alert_rule_group_interval: int,
         disable_provenance: bool = False,
     ):
-        """The method includes a functionality to update the interval of a alert rule group
+        """The method includes a functionality to update the interval of a alert rule group.
 
         Args:
             folder_uid (str): Specify the folder uid
@@ -151,8 +152,8 @@ class AlertingProvisioning:
 
         Returns:
             None
-        """
 
+        """
         if len(folder_uid) != 0 and len(group) != 0 and alert_rule_group_interval != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTING_PROVISIONING.value}/folder/{folder_uid}/rule-groups/{group}",
@@ -176,7 +177,7 @@ class AlertingProvisioning:
             raise ValueError
 
     def delete_alert_rule(self, uid: str, disable_provenance: bool = False):
-        """The method includes a functionality to delete an alert rule
+        """The method includes a functionality to delete an alert rule.
 
         Args:
             uid (str): Specify the alert rule uid
@@ -187,8 +188,8 @@ class AlertingProvisioning:
             Exception: Unspecified error by executing the API call
         Returns:
             None
-        """
 
+        """
         if len(uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTING_PROVISIONING.value}/alert-rules/{uid}",
@@ -207,20 +208,20 @@ class AlertingProvisioning:
             raise ValueError
 
     def get_all_contact_points(self) -> list:
-        """The method includes a functionality to get all contact points
+        """The method includes a functionality to get all contact points.
 
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
             api_call (list): Returns all contact points
-        """
 
+        """
         api_call: list = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.ALERTING_PROVISIONING.value}/contact-points",
         )
 
-        if api_call == list():
+        if api_call == []:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
@@ -231,7 +232,7 @@ class AlertingProvisioning:
         embedded_contact_point: EmbeddedContactPoint,
         disable_provenance: bool = False,
     ):
-        """The method includes a functionality to create a contact point
+        """The method includes a functionality to create a contact point.
 
         Args:
             embedded_contact_point (EmbeddedContactPoint): Specify the embedded contact point
@@ -243,8 +244,8 @@ class AlertingProvisioning:
 
         Returns:
             None
-        """
 
+        """
         if embedded_contact_point is not None:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTING_PROVISIONING.value}/contact-points",
@@ -278,7 +279,7 @@ class AlertingProvisioning:
         embedded_contact_point: EmbeddedContactPoint,
         disable_provenance: bool = False,
     ):
-        """The method includes a functionality to update a contact point
+        """The method includes a functionality to update a contact point.
 
         Args:
             uid (str): Specify the uid of the contact point
@@ -291,8 +292,8 @@ class AlertingProvisioning:
 
         Returns:
             None
-        """
 
+        """
         if len(uid) != 0 and embedded_contact_point is not None:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTING_PROVISIONING.value}/contact-points/{uid}",
@@ -321,7 +322,7 @@ class AlertingProvisioning:
             raise ValueError
 
     def delete_contact_point(self, uid: str):
-        """The method includes a functionality to delete a contact point
+        """The method includes a functionality to delete a contact point.
 
         Args:
             uid (str): Specify the uid of the contact point
@@ -332,8 +333,8 @@ class AlertingProvisioning:
 
         Returns:
             None
-        """
 
+        """
         if len(uid) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTING_PROVISIONING.value}/contact-points/{uid}",
@@ -351,15 +352,15 @@ class AlertingProvisioning:
             raise ValueError
 
     def get_notification_policies(self) -> dict:
-        """The method includes a functionality to get the notification policy tree
+        """The method includes a functionality to get the notification policy tree.
 
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
             api_call (dict): Returns the notification policy tree
-        """
 
+        """
         api_call: dict = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.ALERTING_PROVISIONING.value}/policies",
             response_status_code=True,
@@ -372,7 +373,7 @@ class AlertingProvisioning:
             return api_call
 
     def add_notification_policies(self, route: Route, disable_provenance: bool = False):
-        """The method includes a functionality to set the notification policy tree
+        """The method includes a functionality to set the notification policy tree.
 
         Args:
             route (Route): Specify the alert rule routes
@@ -384,8 +385,8 @@ class AlertingProvisioning:
 
         Returns:
             None
-        """
 
+        """
         if route is not None:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTING_PROVISIONING.value}/policies",
@@ -405,15 +406,15 @@ class AlertingProvisioning:
             raise ValueError
 
     def get_all_mute_timings(self) -> list:
-        """The method includes a functionality to get all mute timings
+        """The method includes a functionality to get all mute timings.
 
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
             api_call (list): Returns all mute timings
-        """
 
+        """
         api_call: list = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.ALERTING_PROVISIONING.value}/mute-timings",
         )
@@ -425,7 +426,7 @@ class AlertingProvisioning:
             return api_call
 
     def get_mute_timing(self, name: str) -> dict:
-        """The method includes a functionality to get a mute timings specified by the name
+        """The method includes a functionality to get a mute timings specified by the name.
 
         Args:
             name (str): Specify the mute timing name
@@ -436,14 +437,14 @@ class AlertingProvisioning:
 
         Returns:
             api_call (dict): Returns the mute timing
-        """
 
+        """
         if len(name) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTING_PROVISIONING.value}/mute-timings/{name}",
             )
 
-            if api_call == dict():
+            if api_call == {}:
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -455,7 +456,7 @@ class AlertingProvisioning:
     def add_mute_timing(
         self, mute_time_interval: MuteTimeInterval, disable_provenance: bool = False
     ):
-        """The method includes a functionality to create a mute timing
+        """The method includes a functionality to create a mute timing.
 
         Args:
             mute_time_interval (MuteTimeInterval): Specify the mute time interval
@@ -467,8 +468,8 @@ class AlertingProvisioning:
 
         Returns:
             None
-        """
 
+        """
         if mute_time_interval is not None:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTING_PROVISIONING.value}/mute-timings",
@@ -493,7 +494,7 @@ class AlertingProvisioning:
         mute_time_interval: MuteTimeInterval,
         disable_provenance: bool = False,
     ):
-        """The method includes a functionality to update an existing mute timing
+        """The method includes a functionality to update an existing mute timing.
 
         Args:
             name (str): Specify the mute timing name
@@ -506,8 +507,8 @@ class AlertingProvisioning:
 
         Returns:
             None
-        """
 
+        """
         if len(name) != 0 and mute_time_interval is not None:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTING_PROVISIONING.value}/mute-timings/{name}",
@@ -527,7 +528,7 @@ class AlertingProvisioning:
             raise ValueError
 
     def delete_mute_timing(self, name: str):
-        """The method includes a functionality to delete a mute timings specified by the name
+        """The method includes a functionality to delete a mute timings specified by the name.
 
         Args:
             name (str): Specify the mute timing name
@@ -538,8 +539,8 @@ class AlertingProvisioning:
 
         Returns:
             None
-        """
 
+        """
         if len(name) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTING_PROVISIONING.value}/mute-timings/{name}",
@@ -557,15 +558,15 @@ class AlertingProvisioning:
             raise ValueError
 
     def get_all_message_templates(self) -> list:
-        """The method includes a functionality to get all message templates
+        """The method includes a functionality to get all message templates.
 
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
             api_call (list): Returns all message templates
-        """
 
+        """
         api_call: list = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.ALERTING_PROVISIONING.value}/templates",
         )
@@ -577,7 +578,7 @@ class AlertingProvisioning:
             return api_call
 
     def get_message_template(self, name: str) -> dict:
-        """The method includes a functionality to get a message template specified by the name
+        """The method includes a functionality to get a message template specified by the name.
 
         Args:
             name (str): Specify the message template name
@@ -588,8 +589,8 @@ class AlertingProvisioning:
 
         Returns:
             api_call (dict): Returns the message template
-        """
 
+        """
         if len(name) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTING_PROVISIONING.value}/templates/{name}",
@@ -608,7 +609,7 @@ class AlertingProvisioning:
     def create_or_update_message_template(
         self, name: str, message_template: str, disable_provenance: bool = False
     ):
-        """The method includes a functionality to create or update a message template
+        """The method includes a functionality to create or update a message template.
 
         Args:
             name (str): Specify the message template name
@@ -621,8 +622,8 @@ class AlertingProvisioning:
 
         Returns:
             None
-        """
 
+        """
         if len(name) != 0 and len(message_template) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTING_PROVISIONING.value}/templates/{name}",
@@ -642,7 +643,7 @@ class AlertingProvisioning:
             raise ValueError
 
     def delete_message_template(self, name: str):
-        """The method includes a functionality to delete a message template
+        """The method includes a functionality to delete a message template.
 
         Args:
             name (str): Specify the message template name
@@ -653,8 +654,8 @@ class AlertingProvisioning:
 
         Returns:
             None
-        """
 
+        """
         if len(name) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTING_PROVISIONING.value}/templates/{name}",
@@ -674,37 +675,35 @@ class AlertingProvisioning:
     def _create_mute_timing_dictionary(
         self, mute_time_interval: MuteTimeInterval
     ) -> dict:
-        """The method includes a functionality to create the mute timing dictionary
+        """The method includes a functionality to create the mute timing dictionary.
 
         Args:
             mute_time_interval (MuteTimeInterval): Specify the mute time interval
 
         Returns:
             result (dict): Returns the mute timing dictionary
-        """
 
-        return dict(
-            {
+        """
+        return {
                 "name": mute_time_interval.name,
                 "time_intervals": self._create_mute_timing_interval_list(
                     mute_time_interval.time_intervals
                 ),
             }
-        )
 
     def _create_mute_timing_interval_list(
         self, time_intervals: List[TimeInterval]
     ) -> (list, None):
-        """The method includes a functionality to create the mute timing interval list
+        """The method includes a functionality to create the mute timing interval list.
 
         Args:
             time_intervals (List[TimeInterval]): Specify the list of time intervals
 
         Returns:
             result (list, None): Returns the mute time interval list or None
-        """
 
-        mute_timing_interval_list: list = list()
+        """
+        mute_timing_interval_list: list = []
 
         if time_intervals is not None and isinstance(time_intervals, list):
             for time_interval in time_intervals:
@@ -724,16 +723,16 @@ class AlertingProvisioning:
 
     @staticmethod
     def _create_time_range_list(timing: List[TimeRange]) -> (list, None):
-        """The method includes a functionality to create the time range list
+        """The method includes a functionality to create the time range list.
 
         Args:
             timing (List[TimeRange]): Specify the list of time points
 
         Returns:
             timing_list (list): Returns the time list
-        """
 
-        timing_list: list = list()
+        """
+        timing_list: list = []
 
         if timing is not None and isinstance(timing, list):
             for time in timing:
@@ -746,17 +745,16 @@ class AlertingProvisioning:
             return timing
 
     def _create_alert_route_dictionary(self, route: Route) -> dict:
-        """The method includes a functionality to create the alert route dictionary
+        """The method includes a functionality to create the alert route dictionary.
 
         Args:
             route (Route): Specify the route
 
         Returns:
             result (dict): Returns the alert route dictionary
-        """
 
-        return dict(
-            {
+        """
+        return {
                 "continue": route.continue_parameter,
                 "group_by": route.group_by_str,
                 "mute_time_intervals": route.mute_time_intervals,
@@ -770,19 +768,18 @@ class AlertingProvisioning:
                 "provenance": route.provenance,
                 "repeat_interval": route.repeat_interval,
             }
-        )
 
     def _create_alert_routes_list(self, routes: List[Route]) -> (list, None):
-        """The method includes a functionality to create the alert route list
+        """The method includes a functionality to create the alert route list.
 
         Args:
             routes (List[Route]): Specify the list of alert routes
 
         Returns:
             result (list, None): Returns the alert routes list or None
-        """
 
-        routes_list: list = list()
+        """
+        routes_list: list = []
 
         if routes is not None and isinstance(routes, list):
             for route in routes:
@@ -794,26 +791,24 @@ class AlertingProvisioning:
 
     @staticmethod
     def _create_object_matcher_list(matchers: List[Matcher]) -> (list, None):
-        """The method includes a functionality to create the object matcher list
+        """The method includes a functionality to create the object matcher list.
 
         Args:
             matchers (List[Matcher]): Specify the list of object matchers
 
         Returns:
             route_matchers_list (list): Returns the list of object matchers
-        """
 
-        route_matchers_list: list = list()
+        """
+        route_matchers_list: list = []
 
         if matchers is not None and isinstance(matchers, list):
             for matcher in matchers:
-                route_matcher_dict: dict = dict(
-                    {
+                route_matcher_dict: dict = {
                         "name": matcher.name,
                         "type": matcher.type.value,
                         "value": matcher.value,
                     }
-                )
 
                 route_matchers_list.append(route_matcher_dict)
 
@@ -822,17 +817,16 @@ class AlertingProvisioning:
             return matchers
 
     def _create_alert_rule_dictionary(self, alert_rule: AlertRule) -> dict:
-        """The method includes a functionality to create the alert rule dictionary
+        """The method includes a functionality to create the alert rule dictionary.
 
         Args:
             alert_rule (AlertRule): Specify the alert rule
 
         Returns:
             result (dict): Returns the alert rule dictionary
-        """
 
-        return dict(
-            {
+        """
+        return {
                 "annotations": alert_rule.annotations,
                 "condition": alert_rule.condition,
                 "data": self._create_alert_rule_query_list(alert_rule.data),
@@ -849,23 +843,21 @@ class AlertingProvisioning:
                 "for": alert_rule.for_time,
                 "provenance": alert_rule.provenance,
             }
-        )
 
     def _create_alert_rule_query_list(self, alert_queries: List[AlertQuery]) -> list:
-        """The method includes a functionality to create the alert rule query list
+        """The method includes a functionality to create the alert rule query list.
 
         Args:
             alert_queries (List[AlertQuery]): Specify the alert rule query list
 
         Returns:
             alert_rule_queries_list (list): Returns the alert rule query list
-        """
 
-        alert_rule_queries_list: list = list()
+        """
+        alert_rule_queries_list: list = []
 
         for alert_query in alert_queries:
-            alert_query_dict: dict = dict(
-                {
+            alert_query_dict: dict = {
                     "datasourceUID": alert_query.datasource_uid,
                     "model": self._create_alert_rule_query_model_dictionary(
                         alert_query.model
@@ -877,7 +869,6 @@ class AlertingProvisioning:
                         "to": alert_query.relative_time_range_to,
                     },
                 }
-            )
 
             alert_rule_queries_list.append(alert_query_dict)
 
@@ -886,17 +877,16 @@ class AlertingProvisioning:
     def _create_alert_rule_query_model_dictionary(
         self, alert_query_model: AlertRuleQueryModel
     ) -> dict:
-        """The method includes a functionality to create the alert rule query model dictionary
+        """The method includes a functionality to create the alert rule query model dictionary.
 
         Args:
             alert_query_model (AlertRuleQueryModel): Specify the alert rule query model
 
         Returns:
             result (dict): Returns the alert rule query model dictionary
-        """
 
-        return dict(
-            {
+        """
+        return {
                 "conditions": self._create_alert_rule_query_model_condition_list(
                     alert_query_model.conditions
                 ),
@@ -908,26 +898,24 @@ class AlertingProvisioning:
                 "refId": alert_query_model.ref_id,
                 "type": alert_query_model.type,
             }
-        )
 
     @staticmethod
     def _create_alert_rule_query_model_condition_list(
         alert_rule_query_model_conditions: List[AlertRuleQueryModelCondition],
     ) -> list:
-        """The method includes a functionality to create the alert rule query model condition list
+        """The method includes a functionality to create the alert rule query model condition list.
 
         Args:
             alert_rule_query_model_conditions (List[AlertRuleQueryModelCondition]): Specify the alert rule query model conditions list
 
         Returns:
             alert_rule_query_model_conditions_list (list): Returns the alert rule query model conditions list
-        """
 
-        alert_rule_query_model_conditions_list: list = list()
+        """
+        alert_rule_query_model_conditions_list: list = []
 
         for alert_rule_query_model_condition in alert_rule_query_model_conditions:
-            alert_rule_query_model_condition_dict: dict = dict(
-                {
+            alert_rule_query_model_condition_dict: dict = {
                     "evaluator": {
                         "params": alert_rule_query_model_condition.evaluator_params,
                         "type": alert_rule_query_model_condition.evaluator_type,
@@ -942,7 +930,6 @@ class AlertingProvisioning:
                     },
                     "type": alert_rule_query_model_condition.type,
                 }
-            )
 
             alert_rule_query_model_conditions_list.append(
                 alert_rule_query_model_condition_dict

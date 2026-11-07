@@ -1,21 +1,3 @@
-# Table of Contents
-
-* [team](#team)
-  * [Team](#team.Team)
-    * [search\_team](#team.Team.search_team)
-    * [get\_team\_by\_id](#team.Team.get_team_by_id)
-    * [add\_team](#team.Team.add_team)
-    * [update\_team](#team.Team.update_team)
-    * [delete\_team\_by\_id](#team.Team.delete_team_by_id)
-    * [get\_team\_members](#team.Team.get_team_members)
-    * [add\_team\_member](#team.Team.add_team_member)
-    * [delete\_team\_member](#team.Team.delete_team_member)
-    * [get\_team\_preferences](#team.Team.get_team_preferences)
-    * [update\_team\_preferences](#team.Team.update_team_preferences)
-    * [get\_external\_groups](#team.Team.get_external_groups)
-    * [add\_external\_group](#team.Team.add_external_group)
-    * [remove\_external\_group](#team.Team.remove_external_group)
-
 <a id="team"></a>
 
 # team
@@ -28,7 +10,7 @@
 class Team()
 ```
 
-The class includes all necessary methods to access the Grafana team API endpoints. Be aware that all functionalities inside the class only working with the corresponding access rights, please check the following page for details: https://grafana.com/docs/grafana/latest/http_api/team/`team`-api & https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/`team`-sync-api
+The class includes all necessary methods to access the Grafana team API endpoints. Be aware that all functionalities inside the class only working with the corresponding access rights, please check the following page for details: https://grafana.com/docs/grafana/latest/http_api/team/`team`-api & https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/`team`-sync-api.
 
 HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
 
@@ -51,7 +33,7 @@ def search_team(results_per_page: int = 1000,
                 query: str = None) -> dict
 ```
 
-The method includes a functionality to get the organization teams specified by the optional pagination functionality
+The method includes a functionality to get the organization teams specified by the optional pagination functionality.
 
 Required Permissions:
 Action: teams:read
@@ -81,7 +63,7 @@ Scope: teams:*
 def get_team_by_id(id: int) -> dict
 ```
 
-The method includes a functionality to get the organization team specified by the id
+The method includes a functionality to get the organization team specified by the id.
 
 Required Permissions:
 Action: teams:read
@@ -110,7 +92,7 @@ Scope: teams:*
 def add_team(team: TeamObject) -> int
 ```
 
-The method includes a functionality to add an organization team specified by the TeamObject
+The method includes a functionality to add an organization team specified by the TeamObject.
 
 Required Permissions:
 Action: teams:create
@@ -139,7 +121,7 @@ Scope: N/A
 def update_team(id: int, name: str, email: str)
 ```
 
-The method includes a functionality to update an organization team specified by the team_id, name and email
+The method includes a functionality to update an organization team specified by the team_id, name and email.
 
 Required Permissions:
 Action: teams:write
@@ -170,7 +152,7 @@ Scope: teams:*
 def delete_team_by_id(id: int)
 ```
 
-The method includes a functionality to delete an organization team specified by the team_id
+The method includes a functionality to delete an organization team specified by the team_id.
 
 Required Permissions:
 Action: teams:delete
@@ -199,7 +181,7 @@ Scope: teams:*
 def get_team_members(id: int) -> list
 ```
 
-The method includes a functionality to get all organization team users specified by the team_id
+The method includes a functionality to get all organization team users specified by the team_id.
 
 Required Permissions:
 Action: teams.permissions:read
@@ -228,7 +210,7 @@ Scope: teams:*
 def add_team_member(id: int, user_id: int)
 ```
 
-The method includes a functionality to add an organization team user specified by the team_id and the user_id
+The method includes a functionality to add an organization team user specified by the team_id and the user_id.
 
 Required Permissions:
 Action: teams.permissions:write
@@ -258,7 +240,7 @@ Scope: teams:*
 def delete_team_member(id: int, user_id: int)
 ```
 
-The method includes a functionality to delete an organization team user specified by the team_id and the user_id
+The method includes a functionality to delete an organization team user specified by the team_id and the user_id.
 
 Required Permissions:
 Action: teams.permissions:write
@@ -288,7 +270,7 @@ Scope: teams:*
 def get_team_preferences(id: int) -> dict
 ```
 
-The method includes a functionality to get the organization team preferences specified by the team_id
+The method includes a functionality to get the organization team preferences specified by the team_id.
 
 Required Permissions:
 Action: teams:read
@@ -321,7 +303,7 @@ def update_team_preferences(id: int,
                             home_dashboard_uid: str = None)
 ```
 
-The method includes a functionality to update the organization team preferences specified by the team_id, theme, timezone and home_dashboard_id or home_dashboard_uid
+The method includes a functionality to update the organization team preferences specified by the team_id, theme, timezone and home_dashboard_id or home_dashboard_uid.
 
 Required Permissions:
 Action: teams:write
@@ -354,7 +336,7 @@ Scope: teams:*
 def get_external_groups(id: int) -> list
 ```
 
-The method includes a functionality to get the team groups specified by the team_id. The functionality is a Grafana ENTERPRISE feature
+The method includes a functionality to get the team groups specified by the team_id. The functionality is a Grafana ENTERPRISE feature.
 
 Required Permissions:
 Action: teams.permissions:read
@@ -383,7 +365,7 @@ Scope: teams:*
 def add_external_group(id: int, team_group: str)
 ```
 
-The method includes a functionality to add a group to the team specified by the team_id and the team_group. The functionality is a Grafana ENTERPRISE feature
+The method includes a functionality to add a group to the team specified by the team_id and the team_group. The functionality is a Grafana ENTERPRISE feature.
 
 Required Permissions:
 Action: teams.permissions:write
@@ -413,7 +395,7 @@ Scope: teams:*
 def remove_external_group(id: int, team_group: str)
 ```
 
-The method includes a functionality to remove a group from a team specified by the team_id and the team_group. The functionality is a Grafana ENTERPRISE feature
+The method includes a functionality to remove a group from a team specified by the team_id and the team_group. The functionality is a Grafana ENTERPRISE feature.
 
 Required Permissions:
 Action: teams.permissions:write

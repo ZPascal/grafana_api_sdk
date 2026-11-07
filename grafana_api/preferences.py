@@ -13,6 +13,7 @@ class Preferences:
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
@@ -21,20 +22,20 @@ class Preferences:
     def get_current_user_preferences(
         self,
     ) -> dict:
-        """The method includes a functionality to get the current user preferences
+        """The method includes a functionality to get the current user preferences.
 
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
             api_call (dict): Returns the current user preferences
-        """
 
+        """
         api_call: dict = Api(self.grafana_api_model).call_the_api(
             APIEndpoints.USER_PREFERENCES.value,
         )
 
-        if isinstance(api_call, dict) is False or api_call == dict():
+        if isinstance(api_call, dict) is False or api_call == {}:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
@@ -47,7 +48,7 @@ class Preferences:
         home_dashboard_id: int = 0,
         home_dashboard_uid: str = None,
     ):
-        """The method includes a functionality to update the current user preferences
+        """The method includes a functionality to update the current user preferences.
 
         Args:
             theme (str): Specify the theme e.g. light, dark, or an empty string for the default theme (default None)
@@ -61,25 +62,25 @@ class Preferences:
 
         Returns:
             None
-        """
 
+        """
         if (
             theme is not None
             or (home_dashboard_id != 0 or home_dashboard_uid is not None)
             or timezone is not None
         ):
-            modified_values: dict = dict()
+            modified_values: dict = {}
 
             if theme is not None:
-                modified_values.update(dict({"theme": theme}))
+                modified_values.update({"theme": theme})
 
             if home_dashboard_id != 0 and isinstance(home_dashboard_id, int):
-                modified_values.update(dict({"homeDashboardId": home_dashboard_id}))
+                modified_values.update({"homeDashboardId": home_dashboard_id})
             else:
                 modified_values.update({"homeDashboardUID": home_dashboard_uid})
 
             if timezone is not None:
-                modified_values.update(dict({"timezone": timezone}))
+                modified_values.update({"timezone": timezone})
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 APIEndpoints.USER_PREFERENCES.value,
@@ -99,20 +100,20 @@ class Preferences:
     def get_current_org_preferences(
         self,
     ) -> dict:
-        """The method includes a functionality to get the current org preferences
+        """The method includes a functionality to get the current org preferences.
 
         Raises:
             Exception: Unspecified error by executing the API call
 
         Returns:
             api_call (dict): Returns the current user preferences
-        """
 
+        """
         api_call: dict = Api(self.grafana_api_model).call_the_api(
             APIEndpoints.ORG_PREFERENCES.value,
         )
 
-        if isinstance(api_call, dict) is False or api_call == dict():
+        if isinstance(api_call, dict) is False or api_call == {}:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
@@ -125,7 +126,7 @@ class Preferences:
         home_dashboard_uid: str = None,
         timezone: str = None,
     ):
-        """The method includes a functionality to update the current org preferences
+        """The method includes a functionality to update the current org preferences.
 
         Args:
             theme (str): Specify the theme e.g. light, dark, or an empty string for the default theme (default None)
@@ -139,25 +140,25 @@ class Preferences:
 
         Returns:
             None
-        """
 
+        """
         if (
             theme is not None
             or (home_dashboard_id != 0 or home_dashboard_uid is not None)
             or timezone is not None
         ):
-            modified_values: dict = dict()
+            modified_values: dict = {}
 
             if theme is not None:
-                modified_values.update(dict({"theme": theme}))
+                modified_values.update({"theme": theme})
 
             if home_dashboard_id != 0 and isinstance(home_dashboard_id, int):
-                modified_values.update(dict({"homeDashboardId": home_dashboard_id}))
+                modified_values.update({"homeDashboardId": home_dashboard_id})
             else:
                 modified_values.update({"homeDashboardUID": home_dashboard_uid})
 
             if timezone is not None:
-                modified_values.update(dict({"timezone": timezone}))
+                modified_values.update({"timezone": timezone})
 
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 APIEndpoints.ORG_PREFERENCES.value,

@@ -11,7 +11,7 @@ from .api import Api
 
 
 class Licensing:
-    """The class includes all necessary methods to access the Grafana licensing API endpoints. Be aware that the functionality is a Grafana ENTERPRISE v7.4+ feature
+    """The class includes all necessary methods to access the Grafana licensing API endpoints. Be aware that the functionality is a Grafana ENTERPRISE v7.4+ feature.
 
     HINT: Note Grafana Enterprise API need required permissions if fine-grained access control is enabled
 
@@ -20,13 +20,14 @@ class Licensing:
 
     Attributes:
         grafana_api_model (APIModel): This is where we store the grafana_api_model
+
     """
 
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
     def check_license_availability(self):
-        """The method includes a functionality to checks if a valid license is available
+        """The method includes a functionality to checks if a valid license is available.
 
         Required Permissions:
             Action: licensing:read
@@ -37,8 +38,8 @@ class Licensing:
 
         Returns:
             api_call (bool): Returns the result if the license is available or not
-        """
 
+        """
         api_call: Response = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.LICENSING.value}/check",
         )
@@ -50,7 +51,7 @@ class Licensing:
             return json.loads(str(api_call.text))
 
     def manually_force_license_refresh(self):
-        """The method includes a functionality to manually ask license issuer for a new token
+        """The method includes a functionality to manually ask license issuer for a new token.
 
         Required Permissions:
             Action: licensing:update
@@ -61,22 +62,22 @@ class Licensing:
 
         Returns:
             api_call (dict): Returns the result of license refresh call
-        """
 
+        """
         api_call: dict = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.LICENSING.value}/token/renew",
             RequestsMethods.POST,
             json.dumps({}),
         )
 
-        if api_call == dict() or api_call.get("jti") is None:
+        if api_call == {} or api_call.get("jti") is None:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
             return api_call
 
     def remove_license_from_database(self):
-        """The method includes a functionality to removes the license stored in the Grafana database
+        """The method includes a functionality to removes the license stored in the Grafana database.
 
         Required Permissions:
             Action: licensing:delete
@@ -87,8 +88,8 @@ class Licensing:
 
         Returns:
             api_call (dict): Returns the result of license refresh call
-        """
 
+        """
         api_call: dict = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.LICENSING.value}/token",
             RequestsMethods.DELETE,

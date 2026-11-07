@@ -64,7 +64,7 @@ class DataSourceTest(TestCase):
 
         self.assertEqual(None, self.data_source.delete_datasource_by_uid(uid))
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.data_source.get_datasource_by_uid(uid)
 
     def test_delete_datasource_by_uid(self):
@@ -75,7 +75,7 @@ class DataSourceTest(TestCase):
             None, self.data_source.delete_datasource_by_uid(uid)
         )
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.data_source.get_datasource_by_uid(uid)
 
     def test_delete_datasource_by_name(self):
@@ -86,5 +86,5 @@ class DataSourceTest(TestCase):
             None, self.data_source.delete_datasource_by_name("TestData DB 1")
         )
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.data_source.get_datasource_by_uid(uid)

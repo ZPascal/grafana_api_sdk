@@ -14,11 +14,11 @@ class ApiTestCase(TestCase):
     api: Api = Api(grafana_api_model=model)
 
     def test_call_the_api_non_method(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.api.call_the_api(api_call=MagicMock(), method=None)
 
     def test_call_the_api_non_valid_method(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.api.call_the_api(api_call=MagicMock(), method=MagicMock())
 
     @patch("httpx.Client")
@@ -41,7 +41,7 @@ class ApiTestCase(TestCase):
             host="https://test.test.de",
             username="test",
             password="test",
-            headers=dict({"X-Custom-Header": "custom_value"}),
+            headers={"X-Custom-Header": "custom_value"},
         )
         api: Api = Api(grafana_api_model=model)
 
@@ -56,14 +56,12 @@ class ApiTestCase(TestCase):
 
         httpx_client_mock.assert_called()
         self.assertEqual(
-            dict(
-                {
+            {
                     "X-Custom-Header": "custom_value",
                     "Authorization": "Basic dGVzdDp0ZXN0",
                     "Content-Type": "application/json",
                     "Accept": "application/json",
-                }
-            ),
+                },
             httpx_client_mock.call_args[1]["headers"],
         )
 
@@ -122,7 +120,7 @@ class ApiTestCase(TestCase):
         )
 
     def test_call_the_api_put_not_valid(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.api.call_the_api(api_call=MagicMock(), method=RequestsMethods.PUT)
 
     @patch("httpx.Client")
@@ -149,7 +147,7 @@ class ApiTestCase(TestCase):
             )
 
     def test_call_the_api_post_no_data(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.api.call_the_api(api_call=MagicMock(), method=RequestsMethods.POST)
 
     @patch("httpx.Client")
@@ -176,7 +174,7 @@ class ApiTestCase(TestCase):
             )
 
     def test_call_the_api_patch_no_data(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.api.call_the_api(api_call=MagicMock(), method=RequestsMethods.PATCH)
 
     @patch("httpx.Client")
@@ -193,7 +191,7 @@ class ApiTestCase(TestCase):
         )
 
     def test_call_the_api_delete_not_valid(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception):  # noqa: B017
             self.api.call_the_api(api_call=MagicMock(), method=RequestsMethods.DELETE)
 
     def test_check_the_api_call_response(self):
@@ -201,7 +199,7 @@ class ApiTestCase(TestCase):
         mock.text = '{"test": "test"}'
 
         self.assertEqual(
-            dict({"test": "test"}),
+            {"test": "test"},
             self.api._check_the_api_call_response(response=mock),
         )
 
@@ -210,7 +208,7 @@ class ApiTestCase(TestCase):
         mock.text = '{"message": "test"}'
 
         self.assertEqual(
-            dict({"message": "test"}),
+            {"message": "test"},
             self.api._check_the_api_call_response(response=mock),
         )
 
@@ -249,7 +247,7 @@ class ApiTestCase(TestCase):
         mock.status_code = 200
 
         self.assertEqual(
-            dict({"status": 200, "data": ""}),
+            {"status": 200, "data": ""},
             self.api._check_the_api_call_response(
                 response=mock, response_status_code=True
             ),
@@ -261,7 +259,7 @@ class ApiTestCase(TestCase):
         mock.status_code = 200
 
         self.assertEqual(
-            dict({"status": 200, "test": "test"}),
+            {"status": 200, "test": "test"},
             self.api._check_the_api_call_response(
                 response=mock, response_status_code=True
             ),
@@ -273,7 +271,7 @@ class ApiTestCase(TestCase):
         mock.status_code = 200
 
         self.assertEqual(
-            list([{"status": 200, "test": "test"}, {"test": "test"}]),
+            [{"status": 200, "test": "test"}, {"test": "test"}],
             self.api._check_the_api_call_response(
                 response=mock, response_status_code=True
             ),
@@ -295,7 +293,7 @@ def test_call_the_api_http2_no_valid_method():
     )
     api: Api = Api(model)
 
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017
         api.call_the_api(api_call=MagicMock(), method=MagicMock())
 
 
@@ -346,7 +344,7 @@ def test_call_the_api_http2_put_no_json_complete():
     )
     api: Api = Api(model)
 
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017
         api.call_the_api(
             method=RequestsMethods.PUT, api_call="/test", json_complete=None
         )
@@ -376,7 +374,7 @@ def test_call_the_api_http2_post_no_json_complete():
     )
     api: Api = Api(model)
 
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017
         api.call_the_api(
             method=RequestsMethods.POST, api_call="/test", json_complete=None
         )
@@ -406,7 +404,7 @@ def test_call_the_api_http2_patch_no_json_complete():
     )
     api: Api = Api(model)
 
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017
         api.call_the_api(
             method=RequestsMethods.PATCH, api_call="/test", json_complete=None
         )

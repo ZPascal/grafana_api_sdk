@@ -1,12 +1,3 @@
-# Table of Contents
-
-* [preferences](#preferences)
-  * [Preferences](#preferences.Preferences)
-    * [get\_current\_user\_preferences](#preferences.Preferences.get_current_user_preferences)
-    * [update\_current\_user\_preferences](#preferences.Preferences.update_current_user_preferences)
-    * [get\_current\_org\_preferences](#preferences.Preferences.get_current_org_preferences)
-    * [update\_current\_org\_preferences](#preferences.Preferences.update_current_org_preferences)
-
 <a id="preferences"></a>
 
 # preferences
@@ -38,7 +29,7 @@ The class includes all necessary methods to access the Grafana preferences API e
 def get_current_user_preferences() -> dict
 ```
 
-The method includes a functionality to get the current user preferences
+The method includes a functionality to get the current user preferences.
 
 **Raises**:
 
@@ -60,7 +51,7 @@ def update_current_user_preferences(theme: str = None,
                                     home_dashboard_uid: str = None)
 ```
 
-The method includes a functionality to update the current user preferences
+The method includes a functionality to update the current user preferences.
 
 **Arguments**:
 
@@ -88,7 +79,7 @@ The method includes a functionality to update the current user preferences
 def get_current_org_preferences() -> dict
 ```
 
-The method includes a functionality to get the current org preferences
+The method includes a functionality to get the current org preferences.
 
 **Raises**:
 
@@ -110,7 +101,7 @@ def update_current_org_preferences(theme: str = None,
                                    timezone: str = None)
 ```
 
-The method includes a functionality to update the current org preferences
+The method includes a functionality to update the current org preferences.
 
 **Arguments**:
 
