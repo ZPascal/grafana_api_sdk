@@ -1,40 +1,74 @@
-docs_dir: content
-markdown_extensions:
-- pymdownx.tasklist
-nav:
-- Home: index.md
-- API SDK:
-  - Model: grafana_api/model.md
-  - Api: grafana_api/api.md
-  - Alerting: grafana_api/alerting.md
-  - Alerting Provisioning: grafana_api/alerting-provisioning.md
-  - Legacy Alerting: grafana_api/legacy-alerting.md
-  - Alerting Notifications: grafana_api/alerting-notifications.md
-  - Admin: grafana_api/admin.md
-  - Annotations: grafana_api/annotations.md
-  - Authentication: grafana_api/authentication.md
-  - Correlations: grafana_api/correlations.md
-  - Datasource: grafana_api/datasource.md
-  - Dashboard: grafana_api/dashboard.md
-  - External Group: grafana_api/external-group.md
-  - Folder: grafana_api/folder.md
-  - Library: grafana_api/library.md
-  - Licensing: grafana_api/licensing.md
-  - Organisation: grafana_api/organisation.md
-  - Other HTTP: grafana_api/other-http.md
-  - PlayList: grafana_api/playlist.md
-  - Legacy Playlist: grafana_api/legacy-playlist.md
-  - Preferences: grafana_api/preferences.md
-  - Query History: grafana_api/query-history.md
-  - RBAC: grafana_api/rbac.md
-  - Reporting: grafana_api/reporting.md
-  - Search: grafana_api/search.md
-  - Service Account: grafana_api/service-account.md
-  - SSO Settings: grafana_api/sso-settings.md
-  - Short url: grafana_api/short-url.md
-  - Snapshot: grafana_api/snapshot.md
-  - Team: grafana_api/team.md
-  - User: grafana_api/user.md
-repo_url: https://github.com/ZPascal/grafana_api_sdk
 site_name: Grafana API SDK
-theme: material
+
+repo_url: https://github.com/ZPascal/grafana_api_sdk
+repo_name: ZPascal/grafana_api_sdk
+
+docs_dir: content
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.expand
+    - search.highlight
+    - content.code.copy
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          paths: [..]
+          options:
+            docstring_style: google
+            show_source: true
+            show_root_heading: true
+            show_category_heading: true
+            members_order: source
+            inherited_members: false
+            docstring_options:
+              warn_unknown_params: false
+
+markdown_extensions:
+  - pymdownx.tasklist
+
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+
+nav:
+  - Home: index.md
+  - API SDK:
+    - Model: grafana_api/model.md
+    - Api: grafana_api/api.md
+    - Alerting: grafana_api/alerting.md
+    - Alerting Provisioning: grafana_api/alerting-provisioning.md
+    - Legacy Alerting: grafana_api/legacy-alerting.md
+    - Alerting Notifications: grafana_api/alerting-notifications.md
+    - Admin: grafana_api/admin.md
+    - Annotations: grafana_api/annotations.md
+    - Authentication: grafana_api/authentication.md
+    - Correlations: grafana_api/correlations.md
+    - Datasource: grafana_api/datasource.md
+    - Dashboard: grafana_api/dashboard.md
+    - External Group: grafana_api/external-group.md
+    - Folder: grafana_api/folder.md
+    - Library: grafana_api/library.md
+    - Licensing: grafana_api/licensing.md
+    - Organisation: grafana_api/organisation.md
+    - Other HTTP: grafana_api/other-http.md
+    - PlayList: grafana_api/playlist.md
+    - Legacy Playlist: grafana_api/legacy-playlist.md
+    - Preferences: grafana_api/preferences.md
+    - Query History: grafana_api/query-history.md
+    - RBAC: grafana_api/rbac.md
+    - Reporting: grafana_api/reporting.md
+    - Search: grafana_api/search.md
+    - Service Account: grafana_api/service-account.md
+    - SSO Settings: grafana_api/sso-settings.md
+    - Short url: grafana_api/short-url.md
+    - Snapshot: grafana_api/snapshot.md
+    - Team: grafana_api/team.md
+    - User: grafana_api/user.md
