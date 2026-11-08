@@ -1,6 +1,9 @@
+import functools
 import json
 import logging
-from typing import Optional
+import warnings
+from typing import Any, Callable, Optional
+from urllib.parse import quote
 
 from .model import (
     APIModel,
@@ -10,6 +13,38 @@ from .model import (
     DatasourcePermission,
 )
 from .api import Api
+
+_PERMISSION_UPDATE_METHODS: str = (
+    "DatasourcePermissions.update_datasource_user_access_by_uid, "
+    "DatasourcePermissions.update_datasource_team_access_by_uid or "
+    "DatasourcePermissions.update_datasource_basic_role_access_by_uid"
+)
+
+
+def _deprecated(hint: str, removed: bool = False) -> Callable:
+    """The decorator marks a method as deprecated and emits a DeprecationWarning for every call.
+
+    Args:
+        hint (str): Specify the hint that explains what to use instead
+        removed (bool): Specify if Grafana removed the corresponding endpoint, so the call fails on recent Grafana versions (default False)
+
+    Returns:
+        decorator (Callable): Returns the decorator that wraps the deprecated method
+
+    """
+
+    def decorator(func: Callable) -> Callable:
+        reason: str = " and the Grafana endpoint was removed in recent versions" if removed else ""
+        message: str = f"{func.__qualname__} is deprecated{reason}, {hint}."
+
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            warnings.warn(message, DeprecationWarning, stacklevel=2)
+            return func(*args, **kwargs)
+
+        return wrapper
+
+    return decorator
 
 
 class Datasource:
@@ -53,8 +88,11 @@ class Datasource:
         else:
             return api_call
 
+    @_deprecated("use Datasource.get_datasource_by_uid instead", removed=True)
     def get_datasource_by_id(self, datasource_id: int) -> dict:
         """The method includes a functionality to get the datasource specified by the datasource id.
+
+        REMOVED: Recent Grafana versions removed this endpoint and answer with 404 Not found, so the call fails there. Use Datasource.get_datasource_by_uid instead.
 
         Args:
             datasource_id (int): Specify the id of the datasource
@@ -119,8 +157,11 @@ class Datasource:
             logging.error("There is no uid defined.")
             raise ValueError
 
+    @_deprecated("use Datasource.get_datasource_by_uid instead")
     def get_datasource_by_name(self, name: str) -> dict:
         """The method includes a functionality to get the datasource specified by the datasource name.
+
+        DEPRECATED: Use Datasource.get_datasource_by_uid instead. The corresponding Grafana endpoint is no longer part of the current API documentation or is marked as deprecated.
 
         Args:
             name (str): Specify the name of the datasource
@@ -152,8 +193,11 @@ class Datasource:
             logging.error("There is no name defined.")
             raise ValueError
 
+    @_deprecated("use Datasource.get_datasource_by_uid (read the uid from the result of Datasource.get_all_datasources) instead")
     def get_datasource_id_by_name(self, name: str) -> int:
         """The method includes a functionality to get the datasource id specified by the datasource name.
+
+        DEPRECATED: Use Datasource.get_datasource_by_uid (read the uid from the result of Datasource.get_all_datasources) instead. The corresponding Grafana endpoint is no longer part of the current API documentation or is marked as deprecated.
 
         Args:
             name (str): Specify the name of the datasource
@@ -258,8 +302,11 @@ class Datasource:
             logging.error("There is no datasource_id, dashboard_uid or data_source defined.")
             raise ValueError
 
+    @_deprecated("use Datasource.delete_datasource_by_uid instead", removed=True)
     def delete_datasource_by_id(self, datasource_id: int):
         """The method includes a functionality to delete a datasource specified by the datasource id.
+
+        REMOVED: Recent Grafana versions removed this endpoint and answer with 404 Not found, so the call fails there. Use Datasource.delete_datasource_by_uid instead.
 
         Args:
             datasource_id (int): Specify the id of the datasource
@@ -327,8 +374,11 @@ class Datasource:
             logging.error("There is no uid defined.")
             raise ValueError
 
+    @_deprecated("use Datasource.delete_datasource_by_uid instead")
     def delete_datasource_by_name(self, name: str):
         """The method includes a functionality to delete a datasource specified by the datasource name.
+
+        DEPRECATED: Use Datasource.delete_datasource_by_uid instead. The corresponding Grafana endpoint is no longer part of the current API documentation or is marked as deprecated.
 
         Args:
             name (str): Specify the name of the datasource
@@ -360,10 +410,13 @@ class Datasource:
             logging.error("There is no name defined.")
             raise ValueError
 
+    @_deprecated("use Datasource.query_datasource_by_uid instead")
     def query_datasource_by_id(
         self, time: str, to: str, datasource_queries: list
     ) -> dict:
         """The method includes a functionality to execute a queries inside the datasource itself specified by the datasource id.
+
+        DEPRECATED: Use Datasource.query_datasource_by_uid instead. The corresponding Grafana endpoint is no longer part of the current API documentation or is marked as deprecated.
 
         Args:
             time (str): Specify the name of the absolute in epoch timestamps in milliseconds or relative using Grafana time units. For example, now-1h
@@ -399,10 +452,12 @@ class Datasource:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 APIEndpoints.DATASOURCE_LEGACY_QUERY.value,
                 RequestsMethods.POST,
-                json.dumps(datasource_queries_json_list),
+                json.dumps(
+                    {"from": time, "to": to, "queries": datasource_queries_json_list}
+                ),
             )
 
-            if api_call == {} or api_call.get("results") == {}:
+            if not api_call.get("results"):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -438,7 +493,7 @@ class Datasource:
                             "refId": datasource_query.ref_id,
                             "intervalMs": datasource_query.interval_ms,
                             "maxDataPoints": datasource_query.max_data_points,
-                            "datasourceUid": datasource_query.datasource_uid,
+                            "datasource": {"uid": datasource_query.datasource_uid},
                             "rawSql": datasource_query.raw_sql,
                             "format": datasource_query.output_format,
                         }
@@ -450,16 +505,81 @@ class Datasource:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 APIEndpoints.DATASOURCE_QUERY.value,
                 RequestsMethods.POST,
-                json.dumps(datasource_queries_json_list),
+                json.dumps(
+                    {"from": time, "to": to, "queries": datasource_queries_json_list}
+                ),
             )
 
-            if api_call == {} or api_call.get("results") == {}:
+            if not api_call.get("results"):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
                 return api_call.get("results")
         else:
             logging.error("There is no time, to or datasource_queries defined.")
+            raise ValueError
+
+    def get_datasource_health_by_uid(self, uid: str) -> dict:
+        """The method includes a functionality to check the health of the datasource specified by the datasource uid.
+
+        Args:
+            uid (str): Specify the uid of the datasource
+
+        Required Permissions:
+            Action: datasources:query
+            Scope: [datasources:*, datasources:uid:*, datasources:uid:<uid>]
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (dict): Returns the health check result of the datasource
+
+        """
+        if len(uid) != 0:
+            api_call: dict = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/uid/{uid}/health",
+                RequestsMethods.GET,
+            )
+
+            if api_call.get("status") != "OK":
+                logging.error(f"Check the error: {api_call}.")
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error("There is no uid defined.")
+            raise ValueError
+
+    def get_datasource_resource_by_uid(self, uid: str, resource_path: str) -> Any:
+        """The method includes a functionality to call a plugin resource of the datasource specified by the datasource uid and the resource path.
+
+        Args:
+            uid (str): Specify the uid of the datasource
+            resource_path (str): Specify the path of the plugin resource (for example labels). A query string is forwarded as part of the path (for example labels?start=1). Path traversal segments (..) aren't allowed
+
+        Required Permissions:
+            Action: datasources:query
+            Scope: [datasources:*, datasources:uid:*, datasources:uid:<uid>]
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (any): Returns the decoded JSON response of the datasource plugin resource (an empty dict or list is a valid result) or the raw HTTP response if the plugin resource doesn't return JSON
+
+        """
+        resource_path = resource_path.lstrip("/")
+
+        if len(uid) != 0 and len(resource_path) != 0 and ".." not in resource_path.split("/"):
+            return Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.DATASOURCES.value}/uid/{uid}/resources/{resource_path}",
+                RequestsMethods.GET,
+            )
+        else:
+            logging.error("There is no uid or a valid resource_path defined.")
             raise ValueError
 
 
@@ -479,11 +599,27 @@ class DatasourcePermissions:
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
-    def get_datasource_permissions_by_uid(self, uid: str) -> list:
+    @staticmethod
+    def _ds_type_query(ds_type: Optional[str]) -> str:
+        """The method builds the optional ds_type query string.
+
+        Args:
+            ds_type (str): Specify the optional plugin type of the datasource
+
+        Returns:
+            query (str): Returns the query string or an empty string
+
+        """
+        return f"?ds_type={quote(ds_type, safe='')}" if ds_type else ""
+
+    def get_datasource_permissions_by_uid(
+        self, uid: str, ds_type: Optional[str] = None
+    ) -> list:
         """The method includes a functionality to get the datasource permissions specified by the datasource uid. The functionality is a Grafana ENTERPRISE feature.
 
         Args:
             uid (str): Specify the uid of the datasource
+            ds_type (str): Specify the optional plugin type of the datasource (for example prometheus). It's necessary if more than one datasource in the organisation uses the same uid (default None)
 
         Required Permissions:
             Action: datasources.permissions:read
@@ -499,7 +635,9 @@ class DatasourcePermissions:
         """
         if len(uid) != 0:
             api_call: list = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.DATASOURCE_PERMISSIONS.value}/{uid}",
+                f"{APIEndpoints.DATASOURCE_PERMISSIONS.value}/{uid}{self._ds_type_query(ds_type)}",
+                RequestsMethods.GET,
+                response_status_code=True,
             )
 
             status_code: int = (
@@ -527,7 +665,11 @@ class DatasourcePermissions:
             raise ValueError
 
     def update_datasource_user_access_by_uid(
-        self, uid: str, id: int, datasource_user_permission: DatasourcePermission
+        self,
+        uid: str,
+        id: int,
+        datasource_user_permission: DatasourcePermission,
+        ds_type: Optional[str] = None,
     ):
         """The method includes a functionality to update the datasource permission specified by the datasource uid and the user id. The functionality is a Grafana ENTERPRISE feature.
 
@@ -535,6 +677,7 @@ class DatasourcePermissions:
             uid (str): Specify the uid of the datasource
             id (int): Specify the id of the user
             datasource_user_permission (DatasourcePermission): Specify the datasource user permission
+            ds_type (str): Specify the optional plugin type of the datasource (for example prometheus). It's necessary if more than one datasource in the organisation uses the same uid (default None)
 
         Required Permissions:
             Action: datasources.permissions:write
@@ -554,7 +697,7 @@ class DatasourcePermissions:
             and datasource_user_permission.permission is not None
         ):
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.DATASOURCE_PERMISSIONS.value}/{uid}/users/{id}",
+                f"{APIEndpoints.DATASOURCE_PERMISSIONS.value}/{uid}/users/{id}{self._ds_type_query(ds_type)}",
                 RequestsMethods.POST,
                 json.dumps({"permission": datasource_user_permission.permission}),
                 response_status_code=True,
@@ -590,7 +733,11 @@ class DatasourcePermissions:
             raise ValueError
 
     def update_datasource_team_access_by_uid(
-        self, uid: str, id: int, datasource_team_permission: DatasourcePermission
+        self,
+        uid: str,
+        id: int,
+        datasource_team_permission: DatasourcePermission,
+        ds_type: Optional[str] = None,
     ):
         """The method includes a functionality to update the datasource permission specified by the datasource uid and the team id. The functionality is a Grafana ENTERPRISE feature.
 
@@ -598,6 +745,7 @@ class DatasourcePermissions:
             uid (str): Specify the uid of the datasource
             id (int): Specify the id of the team
             datasource_team_permission (DatasourcePermission): Specify the datasource team permission
+            ds_type (str): Specify the optional plugin type of the datasource (for example prometheus). It's necessary if more than one datasource in the organisation uses the same uid (default None)
 
         Required Permissions:
             Action: datasources.permissions:write
@@ -617,7 +765,7 @@ class DatasourcePermissions:
             and datasource_team_permission.permission is not None
         ):
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.DATASOURCE_PERMISSIONS.value}/{uid}/teams/{id}",
+                f"{APIEndpoints.DATASOURCE_PERMISSIONS.value}/{uid}/teams/{id}{self._ds_type_query(ds_type)}",
                 RequestsMethods.POST,
                 json.dumps({"permission": datasource_team_permission.permission}),
                 response_status_code=True,
@@ -657,6 +805,7 @@ class DatasourcePermissions:
         uid: str,
         build_in_role_name: str,
         datasource_team_permission: DatasourcePermission,
+        ds_type: Optional[str] = None,
     ):
         """The method includes a functionality to update the datasource permission specified by the datasource uid and the build in role name. The functionality is a Grafana ENTERPRISE feature.
 
@@ -664,6 +813,7 @@ class DatasourcePermissions:
             uid (str): Specify the uid of the datasource
             build_in_role_name (str): Specify the build in role name
             datasource_team_permission (DatasourcePermission): Specify the datasource team permission
+            ds_type (str): Specify the optional plugin type of the datasource (for example prometheus). It's necessary if more than one datasource in the organisation uses the same uid (default None)
 
         Required Permissions:
             Action: datasources.permissions:write
@@ -683,7 +833,7 @@ class DatasourcePermissions:
             and datasource_team_permission.permission is not None
         ):
             api_call: dict = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.DATASOURCE_PERMISSIONS.value}/{uid}/builtInRoles/{build_in_role_name}",
+                f"{APIEndpoints.DATASOURCE_PERMISSIONS.value}/{uid}/builtInRoles/{build_in_role_name}{self._ds_type_query(ds_type)}",
                 RequestsMethods.POST,
                 json.dumps({"permission": datasource_team_permission.permission}),
                 response_status_code=True,
@@ -739,8 +889,11 @@ class DatasourceLegacyPermissions:
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
+    @_deprecated("the UID based datasource permissions API has no equivalent")
     def enable_datasource_permissions(self, datasource_id: int):
         """The method includes a functionality to enable datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature.
+
+        DEPRECATED: The UID based datasource permissions API has no equivalent for this call. The corresponding Grafana endpoint is no longer part of the current API documentation.
 
         Args:
             datasource_id (int): Specify the id of the datasource
@@ -773,8 +926,11 @@ class DatasourceLegacyPermissions:
             logging.error("There is no datasource_id defined.")
             raise ValueError
 
+    @_deprecated("the UID based datasource permissions API has no equivalent")
     def disable_datasource_permissions(self, datasource_id: int):
         """The method includes a functionality to disable datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature.
+
+        DEPRECATED: The UID based datasource permissions API has no equivalent for this call. The corresponding Grafana endpoint is no longer part of the current API documentation.
 
         Args:
             datasource_id (int): Specify the id of the datasource
@@ -807,8 +963,11 @@ class DatasourceLegacyPermissions:
             logging.error("There is no datasource_id defined.")
             raise ValueError
 
+    @_deprecated("use DatasourcePermissions.get_datasource_permissions_by_uid instead")
     def get_datasource_permissions(self, datasource_id: int) -> dict:
         """The method includes a functionality to get the datasource permissions specified by the datasource id. The functionality is a Grafana ENTERPRISE feature.
+
+        DEPRECATED: Use DatasourcePermissions.get_datasource_permissions_by_uid instead. The corresponding Grafana endpoint is no longer part of the current API documentation or is marked as deprecated.
 
         Args:
             datasource_id (int): Specify the id of the datasource
@@ -840,10 +999,13 @@ class DatasourceLegacyPermissions:
             logging.error("There is no datasource_id defined.")
             raise ValueError
 
+    @_deprecated(f"use {_PERMISSION_UPDATE_METHODS} instead")
     def add_datasource_permissions(
         self, datasource_id: int, datasource_permission: dict
     ):
         """The method includes a functionality to add datasource permission specified by the datasource id and the datasource permission dict. The functionality is a Grafana ENTERPRISE feature.
+
+        DEPRECATED: Use DatasourcePermissions.update_datasource_user_access_by_uid, DatasourcePermissions.update_datasource_team_access_by_uid or DatasourcePermissions.update_datasource_basic_role_access_by_uid instead. The corresponding Grafana endpoint is no longer part of the current API documentation or is marked as deprecated.
 
         Args:
             datasource_id (int): Specify the id of the datasource
@@ -877,8 +1039,11 @@ class DatasourceLegacyPermissions:
             logging.error("There is no datasource_id or datasource_permission defined.")
             raise ValueError
 
+    @_deprecated(f"use {_PERMISSION_UPDATE_METHODS} (with an empty permission) instead")
     def delete_datasource_permissions(self, datasource_id: int, permission_id: int):
         """The method includes a functionality to delete datasource permission specified by the datasource id and the permission id. The functionality is a Grafana ENTERPRISE feature.
+
+        DEPRECATED: Use DatasourcePermissions.update_datasource_user_access_by_uid, DatasourcePermissions.update_datasource_team_access_by_uid or DatasourcePermissions.update_datasource_basic_role_access_by_uid (with an empty permission) instead. The corresponding Grafana endpoint is no longer part of the current API documentation or is marked as deprecated.
 
         Args:
             datasource_id (int): Specify the id of the datasource

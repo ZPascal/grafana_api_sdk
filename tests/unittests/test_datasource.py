@@ -1,6 +1,8 @@
+import warnings
 from unittest import TestCase
 from unittest.mock import MagicMock, patch
 
+from grafana_api.api import Api
 from grafana_api.model import (
     APIModel,
     DatasourceQuery,
@@ -445,6 +447,357 @@ class DatasourceTestCase(TestCase):
         with self.assertRaises(Exception):  # noqa: B017
             datasource.query_datasource_by_uid("1234", "1234", datasource_queries)
 
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_datasource_health_by_uid(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {
+            "status": "OK",
+            "message": "Data source is working",
+        }
+
+        self.assertEqual(
+            {"status": "OK", "message": "Data source is working"},
+            datasource.get_datasource_health_by_uid("test"),
+        )
+
+    def test_get_datasource_health_by_uid_no_uid(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        with self.assertRaises(ValueError):
+            datasource.get_datasource_health_by_uid("")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_datasource_health_by_uid_not_healthy(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {"status": "ERROR", "message": "failed"}
+
+        with self.assertRaises(Exception):  # noqa: B017
+            datasource.get_datasource_health_by_uid("test")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_datasource_health_by_uid_no_result(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {}
+
+        with self.assertRaises(Exception):  # noqa: B017
+            datasource.get_datasource_health_by_uid("test")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_datasource_resource_by_uid(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {"data": ["a"]}
+
+        self.assertEqual(
+            {"data": ["a"]},
+            datasource.get_datasource_resource_by_uid("test", "/labels"),
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_datasource_resource_by_uid_nested_path_and_query(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = ["a"]
+
+        self.assertEqual(
+            ["a"],
+            datasource.get_datasource_resource_by_uid(
+                "test", "api/v1/label/job/values?start=1"
+            ),
+        )
+
+    def test_get_datasource_resource_by_uid_no_uid(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        with self.assertRaises(ValueError):
+            datasource.get_datasource_resource_by_uid("", "labels")
+
+    def test_get_datasource_resource_by_uid_no_resource_path(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        with self.assertRaises(ValueError):
+            datasource.get_datasource_resource_by_uid("test", "")
+
+    def test_get_datasource_resource_by_uid_only_slash_as_resource_path(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        with self.assertRaises(ValueError):
+            datasource.get_datasource_resource_by_uid("test", "/")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_datasource_resource_by_uid_path_traversal_parent_directory(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        with self.assertRaises(ValueError):
+            datasource.get_datasource_resource_by_uid("test", "..")
+
+        call_the_api_mock.assert_not_called()
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_datasource_resource_by_uid_path_traversal_leading_parent_directory(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        with self.assertRaises(ValueError):
+            datasource.get_datasource_resource_by_uid("test", "../../dashboards")
+
+        call_the_api_mock.assert_not_called()
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_datasource_resource_by_uid_path_traversal_inner_parent_directory(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        with self.assertRaises(ValueError):
+            datasource.get_datasource_resource_by_uid("test", "labels/../../../org")
+
+        call_the_api_mock.assert_not_called()
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_datasource_resource_by_uid_empty_dict_result(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {}
+
+        self.assertEqual(
+            {}, datasource.get_datasource_resource_by_uid("test", "labels")
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_datasource_resource_by_uid_empty_list_result(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = []
+
+        self.assertEqual(
+            [], datasource.get_datasource_resource_by_uid("test", "labels")
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_datasource_resource_by_uid_text_result(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = "test"
+
+        self.assertEqual(
+            "test", datasource.get_datasource_resource_by_uid("test", "labels")
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_datasource_resource_by_uid_number_result(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = 1
+
+        self.assertEqual(
+            1, datasource.get_datasource_resource_by_uid("test", "labels")
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_query_datasource_by_uid_result(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {"results": {"A": {"status": 200}}}
+
+        self.assertEqual(
+            {"A": {"status": 200}},
+            datasource.query_datasource_by_uid(
+                "now-1h", "now", [DatasourceQuery("SELECT 1", datasource_uid="test")]
+            ),
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_query_datasource_by_id_result(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {"results": {"A": {"status": 200}}}
+
+        with self.assertWarns(DeprecationWarning):
+            self.assertEqual(
+                {"A": {"status": 200}},
+                datasource.query_datasource_by_id(
+                    "now-1h", "now", [DatasourceQuery("SELECT 1", datasource_id=1)]
+                ),
+            )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_query_datasource_by_uid_error_response(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {"message": "bad request data"}
+
+        with self.assertRaises(Exception):  # noqa: B017
+            datasource.query_datasource_by_uid(
+                "now-1h", "now", [DatasourceQuery("SELECT 1", datasource_uid="test")]
+            )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_datasource_by_id_is_deprecated(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {"id": 1, "message": "Data source deleted", "results": {"A": 1}}
+
+        with self.assertWarnsRegex(DeprecationWarning, "^Datasource.get_datasource_by_id is deprecated"):
+            datasource.get_datasource_by_id(1)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_datasource_by_name_is_deprecated(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {"id": 1, "message": "Data source deleted", "results": {"A": 1}}
+
+        with self.assertWarnsRegex(DeprecationWarning, "^Datasource.get_datasource_by_name is deprecated"):
+            datasource.get_datasource_by_name("test")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_datasource_id_by_name_is_deprecated(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {"id": 1, "message": "Data source deleted", "results": {"A": 1}}
+
+        with self.assertWarnsRegex(DeprecationWarning, "^Datasource.get_datasource_id_by_name is deprecated"):
+            datasource.get_datasource_id_by_name("test")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_delete_datasource_by_id_is_deprecated(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {"id": 1, "message": "Data source deleted", "results": {"A": 1}}
+
+        with self.assertWarnsRegex(DeprecationWarning, "^Datasource.delete_datasource_by_id is deprecated"):
+            datasource.delete_datasource_by_id(1)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_delete_datasource_by_name_is_deprecated(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {"id": 1, "message": "Data source deleted", "results": {"A": 1}}
+
+        with self.assertWarnsRegex(DeprecationWarning, "^Datasource.delete_datasource_by_name is deprecated"):
+            datasource.delete_datasource_by_name("test")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_query_datasource_by_id_is_deprecated(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {"id": 1, "message": "Data source deleted", "results": {"A": 1}}
+
+        with self.assertWarnsRegex(DeprecationWarning, "^Datasource.query_datasource_by_id is deprecated"):
+            datasource.query_datasource_by_id(
+                "now-1h", "now", [DatasourceQuery("A", datasource_id=1)]
+            )
+
+    def test_get_datasource_by_id_warning_says_the_endpoint_was_removed(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        with self.assertWarnsRegex(DeprecationWarning, "endpoint was removed"):
+            with self.assertRaises(ValueError):
+                datasource.get_datasource_by_id(0)
+
+    def test_delete_datasource_by_id_warning_says_the_endpoint_was_removed(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        with self.assertWarnsRegex(DeprecationWarning, "endpoint was removed"):
+            with self.assertRaises(ValueError):
+                datasource.delete_datasource_by_id(0)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_datasource_by_name_warning_does_not_say_removed(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {"id": 1, "message": "Data source deleted", "results": {"A": 1}}
+
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+            datasource.get_datasource_by_name("test")
+
+        self.assertNotIn("removed", str(caught[0].message))
+
+    def test_deprecated_methods_keep_their_name(self):
+        self.assertEqual("get_datasource_by_id", Datasource.get_datasource_by_id.__name__)
+
+    def test_removed_method_docstring_says_removed(self):
+        self.assertIn("REMOVED", Datasource.get_datasource_by_id.__doc__)
+
+    def test_deprecated_method_docstring_says_deprecated(self):
+        self.assertIn("DEPRECATED", Datasource.get_datasource_by_name.__doc__)
+
+    def test_deprecation_warning_points_to_the_caller(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        with self.assertWarns(DeprecationWarning) as context:
+            with self.assertRaises(ValueError):
+                datasource.get_datasource_by_id(0)
+
+        self.assertEqual(__file__, context.filename)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_datasource_by_uid_does_not_warn(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {"id": 1, "status": "OK"}
+
+        with warnings.catch_warnings():
+            warnings.simplefilter("error")
+
+            datasource.get_datasource_by_uid("test")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_datasource_health_by_uid_does_not_warn(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {"id": 1, "status": "OK"}
+
+        with warnings.catch_warnings():
+            warnings.simplefilter("error")
+
+            datasource.get_datasource_health_by_uid("test")
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_datasource_resource_by_uid_does_not_warn(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource: Datasource = Datasource(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {"id": 1, "status": "OK"}
+
+        with warnings.catch_warnings():
+            warnings.simplefilter("error")
+
+            datasource.get_datasource_resource_by_uid("test", "labels")
+
+
 class DatasourcePermissionsTestCase(TestCase):
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_datasource_permissions_by_uid(self, call_the_api_mock):
@@ -762,6 +1115,102 @@ class DatasourcePermissionsTestCase(TestCase):
                 "test", "test", DatasourcePermission("query")
             )
 
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_datasource_permissions_by_uid_with_ds_type(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource_permissions: DatasourcePermissions = DatasourcePermissions(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = [{"status": 200}]
+
+        self.assertEqual(
+            [{"status": 200}],
+            datasource_permissions.get_datasource_permissions_by_uid(
+                "test", ds_type="prometheus"
+            ),
+        )
+
+    @patch("grafana_api.api.Api._execute_the_api_call")
+    def test_get_datasource_permissions_by_uid_real_response(
+        self, execute_the_api_call_mock
+    ):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource_permissions: DatasourcePermissions = DatasourcePermissions(
+            grafana_api_model=model
+        )
+
+        response: MagicMock = MagicMock()
+        response.text = '[{"id": 1, "permission": "Query"}]'
+        response.status_code = 200
+
+        execute_the_api_call_mock.side_effect = (
+            lambda http, method, api_url, response_status_code, json_complete: Api._check_the_api_call_response(
+                response, response_status_code
+            )
+        )
+
+        self.assertEqual(
+            [{"id": 1, "permission": "Query", "status": 200}],
+            datasource_permissions.get_datasource_permissions_by_uid("test"),
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_update_datasource_user_access_by_uid_with_ds_type(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource_permissions: DatasourcePermissions = DatasourcePermissions(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = {
+            "status": 200,
+            "message": "Permission updated",
+        }
+
+        self.assertEqual(
+            None,
+            datasource_permissions.update_datasource_user_access_by_uid(
+                "test", 1, DatasourcePermission("Edit"), ds_type="loki"
+            ),
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_update_datasource_team_access_by_uid_with_ds_type(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource_permissions: DatasourcePermissions = DatasourcePermissions(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = {
+            "status": 200,
+            "message": "Permission updated",
+        }
+
+        self.assertEqual(
+            None,
+            datasource_permissions.update_datasource_team_access_by_uid(
+                "test", 1, DatasourcePermission("Edit"), ds_type="loki"
+            ),
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_update_datasource_basic_role_access_by_uid_with_ds_type(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource_permissions: DatasourcePermissions = DatasourcePermissions(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = {
+            "status": 200,
+            "message": "Permission updated",
+        }
+
+        self.assertEqual(
+            None,
+            datasource_permissions.update_datasource_basic_role_access_by_uid(
+                "test", "Viewer", DatasourcePermission("Query"), ds_type="loki"
+            ),
+        )
 
 class DatasourceLegacyPermissionsTestCase(TestCase):
     @patch("grafana_api.api.Api.call_the_api")
@@ -944,6 +1393,66 @@ class DatasourceLegacyPermissionsTestCase(TestCase):
         call_the_api_mock.return_value = {}
 
         with self.assertRaises(Exception):  # noqa: B017
+            datasource_legacy_permissions.delete_datasource_permissions(1, 1)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_enable_datasource_permissions_is_deprecated(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource_legacy_permissions: DatasourceLegacyPermissions = (
+            DatasourceLegacyPermissions(grafana_api_model=model)
+        )
+
+        call_the_api_mock.return_value = {"message": "Datasource permissions enabled"}
+
+        with self.assertWarnsRegex(DeprecationWarning, "^DatasourceLegacyPermissions.enable_datasource_permissions is deprecated"):
+            datasource_legacy_permissions.enable_datasource_permissions(1)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_disable_datasource_permissions_is_deprecated(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource_legacy_permissions: DatasourceLegacyPermissions = (
+            DatasourceLegacyPermissions(grafana_api_model=model)
+        )
+
+        call_the_api_mock.return_value = {"message": "Datasource permissions disabled"}
+
+        with self.assertWarnsRegex(DeprecationWarning, "^DatasourceLegacyPermissions.disable_datasource_permissions is deprecated"):
+            datasource_legacy_permissions.disable_datasource_permissions(1)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_datasource_permissions_is_deprecated(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource_legacy_permissions: DatasourceLegacyPermissions = (
+            DatasourceLegacyPermissions(grafana_api_model=model)
+        )
+
+        call_the_api_mock.return_value = {"datasourceId": 1}
+
+        with self.assertWarnsRegex(DeprecationWarning, "^DatasourceLegacyPermissions.get_datasource_permissions is deprecated"):
+            datasource_legacy_permissions.get_datasource_permissions(1)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_add_datasource_permissions_is_deprecated(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource_legacy_permissions: DatasourceLegacyPermissions = (
+            DatasourceLegacyPermissions(grafana_api_model=model)
+        )
+
+        call_the_api_mock.return_value = {"message": "Datasource permission added"}
+
+        with self.assertWarnsRegex(DeprecationWarning, "^DatasourceLegacyPermissions.add_datasource_permissions is deprecated"):
+            datasource_legacy_permissions.add_datasource_permissions(1, {"test": "test"})
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_delete_datasource_permissions_is_deprecated(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        datasource_legacy_permissions: DatasourceLegacyPermissions = (
+            DatasourceLegacyPermissions(grafana_api_model=model)
+        )
+
+        call_the_api_mock.return_value = {"message": "Datasource permission removed"}
+
+        with self.assertWarnsRegex(DeprecationWarning, "^DatasourceLegacyPermissions.delete_datasource_permissions is deprecated"):
             datasource_legacy_permissions.delete_datasource_permissions(1, 1)
 
 

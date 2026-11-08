@@ -251,7 +251,7 @@ class Api:
         """
         if Api._check_if_valid_json(response.text):
             json_response: Union[dict, list] = json.loads(response.text)
-            if len(json_response) != 0 and isinstance(json_response, dict):
+            if isinstance(json_response, dict) and len(json_response) != 0:
                 if (
                     "message" in json_response.keys()
                     and json_response["message"] in ERROR_MESSAGES

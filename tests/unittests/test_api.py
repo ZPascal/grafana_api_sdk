@@ -220,6 +220,15 @@ class ApiTestCase(TestCase):
             "test", self.api._check_the_api_call_response(response=mock).text
         )
 
+    def test_check_the_api_call_response_scalar_json(self):
+        for text, expected in (("123", 123), ("true", True), ('"test"', "test")):
+            mock: Mock = Mock()
+            mock.text = text
+
+            self.assertEqual(
+                expected, self.api._check_the_api_call_response(response=mock)
+            )
+
     def test_check_the_api_call_response_exception(self):
         mock: Mock = Mock()
         mock.text = '{"message": "invalid API key"}'
