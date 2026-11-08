@@ -52,24 +52,31 @@ In general, my focus on this project is to implement and deliver old and new fea
 
 ### Datasource
 - Get all datasources
-- Get the datasource by id
+- Get the datasource by id (removed in recent Grafana versions, use uid)
 - Get the datasource by uid
-- Get the datasource by name
-- Get the datasource id by name
+- Get the datasource by name (deprecated, use uid)
+- Get the datasource id by name (deprecated)
 - Create a new datasource
 - Update a datasource
-- Delete a datasource by id
+- Delete a datasource by id (removed in recent Grafana versions, use uid)
 - Delete a datasource by uid
-- Delete a datasource by name
-- Query a datasource by id
+- Delete a datasource by name (deprecated, use uid)
+- Query a datasource by id (deprecated, use uid)
+- Query a datasource by uid
+- Get the datasource health by uid
+- Get a datasource plugin resource by uid
 
 ### Datasource permissions
+All methods support the optional `ds_type` parameter to select the datasource if more than one datasource in the organisation uses the same uid.
+
 - Get datasource permissions by uid
 - Update the datasource user permissions by uid
 - Update the datasource team permissions by uid
 - Update the datasource basic role permissions by uid
 
 ### Legacy Datasource permissions
+All legacy methods are deprecated. The ID based endpoints are no longer part of the current Grafana API documentation, use the datasource permissions by uid instead.
+
 - Enabled datasource permissions
 - Disable datasource permissions
 - Get datasource permissions
