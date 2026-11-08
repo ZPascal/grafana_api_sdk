@@ -221,7 +221,7 @@ class AlertingProvisioning:
             f"{APIEndpoints.ALERTING_PROVISIONING.value}/contact-points",
         )
 
-        if api_call == []:
+        if isinstance(api_call, list) is False:
             logging.error(f"Check the error: {api_call}.")
             raise Exception
         else:
