@@ -385,6 +385,84 @@ class AlertingProvisioningTestCase(TestCase):
             alerting_provisioning.get_notification_policies()
 
     @patch("grafana_api.api.Api.call_the_api")
+    def test_get_notification_policies_by_receiver(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        child: dict = {"receiver": "test1", "routes": [{"receiver": "test2"}]}
+        call_the_api_mock.return_value = {
+            "status": 200,
+            "receiver": "test1",
+            "routes": [child, {"receiver": "test3"}],
+        }
+
+        policies: list = alerting_provisioning.get_notification_policies_by_receiver(
+            "test1"
+        )
+
+        self.assertEqual(2, len(policies))
+        self.assertEqual(child, policies[1])
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_notification_policies_by_receiver_nested(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = {
+            "status": 200,
+            "receiver": "test1",
+            "routes": [{"receiver": "test3", "routes": [{"receiver": "test2"}]}],
+        }
+
+        self.assertEqual(
+            [{"receiver": "test2"}],
+            alerting_provisioning.get_notification_policies_by_receiver("test2"),
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_notification_policies_by_receiver_no_match(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = {"status": 200, "receiver": "test1"}
+
+        self.assertEqual(
+            [], alerting_provisioning.get_notification_policies_by_receiver("test2")
+        )
+
+    def test_get_notification_policies_by_receiver_no_receiver(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        with self.assertRaises(ValueError):
+            alerting_provisioning.get_notification_policies_by_receiver("")
+
+        with self.assertRaises(ValueError):
+            alerting_provisioning.get_notification_policies_by_receiver(None)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_notification_policies_by_receiver_not_possible(
+        self, call_the_api_mock
+    ):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = {"status": 400}
+
+        with self.assertRaises(Exception):  # noqa: B017
+            alerting_provisioning.get_notification_policies_by_receiver("test1")
+
+    @patch("grafana_api.api.Api.call_the_api")
     def test_add_notification_policies(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting_provisioning: AlertingProvisioning = AlertingProvisioning(

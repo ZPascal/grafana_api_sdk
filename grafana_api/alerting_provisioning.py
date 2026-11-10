@@ -372,6 +372,30 @@ class AlertingProvisioning:
         else:
             return api_call
 
+    def get_notification_policies_by_receiver(self, receiver: str) -> list:
+        """The method includes a functionality to get all notification policies of a receiver.
+
+        Grafana has no filter for this, so the policy tree is searched in the SDK, including all nested routes.
+
+        Args:
+            receiver (str): Specify the name of the receiver (contact point)
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            policies (list): Returns the matching routes, an empty list if there is no match
+
+        """
+        if receiver is not None and len(receiver) != 0:
+            return self._find_routes_by_receiver(
+                self.get_notification_policies(), receiver
+            )
+        else:
+            logging.error("There is no receiver defined.")
+            raise ValueError
+
     def add_notification_policies(self, route: Route, disable_provenance: bool = False):
         """The method includes a functionality to set the notification policy tree.
 
@@ -743,6 +767,17 @@ class AlertingProvisioning:
             return timing_list
         else:
             return timing
+
+    def _find_routes_by_receiver(self, route: dict, receiver: str) -> list:
+        policies: list = []
+
+        if route.get("receiver") == receiver:
+            policies.append(route)
+
+        for child in route.get("routes") or []:
+            policies.extend(self._find_routes_by_receiver(child, receiver))
+
+        return policies
 
     def _create_alert_route_dictionary(self, route: Route) -> dict:
         """The method includes a functionality to create the alert route dictionary.

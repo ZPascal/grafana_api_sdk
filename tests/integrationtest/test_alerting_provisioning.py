@@ -147,6 +147,14 @@ class AlertingProvisioningTest(TestCase):
             "test1",
             self.alerting_provisioning.get_notification_policies().get("receiver"),
         )
+        self.assertEqual(
+            1,
+            len(
+                self.alerting_provisioning.get_notification_policies_by_receiver(
+                    "test1"
+                )
+            ),
+        )
 
     def test_l_delete_contact_point(self):
         self.alerting_provisioning.delete_contact_point("test")
