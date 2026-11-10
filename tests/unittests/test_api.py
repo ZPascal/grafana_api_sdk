@@ -1,9 +1,7 @@
 from httpx import ConnectError, UnsupportedProtocol
 
-import pytest
-from pytest_httpx import HTTPXMock
 from unittest import TestCase
-from unittest.mock import MagicMock, patch, Mock
+from unittest.mock import AsyncMock, MagicMock, patch, Mock
 
 from grafana_api.model import APIModel, RequestsMethods
 from grafana_api.api import Api
@@ -57,11 +55,11 @@ class ApiTestCase(TestCase):
         httpx_client_mock.assert_called()
         self.assertEqual(
             {
-                    "X-Custom-Header": "custom_value",
-                    "Authorization": "Basic dGVzdDp0ZXN0",
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                },
+                "X-Custom-Header": "custom_value",
+                "Authorization": "Basic dGVzdDp0ZXN0",
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
             httpx_client_mock.call_args[1]["headers"],
         )
 
@@ -296,138 +294,125 @@ class ApiTestCase(TestCase):
         self.assertEqual("", self.api.prepare_api_string(""))
 
 
-def test_call_the_api_http2_no_valid_method():
+class ApiHttp2TestCase(TestCase):
     model: APIModel = APIModel(
         host="https://test.com", token="test", http2_support=True
     )
-    api: Api = Api(model)
+    api: Api = Api(grafana_api_model=model)
 
-    with pytest.raises(Exception):  # noqa: B017
-        api.call_the_api(api_call=MagicMock(), method=MagicMock())
+    @staticmethod
+    def _response(text: str) -> Mock:
+        response: Mock = Mock()
+        response.text = text
+        return response
 
+    def test_call_the_api_http2_no_valid_method(self):
+        with self.assertRaises(Exception):  # noqa: B017
+            self.api.call_the_api(api_call=MagicMock(), method=MagicMock())
 
-def test_call_the_api_http2_get(httpx_mock: HTTPXMock):
-    httpx_mock.add_response(text='{"status": "success"}')
+    @patch("httpx.AsyncClient.request", new_callable=AsyncMock)
+    def test_call_the_api_http2_get(self, request_mock):
+        request_mock.return_value = self._response('{"status": "success"}')
 
-    model: APIModel = APIModel(
-        host="https://test.com", token="test", http2_support=True
-    )
-    api: Api = Api(model)
-
-    assert api.call_the_api(api_call="/test")["status"] == "success"
-
-
-def test_call_the_api_http2_get_error(httpx_mock: HTTPXMock):
-    httpx_mock.add_exception(ConnectError("Test"))
-
-    model: APIModel = APIModel(
-        host="https://test.com", token="test", http2_support=True
-    )
-    api: Api = Api(model)
-
-    with pytest.raises(ConnectError):
-        api.call_the_api(api_call="/test")
-
-
-def test_call_the_api_http2_put(httpx_mock: HTTPXMock):
-    httpx_mock.add_response(text='{"status": "success"}')
-
-    model: APIModel = APIModel(
-        host="https://test.com", token="test", http2_support=True
-    )
-    api: Api = Api(model)
-
-    assert (
-        api.call_the_api(
-            method=RequestsMethods.PUT,
-            api_call="/test",
-            json_complete='{"test": "test"}',
-        )["status"]
-        == "success"
-    )
-
-
-def test_call_the_api_http2_put_no_json_complete():
-    model: APIModel = APIModel(
-        host="https://test.com", token="test", http2_support=True
-    )
-    api: Api = Api(model)
-
-    with pytest.raises(Exception):  # noqa: B017
-        api.call_the_api(
-            method=RequestsMethods.PUT, api_call="/test", json_complete=None
+        self.assertEqual(
+            "success",
+            self.api.call_the_api(api_call="/test")["status"],
         )
 
+    @patch("httpx.AsyncClient.request", new_callable=AsyncMock)
+    def test_call_the_api_http2_get_error(self, request_mock):
+        request_mock.side_effect = ConnectError("Test")
 
-def test_call_the_api_http2_post(httpx_mock: HTTPXMock):
-    httpx_mock.add_response(text='{"status": "success"}')
+        with self.assertRaises(ConnectError):
+            self.api.call_the_api(api_call="/test")
 
-    model: APIModel = APIModel(
-        host="https://test.com", token="test", http2_support=True
-    )
-    api: Api = Api(model)
+    @patch("httpx.AsyncClient.request", new_callable=AsyncMock)
+    def test_call_the_api_http2_put(self, request_mock):
+        request_mock.return_value = self._response('{"status": "success"}')
 
-    assert (
-        api.call_the_api(
-            method=RequestsMethods.POST,
-            api_call="/test",
-            json_complete='{"test": "test"}',
-        )["status"]
-        == "success"
-    )
-
-
-def test_call_the_api_http2_post_no_json_complete():
-    model: APIModel = APIModel(
-        host="https://test.com", token="test", http2_support=True
-    )
-    api: Api = Api(model)
-
-    with pytest.raises(Exception):  # noqa: B017
-        api.call_the_api(
-            method=RequestsMethods.POST, api_call="/test", json_complete=None
+        self.assertEqual(
+            "success",
+            self.api.call_the_api(
+                method=RequestsMethods.PUT,
+                api_call="/test",
+                json_complete='{"test": "test"}',
+            )["status"],
         )
 
+    def test_call_the_api_http2_put_no_json_complete(self):
+        with self.assertRaises(Exception):  # noqa: B017
+            self.api.call_the_api(
+                method=RequestsMethods.PUT, api_call="/test", json_complete=None
+            )
 
-def test_call_the_api_http2_patch(httpx_mock: HTTPXMock):
-    httpx_mock.add_response(text='{"status": "success"}')
+    @patch("httpx.AsyncClient.request", new_callable=AsyncMock)
+    def test_call_the_api_http2_post(self, request_mock):
+        request_mock.return_value = self._response('{"status": "success"}')
 
-    model: APIModel = APIModel(
-        host="https://test.com", token="test", http2_support=True
-    )
-    api: Api = Api(model)
-
-    assert (
-        api.call_the_api(
-            method=RequestsMethods.PATCH,
-            api_call="/test",
-            json_complete='{"test": "test"}',
-        )["status"]
-        == "success"
-    )
-
-
-def test_call_the_api_http2_patch_no_json_complete():
-    model: APIModel = APIModel(
-        host="https://test.com", token="test", http2_support=True
-    )
-    api: Api = Api(model)
-
-    with pytest.raises(Exception):  # noqa: B017
-        api.call_the_api(
-            method=RequestsMethods.PATCH, api_call="/test", json_complete=None
+        self.assertEqual(
+            "success",
+            self.api.call_the_api(
+                method=RequestsMethods.POST,
+                api_call="/test",
+                json_complete='{"test": "test"}',
+            )["status"],
         )
 
+    def test_call_the_api_http2_post_no_json_complete(self):
+        with self.assertRaises(Exception):  # noqa: B017
+            self.api.call_the_api(
+                method=RequestsMethods.POST, api_call="/test", json_complete=None
+            )
 
-def test_call_the_api_http2_delete(httpx_mock: HTTPXMock):
-    httpx_mock.add_response(text='{"message": "Deletion successful"}')
+    @patch("httpx.AsyncClient.request", new_callable=AsyncMock)
+    def test_call_the_api_http2_patch(self, request_mock):
+        request_mock.return_value = self._response('{"status": "success"}')
 
-    model: APIModel = APIModel(
-        host="https://test.com", token="test", http2_support=True
-    )
-    api: Api = Api(model)
+        self.assertEqual(
+            "success",
+            self.api.call_the_api(
+                method=RequestsMethods.PATCH,
+                api_call="/test",
+                json_complete='{"test": "test"}',
+            )["status"],
+        )
 
-    assert (
-        api.call_the_api(method=RequestsMethods.DELETE, api_call="/test")["message"]
-        == "Deletion successful"
-    )
+    def test_call_the_api_http2_patch_no_json_complete(self):
+        with self.assertRaises(Exception):  # noqa: B017
+            self.api.call_the_api(
+                method=RequestsMethods.PATCH, api_call="/test", json_complete=None
+            )
+
+    @patch("httpx.AsyncClient.request", new_callable=AsyncMock)
+    def test_call_the_api_http2_delete(self, request_mock):
+        request_mock.return_value = self._response(
+            '{"message": "Deletion successful"}'
+        )
+
+        self.assertEqual(
+            "Deletion successful",
+            self.api.call_the_api(method=RequestsMethods.DELETE, api_call="/test")[
+                "message"
+            ],
+        )
+
+    @patch("httpx.Client.request")
+    def test_call_the_api_post_sends_only_one_request(self, request_mock):
+        request_mock.return_value = self._response('{"status": "success"}')
+
+        api: Api = Api(APIModel(host="https://test.com", token="test"))
+        api.call_the_api(
+            api_call="/test", method=RequestsMethods.POST, json_complete='{"a": 1}'
+        )
+
+        self.assertEqual(1, request_mock.call_count)
+
+    @patch("httpx.AsyncClient.request", new_callable=AsyncMock)
+    def test_call_the_api_http2_post_sends_only_one_request(self, request_mock):
+        request_mock.return_value = self._response('{"status": "success"}')
+
+        self.api.call_the_api(
+            api_call="/test", method=RequestsMethods.POST, json_complete='{"a": 1}'
+        )
+
+        self.assertEqual(1, request_mock.call_count)

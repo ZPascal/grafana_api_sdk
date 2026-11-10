@@ -231,13 +231,24 @@ class AlertingProvisioningTestCase(TestCase):
         )
 
     @patch("grafana_api.api.Api.call_the_api")
-    def test_get_all_contact_points_not_possible(self, call_the_api_mock):
+    def test_get_all_contact_points_empty(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
             grafana_api_model=model
         )
 
         call_the_api_mock.return_value = []
+
+        self.assertEqual([], alerting_provisioning.get_all_contact_points())
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_all_contact_points_not_possible(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = {"message": "error"}
 
         with self.assertRaises(Exception):  # noqa: B017
             alerting_provisioning.get_all_contact_points()
