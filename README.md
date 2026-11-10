@@ -148,6 +148,7 @@ All legacy methods are deprecated. The ID based endpoints are no longer part of 
 - Update contact point
 - Delete contact point
 - Get notification policies
+- Get notification policies by receiver
 - Add notification policies
 - Get all mute timings
 - Get mute timings
