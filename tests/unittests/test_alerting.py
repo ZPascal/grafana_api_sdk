@@ -260,6 +260,26 @@ class AlertingTestCase(TestCase):
             alerting.get_alertmanager_silences(filter_matchers=['alertname="test"']),
         )
 
+    def test_add_alertmanager_query_params(self):
+        self.assertEqual(
+            "/test?active=true&silenced=false&inhibited=true&unprocessed=false"
+            "&filter=alertname%3D%22test%22&filter=severity%3Dcritical&receiver=test",
+            Alerting._add_alertmanager_query_params(
+                "/test",
+                active=True,
+                silenced=False,
+                inhibited=True,
+                unprocessed=False,
+                filter_matchers=['alertname="test"', "severity=critical"],
+                receiver="test",
+            ),
+        )
+
+    def test_add_alertmanager_query_params_no_params(self):
+        self.assertEqual(
+            "/test", Alerting._add_alertmanager_query_params("/test")
+        )
+
     @patch("grafana_api.api.Api.call_the_api")
     def test_create_or_update_alertmanager_silence(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
