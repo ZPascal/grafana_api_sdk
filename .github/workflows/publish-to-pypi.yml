@@ -23,7 +23,7 @@ jobs:
           architecture: x64
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v2
+        uses: astral-sh/setup-uv@v7
 
       - name: Install build tools and documentation dependencies
         run: uv sync --extra dev --extra docs
