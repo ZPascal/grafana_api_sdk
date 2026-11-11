@@ -1,6 +1,7 @@
 import json
 import logging
 from typing import List
+from urllib.parse import quote
 
 from .model import (
     APIModel,
@@ -245,6 +246,39 @@ class AlertingProvisioning:
             raise Exception
         else:
             return api_call
+
+    @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
+    def get_contact_points_by_name(self, name: str) -> list:
+        """The method includes a functionality to get all contact points that exactly match the specified name.
+
+        DEPRECATED: Grafana marks the corresponding provisioning endpoint as deprecated. There is no stable replacement yet, because the successor API is still beta and this SDK does not support beta APIs.
+
+        Grafana stores every integration of a contact point as a separate entry with the same name, so the method can return multiple entries. Partial names do not match.
+
+        Args:
+            name (str): Specify the exact name of the contact point
+
+        Raises:
+            ValueError: Missed specifying a necessary value
+            Exception: Unspecified error by executing the API call
+
+        Returns:
+            api_call (list): Returns all contact points with the specified name or an empty list if there is no match
+
+        """
+        if name is not None and len(name) != 0:
+            api_call: list = Api(self.grafana_api_model).call_the_api(
+                f"{APIEndpoints.ALERTING_PROVISIONING.value}/contact-points?name={quote(name, safe='')}",
+            )
+
+            if isinstance(api_call, list) is False:
+                logging.error(f"Check the error: {api_call}.")
+                raise Exception
+            else:
+                return api_call
+        else:
+            logging.error("There is no name defined.")
+            raise ValueError
 
     @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
     def add_contact_point(

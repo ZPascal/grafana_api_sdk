@@ -105,6 +105,16 @@ class AlertingProvisioningTest(TestCase):
             self.alerting_provisioning.get_all_contact_points()[0].get("name"),
         )
 
+    def test_g_b_get_contact_points_by_name(self):
+        contact_points: list = self.alerting_provisioning.get_contact_points_by_name(
+            "grafana-default-email"
+        )
+        self.assertEqual(1, len(contact_points))
+        self.assertEqual("email receiver", contact_points[0].get("name"))
+        self.assertEqual(
+            [], self.alerting_provisioning.get_contact_points_by_name("email")
+        )
+
     def test_h_add_contact_point(self):
         embedded_contact_point: EmbeddedContactPoint = EmbeddedContactPoint(
             "test", "email", {"addresses": "<example@email.com>"}, False, "test", "test"
