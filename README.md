@@ -98,10 +98,10 @@ All legacy methods are deprecated. The ID based endpoints are no longer part of 
 - Unpause alert by id
 
 ### Alerting
-- Get all Alertmanager alerts
+- Get all Alertmanager alerts (with optional filters)
 - Create or update Alertmanager alerts
-- Get Alertmanager group alerts
-- Get all Alertmanager silences
+- Get Alertmanager group alerts (with optional filters)
+- Get all Alertmanager silences (with optional filters)
 - Get Alertmanager silence by id
 - Create or update Alertmanager silence
 - Delete Alertmanager silence by id

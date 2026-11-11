@@ -1,6 +1,8 @@
 import datetime
 import json
 import logging
+from typing import List, Union
+from urllib.parse import urlencode
 
 from .model import (
     APIModel,
@@ -26,26 +28,51 @@ class Alerting:
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
-    def get_alertmanager_alerts(self, datasource_uid: str = "grafana") -> list:
+    def get_alertmanager_alerts(
+        self,
+        datasource_uid: str = "grafana",
+        active: Union[bool, None] = None,
+        silenced: Union[bool, None] = None,
+        inhibited: Union[bool, None] = None,
+        unprocessed: Union[bool, None] = None,
+        filter_matchers: Union[List[str], None] = None,
+        receiver: Union[str, None] = None,
+    ) -> list:
         """The method includes a functionality to get the Alertmanager alerts specified by the datasource_uid.
 
         Args:
             datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
+            active (Union[bool, None]): Specify if active alerts should be returned (default None)
+            silenced (Union[bool, None]): Specify if silenced alerts should be returned (default None)
+            inhibited (Union[bool, None]): Specify if inhibited alerts should be returned (default None)
+            unprocessed (Union[bool, None]): Specify if unprocessed alerts should be returned (default None)
+            filter_matchers (Union[List[str], None]): Specify a list of matchers to filter the alerts, e.g. alertname="test" (default None)
+            receiver (Union[str, None]): Specify a regex to filter the alerts by the receiver (default None)
 
         Raises:
             ValueError: Missed specifying a necessary value
             Exception: Unspecified error by executing the API call
 
         Returns:
-            api_call (list): Returns the list of Alertmanager alerts
+            api_call (list): Returns the list of Alertmanager alerts, an empty list if there are no alerts
 
         """
         if len(datasource_uid) != 0:
-            api_call: list = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/api/v2/alerts",
+            api_request_url: str = f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/api/v2/alerts"
+
+            api_request_url: str = self._add_alertmanager_query_params(
+                api_request_url,
+                active,
+                silenced,
+                inhibited,
+                unprocessed,
+                filter_matchers,
+                receiver,
             )
 
-            if api_call == [] or api_call[0].get("receivers") is None:
+            api_call: list = Api(self.grafana_api_model).call_the_api(api_request_url)
+
+            if not isinstance(api_call, list):
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
@@ -99,26 +126,47 @@ class Alerting:
             logging.error("There is no datasource_uid or alerts defined.")
             raise ValueError
 
-    def get_alertmanager_group_alerts(self, datasource_uid: str = "grafana") -> list:
+    def get_alertmanager_group_alerts(
+        self,
+        datasource_uid: str = "grafana",
+        active: Union[bool, None] = None,
+        silenced: Union[bool, None] = None,
+        inhibited: Union[bool, None] = None,
+        filter_matchers: Union[List[str], None] = None,
+        receiver: Union[str, None] = None,
+    ) -> list:
         """The method includes a functionality to get the Alertmanager group alerts specified by the datasource_uid.
 
         Args:
             datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
+            active (Union[bool, None]): Specify if active alerts should be returned (default None)
+            silenced (Union[bool, None]): Specify if silenced alerts should be returned (default None)
+            inhibited (Union[bool, None]): Specify if inhibited alerts should be returned (default None)
+            filter_matchers (Union[List[str], None]): Specify a list of matchers to filter the alerts, e.g. alertname="test" (default None)
+            receiver (Union[str, None]): Specify a regex to filter the alerts by the receiver (default None)
 
         Raises:
             ValueError: Missed specifying a necessary value
             Exception: Unspecified error by executing the API call
 
         Returns:
-            api_call (list): Returns the list of Alertmanager group alerts
+            api_call (list): Returns the list of Alertmanager group alerts, an empty list if there are no groups
 
         """
         if len(datasource_uid) != 0:
-            api_call: list = Api(self.grafana_api_model).call_the_api(
+            api_request_url: str = self._add_alertmanager_query_params(
                 f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/api/v2/alerts/groups",
+                active,
+                silenced,
+                inhibited,
+                None,
+                filter_matchers,
+                receiver,
             )
 
-            if api_call == [] or api_call[0].get("alerts") is None:
+            api_call: list = Api(self.grafana_api_model).call_the_api(api_request_url)
+
+            if not isinstance(api_call, list):
                 logging.error(f"Please, check the error: {api_call}.")
                 raise Exception
             else:
@@ -190,26 +238,34 @@ class Alerting:
             logging.error("There is no datasource_uid or silence_id defined.")
             raise ValueError
 
-    def get_alertmanager_silences(self, datasource_uid: str = "grafana") -> list:
+    def get_alertmanager_silences(
+        self,
+        datasource_uid: str = "grafana",
+        filter_matchers: Union[List[str], None] = None,
+    ) -> list:
         """The method includes a functionality to get all Alertmanager silences specified by the datasource_uid.
 
         Args:
             datasource_uid (str): Specify the datasource uid or recipient of the alerts (default grafana)
+            filter_matchers (Union[List[str], None]): Specify a list of matchers to filter the silences, e.g. alertname="test" (default None)
 
         Raises:
             ValueError: Missed specifying a necessary value
             Exception: Unspecified error by executing the API call
 
         Returns:
-            api_call (list): Returns the list of Alertmanager silence alerts
+            api_call (list): Returns the list of Alertmanager silence alerts, an empty list if there are no silences
 
         """
         if len(datasource_uid) != 0:
-            api_call: list = Api(self.grafana_api_model).call_the_api(
+            api_request_url: str = self._add_alertmanager_query_params(
                 f"{APIEndpoints.ALERTS_ALERTMANAGER.value}/{datasource_uid}/api/v2/silences",
+                filter_matchers=filter_matchers,
             )
 
-            if api_call == [] or api_call[0].get("id") is None:
+            api_call: list = Api(self.grafana_api_model).call_the_api(api_request_url)
+
+            if not isinstance(api_call, list):
                 logging.error(f"Check the error: {api_call}.")
                 raise Exception
             else:
@@ -1087,3 +1143,35 @@ class Alerting:
             raise Exception
         else:
             return api_call
+
+    @staticmethod
+    def _add_alertmanager_query_params(
+        api_request_url: str,
+        active: Union[bool, None] = None,
+        silenced: Union[bool, None] = None,
+        inhibited: Union[bool, None] = None,
+        unprocessed: Union[bool, None] = None,
+        filter_matchers: Union[List[str], None] = None,
+        receiver: Union[str, None] = None,
+    ) -> str:
+        params: list = []
+
+        for name, value in (
+            ("active", active),
+            ("silenced", silenced),
+            ("inhibited", inhibited),
+            ("unprocessed", unprocessed),
+        ):
+            if value is not None:
+                params.append((name, str(value).lower()))
+
+        for matcher in filter_matchers or []:
+            params.append(("filter", matcher))
+
+        if receiver is not None:
+            params.append(("receiver", receiver))
+
+        if len(params) != 0:
+            return f"{api_request_url}?{urlencode(params)}"
+
+        return api_request_url

@@ -40,8 +40,34 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
+        self.assertEqual([], alerting.get_alertmanager_alerts())
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_alertmanager_alerts_not_possible(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting: Alerting = Alerting(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {"message": "test"}
+
         with self.assertRaises(Exception):  # noqa: B017
             alerting.get_alertmanager_alerts()
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_alertmanager_alerts_with_filters(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting: Alerting = Alerting(grafana_api_model=model)
+
+        call_the_api_mock.return_value = [{"receivers": "test"}]
+
+        self.assertEqual(
+            [{"receivers": "test"}],
+            alerting.get_alertmanager_alerts(
+                active=True,
+                silenced=False,
+                filter_matchers=['alertname="test"', "severity=critical"],
+                receiver="test",
+            ),
+        )
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_create_or_update_alertmanager_alerts(self, call_the_api_mock):
@@ -99,8 +125,34 @@ class AlertingTestCase(TestCase):
 
         call_the_api_mock.return_value = []
 
+        self.assertEqual([], alerting.get_alertmanager_group_alerts())
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_alertmanager_group_alerts_not_possible(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting: Alerting = Alerting(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {"message": "test"}
+
         with self.assertRaises(Exception):  # noqa: B017
             alerting.get_alertmanager_group_alerts()
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_alertmanager_group_alerts_with_filters(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting: Alerting = Alerting(grafana_api_model=model)
+
+        call_the_api_mock.return_value = [{"alerts": "test"}]
+
+        self.assertEqual(
+            [{"alerts": "test"}],
+            alerting.get_alertmanager_group_alerts(
+                active=True,
+                inhibited=False,
+                filter_matchers=["severity=critical"],
+                receiver="test",
+            ),
+        )
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_delete_alertmanager_silence_by_id(self, call_the_api_mock):
@@ -182,10 +234,31 @@ class AlertingTestCase(TestCase):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting: Alerting = Alerting(grafana_api_model=model)
 
-        call_the_api_mock.return_value = [{"id": None}]
+        call_the_api_mock.return_value = []
+
+        self.assertEqual([], alerting.get_alertmanager_silences())
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_alertmanager_silences_not_possible(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting: Alerting = Alerting(grafana_api_model=model)
+
+        call_the_api_mock.return_value = {"message": "test"}
 
         with self.assertRaises(Exception):  # noqa: B017
             alerting.get_alertmanager_silences()
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_alertmanager_silences_with_filters(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting: Alerting = Alerting(grafana_api_model=model)
+
+        call_the_api_mock.return_value = [{"id": "test"}]
+
+        self.assertEqual(
+            [{"id": "test"}],
+            alerting.get_alertmanager_silences(filter_matchers=['alertname="test"']),
+        )
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_create_or_update_alertmanager_silence(self, call_the_api_mock):
