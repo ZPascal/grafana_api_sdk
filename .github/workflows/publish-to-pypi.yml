@@ -4,10 +4,15 @@ on:
   release:
     types: [ published ]
 
+permissions:
+  contents: read
+
 jobs:
 
   build-and-publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # mkdocs gh-deploy pushes to gh-pages
     strategy:
       matrix:
         python-version: ["3.12"]

@@ -4,6 +4,9 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  contents: read
+
 jobs:
 
   pr-test:
@@ -32,7 +35,6 @@ jobs:
 
   pr-lint:
     runs-on: ubuntu-latest
-    permissions: write-all
     strategy:
       matrix:
         python-version: [ "3.12" ]
@@ -57,7 +59,9 @@ jobs:
 
   pr-coverage:
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions:
+      contents: write        # push the coverage badge
+      pull-requests: write   # post the coverage comment
     strategy:
       matrix:
         python-version: [ "3.12" ]
@@ -84,6 +88,7 @@ jobs:
         run: export PYTHONPATH=$PWD && uv run pytest --junitxml=pytest.xml --cov=. --cov-report=xml:coverage.xml tests/unittests | tee pytest-coverage.txt
 
       - name: Execute the coverage checks
+        if: github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
         uses: MishaKav/pytest-coverage-comment@v1.13.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -103,7 +108,7 @@ jobs:
           git_location: './'
 
       - name: Commit files
-        if: steps.verify-changed-files.outputs.files_changed == 'true'
+        if: steps.verify-changed-files.outputs.files_changed == 'true' && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
@@ -112,7 +117,7 @@ jobs:
 
       - name: Push changes
         uses: ad-m/github-push-action@master
-        if: steps.verify-changed-files.outputs.files_changed == 'true'
+        if: steps.verify-changed-files.outputs.files_changed == 'true' && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.head_ref }}
