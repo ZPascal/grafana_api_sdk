@@ -1,3 +1,4 @@
+import warnings
 from unittest import TestCase
 from unittest.mock import MagicMock, patch
 
@@ -832,3 +833,96 @@ class AlertingProvisioningTestCase(TestCase):
             "test",
             "1m",
         )
+
+
+DEPRECATED_METHODS: list = [
+    "get_alert_rule",
+    "add_alert_rule",
+    "update_alert_rule",
+    "delete_alert_rule",
+    "get_all_contact_points",
+    "add_contact_point",
+    "update_contact_point",
+    "delete_contact_point",
+    "get_notification_policies",
+    "get_notification_policies_by_receiver",
+    "add_notification_policies",
+    "get_all_mute_timings",
+    "get_mute_timing",
+    "add_mute_timing",
+    "update_mute_timing",
+    "delete_mute_timing",
+    "get_all_message_templates",
+    "get_message_template",
+    "create_or_update_message_template",
+    "delete_message_template",
+    "update_the_interval_of_a_alert_rule_group",
+]
+
+
+class AlertingProvisioningDeprecationTestCase(TestCase):
+    def setUp(self):
+        self.provisioning: AlertingProvisioning = AlertingProvisioning(
+            APIModel(host=MagicMock(), token=MagicMock())
+        )
+
+    def test_every_public_method_is_covered(self):
+        public: set = {
+            name
+            for name in dir(AlertingProvisioning)
+            if not name.startswith("_") and callable(getattr(AlertingProvisioning, name))
+        }
+
+        self.assertEqual(set(DEPRECATED_METHODS), public)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_all_public_methods_warn_that_there_is_no_stable_replacement(self, call_the_api_mock):
+        call_the_api_mock.return_value = {"status": 200}
+        for name in DEPRECATED_METHODS:
+            with self.subTest(method=name):
+                with warnings.catch_warnings(record=True) as caught:
+                    warnings.simplefilter("always")
+                    try:
+                        getattr(self.provisioning, name)(
+                            *[MagicMock() for _ in range(self._argument_count(name))]
+                        )
+                    except Exception:
+                        pass
+
+                messages: list = [
+                    str(w.message) for w in caught if issubclass(w.category, DeprecationWarning)
+                ]
+                self.assertEqual(1, len(messages))
+                self.assertIn("no stable replacement", messages[0])
+                self.assertNotIn("AlertingAppPlatform", messages[0])
+
+    def test_deprecated_methods_keep_their_name(self):
+        for name in DEPRECATED_METHODS:
+            self.assertEqual(name, getattr(AlertingProvisioning, name).__name__)
+
+    @staticmethod
+    def _argument_count(name: str) -> int:
+        import inspect
+
+        parameters = inspect.signature(getattr(AlertingProvisioning, name)).parameters
+        return len([p for p in parameters.values() if p.name != "self" and p.default is p.empty])
+
+
+class AlertingProvisioningWarnsOnceTestCase(TestCase):
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_notification_policies_by_receiver_warns_exactly_once(
+        self, call_the_api_mock
+    ):
+        call_the_api_mock.return_value = {"status": 200, "receiver": "test", "routes": []}
+        provisioning: AlertingProvisioning = AlertingProvisioning(
+            APIModel(host=MagicMock(), token=MagicMock())
+        )
+
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+            provisioning.get_notification_policies_by_receiver("test")
+
+        self.assertEqual(
+            1, len([w for w in caught if issubclass(w.category, DeprecationWarning)])
+        )
+        self.assertEqual(1, call_the_api_mock.call_count)

@@ -137,7 +137,9 @@ All legacy methods are deprecated. The ID based endpoints are no longer part of 
 - Delete a notification channel by uid
 - Test a notification channel
 
-### Alerting Provisioning
+### Alerting Provisioning (deprecated)
+Grafana marks these endpoints as deprecated. The methods still work and emit a `DeprecationWarning`. There is no stable replacement yet, because the successor APIs are still beta and not supported by this SDK.
+
 - Get alert rule
 - Add alert rule
 - Update alert rule
