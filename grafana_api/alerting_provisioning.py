@@ -18,6 +18,7 @@ from .model import (
     TimeRange,
 )
 from .api import Api
+from .deprecation import _deprecated
 
 
 class AlertingProvisioning:
@@ -34,8 +35,11 @@ class AlertingProvisioning:
     def __init__(self, grafana_api_model: APIModel):
         self.grafana_api_model = grafana_api_model
 
+    @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
     def get_alert_rule(self, uid: str) -> dict:
         """The method includes a functionality to get the alert rule specified by the uid.
+
+        DEPRECATED: Grafana marks the corresponding provisioning endpoint as deprecated. There is no stable replacement yet, because the successor API is still beta and this SDK does not support beta APIs.
 
         Args:
             uid (str): Specify the alert rule uid
@@ -62,8 +66,11 @@ class AlertingProvisioning:
             logging.error("There is no uid defined.")
             raise ValueError
 
+    @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
     def add_alert_rule(self, alert_rule: AlertRule, disable_provenance: bool = False):
         """The method includes a functionality to create a new alert rule.
+
+        DEPRECATED: Grafana marks the corresponding provisioning endpoint as deprecated. There is no stable replacement yet, because the successor API is still beta and this SDK does not support beta APIs.
 
         Args:
             alert_rule (AlertRule): Specify the alert rule
@@ -95,10 +102,13 @@ class AlertingProvisioning:
             logging.error("There is no alert_rule defined.")
             raise ValueError
 
+    @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
     def update_alert_rule(
         self, uid: str, alert_rule: AlertRule, disable_provenance: bool = False
     ):
         """The method includes a functionality to update an existing alert rule.
+
+        DEPRECATED: Grafana marks the corresponding provisioning endpoint as deprecated. There is no stable replacement yet, because the successor API is still beta and this SDK does not support beta APIs.
 
         Args:
             uid (str): Specify the alert rule uid
@@ -131,6 +141,7 @@ class AlertingProvisioning:
             logging.error("There is no uid or alert_rule defined.")
             raise ValueError
 
+    @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
     def update_the_interval_of_a_alert_rule_group(
         self,
         folder_uid: str,
@@ -139,6 +150,8 @@ class AlertingProvisioning:
         disable_provenance: bool = False,
     ):
         """The method includes a functionality to update the interval of a alert rule group.
+
+        DEPRECATED: Grafana marks the corresponding provisioning endpoint as deprecated. There is no stable replacement yet, because the successor API is still beta and this SDK does not support beta APIs.
 
         Args:
             folder_uid (str): Specify the folder uid
@@ -176,8 +189,11 @@ class AlertingProvisioning:
             )
             raise ValueError
 
+    @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
     def delete_alert_rule(self, uid: str, disable_provenance: bool = False):
         """The method includes a functionality to delete an alert rule.
+
+        DEPRECATED: Grafana marks the corresponding provisioning endpoint as deprecated. There is no stable replacement yet, because the successor API is still beta and this SDK does not support beta APIs.
 
         Args:
             uid (str): Specify the alert rule uid
@@ -207,8 +223,11 @@ class AlertingProvisioning:
             logging.error("There is no uid defined.")
             raise ValueError
 
+    @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
     def get_all_contact_points(self) -> list:
         """The method includes a functionality to get all contact points.
+
+        DEPRECATED: Grafana marks the corresponding provisioning endpoint as deprecated. There is no stable replacement yet, because the successor API is still beta and this SDK does not support beta APIs.
 
         Raises:
             Exception: Unspecified error by executing the API call
@@ -227,12 +246,15 @@ class AlertingProvisioning:
         else:
             return api_call
 
+    @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
     def add_contact_point(
         self,
         embedded_contact_point: EmbeddedContactPoint,
         disable_provenance: bool = False,
     ):
         """The method includes a functionality to create a contact point.
+
+        DEPRECATED: Grafana marks the corresponding provisioning endpoint as deprecated. There is no stable replacement yet, because the successor API is still beta and this SDK does not support beta APIs.
 
         Args:
             embedded_contact_point (EmbeddedContactPoint): Specify the embedded contact point
@@ -273,6 +295,7 @@ class AlertingProvisioning:
             logging.error("There is no embedded_contact_point defined.")
             raise ValueError
 
+    @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
     def update_contact_point(
         self,
         uid: str,
@@ -280,6 +303,8 @@ class AlertingProvisioning:
         disable_provenance: bool = False,
     ):
         """The method includes a functionality to update a contact point.
+
+        DEPRECATED: Grafana marks the corresponding provisioning endpoint as deprecated. There is no stable replacement yet, because the successor API is still beta and this SDK does not support beta APIs.
 
         Args:
             uid (str): Specify the uid of the contact point
@@ -321,8 +346,11 @@ class AlertingProvisioning:
             logging.error("There is no embedded_contact_point or uid defined.")
             raise ValueError
 
+    @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
     def delete_contact_point(self, uid: str):
         """The method includes a functionality to delete a contact point.
+
+        DEPRECATED: Grafana marks the corresponding provisioning endpoint as deprecated. There is no stable replacement yet, because the successor API is still beta and this SDK does not support beta APIs.
 
         Args:
             uid (str): Specify the uid of the contact point
@@ -351,8 +379,11 @@ class AlertingProvisioning:
             logging.error("There is no uid defined.")
             raise ValueError
 
+    @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
     def get_notification_policies(self) -> dict:
         """The method includes a functionality to get the notification policy tree.
+
+        DEPRECATED: Grafana marks the corresponding provisioning endpoint as deprecated. There is no stable replacement yet, because the successor API is still beta and this SDK does not support beta APIs.
 
         Raises:
             Exception: Unspecified error by executing the API call
@@ -361,6 +392,9 @@ class AlertingProvisioning:
             api_call (dict): Returns the notification policy tree
 
         """
+        return self._get_notification_policies()
+
+    def _get_notification_policies(self) -> dict:
         api_call: dict = Api(self.grafana_api_model).call_the_api(
             f"{APIEndpoints.ALERTING_PROVISIONING.value}/policies",
             response_status_code=True,
@@ -372,8 +406,11 @@ class AlertingProvisioning:
         else:
             return api_call
 
+    @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
     def get_notification_policies_by_receiver(self, receiver: str) -> list:
         """The method includes a functionality to get all notification policies of a receiver.
+
+        DEPRECATED: Grafana marks the corresponding provisioning endpoint as deprecated. There is no stable replacement yet, because the successor API is still beta and this SDK does not support beta APIs.
 
         Grafana has no filter for this, so the policy tree is searched in the SDK, including all nested routes.
 
@@ -390,14 +427,17 @@ class AlertingProvisioning:
         """
         if receiver is not None and len(receiver) != 0:
             return self._find_routes_by_receiver(
-                self.get_notification_policies(), receiver
+                self._get_notification_policies(), receiver
             )
         else:
             logging.error("There is no receiver defined.")
             raise ValueError
 
+    @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
     def add_notification_policies(self, route: Route, disable_provenance: bool = False):
         """The method includes a functionality to set the notification policy tree.
+
+        DEPRECATED: Grafana marks the corresponding provisioning endpoint as deprecated. There is no stable replacement yet, because the successor API is still beta and this SDK does not support beta APIs.
 
         Args:
             route (Route): Specify the alert rule routes
@@ -429,8 +469,11 @@ class AlertingProvisioning:
             logging.error("There is no route defined.")
             raise ValueError
 
+    @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
     def get_all_mute_timings(self) -> list:
         """The method includes a functionality to get all mute timings.
+
+        DEPRECATED: Grafana marks the corresponding provisioning endpoint as deprecated. There is no stable replacement yet, because the successor API is still beta and this SDK does not support beta APIs.
 
         Raises:
             Exception: Unspecified error by executing the API call
@@ -449,8 +492,11 @@ class AlertingProvisioning:
         else:
             return api_call
 
+    @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
     def get_mute_timing(self, name: str) -> dict:
         """The method includes a functionality to get a mute timings specified by the name.
+
+        DEPRECATED: Grafana marks the corresponding provisioning endpoint as deprecated. There is no stable replacement yet, because the successor API is still beta and this SDK does not support beta APIs.
 
         Args:
             name (str): Specify the mute timing name
@@ -477,10 +523,13 @@ class AlertingProvisioning:
             logging.error("There is no name defined.")
             raise ValueError
 
+    @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
     def add_mute_timing(
         self, mute_time_interval: MuteTimeInterval, disable_provenance: bool = False
     ):
         """The method includes a functionality to create a mute timing.
+
+        DEPRECATED: Grafana marks the corresponding provisioning endpoint as deprecated. There is no stable replacement yet, because the successor API is still beta and this SDK does not support beta APIs.
 
         Args:
             mute_time_interval (MuteTimeInterval): Specify the mute time interval
@@ -512,6 +561,7 @@ class AlertingProvisioning:
             logging.error("There is no mute_time_interval defined.")
             raise ValueError
 
+    @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
     def update_mute_timing(
         self,
         name: str,
@@ -519,6 +569,8 @@ class AlertingProvisioning:
         disable_provenance: bool = False,
     ):
         """The method includes a functionality to update an existing mute timing.
+
+        DEPRECATED: Grafana marks the corresponding provisioning endpoint as deprecated. There is no stable replacement yet, because the successor API is still beta and this SDK does not support beta APIs.
 
         Args:
             name (str): Specify the mute timing name
@@ -551,8 +603,11 @@ class AlertingProvisioning:
             logging.error("There is no name or mute_time_interval defined.")
             raise ValueError
 
+    @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
     def delete_mute_timing(self, name: str):
         """The method includes a functionality to delete a mute timings specified by the name.
+
+        DEPRECATED: Grafana marks the corresponding provisioning endpoint as deprecated. There is no stable replacement yet, because the successor API is still beta and this SDK does not support beta APIs.
 
         Args:
             name (str): Specify the mute timing name
@@ -581,8 +636,11 @@ class AlertingProvisioning:
             logging.error("There is no name defined.")
             raise ValueError
 
+    @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
     def get_all_message_templates(self) -> list:
         """The method includes a functionality to get all message templates.
+
+        DEPRECATED: Grafana marks the corresponding provisioning endpoint as deprecated. There is no stable replacement yet, because the successor API is still beta and this SDK does not support beta APIs.
 
         Raises:
             Exception: Unspecified error by executing the API call
@@ -601,8 +659,11 @@ class AlertingProvisioning:
         else:
             return api_call
 
+    @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
     def get_message_template(self, name: str) -> dict:
         """The method includes a functionality to get a message template specified by the name.
+
+        DEPRECATED: Grafana marks the corresponding provisioning endpoint as deprecated. There is no stable replacement yet, because the successor API is still beta and this SDK does not support beta APIs.
 
         Args:
             name (str): Specify the message template name
@@ -630,10 +691,13 @@ class AlertingProvisioning:
             logging.error("There is no name defined.")
             raise ValueError
 
+    @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
     def create_or_update_message_template(
         self, name: str, message_template: str, disable_provenance: bool = False
     ):
         """The method includes a functionality to create or update a message template.
+
+        DEPRECATED: Grafana marks the corresponding provisioning endpoint as deprecated. There is no stable replacement yet, because the successor API is still beta and this SDK does not support beta APIs.
 
         Args:
             name (str): Specify the message template name
@@ -666,8 +730,11 @@ class AlertingProvisioning:
             logging.error("There is no name or message defined.")
             raise ValueError
 
+    @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
     def delete_message_template(self, name: str):
         """The method includes a functionality to delete a message template.
+
+        DEPRECATED: Grafana marks the corresponding provisioning endpoint as deprecated. There is no stable replacement yet, because the successor API is still beta and this SDK does not support beta APIs.
 
         Args:
             name (str): Specify the message template name

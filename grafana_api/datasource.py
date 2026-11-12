@@ -1,8 +1,6 @@
-import functools
 import json
 import logging
-import warnings
-from typing import Any, Callable, Optional
+from typing import Any, Optional
 from urllib.parse import quote
 
 from .model import (
@@ -13,38 +11,13 @@ from .model import (
     DatasourcePermission,
 )
 from .api import Api
+from .deprecation import _deprecated
 
 _PERMISSION_UPDATE_METHODS: str = (
     "DatasourcePermissions.update_datasource_user_access_by_uid, "
     "DatasourcePermissions.update_datasource_team_access_by_uid or "
     "DatasourcePermissions.update_datasource_basic_role_access_by_uid"
 )
-
-
-def _deprecated(hint: str, removed: bool = False) -> Callable:
-    """The decorator marks a method as deprecated and emits a DeprecationWarning for every call.
-
-    Args:
-        hint (str): Specify the hint that explains what to use instead
-        removed (bool): Specify if Grafana removed the corresponding endpoint, so the call fails on recent Grafana versions (default False)
-
-    Returns:
-        decorator (Callable): Returns the decorator that wraps the deprecated method
-
-    """
-
-    def decorator(func: Callable) -> Callable:
-        reason: str = " and the Grafana endpoint was removed in recent versions" if removed else ""
-        message: str = f"{func.__qualname__} is deprecated{reason}, {hint}."
-
-        @functools.wraps(func)
-        def wrapper(*args, **kwargs):
-            warnings.warn(message, DeprecationWarning, stacklevel=2)
-            return func(*args, **kwargs)
-
-        return wrapper
-
-    return decorator
 
 
 class Datasource:
