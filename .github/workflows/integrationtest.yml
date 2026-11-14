@@ -12,7 +12,8 @@ jobs:
 
   grafana-api-sdk-test:
     runs-on: ubuntu-latest
-    permissions: read-all
+    permissions:
+      contents: read
     strategy:
       matrix:
         python-version: [ "3.12" ]
