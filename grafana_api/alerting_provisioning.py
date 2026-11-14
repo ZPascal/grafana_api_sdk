@@ -849,11 +849,13 @@ class AlertingProvisioning:
     def _create_alert_route_dictionary(self, route: Route) -> dict:
         """The method includes a functionality to create the alert route dictionary.
 
+        Fields that are None are omitted, so Grafana applies its defaults or inherits the value from the parent route.
+
         Args:
             route (Route): Specify the route
 
         Returns:
-            result (dict): Returns the alert route dictionary
+            result (dict): Returns the alert route dictionary without the fields that are None
 
         """
         return {

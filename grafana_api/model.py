@@ -357,10 +357,12 @@ class Matcher:
 class Route:
     """The class includes all necessary variables to generate an alert rule route that is necessary to communicate with the Grafana alert provisioning endpoint.
 
+    All fields are optional. Fields that are None are omitted from the request payload, so Grafana applies its own defaults or, for a nested route, inherits the value from the parent route (e.g. the receiver). The positional order of the fields is kept for backward compatibility, passing them as keyword arguments (e.g. Route(receiver="my-contact-point")) is recommended.
+
     Args:
-        receiver (str): Specify the receiver
         continue_parameter (bool): Specify the continue parameter (default None)
         group_by_str (List[str]): Specify the list of group by strings (default None)
+        receiver (str): Specify the receiver, a nested route inherits it from its parent if omitted (default None)
         provenance (str): Specify the provenance (default None)
         object_matchers (List[Matcher]):  Specify the list of object matchers (default None)
         group_interval (str): Specify the group time interval (default None)
@@ -371,9 +373,9 @@ class Route:
 
     """
 
-    receiver: str
     continue_parameter: bool = None
     group_by_str: List[str] = None
+    receiver: str = None
     provenance: str = None
     object_matchers: List[Matcher] = None
     group_interval: str = None
