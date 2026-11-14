@@ -6,6 +6,7 @@ from grafana_api.model import (
     APIEndpoints,
     DatasourceQuery,
     DatasourcePermission,
+    Route,
 )
 
 
@@ -55,3 +56,26 @@ class DatasourcePermissionTestCase(TestCase):
     def test_datasource_permission_init_value_error(self):
         with self.assertRaises(ValueError):
             DatasourcePermission("")
+
+
+class RouteTestCase(TestCase):
+    def test_route_init_receiver_only(self):
+        route = Route(receiver="test")
+
+        self.assertEqual("test", route.receiver)
+        self.assertIsNone(route.continue_parameter)
+        self.assertIsNone(route.group_by_str)
+        self.assertIsNone(route.provenance)
+        self.assertIsNone(route.object_matchers)
+        self.assertIsNone(route.routes)
+
+    def test_route_init_without_receiver(self):
+        self.assertIsNone(Route().receiver)
+
+    def test_route_init_positional_order(self):
+        route = Route(False, ["test1"], "test2", "test3")
+
+        self.assertFalse(route.continue_parameter)
+        self.assertEqual(["test1"], route.group_by_str)
+        self.assertEqual("test2", route.receiver)
+        self.assertEqual("test3", route.provenance)

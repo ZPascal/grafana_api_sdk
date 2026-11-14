@@ -849,14 +849,18 @@ class AlertingProvisioning:
     def _create_alert_route_dictionary(self, route: Route) -> dict:
         """The method includes a functionality to create the alert route dictionary.
 
+        Fields that are None are omitted, so Grafana applies its defaults or inherits the value from the parent route.
+
         Args:
             route (Route): Specify the route
 
         Returns:
-            result (dict): Returns the alert route dictionary
+            result (dict): Returns the alert route dictionary without the fields that are None
 
         """
         return {
+            k: v
+            for k, v in {
                 "continue": route.continue_parameter,
                 "group_by": route.group_by_str,
                 "mute_time_intervals": route.mute_time_intervals,
@@ -869,7 +873,9 @@ class AlertingProvisioning:
                 ),
                 "provenance": route.provenance,
                 "repeat_interval": route.repeat_interval,
-            }
+            }.items()
+            if v is not None
+        }
 
     def _create_alert_routes_list(self, routes: List[Route]) -> (list, None):
         """The method includes a functionality to create the alert route list.
