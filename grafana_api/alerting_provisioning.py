@@ -426,9 +426,11 @@ class AlertingProvisioning:
 
         """
         if receiver is not None and len(receiver) != 0:
-            return self._find_routes_by_receiver(
-                self._get_notification_policies(), receiver
-            )
+            # The "status" key is attached by the API client and is not part of the policy tree.
+            policy_tree: dict = self._get_notification_policies()
+            policy_tree.pop("status", None)
+
+            return self._find_routes_by_receiver(policy_tree, receiver)
         else:
             logging.error("There is no receiver defined.")
             raise ValueError
@@ -444,14 +446,14 @@ class AlertingProvisioning:
             disable_provenance (bool): Specify if the provenance header should be set or not (default False)
 
         Raises:
-            ValueError: Missed specifying a necessary value
+            ValueError: Missed specifying a necessary value, the root route needs a receiver
             Exception: Unspecified error by executing the API call
 
         Returns:
             None
 
         """
-        if route is not None:
+        if route is not None and route.receiver is not None and len(route.receiver) != 0:
             api_call: dict = Api(self.grafana_api_model).call_the_api(
                 f"{APIEndpoints.ALERTING_PROVISIONING.value}/policies",
                 RequestsMethods.PUT,
@@ -466,7 +468,7 @@ class AlertingProvisioning:
             else:
                 logging.info("You successfully added the notification policies.")
         else:
-            logging.error("There is no route defined.")
+            logging.error("There is no route or receiver defined.")
             raise ValueError
 
     @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
