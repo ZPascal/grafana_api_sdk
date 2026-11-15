@@ -427,6 +427,29 @@ class AlertingProvisioningTestCase(TestCase):
         )
 
     @patch("grafana_api.api.Api.call_the_api")
+    def test_get_notification_policies_by_receiver_inherited(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        grandchild: dict = {"object_matchers": [["a", "=", "b"]]}
+        child: dict = {"object_matchers": [["c", "=", "d"]], "routes": [grandchild]}
+        call_the_api_mock.return_value = {
+            "status": 200,
+            "receiver": "test1",
+            "routes": [child, {"receiver": "test2"}],
+        }
+
+        policies: list = alerting_provisioning.get_notification_policies_by_receiver(
+            "test1"
+        )
+
+        self.assertEqual(3, len(policies))
+        self.assertIn(child, policies)
+        self.assertIn(grandchild, policies)
+
+    @patch("grafana_api.api.Api.call_the_api")
     def test_get_notification_policies_by_receiver_no_match(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
