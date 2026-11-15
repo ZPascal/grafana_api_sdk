@@ -1,3 +1,4 @@
+import json
 import warnings
 from unittest import TestCase
 from unittest.mock import MagicMock, patch
@@ -474,6 +475,100 @@ class AlertingProvisioningTestCase(TestCase):
 
         self.assertEqual(
             None, alerting_provisioning.add_notification_policies(self.route)
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_add_notification_policies_receiver_only(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = {"status": 201}
+
+        minimal_route: Route = Route(receiver="grafana-default-email")
+        self.assertEqual(
+            None,
+            alerting_provisioning.add_notification_policies(minimal_route),
+        )
+        self.assertEqual(
+            {"receiver": "grafana-default-email"},
+            json.loads(call_the_api_mock.call_args.args[2]),
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_add_notification_policies_nested_route_without_receiver(
+        self, call_the_api_mock
+    ):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = {"status": 201}
+
+        child: Route = Route(
+            object_matchers=[Matcher("test", MatchType.MatchEqual, "test")]
+        )
+        alerting_provisioning.add_notification_policies(
+            Route(receiver="grafana-default-email", routes=[child])
+        )
+        self.assertEqual(
+            {
+                "receiver": "grafana-default-email",
+                "routes": [{"object_matchers": [{"name": "test", "type": 0, "value": "test"}]}],
+            },
+            json.loads(call_the_api_mock.call_args.args[2]),
+        )
+
+    def test_create_alert_route_dictionary_keeps_falsy_values(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        self.assertEqual(
+            {
+                "continue": False,
+                "group_by": [],
+                "receiver": "test",
+                "routes": [],
+                "object_matchers": [],
+            },
+            alerting_provisioning._create_alert_route_dictionary(
+                Route(
+                    continue_parameter=False,
+                    group_by_str=[],
+                    receiver="test",
+                    object_matchers=[],
+                    routes=[],
+                )
+            ),
+        )
+
+    def test_create_alert_route_dictionary_full_route(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        self.assertEqual(
+            {
+                "continue": False,
+                "group_by": ["test"],
+                "receiver": "test",
+                "provenance": "test",
+                "object_matchers": [{"name": "test", "type": 0, "value": "test"}],
+                "routes": [
+                    {
+                        "continue": False,
+                        "group_by": ["test"],
+                        "receiver": "test",
+                        "provenance": "test",
+                    }
+                ],
+            },
+            alerting_provisioning._create_alert_route_dictionary(self.route),
         )
 
     def test_add_notification_policies_no_rule(self):
