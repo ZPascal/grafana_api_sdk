@@ -858,24 +858,20 @@ class AlertingProvisioning:
             result (dict): Returns the alert route dictionary without the fields that are None
 
         """
-        return {
-            k: v
-            for k, v in {
-                "continue": route.continue_parameter,
-                "group_by": route.group_by_str,
-                "mute_time_intervals": route.mute_time_intervals,
-                "receiver": route.receiver,
-                "routes": self._create_alert_routes_list(route.routes),
-                "group_interval": route.group_interval,
-                "group_wait": route.group_wait,
-                "object_matchers": self._create_object_matcher_list(
-                    route.object_matchers
-                ),
-                "provenance": route.provenance,
-                "repeat_interval": route.repeat_interval,
-            }.items()
-            if v is not None
+        route_dict: dict = {
+            "continue": route.continue_parameter,
+            "group_by": route.group_by_str,
+            "mute_time_intervals": route.mute_time_intervals,
+            "receiver": route.receiver,
+            "routes": self._create_alert_routes_list(route.routes),
+            "group_interval": route.group_interval,
+            "group_wait": route.group_wait,
+            "object_matchers": self._create_object_matcher_list(route.object_matchers),
+            "provenance": route.provenance,
+            "repeat_interval": route.repeat_interval,
         }
+
+        return {key: value for key, value in route_dict.items() if value is not None}
 
     def _create_alert_routes_list(self, routes: List[Route]) -> (list, None):
         """The method includes a functionality to create the alert route list.
