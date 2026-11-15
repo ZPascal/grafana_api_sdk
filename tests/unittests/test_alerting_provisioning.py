@@ -406,6 +406,7 @@ class AlertingProvisioningTestCase(TestCase):
 
         self.assertEqual(2, len(policies))
         self.assertEqual(child, policies[1])
+        self.assertNotIn("status", policies[0])
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_notification_policies_by_receiver_nested(self, call_the_api_mock):
@@ -570,6 +571,43 @@ class AlertingProvisioningTestCase(TestCase):
             },
             alerting_provisioning._create_alert_route_dictionary(self.route),
         )
+
+    def test_create_alert_route_dictionary_timing_and_mute_fields(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        self.assertEqual(
+            {
+                "receiver": "test",
+                "group_interval": "30s",
+                "group_wait": "5m",
+                "repeat_interval": "4h",
+                "mute_time_intervals": ["test"],
+            },
+            alerting_provisioning._create_alert_route_dictionary(
+                Route(
+                    receiver="test",
+                    group_interval="30s",
+                    group_wait="5m",
+                    repeat_interval="4h",
+                    mute_time_intervals=["test"],
+                )
+            ),
+        )
+
+    def test_add_notification_policies_no_receiver(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        with self.assertRaises(ValueError):
+            alerting_provisioning.add_notification_policies(Route())
+
+        with self.assertRaises(ValueError):
+            alerting_provisioning.add_notification_policies(Route(receiver=""))
 
     def test_add_notification_policies_no_rule(self):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
