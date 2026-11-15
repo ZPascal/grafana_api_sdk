@@ -11,6 +11,8 @@ from grafana_api.model import (
     AlertQuery,
     AlertRuleQueryModelCondition,
     EmbeddedContactPoint,
+    Matcher,
+    MatchType,
     Route,
     MuteTimeInterval,
     TimeInterval,
@@ -155,6 +157,24 @@ class AlertingProvisioningTest(TestCase):
                 )
             ),
         )
+
+    def test_k_b_add_notification_policies_with_only_a_receiver(self):
+        self.alerting_provisioning.add_notification_policies(Route(receiver="test1"))
+        self.assertEqual(
+            "test1",
+            self.alerting_provisioning.get_notification_policies().get("receiver"),
+        )
+
+    def test_k_c_add_notification_policies_with_inherited_receiver(self):
+        child: Route = Route(
+            object_matchers=[Matcher("team", MatchType.MatchEqual, "test")]
+        )
+        self.alerting_provisioning.add_notification_policies(
+            Route(receiver="test1", routes=[child])
+        )
+        policies: dict = self.alerting_provisioning.get_notification_policies()
+        self.assertEqual(1, len(policies.get("routes")))
+        self.assertIsNone(policies["routes"][0].get("receiver"))
 
     def test_l_delete_contact_point(self):
         self.alerting_provisioning.delete_contact_point("test")

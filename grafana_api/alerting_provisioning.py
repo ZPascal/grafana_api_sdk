@@ -913,14 +913,12 @@ class AlertingProvisioning:
         route_matchers_list: list = []
 
         if matchers is not None and isinstance(matchers, list):
-            for matcher in matchers:
-                route_matcher_dict: dict = {
-                        "name": matcher.name,
-                        "type": matcher.type.value,
-                        "value": matcher.value,
-                    }
+            operators: dict = {0: "=", 1: "!=", 2: "=~", 3: "!~"}
 
-                route_matchers_list.append(route_matcher_dict)
+            for matcher in matchers:
+                route_matchers_list.append(
+                    [matcher.name, operators[matcher.type.value], matcher.value]
+                )
 
             return route_matchers_list
         else:
