@@ -412,7 +412,7 @@ class AlertingProvisioning:
 
         DEPRECATED: Grafana marks the corresponding provisioning endpoint as deprecated. There is no stable replacement yet, because the successor API is still beta and this SDK does not support beta APIs.
 
-        Grafana has no filter for this, so the policy tree is searched in the SDK, including all nested routes.
+        Grafana has no filter for this, so the policy tree is searched in the SDK, including all nested routes. Routes without a receiver inherit the one of their parent and are returned too.
 
         Args:
             receiver (str): Specify the name of the receiver (contact point)
@@ -426,8 +426,8 @@ class AlertingProvisioning:
 
         """
         if receiver is not None and len(receiver) != 0:
-            # The "status" key is attached by the API client and is not part of the policy tree.
             policy_tree: dict = self._get_notification_policies()
+            # The "status" key is attached by the API client and is not part of the policy tree
             policy_tree.pop("status", None)
 
             return self._find_routes_by_receiver(policy_tree, receiver)
@@ -837,14 +837,14 @@ class AlertingProvisioning:
         else:
             return timing
 
-    def _find_routes_by_receiver(self, route: dict, receiver: str) -> list:
-        policies: list = []
-
-        if route.get("receiver") == receiver:
-            policies.append(route)
+    def _find_routes_by_receiver(
+        self, route: dict, receiver: str, inherited: str = None
+    ) -> list:
+        effective: str = route.get("receiver") or inherited
+        policies: list = [route] if effective == receiver else []
 
         for child in route.get("routes") or []:
-            policies.extend(self._find_routes_by_receiver(child, receiver))
+            policies.extend(self._find_routes_by_receiver(child, receiver, effective))
 
         return policies
 
