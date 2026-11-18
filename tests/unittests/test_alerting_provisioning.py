@@ -540,7 +540,7 @@ class AlertingProvisioningTestCase(TestCase):
         self.assertEqual(
             {
                 "receiver": "grafana-default-email",
-                "routes": [{"object_matchers": [{"name": "test", "type": 0, "value": "test"}]}],
+                "routes": [{"object_matchers": [["test", "=", "test"]]}],
             },
             json.loads(call_the_api_mock.call_args.args[2]),
         )
@@ -582,7 +582,7 @@ class AlertingProvisioningTestCase(TestCase):
                 "group_by": ["test"],
                 "receiver": "test",
                 "provenance": "test",
-                "object_matchers": [{"name": "test", "type": 0, "value": "test"}],
+                "object_matchers": [["test", "=", "test"]],
                 "routes": [
                     {
                         "continue": False,
