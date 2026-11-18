@@ -15,6 +15,13 @@ class TeamTest(TestCase):
     )
     team: Team = Team(model)
 
+    @classmethod
+    def setUpClass(cls) -> None:
+        test_instances: list = ["Test1", "Test2"]
+        for team in cls.team.search_team(query="Test").get("teams"):
+            if team.get("name") in test_instances:
+                cls.team.delete_team_by_id(team.get("id"))
+
     def test_search_team(self):
         self.assertEqual(
             2583, self.team.search_team(query="Test").get("teams")[0].get("id")
