@@ -146,6 +146,7 @@ Grafana marks these endpoints as deprecated. The methods still work and emit a `
 - Update ethe interval fo the alert rule group
 - Delete alert rule
 - Get all contact points
+- Get contact points by name
 - Add contact point
 - Update contact point
 - Delete contact point

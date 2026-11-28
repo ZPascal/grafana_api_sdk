@@ -1,7 +1,8 @@
 import json
 import logging
 from typing import Any, Optional
-from urllib.parse import quote
+
+import httpx
 
 from .model import (
     APIModel,
@@ -583,7 +584,7 @@ class DatasourcePermissions:
             query (str): Returns the query string or an empty string
 
         """
-        return f"?ds_type={quote(ds_type, safe='')}" if ds_type else ""
+        return f"?{httpx.QueryParams({'ds_type': ds_type})}" if ds_type else ""
 
     def get_datasource_permissions_by_uid(
         self, uid: str, ds_type: Optional[str] = None

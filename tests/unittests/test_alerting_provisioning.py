@@ -256,6 +256,81 @@ class AlertingProvisioningTestCase(TestCase):
             alerting_provisioning.get_all_contact_points()
 
     @patch("grafana_api.api.Api.call_the_api")
+    def test_get_contact_points_by_name(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = [
+            {"name": "email receiver", "type": "email"},
+            {"name": "email receiver", "type": "slack"},
+        ]
+
+        self.assertEqual(
+            [
+                {"name": "email receiver", "type": "email"},
+                {"name": "email receiver", "type": "slack"},
+            ],
+            alerting_provisioning.get_contact_points_by_name("email receiver"),
+        )
+        call_the_api_mock.assert_called_once_with(
+            "/api/v1/provisioning/contact-points?name=email+receiver"
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_contact_points_by_name_encodes_special_characters(
+        self, call_the_api_mock
+    ):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = []
+
+        alerting_provisioning.get_contact_points_by_name("a&b#c/d")
+        call_the_api_mock.assert_called_once_with(
+            "/api/v1/provisioning/contact-points?name=a%26b%23c%2Fd"
+        )
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_contact_points_by_name_no_match(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = []
+
+        self.assertEqual(
+            [], alerting_provisioning.get_contact_points_by_name("email")
+        )
+
+    def test_get_contact_points_by_name_no_name(self):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        with self.assertRaises(ValueError):
+            alerting_provisioning.get_contact_points_by_name("")
+        with self.assertRaises(ValueError):
+            alerting_provisioning.get_contact_points_by_name(None)
+
+    @patch("grafana_api.api.Api.call_the_api")
+    def test_get_contact_points_by_name_not_possible(self, call_the_api_mock):
+        model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
+        alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
+            grafana_api_model=model
+        )
+
+        call_the_api_mock.return_value = {"message": "error"}
+
+        with self.assertRaises(Exception):  # noqa: B017
+            alerting_provisioning.get_contact_points_by_name("test")
+
+    @patch("grafana_api.api.Api.call_the_api")
     def test_add_contact_point(self, call_the_api_mock):
         model: APIModel = APIModel(host=MagicMock(), token=MagicMock())
         alerting_provisioning: AlertingProvisioning = AlertingProvisioning(
@@ -997,6 +1072,7 @@ DEPRECATED_METHODS: list = [
     "update_alert_rule",
     "delete_alert_rule",
     "get_all_contact_points",
+    "get_contact_points_by_name",
     "add_contact_point",
     "update_contact_point",
     "delete_contact_point",
