@@ -2,7 +2,8 @@ import datetime
 import json
 import logging
 from typing import List, Union
-from urllib.parse import urlencode
+
+import httpx
 
 from .model import (
     APIModel,
@@ -1172,6 +1173,6 @@ class Alerting:
             params.append(("receiver", receiver))
 
         if len(params) != 0:
-            return f"{api_request_url}?{urlencode(params)}"
+            return f"{api_request_url}?{httpx.QueryParams(params)}"
 
         return api_request_url

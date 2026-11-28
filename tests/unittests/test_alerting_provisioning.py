@@ -275,7 +275,7 @@ class AlertingProvisioningTestCase(TestCase):
             alerting_provisioning.get_contact_points_by_name("email receiver"),
         )
         call_the_api_mock.assert_called_once_with(
-            "/api/v1/provisioning/contact-points?name=email%20receiver"
+            "/api/v1/provisioning/contact-points?name=email+receiver"
         )
 
     @patch("grafana_api.api.Api.call_the_api")
@@ -315,6 +315,8 @@ class AlertingProvisioningTestCase(TestCase):
 
         with self.assertRaises(ValueError):
             alerting_provisioning.get_contact_points_by_name("")
+        with self.assertRaises(ValueError):
+            alerting_provisioning.get_contact_points_by_name(None)
 
     @patch("grafana_api.api.Api.call_the_api")
     def test_get_contact_points_by_name_not_possible(self, call_the_api_mock):

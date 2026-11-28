@@ -1,7 +1,8 @@
 import json
 import logging
 from typing import List
-from urllib.parse import quote
+
+import httpx
 
 from .model import (
     APIModel,
@@ -249,11 +250,13 @@ class AlertingProvisioning:
 
     @_deprecated("Grafana deprecated the corresponding endpoint and there is no stable replacement yet, the successor API is still beta and not supported by this SDK")
     def get_contact_points_by_name(self, name: str) -> list:
-        """The method includes a functionality to get all contact points that exactly match the specified name.
+        """The method includes a functionality to get all contact point integrations of the contact point that exactly matches the specified name.
 
         DEPRECATED: Grafana marks the corresponding provisioning endpoint as deprecated. There is no stable replacement yet, because the successor API is still beta and this SDK does not support beta APIs.
 
-        Grafana stores every integration of a contact point as a separate entry with the same name, so the method can return multiple entries. Partial names do not match.
+        Grafana filters on the contact point (receiver) name and returns every integration of that contact point as a separate entry, so the method can return multiple entries. The name field of each returned entry is the name of the integration, which can differ from the queried contact point name (e.g. for the default contact point). Partial names do not match.
+
+        Warning: Grafana versions whose provisioning API does not support the name query parameter ignore it and return all contact points. Verify the result before using it for destructive operations.
 
         Args:
             name (str): Specify the exact name of the contact point
@@ -263,12 +266,12 @@ class AlertingProvisioning:
             Exception: Unspecified error by executing the API call
 
         Returns:
-            api_call (list): Returns all contact points with the specified name or an empty list if there is no match
+            api_call (list): Returns all integrations of the contact point with the specified name or an empty list if there is no match
 
         """
         if name is not None and len(name) != 0:
             api_call: list = Api(self.grafana_api_model).call_the_api(
-                f"{APIEndpoints.ALERTING_PROVISIONING.value}/contact-points?name={quote(name, safe='')}",
+                f"{APIEndpoints.ALERTING_PROVISIONING.value}/contact-points?{httpx.QueryParams({'name': name})}",
             )
 
             if isinstance(api_call, list) is False:
